@@ -38,30 +38,30 @@ export const Footer = () => {
               <li><a href="#templates" className="text-gray-400 hover:text-white transition-colors">Templates</a></li>
               <li><a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
               <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Updates</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Beta Program</a></li>
+              <li><a href="/updates" className="text-gray-400 hover:text-white transition-colors">Updates</a></li>
+              <li><a href="/beta" className="text-gray-400 hover:text-white transition-colors">Beta Program</a></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-semibold text-lg mb-4">Resources</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Design Tips</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Tutorials</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">API</a></li>
+              <li><a href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+              <li><a href="/design-tips" className="text-gray-400 hover:text-white transition-colors">Design Tips</a></li>
+              <li><a href="/tutorials" className="text-gray-400 hover:text-white transition-colors">Tutorials</a></li>
+              <li><a href="/help" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+              <li><a href="/api" className="text-gray-400 hover:text-white transition-colors">API</a></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-semibold text-lg mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="/about" className="text-gray-400 hover:text-white transition-colors">About</a></li>
+              <li><a href="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+              <li><a href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+              <li><a href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
             </ul>
           </div>
         </div>
@@ -69,9 +69,9 @@ export const Footer = () => {
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">© {currentYear} WordToImage. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-500 hover:text-white text-sm transition-colors">Privacy</a>
-            <a href="#" className="text-gray-500 hover:text-white text-sm transition-colors">Terms</a>
-            <a href="#" className="text-gray-500 hover:text-white text-sm transition-colors">Cookies</a>
+            <a href="/privacy" className="text-gray-500 hover:text-white text-sm transition-colors">Privacy</a>
+            <a href="/terms" className="text-gray-500 hover:text-white text-sm transition-colors">Terms</a>
+            <a href="/cookies" className="text-gray-500 hover:text-white text-sm transition-colors">Cookies</a>
           </div>
         </div>
       </div>
