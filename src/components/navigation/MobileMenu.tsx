@@ -2,13 +2,15 @@
 import { Link } from 'react-router-dom';
 import { Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dispatch, SetStateAction } from 'react';
 
 interface MobileMenuProps {
-  isMenuOpen: boolean;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const MobileMenu = ({ isMenuOpen }: MobileMenuProps) => {
-  if (!isMenuOpen) return null;
+export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
+  if (!open) return null;
 
   return (
     <div className="md:hidden pt-4 pb-3 border-t border-gray-200 mt-3">
