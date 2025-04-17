@@ -5,4 +5,11 @@ import './index.css'
 import './i18n';
 import React from 'react';
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Ensure React is properly initialized
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
