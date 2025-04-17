@@ -12,6 +12,7 @@ import DesignTips from "./pages/DesignTips";
 import Tutorials from "./pages/Tutorials";
 import Help from "./pages/Help";
 import API from "./pages/API";
+import Templates from "./pages/Templates";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           {/* Product routes */}
           <Route path="/updates" element={<NotFound />} />
           <Route path="/beta" element={<NotFound />} />
+          <Route path="/templates" element={<Templates />} />
           
           {/* Resources routes - Now with actual page components */}
           <Route path="/blog" element={<Blog />} />

@@ -48,6 +48,13 @@ export const DesktopNavigation = () => {
               </li>
               <li>
                 <NavigationMenuLink asChild>
+                  <Link to="/templates" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                    <div className="font-medium">Templates Library</div>
+                  </Link>
+                </NavigationMenuLink>
+              </li>
+              <li>
+                <NavigationMenuLink asChild>
                   <Link to="/beta" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                     <div className="font-medium">Beta Program</div>
                   </Link>
