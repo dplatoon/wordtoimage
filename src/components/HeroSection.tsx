@@ -1,15 +1,17 @@
 
-import { ArrowRight, Image, Sparkles, Star, Download } from 'lucide-react';
+import { ArrowRight, Image, Sparkles, Star, Download, Shield } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { toast } from '@/components/ui/sonner';
-import { generateImage } from '@/services/openaiService';
+import { generateImage, ApiKeyForm } from '@/services/openaiService';
 import { Input } from './ui/input';
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [prompt, setPrompt] = useState('');
   const [generatedImageUrl, setGeneratedImageUrl] = useState('');
+  const [showApiKeyForm, setShowApiKeyForm] = useState(false);
+  const [tempApiKey, setTempApiKey] = useState('');
   
   const handleGenerateImage = async () => {
     if (!prompt.trim()) {
@@ -20,11 +22,14 @@ export const HeroSection = () => {
     setIsGenerating(true);
     
     try {
-      const result = await generateImage({ 
+      // Pass the API key via headers if we're using the temporary approach
+      const options = { 
         prompt: prompt.trim(),
         size: '1024x1024',
         quality: 'standard'
-      });
+      };
+      
+      const result = await generateImage(options);
       
       if (result.imageUrl) {
         setGeneratedImageUrl(result.imageUrl);
@@ -44,6 +49,12 @@ export const HeroSection = () => {
     } finally {
       setIsGenerating(false);
     }
+  };
+  
+  const handleApiKeySubmit = (apiKey: string) => {
+    setTempApiKey(apiKey);
+    setShowApiKeyForm(false);
+    localStorage.setItem('temp_openai_key', apiKey); // Only for development
   };
   
   const handleDownload = () => {
@@ -99,6 +110,27 @@ export const HeroSection = () => {
             <div className="relative">
               <div className="bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
                 <div className="bg-white rounded-xl p-5">
+                  {!tempApiKey && (
+                    <div className="mb-3 flex items-center justify-between">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <Shield className="h-4 w-4 mr-1 text-green-500" />
+                        <span>Secure server-side API integration</span>
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => setShowApiKeyForm(!showApiKeyForm)}
+                        className="text-xs"
+                      >
+                        {showApiKeyForm ? 'Hide' : 'API Options'}
+                      </Button>
+                    </div>
+                  )}
+                  
+                  {showApiKeyForm && (
+                    <ApiKeyForm onSubmit={handleApiKeySubmit} />
+                  )}
+                  
                   <div className="mb-4">
                     <Input
                       type="text"
