@@ -1,22 +1,63 @@
 
-import { ArrowRight, Image, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, Image, Sparkles, Star, Download } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { toast } from '@/components/ui/sonner';
+import { generateImage } from '@/services/openaiService';
+import { Input } from './ui/input';
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
+  const [prompt, setPrompt] = useState('');
+  const [generatedImageUrl, setGeneratedImageUrl] = useState('');
   
-  const handleGenerateImage = () => {
+  const handleGenerateImage = async () => {
+    if (!prompt.trim()) {
+      toast.error('Please enter a prompt for the image');
+      return;
+    }
+    
     setIsGenerating(true);
     
-    // Simulate image generation process
-    setTimeout(() => {
-      setIsGenerating(false);
-      toast.success("Image generated successfully!", {
-        description: "Your custom graphic is ready to download.",
+    try {
+      const result = await generateImage({ 
+        prompt: prompt.trim(),
+        size: '1024x1024',
+        quality: 'standard'
       });
-    }, 1500);
+      
+      if (result.imageUrl) {
+        setGeneratedImageUrl(result.imageUrl);
+        toast.success("Image generated successfully!", {
+          description: "Your custom graphic is ready to download.",
+        });
+      } else {
+        toast.error("Failed to generate image", {
+          description: result.error || "Please try again with a different prompt."
+        });
+      }
+    } catch (error) {
+      console.error('Failed to generate image:', error);
+      toast.error("Something went wrong", {
+        description: "Failed to generate your image. Please try again."
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+  
+  const handleDownload = () => {
+    if (!generatedImageUrl) return;
+    
+    // Create an anchor element and trigger download
+    const a = document.createElement('a');
+    a.href = generatedImageUrl;
+    a.download = `generated-image-${Date.now()}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    
+    toast.success('Image downloaded successfully!');
   };
 
   return (
@@ -58,16 +99,32 @@ export const HeroSection = () => {
             <div className="relative">
               <div className="bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
                 <div className="bg-white rounded-xl p-5">
-                  <div className="h-[350px] md:h-[400px] bg-gray-100 rounded-lg flex items-center justify-center">
+                  <div className="mb-4">
+                    <Input
+                      type="text"
+                      placeholder="Describe the image you want to create..."
+                      value={prompt}
+                      onChange={(e) => setPrompt(e.target.value)}
+                      disabled={isGenerating}
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="h-[350px] md:h-[400px] bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
                     {isGenerating ? (
                       <div className="text-center px-8">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
                         <p className="text-gray-500">Generating your custom graphic...</p>
                       </div>
+                    ) : generatedImageUrl ? (
+                      <img 
+                        src={generatedImageUrl} 
+                        alt="Generated social media graphic" 
+                        className="w-full h-full object-contain"
+                      />
                     ) : (
                       <div className="text-center px-8">
                         <Image className="h-10 w-10 mx-auto mb-4 text-gray-400" />
-                        <p className="text-gray-500">Preview of your custom social media graphic</p>
+                        <p className="text-gray-500">Enter a prompt and generate your custom social media graphic</p>
                       </div>
                     )}
                   </div>
@@ -75,10 +132,20 @@ export const HeroSection = () => {
                     <Button 
                       className="bg-blue-600 flex-1"
                       onClick={handleGenerateImage}
-                      disabled={isGenerating}
+                      disabled={isGenerating || !prompt.trim()}
                     >
                       {isGenerating ? 'Generating...' : 'Generate Image'}
                     </Button>
+                    {generatedImageUrl && (
+                      <Button 
+                        variant="outline" 
+                        size="icon" 
+                        onClick={handleDownload}
+                        title="Download image"
+                      >
+                        <Download className="h-4 w-4" />
+                      </Button>
+                    )}
                     <Button variant="outline" size="icon">
                       <Star className="h-4 w-4" />
                     </Button>
