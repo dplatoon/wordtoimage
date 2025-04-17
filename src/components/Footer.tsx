@@ -1,5 +1,6 @@
 
-import { Facebook, Instagram, Twitter, Linkedin, Image } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, Image, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -7,8 +8,8 @@ export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 mb-12">
-          <div className="col-span-1 md:col-span-1">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12 mb-12">
+          <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-5">
               <Image className="h-6 w-6 text-blue-400" />
               <span className="font-poppins font-semibold text-xl text-white">WordToImage</span>
@@ -38,30 +39,34 @@ export const Footer = () => {
               <li><a href="#templates" className="text-gray-400 hover:text-white transition-colors">Templates</a></li>
               <li><a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
               <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="/updates" className="text-gray-400 hover:text-white transition-colors">Updates</a></li>
-              <li><a href="/beta" className="text-gray-400 hover:text-white transition-colors">Beta Program</a></li>
+              <li><Link to="/updates" className="text-gray-400 hover:text-white transition-colors">Updates</Link></li>
+              <li><Link to="/beta" className="text-gray-400 hover:text-white transition-colors">Beta Program</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-semibold text-lg mb-4">Resources</h3>
             <ul className="space-y-3">
-              <li><a href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-              <li><a href="/design-tips" className="text-gray-400 hover:text-white transition-colors">Design Tips</a></li>
-              <li><a href="/tutorials" className="text-gray-400 hover:text-white transition-colors">Tutorials</a></li>
-              <li><a href="/help" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
-              <li><a href="/api" className="text-gray-400 hover:text-white transition-colors">API</a></li>
+              <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/design-tips" className="text-gray-400 hover:text-white transition-colors">Design Tips</Link></li>
+              <li><Link to="/tutorials" className="text-gray-400 hover:text-white transition-colors">Tutorials</Link></li>
+              <li><Link to="/help" className="text-gray-400 hover:text-white transition-colors">Help Center</Link></li>
+              <li><Link to="/api" className="text-gray-400 hover:text-white transition-colors">API</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-semibold text-lg mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><a href="/about" className="text-gray-400 hover:text-white transition-colors">About</a></li>
-              <li><a href="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
-              <li><a href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-              <li><a href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
+              <li><Link to="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
+              <li><Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link to="/community" className="text-gray-400 hover:text-white transition-colors flex items-center">
+                <Users className="h-4 w-4 mr-1" />
+                Community
+              </Link></li>
             </ul>
           </div>
         </div>
@@ -69,9 +74,9 @@ export const Footer = () => {
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">© {currentYear} WordToImage. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="/privacy" className="text-gray-500 hover:text-white text-sm transition-colors">Privacy</a>
-            <a href="/terms" className="text-gray-500 hover:text-white text-sm transition-colors">Terms</a>
-            <a href="/cookies" className="text-gray-500 hover:text-white text-sm transition-colors">Cookies</a>
+            <Link to="/privacy" className="text-gray-500 hover:text-white text-sm transition-colors">Privacy</Link>
+            <Link to="/terms" className="text-gray-500 hover:text-white text-sm transition-colors">Terms</Link>
+            <Link to="/cookies" className="text-gray-500 hover:text-white text-sm transition-colors">Cookies</Link>
           </div>
         </div>
       </div>

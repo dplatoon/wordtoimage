@@ -1,5 +1,5 @@
 
-import { Heart, Image, Menu, X } from 'lucide-react';
+import { Heart, Image, Menu, Users, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { 
@@ -11,6 +11,7 @@ import {
   NavigationMenuTrigger 
 } from './ui/navigation-menu';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,10 +20,12 @@ export const Nav = () => {
     <nav className="bg-white shadow-sm py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <Image className="h-6 w-6 text-blue-600" />
-          <span className="font-poppins font-semibold text-xl text-gray-800">
-            WordToImage
-          </span>
+          <Link to="/" className="flex items-center space-x-2">
+            <Image className="h-6 w-6 text-blue-600" />
+            <span className="font-poppins font-semibold text-xl text-gray-800">
+              WordToImage
+            </span>
+          </Link>
         </div>
         
         {/* Desktop Navigation */}
@@ -56,16 +59,16 @@ export const Nav = () => {
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/updates" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/updates" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">Updates</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/beta" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/beta" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">Beta Program</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                   </ul>
@@ -78,37 +81,37 @@ export const Nav = () => {
                   <ul className="grid w-[200px] gap-2 p-2">
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/blog" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/blog" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">Blog</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/design-tips" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/design-tips" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">Design Tips</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/tutorials" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/tutorials" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">Tutorials</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/help" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/help" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">Help Center</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/api" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/api" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">API</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                   </ul>
@@ -121,27 +124,34 @@ export const Nav = () => {
                   <ul className="grid w-[200px] gap-2 p-2">
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/about" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/about" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">About</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/careers" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/careers" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">Careers</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a href="/contact" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                        <Link to="/contact" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                           <div className="font-medium">Contact</div>
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     </li>
                   </ul>
                 </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link to="/community" className="flex items-center px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors duration-300">
+                  <Users className="mr-1 h-4 w-4" />
+                  Community
+                </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
@@ -171,24 +181,31 @@ export const Nav = () => {
               <a href="#templates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Templates</a>
               <a href="#features" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Features</a>
               <a href="#pricing" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Pricing</a>
-              <a href="/updates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Updates</a>
-              <a href="/beta" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Beta Program</a>
+              <Link to="/updates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Updates</Link>
+              <Link to="/beta" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Beta Program</Link>
             </div>
             
             <div className="py-2">
               <p className="px-3 text-sm font-semibold text-gray-500">Resources</p>
-              <a href="/blog" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Blog</a>
-              <a href="/design-tips" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Design Tips</a>
-              <a href="/tutorials" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Tutorials</a>
-              <a href="/help" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Help Center</a>
-              <a href="/api" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">API</a>
+              <Link to="/blog" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Blog</Link>
+              <Link to="/design-tips" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Design Tips</Link>
+              <Link to="/tutorials" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Tutorials</Link>
+              <Link to="/help" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Help Center</Link>
+              <Link to="/api" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">API</Link>
             </div>
             
             <div className="py-2">
               <p className="px-3 text-sm font-semibold text-gray-500">Company</p>
-              <a href="/about" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">About</a>
-              <a href="/careers" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Careers</a>
-              <a href="/contact" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Contact</a>
+              <Link to="/about" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">About</Link>
+              <Link to="/careers" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Careers</Link>
+              <Link to="/contact" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Contact</Link>
+            </div>
+
+            <div className="py-2">
+              <Link to="/community" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md flex items-center">
+                <Users className="mr-2 h-4 w-4" />
+                Community
+              </Link>
             </div>
 
             <div className="flex flex-col space-y-2 pt-2">
