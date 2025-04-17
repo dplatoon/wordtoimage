@@ -3,7 +3,7 @@ import { ArrowRight, Image, Sparkles, Star, Download, Shield } from 'lucide-reac
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { toast } from '@/components/ui/sonner';
-import { generateImage, ApiKeyForm } from '@/services/openaiService';
+import { generateImage, ApiKeyForm } from '@/services/runwareService';
 import { Input } from './ui/input';
 
 export const HeroSection = () => {
@@ -22,11 +22,11 @@ export const HeroSection = () => {
     setIsGenerating(true);
     
     try {
-      // Pass the API key via headers if we're using the temporary approach
       const options = { 
         prompt: prompt.trim(),
-        size: '1024x1024',
-        quality: 'standard'
+        width: 1024,
+        height: 1024,
+        model: "runware:100@1"
       };
       
       const result = await generateImage(options);
@@ -54,7 +54,6 @@ export const HeroSection = () => {
   const handleApiKeySubmit = (apiKey: string) => {
     setTempApiKey(apiKey);
     setShowApiKeyForm(false);
-    localStorage.setItem('temp_openai_key', apiKey); // Only for development
   };
   
   const handleDownload = () => {
@@ -63,7 +62,7 @@ export const HeroSection = () => {
     // Create an anchor element and trigger download
     const a = document.createElement('a');
     a.href = generatedImageUrl;
-    a.download = `generated-image-${Date.now()}.png`;
+    a.download = `runware-image-${Date.now()}.png`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -114,7 +113,7 @@ export const HeroSection = () => {
                     <div className="mb-3 flex items-center justify-between">
                       <div className="flex items-center text-sm text-gray-600">
                         <Shield className="h-4 w-4 mr-1 text-green-500" />
-                        <span>Secure server-side API integration</span>
+                        <span>Using Runware AI for image generation</span>
                       </div>
                       <Button 
                         variant="ghost" 
@@ -156,7 +155,7 @@ export const HeroSection = () => {
                     ) : (
                       <div className="text-center px-8">
                         <Image className="h-10 w-10 mx-auto mb-4 text-gray-400" />
-                        <p className="text-gray-500">Enter a prompt and generate your custom social media graphic</p>
+                        <p className="text-gray-500">Enter a prompt and generate your custom social media graphic with Runware AI</p>
                       </div>
                     )}
                   </div>
@@ -185,7 +184,7 @@ export const HeroSection = () => {
                 </div>
               </div>
               <div className="absolute -top-6 -right-6 bg-yellow-400 text-yellow-900 font-medium px-4 py-2 rounded-full transform rotate-12 shadow-lg">
-                AI-Powered!
+                Runware AI!
               </div>
             </div>
           </div>
