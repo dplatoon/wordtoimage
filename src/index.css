@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +98,32 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-nunito;
+  }
+}
+
+@layer components {
+  .lovable-gradient {
+    @apply bg-gradient-to-br from-lovable-pink via-lovable-lavender to-lovable-peach;
+  }
+  
+  .lovable-card {
+    @apply bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300;
+  }
+  
+  .lovable-button {
+    @apply rounded-full font-poppins font-medium py-3 px-6 transition-all duration-300;
+  }
+  
+  .lovable-button-primary {
+    @apply lovable-button bg-gradient-to-r from-lovable-rose to-lovable-pink text-white hover:shadow-lg hover:shadow-lovable-pink/30;
+  }
+  
+  .lovable-button-secondary {
+    @apply lovable-button bg-white border border-lovable-lavender text-gray-700 hover:bg-lovable-softgray;
+  }
+
+  .floating-heart {
+    @apply animate-float;
   }
 }
