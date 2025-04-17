@@ -1,5 +1,8 @@
 
 import { toast } from "@/components/ui/sonner";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface GenerateImageOptions {
   prompt: string;
@@ -61,6 +64,9 @@ interface ApiKeyFormProps {
   onSubmit: (apiKey: string) => void;
 }
 
+// Moving the React component to a separate file
+// This is commented out since it needs to be in a .tsx file
+/*
 export const ApiKeyForm = ({ onSubmit }: ApiKeyFormProps) => {
   const [apiKey, setApiKey] = useState('');
 
@@ -99,7 +105,4 @@ export const ApiKeyForm = ({ onSubmit }: ApiKeyFormProps) => {
     </form>
   );
 };
-
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+*/

@@ -1,10 +1,10 @@
-
 import { ArrowRight, Image, Sparkles, Star, Download, Shield } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { toast } from '@/components/ui/sonner';
-import { generateImage, ApiKeyForm } from '@/services/runwareService';
+import { generateImage } from '@/services/runwareService';
 import { Input } from './ui/input';
+import { ApiKeyForm } from './ApiKeyForm';
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -127,7 +127,11 @@ export const HeroSection = () => {
                   )}
                   
                   {showApiKeyForm && (
-                    <ApiKeyForm onSubmit={handleApiKeySubmit} />
+                    <ApiKeyForm 
+                      onSubmit={handleApiKeySubmit} 
+                      serviceName="Runware"
+                      keyPlaceholder="Enter your Runware API key"
+                    />
                   )}
                   
                   <div className="mb-4">
