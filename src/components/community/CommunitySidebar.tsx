@@ -1,8 +1,8 @@
-
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Flame, Calendar, Award } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const TRENDING_TOPICS = [
   'AI Design',
@@ -24,6 +24,8 @@ const UPCOMING_EVENTS = [
 ];
 
 export const CommunitySidebar = () => {
+  const { t } = useTranslation();
+  
   return (
     <div className="space-y-6">
       {/* Trending Topics Card */}
@@ -31,7 +33,7 @@ export const CommunitySidebar = () => {
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Flame className="h-5 w-5 mr-2 text-orange-500" />
-            Trending Topics
+            {t('community_page.sidebar.trending_topics')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -53,7 +55,7 @@ export const CommunitySidebar = () => {
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Users className="h-5 w-5 mr-2 text-blue-500" />
-            People to Follow
+            {t('community_page.sidebar.people_to_follow')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -71,7 +73,7 @@ export const CommunitySidebar = () => {
                   </div>
                 </div>
                 <Button variant="outline" size="sm" className="text-xs">
-                  Follow
+                  {t('community_page.sidebar.follow')}
                 </Button>
               </div>
             ))}
@@ -84,7 +86,7 @@ export const CommunitySidebar = () => {
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Calendar className="h-5 w-5 mr-2 text-purple-500" />
-            Upcoming Events
+            {t('community_page.sidebar.upcoming_events')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -96,7 +98,7 @@ export const CommunitySidebar = () => {
               </div>
             ))}
             <Button variant="ghost" className="w-full text-sm text-blue-600 mt-2">
-              View All Events
+              {t('community_page.sidebar.view_all')}
             </Button>
           </div>
         </CardContent>
@@ -107,26 +109,26 @@ export const CommunitySidebar = () => {
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Award className="h-5 w-5 mr-2 text-green-500" />
-            Community Stats
+            {t('community_page.sidebar.community_stats')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center">
               <p className="text-2xl font-bold">5.2k</p>
-              <p className="text-xs text-gray-500">Members</p>
+              <p className="text-xs text-gray-500">{t('community_page.sidebar.members')}</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold">128</p>
-              <p className="text-xs text-gray-500">Online</p>
+              <p className="text-xs text-gray-500">{t('community_page.sidebar.online')}</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold">1.3k</p>
-              <p className="text-xs text-gray-500">Posts</p>
+              <p className="text-xs text-gray-500">{t('community_page.sidebar.posts')}</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold">482</p>
-              <p className="text-xs text-gray-500">Active Today</p>
+              <p className="text-xs text-gray-500">{t('community_page.sidebar.active_today')}</p>
             </div>
           </div>
         </CardContent>

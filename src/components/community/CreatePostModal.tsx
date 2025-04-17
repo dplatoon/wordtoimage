@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ImageIcon, X } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { useTranslation } from 'react-i18next';
 
 interface CreatePostModalProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {
   const [category, setCategory] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -38,8 +40,8 @@ export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {
   const handleSubmit = () => {
     if (!content.trim()) {
       toast({
-        title: "Post content is required",
-        description: "Please add some text to your post.",
+        title: t('community_page.create_modal.error.content_required'),
+        description: t('community_page.create_modal.error.content_description'),
         variant: "destructive",
       });
       return;
@@ -47,21 +49,18 @@ export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {
 
     if (!category) {
       toast({
-        title: "Category is required",
-        description: "Please select a category for your post.",
+        title: t('community_page.create_modal.error.category_required'),
+        description: t('community_page.create_modal.error.category_description'),
         variant: "destructive",
       });
       return;
     }
 
-    // Here you would typically send the post data to your backend
-    // For now, we'll just show a success message
     toast({
-      title: "Post created!",
-      description: "Your post has been published to the community.",
+      title: t('community_page.create_modal.success.title'),
+      description: t('community_page.create_modal.success.description'),
     });
     
-    // Reset form and close modal
     setContent('');
     setCategory('');
     setImagePreview(null);
@@ -72,14 +71,14 @@ export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Create a New Post</DialogTitle>
+          <DialogTitle>{t('community_page.create_modal.title')}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="content">Post Content</Label>
+            <Label htmlFor="content">{t('community_page.create_modal.content_label')}</Label>
             <Textarea
               id="content"
-              placeholder="What do you want to share with the community?"
+              placeholder={t('community_page.create_modal.content_placeholder')}
               value={content}
               onChange={(e) => setContent(e.target.value)}
               className="min-h-[120px]"
@@ -87,22 +86,22 @@ export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">{t('community_page.create_modal.category_label')}</Label>
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger id="category">
-                <SelectValue placeholder="Select a category" />
+                <SelectValue placeholder={t('community_page.create_modal.category_placeholder')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="showcase">Showcase</SelectItem>
-                <SelectItem value="question">Question</SelectItem>
-                <SelectItem value="tutorial">Tutorial</SelectItem>
-                <SelectItem value="feedback">Feedback</SelectItem>
+                <SelectItem value="showcase">{t('community_page.categories.showcase')}</SelectItem>
+                <SelectItem value="question">{t('community_page.categories.question')}</SelectItem>
+                <SelectItem value="tutorial">{t('community_page.categories.tutorial')}</SelectItem>
+                <SelectItem value="feedback">{t('community_page.categories.feedback')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="image">Add Image (optional)</Label>
+            <Label htmlFor="image">{t('community_page.create_modal.image_label')}</Label>
             {!imagePreview ? (
               <div className="border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
                 <Input
@@ -115,7 +114,7 @@ export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {
                 <Label htmlFor="image" className="cursor-pointer block">
                   <ImageIcon className="mx-auto h-8 w-8 text-gray-400" />
                   <span className="mt-2 block text-sm text-gray-600">
-                    Click to upload an image
+                    {t('community_page.create_modal.image_upload')}
                   </span>
                 </Label>
               </div>
@@ -140,10 +139,10 @@ export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>
-            Cancel
+            {t('community_page.create_modal.cancel')}
           </Button>
           <Button onClick={handleSubmit}>
-            Post
+            {t('community_page.create_modal.post')}
           </Button>
         </DialogFooter>
       </DialogContent>

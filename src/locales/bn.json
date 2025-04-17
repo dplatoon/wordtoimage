@@ -1,0 +1,73 @@
+
+{
+  "welcome": "স্বাগতম",
+  "community": "কমিউনিটি",
+  "blog": "ব্লগ",
+  "design_tips": "ডিজাইন টিপস",
+  "tutorials": "টিউটোরিয়াল",
+  "help": "সাহায্য",
+  "api": "এপিআই",
+  "about": "আমাদের সম্পর্কে",
+  "careers": "কর্মসংস্থান",
+  "contact": "যোগাযোগ",
+  "privacy": "গোপনীয়তা",
+  "terms": "শর্তাবলী",
+  "cookies": "কুকিজ",
+  "sign_in": "সাইন ইন",
+  "get_started": "শুরু করুন",
+  
+  "community_page": {
+    "title": "কমিউনিটি",
+    "create_post": "পোস্ট করুন",
+    "trending": "ট্রেন্ডিং",
+    "recent": "সাম্প্রতিক",
+    "following": "অনুসরণ করা",
+    "categories": {
+      "all": "সকল পোস্ট",
+      "showcase": "প্রদর্শনী",
+      "question": "প্রশ্ন",
+      "tutorial": "টিউটোরিয়াল",
+      "feedback": "মতামত"
+    },
+    "post": {
+      "likes": "পছন্দ",
+      "comments": "মন্তব্য",
+      "share": "শেয়ার করুন",
+      "report": "পোস্ট রিপোর্ট করুন",
+      "hide": "পোস্ট লুকান"
+    },
+    "sidebar": {
+      "trending_topics": "ট্রেন্ডিং বিষয়",
+      "people_to_follow": "অনুসরণ করার জন্য ব্যক্তি",
+      "follow": "অনুসরণ করুন",
+      "upcoming_events": "আসন্ন ইভেন্টস",
+      "view_all": "সমস্ত ইভেন্ট দেখুন",
+      "community_stats": "কমিউনিটি পরিসংখ্যান",
+      "members": "সদস্য",
+      "online": "অনলাইন",
+      "posts": "পোস্ট",
+      "active_today": "আজ সক্রিয়"
+    },
+    "create_modal": {
+      "title": "নতুন পোস্ট তৈরি করুন",
+      "content_label": "পোস্টের বিষয়বস্তু",
+      "content_placeholder": "আপনি কমিউনিটির সাথে কী শেয়ার করতে চান?",
+      "category_label": "বিভাগ",
+      "category_placeholder": "একটি বিভাগ নির্বাচন করুন",
+      "image_label": "ছবি যোগ করুন (ঐচ্ছিক)",
+      "image_upload": "ছবি আপলোড করতে ক্লিক করুন",
+      "cancel": "বাতিল",
+      "post": "পোস্ট",
+      "error": {
+        "content_required": "পোস্টের বিষয়বস্তু প্রয়োজন",
+        "content_description": "দয়া করে আপনার পোস্টে কিছু টেক্সট যোগ করুন।",
+        "category_required": "বিভাগ প্রয়োজন",
+        "category_description": "আপনার পোস্টের জন্য একটি বিভাগ নির্বাচন করুন।"
+      },
+      "success": {
+        "title": "পোস্ট তৈরি হয়েছে!",
+        "description": "আপনার পোস্টটি কমিউনিটিতে প্রকাশিত হয়েছে।"
+      }
+    }
+  }
+}

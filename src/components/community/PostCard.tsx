@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -10,6 +9,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
+import { useTranslation } from 'react-i18next';
 
 interface Author {
   name: string;
@@ -50,6 +50,7 @@ export const PostCard = ({ post }: PostCardProps) => {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes);
+  const { t } = useTranslation();
   
   const handleLike = () => {
     if (liked) {
@@ -86,8 +87,8 @@ export const PostCard = ({ post }: PostCardProps) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>Report post</DropdownMenuItem>
-                <DropdownMenuItem>Hide post</DropdownMenuItem>
+                <DropdownMenuItem>{t('community_page.post.report')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('community_page.post.hide')}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -127,7 +128,7 @@ export const PostCard = ({ post }: PostCardProps) => {
             </Button>
             <Button variant="ghost" size="sm" className="flex items-center text-gray-600">
               <Share2 className="mr-1 h-4 w-4" />
-              Share
+              {t('community_page.post.share')}
             </Button>
           </div>
           <Button 

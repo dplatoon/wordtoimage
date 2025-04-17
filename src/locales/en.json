@@ -1,0 +1,73 @@
+
+{
+  "welcome": "Welcome",
+  "community": "Community",
+  "blog": "Blog",
+  "design_tips": "Design Tips",
+  "tutorials": "Tutorials",
+  "help": "Help",
+  "api": "API",
+  "about": "About",
+  "careers": "Careers",
+  "contact": "Contact",
+  "privacy": "Privacy",
+  "terms": "Terms",
+  "cookies": "Cookies",
+  "sign_in": "Sign In",
+  "get_started": "Get Started",
+  
+  "community_page": {
+    "title": "Community",
+    "create_post": "Create Post",
+    "trending": "Trending",
+    "recent": "Recent",
+    "following": "Following",
+    "categories": {
+      "all": "All Posts",
+      "showcase": "Showcase",
+      "question": "Questions",
+      "tutorial": "Tutorials",
+      "feedback": "Feedback"
+    },
+    "post": {
+      "likes": "likes",
+      "comments": "comments",
+      "share": "Share",
+      "report": "Report post",
+      "hide": "Hide post"
+    },
+    "sidebar": {
+      "trending_topics": "Trending Topics",
+      "people_to_follow": "People to Follow",
+      "follow": "Follow",
+      "upcoming_events": "Upcoming Events",
+      "view_all": "View All Events",
+      "community_stats": "Community Stats",
+      "members": "Members",
+      "online": "Online",
+      "posts": "Posts",
+      "active_today": "Active Today"
+    },
+    "create_modal": {
+      "title": "Create a New Post",
+      "content_label": "Post Content",
+      "content_placeholder": "What do you want to share with the community?",
+      "category_label": "Category",
+      "category_placeholder": "Select a category",
+      "image_label": "Add Image (optional)",
+      "image_upload": "Click to upload an image",
+      "cancel": "Cancel",
+      "post": "Post",
+      "error": {
+        "content_required": "Post content is required",
+        "content_description": "Please add some text to your post.",
+        "category_required": "Category is required",
+        "category_description": "Please select a category for your post."
+      },
+      "success": {
+        "title": "Post created!",
+        "description": "Your post has been published to the community."
+      }
+    }
+  }
+}

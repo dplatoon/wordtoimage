@@ -7,22 +7,24 @@ import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 import { useState } from 'react';
 import { CreatePostModal } from '@/components/community/CreatePostModal';
+import { useTranslation } from 'react-i18next';
 
 const Community = () => {
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-white">
       <Nav />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Community</h1>
+          <h1 className="text-3xl font-bold text-gray-900">{t('community_page.title')}</h1>
           <Button 
             onClick={() => setIsCreatePostModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700"
           >
             <PlusCircle className="mr-2 h-5 w-5" />
-            Create Post
+            {t('community_page.create_post')}
           </Button>
         </div>
         

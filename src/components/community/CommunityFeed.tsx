@@ -1,8 +1,8 @@
-
 import { useState } from 'react';
 import { PostCard } from './PostCard';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useTranslation } from 'react-i18next';
 
 // Mock data for demonstration
 const MOCK_POSTS = [
@@ -61,15 +61,16 @@ const MOCK_POSTS = [
 ];
 
 const CATEGORIES = [
-  { name: 'all', label: 'All Posts' },
-  { name: 'showcase', label: 'Showcase', color: 'bg-purple-500' },
-  { name: 'question', label: 'Questions', color: 'bg-blue-500' },
-  { name: 'tutorial', label: 'Tutorials', color: 'bg-green-500' },
-  { name: 'feedback', label: 'Feedback', color: 'bg-orange-500' },
+  { name: 'all', label: 'categories.all' },
+  { name: 'showcase', label: 'categories.showcase', color: 'bg-purple-500' },
+  { name: 'question', label: 'categories.question', color: 'bg-blue-500' },
+  { name: 'tutorial', label: 'categories.tutorial', color: 'bg-green-500' },
+  { name: 'feedback', label: 'categories.feedback', color: 'bg-orange-500' },
 ];
 
 export const CommunityFeed = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const { t } = useTranslation();
   
   const filteredPosts = activeCategory === 'all' 
     ? MOCK_POSTS 
@@ -79,9 +80,9 @@ export const CommunityFeed = () => {
     <div className="space-y-6">
       <Tabs defaultValue="trending" className="w-full">
         <TabsList className="mb-4">
-          <TabsTrigger value="trending">Trending</TabsTrigger>
-          <TabsTrigger value="recent">Recent</TabsTrigger>
-          <TabsTrigger value="following">Following</TabsTrigger>
+          <TabsTrigger value="trending">{t('community_page.trending')}</TabsTrigger>
+          <TabsTrigger value="recent">{t('community_page.recent')}</TabsTrigger>
+          <TabsTrigger value="following">{t('community_page.following')}</TabsTrigger>
         </TabsList>
         
         <div className="flex flex-wrap gap-2 mb-6">
@@ -92,7 +93,7 @@ export const CommunityFeed = () => {
               className={`cursor-pointer ${activeCategory === category.name ? category.color || '' : ''}`}
               onClick={() => setActiveCategory(category.name)}
             >
-              {category.label}
+              {t(`community_page.${category.label}`)}
             </Badge>
           ))}
         </div>
