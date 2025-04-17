@@ -3,71 +3,68 @@ import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    content: "Lovable has transformed how I connect with others. It's not just another social platform; it's a place where genuine connections happen.",
-    author: "Emily Johnson",
-    role: "Teacher",
-    avatar: "https://randomuser.me/api/portraits/women/12.jpg"
+    name: "Sarah J.",
+    role: "Social Media Influencer",
+    content: "WordToImage has completely transformed my content creation process. I can create stunning graphics in minutes!",
+    rating: 5
   },
   {
-    content: "The daily prompts have helped me express gratitude and positivity in ways I never expected. My mental health has genuinely improved.",
-    author: "Michael Rodriguez",
-    role: "Software Engineer",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+    name: "Michael T.",
+    role: "Small Business Owner",
+    content: "As a non-designer, this tool has been a game-changer for our social media presence. Our engagement has increased by 45%.",
+    rating: 5
   },
   {
-    content: "I've reconnected with old friends and made new ones through shared moments. The interface is beautiful and the community is so supportive!",
-    author: "Sarah Williams",
-    role: "Marketing Professional",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg"
-  },
+    name: "Priya K.",
+    role: "Content Creator",
+    content: "The templates are professional and so easy to customize. I've saved hours of design time each week.",
+    rating: 4
+  }
 ];
 
 export const TestimonialsSection = () => {
   return (
-    <section id="testimonials" className="py-24 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="relative">
-          {/* Decorative elements */}
-          <div className="absolute top-0 right-0 -mt-20 -mr-20 hidden lg:block">
-            <div className="h-64 w-64 rounded-full bg-lovable-lavender/20 blur-3xl"></div>
-          </div>
-          <div className="absolute bottom-0 left-0 -mb-20 -ml-20 hidden lg:block">
-            <div className="h-64 w-64 rounded-full bg-lovable-peach/20 blur-3xl"></div>
-          </div>
-          
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight font-poppins text-gray-900 sm:text-4xl">
-              Loved by Thousands of Users
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Hear what our community says about their Lovable experience.
-            </p>
-          </div>
-          
-          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20 lg:max-w-none lg:grid-cols-3">
-            {testimonials.map((testimonial, idx) => (
-              <div key={idx} className="lovable-card hover:border-lovable-pink hover:border transition-all duration-300 flex flex-col justify-between">
-                <div>
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-lovable-gold" fill="#FFD700" />
-                    ))}
-                  </div>
-                  <p className="text-lg text-gray-700">"{testimonial.content}"</p>
+    <section className="py-16 md:py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
+            Loved by Creators Everywhere
+          </h2>
+          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            Join thousands of satisfied users who create stunning social media graphics with WordToImage.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
+                ))}
+              </div>
+              <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+              <div className="flex items-center">
+                <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                  <span className="text-blue-600 font-semibold">{testimonial.name[0]}</span>
                 </div>
-                <div className="mt-6 flex items-center gap-4">
-                  <img 
-                    src={testimonial.avatar} 
-                    alt={testimonial.author} 
-                    className="h-12 w-12 rounded-full object-cover border-2 border-lovable-pink"
-                  />
-                  <div>
-                    <h3 className="text-base font-semibold text-gray-900 font-poppins">{testimonial.author}</h3>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
-                  </div>
+                <div className="ml-3">
+                  <h4 className="font-semibold">{testimonial.name}</h4>
+                  <p className="text-gray-500 text-sm">{testimonial.role}</p>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full">
+            <div className="flex -space-x-1">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="h-6 w-6 rounded-full bg-gray-300 border-2 border-white" />
+              ))}
+            </div>
+            <span className="text-blue-800 font-medium text-sm">Join 10,000+ happy users</span>
           </div>
         </div>
       </div>

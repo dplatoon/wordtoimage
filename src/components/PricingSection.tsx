@@ -1,92 +1,123 @@
 
-import { Check } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { Button } from './ui/button';
 
 const plans = [
   {
-    name: 'Free',
-    description: 'Perfect for getting started with Lovable.',
-    price: '0',
+    name: "Free",
+    price: "$0",
+    description: "Perfect for trying out WordToImage",
     features: [
-      'Post and share moments',
-      'Like and comment on content',
-      'Explore positivity gallery',
-      'Basic profile customization',
-      'Join community discussions'
+      { included: true, text: "5 designs per month" },
+      { included: true, text: "Basic templates" },
+      { included: true, text: "720p resolution" },
+      { included: false, text: "Premium templates" },
+      { included: false, text: "No watermarks" },
+      { included: false, text: "Brand kit" }
     ],
-    featured: false,
+    buttonText: "Start Free",
+    buttonVariant: "outline" as const
   },
   {
-    name: 'Premium',
-    description: 'Everything you need to make the most of Lovable.',
-    price: '4.99',
+    name: "Pro",
+    price: "$9.99",
+    description: "Best for creators and influencers",
+    popular: true,
     features: [
-      'All Free plan features',
-      'Exclusive stickers and GIFs',
-      'Priority profile visibility',
-      'Premium seasonal themes',
-      'Ad-free experience',
-      'Early access to new features'
+      { included: true, text: "Unlimited designs" },
+      { included: true, text: "All templates" },
+      { included: true, text: "1080p resolution" },
+      { included: true, text: "Premium templates" },
+      { included: true, text: "No watermarks" },
+      { included: false, text: "Brand kit" }
     ],
-    featured: true,
+    buttonText: "Get Pro",
+    buttonVariant: "default" as const
   },
+  {
+    name: "Business",
+    price: "$19.99",
+    description: "For teams and businesses",
+    features: [
+      { included: true, text: "Unlimited designs" },
+      { included: true, text: "All templates" },
+      { included: true, text: "4K resolution" },
+      { included: true, text: "Premium templates" },
+      { included: true, text: "No watermarks" },
+      { included: true, text: "Brand kit" }
+    ],
+    buttonText: "Get Business",
+    buttonVariant: "outline" as const
+  }
 ];
 
 export const PricingSection = () => {
   return (
-    <section id="pricing" className="py-24 bg-gradient-to-b from-white to-lovable-softgray/50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight font-poppins text-gray-900 sm:text-4xl">
+    <section id="pricing" className="py-16 md:py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
             Simple, Transparent Pricing
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Choose the plan that works best for your needs.
+          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            Choose the plan that best fits your needs. All plans include core WordToImage features.
           </p>
         </div>
-        
-        <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 gap-8 lg:max-w-5xl lg:grid-cols-2">
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan) => (
             <div 
               key={plan.name} 
-              className={`lovable-card flex flex-col ${plan.featured ? 'border-2 border-lovable-pink relative' : ''}`}
+              className={`
+                rounded-xl border p-8 relative flex flex-col
+                ${plan.popular ? 'shadow-lg border-blue-200 bg-blue-50/30' : 'bg-white'}
+              `}
             >
-              {plan.featured && (
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <span className="bg-lovable-pink text-white text-xs font-semibold px-4 py-1.5 rounded-full uppercase">
-                    Most Popular
-                  </span>
+              {plan.popular && (
+                <div className="absolute top-0 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-1 rounded-full font-medium text-sm">
+                  Most Popular
                 </div>
               )}
-              
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold text-gray-900 font-poppins">{plan.name}</h3>
-                <p className="mt-2 text-sm text-gray-500">{plan.description}</p>
-                <div className="mt-6 flex items-baseline">
-                  <span className="text-4xl font-bold tracking-tight text-gray-900">${plan.price}</span>
-                  <span className="ml-1 text-lg text-gray-500">/month</span>
+              <div className="mb-5">
+                <h3 className="text-xl font-bold">{plan.name}</h3>
+                <div className="mt-2 flex items-baseline">
+                  <span className="text-3xl font-bold">{plan.price}</span>
+                  <span className="ml-1 text-gray-500">/month</span>
                 </div>
-                <ul className="mt-8 space-y-4">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <Check className={`h-5 w-5 ${plan.featured ? 'text-lovable-rose' : 'text-gray-400'}`} />
-                      </div>
-                      <p className="ml-3 text-sm text-gray-700">{feature}</p>
-                    </li>
-                  ))}
-                </ul>
+                <p className="mt-2 text-gray-600">{plan.description}</p>
               </div>
-              
-              <div className="mt-8">
-                <Button 
-                  className={`w-full ${plan.featured ? 'lovable-button-primary' : 'lovable-button-secondary'}`}
-                >
-                  Get {plan.name}
-                </Button>
-              </div>
+
+              <ul className="space-y-3 mb-8 flex-1">
+                {plan.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-center">
+                    {feature.included ? (
+                      <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
+                    ) : (
+                      <X className="h-5 w-5 text-gray-300 mr-3 flex-shrink-0" />
+                    )}
+                    <span className={`${feature.included ? 'text-gray-700' : 'text-gray-400'}`}>
+                      {feature.text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <Button 
+                variant={plan.buttonVariant} 
+                className={`w-full ${plan.popular ? 'bg-blue-600 hover:bg-blue-700' : ''}`}
+              >
+                {plan.buttonText}
+              </Button>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center bg-gray-50 p-6 rounded-lg">
+          <h3 className="text-lg font-semibold">Need a custom plan for your team?</h3>
+          <p className="text-gray-600 mt-1">Contact our sales team for custom pricing and features tailored to your needs.</p>
+          <Button variant="link" className="text-blue-600 mt-2">
+            Contact Sales
+          </Button>
         </div>
       </div>
     </section>

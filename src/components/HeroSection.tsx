@@ -1,74 +1,64 @@
 
-import { useState, useEffect } from 'react';
-import { Heart, Sparkles, MessageCircle } from 'lucide-react';
+import { ArrowRight, Image, Sparkles, Star } from 'lucide-react';
 import { Button } from './ui/button';
 
 export const HeroSection = () => {
-  const [showHearts, setShowHearts] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowHearts(true);
-    }, 800);
-    
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <section className="relative overflow-hidden pb-16 pt-10">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-lovable-lavender/30 blur-3xl"></div>
-        <div className="absolute top-1/3 right-1/4 h-64 w-64 rounded-full bg-lovable-pink/30 blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/3 h-64 w-64 rounded-full bg-lovable-peach/30 blur-3xl"></div>
-      </div>
-
-      {/* Floating Hearts */}
-      {showHearts && (
-        <>
-          <Heart className="absolute top-20 left-10 text-lovable-pink h-5 w-5 animate-float" fill="#FFDEE2" />
-          <Heart className="absolute top-40 right-24 text-lovable-pink h-4 w-4 animate-float" fill="#FFDEE2" />
-          <Heart className="absolute bottom-20 left-1/4 text-lovable-rose h-6 w-6 animate-float" fill="#FF719A" />
-          <Sparkles className="absolute top-1/3 right-10 text-lovable-gold h-5 w-5 animate-float" />
-          <Sparkles className="absolute bottom-40 left-20 text-lovable-gold h-4 w-4 animate-float" />
-          <MessageCircle className="absolute top-60 left-1/3 text-lovable-lavender h-6 w-6 animate-float" fill="#E5DEFF" />
-        </>
-      )}
-      
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 pt-10 md:pt-20">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-poppins font-bold text-4xl sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-lovable-rose via-lovable-pink to-lovable-lavender animate-fade-in">
-            Spread Love, Share Joy, Stay Connected.
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600 animate-fade-in">
-            Join Lovable and create meaningful moments every day.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
-            <Button className="lovable-button-primary text-lg" size="lg">
-              Get Started
-            </Button>
-            <Button variant="outline" className="lovable-button-secondary text-lg" size="lg">
-              Learn More
-            </Button>
+    <section className="py-12 md:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+          <div className="flex-1 text-center lg:text-left">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 mb-6 text-sm font-medium">
+              <Sparkles className="h-4 w-4 mr-2" />
+              <span>Turn Words Into Stunning Graphics</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 font-poppins mb-6">
+              Create <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Social Media Graphics</span> in Seconds
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
+              Transform your words into stunning, shareable graphics for all social platforms with our AI-powered design tool. No design skills required!
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-6">
+                Try for Free
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button size="lg" variant="outline" className="text-lg">
+                View Templates
+              </Button>
+            </div>
+            <div className="mt-8 flex items-center justify-center lg:justify-start">
+              <div className="flex -space-x-2">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="inline-block h-8 w-8 rounded-full bg-gray-300 border-2 border-white" />
+                ))}
+              </div>
+              <div className="ml-3 text-sm text-gray-600">
+                <span className="font-medium text-gray-900">2,500+</span> creators trust WordToImage
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Hero Image */}
-        <div className="mt-16 sm:mt-24 relative animate-fade-in">
-          <div className="relative mx-auto rounded-xl overflow-hidden shadow-xl">
-            <img 
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" 
-              alt="People connecting and sharing moments"
-              className="w-full object-cover rounded-xl"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-lovable-rose/40 to-transparent mix-blend-multiply rounded-xl"></div>
-            <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 bg-white/80 backdrop-blur-sm rounded-lg p-3 sm:p-4 shadow-lg max-w-sm">
-              <p className="font-poppins text-sm sm:text-base font-medium text-gray-900">
-                "Lovable helped me connect with like-minded people and share moments that truly matter."
-              </p>
-              <p className="mt-1 text-xs sm:text-sm text-gray-600">
-                — Sarah, Lovable Member
-              </p>
+          <div className="flex-1">
+            <div className="relative">
+              <div className="bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
+                <div className="bg-white rounded-xl p-5">
+                  <div className="h-[350px] md:h-[400px] bg-gray-100 rounded-lg flex items-center justify-center">
+                    <div className="text-center px-8">
+                      <Image className="h-10 w-10 mx-auto mb-4 text-gray-400" />
+                      <p className="text-gray-500">Preview of your custom social media graphic</p>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex gap-3 items-center">
+                    <Button className="bg-blue-600 flex-1">Generate Image</Button>
+                    <Button variant="outline" size="icon">
+                      <Star className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -top-6 -right-6 bg-yellow-400 text-yellow-900 font-medium px-4 py-2 rounded-full transform rotate-12 shadow-lg">
+                AI-Powered!
+              </div>
             </div>
           </div>
         </div>

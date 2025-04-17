@@ -1,59 +1,66 @@
 
-import { Heart, Users, Image } from 'lucide-react';
+import { Sparkles, PenTool, LayoutGrid, Palette, Share2, Award } from 'lucide-react';
 
 const features = [
   {
-    name: 'Express Yourself',
-    description: 'Share lovable moments through photos, quotes, or stories that inspire and uplift others.',
-    icon: Image,
-    color: 'bg-lovable-pink',
+    icon: Sparkles,
+    title: "AI Text-to-Image",
+    description: "Transform your words into professionally designed graphics with our AI-powered generator."
   },
   {
-    name: 'Build Connections',
-    description: 'Meet like-minded people or strengthen existing relationships through meaningful interactions.',
-    icon: Users,
-    color: 'bg-lovable-lavender',
+    icon: LayoutGrid,
+    title: "Template Library",
+    description: "Access hundreds of templates optimized for every social media platform."
   },
   {
-    name: 'Positivity Gallery',
-    description: 'Discover and share uplifting content that brings joy and positivity to your day.',
-    icon: Heart,
-    color: 'bg-lovable-peach',
+    icon: PenTool,
+    title: "Drag-and-Drop Editor",
+    description: "Easy-to-use editor for customizing layouts, fonts, images, and colors."
   },
+  {
+    icon: Palette,
+    title: "Brand Kit",
+    description: "Save your brand colors, logos, and fonts for consistent designs across all graphics."
+  },
+  {
+    icon: Share2,
+    title: "Instant Sharing",
+    description: "Download or share your designs directly to social media platforms."
+  },
+  {
+    icon: Award,
+    title: "Premium Content",
+    description: "Access exclusive templates, elements, and features with our premium plans."
+  }
 ];
 
 export const FeaturesSection = () => {
   return (
-    <section id="features" className="py-24 bg-lovable-softgray/50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight font-poppins text-gray-900 sm:text-4xl">
-            Why People Love <span className="bg-clip-text text-transparent bg-gradient-to-r from-lovable-rose to-lovable-pink">Lovable</span>
+    <section id="features" className="py-16 md:py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium">
+            <Sparkles className="h-4 w-4 mr-2" />
+            <span>Powerful Features</span>
+          </span>
+          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
+            Everything You Need to Create Stunning Graphics
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Our platform is designed to help you create and share moments that matter, with people who matter.
+          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            Our platform provides all the tools you need to create professional social media graphics without any design experience.
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-5xl">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <div 
-                key={feature.name} 
-                className="relative lovable-card overflow-hidden group hover:translate-y-[-5px] transition-all duration-300"
-              >
-                <div className={`absolute top-0 left-0 w-full h-1 ${feature.color}`}></div>
-                <div className={`inline-flex rounded-lg ${feature.color} bg-opacity-10 p-3`}>
-                  <feature.icon className="h-6 w-6 text-lovable-rose" />
-                </div>
-                <h3 className="mt-5 text-xl font-semibold leading-7 text-gray-900 font-poppins">
-                  {feature.name}
-                </h3>
-                <p className="mt-2 text-base leading-7 text-gray-600">
-                  {feature.description}
-                </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+              <div className="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 mb-5">
+                <feature.icon className="h-6 w-6" />
               </div>
-            ))}
-          </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+              <p className="text-gray-600">{feature.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
