@@ -1,8 +1,24 @@
 
 import { ArrowRight, Image, Sparkles, Star } from 'lucide-react';
 import { Button } from './ui/button';
+import { useState } from 'react';
+import { toast } from '@/components/ui/sonner';
 
 export const HeroSection = () => {
+  const [isGenerating, setIsGenerating] = useState(false);
+  
+  const handleGenerateImage = () => {
+    setIsGenerating(true);
+    
+    // Simulate image generation process
+    setTimeout(() => {
+      setIsGenerating(false);
+      toast.success("Image generated successfully!", {
+        description: "Your custom graphic is ready to download.",
+      });
+    }, 1500);
+  };
+
   return (
     <section className="py-12 md:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,13 +59,26 @@ export const HeroSection = () => {
               <div className="bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
                 <div className="bg-white rounded-xl p-5">
                   <div className="h-[350px] md:h-[400px] bg-gray-100 rounded-lg flex items-center justify-center">
-                    <div className="text-center px-8">
-                      <Image className="h-10 w-10 mx-auto mb-4 text-gray-400" />
-                      <p className="text-gray-500">Preview of your custom social media graphic</p>
-                    </div>
+                    {isGenerating ? (
+                      <div className="text-center px-8">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                        <p className="text-gray-500">Generating your custom graphic...</p>
+                      </div>
+                    ) : (
+                      <div className="text-center px-8">
+                        <Image className="h-10 w-10 mx-auto mb-4 text-gray-400" />
+                        <p className="text-gray-500">Preview of your custom social media graphic</p>
+                      </div>
+                    )}
                   </div>
                   <div className="mt-4 flex gap-3 items-center">
-                    <Button className="bg-blue-600 flex-1">Generate Image</Button>
+                    <Button 
+                      className="bg-blue-600 flex-1"
+                      onClick={handleGenerateImage}
+                      disabled={isGenerating}
+                    >
+                      {isGenerating ? 'Generating...' : 'Generate Image'}
+                    </Button>
                     <Button variant="outline" size="icon">
                       <Star className="h-4 w-4" />
                     </Button>
