@@ -4,33 +4,63 @@ import { Sparkles, PenTool, LayoutGrid, Palette, Share2, Award } from 'lucide-re
 const features = [
   {
     icon: Sparkles,
-    title: "AI Text-to-Image",
-    description: "Transform your words into professionally designed graphics with our AI-powered generator."
+    title: "AI Text-to-Image Generation",
+    description: "Transform your words into stunning visuals in seconds.",
+    highlights: [
+      "Generate custom graphics from text descriptions in under 10 seconds",
+      "Fine-tune images with style and mood controls",
+      "Access state-of-the-art AI models for professional results"
+    ]
   },
   {
     icon: LayoutGrid,
-    title: "Template Library",
-    description: "Access hundreds of templates optimized for every social media platform."
+    title: "Smart Template Library",
+    description: "Pre-designed templates for every social platform.",
+    highlights: [
+      "100+ templates optimized for Instagram, Facebook, and LinkedIn",
+      "Auto-resize designs for different social media platforms",
+      "Save your favorite templates for quick access"
+    ]
   },
   {
     icon: PenTool,
-    title: "Drag-and-Drop Editor",
-    description: "Easy-to-use editor for customizing layouts, fonts, images, and colors."
+    title: "Easy Design Editor",
+    description: "Customize your designs without any design skills.",
+    highlights: [
+      "Simple drag-and-drop interface for quick edits",
+      "Real-time preview of all your changes",
+      "Built-in design suggestions powered by AI"
+    ]
   },
   {
     icon: Palette,
     title: "Brand Kit",
-    description: "Save your brand colors, logos, and fonts for consistent designs across all graphics."
+    description: "Keep your brand consistent across all designs.",
+    highlights: [
+      "Store and access your brand colors with one click",
+      "Import and manage your brand fonts and logos",
+      "Apply brand styles to any template instantly"
+    ]
   },
   {
     icon: Share2,
-    title: "Instant Sharing",
-    description: "Download or share your designs directly to social media platforms."
+    title: "Quick Share",
+    description: "Share your designs instantly to any platform.",
+    highlights: [
+      "Direct posting to social media platforms",
+      "Schedule posts for optimal engagement times",
+      "Share designs with your team for feedback"
+    ]
   },
   {
     icon: Award,
     title: "Premium Content",
-    description: "Access exclusive templates, elements, and features with our premium plans."
+    description: "Unlock advanced features for professional results.",
+    highlights: [
+      "Access exclusive AI image generation models",
+      "Priority processing for faster generation",
+      "Advanced editing tools and effects"
+    ]
   }
 ];
 
@@ -58,7 +88,15 @@ export const FeaturesSection = () => {
                 <feature.icon className="h-6 w-6" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <p className="text-gray-600 mb-4">{feature.description}</p>
+              <ul className="space-y-2">
+                {feature.highlights.map((highlight, idx) => (
+                  <li key={idx} className="flex items-start text-sm text-gray-600">
+                    <span className="mr-2 text-blue-600">•</span>
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

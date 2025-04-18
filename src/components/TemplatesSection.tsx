@@ -5,9 +5,42 @@ import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 
 const templateCategories = [
-  { name: "Instagram", icon: Instagram, count: 120, color: "bg-pink-500" },
-  { name: "Facebook", icon: Facebook, count: 85, color: "bg-blue-600" },
-  { name: "LinkedIn", icon: Linkedin, count: 65, color: "bg-blue-800" }
+  { 
+    name: "Instagram", 
+    icon: Instagram, 
+    count: 120, 
+    color: "bg-pink-500",
+    useCase: "Perfect for lifestyle brands: Create eye-catching Story templates in seconds",
+    examples: [
+      "Product showcase with lifestyle context",
+      "Quote cards with branded backgrounds",
+      "Before/after transformation posts"
+    ]
+  },
+  { 
+    name: "Facebook", 
+    icon: Facebook, 
+    count: 85, 
+    color: "bg-blue-600",
+    useCase: "Ideal for businesses: Generate engaging feed and ad content",
+    examples: [
+      "Event announcements with RSVP buttons",
+      "Product carousel ads with AI-enhanced backgrounds",
+      "Customer testimonial cards"
+    ]
+  },
+  { 
+    name: "LinkedIn", 
+    icon: Linkedin, 
+    count: 65, 
+    color: "bg-blue-800",
+    useCase: "Great for professionals: Create polished business content",
+    examples: [
+      "Professional headshot backgrounds",
+      "Company milestone announcements",
+      "Industry insight cards"
+    ]
+  }
 ];
 
 export const TemplatesSection = () => {
@@ -32,8 +65,17 @@ export const TemplatesSection = () => {
                   <category.icon className="text-white h-12 w-12" />
                 </div>
                 <div className="p-5">
-                  <h3 className="font-semibold text-lg">{category.name} Templates</h3>
-                  <p className="text-gray-500 mt-1">{category.count}+ templates</p>
+                  <h3 className="font-semibold text-lg mb-2">{category.name} Templates</h3>
+                  <p className="text-gray-600 mb-3">{category.count}+ templates</p>
+                  <p className="text-sm text-gray-700 mb-4">{category.useCase}</p>
+                  <ul className="space-y-2 mb-4">
+                    {category.examples.map((example, idx) => (
+                      <li key={idx} className="text-sm text-gray-600 flex items-start">
+                        <span className="mr-2 text-blue-600">•</span>
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
                   <Button variant="link" className="p-0 h-auto mt-3 flex items-center text-blue-600">
                     Browse templates
                     <ArrowRight className="ml-1 h-4 w-4" />
