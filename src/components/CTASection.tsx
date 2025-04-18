@@ -4,6 +4,16 @@ import { PrimaryButton } from './ui/primary-button';
 import { Button } from './ui/button';
 
 export const CTASection = () => {
+  const trackCtaClick = (action: string) => {
+    // Track CTA clicks with Google Analytics
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'cta_click', {
+        event_category: 'engagement',
+        event_label: action
+      });
+    }
+  };
+
   return (
     <section className="py-16 md:py-24" aria-label="Call to Action">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -27,6 +37,7 @@ export const CTASection = () => {
               <PrimaryButton 
                 size="lg" 
                 className="bg-white text-blue-600 hover:bg-white/90 text-lg px-8"
+                onClick={() => trackCtaClick('create_design')}
                 aria-label="Create your first design with WordToImage"
               >
                 Create Your First Design
@@ -35,6 +46,7 @@ export const CTASection = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
+                onClick={() => trackCtaClick('explore_templates')}
                 className="text-white border-white hover:bg-white/10 text-lg"
                 aria-label="Browse template gallery"
               >
@@ -43,6 +55,19 @@ export const CTASection = () => {
               </Button>
             </div>
             <p className="mt-6 text-white/80 text-sm" role="note">Start creating for free. No credit card required.</p>
+            
+            {/* Soft Launch Feedback Button */}
+            <div className="mt-8 pt-4 border-t border-white/20 w-full max-w-md">
+              <button 
+                onClick={() => trackCtaClick('feedback')}
+                className="text-white/90 hover:text-white text-sm font-medium flex items-center justify-center mx-auto"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+                Share Feedback (Beta)
+              </button>
+            </div>
           </div>
         </div>
       </div>
