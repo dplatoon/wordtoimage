@@ -6,6 +6,7 @@ import { generateImage } from '@/services/runwareService';
 import { Input } from './ui/input';
 import { ApiKeyForm } from './ApiKeyForm';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
+import { getErrorDisplayMessage } from '@/utils/errorUtils';
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -37,7 +38,7 @@ export const HeroSection = () => {
       const result = await generateImage(options);
       
       if (result.error) {
-        throw new Error(result.error.message || "Unknown error occurred during image generation");
+        throw new Error(getErrorDisplayMessage(result.error));
       }
       
       if (result.imageUrl) {

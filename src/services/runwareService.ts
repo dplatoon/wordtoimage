@@ -1,6 +1,6 @@
-
 import { toast } from "@/components/ui/sonner";
 import { ServiceError, RunwareErrorResponse } from "@/types/errors";
+import { ImageGenerationError, handleApiError, getErrorDisplayMessage } from "@/utils/errorUtils";
 
 interface GenerateImageOptions {
   prompt: string;
@@ -60,7 +60,7 @@ export const generateImage = async ({
 }: GenerateImageOptions): Promise<GenerateImageResponse> => {
   try {
     if (!prompt?.trim()) {
-      throw new Error('Prompt is required');
+      throw new ImageGenerationError('Prompt is required', 'VALIDATION_ERROR');
     }
 
     const response = await fetch('/api/generate-runware-image', {
@@ -79,11 +79,22 @@ export const generateImage = async ({
 
     if (!response.ok) {
       const errorData: RunwareErrorResponse = await response.json();
-      throw new Error(errorData.errorMessage || `Failed to generate image: ${response.statusText}`);
+      throw new ImageGenerationError(
+        errorData.errorMessage || `Failed to generate image: ${response.statusText}`,
+        'API_ERROR',
+        JSON.stringify(errorData.errors)
+      );
     }
 
     const data = await response.json();
-    validateImageResponse(data);
+    
+    if (!data || typeof data !== 'object') {
+      throw new ImageGenerationError('Invalid response format', 'API_ERROR');
+    }
+
+    if (!data.imageUrl) {
+      throw new ImageGenerationError('No image URL received', 'API_ERROR');
+    }
 
     return {
       imageUrl: data.imageUrl
@@ -91,27 +102,11 @@ export const generateImage = async ({
   } catch (error) {
     console.error('Error generating image:', error);
     
-    const serviceError = handleServiceError(error);
+    const serviceError = handleApiError(error);
+    const displayMessage = getErrorDisplayMessage(serviceError);
     
-    let toastMessage = 'Failed to generate image';
-    let toastDescription = serviceError.message;
-    
-    switch (serviceError.code) {
-      case 'API_ERROR':
-        toastMessage = 'API Service Error';
-        break;
-      case 'RUNTIME_ERROR':
-        toastMessage = 'Application Error';
-        break;
-      case 'VALIDATION_ERROR':
-        toastMessage = 'Invalid Input';
-        break;
-      default:
-        toastMessage = 'Unexpected Error';
-    }
-
-    toast.error(toastMessage, {
-      description: toastDescription
+    toast.error("Generation Failed", {
+      description: displayMessage
     });
 
     return {
