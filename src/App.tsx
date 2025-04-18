@@ -13,6 +13,12 @@ import Tutorials from "./pages/Tutorials";
 import Help from "./pages/Help";
 import API from "./pages/API";
 import Templates from "./pages/Templates";
+import About from "./pages/About";
+import Careers from "./pages/Careers";
+import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Cookies from "./pages/Cookies";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -33,20 +39,20 @@ const App = () => (
           <Route path="/beta" element={<NotFound />} />
           <Route path="/templates" element={<Templates />} />
           
-          {/* Resources routes - Now with actual page components */}
+          {/* Resources routes */}
           <Route path="/blog" element={<Blog />} />
           <Route path="/design-tips" element={<DesignTips />} />
           <Route path="/tutorials" element={<Tutorials />} />
           <Route path="/help" element={<Help />} />
           <Route path="/api" element={<API />} />
           
-          {/* Company routes */}
-          <Route path="/about" element={<NotFound />} />
-          <Route path="/careers" element={<NotFound />} />
-          <Route path="/contact" element={<NotFound />} />
-          <Route path="/privacy" element={<NotFound />} />
-          <Route path="/terms" element={<NotFound />} />
-          <Route path="/cookies" element={<NotFound />} />
+          {/* Company routes - Updated with actual page components */}
+          <Route path="/about" element={<About />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/cookies" element={<Cookies />} />
           
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
