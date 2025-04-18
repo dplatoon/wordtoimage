@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -92,6 +91,10 @@ export const ImageGenerationForm = ({
     }
   };
 
+  const handleButtonClick = () => {
+    handleGenerateImage(false);
+  };
+
   const handleApiKeySubmit = (apiKey: string) => {
     setTempApiKey(apiKey);
     setShowApiKeyForm(false);
@@ -136,7 +139,7 @@ export const ImageGenerationForm = ({
         </div>
         <Button 
           className="bg-blue-600 w-full"
-          onClick={handleGenerateImage}
+          onClick={handleButtonClick}
         >
           Generate Image
         </Button>
