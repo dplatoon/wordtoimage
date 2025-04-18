@@ -1,8 +1,6 @@
 
 import { toast } from "@/components/ui/sonner";
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { ServiceError, RunwareErrorResponse } from "@/types/errors";
 
 interface GenerateImageOptions {
   prompt: string;
@@ -13,8 +11,44 @@ interface GenerateImageOptions {
 
 interface GenerateImageResponse {
   imageUrl: string;
-  error?: string;
+  error?: ServiceError;
 }
+
+const handleServiceError = (error: unknown): ServiceError => {
+  if (error instanceof Response) {
+    return {
+      code: 'API_ERROR',
+      message: `OpenAI API Error: ${error.statusText}`,
+      details: `Status: ${error.status}`
+    };
+  }
+
+  if (error instanceof Error) {
+    return {
+      code: 'RUNTIME_ERROR',
+      message: error.message,
+      details: error.stack
+    };
+  }
+
+  return {
+    code: 'UNKNOWN_ERROR',
+    message: 'An unexpected error occurred',
+    details: String(error)
+  };
+};
+
+const validateImageResponse = (data: any): boolean => {
+  if (!data || typeof data !== 'object') {
+    throw new Error('Invalid response format');
+  }
+
+  if (!data.imageUrl && !data.error) {
+    throw new Error('Response missing required fields');
+  }
+
+  return true;
+};
 
 export const generateImage = async ({
   prompt,
@@ -23,8 +57,10 @@ export const generateImage = async ({
   n = 1
 }: GenerateImageOptions): Promise<GenerateImageResponse> => {
   try {
-    // Instead of using the OpenAI API directly with an API key in the frontend,
-    // we're making a request to our secure proxy endpoint
+    if (!prompt?.trim()) {
+      throw new Error('Prompt is required');
+    }
+
     const response = await fetch('/api/generate-image', {
       method: 'POST',
       headers: {
@@ -40,69 +76,45 @@ export const generateImage = async ({
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to generate image');
+      throw new Error(errorData.message || `Failed to generate image: ${response.statusText}`);
     }
 
     const data = await response.json();
+    validateImageResponse(data);
+
     return {
       imageUrl: data.imageUrl
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating image:', error);
-    toast.error('Failed to generate image', {
-      description: error.message || 'Please try again later'
+    
+    const serviceError = handleServiceError(error);
+    
+    let toastMessage = 'Failed to generate image';
+    let toastDescription = serviceError.message;
+    
+    switch (serviceError.code) {
+      case 'API_ERROR':
+        toastMessage = 'OpenAI API Error';
+        break;
+      case 'RUNTIME_ERROR':
+        toastMessage = 'Application Error';
+        break;
+      case 'VALIDATION_ERROR':
+        toastMessage = 'Invalid Input';
+        break;
+      default:
+        toastMessage = 'Unexpected Error';
+    }
+
+    toast.error(toastMessage, {
+      description: toastDescription
     });
+
     return {
       imageUrl: '',
-      error: error.message
+      error: serviceError
     };
   }
 };
 
-// Optional: Add API key input component for development/testing
-interface ApiKeyFormProps {
-  onSubmit: (apiKey: string) => void;
-}
-
-// Moving the React component to a separate file
-// This is commented out since it needs to be in a .tsx file
-/*
-export const ApiKeyForm = ({ onSubmit }: ApiKeyFormProps) => {
-  const [apiKey, setApiKey] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (apiKey.trim()) {
-      onSubmit(apiKey);
-      toast.success('API Key saved temporarily');
-    } else {
-      toast.error('Please enter a valid API key');
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="mb-4 p-4 border border-gray-200 rounded-lg">
-      <div className="mb-2">
-        <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
-          OpenAI API Key (stored only for this session)
-        </label>
-        <div className="flex gap-2">
-          <Input 
-            type="password" 
-            id="apiKey" 
-            value={apiKey} 
-            onChange={(e) => setApiKey(e.target.value)} 
-            placeholder="sk-..." 
-            className="flex-1"
-          />
-          <Button type="submit">Save</Button>
-        </div>
-      </div>
-      <p className="text-xs text-gray-500">
-        This key will be stored temporarily in your browser's memory only.
-        For production use, we recommend using a server-side proxy.
-      </p>
-    </form>
-  );
-};
-*/
