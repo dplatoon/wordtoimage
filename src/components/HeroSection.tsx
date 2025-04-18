@@ -15,7 +15,9 @@ export const HeroSection = () => {
   
   const handleGenerateImage = async () => {
     if (!prompt.trim()) {
-      toast.error('Please enter a prompt for the image');
+      toast.error('Invalid Input', {
+        description: 'Please enter a prompt for the image'
+      });
       return;
     }
     
@@ -31,20 +33,22 @@ export const HeroSection = () => {
       
       const result = await generateImage(options);
       
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+      
       if (result.imageUrl) {
         setGeneratedImageUrl(result.imageUrl);
-        toast.success("Image generated successfully!", {
+        toast.success("Success!", {
           description: "Your custom graphic is ready to download.",
         });
       } else {
-        toast.error("Failed to generate image", {
-          description: result.error || "Please try again with a different prompt."
-        });
+        throw new Error("No image URL received");
       }
     } catch (error) {
       console.error('Failed to generate image:', error);
-      toast.error("Something went wrong", {
-        description: "Failed to generate your image. Please try again."
+      toast.error("Generation Failed", {
+        description: error instanceof Error ? error.message : "Please try again with a different prompt."
       });
     } finally {
       setIsGenerating(false);
