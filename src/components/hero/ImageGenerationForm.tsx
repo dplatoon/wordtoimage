@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { toast } from '@/components/ui/sonner';
 import { generateImage } from '@/services/runwareService';
 import { getErrorDisplayMessage } from '@/utils/errorUtils';
+import { Shield } from 'lucide-react';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
