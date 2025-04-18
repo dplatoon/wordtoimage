@@ -6,8 +6,8 @@ import { ApiKeyForm } from '@/components/ApiKeyForm';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { toast } from '@/components/ui/sonner';
 import { generateImage } from '@/services/runwareService';
-import { getErrorDisplayMessage } from '@/utils/errorUtils';
 import { Shield } from 'lucide-react';
+import { getErrorMessage, getErrorDisplayDetails } from '@/utils/imageGenerationErrors';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -23,15 +23,21 @@ export const ImageGenerationForm = ({
   const [prompt, setPrompt] = useState('');
   const [showApiKeyForm, setShowApiKeyForm] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
+  const [isRetrying, setIsRetrying] = useState(false);
 
-  const handleGenerateImage = async () => {
+  const handleGenerateImage = async (retry: boolean = false) => {
     if (!prompt.trim()) {
-      toast.error('Invalid Input', {
-        description: 'Please enter a prompt for the image'
+      const error = getErrorMessage(new Error('Empty prompt'));
+      const errorDetails = getErrorDisplayDetails(error);
+      
+      toast.error(errorDetails.title, {
+        description: errorDetails.description
       });
       return;
     }
     
+    if (isRetrying && !retry) return;
+    setIsRetrying(retry);
     onGeneratingChange(true);
     onError(null);
     
@@ -46,7 +52,9 @@ export const ImageGenerationForm = ({
       const result = await generateImage(options);
       
       if (result.error) {
-        throw new Error(getErrorDisplayMessage(result.error));
+        const error = getErrorMessage(result.error);
+        const errorDetails = getErrorDisplayDetails(error);
+        throw new Error(errorDetails.description);
       }
       
       if (result.imageUrl) {
@@ -59,14 +67,28 @@ export const ImageGenerationForm = ({
       }
     } catch (error) {
       console.error('Failed to generate image:', error);
-      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
-      onError(errorMessage);
       
-      toast.error("Generation Failed", {
-        description: errorMessage
+      const processedError = getErrorMessage(error);
+      const errorDetails = getErrorDisplayDetails(processedError);
+      
+      onError(errorDetails.description);
+      
+      toast.error(errorDetails.title, {
+        description: errorDetails.description,
+        action: errorDetails.action ? {
+          label: errorDetails.action,
+          onClick: () => {
+            if (errorDetails.action === 'Retry') {
+              handleGenerateImage(true);
+            } else if (errorDetails.action === 'Update API Key') {
+              setShowApiKeyForm(true);
+            }
+          }
+        } : undefined
       });
     } finally {
       onGeneratingChange(false);
+      setIsRetrying(false);
     }
   };
 
