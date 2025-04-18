@@ -5,9 +5,9 @@ import {
   NavigationMenu, 
   NavigationMenuContent, 
   NavigationMenuItem, 
-  NavigationMenuLink, 
   NavigationMenuList, 
-  NavigationMenuTrigger 
+  NavigationMenuTrigger, 
+  NavigationMenuLink 
 } from '@/components/ui/navigation-menu';
 
 export const DesktopNavigation = () => {
@@ -20,23 +20,16 @@ export const DesktopNavigation = () => {
             <ul className="grid w-[200px] gap-2 p-2">
               <li>
                 <NavigationMenuLink asChild>
-                  <a href="#templates" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
-                    <div className="font-medium">Templates</div>
-                  </a>
-                </NavigationMenuLink>
-              </li>
-              <li>
-                <NavigationMenuLink asChild>
-                  <a href="#features" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                  <Link to="/features" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                     <div className="font-medium">Features</div>
-                  </a>
+                  </Link>
                 </NavigationMenuLink>
               </li>
               <li>
                 <NavigationMenuLink asChild>
-                  <a href="#pricing" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                  <Link to="/pricing" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                     <div className="font-medium">Pricing</div>
-                  </a>
+                  </Link>
                 </NavigationMenuLink>
               </li>
               <li>

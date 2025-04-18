@@ -13,6 +13,10 @@ import Tutorials from "./pages/Tutorials";
 import Help from "./pages/Help";
 import API from "./pages/API";
 import Templates from "./pages/Templates";
+import Features from "./pages/Features";
+import Pricing from "./pages/Pricing";
+import Updates from "./pages/Updates";
+import Beta from "./pages/Beta";
 import About from "./pages/About";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
@@ -34,9 +38,11 @@ const App = () => (
           {/* Community route */}
           <Route path="/community" element={<Community />} />
           
-          {/* Product routes */}
-          <Route path="/updates" element={<NotFound />} />
-          <Route path="/beta" element={<NotFound />} />
+          {/* Product routes - Now all properly defined */}
+          <Route path="/features" element={<Features />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/updates" element={<Updates />} />
+          <Route path="/beta" element={<Beta />} />
           <Route path="/templates" element={<Templates />} />
           
           {/* Resources routes */}
@@ -46,7 +52,7 @@ const App = () => (
           <Route path="/help" element={<Help />} />
           <Route path="/api" element={<API />} />
           
-          {/* Company routes - Updated with actual page components */}
+          {/* Company routes */}
           <Route path="/about" element={<About />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />

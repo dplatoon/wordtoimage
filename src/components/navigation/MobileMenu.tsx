@@ -17,10 +17,10 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
       <div className="flex flex-col space-y-3 px-2">
         <div className="py-2">
           <p className="px-3 text-sm font-semibold text-gray-500">Product</p>
-          <a href="#templates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Templates</a>
-          <a href="#features" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Features</a>
-          <a href="#pricing" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Pricing</a>
+          <Link to="/features" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Features</Link>
+          <Link to="/pricing" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Pricing</Link>
           <Link to="/updates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Updates</Link>
+          <Link to="/templates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Templates Library</Link>
           <Link to="/beta" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block">Beta Program</Link>
         </div>
         
