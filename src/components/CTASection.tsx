@@ -1,5 +1,5 @@
 
-import { ArrowRight, PenTool, Sparkles } from 'lucide-react';
+import { Wand2, ImagePlus, PenTool, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 
 export const CTASection = () => {
@@ -17,21 +17,22 @@ export const CTASection = () => {
           
           <div className="relative flex flex-col items-center text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white font-poppins">
-              Ready to Transform Your Social Media?
+              Start Creating Beautiful Graphics Today
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg md:text-xl leading-8 text-white/90">
-              Join thousands of creators and businesses using WordToImage to create stunning social media graphics in seconds.
+              Join thousands of creators and businesses using WordToImage to transform their ideas into stunning visuals instantly.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="bg-white text-blue-600 hover:bg-white/90 text-lg px-8">
-                Get Started Free
-                <ArrowRight className="ml-2 h-5 w-5" />
+                Create Your First Design
+                <Wand2 className="ml-2 h-5 w-5" />
               </Button>
               <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 text-lg">
-                View Templates
+                Explore Templates
+                <ImagePlus className="ml-2 h-5 w-5" />
               </Button>
             </div>
-            <p className="mt-6 text-white/80 text-sm">No credit card required. Cancel anytime.</p>
+            <p className="mt-6 text-white/80 text-sm">Start creating for free. No credit card required.</p>
           </div>
         </div>
       </div>

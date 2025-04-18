@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { Sparkles, Wand2, ImagePlus } from 'lucide-react';
 
 export const HeroHeader = () => {
   return (
@@ -17,11 +17,12 @@ export const HeroHeader = () => {
       </p>
       <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
         <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-6">
-          Try for Free
-          <ArrowRight className="ml-2 h-5 w-5" />
+          Generate Your First Image
+          <Wand2 className="ml-2 h-5 w-5" />
         </Button>
         <Button size="lg" variant="outline" className="text-lg">
-          View Templates
+          Browse Template Gallery
+          <ImagePlus className="ml-2 h-5 w-5" />
         </Button>
       </div>
       <div className="mt-8 flex items-center justify-center lg:justify-start">
