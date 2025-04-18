@@ -1,4 +1,5 @@
 
+import { PrimaryButton } from '@/components/ui/primary-button';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import { LogIn, Wand2 } from 'lucide-react';
@@ -12,10 +13,10 @@ export const AuthButtons = () => {
         <LogIn className="mr-2 h-4 w-4" />
         {t('sign_in')}
       </Button>
-      <Button className="rounded-md bg-blue-600 hover:bg-blue-700 hover:shadow-md">
+      <PrimaryButton gradient className="rounded-md hover:shadow-md">
         <Wand2 className="mr-2 h-4 w-4" />
         {t('start_creating')}
-      </Button>
+      </PrimaryButton>
     </div>
   );
 };

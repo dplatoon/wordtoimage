@@ -1,5 +1,6 @@
 
 import { Wand2, ImagePlus, PenTool, Sparkles } from 'lucide-react';
+import { PrimaryButton } from './ui/primary-button';
 import { Button } from './ui/button';
 
 export const CTASection = () => {
@@ -23,10 +24,10 @@ export const CTASection = () => {
               Join thousands of creators and businesses using WordToImage to transform their ideas into stunning visuals instantly.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-white/90 text-lg px-8">
+              <PrimaryButton size="lg" className="bg-white text-blue-600 hover:bg-white/90 text-lg px-8">
                 Create Your First Design
                 <Wand2 className="ml-2 h-5 w-5" />
-              </Button>
+              </PrimaryButton>
               <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 text-lg">
                 Explore Templates
                 <ImagePlus className="ml-2 h-5 w-5" />
