@@ -1,10 +1,11 @@
-import { ArrowRight, Image, Sparkles, Star, Download, Shield } from 'lucide-react';
+import { ArrowRight, Image, Sparkles, Star, Download, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { toast } from '@/components/ui/sonner';
 import { generateImage } from '@/services/runwareService';
 import { Input } from './ui/input';
 import { ApiKeyForm } from './ApiKeyForm';
+import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -12,6 +13,7 @@ export const HeroSection = () => {
   const [generatedImageUrl, setGeneratedImageUrl] = useState('');
   const [showApiKeyForm, setShowApiKeyForm] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
+  const [generationError, setGenerationError] = useState<string | null>(null);
   
   const handleGenerateImage = async () => {
     if (!prompt.trim()) {
@@ -22,6 +24,7 @@ export const HeroSection = () => {
     }
     
     setIsGenerating(true);
+    setGenerationError(null);
     
     try {
       const options = { 
@@ -34,7 +37,7 @@ export const HeroSection = () => {
       const result = await generateImage(options);
       
       if (result.error) {
-        throw new Error(result.error.message);
+        throw new Error(result.error.message || "Unknown error occurred during image generation");
       }
       
       if (result.imageUrl) {
@@ -47,8 +50,12 @@ export const HeroSection = () => {
       }
     } catch (error) {
       console.error('Failed to generate image:', error);
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+      
+      setGenerationError(errorMessage);
+      
       toast.error("Generation Failed", {
-        description: error instanceof Error ? error.message : "Please try again with a different prompt."
+        description: errorMessage
       });
     } finally {
       setIsGenerating(false);
@@ -63,7 +70,6 @@ export const HeroSection = () => {
   const handleDownload = () => {
     if (!generatedImageUrl) return;
     
-    // Create an anchor element and trigger download
     const a = document.createElement('a');
     a.href = generatedImageUrl;
     a.download = `runware-image-${Date.now()}.png`;
@@ -154,6 +160,12 @@ export const HeroSection = () => {
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
                         <p className="text-gray-500">Generating your custom graphic...</p>
                       </div>
+                    ) : generationError ? (
+                      <Alert variant="destructive" className="w-full max-w-md mx-4">
+                        <AlertTriangle className="h-4 w-4" />
+                        <AlertTitle>Image Generation Error</AlertTitle>
+                        <AlertDescription>{generationError}</AlertDescription>
+                      </Alert>
                     ) : generatedImageUrl ? (
                       <img 
                         src={generatedImageUrl} 
