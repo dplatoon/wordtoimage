@@ -1,14 +1,16 @@
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ButtonHTMLAttributes, forwardRef } from "react"
+import { forwardRef } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonVariants } from "@/components/ui/button"
 
-export interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, 
+export interface PrimaryButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof buttonVariants> {
   gradient?: boolean
   children?: React.ReactNode
+  className?: string
+  size?: "default" | "sm" | "lg" | "icon"
 }
 
 export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
