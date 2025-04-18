@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -31,7 +32,12 @@ export const ImageGenerationForm = ({
       const errorDetails = getErrorDisplayDetails(error);
       
       toast.error(errorDetails.title, {
-        description: errorDetails.description
+        description: errorDetails.description,
+        duration: 5000,
+        action: {
+          label: 'Dismiss',
+          onClick: () => {}
+        }
       });
       return;
     }
@@ -59,8 +65,13 @@ export const ImageGenerationForm = ({
       
       if (result.imageUrl) {
         onImageGenerated(result.imageUrl);
-        toast.success("Success!", {
+        toast.success("Image Generated!", {
           description: "Your custom graphic is ready to download.",
+          duration: 5000,
+          action: {
+            label: 'Generate Another',
+            onClick: () => handleGenerateImage(false)
+          }
         });
       } else {
         throw new Error("No image URL received");
@@ -75,6 +86,7 @@ export const ImageGenerationForm = ({
       
       toast.error(errorDetails.title, {
         description: errorDetails.description,
+        duration: 8000,
         action: errorDetails.action ? {
           label: errorDetails.action,
           onClick: () => {
@@ -100,6 +112,10 @@ export const ImageGenerationForm = ({
   const handleApiKeySubmit = (apiKey: string) => {
     setTempApiKey(apiKey);
     setShowApiKeyForm(false);
+    // Automatically retry generation if there was a previous attempt
+    if (prompt.trim()) {
+      handleGenerateImage(true);
+    }
   };
 
   return (
@@ -140,10 +156,11 @@ export const ImageGenerationForm = ({
           />
         </div>
         <Button 
-          className="bg-blue-600 w-full"
+          className="bg-blue-600 w-full hover:bg-blue-700 transition-colors"
           onClick={handleButtonClick}
+          disabled={isRetrying}
         >
-          Generate Image
+          {isRetrying ? 'Retrying...' : 'Generate Image'}
         </Button>
       </div>
     </div>

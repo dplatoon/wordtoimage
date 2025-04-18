@@ -1,4 +1,3 @@
-
 export interface ServiceError {
   code: string;
   message: string;
@@ -12,4 +11,16 @@ export interface RunwareErrorResponse {
     message: string;
   }>;
   errorMessage?: string;
+}
+
+export interface ErrorAction {
+  label: string;
+  action: () => void;
+}
+
+export interface ErrorDisplay {
+  title: string;
+  description: string;
+  action?: ErrorAction;
+  severity: 'error' | 'warning' | 'info';
 }

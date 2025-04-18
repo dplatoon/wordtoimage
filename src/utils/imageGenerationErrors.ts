@@ -1,4 +1,3 @@
-
 export type ImageGenerationErrorType = 
   | 'VALIDATION_ERROR'
   | 'API_ERROR'
@@ -18,6 +17,7 @@ export interface ImageGenerationError {
   message: string;
   details?: string;
   retryable?: boolean;
+  severity?: 'error' | 'warning' | 'info';
 }
 
 export const getErrorMessage = (error: unknown): ImageGenerationError => {
@@ -30,7 +30,8 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
         type: 'INVALID_API_KEY',
         message: 'Invalid or missing API key',
         details: error.message,
-        retryable: false
+        retryable: false,
+        severity: 'error'
       };
     }
     
@@ -40,7 +41,8 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
         type: 'RATE_LIMIT',
         message: 'Rate limit exceeded',
         details: error.message,
-        retryable: true
+        retryable: true,
+        severity: 'warning'
       };
     }
 
@@ -50,7 +52,8 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
         type: 'NSFW_CONTENT',
         message: 'Content flagged as inappropriate',
         details: error.message,
-        retryable: false
+        retryable: false,
+        severity: 'error'
       };
     }
 
@@ -60,17 +63,19 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
         type: 'CONNECTION_ERROR',
         message: 'Network connection error',
         details: error.message,
-        retryable: true
+        retryable: true,
+        severity: 'warning'
       };
     }
 
-    // Prompt related errors
-    if (message.includes('prompt')) {
+    // Empty prompt errors
+    if (message.includes('empty prompt') || !message.trim()) {
       return {
         type: 'PROMPT_ERROR',
-        message: 'Invalid or inappropriate prompt',
-        details: error.message,
-        retryable: false
+        message: 'Please enter a description',
+        details: 'The prompt cannot be empty',
+        retryable: false,
+        severity: 'info'
       };
     }
 
@@ -78,29 +83,10 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
     if (message.includes('model')) {
       return {
         type: 'MODEL_ERROR',
-        message: 'Model processing error',
+        message: 'AI model error',
         details: error.message,
-        retryable: true
-      };
-    }
-
-    // Payment/quota errors
-    if (message.includes('quota') || message.includes('payment') || message.includes('subscription')) {
-      return {
-        type: 'PAYMENT_ERROR',
-        message: 'Payment or quota error',
-        details: error.message,
-        retryable: false
-      };
-    }
-
-    // Server errors
-    if (message.includes('server') || message.includes('5xx')) {
-      return {
-        type: 'SERVER_ERROR',
-        message: 'Server error occurred',
-        details: error.message,
-        retryable: true
+        retryable: true,
+        severity: 'error'
       };
     }
 
@@ -108,7 +94,8 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
       type: 'UNKNOWN_ERROR',
       message: 'An unexpected error occurred',
       details: error.message,
-      retryable: true
+      retryable: true,
+      severity: 'error'
     };
   }
 
@@ -116,7 +103,8 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
     type: 'UNKNOWN_ERROR',
     message: 'An unexpected error occurred',
     details: String(error),
-    retryable: true
+    retryable: true,
+    severity: 'error'
   };
 };
 
@@ -147,28 +135,17 @@ export const getErrorDisplayDetails = (error: ImageGenerationError): {
     case 'NSFW_CONTENT':
       return {
         title: 'Content Warning',
-        description: 'Your prompt may generate inappropriate content. Please modify it.',
+        description: 'Your prompt may generate inappropriate content. Please modify it.'
       };
     case 'PROMPT_ERROR':
       return {
         title: 'Invalid Prompt',
-        description: 'Please modify your prompt and try again.'
+        description: 'Please enter a description for the image you want to generate.'
       };
     case 'MODEL_ERROR':
       return {
-        title: 'Model Error',
-        description: 'The AI model encountered an error. Please try again.',
-        action: 'Retry'
-      };
-    case 'PAYMENT_ERROR':
-      return {
-        title: 'Payment Required',
-        description: 'Please check your subscription or quota.',
-      };
-    case 'SERVER_ERROR':
-      return {
-        title: 'Server Error',
-        description: 'Our servers are experiencing issues. Please try again later.',
+        title: 'AI Model Error',
+        description: 'The AI model encountered an issue. Please try again.',
         action: 'Retry'
       };
     default:
