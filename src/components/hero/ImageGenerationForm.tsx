@@ -5,8 +5,9 @@ import { ApiKeyForm } from '@/components/ApiKeyForm';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { toast } from '@/components/ui/sonner';
 import { generateImage } from '@/services/runwareService';
-import { Shield } from 'lucide-react';
+import { Shield, AlertTriangle } from 'lucide-react';
 import { getErrorMessage, getErrorDisplayDetails } from '@/utils/imageGenerationErrors';
+import type { MouseEvent } from 'react';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -91,7 +92,8 @@ export const ImageGenerationForm = ({
     }
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     handleGenerateImage(false);
   };
 
