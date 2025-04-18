@@ -29,9 +29,8 @@ export const BetaBanner = () => {
 
   const handleFeedbackClick = () => {
     // In a real implementation, this could open a feedback form
-    toast({
-      title: "Feedback",
-      description: "Thanks for participating in our beta! A feedback form will open shortly.",
+    toast("Thanks for participating in our beta! A feedback form will open shortly.", {
+      description: "We value your input to improve WordToImage.",
       duration: 5000,
     });
     
