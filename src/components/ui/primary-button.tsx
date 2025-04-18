@@ -1,15 +1,18 @@
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ButtonProps } from "@radix-ui/react-button"
-import { forwardRef } from "react"
+import { ButtonHTMLAttributes, forwardRef } from "react"
+import { VariantProps } from "class-variance-authority"
+import { buttonVariants } from "@/components/ui/button"
 
-export interface PrimaryButtonProps extends ButtonProps {
+export interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, 
+  VariantProps<typeof buttonVariants> {
   gradient?: boolean
+  children?: React.ReactNode
 }
 
 export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
-  ({ className, gradient, ...props }, ref) => {
+  ({ className, gradient, children, ...props }, ref) => {
     return (
       <Button
         ref={ref}
@@ -21,7 +24,9 @@ export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
           className
         )}
         {...props}
-      />
+      >
+        {children}
+      </Button>
     )
   }
 )
