@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { Sparkles, Wand2, ImagePlus, ArrowRight } from 'lucide-react';
 
@@ -16,12 +15,16 @@ export const HeroHeader = () => {
 
   return (
     <div className="text-center lg:text-left mb-8">
-      <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 mb-6 text-sm font-medium">
-        <Sparkles className="h-4 w-4 mr-2" />
+      <div 
+        className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 mb-6 text-sm font-medium"
+        role="banner"
+        aria-label="Feature highlight"
+      >
+        <Sparkles className="h-4 w-4 mr-2" aria-hidden="true" />
         <span>Turn Words Into Stunning Graphics</span>
       </div>
       <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-3xl" aria-hidden="true" />
         <h1 className="relative text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 font-poppins mb-6">
           Create <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Social Media Graphics</span> in Seconds
         </h1>
@@ -46,7 +49,11 @@ export const HeroHeader = () => {
         Try a Sample Prompt
         <ArrowRight className="ml-1 h-4 w-4 transform transition-transform group-hover:translate-x-1" />
       </button>
-      <div className="mt-8 flex items-center justify-center lg:justify-start">
+      <div 
+        className="mt-8 flex items-center justify-center lg:justify-start"
+        role="complementary"
+        aria-label="User statistics"
+      >
         <div className="flex -space-x-2">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="inline-block h-8 w-8 rounded-full bg-gray-300 border-2 border-white" />

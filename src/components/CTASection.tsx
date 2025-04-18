@@ -5,14 +5,14 @@ import { Button } from './ui/button';
 
 export const CTASection = () => {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-16 md:py-24" aria-label="Call to Action">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 to-purple-600 py-16 px-6 sm:py-24 sm:px-12">
-          {/* Decorative elements */}
-          <div className="absolute top-1/3 left-0 opacity-10">
+          {/* Decorative elements - hidden from screen readers */}
+          <div className="absolute top-1/3 left-0 opacity-10" aria-hidden="true">
             <PenTool className="h-64 w-64 text-white" />
           </div>
-          <div className="absolute bottom-0 right-10 opacity-10">
+          <div className="absolute bottom-0 right-10 opacity-10" aria-hidden="true">
             <Sparkles className="h-48 w-48 text-white" />
           </div>
           
@@ -27,16 +27,22 @@ export const CTASection = () => {
               <PrimaryButton 
                 size="lg" 
                 className="bg-white text-blue-600 hover:bg-white/90 text-lg px-8"
+                aria-label="Create your first design with WordToImage"
               >
                 Create Your First Design
-                <Wand2 className="ml-2 h-5 w-5" />
+                <Wand2 className="ml-2 h-5 w-5" aria-hidden="true" />
               </PrimaryButton>
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 text-lg">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-white border-white hover:bg-white/10 text-lg"
+                aria-label="Browse template gallery"
+              >
                 Explore Templates
-                <ImagePlus className="ml-2 h-5 w-5" />
+                <ImagePlus className="ml-2 h-5 w-5" aria-hidden="true" />
               </Button>
             </div>
-            <p className="mt-6 text-white/80 text-sm">Start creating for free. No credit card required.</p>
+            <p className="mt-6 text-white/80 text-sm" role="note">Start creating for free. No credit card required.</p>
           </div>
         </div>
       </div>
