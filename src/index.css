@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -99,6 +100,36 @@
 
   body {
     @apply bg-background text-foreground font-nunito;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  h1 {
+    @apply text-4xl font-bold font-poppins tracking-tight mb-4;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold font-poppins tracking-tight mb-3;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold font-poppins tracking-tight mb-2;
+  }
+
+  h4 {
+    @apply text-xl font-medium font-poppins tracking-tight mb-2;
+  }
+
+  p {
+    @apply mb-4;
+  }
+
+  a {
+    @apply transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary rounded-sm;
+  }
+
+  button, input, textarea, select {
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200;
   }
 }
 
@@ -116,14 +147,54 @@
   }
   
   .lovable-button-primary {
-    @apply lovable-button bg-gradient-to-r from-lovable-rose to-lovable-pink text-white hover:shadow-lg hover:shadow-lovable-pink/30;
+    @apply lovable-button bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/30 focus:ring-blue-500;
   }
   
   .lovable-button-secondary {
-    @apply lovable-button bg-white border border-lovable-lavender text-gray-700 hover:bg-lovable-softgray;
+    @apply lovable-button bg-white border border-lovable-lavender text-gray-700 hover:bg-lovable-softgray focus:ring-gray-400;
   }
 
   .floating-heart {
     @apply animate-float;
+  }
+
+  .section-heading {
+    @apply text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4;
+  }
+
+  .section-subheading {
+    @apply text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto;
+  }
+  
+  .feature-card {
+    @apply bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100;
+  }
+
+  .feature-icon {
+    @apply h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 mb-5;
+  }
+
+  .sticky-header {
+    @apply fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50 shadow-sm transition-all duration-300;
+  }
+
+  .active-nav-item {
+    @apply text-blue-600 font-medium;
+  }
+
+  .btn-cta {
+    @apply rounded-full font-semibold py-3 px-8 transition-all duration-300 inline-flex items-center justify-center;
+  }
+  
+  .btn-primary {
+    @apply btn-cta bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+  }
+  
+  .btn-secondary {
+    @apply btn-cta bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-400;
+  }
+
+  .loading-spinner {
+    @apply animate-spin h-5 w-5 text-white;
   }
 }

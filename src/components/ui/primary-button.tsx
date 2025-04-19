@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { forwardRef } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonVariants } from "@/components/ui/button"
+import { Loader2 } from "lucide-react"
 
 export interface PrimaryButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof buttonVariants> {
@@ -11,23 +12,33 @@ export interface PrimaryButtonProps extends React.ButtonHTMLAttributes<HTMLButto
   children?: React.ReactNode
   className?: string
   size?: "default" | "sm" | "lg" | "icon"
+  isLoading?: boolean
+  loadingText?: string
 }
 
 export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
-  ({ className, gradient, children, ...props }, ref) => {
+  ({ className, gradient, children, isLoading, loadingText, ...props }, ref) => {
     return (
       <Button
         ref={ref}
         className={cn(
-          "font-medium transition-all duration-300",
+          "font-medium transition-all duration-300 focus:ring-2 focus:ring-offset-2",
           gradient
-            ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-600/20"
-            : "bg-blue-600 hover:bg-blue-700",
+            ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-600/20 focus:ring-blue-500"
+            : "bg-blue-600 hover:bg-blue-700 focus:ring-blue-500",
           className
         )}
+        disabled={isLoading || props.disabled}
         {...props}
       >
-        {children}
+        {isLoading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            {loadingText || 'Loading...'}
+          </>
+        ) : (
+          children
+        )}
       </Button>
     )
   }

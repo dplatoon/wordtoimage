@@ -8,10 +8,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { Loader2 } from 'lucide-react';
 
 // Define our interface based on what we actually need and use
 interface Profile {
-  id: number;  // Changed to number to match the database schema
+  id: number;  // Using number to match the database schema
   username: string;
   full_name: string;
   bio: string;
@@ -43,9 +44,9 @@ export default function Dashboard() {
       // Transform the database result to match our Profile interface
       if (data) {
         const profileData: Profile = {
-          id: data.id, // No conversion needed since we updated the interface
+          id: parseInt(data.id.toString()), // Ensure it's a number
           username: data.username || '',
-          full_name: data.username || '', // If full_name doesn't exist in data, use username as fallback
+          full_name: data.full_name || data.username || '', // If full_name doesn't exist, use username as fallback
           bio: data.bio || '',
           avatar_url: data.avatar_url || '',
         };
@@ -89,22 +90,24 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        <span className="sr-only">Loading profile...</span>
       </div>
     );
   }
 
   return (
     <ProtectedRoute>
-      <div className="container max-w-4xl py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Profile Settings</CardTitle>
+      <div className="container max-w-4xl py-12">
+        <h1 className="text-3xl font-bold mb-8 text-center md:text-left">Profile Settings</h1>
+        <Card className="shadow-md">
+          <CardHeader className="bg-gray-50 border-b">
+            <CardTitle className="text-xl">Your Information</CardTitle>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={updateProfile} className="space-y-4">
-              <div>
-                <label htmlFor="username" className="text-sm font-medium">
+          <CardContent className="pt-6">
+            <form onSubmit={updateProfile} className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="username" className="text-sm font-medium block">
                   Username
                 </label>
                 <Input
@@ -113,11 +116,16 @@ export default function Dashboard() {
                   onChange={(e) =>
                     setProfile((prev) => prev ? { ...prev, username: e.target.value } : null)
                   }
+                  className="max-w-md"
+                  aria-describedby="username-description"
                 />
+                <p id="username-description" className="text-sm text-gray-500">
+                  This is your public display name
+                </p>
               </div>
               
-              <div>
-                <label htmlFor="fullName" className="text-sm font-medium">
+              <div className="space-y-2">
+                <label htmlFor="fullName" className="text-sm font-medium block">
                   Full Name
                 </label>
                 <Input
@@ -126,11 +134,12 @@ export default function Dashboard() {
                   onChange={(e) =>
                     setProfile((prev) => prev ? { ...prev, full_name: e.target.value } : null)
                   }
+                  className="max-w-md"
                 />
               </div>
 
-              <div>
-                <label htmlFor="bio" className="text-sm font-medium">
+              <div className="space-y-2">
+                <label htmlFor="bio" className="text-sm font-medium block">
                   Bio
                 </label>
                 <Textarea
@@ -140,12 +149,28 @@ export default function Dashboard() {
                     setProfile((prev) => prev ? { ...prev, bio: e.target.value } : null)
                   }
                   rows={4}
+                  className="max-w-md"
+                  placeholder="Tell us a little about yourself"
                 />
+                <p className="text-sm text-gray-500">
+                  Brief description for your profile
+                </p>
               </div>
 
-              <Button type="submit" disabled={updating}>
-                {updating ? 'Saving...' : 'Save Changes'}
-              </Button>
+              <div className="pt-2">
+                <Button 
+                  type="submit" 
+                  disabled={updating}
+                  className="bg-blue-600 hover:bg-blue-700 focus:ring-blue-500"
+                >
+                  {updating ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : 'Save Changes'}
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>

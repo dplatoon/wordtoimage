@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,6 +22,17 @@ export default {
 			fontFamily: {
 				'nunito': ['Nunito', 'sans-serif'],
 				'poppins': ['Poppins', 'sans-serif'],
+			},
+			fontSize: {
+				'xs': ['0.75rem', { lineHeight: '1.5' }],
+				'sm': ['0.875rem', { lineHeight: '1.5' }],
+				'base': ['1rem', { lineHeight: '1.5' }],
+				'lg': ['1.125rem', { lineHeight: '1.5' }],
+				'xl': ['1.25rem', { lineHeight: '1.5' }],
+				'2xl': ['1.5rem', { lineHeight: '1.35' }],
+				'3xl': ['1.875rem', { lineHeight: '1.25' }],
+				'4xl': ['2.25rem', { lineHeight: '1.25' }],
+				'5xl': ['3rem', { lineHeight: '1.2' }],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -131,6 +143,10 @@ export default {
 					to: {
 						transform: 'rotate(360deg)'
 					}
+				},
+				'pulse': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.5' }
 				}
 			},
 			animation: {
@@ -139,7 +155,11 @@ export default {
 				'float': 'float 3s ease-in-out infinite',
 				'heart-beat': 'heart-beat 2s ease-in-out infinite',
 				'fade-in': 'fade-in 0.7s ease-out',
-				'slow-spin': 'slow-spin 12s linear infinite'
+				'slow-spin': 'slow-spin 12s linear infinite',
+				'pulse': 'pulse 1.5s ease-in-out infinite'
+			},
+			boxShadow: {
+				'focus': '0 0 0 2px rgba(59, 130, 246, 0.5)',
 			}
 		}
 	},
