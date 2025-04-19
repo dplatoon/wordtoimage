@@ -3,15 +3,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { ApiKeyHeader } from '../ApiKeyHeader';
 import { describe, it, expect, vi } from 'vitest';
 
-// Add type assertion to extend the global namespace
-declare global {
-  namespace Vi {
-    interface JestAssertion {
-      toBeInTheDocument(): void;
-      toHaveAttribute(attr: string, value?: string): void;
-    }
-  }
-}
+// We don't need custom type declarations as they're handled in setup.ts
 
 describe('ApiKeyHeader', () => {
   it('should render with "Add API Key" when no key is present', () => {
