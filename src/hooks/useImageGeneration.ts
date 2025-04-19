@@ -3,27 +3,26 @@ import { useState } from 'react';
 import { generateImage } from '@/services/runwareService';
 import { toast } from '@/components/ui/sonner';
 import { getErrorMessage, getErrorDisplayDetails } from '@/utils/imageGenerationErrors';
-
-interface UseImageGenerationProps {
-  onImageGenerated: (url: string) => void;
-  onGeneratingChange: (isGenerating: boolean) => void;
-  onError: (error: string | null) => void;
-}
+import { ImageGenerationHookProps, ImageGenerationOptions } from '@/types/imageGeneration';
 
 export const useImageGeneration = ({
   onImageGenerated,
   onGeneratingChange,
   onError,
-}: UseImageGenerationProps) => {
+}: ImageGenerationHookProps) => {
   const [isRetrying, setIsRetrying] = useState(false);
 
-  const generateImageFromPrompt = async (prompt: string, tempApiKey: string, retry: boolean = false) => {
+  const generateImageFromPrompt = async (
+    prompt: string, 
+    tempApiKey: string, 
+    retry: boolean = false
+  ) => {
     if (!tempApiKey) {
       toast.error('API Key Required', {
         description: 'Please enter your OpenAI API key to generate images.',
         action: {
           label: 'Add API Key',
-          onClick: () => {} // This will be handled by the parent component
+          onClick: () => {}
         }
       });
       return;
@@ -50,10 +49,11 @@ export const useImageGeneration = ({
     onError(null);
     
     try {
-      const options = { 
+      const options: ImageGenerationOptions = {
         prompt: prompt.trim(),
-        size: '1024x1024' as '1024x1024',
-        quality: 'standard' as 'standard'
+        size: '1024x1024',
+        quality: 'standard',
+        numberResults: 1
       };
       
       const result = await generateImage(options);

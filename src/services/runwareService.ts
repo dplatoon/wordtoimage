@@ -2,34 +2,13 @@
 import { toast } from "@/components/ui/sonner";
 import { ServiceError } from "@/types/errors";
 import { ImageGenerationError, handleApiError, getErrorDisplayMessage } from "@/utils/errorUtils";
+import { ImageGenerationOptions, ImageGenerationResponse } from "@/types/imageGeneration";
 
-interface GenerateImageOptions {
-  prompt: string;
-  size?: '256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792';
-  quality?: 'standard' | 'hd';
-  numberResults?: number;
-}
-
-interface GenerateImageResponse {
-  imageUrl: string;
-  error?: ServiceError;
-}
-
-export const generateImage = async ({
-  prompt,
-  size = '1024x1024',
-  quality = 'standard',
-  numberResults = 1
-}: GenerateImageOptions): Promise<GenerateImageResponse> => {
-  console.log('Image Generation Request:', { 
-    prompt, 
-    size, 
-    quality, 
-    numberResults
-  });
+export const generateImage = async (options: ImageGenerationOptions): Promise<ImageGenerationResponse> => {
+  console.log('Image Generation Request:', options);
   
   try {
-    if (!prompt?.trim()) {
+    if (!options.prompt?.trim()) {
       throw new ImageGenerationError('Prompt is required', 'VALIDATION_ERROR');
     }
 
@@ -39,10 +18,10 @@ export const generateImage = async ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        prompt,
-        n: numberResults,
-        size,
-        quality
+        prompt: options.prompt,
+        n: options.numberResults || 1,
+        size: options.size,
+        quality: options.quality
       })
     });
 
