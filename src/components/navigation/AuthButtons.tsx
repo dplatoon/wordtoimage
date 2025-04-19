@@ -40,11 +40,11 @@ export const AuthButtons = () => {
               {user.email}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuContent align="end" className="w-56">
             <Link to="/dashboard">
               <DropdownMenuItem>
                 <Settings className="mr-2 h-4 w-4" />
-                Dashboard
+                Profile Settings
               </DropdownMenuItem>
             </Link>
             <DropdownMenuItem onClick={handleSignOut}>

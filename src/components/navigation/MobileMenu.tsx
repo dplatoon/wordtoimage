@@ -74,7 +74,7 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
                 onClick={() => setOpen(false)}
               >
                 <Settings className="mr-2 h-4 w-4" />
-                Dashboard
+                Profile Settings
               </Link>
               <button
                 onClick={handleSignOut}

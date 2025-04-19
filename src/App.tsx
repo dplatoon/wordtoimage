@@ -26,6 +26,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Cookies from "./pages/Cookies";
 import Auth from "./pages/Auth";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -59,11 +60,7 @@ const App = () => (
             <Route path="/cookies" element={<Cookies />} />
             <Route
               path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <div>Dashboard (Coming Soon)</div>
-                </ProtectedRoute>
-              }
+              element={<Dashboard />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
