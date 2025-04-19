@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -10,9 +9,8 @@ import { toast } from 'sonner';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { Loader2 } from 'lucide-react';
 
-// Define our interface based on what we actually need and use
 interface Profile {
-  id: string;  // Changed to string to match database response
+  id: number;
   username: string;
   full_name: string;
   bio: string;
@@ -36,17 +34,16 @@ export default function Dashboard() {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('id', user?.id)
+        .eq('user_id', user?.id)
         .single();
 
       if (error) throw error;
       
-      // Transform the database result to match our Profile interface
       if (data) {
         const profileData: Profile = {
-          id: data.id.toString(), // Convert to string to match our interface
+          id: data.id,
           username: data.username || '',
-          full_name: data.username || '', // Use username as fallback if full_name doesn't exist
+          full_name: data.username || '',
           bio: data.bio || '',
           avatar_url: data.avatar_url || '',
         };
@@ -75,7 +72,7 @@ export default function Dashboard() {
           bio: profile.bio,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', Number(profile.id)); // Convert string ID to number for the query
+        .eq('id', profile.id);
 
       if (error) throw error;
       toast.success('Profile updated successfully');
