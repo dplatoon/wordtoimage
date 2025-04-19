@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ApiKeyForm } from '@/components/ApiKeyForm';
@@ -24,6 +24,16 @@ export const ImageGenerationForm = ({
   const [showApiKeyForm, setShowApiKeyForm] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
   const [isRetrying, setIsRetrying] = useState(false);
+
+  // Load API key from localStorage on component mount
+  useEffect(() => {
+    const savedApiKey = localStorage.getItem('temp_runware_key');
+    if (savedApiKey) {
+      setTempApiKey(savedApiKey);
+    } else {
+      setShowApiKeyForm(true);
+    }
+  }, []);
 
   const handleGenerateImage = async (retry: boolean = false) => {
     if (!tempApiKey) {
@@ -114,18 +124,19 @@ export const ImageGenerationForm = ({
     }
   };
 
-  const handleButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    handleGenerateImage(false);
-  };
-
   const handleApiKeySubmit = (apiKey: string) => {
     setTempApiKey(apiKey);
     setShowApiKeyForm(false);
+    localStorage.setItem('temp_runware_key', apiKey);
     // Automatically retry generation if there was a previous attempt
     if (prompt.trim()) {
       handleGenerateImage(true);
     }
+  };
+
+  const handleButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    handleGenerateImage(false);
   };
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -138,28 +149,34 @@ export const ImageGenerationForm = ({
       <div className="bg-white rounded-xl p-5">
         <Alert variant="default" className="mb-4">
           <Construction className="h-4 w-4" />
-          <AlertTitle>Feature Under Development</AlertTitle>
+          <AlertTitle>Get Started with Image Generation</AlertTitle>
           <AlertDescription>
-            Our image generation feature is currently in beta. You might experience some inconsistencies or errors while we improve the system. We appreciate your patience!
+            To use the image generation feature, you'll need a Runware API key. Get yours at{' '}
+            <a 
+              href="https://runware.ai" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-blue-600 hover:underline"
+            >
+              Runware.ai
+            </a>
           </AlertDescription>
         </Alert>
 
-        {!tempApiKey && (
-          <div className="mb-3 flex items-center justify-between">
-            <div className="flex items-center text-sm text-gray-600">
-              <Shield className="h-4 w-4 mr-1 text-green-500" />
-              <span>Using Runware AI for image generation</span>
-            </div>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => setShowApiKeyForm(!showApiKeyForm)}
-              className="text-xs"
-            >
-              {showApiKeyForm ? 'Hide' : 'API Options'}
-            </Button>
+        <div className="mb-3 flex items-center justify-between">
+          <div className="flex items-center text-sm text-gray-600">
+            <Shield className="h-4 w-4 mr-1 text-green-500" />
+            <span>Using Runware AI for image generation</span>
           </div>
-        )}
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => setShowApiKeyForm(!showApiKeyForm)}
+            className="text-xs"
+          >
+            {tempApiKey ? 'Update API Key' : 'Add API Key'}
+          </Button>
+        </div>
         
         {showApiKeyForm && (
           <ApiKeyForm 
@@ -169,7 +186,10 @@ export const ImageGenerationForm = ({
           />
         )}
         
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleGenerateImage(false);
+        }}>
           <div className="mb-4">
             <Input
               type="text"
@@ -182,8 +202,7 @@ export const ImageGenerationForm = ({
           <Button 
             type="submit"
             className="bg-blue-600 w-full hover:bg-blue-700 transition-colors"
-            onClick={handleButtonClick}
-            disabled={isRetrying}
+            disabled={isRetrying || !tempApiKey}
           >
             {isRetrying ? 'Retrying...' : 'Generate Image'}
           </Button>
