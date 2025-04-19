@@ -75,7 +75,7 @@ export default function Dashboard() {
           bio: profile.bio,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', parseInt(profile.id)); // Convert the string ID back to a number for the query
+        .eq('id', Number(profile.id)); // Convert string ID to number for the query
 
       if (error) throw error;
       toast.success('Profile updated successfully');
