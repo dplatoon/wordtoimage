@@ -3,6 +3,16 @@ import { render, screen } from '@testing-library/react';
 import { InfoAlert } from '../InfoAlert';
 import { describe, it, expect } from 'vitest';
 
+// Add type assertion to extend the global namespace
+declare global {
+  namespace Vi {
+    interface JestAssertion {
+      toBeInTheDocument(): void;
+      toHaveAttribute(attr: string, value?: string): void;
+    }
+  }
+}
+
 describe('InfoAlert', () => {
   it('should render all text content correctly', () => {
     render(<InfoAlert />);
