@@ -25,6 +25,15 @@ export const generateImage = async ({
 }: GenerateImageOptions): Promise<GenerateImageResponse> => {
   const apiKey = localStorage.getItem('temp_runware_key');
   
+  console.log('Image Generation Request:', { 
+    prompt, 
+    width, 
+    height, 
+    model, 
+    numberResults, 
+    hasApiKey: !!apiKey 
+  });
+  
   try {
     if (!apiKey) {
       throw new Error('No API key found. Please add a Runware API key.');
@@ -49,8 +58,11 @@ export const generateImage = async ({
       })
     });
 
+    console.log('Runware API Response Status:', response.status);
+
     if (!response.ok) {
       const errorData: RunwareErrorResponse = await response.json();
+      console.error('Runware API Error:', errorData);
       throw new ImageGenerationError(
         errorData.errorMessage || `Failed to generate image: ${response.statusText}`,
         'API_ERROR',
@@ -60,6 +72,8 @@ export const generateImage = async ({
 
     const data = await response.json();
     
+    console.log('Received Image Data:', data);
+
     if (!data || typeof data !== 'object') {
       throw new ImageGenerationError('Invalid response format', 'API_ERROR');
     }
