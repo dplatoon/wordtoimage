@@ -28,6 +28,14 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
     console.log('API Response Status:', response.status);
 
     if (!response.ok) {
+      // Check specifically for 404 errors (endpoint not found)
+      if (response.status === 404) {
+        throw new ImageGenerationError(
+          'Image generation service is not available. Please make sure the API is properly configured.',
+          'API_NOT_FOUND'
+        );
+      }
+      
       let errorData;
       try {
         errorData = await response.json();

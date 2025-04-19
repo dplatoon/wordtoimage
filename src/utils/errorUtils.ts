@@ -55,6 +55,8 @@ export const getErrorDisplayMessage = (error: ServiceError): string => {
       return 'Invalid input parameters. Please check your prompt.';
     case 'API_ERROR':
       return `Service is temporarily unavailable. ${error.details || ''}`;
+    case 'API_NOT_FOUND':
+      return 'Image generation API is not configured. Please check the server setup.';
     default:
       return error.message || 'An unexpected error occurred';
   }

@@ -1,7 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Image, Download, AlertTriangle } from 'lucide-react';
+import { Image, Download, AlertTriangle, Server } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 
 interface ImagePreviewProps {
@@ -31,6 +31,9 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
     }
   };
 
+  // Check if error is related to API not being found
+  const isApiNotFoundError = error?.includes('not configured') || error?.includes('not available');
+
   return (
     <div className="h-[350px] md:h-[400px] bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
       {isGenerating ? (
@@ -42,7 +45,19 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
         <Alert variant="destructive" className="w-full max-w-md mx-4">
           <AlertTriangle className="h-4 w-4" />
           <AlertTitle>Image Generation Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
+          <AlertDescription>
+            {isApiNotFoundError ? (
+              <div>
+                <p className="mb-2">{error}</p>
+                <p className="text-sm">
+                  The API endpoint for image generation is not available.
+                  This is likely because the Supabase edge function isn't deployed or properly configured.
+                </p>
+              </div>
+            ) : (
+              error
+            )}
+          </AlertDescription>
         </Alert>
       ) : imageUrl ? (
         <div className="relative w-full h-full group">
