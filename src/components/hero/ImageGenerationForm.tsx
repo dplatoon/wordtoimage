@@ -70,8 +70,8 @@ export const ImageGenerationForm = ({
     try {
       const options = { 
         prompt: prompt.trim(),
-        size: '1024x1024',
-        quality: 'standard'
+        size: '1024x1024' as '1024x1024', // Use type assertion to match the expected union type
+        quality: 'standard' as 'standard'  // Use type assertion to match the expected union type
       };
       
       const result = await generateImage(options);
