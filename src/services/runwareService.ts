@@ -61,18 +61,39 @@ export const generateImage = async ({
     console.log('Runware API Response Status:', response.status);
 
     if (!response.ok) {
-      const errorData: RunwareErrorResponse = await response.json();
-      console.error('Runware API Error:', errorData);
-      throw new ImageGenerationError(
-        errorData.errorMessage || `Failed to generate image: ${response.statusText}`,
-        'API_ERROR',
-        JSON.stringify(errorData.errors)
-      );
+      let errorData: RunwareErrorResponse;
+      try {
+        errorData = await response.json();
+        console.error('Runware API Error:', errorData);
+
+        // Handle case where we receive a proper error response
+        throw new ImageGenerationError(
+          errorData.errorMessage || `Failed to generate image: ${response.statusText}`,
+          'API_ERROR',
+          JSON.stringify(errorData.errors)
+        );
+      } catch (jsonError) {
+        // If we can't parse the error response JSON, throw a generic error
+        if (jsonError instanceof ImageGenerationError) {
+          throw jsonError;
+        }
+        
+        console.error('Failed to parse error response:', jsonError);
+        throw new ImageGenerationError(
+          `Failed to generate image (HTTP ${response.status})`,
+          'API_ERROR'
+        );
+      }
     }
 
-    const data = await response.json();
-    
-    console.log('Received Image Data:', data);
+    let data;
+    try {
+      data = await response.json();
+      console.log('Received Image Data:', data);
+    } catch (parseError) {
+      console.error('Failed to parse response JSON:', parseError);
+      throw new ImageGenerationError('Invalid response format', 'API_ERROR');
+    }
 
     if (!data || typeof data !== 'object') {
       throw new ImageGenerationError('Invalid response format', 'API_ERROR');

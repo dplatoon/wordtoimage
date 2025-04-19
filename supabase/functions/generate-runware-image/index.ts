@@ -66,15 +66,54 @@ serve(async (req) => {
 
     console.log('Runware API Response Status:', response.status);
 
+    // Check if response is HTML (error page) instead of JSON
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('text/html')) {
+      console.error('Received HTML response instead of JSON from Runware API');
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: 'Invalid response from Runware API. Please verify your API key and try again.',
+          errors: [{ code: 'INVALID_RESPONSE', message: 'Received HTML instead of JSON' }]
+        }),
+        { 
+          status: 422, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      );
+    }
+
+    // Handle non-OK responses
     if (!response.ok) {
-      const errorData = await response.json();
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (parseError) {
+        console.error('Failed to parse error response:', parseError);
+        const textResponse = await response.text();
+        console.error('Raw response:', textResponse.substring(0, 500)); // Log first 500 chars
+        
+        return new Response(
+          JSON.stringify({
+            error: true,
+            errorMessage: 'Failed to parse response from Runware API',
+            statusCode: response.status,
+            statusText: response.statusText
+          }),
+          { 
+            status: 502, 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+          }
+        );
+      }
+      
       console.error('Runware API Error:', errorData);
       
       return new Response(
         JSON.stringify({
           error: true,
-          errorMessage: errorData.errorMessage || `Failed to generate image: ${response.statusText}`,
-          errors: errorData.errors || []
+          errorMessage: errorData?.errorMessage || `Failed to generate image: ${response.statusText}`,
+          errors: errorData?.errors || []
         }),
         { 
           status: response.status, 
@@ -83,8 +122,27 @@ serve(async (req) => {
       );
     }
 
-    const result = await response.json();
-    console.log('Received Runware API response:', result);
+    // Parse JSON response safely
+    let result;
+    try {
+      result = await response.json();
+      console.log('Received Runware API response:', result);
+    } catch (parseError) {
+      console.error('Failed to parse successful response:', parseError);
+      const textResponse = await response.text();
+      console.error('Raw response:', textResponse.substring(0, 500)); // Log first 500 chars
+      
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: 'Invalid JSON response received from Runware API',
+        }),
+        { 
+          status: 502, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      );
+    }
 
     // Find the image data in the response
     const imageData = result.data?.find(item => item.taskType === "imageInference");
