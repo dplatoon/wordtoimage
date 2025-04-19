@@ -32,7 +32,7 @@ const Contact = () => {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Call Us</h3>
               <p className="text-gray-700">
-                <a href="tel:+1234567890" className="text-blue-600 hover:underline">+1 (234) 567-890</a>
+                <a href="tel:+13074001973" className="text-blue-600 hover:underline">+1 (307) 400-1973</a>
               </p>
             </div>
             
@@ -42,7 +42,8 @@ const Contact = () => {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Visit Us</h3>
               <p className="text-gray-700">
-                123 Innovation Street<br />San Francisco, CA 94103
+                0198-00, Khagdohor<br />
+                Mymensingh, Bangladesh
               </p>
             </div>
           </div>

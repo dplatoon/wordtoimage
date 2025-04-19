@@ -3,6 +3,81 @@ import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 
 const Blog = () => {
+  const blogPosts = [
+    {
+      id: 1,
+      image: "/placeholder.svg",
+      category: "AI News",
+      title: "The Future of AI-Generated Images",
+      excerpt: "Exploring the latest advancements in AI image generation technology.",
+      author: {
+        name: "Sarah Johnson",
+        avatar: "/placeholder.svg",
+        date: "April 11, 2025"
+      }
+    },
+    {
+      id: 2,
+      image: "/placeholder.svg",
+      category: "Design Tips",
+      title: "Creating Eye-Catching Social Media Graphics",
+      excerpt: "Learn how to design engaging social media content that stands out.",
+      author: {
+        name: "Michael Chen",
+        avatar: "/placeholder.svg",
+        date: "April 12, 2025"
+      }
+    },
+    {
+      id: 3,
+      image: "/placeholder.svg",
+      category: "Product Updates",
+      title: "New Features: Enhanced Text-to-Image Generation",
+      excerpt: "Discover our latest improvements in AI image generation.",
+      author: {
+        name: "Alex Thompson",
+        avatar: "/placeholder.svg",
+        date: "April 13, 2025"
+      }
+    },
+    {
+      id: 4,
+      image: "/placeholder.svg",
+      category: "Tutorials",
+      title: "Mastering WordToImage: A Beginner's Guide",
+      excerpt: "Step-by-step guide to creating stunning visuals with our platform.",
+      author: {
+        name: "Emily Davis",
+        avatar: "/placeholder.svg",
+        date: "April 14, 2025"
+      }
+    },
+    {
+      id: 5,
+      image: "/placeholder.svg",
+      category: "Case Studies",
+      title: "How Businesses Are Using AI-Generated Images",
+      excerpt: "Real-world examples of AI image generation in marketing.",
+      author: {
+        name: "David Wilson",
+        avatar: "/placeholder.svg",
+        date: "April 15, 2025"
+      }
+    },
+    {
+      id: 6,
+      image: "/placeholder.svg",
+      category: "Industry Insights",
+      title: "The Evolution of Digital Content Creation",
+      excerpt: "How AI is transforming the way we create visual content.",
+      author: {
+        name: "Lisa Anderson",
+        avatar: "/placeholder.svg",
+        date: "April 16, 2025"
+      }
+    }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Nav />
@@ -15,25 +90,36 @@ const Blog = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Sample blog posts */}
-          {[1, 2, 3, 4, 5, 6].map((post) => (
-            <div key={post} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-48 bg-gray-200"></div>
+          {blogPosts.map((post) => (
+            <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="h-48 bg-gray-200 relative overflow-hidden">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="p-6">
                 <div className="text-sm font-medium text-blue-600 mb-1">
-                  {['AI News', 'Design Tips', 'Product Updates'][post % 3]}
+                  {post.category}
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Sample Blog Post {post}
+                  {post.title}
                 </h3>
-                <p className="text-gray-600">
-                  This is a placeholder for a blog post. Real content will be added soon.
+                <p className="text-gray-600 mb-4">
+                  {post.excerpt}
                 </p>
-                <div className="mt-4 flex items-center">
-                  <div className="h-8 w-8 rounded-full bg-gray-300"></div>
+                <div className="flex items-center">
+                  <div className="h-8 w-8 rounded-full overflow-hidden bg-gray-300">
+                    <img 
+                      src={post.author.avatar} 
+                      alt={post.author.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-900">Author Name</p>
-                    <p className="text-sm text-gray-500">April {post + 10}, 2025</p>
+                    <p className="text-sm font-medium text-gray-900">{post.author.name}</p>
+                    <p className="text-sm text-gray-500">{post.author.date}</p>
                   </div>
                 </div>
               </div>
