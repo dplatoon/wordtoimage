@@ -3,20 +3,30 @@ import { useState } from 'react';
 import { generateImage } from '@/services/runwareService';
 import { toast } from '@/components/ui/sonner';
 import { getErrorMessage, getErrorDisplayDetails } from '@/utils/imageGenerationErrors';
-import { ImageGenerationHookProps, ImageGenerationOptions } from '@/types/imageGeneration';
+import { 
+  ImageGenerationHookProps, 
+  ImageGenerationOptions, 
+  ImageGenerationState,
+  ImageGenerationHookReturn
+} from '@/types/imageGeneration';
 
 export const useImageGeneration = ({
   onImageGenerated,
   onGeneratingChange,
   onError,
-}: ImageGenerationHookProps) => {
-  const [isRetrying, setIsRetrying] = useState(false);
+}: ImageGenerationHookProps): ImageGenerationHookReturn => {
+  const [state, setState] = useState<ImageGenerationState>({
+    isGenerating: false,
+    isRetrying: false,
+    error: null,
+    lastPrompt: null
+  });
 
   const generateImageFromPrompt = async (
     prompt: string, 
     tempApiKey: string, 
     retry: boolean = false
-  ) => {
+  ): Promise<void> => {
     if (!tempApiKey) {
       toast.error('API Key Required', {
         description: 'Please enter your OpenAI API key to generate images.',
@@ -43,8 +53,16 @@ export const useImageGeneration = ({
       return;
     }
     
-    if (isRetrying && !retry) return;
-    setIsRetrying(retry);
+    if (state.isRetrying && !retry) return;
+    
+    setState(prev => ({
+      ...prev,
+      isGenerating: true,
+      isRetrying: retry,
+      error: null,
+      lastPrompt: prompt
+    }));
+    
     onGeneratingChange(true);
     onError(null);
     
@@ -83,6 +101,11 @@ export const useImageGeneration = ({
       const processedError = getErrorMessage(error);
       const errorDetails = getErrorDisplayDetails(processedError);
       
+      setState(prev => ({
+        ...prev,
+        error: errorDetails.description
+      }));
+      
       onError(errorDetails.description);
       
       toast.error(errorDetails.title, {
@@ -98,10 +121,19 @@ export const useImageGeneration = ({
         } : undefined
       });
     } finally {
+      setState(prev => ({
+        ...prev,
+        isGenerating: false,
+        isRetrying: false
+      }));
       onGeneratingChange(false);
-      setIsRetrying(false);
     }
   };
 
-  return { generateImageFromPrompt, isRetrying };
+  return { 
+    generateImageFromPrompt, 
+    isRetrying: state.isRetrying,
+    state
+  };
 };
+
