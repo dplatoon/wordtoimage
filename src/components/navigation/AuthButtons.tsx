@@ -2,11 +2,17 @@
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import { LogIn, LogOut, User } from 'lucide-react';
+import { LogIn, LogOut, User, Settings } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export const AuthButtons = () => {
   const { t } = useTranslation();
@@ -27,10 +33,26 @@ export const AuthButtons = () => {
   if (user) {
     return (
       <div className="hidden md:flex items-center space-x-4">
-        <Button variant="ghost" onClick={handleSignOut}>
-          <LogOut className="mr-2 h-4 w-4" />
-          {t('sign_out')}
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative">
+              <User className="h-4 w-4 mr-2" />
+              {user.email}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            <Link to="/dashboard">
+              <DropdownMenuItem>
+                <Settings className="mr-2 h-4 w-4" />
+                Dashboard
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuItem onClick={handleSignOut}>
+              <LogOut className="mr-2 h-4 w-4" />
+              {t('sign_out')}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     );
   }
