@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,7 +5,7 @@ import { ApiKeyForm } from '@/components/ApiKeyForm';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { toast } from '@/components/ui/sonner';
 import { generateImage } from '@/services/runwareService';
-import { Shield, AlertTriangle } from 'lucide-react';
+import { Shield, AlertTriangle, Construction } from 'lucide-react';
 import { getErrorMessage, getErrorDisplayDetails } from '@/utils/imageGenerationErrors';
 import type { MouseEvent } from 'react';
 
@@ -126,6 +125,14 @@ export const ImageGenerationForm = ({
   return (
     <div className="bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
       <div className="bg-white rounded-xl p-5">
+        <Alert variant="default" className="mb-4">
+          <Construction className="h-4 w-4" />
+          <AlertTitle>Feature Under Development</AlertTitle>
+          <AlertDescription>
+            Our image generation feature is currently in beta. You might experience some inconsistencies or errors while we improve the system. We appreciate your patience!
+          </AlertDescription>
+        </Alert>
+
         {!tempApiKey && (
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center text-sm text-gray-600">
