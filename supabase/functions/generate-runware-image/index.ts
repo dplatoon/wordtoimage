@@ -13,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { positivePrompt, width = 1024, height = 1024 } = await req.json();
+    const { prompt, n = 1, size = '1024x1024', quality = 'standard' } = await req.json();
     const openaiKey = Deno.env.get('OPENAI_API_KEY');
 
     if (!openaiKey) {
@@ -29,11 +29,11 @@ serve(async (req) => {
       );
     }
 
-    console.log('Processing image generation request:', {
-      prompt: positivePrompt,
-      width,
-      height,
-      hasApiKey: !!openaiKey
+    console.log('Processing DALL-E 3 image generation request:', {
+      prompt,
+      size,
+      quality,
+      n
     });
 
     // Make the API call to OpenAI
@@ -45,10 +45,10 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: "dall-e-3",
-        prompt: positivePrompt,
-        n: 1,
-        size: "1024x1024",
-        quality: "standard",
+        prompt: prompt,
+        n: n,
+        size: size,
+        quality: quality,
         response_format: "url"
       }),
     });

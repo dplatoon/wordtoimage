@@ -5,8 +5,8 @@ import { ImageGenerationError, handleApiError, getErrorDisplayMessage } from "@/
 
 interface GenerateImageOptions {
   prompt: string;
-  width?: number;
-  height?: number;
+  size?: '256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792';
+  quality?: 'standard' | 'hd';
   numberResults?: number;
 }
 
@@ -17,14 +17,14 @@ interface GenerateImageResponse {
 
 export const generateImage = async ({
   prompt,
-  width = 1024,
-  height = 1024,
+  size = '1024x1024',
+  quality = 'standard',
   numberResults = 1
 }: GenerateImageOptions): Promise<GenerateImageResponse> => {
   console.log('Image Generation Request:', { 
     prompt, 
-    width, 
-    height, 
+    size, 
+    quality, 
     numberResults
   });
   
@@ -39,10 +39,10 @@ export const generateImage = async ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        positivePrompt: prompt,
-        width,
-        height,
-        numberResults
+        prompt,
+        n: numberResults,
+        size,
+        quality
       })
     });
 

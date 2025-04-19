@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,7 +27,7 @@ export const ImageGenerationForm = ({
   const [isRetrying, setIsRetrying] = useState(false);
 
   useEffect(() => {
-    const savedApiKey = localStorage.getItem('temp_runware_key');
+    const savedApiKey = localStorage.getItem('temp_openai_key');
     if (savedApiKey) {
       setTempApiKey(savedApiKey);
     } else {
@@ -37,7 +38,7 @@ export const ImageGenerationForm = ({
   const handleGenerateImage = async (retry: boolean = false) => {
     if (!tempApiKey) {
       toast.error('API Key Required', {
-        description: 'Please enter your Runware API key to generate images.',
+        description: 'Please enter your OpenAI API key to generate images.',
         action: {
           label: 'Add API Key',
           onClick: () => setShowApiKeyForm(true)
@@ -69,9 +70,8 @@ export const ImageGenerationForm = ({
     try {
       const options = { 
         prompt: prompt.trim(),
-        width: 1024,
-        height: 1024,
-        model: "runware:100@1"
+        size: '1024x1024',
+        quality: 'standard'
       };
       
       const result = await generateImage(options);
@@ -126,7 +126,7 @@ export const ImageGenerationForm = ({
   const handleApiKeySubmit = (apiKey: string) => {
     setTempApiKey(apiKey);
     setShowApiKeyForm(false);
-    localStorage.setItem('temp_runware_key', apiKey);
+    localStorage.setItem('temp_openai_key', apiKey);
     if (prompt.trim()) {
       handleGenerateImage(true);
     }
@@ -179,8 +179,8 @@ export const ImageGenerationForm = ({
         {showApiKeyForm && (
           <ApiKeyForm 
             onSubmit={handleApiKeySubmit} 
-            serviceName="Runware"
-            keyPlaceholder="Enter your Runware API key"
+            serviceName="OpenAI"
+            keyPlaceholder="Enter your OpenAI API key"
           />
         )}
         
