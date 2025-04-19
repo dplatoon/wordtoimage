@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 
 interface Profile {
-  id: string;
+  id: string; // Changed from string to match the DB schema
   username: string;
   full_name: string;
   bio: string;
@@ -38,7 +38,17 @@ export default function Dashboard() {
         .single();
 
       if (error) throw error;
-      setProfile(data);
+      
+      // Transform the database result to match our Profile interface
+      const profileData: Profile = {
+        id: data.id.toString(), // Convert to string
+        username: data.username || '',
+        full_name: data.full_name || '',
+        bio: data.bio || '',
+        avatar_url: data.avatar_url || '',
+      };
+      
+      setProfile(profileData);
     } catch (error) {
       toast.error('Error loading profile');
       console.error('Error:', error);
@@ -98,7 +108,7 @@ export default function Dashboard() {
                   id="username"
                   value={profile?.username || ''}
                   onChange={(e) =>
-                    setProfile((prev) => ({ ...prev!, username: e.target.value }))
+                    setProfile((prev) => prev ? { ...prev, username: e.target.value } : null)
                   }
                 />
               </div>
@@ -111,7 +121,7 @@ export default function Dashboard() {
                   id="fullName"
                   value={profile?.full_name || ''}
                   onChange={(e) =>
-                    setProfile((prev) => ({ ...prev!, full_name: e.target.value }))
+                    setProfile((prev) => prev ? { ...prev, full_name: e.target.value } : null)
                   }
                 />
               </div>
@@ -124,7 +134,7 @@ export default function Dashboard() {
                   id="bio"
                   value={profile?.bio || ''}
                   onChange={(e) =>
-                    setProfile((prev) => ({ ...prev!, bio: e.target.value }))
+                    setProfile((prev) => prev ? { ...prev, bio: e.target.value } : null)
                   }
                   rows={4}
                 />
