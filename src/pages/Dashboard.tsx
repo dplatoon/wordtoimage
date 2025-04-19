@@ -12,7 +12,7 @@ import { Loader2 } from 'lucide-react';
 
 // Define our interface based on what we actually need and use
 interface Profile {
-  id: number;  // Using number to match the database schema
+  id: string;  // Changed to string to match database response
   username: string;
   full_name: string;
   bio: string;
@@ -44,9 +44,9 @@ export default function Dashboard() {
       // Transform the database result to match our Profile interface
       if (data) {
         const profileData: Profile = {
-          id: parseInt(data.id.toString()), // Ensure it's a number
+          id: data.id.toString(), // Convert to string to match our interface
           username: data.username || '',
-          full_name: data.full_name || data.username || '', // If full_name doesn't exist, use username as fallback
+          full_name: data.username || '', // Use username as fallback if full_name doesn't exist
           bio: data.bio || '',
           avatar_url: data.avatar_url || '',
         };
@@ -75,7 +75,7 @@ export default function Dashboard() {
           bio: profile.bio,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', profile.id); // Use profile.id directly since it's now a number
+        .eq('id', profile.id); // Use profile.id directly as it's now a string
 
       if (error) throw error;
       toast.success('Profile updated successfully');
