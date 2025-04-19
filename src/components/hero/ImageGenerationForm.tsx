@@ -26,6 +26,17 @@ export const ImageGenerationForm = ({
   const [isRetrying, setIsRetrying] = useState(false);
 
   const handleGenerateImage = async (retry: boolean = false) => {
+    if (!tempApiKey) {
+      toast.error('API Key Required', {
+        description: 'Please enter your Runware API key to generate images.',
+        action: {
+          label: 'Add API Key',
+          onClick: () => setShowApiKeyForm(true)
+        }
+      });
+      return;
+    }
+
     if (!prompt.trim()) {
       const error = getErrorMessage(new Error('Empty prompt'));
       const errorDetails = getErrorDisplayDetails(error);
