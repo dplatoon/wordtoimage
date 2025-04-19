@@ -25,7 +25,6 @@ export const ImageGenerationForm = ({
   const [tempApiKey, setTempApiKey] = useState('');
   const [isRetrying, setIsRetrying] = useState(false);
 
-  // Load API key from localStorage on component mount
   useEffect(() => {
     const savedApiKey = localStorage.getItem('temp_runware_key');
     if (savedApiKey) {
@@ -128,7 +127,6 @@ export const ImageGenerationForm = ({
     setTempApiKey(apiKey);
     setShowApiKeyForm(false);
     localStorage.setItem('temp_runware_key', apiKey);
-    // Automatically retry generation if there was a previous attempt
     if (prompt.trim()) {
       handleGenerateImage(true);
     }
@@ -149,16 +147,16 @@ export const ImageGenerationForm = ({
       <div className="bg-white rounded-xl p-5">
         <Alert variant="default" className="mb-4">
           <Construction className="h-4 w-4" />
-          <AlertTitle>Get Started with Image Generation</AlertTitle>
+          <AlertTitle>Create Images with DALL-E 3</AlertTitle>
           <AlertDescription>
-            To use the image generation feature, you'll need a Runware API key. Get yours at{' '}
+            Generate high-quality, photorealistic images powered by OpenAI's DALL-E 3. Get started with your OpenAI API key.{' '}
             <a 
-              href="https://runware.ai" 
+              href="https://platform.openai.com/api-keys" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-blue-600 hover:underline"
             >
-              Runware.ai
+              Get your key
             </a>
           </AlertDescription>
         </Alert>
@@ -166,7 +164,7 @@ export const ImageGenerationForm = ({
         <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center text-sm text-gray-600">
             <Shield className="h-4 w-4 mr-1 text-green-500" />
-            <span>Using Runware AI for image generation</span>
+            <span>Powered by OpenAI DALL-E 3</span>
           </div>
           <Button 
             variant="ghost" 

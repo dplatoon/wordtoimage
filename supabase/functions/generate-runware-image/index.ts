@@ -13,168 +13,95 @@ serve(async (req) => {
   }
 
   try {
-    const { positivePrompt, width, height, model, numberResults } = await req.json();
-    const apiKey = req.headers.get('authorization')?.replace('Bearer ', '');
+    const { positivePrompt, width = 1024, height = 1024 } = await req.json();
+    const openaiKey = Deno.env.get('OPENAI_API_KEY');
 
-    if (!apiKey) {
+    if (!openaiKey) {
       return new Response(
-        JSON.stringify({ 
-          error: true, 
-          errorMessage: 'No API key provided' 
+        JSON.stringify({
+          error: true,
+          errorMessage: 'OpenAI API key not configured'
         }),
-        { 
-          status: 401, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 401,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       );
     }
 
     console.log('Processing image generation request:', {
-      positivePrompt,
+      prompt: positivePrompt,
       width,
       height,
-      model,
-      numberResults,
-      hasApiKey: !!apiKey
+      hasApiKey: !!openaiKey
     });
 
-    // Prepare the request payload for Runware API
-    const payload = [
-      {
-        taskType: "authentication",
-        apiKey: apiKey
-      },
-      {
-        taskType: "imageInference",
-        taskUUID: crypto.randomUUID(),
-        positivePrompt: positivePrompt,
-        width: width || 1024,
-        height: height || 1024,
-        model: model || "runware:100@1",
-        numberResults: numberResults || 1
-      }
-    ];
-
-    // Make the API call to Runware
-    const response = await fetch('https://api.runware.ai/v1', {
+    // Make the API call to OpenAI
+    const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${openaiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        model: "dall-e-3",
+        prompt: positivePrompt,
+        n: 1,
+        size: "1024x1024",
+        quality: "standard",
+        response_format: "url"
+      }),
     });
 
-    console.log('Runware API Response Status:', response.status);
+    console.log('OpenAI API Response Status:', response.status);
 
-    // Check if response is HTML (error page) instead of JSON
-    const contentType = response.headers.get('content-type') || '';
-    if (contentType.includes('text/html')) {
-      console.error('Received HTML response instead of JSON from Runware API');
-      return new Response(
-        JSON.stringify({
-          error: true,
-          errorMessage: 'Invalid response from Runware API. Please verify your API key and try again.',
-          errors: [{ code: 'INVALID_RESPONSE', message: 'Received HTML instead of JSON' }]
-        }),
-        { 
-          status: 422, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
-    }
-
-    // Handle non-OK responses
     if (!response.ok) {
-      let errorData;
-      try {
-        errorData = await response.json();
-      } catch (parseError) {
-        console.error('Failed to parse error response:', parseError);
-        const textResponse = await response.text();
-        console.error('Raw response:', textResponse.substring(0, 500)); // Log first 500 chars
-        
-        return new Response(
-          JSON.stringify({
-            error: true,
-            errorMessage: 'Failed to parse response from Runware API',
-            statusCode: response.status,
-            statusText: response.statusText
-          }),
-          { 
-            status: 502, 
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-          }
-        );
-      }
-      
-      console.error('Runware API Error:', errorData);
+      const errorData = await response.json();
+      console.error('OpenAI API Error:', errorData);
       
       return new Response(
         JSON.stringify({
           error: true,
-          errorMessage: errorData?.errorMessage || `Failed to generate image: ${response.statusText}`,
-          errors: errorData?.errors || []
+          errorMessage: errorData.error?.message || `Failed to generate image: ${response.statusText}`,
+          errors: [{ code: 'API_ERROR', message: errorData.error?.message }]
         }),
-        { 
-          status: response.status, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: response.status,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       );
     }
 
-    // Parse JSON response safely
-    let result;
-    try {
-      result = await response.json();
-      console.log('Received Runware API response:', result);
-    } catch (parseError) {
-      console.error('Failed to parse successful response:', parseError);
-      const textResponse = await response.text();
-      console.error('Raw response:', textResponse.substring(0, 500)); // Log first 500 chars
-      
+    const data = await response.json();
+    console.log('OpenAI API Response:', data);
+
+    if (!data.data?.[0]?.url) {
       return new Response(
         JSON.stringify({
           error: true,
-          errorMessage: 'Invalid JSON response received from Runware API',
+          errorMessage: 'No image URL received from OpenAI'
         }),
-        { 
-          status: 502, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       );
     }
 
-    // Find the image data in the response
-    const imageData = result.data?.find(item => item.taskType === "imageInference");
-    
-    if (!imageData || !imageData.imageURL) {
-      return new Response(
-        JSON.stringify({ 
-          error: true, 
-          errorMessage: 'No image URL received from Runware API' 
-        }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
-    }
-
-    // Return successful response with image URL
     return new Response(
-      JSON.stringify({ imageUrl: imageData.imageURL }),
+      JSON.stringify({ imageUrl: data.data[0].url }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     console.error('Edge function error:', error);
     return new Response(
-      JSON.stringify({ 
-        error: true, 
-        errorMessage: error.message || 'An unexpected error occurred',
+      JSON.stringify({
+        error: true,
+        errorMessage: error.message || 'An unexpected error occurred'
       }),
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       }
     );
   }

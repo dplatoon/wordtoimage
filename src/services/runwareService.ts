@@ -1,13 +1,12 @@
 
 import { toast } from "@/components/ui/sonner";
-import { ServiceError, RunwareErrorResponse } from "@/types/errors";
+import { ServiceError } from "@/types/errors";
 import { ImageGenerationError, handleApiError, getErrorDisplayMessage } from "@/utils/errorUtils";
 
 interface GenerateImageOptions {
   prompt: string;
   width?: number;
   height?: number;
-  model?: string;
   numberResults?: number;
 }
 
@@ -20,25 +19,16 @@ export const generateImage = async ({
   prompt,
   width = 1024,
   height = 1024,
-  model = "runware:100@1",
   numberResults = 1
 }: GenerateImageOptions): Promise<GenerateImageResponse> => {
-  const apiKey = localStorage.getItem('temp_runware_key');
-  
   console.log('Image Generation Request:', { 
     prompt, 
     width, 
     height, 
-    model, 
-    numberResults, 
-    hasApiKey: !!apiKey 
+    numberResults
   });
   
   try {
-    if (!apiKey) {
-      throw new Error('No API key found. Please add a Runware API key.');
-    }
-
     if (!prompt?.trim()) {
       throw new ImageGenerationError('Prompt is required', 'VALIDATION_ERROR');
     }
@@ -47,33 +37,29 @@ export const generateImage = async ({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         positivePrompt: prompt,
         width,
         height,
-        model,
         numberResults
       })
     });
 
-    console.log('Runware API Response Status:', response.status);
+    console.log('API Response Status:', response.status);
 
     if (!response.ok) {
-      let errorData: RunwareErrorResponse;
+      let errorData;
       try {
         errorData = await response.json();
-        console.error('Runware API Error:', errorData);
+        console.error('API Error:', errorData);
 
-        // Handle case where we receive a proper error response
         throw new ImageGenerationError(
           errorData.errorMessage || `Failed to generate image: ${response.statusText}`,
           'API_ERROR',
           JSON.stringify(errorData.errors)
         );
       } catch (jsonError) {
-        // If we can't parse the error response JSON, throw a generic error
         if (jsonError instanceof ImageGenerationError) {
           throw jsonError;
         }
