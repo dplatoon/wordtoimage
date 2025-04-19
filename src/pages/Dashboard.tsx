@@ -9,8 +9,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 
+// Define our interface based on what we actually need and use
 interface Profile {
-  id: string; // Changed from string to match the DB schema
+  id: number;  // Changed to number to match the database schema
   username: string;
   full_name: string;
   bio: string;
@@ -40,15 +41,17 @@ export default function Dashboard() {
       if (error) throw error;
       
       // Transform the database result to match our Profile interface
-      const profileData: Profile = {
-        id: data.id.toString(), // Convert to string
-        username: data.username || '',
-        full_name: data.full_name || '',
-        bio: data.bio || '',
-        avatar_url: data.avatar_url || '',
-      };
-      
-      setProfile(profileData);
+      if (data) {
+        const profileData: Profile = {
+          id: data.id, // No conversion needed since we updated the interface
+          username: data.username || '',
+          full_name: data.username || '', // If full_name doesn't exist in data, use username as fallback
+          bio: data.bio || '',
+          avatar_url: data.avatar_url || '',
+        };
+        
+        setProfile(profileData);
+      }
     } catch (error) {
       toast.error('Error loading profile');
       console.error('Error:', error);
@@ -71,7 +74,7 @@ export default function Dashboard() {
           bio: profile.bio,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', user?.id);
+        .eq('id', profile.id); // Use profile.id directly since it's now a number
 
       if (error) throw error;
       toast.success('Profile updated successfully');
