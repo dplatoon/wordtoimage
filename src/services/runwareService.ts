@@ -1,3 +1,4 @@
+
 import { toast } from "@/components/ui/sonner";
 import { ServiceError, RunwareErrorResponse } from "@/types/errors";
 import { ImageGenerationError, handleApiError, getErrorDisplayMessage } from "@/utils/errorUtils";
@@ -15,42 +16,6 @@ interface GenerateImageResponse {
   error?: ServiceError;
 }
 
-const handleServiceError = (error: unknown): ServiceError => {
-  if (error instanceof Response) {
-    return {
-      code: 'API_ERROR',
-      message: `API Error: ${error.statusText}`,
-      details: `Status: ${error.status}`
-    };
-  }
-
-  if (error instanceof Error) {
-    return {
-      code: 'RUNTIME_ERROR',
-      message: error.message,
-      details: error.stack
-    };
-  }
-
-  return {
-    code: 'UNKNOWN_ERROR',
-    message: 'An unexpected error occurred',
-    details: String(error)
-  };
-};
-
-const validateImageResponse = (data: any): boolean => {
-  if (!data || typeof data !== 'object') {
-    throw new Error('Invalid response format');
-  }
-
-  if (!data.imageUrl && !data.error) {
-    throw new Error('Response missing required fields');
-  }
-
-  return true;
-};
-
 export const generateImage = async ({
   prompt,
   width = 1024,
@@ -58,7 +23,13 @@ export const generateImage = async ({
   model = "runware:100@1",
   numberResults = 1
 }: GenerateImageOptions): Promise<GenerateImageResponse> => {
+  const apiKey = localStorage.getItem('temp_runware_key');
+  
   try {
+    if (!apiKey) {
+      throw new Error('No API key found. Please add a Runware API key.');
+    }
+
     if (!prompt?.trim()) {
       throw new ImageGenerationError('Prompt is required', 'VALIDATION_ERROR');
     }
@@ -67,6 +38,7 @@ export const generateImage = async ({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         positivePrompt: prompt,
