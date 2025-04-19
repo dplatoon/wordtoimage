@@ -14,14 +14,21 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
   const handleDownload = () => {
     if (!imageUrl) return;
     
-    const a = document.createElement('a');
-    a.href = imageUrl;
-    a.download = `runware-image-${Date.now()}.png`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    
-    toast.success('Image downloaded successfully!');
+    try {
+      const a = document.createElement('a');
+      a.href = imageUrl;
+      a.download = `runware-image-${Date.now()}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      
+      toast.success('Image downloaded successfully!');
+    } catch (error) {
+      console.error('Download error:', error);
+      toast.error('Failed to download image', {
+        description: 'Please try right-clicking the image and selecting "Save image as..."'
+      });
+    }
   };
 
   return (

@@ -10,7 +10,7 @@ export const HeroSection = () => {
   const [generationError, setGenerationError] = useState<string | null>(null);
 
   return (
-    <section className="py-16 md:py-28 bg-gradient-to-br from-blue-50 via-white to-purple-50" aria-labelledby="hero-heading">
+    <section className="py-16 md:py-28 bg-gradient-to-br from-blue-50 via-white to-purple-50 image-generation-section" aria-labelledby="hero-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           <div className="flex-1">

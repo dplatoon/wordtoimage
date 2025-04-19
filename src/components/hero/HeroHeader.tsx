@@ -1,7 +1,11 @@
+
 import { Button } from '@/components/ui/button';
 import { Sparkles, Wand2, ImagePlus, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const HeroHeader = () => {
+  const navigate = useNavigate();
+  
   const handleSamplePrompt = () => {
     // You can replace this with your actual prompt
     const samplePrompt = "A serene landscape with mountains at sunset, digital art style";
@@ -10,7 +14,25 @@ export const HeroHeader = () => {
     if (promptInput) {
       promptInput.value = samplePrompt;
       promptInput.focus();
+      
+      // Optionally trigger the generate button click
+      const generateButton = promptInput.closest('form')?.querySelector('button') as HTMLButtonElement;
+      if (generateButton) {
+        generateButton.click();
+      }
     }
+  };
+
+  const handleGenerateImageClick = () => {
+    // Scroll to the image generation form
+    const imageForm = document.querySelector('.image-generation-section');
+    if (imageForm) {
+      imageForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleTemplateGalleryClick = () => {
+    navigate('/templates');
   };
 
   return (
@@ -33,11 +55,20 @@ export const HeroHeader = () => {
         </p>
       </div>
       <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-        <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-6">
+        <Button 
+          size="lg" 
+          className="bg-blue-600 hover:bg-blue-700 text-lg px-6"
+          onClick={handleGenerateImageClick}
+        >
           Generate Your First Image
           <Wand2 className="ml-2 h-5 w-5" />
         </Button>
-        <Button size="lg" variant="outline" className="text-lg">
+        <Button 
+          size="lg" 
+          variant="outline" 
+          className="text-lg"
+          onClick={handleTemplateGalleryClick}
+        >
           Browse Template Gallery
           <ImagePlus className="ml-2 h-5 w-5" />
         </Button>

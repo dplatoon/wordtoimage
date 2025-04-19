@@ -2,8 +2,11 @@
 import { Wand2, ImagePlus, PenTool, Sparkles } from 'lucide-react';
 import { PrimaryButton } from './ui/primary-button';
 import { Button } from './ui/button';
+import { useNavigate } from 'react-router-dom';
 
 export const CTASection = () => {
+  const navigate = useNavigate();
+
   const trackCtaClick = (action: string) => {
     // Track CTA clicks with Google Analytics
     if (typeof window !== 'undefined' && window.gtag) {
@@ -12,6 +15,25 @@ export const CTASection = () => {
         event_label: action
       });
     }
+  };
+
+  const handleCreateDesignClick = () => {
+    trackCtaClick('create_design');
+    // Scroll to the image generation section
+    const imageForm = document.querySelector('.image-generation-section');
+    if (imageForm) {
+      imageForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleExploreTemplatesClick = () => {
+    trackCtaClick('explore_templates');
+    navigate('/templates');
+  };
+
+  const handleFeedbackClick = () => {
+    trackCtaClick('feedback');
+    navigate('/contact');
   };
 
   return (
@@ -37,7 +59,7 @@ export const CTASection = () => {
               <PrimaryButton 
                 size="lg" 
                 className="bg-white text-blue-600 hover:bg-white/90 text-lg px-8"
-                onClick={() => trackCtaClick('create_design')}
+                onClick={handleCreateDesignClick}
                 aria-label="Create your first design with WordToImage"
               >
                 Create Your First Design
@@ -46,7 +68,7 @@ export const CTASection = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                onClick={() => trackCtaClick('explore_templates')}
+                onClick={handleExploreTemplatesClick}
                 className="text-white border-white hover:bg-white/10 text-lg"
                 aria-label="Browse template gallery"
               >
@@ -59,7 +81,7 @@ export const CTASection = () => {
             {/* Soft Launch Feedback Button */}
             <div className="mt-8 pt-4 border-t border-white/20 w-full max-w-md">
               <button 
-                onClick={() => trackCtaClick('feedback')}
+                onClick={handleFeedbackClick}
                 className="text-white/90 hover:text-white text-sm font-medium flex items-center justify-center mx-auto"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

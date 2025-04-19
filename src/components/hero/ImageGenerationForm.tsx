@@ -118,6 +118,11 @@ export const ImageGenerationForm = ({
     }
   };
 
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleGenerateImage(false);
+  };
+
   return (
     <div className="bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
       <div className="bg-white rounded-xl p-5">
@@ -146,22 +151,25 @@ export const ImageGenerationForm = ({
           />
         )}
         
-        <div className="mb-4">
-          <Input
-            type="text"
-            placeholder="Describe the image you want to create..."
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            className="w-full"
-          />
-        </div>
-        <Button 
-          className="bg-blue-600 w-full hover:bg-blue-700 transition-colors"
-          onClick={handleButtonClick}
-          disabled={isRetrying}
-        >
-          {isRetrying ? 'Retrying...' : 'Generate Image'}
-        </Button>
+        <form onSubmit={handleFormSubmit}>
+          <div className="mb-4">
+            <Input
+              type="text"
+              placeholder="Describe the image you want to create..."
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <Button 
+            type="submit"
+            className="bg-blue-600 w-full hover:bg-blue-700 transition-colors"
+            onClick={handleButtonClick}
+            disabled={isRetrying}
+          >
+            {isRetrying ? 'Retrying...' : 'Generate Image'}
+          </Button>
+        </form>
       </div>
     </div>
   );
