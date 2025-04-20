@@ -54,6 +54,9 @@ export const getErrorDisplayMessage = (error: ServiceError): string => {
     case 'VALIDATION_ERROR':
       return 'Invalid input parameters. Please check your prompt.';
     case 'API_ERROR':
+      if (error.details?.includes('openai') || error.details?.includes('API')) {
+        return `OpenAI API error: ${error.message}`;
+      }
       return `Service is temporarily unavailable. ${error.details || ''}`;
     case 'API_NOT_FOUND':
       return 'Image generation API is not configured. Please check the server setup.';
