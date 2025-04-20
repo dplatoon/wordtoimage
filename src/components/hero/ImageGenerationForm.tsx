@@ -6,6 +6,7 @@ import { ApiKeyForm } from '@/components/ApiKeyForm';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { InfoAlert } from './InfoAlert';
 import { ApiKeyHeader } from './ApiKeyHeader';
+import { toast } from '@/components/ui/sonner';
 import type { MouseEvent } from 'react';
 
 interface ImageGenerationFormProps {
@@ -23,7 +24,7 @@ export const ImageGenerationForm = ({
   const [showApiKeyForm, setShowApiKeyForm] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
 
-  const { generateImageFromPrompt, isRetrying } = useImageGeneration({
+  const { generateImageFromPrompt, isRetrying, state } = useImageGeneration({
     onImageGenerated,
     onGeneratingChange,
     onError,
@@ -41,7 +42,15 @@ export const ImageGenerationForm = ({
   const handleApiKeySubmit = (apiKey: string) => {
     setTempApiKey(apiKey);
     setShowApiKeyForm(false);
+    
+    // Store API key in localStorage
     localStorage.setItem('temp_openai_key', apiKey);
+    
+    toast.success('API Key saved', {
+      description: 'Your OpenAI API key has been saved for this session.'
+    });
+    
+    // If there's a prompt already, generate the image
     if (prompt.trim()) {
       generateImageFromPrompt(prompt, apiKey, true);
     }
@@ -88,9 +97,9 @@ export const ImageGenerationForm = ({
           <Button 
             type="submit"
             className="bg-blue-600 w-full hover:bg-blue-700 transition-colors"
-            disabled={isRetrying || !tempApiKey}
+            disabled={state.isGenerating || !tempApiKey}
           >
-            {isRetrying ? 'Retrying...' : 'Generate Image'}
+            {state.isGenerating ? 'Generating...' : isRetrying ? 'Retrying...' : 'Generate Image'}
           </Button>
         </form>
       </div>

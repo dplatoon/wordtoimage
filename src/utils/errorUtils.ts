@@ -59,7 +59,7 @@ export const getErrorDisplayMessage = (error: ServiceError): string => {
       }
       return `Service is temporarily unavailable. ${error.details || ''}`;
     case 'API_NOT_FOUND':
-      return 'Image generation API is not configured. Please check your API key.';
+      return 'OpenAI API key not found. Please check your API key configuration.';
     default:
       return error.message || 'An unexpected error occurred';
   }

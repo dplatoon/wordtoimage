@@ -23,8 +23,7 @@ serve(async (req) => {
     // Get the OpenAI API key and validate it
     const openaiKey = Deno.env.get('OPENAI_API_KEY');
     console.log('OpenAI API Key available:', !!openaiKey);
-    console.log('OpenAI API Key starts with:', openaiKey?.substring(0, 3) + '...');
-
+    
     if (!openaiKey) {
       console.error('OpenAI API key is not set in environment variables');
       return new Response(
@@ -80,12 +79,8 @@ serve(async (req) => {
       }),
     };
 
-    console.log('Request options:', {
-      method: requestOptions.method,
-      headers: { Authorization: 'Bearer sk-...', 'Content-Type': requestOptions.headers['Content-Type'] },
-      body: JSON.stringify(JSON.parse(requestOptions.body))
-    });
-
+    console.log('Sending request to OpenAI API...');
+    
     const response = await fetch('https://api.openai.com/v1/images/generations', requestOptions);
 
     console.log('OpenAI API Response Status:', response.status);
@@ -142,7 +137,7 @@ serve(async (req) => {
 
     // Parse and validate the response
     const data = await response.json();
-    console.log('OpenAI API Response:', JSON.stringify(data).substring(0, 200) + '...');
+    console.log('OpenAI API Response received successfully');
 
     if (!data.data?.[0]?.url) {
       console.error('No image URL received from OpenAI');
@@ -159,6 +154,8 @@ serve(async (req) => {
       );
     }
 
+    console.log('Image URL generated successfully');
+    
     // Return the successful response
     return new Response(
       JSON.stringify({ imageUrl: data.data[0].url }),

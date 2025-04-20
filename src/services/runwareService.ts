@@ -14,6 +14,7 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
     }
 
     // Call the Supabase Edge Function
+    console.log('Calling Supabase Edge Function: generate-runware-image');
     const { data, error } = await supabase.functions.invoke('generate-runware-image', {
       body: {
         prompt: options.prompt,
@@ -23,9 +24,10 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
       }
     });
 
-    console.log('API Response:', data, error);
+    console.log('Edge Function Response:', data, error);
 
     if (error) {
+      console.error('Supabase Edge Function Error:', error);
       throw new ImageGenerationError(
         error.message || 'Failed to generate image',
         'API_ERROR',
@@ -34,9 +36,11 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
     }
 
     if (!data || !data.imageUrl) {
+      console.error('No image URL received');
       throw new ImageGenerationError('No image URL received', 'API_ERROR');
     }
 
+    console.log('Image generation successful');
     return {
       imageUrl: data.imageUrl
     };
