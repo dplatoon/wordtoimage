@@ -3,6 +3,7 @@ import { toast } from "@/components/ui/sonner";
 import { ServiceError } from "@/types/errors";
 import { ImageGenerationError, handleApiError, getErrorDisplayMessage } from "@/utils/errorUtils";
 import { ImageGenerationOptions, ImageGenerationResponse } from "@/types/imageGeneration";
+import { supabase } from "@/integrations/supabase/client";
 
 export const generateImage = async (options: ImageGenerationOptions): Promise<ImageGenerationResponse> => {
   console.log('Image Generation Request:', options);
@@ -12,67 +13,27 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
       throw new ImageGenerationError('Prompt is required', 'VALIDATION_ERROR');
     }
 
-    const response = await fetch('/api/generate-runware-image', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    // Call the Supabase Edge Function
+    const { data, error } = await supabase.functions.invoke('generate-runware-image', {
+      body: {
         prompt: options.prompt,
         n: options.numberResults || 1,
-        size: options.size,
-        quality: options.quality
-      })
+        size: options.size || '1024x1024',
+        quality: options.quality || 'standard'
+      }
     });
 
-    console.log('API Response Status:', response.status);
+    console.log('API Response:', data, error);
 
-    if (!response.ok) {
-      // Check specifically for 404 errors (endpoint not found)
-      if (response.status === 404) {
-        throw new ImageGenerationError(
-          'Image generation service is not available. Please make sure the API is properly configured.',
-          'API_NOT_FOUND'
-        );
-      }
-      
-      let errorData;
-      try {
-        errorData = await response.json();
-        console.error('API Error:', errorData);
-
-        throw new ImageGenerationError(
-          errorData.errorMessage || `Failed to generate image: ${response.statusText}`,
-          'API_ERROR',
-          JSON.stringify(errorData.errors)
-        );
-      } catch (jsonError) {
-        if (jsonError instanceof ImageGenerationError) {
-          throw jsonError;
-        }
-        
-        console.error('Failed to parse error response:', jsonError);
-        throw new ImageGenerationError(
-          `Failed to generate image (HTTP ${response.status})`,
-          'API_ERROR'
-        );
-      }
+    if (error) {
+      throw new ImageGenerationError(
+        error.message || 'Failed to generate image',
+        'API_ERROR',
+        JSON.stringify(error)
+      );
     }
 
-    let data;
-    try {
-      data = await response.json();
-      console.log('Received Image Data:', data);
-    } catch (parseError) {
-      console.error('Failed to parse response JSON:', parseError);
-      throw new ImageGenerationError('Invalid response format', 'API_ERROR');
-    }
-
-    if (!data || typeof data !== 'object') {
-      throw new ImageGenerationError('Invalid response format', 'API_ERROR');
-    }
-
-    if (!data.imageUrl) {
+    if (!data || !data.imageUrl) {
       throw new ImageGenerationError('No image URL received', 'API_ERROR');
     }
 
