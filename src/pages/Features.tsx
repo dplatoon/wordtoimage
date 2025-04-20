@@ -5,9 +5,16 @@ import { FeaturesSection } from '@/components/FeaturesSection';
 import { TemplatesSection } from '@/components/TemplatesSection';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, Sparkles } from 'lucide-react';
+import { Check, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { useState } from 'react';
+import { ImageGenerationForm } from '@/components/hero/ImageGenerationForm';
+import { ImagePreview } from '@/components/hero/ImagePreview';
 
 const Features = () => {
+  const [generatedImageUrl, setGeneratedImageUrl] = useState<string>('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   return (
     <div className="min-h-screen bg-white">
       <Nav />
@@ -35,6 +42,37 @@ const Features = () => {
                   Watch Demo
                 </Button>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* AI Image Generation Demo */}
+        <section className="py-16 md:py-24 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <Badge className="mb-3 bg-blue-100 hover:bg-blue-100 text-blue-800 border-none">
+                <ImageIcon className="h-4 w-4 mr-1" />
+                Try It Now
+              </Badge>
+              <h2 className="text-3xl font-bold text-gray-900 font-poppins mb-4">
+                AI-Powered Image Generation
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Experience the power of AI-generated images right now. Enter a prompt and watch as your ideas transform into stunning visuals.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <ImageGenerationForm 
+                onImageGenerated={setGeneratedImageUrl}
+                onGeneratingChange={setIsGenerating}
+                onError={setError}
+              />
+              <ImagePreview 
+                imageUrl={generatedImageUrl}
+                isGenerating={isGenerating}
+                error={error}
+              />
             </div>
           </div>
         </section>
