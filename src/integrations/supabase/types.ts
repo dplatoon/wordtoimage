@@ -9,6 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      image_generations: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          model: string
+          prompt: string
+          prompt_id: string | null
+          quality: string
+          size: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          model?: string
+          prompt: string
+          prompt_id?: string | null
+          quality?: string
+          size?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          model?: string
+          prompt?: string
+          prompt_id?: string | null
+          quality?: string
+          size?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       policy: {
         Row: {
           created_at: string

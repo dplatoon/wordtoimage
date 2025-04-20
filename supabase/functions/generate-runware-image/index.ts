@@ -1,9 +1,13 @@
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -165,16 +169,51 @@ serve(async (req) => {
     console.log('Image URL generated successfully');
     
     // Create metadata with tracking info
+    const promptId = crypto.randomUUID();
+    const createdAt = new Date().toISOString();
     const metadata = {
       model: "dall-e-3",
-      promptId: crypto.randomUUID(),
+      promptId,
       size: size,
-      createdAt: new Date().toISOString(),
+      createdAt,
       userId: userId || undefined
     };
-    
-    // If we have a user ID, we could log this generation to the database here
-    // This would require creating a table in Supabase to store image generation history
+
+    // Store in Supabase table
+    if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
+      try {
+        // Insert generation event into the database
+        const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/image_generations`, {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_SERVICE_ROLE_KEY,
+            Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify([{
+            user_id: userId,
+            prompt,
+            image_url: data.data[0].url,
+            size,
+            model: "dall-e-3",
+            quality,
+            prompt_id: promptId,
+            created_at: createdAt
+          }])
+        });
+
+        if (!dbRes.ok) {
+          const errorBody = await dbRes.text();
+          console.error("Failed to log image generation:", dbRes.status, errorBody);
+        } else {
+          console.log("Image generation logged to database");
+        }
+      } catch (dbErr) {
+        console.error("Error inserting generation log:", dbErr);
+      }
+    } else {
+      console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY; not logging generation history.");
+    }
     
     // Return the successful response with metadata
     return new Response(
