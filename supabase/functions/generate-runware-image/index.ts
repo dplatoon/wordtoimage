@@ -1,5 +1,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { generateDalleImage } from "./openai.ts";
+import { logImageGeneration } from "./supabaseClient.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -10,165 +12,131 @@ const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
 serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    // Log the request body
     const requestBody = await req.text();
-    console.log('Request body:', requestBody);
-    
-    // Parse the JSON body
-    const { prompt, n = 1, size = '1024x1024', quality = 'standard', apiKey = null, userId = null } = JSON.parse(requestBody);
-    
-    // Get the OpenAI API key from environment variables or use provided key as fallback
-    let openaiKey = Deno.env.get('OPENAI_API_KEY');
-    
-    // If client provided an API key and server key is not available, use client key
+    console.log("Request body:", requestBody);
+    const { prompt, n = 1, size = "1024x1024", quality = "standard", apiKey = null, userId = null } = JSON.parse(requestBody);
+
+    let openaiKey = Deno.env.get("OPENAI_API_KEY");
     if (!openaiKey && apiKey) {
-      console.log('Using client-provided API key');
+      console.log("Using client-provided API key");
       openaiKey = apiKey;
     }
-    
-    console.log('OpenAI API Key available:', !!openaiKey);
-    console.log('User ID provided:', userId || 'anonymous');
-    
+
     if (!openaiKey) {
-      console.error('OpenAI API key is not available');
       return new Response(
         JSON.stringify({
           error: true,
-          errorMessage: 'OpenAI API key not configured',
-          errors: [{ code: 'API_NOT_FOUND', message: 'API key not found in environment' }]
+          errorMessage: "OpenAI API key not configured",
+          errors: [
+            {
+              code: "API_NOT_FOUND",
+              message: "API key not found in environment"
+            }
+          ]
         }),
         {
           status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
         }
       );
     }
-    
-    // Validate the prompt
-    if (!prompt || typeof prompt !== 'string' || !prompt.trim()) {
-      console.error('Invalid prompt provided:', prompt);
+
+    if (!prompt || typeof prompt !== "string" || !prompt.trim()) {
       return new Response(
         JSON.stringify({
           error: true,
-          errorMessage: 'Invalid prompt',
-          errors: [{ code: 'VALIDATION_ERROR', message: 'Prompt is required and must be a non-empty string' }]
+          errorMessage: "Invalid prompt",
+          errors: [
+            {
+              code: "VALIDATION_ERROR",
+              message: "Prompt is required and must be a non-empty string"
+            }
+          ]
         }),
         {
           status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
         }
       );
     }
 
-    console.log('Processing DALL-E 3 image generation request:', {
-      prompt: prompt.substring(0, 30) + '...',
+    console.log("Processing DALL-E 3 image generation request:", {
+      prompt: prompt.substring(0, 30) + "...",
       size,
       quality,
       n,
-      userId: userId || 'anonymous'
+      userId: userId || "anonymous"
     });
 
-    // Make the API call to OpenAI
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${openaiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: "dall-e-3",
-        prompt: prompt,
-        n: n,
-        size: size,
-        quality: quality,
-        response_format: "url"
-      }),
-    };
+    let data;
+    try {
+      data = await generateDalleImage({
+        prompt,
+        n,
+        size,
+        quality,
+        openaiKey
+      });
+    } catch (err) {
+      console.error("OpenAI API Error:", err);
 
-    console.log('Sending request to OpenAI API...');
-    
-    const response = await fetch('https://api.openai.com/v1/images/generations', requestOptions);
+      let code = "API_ERROR";
+      let msg = "Failed to generate image";
+      let errorType = undefined;
 
-    console.log('OpenAI API Response Status:', response.status);
-    
-    // Handle API response errors
-    if (!response.ok) {
-      let errorData;
-      try {
-        errorData = await response.json();
-        console.error('OpenAI API Error:', JSON.stringify(errorData));
-        
-        // Check for common error types
-        let errorCode = 'API_ERROR';
-        if (errorData.error?.type === 'invalid_request_error') {
-          if (errorData.error?.param === 'api_key') {
-            errorCode = 'INVALID_API_KEY';
-          } else {
-            errorCode = 'VALIDATION_ERROR';
-          }
-        } else if (response.status === 429) {
-          errorCode = 'RATE_LIMIT';
+      if (err.isOpenAI && err.errorData?.error?.type) {
+        errorType = err.errorData.error.type;
+        msg = err.errorData.error.message || msg;
+        if (errorType === "invalid_request_error") {
+          code = err.errorData.error.param === "api_key" ? "INVALID_API_KEY" : "VALIDATION_ERROR";
+        } else if (err.response?.status === 429) {
+          code = "RATE_LIMIT";
         }
-        
-        return new Response(
-          JSON.stringify({
-            error: true,
-            errorMessage: errorData.error?.message || `Failed to generate image: ${response.statusText}`,
-            errors: [{ 
-              code: errorCode, 
-              message: errorData.error?.message || `HTTP Error: ${response.status}`,
-              details: errorData.error?.type
-            }]
-          }),
-          {
-            status: response.status,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-          }
-        );
-      } catch (jsonError) {
-        console.error('Failed to parse error response:', jsonError);
-        return new Response(
-          JSON.stringify({
-            error: true,
-            errorMessage: `Failed to generate image (HTTP ${response.status})`,
-            errors: [{ code: 'API_ERROR', message: `HTTP Error: ${response.status}` }]
-          }),
-          {
-            status: response.status,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-          }
-        );
       }
-    }
 
-    // Parse and validate the response
-    const data = await response.json();
-    console.log('OpenAI API Response received successfully');
-
-    if (!data.data?.[0]?.url) {
-      console.error('No image URL received from OpenAI');
       return new Response(
         JSON.stringify({
           error: true,
-          errorMessage: 'No image URL received from OpenAI',
-          errors: [{ code: 'API_ERROR', message: 'Invalid response format' }]
+          errorMessage: msg,
+          errors: [
+            {
+              code,
+              message: msg,
+              details: errorType
+            }
+          ]
         }),
         {
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          status: err.response?.status || 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
         }
       );
     }
 
-    console.log('Image URL generated successfully');
-    
-    // Create metadata with tracking info
+    if (!data.data?.[0]?.url) {
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "No image URL received from OpenAI",
+          errors: [
+            {
+              code: "API_ERROR",
+              message: "Invalid response format"
+            }
+          ]
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        }
+      );
+    }
+
     const promptId = crypto.randomUUID();
     const createdAt = new Date().toISOString();
     const metadata = {
@@ -179,63 +147,49 @@ serve(async (req) => {
       userId: userId || undefined
     };
 
-    // Store in Supabase table
     if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
-      try {
-        // Insert generation event into the database
-        const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/image_generations`, {
-          method: "POST",
-          headers: {
-            apikey: SUPABASE_SERVICE_ROLE_KEY,
-            Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify([{
-            user_id: userId,
-            prompt,
-            image_url: data.data[0].url,
-            size,
-            model: "dall-e-3",
-            quality,
-            prompt_id: promptId,
-            created_at: createdAt
-          }])
-        });
-
-        if (!dbRes.ok) {
-          const errorBody = await dbRes.text();
-          console.error("Failed to log image generation:", dbRes.status, errorBody);
-        } else {
-          console.log("Image generation logged to database");
+      await logImageGeneration({
+        SUPABASE_URL,
+        SUPABASE_SERVICE_ROLE_KEY,
+        data: {
+          user_id: userId,
+          prompt,
+          image_url: data.data[0].url,
+          size,
+          model: "dall-e-3",
+          quality,
+          prompt_id: promptId,
+          created_at: createdAt
         }
-      } catch (dbErr) {
-        console.error("Error inserting generation log:", dbErr);
-      }
-    } else {
-      console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY; not logging generation history.");
+      });
     }
-    
-    // Return the successful response with metadata
+
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         imageUrl: data.data[0].url,
         usingServerKey: !apiKey,
         metadata: metadata
       }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" }
+      }
     );
   } catch (error) {
-    // Handle any uncaught exceptions
-    console.error('Edge function error:', error.stack || error);
+    console.error("Edge function error:", error.stack || error);
     return new Response(
       JSON.stringify({
         error: true,
-        errorMessage: error.message || 'An unexpected error occurred',
-        errors: [{ code: 'RUNTIME_ERROR', message: error.message || 'Unknown error' }]
+        errorMessage: error.message || "An unexpected error occurred",
+        errors: [
+          {
+            code: "RUNTIME_ERROR",
+            message: error.message || "Unknown error"
+          }
+        ]
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...corsHeaders, "Content-Type": "application/json" }
       }
     );
   }
