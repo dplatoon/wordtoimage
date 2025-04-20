@@ -26,6 +26,6 @@ export default defineConfig(({ mode }) => ({
     // Configure build options to be compatible with Vercel
     target: "esnext",
     minify: "esbuild",
-    emptyOutDir: true, // This ensures the output directory is cleaned before build
+    emptyOutDir: true,
   },
 }));
