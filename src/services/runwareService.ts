@@ -21,7 +21,8 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
         n: options.numberResults || 1,
         size: options.size || '1024x1024',
         quality: options.quality || 'standard',
-        apiKey: options.apiKey || null // Pass user API key only if provided
+        apiKey: options.apiKey || null, // Pass user API key only if provided
+        userId: options.userId || null  // Pass user ID if available
       }
     });
 
@@ -47,7 +48,8 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
     
     return {
       imageUrl: data.imageUrl,
-      usingServerKey
+      usingServerKey,
+      metadata: data.metadata || {}
     };
   } catch (error) {
     console.error('Error generating image:', error);

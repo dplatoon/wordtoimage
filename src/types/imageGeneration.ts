@@ -7,6 +7,7 @@ export interface ImageGenerationOptions {
   quality: 'standard' | 'hd';
   numberResults?: number;
   apiKey?: string | null;
+  userId?: string | null;  // Add userId to track who generated the image
 }
 
 export interface ImageGenerationResponse {
@@ -18,6 +19,7 @@ export interface ImageGenerationResponse {
     promptId: string;
     size: string;
     createdAt: string;
+    userId?: string;  // Add userId in the response metadata
   };
 }
 

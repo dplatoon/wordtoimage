@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { generateImage } from '@/services/runwareService';
 import { toast } from '@/components/ui/sonner';
 import { getErrorMessage, getErrorDisplayDetails } from '@/utils/imageGenerationErrors';
+import { useAuth } from '@/contexts/AuthContext';
 import { 
   ImageGenerationHookProps, 
   ImageGenerationOptions, 
@@ -22,6 +23,9 @@ export const useImageGeneration = ({
     lastPrompt: null,
     usingServerKey: false
   });
+  
+  // Get the current authenticated user
+  const { user } = useAuth();
 
   const generateImageFromPrompt = async (
     prompt: string, 
@@ -64,7 +68,8 @@ export const useImageGeneration = ({
         size: '1024x1024',
         quality: 'standard',
         numberResults: 1,
-        apiKey: tempApiKey || null // Pass API key only if provided
+        apiKey: tempApiKey || null, // Pass API key only if provided
+        userId: user?.id || null     // Pass user ID if authenticated
       };
       
       const result = await generateImage(options);

@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -18,7 +17,7 @@ serve(async (req) => {
     console.log('Request body:', requestBody);
     
     // Parse the JSON body
-    const { prompt, n = 1, size = '1024x1024', quality = 'standard', apiKey = null } = JSON.parse(requestBody);
+    const { prompt, n = 1, size = '1024x1024', quality = 'standard', apiKey = null, userId = null } = JSON.parse(requestBody);
     
     // Get the OpenAI API key from environment variables or use provided key as fallback
     let openaiKey = Deno.env.get('OPENAI_API_KEY');
@@ -30,6 +29,7 @@ serve(async (req) => {
     }
     
     console.log('OpenAI API Key available:', !!openaiKey);
+    console.log('User ID provided:', userId || 'anonymous');
     
     if (!openaiKey) {
       console.error('OpenAI API key is not available');
@@ -66,7 +66,8 @@ serve(async (req) => {
       prompt: prompt.substring(0, 30) + '...',
       size,
       quality,
-      n
+      n,
+      userId: userId || 'anonymous'
     });
 
     // Make the API call to OpenAI
@@ -163,11 +164,24 @@ serve(async (req) => {
 
     console.log('Image URL generated successfully');
     
-    // Return the successful response
+    // Create metadata with tracking info
+    const metadata = {
+      model: "dall-e-3",
+      promptId: crypto.randomUUID(),
+      size: size,
+      createdAt: new Date().toISOString(),
+      userId: userId || undefined
+    };
+    
+    // If we have a user ID, we could log this generation to the database here
+    // This would require creating a table in Supabase to store image generation history
+    
+    // Return the successful response with metadata
     return new Response(
       JSON.stringify({ 
         imageUrl: data.data[0].url,
-        usingServerKey: !apiKey
+        usingServerKey: !apiKey,
+        metadata: metadata
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
