@@ -23,6 +23,7 @@ serve(async (req) => {
     // Get the OpenAI API key and validate it
     const openaiKey = Deno.env.get('OPENAI_API_KEY');
     console.log('OpenAI API Key available:', !!openaiKey);
+    console.log('OpenAI API Key starts with:', openaiKey?.substring(0, 3) + '...');
 
     if (!openaiKey) {
       console.error('OpenAI API key is not set in environment variables');
@@ -30,7 +31,7 @@ serve(async (req) => {
         JSON.stringify({
           error: true,
           errorMessage: 'OpenAI API key not configured',
-          errors: [{ code: 'API_ERROR', message: 'API key not found in environment' }]
+          errors: [{ code: 'API_NOT_FOUND', message: 'API key not found in environment' }]
         }),
         {
           status: 401,
@@ -63,7 +64,7 @@ serve(async (req) => {
     });
 
     // Make the API call to OpenAI
-    const response = await fetch('https://api.openai.com/v1/images/generations', {
+    const requestOptions = {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${openaiKey}`,
@@ -77,7 +78,15 @@ serve(async (req) => {
         quality: quality,
         response_format: "url"
       }),
+    };
+
+    console.log('Request options:', {
+      method: requestOptions.method,
+      headers: { Authorization: 'Bearer sk-...', 'Content-Type': requestOptions.headers['Content-Type'] },
+      body: JSON.stringify(JSON.parse(requestOptions.body))
     });
+
+    const response = await fetch('https://api.openai.com/v1/images/generations', requestOptions);
 
     console.log('OpenAI API Response Status:', response.status);
     
@@ -88,13 +97,26 @@ serve(async (req) => {
         errorData = await response.json();
         console.error('OpenAI API Error:', JSON.stringify(errorData));
         
+        // Check for common error types
+        let errorCode = 'API_ERROR';
+        if (errorData.error?.type === 'invalid_request_error') {
+          if (errorData.error?.param === 'api_key') {
+            errorCode = 'INVALID_API_KEY';
+          } else {
+            errorCode = 'VALIDATION_ERROR';
+          }
+        } else if (response.status === 429) {
+          errorCode = 'RATE_LIMIT';
+        }
+        
         return new Response(
           JSON.stringify({
             error: true,
             errorMessage: errorData.error?.message || `Failed to generate image: ${response.statusText}`,
             errors: [{ 
-              code: 'API_ERROR', 
-              message: errorData.error?.message || `HTTP Error: ${response.status}` 
+              code: errorCode, 
+              message: errorData.error?.message || `HTTP Error: ${response.status}`,
+              details: errorData.error?.type
             }]
           }),
           {

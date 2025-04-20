@@ -48,7 +48,7 @@ export const handleApiError = (error: unknown): ServiceError => {
 export const getErrorDisplayMessage = (error: ServiceError): string => {
   switch (error.code) {
     case 'INVALID_API_KEY':
-      return 'Invalid API key. Please check your credentials.';
+      return 'Invalid or expired API key. Please update your API key.';
     case 'RATE_LIMIT':
       return 'Rate limit exceeded. Please try again later.';
     case 'VALIDATION_ERROR':
@@ -59,7 +59,7 @@ export const getErrorDisplayMessage = (error: ServiceError): string => {
       }
       return `Service is temporarily unavailable. ${error.details || ''}`;
     case 'API_NOT_FOUND':
-      return 'Image generation API is not configured. Please check the server setup.';
+      return 'Image generation API is not configured. Please check your API key.';
     default:
       return error.message || 'An unexpected error occurred';
   }
