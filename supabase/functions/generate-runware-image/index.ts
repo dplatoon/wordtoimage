@@ -18,14 +18,21 @@ serve(async (req) => {
     console.log('Request body:', requestBody);
     
     // Parse the JSON body
-    const { prompt, n = 1, size = '1024x1024', quality = 'standard' } = JSON.parse(requestBody);
+    const { prompt, n = 1, size = '1024x1024', quality = 'standard', apiKey = null } = JSON.parse(requestBody);
     
-    // Get the OpenAI API key and validate it
-    const openaiKey = Deno.env.get('OPENAI_API_KEY');
+    // Get the OpenAI API key from environment variables or use provided key as fallback
+    let openaiKey = Deno.env.get('OPENAI_API_KEY');
+    
+    // If client provided an API key and server key is not available, use client key
+    if (!openaiKey && apiKey) {
+      console.log('Using client-provided API key');
+      openaiKey = apiKey;
+    }
+    
     console.log('OpenAI API Key available:', !!openaiKey);
     
     if (!openaiKey) {
-      console.error('OpenAI API key is not set in environment variables');
+      console.error('OpenAI API key is not available');
       return new Response(
         JSON.stringify({
           error: true,
@@ -158,7 +165,10 @@ serve(async (req) => {
     
     // Return the successful response
     return new Response(
-      JSON.stringify({ imageUrl: data.data[0].url }),
+      JSON.stringify({ 
+        imageUrl: data.data[0].url,
+        usingServerKey: !apiKey
+      }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {

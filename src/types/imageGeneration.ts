@@ -6,11 +6,13 @@ export interface ImageGenerationOptions {
   size: '256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792';
   quality: 'standard' | 'hd';
   numberResults?: number;
+  apiKey?: string | null;
 }
 
 export interface ImageGenerationResponse {
   imageUrl: string;
   error?: ServiceError;
+  usingServerKey?: boolean;
   metadata?: {
     model: string;
     promptId: string;
@@ -30,6 +32,7 @@ export interface ImageGenerationState {
   isRetrying: boolean;
   error: string | null;
   lastPrompt: string | null;
+  usingServerKey?: boolean;
 }
 
 export interface ImageGenerationHookReturn {
@@ -37,4 +40,3 @@ export interface ImageGenerationHookReturn {
   isRetrying: boolean;
   state: ImageGenerationState;
 }
-

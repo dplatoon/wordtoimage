@@ -20,7 +20,8 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
         prompt: options.prompt,
         n: options.numberResults || 1,
         size: options.size || '1024x1024',
-        quality: options.quality || 'standard'
+        quality: options.quality || 'standard',
+        apiKey: options.apiKey || null // Pass user API key only if provided
       }
     });
 
@@ -40,9 +41,13 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
       throw new ImageGenerationError('No image URL received', 'API_ERROR');
     }
 
-    console.log('Image generation successful');
+    // Add information about whether we used server key
+    const usingServerKey = data.usingServerKey === true;
+    console.log('Image generation successful', usingServerKey ? 'using server API key' : 'using user API key');
+    
     return {
-      imageUrl: data.imageUrl
+      imageUrl: data.imageUrl,
+      usingServerKey
     };
   } catch (error) {
     console.error('Error generating image:', error);

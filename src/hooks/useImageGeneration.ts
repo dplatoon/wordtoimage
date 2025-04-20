@@ -19,7 +19,8 @@ export const useImageGeneration = ({
     isGenerating: false,
     isRetrying: false,
     error: null,
-    lastPrompt: null
+    lastPrompt: null,
+    usingServerKey: false
   });
 
   const generateImageFromPrompt = async (
@@ -27,18 +28,11 @@ export const useImageGeneration = ({
     tempApiKey: string, 
     retry: boolean = false
   ): Promise<void> => {
-    if (!tempApiKey) {
-      toast.error('API Key Required', {
-        description: 'Please enter your OpenAI API key to generate images.',
-        action: {
-          label: 'Add API Key',
-          onClick: () => {}
-        }
-      });
-      return;
-    }
-
-    if (!prompt.trim()) {
+    // If this is a retry and we're already retrying, skip
+    if (state.isRetrying && !retry) return;
+    
+    // Empty prompt check
+    if (!prompt.trim() && !retry) {
       const error = getErrorMessage(new Error('Empty prompt'));
       const errorDetails = getErrorDisplayDetails(error);
       
@@ -52,8 +46,6 @@ export const useImageGeneration = ({
       });
       return;
     }
-    
-    if (state.isRetrying && !retry) return;
     
     setState(prev => ({
       ...prev,
@@ -71,7 +63,8 @@ export const useImageGeneration = ({
         prompt: prompt.trim(),
         size: '1024x1024',
         quality: 'standard',
-        numberResults: 1
+        numberResults: 1,
+        apiKey: tempApiKey || null // Pass API key only if provided
       };
       
       const result = await generateImage(options);
@@ -83,20 +76,35 @@ export const useImageGeneration = ({
       }
       
       if (result.imageUrl) {
+        // Update state with info about whether we're using server key
+        setState(prev => ({
+          ...prev,
+          usingServerKey: result.usingServerKey || false
+        }));
+        
         onImageGenerated(result.imageUrl);
-        toast.success("Image Generated!", {
-          description: "Your custom graphic is ready to download.",
-          duration: 5000,
-          action: {
-            label: 'Generate Another',
-            onClick: () => generateImageFromPrompt(prompt, tempApiKey, false)
-          }
-        });
+        
+        if (!retry) {
+          toast.success("Image Generated!", {
+            description: "Your custom graphic is ready to download.",
+            duration: 5000,
+            action: {
+              label: 'Generate Another',
+              onClick: () => generateImageFromPrompt(prompt, tempApiKey, false)
+            }
+          });
+        }
       } else {
         throw new Error("No image URL received");
       }
     } catch (error) {
       console.error('Failed to generate image:', error);
+      
+      if (retry) {
+        // If this was a server key check and it failed, don't show error toast
+        console.log("Server key check failed");
+        throw error;
+      }
       
       const processedError = getErrorMessage(error);
       const errorDetails = getErrorDisplayDetails(processedError);
@@ -136,4 +144,3 @@ export const useImageGeneration = ({
     state
   };
 };
-
