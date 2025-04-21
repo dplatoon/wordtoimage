@@ -8,6 +8,9 @@ import { InfoAlert } from './InfoAlert';
 import { ApiKeyHeader } from './ApiKeyHeader';
 import { toast } from '@/components/ui/sonner';
 import type { MouseEvent } from 'react';
+// Add import for AuthContext
+import { useAuth } from '@/contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -25,28 +28,64 @@ export const ImageGenerationForm = ({
   const [tempApiKey, setTempApiKey] = useState('');
   const [isCheckingServerKey, setIsCheckingServerKey] = useState(true);
 
+  const { user, loading: authLoading } = useAuth();
+
   const { generateImageFromPrompt, isRetrying, state } = useImageGeneration({
     onImageGenerated,
     onGeneratingChange,
     onError,
   });
 
-  // Check if we can use server API key first
+  // If still loading auth, show spinner
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <span className="ml-3 text-gray-600">Checking authentication...</span>
+      </div>
+    );
+  }
+
+  // If user not logged in, show message and login/signup buttons
+  if (!user) {
+    return (
+      <div className="bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
+        <div className="bg-white rounded-xl p-5 flex flex-col items-center space-y-4">
+          <InfoAlert />
+          <div className="text-center">
+            <h3 className="text-xl font-semibold mb-2 text-gray-900">Sign In to Generate Images</h3>
+            <p className="text-gray-600 mb-4">
+              Please log in or create an account to use AI image generation. This helps us prevent abuse and keeps your creations just for you!
+            </p>
+            <div className="flex gap-3 justify-center">
+              <Link to="/auth">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">Sign In</Button>
+              </Link>
+              <Link to="/auth?tab=signup">
+                <Button variant="outline" className="border-blue-600 text-blue-700 hover:bg-blue-100 hover:text-blue-800">
+                  Create Account
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Check if we can use server API key first (as before)
   useEffect(() => {
     const checkServerApiKey = async () => {
       try {
         setIsCheckingServerKey(true);
-        // Try to generate a test image with empty API key to see if server has one
         const testPrompt = "server key test";
         await generateImageFromPrompt(testPrompt, "", true);
-        // If we get here without error, server key is available
         setShowApiKeyForm(false);
         toast.success("Using server API key", {
           description: "No need to provide your own OpenAI API key"
         });
       } catch (error) {
         console.log("Server API key not available, will use user-provided key");
-        // Get saved key from localStorage if available
         const savedApiKey = localStorage.getItem('temp_openai_key');
         if (savedApiKey) {
           setTempApiKey(savedApiKey);
@@ -59,20 +98,16 @@ export const ImageGenerationForm = ({
     };
 
     checkServerApiKey();
+    // eslint-disable-next-line
   }, []);
 
   const handleApiKeySubmit = (apiKey: string) => {
     setTempApiKey(apiKey);
     setShowApiKeyForm(false);
-    
-    // Store API key in localStorage
     localStorage.setItem('temp_openai_key', apiKey);
-    
     toast.success('API Key saved', {
       description: 'Your OpenAI API key has been saved for this session.'
     });
-    
-    // If there's a prompt already, generate the image
     if (prompt.trim()) {
       generateImageFromPrompt(prompt, apiKey, true);
     }
