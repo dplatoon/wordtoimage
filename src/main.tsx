@@ -4,13 +4,15 @@ import App from './App.tsx'
 import './index.css'
 import './i18n';
 import React from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 
-// Ensure React is properly initialized
 const container = document.getElementById("root");
 if (!container) throw new Error('Root element not found');
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
-    <App />
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
   </React.StrictMode>
 );

@@ -1,9 +1,11 @@
+
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { Helmet } from 'react-helmet-async';
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { LoginForm } from "@/components/auth/LoginForm";
 import Index from "./pages/Index";
@@ -34,6 +36,14 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <TooltipProvider>
+        <Helmet>
+          <title>WordToImage — AI Text-to-Image Generator</title>
+          <meta name="description" content="Generate stunning AI images from text prompts in seconds. Free to try, no credit card required." />
+          <meta property="og:type" content="website" />
+          <meta property="og:site_name" content="WordToImage" />
+          <meta property="og:image" content="https://wordtoimage.com/og-image.png" />
+          <meta name="twitter:card" content="summary_large_image" />
+        </Helmet>
         <Toaster />
         <Sonner />
         <BrowserRouter>

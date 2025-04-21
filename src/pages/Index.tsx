@@ -1,4 +1,3 @@
-
 import { Nav } from '@/components/Nav';
 import { HeroSection } from '@/components/HeroSection';
 import { TemplatesSection } from '@/components/TemplatesSection';
@@ -9,6 +8,7 @@ import { CTASection } from '@/components/CTASection';
 import { Footer } from '@/components/Footer';
 import { BetaBanner } from '@/components/BetaBanner';
 import { useEffect, lazy, Suspense } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 // Lazy load non-critical sections for better initial load performance
 const LazyFeaturesSection = lazy(() => import('@/components/FeaturesSection').then(module => ({ default: module.FeaturesSection })));
@@ -16,7 +16,6 @@ const LazyTestimonialsSection = lazy(() => import('@/components/TestimonialsSect
 const LazyPricingSection = lazy(() => import('@/components/PricingSection').then(module => ({ default: module.PricingSection })));
 
 const Index = () => {
-  // For SEO: Add structured data and page tracking
   useEffect(() => {
     // Track page view with Google Analytics
     if (typeof window !== 'undefined' && window.gtag) {
@@ -33,6 +32,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>WordToImage - Transform Text Into Images with AI</title>
+        <meta name="description" content="Turn your ideas into vivid images in seconds—no design skills needed. Create professional-looking visuals for social media, presentations, or inspiration." />
+        <meta property="og:url" content="https://wordtoimage.com" />
+        <meta property="og:title" content="WordToImage: AI Text-to-Image Generator" />
+        <meta property="og:description" content="Create stunning visuals in seconds from text prompts. Free to try, no credit card required." />
+        <meta property="og:image" content="https://wordtoimage.com/home-og.png" />
+        <meta name="twitter:image" content="https://wordtoimage.com/home-og.png" />
+      </Helmet>
+      
       {/* Skip to main content link for accessibility */}
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:z-50">
         Skip to main content
