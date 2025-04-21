@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isConfigured, setIsConfigured] = useState(true);
 
   useEffect(() => {
-    // Track initial session state
     const getInitialSession = async () => {
       setIsLoading(true);
       try {
@@ -44,19 +43,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    // Set up the auth state change listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
         setUser(session?.user || null);
         
-        // Track sign-up events
         if (event === 'SIGNED_IN') {
-          // Only track new sign-ups, not regular sign-ins
-          // This is an approximation - for more accuracy, you'd track this in your sign-up form directly
           const user = session?.user;
           if (user && new Date(user.created_at).getTime() > Date.now() - (5 * 60 * 1000)) {
-            // If user was created in the last 5 minutes, consider it a new sign-up
             trackEvent(events.SIGN_UP, {
               method: user.app_metadata?.provider || 'email',
               isNewUser: true
@@ -71,7 +65,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => {
       subscription?.unsubscribe();
     };
-    
   }, []);
 
   const signIn = async (email: string) => {
