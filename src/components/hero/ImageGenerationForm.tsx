@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -66,8 +65,7 @@ export const ImageGenerationForm = ({
   const [prompt, setPrompt] = useState('');
   const [showApiKeyForm, setShowApiKeyForm] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
-  // Disable API key check during development
-  const [isCheckingServerKey, setIsCheckingServerKey] = useState(false);
+  const [isCheckingServerKey, setIsCheckingServerKey] = useState(true);
 
   const [style, setStyle] = useState(DEFAULT_STYLES[0]);
   const [resolution, setResolution] = useState(RESOLUTIONS[1]);
@@ -88,14 +86,21 @@ export const ImageGenerationForm = ({
     onError,
   });
 
-  // Temporary development mode - bypass API key check
+  // Check for server key on component mount
   useEffect(() => {
-    // For development, we'll skip the server key check
-    setIsCheckingServerKey(false);
-    setShowApiKeyForm(false);
-    toast.info("Development mode: API key check bypassed", {
-      description: "Enable API key check in production"
-    });
+    const checkServerKey = async () => {
+      try {
+        const serverKeyTest = await generateImageFromPrompt('[Test] server key check', '', true);
+        setShowApiKeyForm(false);
+        setIsCheckingServerKey(false);
+      } catch (error) {
+        console.log('No server key available, requiring user API key');
+        setShowApiKeyForm(true);
+        setIsCheckingServerKey(false);
+      }
+    };
+
+    checkServerKey();
   }, []);
 
   // AUTH LOADING
@@ -156,11 +161,15 @@ export const ImageGenerationForm = ({
   return (
     <div className="relative bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
       <div className="bg-white rounded-xl p-5">
-        <InfoAlert />
-        {/* Development Mode Warning */}
-        <div className="mb-3 py-2 px-3 bg-yellow-50 border border-yellow-200 rounded-md text-sm text-yellow-800">
-          ⚠️ Development Mode: API checks disabled. Image generation simulated.
-        </div>
+        <InfoAlert usingServerKey={!showApiKeyForm} />
+        
+        {showApiKeyForm && (
+          <ApiKeyForm 
+            onSubmit={setTempApiKey} 
+            serviceName="OpenAI" 
+            keyPlaceholder="Enter your OpenAI API key" 
+          />
+        )}
 
         <form onSubmit={handleFormSubmit}>
           {/* Enhanced prompt with placeholder */}
