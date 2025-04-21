@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { HeroHeader } from './hero/HeroHeader';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
@@ -34,14 +33,10 @@ export const HeroSection = () => {
                   error={generationError}
                 />
               </div>
-              <div className="absolute -top-6 -right-6 bg-yellow-400 text-yellow-900 font-semibold px-4 py-2 rounded-full transform rotate-12 shadow-lg">
-                Runware AI!
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Implementation Roadmap Section */}
         <div className="mt-16 py-8 px-6 bg-white rounded-xl shadow-md border border-blue-100">
           <h2 className="text-2xl font-bold text-blue-800 mb-6">Implementation Roadmap</h2>
           
