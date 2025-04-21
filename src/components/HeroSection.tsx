@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { HeroHeader } from './hero/HeroHeader';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
@@ -33,52 +34,6 @@ export const HeroSection = () => {
                   error={generationError}
                 />
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-16 py-8 px-6 bg-white rounded-xl shadow-md border border-blue-100">
-          <h2 className="text-2xl font-bold text-blue-800 mb-6">Implementation Roadmap</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-              <div className="text-blue-500 font-bold mb-2 flex items-center">
-                <span className="bg-blue-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2">1</span>
-                Wireframe
-              </div>
-              <p className="text-sm text-gray-600">Sketch the input, controls, button, and gallery in your design tool</p>
-            </div>
-            
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-              <div className="text-blue-500 font-bold mb-2 flex items-center">
-                <span className="bg-blue-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2">2</span>
-                Update Spec
-              </div>
-              <p className="text-sm text-gray-600">Document components and copy, then generate React UI</p>
-            </div>
-            
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-              <div className="text-blue-500 font-bold mb-2 flex items-center">
-                <span className="bg-blue-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2">3</span>
-                Edge Cases
-              </div>
-              <p className="text-sm text-gray-600">Test long prompts, network failures, and auth flows</p>
-            </div>
-            
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-              <div className="text-blue-500 font-bold mb-2 flex items-center">
-                <span className="bg-blue-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2">4</span>
-                Feedback
-              </div>
-              <p className="text-sm text-gray-600">Roll out to beta users and use Hotjar for user insights</p>
-            </div>
-            
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-              <div className="text-blue-500 font-bold mb-2 flex items-center">
-                <span className="bg-blue-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2">5</span>
-                Polish
-              </div>
-              <p className="text-sm text-gray-600">Refine styling, animations, and A/B test messaging</p>
             </div>
           </div>
         </div>
