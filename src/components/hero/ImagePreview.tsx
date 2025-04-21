@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Image, Download, AlertTriangle } from 'lucide-react';
@@ -12,7 +11,6 @@ interface ImagePreviewProps {
   error: string | null;
 }
 
-// Track generated images in memory for session gallery
 const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
   const [gallery, setGallery] = useState<{ url: string; prompt: string }[]>([]);
 
@@ -49,10 +47,8 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
     }
   };
 
-  // Error helpers
   const isApiNotFoundError = error?.includes('not configured') || error?.includes('not available');
 
-  // Original preview logic for current image, plus gallery below
   return (
     <div>
       <div className="h-[350px] md:h-[400px] bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden relative">
@@ -109,7 +105,6 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
           </div>
         )}
       </div>
-      {/* Session Gallery: only show if >1 generated */}
       <GenerationGallery images={gallery} />
     </div>
   );

@@ -1,4 +1,3 @@
-
 import { Download } from 'lucide-react';
 
 interface GalleryImage {
@@ -14,7 +13,6 @@ interface GenerationGalleryProps {
 
 export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
   if (!images?.length) return null;
-  // Show most recent images first
   const galleryImages = images.slice(-4).reverse();
 
   return (

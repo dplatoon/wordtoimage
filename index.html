@@ -3,17 +3,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>WordToImage - AI-Powered Text to Image Generation in Seconds</title>
     <meta name="description" content="Transform your words into stunning visuals instantly with WordToImage. Create professional social media graphics using AI in seconds. No design skills required." />
 
-    <!-- Preconnect to origins -->
+    <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.openai.com">
     <link rel="dns-prefetch" href="https://api.openai.com">
     <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/src/index.css" as="style">
+    <link rel="preload" href="/src/main.tsx" as="script" type="module">
+    
+    <!-- Resource hints -->
+    <link rel="preconnect" href="https://cdn.gpteng.co" crossorigin>
 
     <!-- Open Graph / Social Meta Tags -->
     <meta property="og:title" content="WordToImage - AI-Powered Text to Image Generation" />
@@ -54,14 +61,16 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png">
-    
-    <!-- Google Analytics - load asynchronously to not block rendering -->
+
+    <!-- Async load non-critical scripts -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-KND5GPN1W7');
+      gtag('config', 'G-KND5GPN1W7', {
+        send_page_view: false // Defer pageview until after page load
+      });
     </script>
   </head>
 
