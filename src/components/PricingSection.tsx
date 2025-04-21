@@ -1,6 +1,8 @@
 
-import { Check, X } from 'lucide-react';
+import { useState } from "react";
+import { Check, X, CreditCard, Users } from "lucide-react";
 import { Button } from './ui/button';
+import { PaymentMethodModal } from './PaymentMethodModal';
 
 const plans = [
   {
@@ -16,7 +18,8 @@ const plans = [
       { included: false, text: "Brand kit" }
     ],
     buttonText: "Start Free",
-    buttonVariant: "outline" as const
+    buttonVariant: "outline" as const,
+    disabled: true // Free plan cannot use payment
   },
   {
     name: "Pro",
@@ -32,7 +35,8 @@ const plans = [
       { included: false, text: "Brand kit" }
     ],
     buttonText: "Get Pro",
-    buttonVariant: "default" as const
+    buttonVariant: "default" as const,
+    disabled: false
   },
   {
     name: "Business",
@@ -47,11 +51,15 @@ const plans = [
       { included: true, text: "Brand kit" }
     ],
     buttonText: "Get Business",
-    buttonVariant: "outline" as const
+    buttonVariant: "outline" as const,
+    disabled: false
   }
 ];
 
 export const PricingSection = () => {
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+
   return (
     <section id="pricing" className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,7 +112,14 @@ export const PricingSection = () => {
 
               <Button 
                 variant={plan.buttonVariant} 
-                className={`w-full ${plan.popular ? 'bg-blue-600 hover:bg-blue-700' : ''}`}
+                className={`w-full ${plan.popular ? 'bg-blue-600 hover:bg-blue-700 text-white' : ''}`}
+                disabled={plan.disabled}
+                onClick={() => {
+                  if (!plan.disabled) {
+                    setSelectedPlan(plan.name);
+                    setPaymentModalOpen(true);
+                  }
+                }}
               >
                 {plan.buttonText}
               </Button>
@@ -120,6 +135,13 @@ export const PricingSection = () => {
           </Button>
         </div>
       </div>
+
+      {/* Payment Method Modal */}
+      <PaymentMethodModal
+        open={paymentModalOpen}
+        onOpenChange={setPaymentModalOpen}
+        planName={selectedPlan}
+      />
     </section>
   );
 };
