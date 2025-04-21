@@ -1,10 +1,10 @@
 
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Image, Download, AlertTriangle } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 import { GenerationGallery } from './GenerationGallery';
-import { useState, useEffect } from 'react';
 
 interface ImagePreviewProps {
   imageUrl: string;
@@ -86,7 +86,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
               decoding="async"
               width="1024" 
               height="1024"
-              fetchpriority="high"
+              fetchPriority="high"
               style={{contentVisibility: 'auto'}}
             />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -112,3 +112,4 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
     </div>
   );
 };
+
