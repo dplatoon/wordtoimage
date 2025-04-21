@@ -9,7 +9,7 @@ import { AuthModalDialog } from './AuthModalDialog';
 import { GenerationControls } from './GenerationControls';
 import { NextStepsSection } from './NextStepsSection';
 import { useAuth } from '@/contexts/AuthContext';
-import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS } from './constants';
+import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS, ArtStyle, Resolution } from './constants';
 import type { MouseEvent } from 'react';
 
 interface ImageGenerationFormProps {
@@ -31,8 +31,8 @@ export const ImageGenerationForm = ({
   const [isCheckingServerKey, setIsCheckingServerKey] = useState(true);
   const [authModalOpen, setAuthModalOpen] = useState(false);
 
-  const [style, setStyle] = useState(DEFAULT_STYLES[0]);
-  const [resolution, setResolution] = useState(RESOLUTIONS[1]);
+  const [style, setStyle] = useState<string>(DEFAULT_STYLES[0]);
+  const [resolution, setResolution] = useState<string>(RESOLUTIONS[1]);
   const [count, setCount] = useState(1);
 
   const { user, loading: authLoading } = useAuth();
