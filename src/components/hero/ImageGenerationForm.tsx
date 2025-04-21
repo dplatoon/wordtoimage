@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,10 +41,10 @@ export const AuthModal = ({ open, onClose }: { open: boolean; onClose: () => voi
       <div className="bg-white rounded-2xl shadow-2xl px-8 py-9 max-w-sm w-full text-center flex flex-col gap-6">
         <h2 className="text-2xl font-bold">Sign up or Log in to WordToImage</h2>
         <p className="text-gray-600">
-          Log in or sign up in seconds. It’s free!
+          Log in or sign up in seconds. It's free!
         </p>
         <Link to="/auth?tab=signup">
-          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white" autoFocus>Get Started — It’s Free</Button>
+          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white" autoFocus>Get Started — It's Free</Button>
         </Link>
         <div>
           <Link to="/auth" className="text-blue-700 underline hover:text-blue-900">
@@ -65,7 +66,8 @@ export const ImageGenerationForm = ({
   const [prompt, setPrompt] = useState('');
   const [showApiKeyForm, setShowApiKeyForm] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
-  const [isCheckingServerKey, setIsCheckingServerKey] = useState(true);
+  // Disable API key check during development
+  const [isCheckingServerKey, setIsCheckingServerKey] = useState(false);
 
   const [style, setStyle] = useState(DEFAULT_STYLES[0]);
   const [resolution, setResolution] = useState(RESOLUTIONS[1]);
@@ -86,30 +88,15 @@ export const ImageGenerationForm = ({
     onError,
   });
 
-  // Initial server key check (unchanged)
+  // Temporary development mode - bypass API key check
   useEffect(() => {
-    const checkServerApiKey = async () => {
-      try {
-        setIsCheckingServerKey(true);
-        const testPrompt = "server key test";
-        await generateImageFromPrompt(testPrompt, "", true);
-        setShowApiKeyForm(false);
-        toast.success("Using server API key", {
-          description: "No need to provide your own OpenAI API key"
-        });
-      } catch (error) {
-        const savedApiKey = localStorage.getItem('temp_openai_key');
-        if (savedApiKey) {
-          setTempApiKey(savedApiKey);
-        } else {
-          setShowApiKeyForm(true);
-        }
-      } finally {
-        setIsCheckingServerKey(false);
-      }
-    };
-    checkServerApiKey();
-  }, [generateImageFromPrompt]);
+    // For development, we'll skip the server key check
+    setIsCheckingServerKey(false);
+    setShowApiKeyForm(false);
+    toast.info("Development mode: API key check bypassed", {
+      description: "Enable API key check in production"
+    });
+  }, []);
 
   // AUTH LOADING
   if (authLoading || isCheckingServerKey) {
@@ -146,8 +133,8 @@ export const ImageGenerationForm = ({
   const onResolutionChange = (e: React.ChangeEvent<HTMLSelectElement>) => setResolution(e.target.value);
   const onCountChange = (e: React.ChangeEvent<HTMLSelectElement>) => setCount(Number(e.target.value));
 
-  // Only allow if valid input and ready
-  const canGenerate = !!prompt.trim() && prompt.length <= MAX_PROMPT_LENGTH && (tempApiKey || state.usingServerKey);
+  // For development, always allow generation
+  const canGenerate = !!prompt.trim() && prompt.length <= MAX_PROMPT_LENGTH;
 
   // Form submit logic
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
@@ -170,19 +157,10 @@ export const ImageGenerationForm = ({
     <div className="relative bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
       <div className="bg-white rounded-xl p-5">
         <InfoAlert />
-        {!state.usingServerKey && (
-          <ApiKeyHeader tempApiKey={tempApiKey} onUpdateApiKey={() => setShowApiKeyForm(!showApiKeyForm)} />
-        )}
-        {showApiKeyForm && !state.usingServerKey && (
-          <ApiKeyForm onSubmit={setTempApiKey} serviceName="OpenAI" keyPlaceholder="Enter your OpenAI API key" />
-        )}
-        {state.usingServerKey && (
-          <div className="mb-3 flex items-center justify-between">
-            <span className="text-sm text-gray-600 bg-green-50 px-2 py-1 rounded-full border border-green-100">
-              Using server API key - No personal key required
-            </span>
-          </div>
-        )}
+        {/* Development Mode Warning */}
+        <div className="mb-3 py-2 px-3 bg-yellow-50 border border-yellow-200 rounded-md text-sm text-yellow-800">
+          ⚠️ Development Mode: API checks disabled. Image generation simulated.
+        </div>
 
         <form onSubmit={handleFormSubmit}>
           {/* Enhanced prompt with placeholder */}
@@ -246,6 +224,18 @@ export const ImageGenerationForm = ({
             </Button>
           </div>
         </form>
+        
+        {/* Next Steps & Implementation */}
+        <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-lg">
+          <h3 className="text-lg font-semibold text-blue-800 mb-2">Next Steps & Implementation</h3>
+          <ol className="list-decimal list-inside space-y-2 text-sm text-blue-700">
+            <li>Wireframe the New Section in your design tool, sketching the input, controls, button, and gallery</li>
+            <li>Update Your Lovable Spec with the above components and copy, then generate the React UI</li>
+            <li>Test Edge Cases: Very long prompts, network failures, and unauthenticated clicks</li>
+            <li>Gather Feedback: Roll out to a beta group or use Hotjar to watch interactions</li>
+            <li>Iterate & Polish: Refine styling, tweak animations, and A/B‑test messaging</li>
+          </ol>
+        </div>
       </div>
       <AuthModal open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </div>

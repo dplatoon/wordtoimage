@@ -5,6 +5,14 @@ import { ImageGenerationError, handleApiError, getErrorDisplayMessage } from "@/
 import { ImageGenerationOptions, ImageGenerationResponse } from "@/types/imageGeneration";
 import { supabase } from "@/integrations/supabase/client";
 
+// Sample placeholder images for development mode
+const PLACEHOLDER_IMAGES = [
+  "https://images.unsplash.com/photo-1682687220363-35e4589b28b0?w=500&auto=format&fit=crop&q=60",
+  "https://images.unsplash.com/photo-1682687220499-d9c06b872eee?w=500&auto=format&fit=crop&q=60",
+  "https://images.unsplash.com/photo-1688590361364-2d30405168e4?w=500&auto=format&fit=crop&q=60",
+  "https://images.unsplash.com/photo-1682687220208-22ac9ae8b817?w=500&auto=format&fit=crop&q=60"
+];
+
 export const generateImage = async (options: ImageGenerationOptions): Promise<ImageGenerationResponse> => {
   console.log('Image Generation Request:', options);
   
@@ -13,7 +21,33 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
       throw new ImageGenerationError('Prompt is required', 'VALIDATION_ERROR');
     }
 
-    // Call the Supabase Edge Function
+    // DEVELOPMENT MODE: Return placeholder image instead of calling the API
+    const isDevelopmentMode = true; // Set this to false when ready for production
+
+    if (isDevelopmentMode) {
+      console.log('DEVELOPMENT MODE: Using placeholder image instead of API call');
+      
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Get a random placeholder image
+      const randomIndex = Math.floor(Math.random() * PLACEHOLDER_IMAGES.length);
+      const placeholderUrl = PLACEHOLDER_IMAGES[randomIndex];
+      
+      return {
+        imageUrl: placeholderUrl,
+        usingServerKey: true,
+        metadata: {
+          model: "dall-e-3-dev-mode",
+          promptId: `dev-${Date.now()}`,
+          size: options.size,
+          createdAt: new Date().toISOString(),
+          userId: options.userId || undefined
+        }
+      };
+    }
+
+    // PRODUCTION CODE - Will be used when isDevelopmentMode is false
     console.log('Calling Supabase Edge Function: generate-runware-image');
     const { data, error } = await supabase.functions.invoke('generate-runware-image', {
       body: {
