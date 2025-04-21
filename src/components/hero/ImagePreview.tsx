@@ -85,6 +85,10 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
               src={imageUrl}
               alt="Generated social media graphic"
               className="w-full h-full object-contain"
+              loading="lazy" 
+              decoding="async"
+              width="1024" 
+              height="1024"
             />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
               <Button

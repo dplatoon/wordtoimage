@@ -7,6 +7,14 @@
     <title>WordToImage - AI-Powered Text to Image Generation in Seconds</title>
     <meta name="description" content="Transform your words into stunning visuals instantly with WordToImage. Create professional social media graphics using AI in seconds. No design skills required." />
 
+    <!-- Preconnect to origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.openai.com">
+    <link rel="dns-prefetch" href="https://api.openai.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+
     <!-- Open Graph / Social Meta Tags -->
     <meta property="og:title" content="WordToImage - AI-Powered Text to Image Generation" />
     <meta property="og:description" content="Transform your words into stunning visuals instantly. Create professional social media graphics using AI in seconds." />
@@ -43,21 +51,16 @@
         ]
       }
     </script>
-
-    <!-- Preconnect to origins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.ico">
     
-    <!-- Google Analytics -->
+    <!-- Google Analytics - load asynchronously to not block rendering -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-KND5GPN1W7');
     </script>
   </head>

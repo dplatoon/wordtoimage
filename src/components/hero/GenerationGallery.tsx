@@ -28,8 +28,12 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
           >
             <img
               src={img.url}
-              alt={img.prompt}
+              alt={img.prompt || "Generated image"}
               className="w-full h-56 object-cover group-hover:brightness-90 transition-all"
+              width="512"
+              height="224"
+              loading="lazy"
+              decoding="async"
               style={{ borderRadius: 8 }}
             />
             {/* Overlay on hover */}
@@ -51,6 +55,7 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
                     document.body.removeChild(a);
                   }}
                   style={{ pointerEvents: "auto" }}
+                  aria-label="Download image"
                 >
                   <Download className="h-5 w-5 text-blue-600" />
                 </button>

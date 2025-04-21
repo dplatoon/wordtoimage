@@ -1,5 +1,5 @@
 
-import { Select } from '@/components/ui/select';
+import { memo } from 'react';
 import { DEFAULT_STYLES, RESOLUTIONS, IMAGE_COUNTS } from './constants';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -12,7 +12,7 @@ interface GenerationControlsProps {
   onCountChange: (value: string) => void;
 }
 
-export const GenerationControls = ({
+export const GenerationControls = memo(({
   style,
   resolution,
   count,
@@ -56,4 +56,7 @@ export const GenerationControls = ({
       </div>
     </div>
   );
-};
+});
+
+// Add display name for better debugging
+GenerationControls.displayName = 'GenerationControls';
