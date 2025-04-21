@@ -7,7 +7,6 @@ import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { InfoAlert } from './InfoAlert';
 import { AuthModalDialog } from './AuthModalDialog';
 import { GenerationControls } from './GenerationControls';
-import { NextStepsSection } from './NextStepsSection';
 import { useAuth } from '@/contexts/AuthContext';
 import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS, ArtStyle, Resolution } from './constants';
 import type { MouseEvent } from 'react';
@@ -169,8 +168,6 @@ export const ImageGenerationForm = ({
             </Button>
           </div>
         </form>
-        
-        <NextStepsSection />
       </div>
       <AuthModalDialog open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </div>

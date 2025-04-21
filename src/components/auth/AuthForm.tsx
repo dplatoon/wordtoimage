@@ -10,7 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
-import { Github, Loader2 } from 'lucide-react';
+import { Github, Loader2, Mail } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 
@@ -29,7 +29,7 @@ interface AuthFormProps {
 export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
   const navigate = useNavigate();
   const [authError, setAuthError] = useState<string | null>(null);
-  const [isConfigured, setIsConfigured] = useState(true);
+  const [isConfigured] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,8 +56,8 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
           },
         });
         if (error) throw error;
-        toast.success('Check your email to confirm your account. If you do not see email confirmation in Supabase Dashboard, you can sign in directly.');
-        navigate('/');
+        toast.success('Account created successfully! You may now sign in.');
+        navigate('/auth?tab=signin');
       } else {
         const { error, data } = await supabase.auth.signInWithPassword({
           email: values.email,
@@ -69,9 +69,18 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
       }
     } catch (error) {
       console.error("Auth error:", error);
-      setAuthError(error instanceof Error ? error.message : 'An error occurred');
+      let errorMessage = error instanceof Error ? error.message : 'An error occurred';
+      
+      // Provide more user-friendly error messages
+      if (errorMessage.includes('User already registered')) {
+        errorMessage = 'This email is already registered. Please sign in instead.';
+      } else if (errorMessage.includes('Invalid login')) {
+        errorMessage = 'Invalid email or password. Please try again.';
+      }
+      
+      setAuthError(errorMessage);
       toast.error('Authentication failed', {
-        description: error instanceof Error ? error.message : 'Please try again',
+        description: errorMessage,
       });
     } finally {
       setIsLoading(false);
@@ -176,7 +185,7 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
       </div>
 
       <Button variant="outline" className="w-full" onClick={signInWithGoogle} disabled={isLoading}>
-        <Github className="mr-2 h-4 w-4" />
+        <Mail className="mr-2 h-4 w-4" />
         Google
       </Button>
     </div>
