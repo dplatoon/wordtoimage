@@ -4,7 +4,9 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Image, Download, AlertTriangle } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 import { GenerationGallery } from './GenerationGallery';
+import { SkeletonGallery } from './SkeletonGallery';
 import { useState, useEffect } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ImagePreviewProps {
   imageUrl: string;
@@ -30,6 +32,7 @@ const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
 
 export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProps) => {
   const { gallery } = useImageGallery(imageUrl, isGenerating);
+  const isMobile = useIsMobile();
 
   const handleDownload = () => {
     if (!imageUrl) return;
@@ -52,13 +55,16 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
   // Error helpers
   const isApiNotFoundError = error?.includes('not configured') || error?.includes('not available');
 
+  // Determine preview height based on screen size
+  const previewHeight = isMobile ? 'h-[250px]' : 'h-[350px] md:h-[400px]';
+
   // Original preview logic for current image, plus gallery below
   return (
     <div>
-      <div className="h-[350px] md:h-[400px] bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden relative">
+      <div className={`${previewHeight} bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden relative`}>
         {isGenerating ? (
-          <div className="text-center px-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="text-center px-8" aria-live="polite">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" role="progressbar" aria-label="Generating image"></div>
             <p className="text-gray-500">Generating your custom graphic...</p>
           </div>
         ) : error ? (
@@ -85,11 +91,12 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
               src={imageUrl}
               alt="Generated social media graphic"
               className="w-full h-full object-contain"
+              loading="eager" // Load the primary image eagerly
             />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
               <Button
                 variant="secondary"
-                size="lg"
+                size={isMobile ? "default" : "lg"}
                 onClick={handleDownload}
                 className="gap-2"
               >
@@ -105,8 +112,8 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
           </div>
         )}
       </div>
-      {/* Session Gallery: only show if >1 generated */}
-      <GenerationGallery images={gallery} />
+      {/* Session Gallery or Skeleton during generation */}
+      {isGenerating ? <SkeletonGallery /> : <GenerationGallery images={gallery} />}
     </div>
   );
 };

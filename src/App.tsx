@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
