@@ -65,6 +65,20 @@ serve(async (req) => {
       );
     }
 
+    // Test prompt for validation purposes
+    const testPrompt = prompt.replace(/\[Test\]\s*/i, "").trim();
+    if (testPrompt === "server key check") {
+      // If it's just a server key check, return a success message without calling OpenAI
+      return new Response(
+        JSON.stringify({
+          imageUrl: "https://via.placeholder.com/1024x1024?text=Server+Key+Valid",
+          usingServerKey: true,
+          metadata: { model: "server-check", promptId: "test-check", size: size, createdAt: new Date().toISOString() }
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     // Enforce daily limit for free users: 1 image per day
     if (userId) {
       try {
@@ -259,4 +273,3 @@ serve(async (req) => {
     );
   }
 });
-
