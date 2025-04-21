@@ -1,88 +1,117 @@
-
-import { createContext, useContext, useEffect, useState } from 'react';
-import { Session, User } from '@supabase/supabase-js';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
-import { toast } from 'sonner';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { User, Session } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
+import { trackEvent, events } from '@/utils/analytics'; // Add this import
 
 type AuthContextType = {
-  user: User | null;
   session: Session | null;
-  loading: boolean;
+  user: User | null;
+  isLoading: boolean;
   isConfigured: boolean;
+  signIn: (email: string) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  session: null,
-  loading: true,
-  isConfigured: false,
-  signOut: async () => {},
-});
-
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
-  const isConfigured = isSupabaseConfigured();
-
-  useEffect(() => {
-    if (!isConfigured) {
-      console.warn('Supabase is not configured with real credentials');
-      setLoading(false);
-      return;
-    }
-
-    // First set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("Auth state changed:", event, session?.user?.email);
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    // Then check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("Initial session check:", session?.user?.email);
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    }).catch(error => {
-      console.error('Error getting session:', error);
-      setLoading(false);
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [isConfigured]);
-
-  const signOut = async () => {
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      toast.success('Signed out successfully');
-      // Reset user state after signout
-      setUser(null);
-      setSession(null);
-    } catch (error) {
-      toast.error('Error signing out', {
-        description: error instanceof Error ? error.message : 'Please try again',
-      });
-    }
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, session, loading, isConfigured, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
+};
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isConfigured, setIsConfigured] = useState(true);
+
+  useEffect(() => {
+    // Track initial session state
+    const getInitialSession = async () => {
+      setIsLoading(true);
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error("Error fetching session:", error);
+        }
+        setSession(session);
+        setUser(session?.user || null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Set up the auth state change listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user || null);
+        
+        // Track sign-up events
+        if (event === 'SIGNED_IN') {
+          // Only track new sign-ups, not regular sign-ins
+          // This is an approximation - for more accuracy, you'd track this in your sign-up form directly
+          const user = session?.user;
+          if (user && new Date(user.created_at).getTime() > Date.now() - (5 * 60 * 1000)) {
+            // If user was created in the last 5 minutes, consider it a new sign-up
+            trackEvent(events.SIGN_UP, {
+              method: user.app_metadata?.provider || 'email',
+              isNewUser: true
+            });
+          }
+        }
+      }
+    );
+
+    getInitialSession();
+
+    return () => {
+      subscription?.unsubscribe();
+    };
+    
+  }, []);
+
+  const signIn = async (email: string) => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({ email });
+      if (error) {
+        console.error("Error signing in:", error);
+        throw error;
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signOut = async () => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Error signing out:", error);
+        throw error;
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const value: AuthContextType = {
+    session,
+    user,
+    isLoading,
+    isConfigured,
+    signIn,
+    signOut,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,8 +7,9 @@ import { InfoAlert } from './InfoAlert';
 import { AuthModalDialog } from './AuthModalDialog';
 import { GenerationControls } from './GenerationControls';
 import { useAuth } from '@/contexts/AuthContext';
-import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS, ArtStyle, Resolution } from './constants';
+import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS } from './constants';
 import type { MouseEvent } from 'react';
+import { trackEvent, events } from '@/utils/analytics';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -41,13 +41,19 @@ export const ImageGenerationForm = ({
       onImageGenerated(url);
       if (onNewGalleryRow && url) {
         onNewGalleryRow([{ url, prompt, style, resolution }]);
+        
+        trackEvent(events.GENERATE_IMAGE, {
+          prompt,
+          style,
+          resolution,
+          authenticated: !!user
+        });
       }
     },
     onGeneratingChange,
     onError,
   });
 
-  // Check for server key on component mount
   useEffect(() => {
     const checkServerKey = async () => {
       try {
@@ -64,7 +70,6 @@ export const ImageGenerationForm = ({
     checkServerKey();
   }, []);
 
-  // AUTH LOADING
   if (authLoading || isCheckingServerKey) {
     return (
       <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">

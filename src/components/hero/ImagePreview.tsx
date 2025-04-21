@@ -5,6 +5,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Image, Download, AlertTriangle } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 import { GenerationGallery } from './GenerationGallery';
+import { trackEvent, events } from '@/utils/analytics';
 
 interface ImagePreviewProps {
   imageUrl: string;
@@ -19,7 +20,7 @@ const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
     if (imageUrl && !isGenerating) {
       setGallery((g) => {
         if (g.find((img) => img.url === imageUrl)) return g; // prevent duplicates
-        return [...g, { url: imageUrl, prompt: '' }].slice(-12);
+        return [...g, { url: imageUrl, prompt: '' }].slice(-12); // Store more images for the enhanced gallery
       });
     }
   }, [imageUrl, isGenerating]);
@@ -39,6 +40,12 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      
+      // Track download event
+      trackEvent(events.DOWNLOAD_IMAGE, {
+        location: 'main_preview' 
+      });
+      
       toast.success("Image downloaded successfully!");
     } catch (error) {
       console.error('Download error:', error);
@@ -112,4 +119,3 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
     </div>
   );
 };
-

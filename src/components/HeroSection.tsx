@@ -3,11 +3,17 @@ import { useState } from 'react';
 import { HeroHeader } from './hero/HeroHeader';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
 import { ImagePreview } from './hero/ImagePreview';
+import { trackEvent, events } from '@/utils/analytics';
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImageUrl, setGeneratedImageUrl] = useState('');
   const [generationError, setGenerationError] = useState<string | null>(null);
+  const [galleryRows, setGalleryRows] = useState<{url: string; prompt: string; style?: string; resolution?: string}[][]>([]);
+
+  const handleNewGalleryRow = (row: {url: string; prompt: string; style?: string; resolution?: string}[]) => {
+    setGalleryRows(prev => [...prev, row]);
+  };
 
   return (
     <section className="py-16 md:py-28 bg-gradient-to-br from-blue-50 via-white to-purple-50 image-generation-section" aria-labelledby="hero-heading">
@@ -26,6 +32,7 @@ export const HeroSection = () => {
                 onImageGenerated={setGeneratedImageUrl}
                 onGeneratingChange={setIsGenerating}
                 onError={setGenerationError}
+                onNewGalleryRow={handleNewGalleryRow}
               />
               <div className="mt-6">
                 <ImagePreview
