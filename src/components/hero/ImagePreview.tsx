@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Image, Download, AlertTriangle } from 'lucide-react';
@@ -34,7 +35,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
     try {
       const a = document.createElement('a');
       a.href = imageUrl;
-      a.download = `runware-image-${Date.now()}.png`;
+      a.download = `wordtoimage-${Date.now()}.png`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -85,6 +86,8 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
               decoding="async"
               width="1024" 
               height="1024"
+              fetchpriority="high"
+              style={{contentVisibility: 'auto'}}
             />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
               <Button
@@ -101,7 +104,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
         ) : (
           <div className="text-center px-8">
             <Image className="h-10 w-10 mx-auto mb-4 text-gray-400" />
-            <p className="text-gray-500">Enter a prompt and generate your custom social media graphic with Runware AI</p>
+            <p className="text-gray-500">Enter a prompt and generate your custom social media graphic with WordToImage AI</p>
           </div>
         )}
       </div>

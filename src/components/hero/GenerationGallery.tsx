@@ -1,3 +1,4 @@
+
 import { Download } from 'lucide-react';
 
 interface GalleryImage {
@@ -32,7 +33,7 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
               height="224"
               loading="lazy"
               decoding="async"
-              style={{ borderRadius: 8 }}
+              style={{ borderRadius: 8, contentVisibility: 'auto' }}
             />
             {/* Overlay on hover */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-all p-4 pointer-events-none group-hover:pointer-events-auto">

@@ -8,7 +8,12 @@ import { PricingSection } from '@/components/PricingSection';
 import { CTASection } from '@/components/CTASection';
 import { Footer } from '@/components/Footer';
 import { BetaBanner } from '@/components/BetaBanner';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
+
+// Lazy load non-critical sections for better initial load performance
+const LazyFeaturesSection = lazy(() => import('@/components/FeaturesSection').then(module => ({ default: module.FeaturesSection })));
+const LazyTestimonialsSection = lazy(() => import('@/components/TestimonialsSection').then(module => ({ default: module.TestimonialsSection })));
+const LazyPricingSection = lazy(() => import('@/components/PricingSection').then(module => ({ default: module.PricingSection })));
 
 const Index = () => {
   // For SEO: Add structured data and page tracking
@@ -29,7 +34,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Skip to main content link for accessibility */}
-      <a href="#main-content" className="skip-to-content">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:z-50">
         Skip to main content
       </a>
       
@@ -38,9 +43,19 @@ const Index = () => {
       <main id="main-content">
         <HeroSection />
         <TemplatesSection />
-        <FeaturesSection />
-        <TestimonialsSection />
-        <PricingSection />
+        
+        <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading features...</div>}>
+          <LazyFeaturesSection />
+        </Suspense>
+        
+        <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading testimonials...</div>}>
+          <LazyTestimonialsSection />
+        </Suspense>
+        
+        <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading pricing...</div>}>
+          <LazyPricingSection />
+        </Suspense>
+        
         <CTASection />
         
         {/* FAQ Section for SEO */}
