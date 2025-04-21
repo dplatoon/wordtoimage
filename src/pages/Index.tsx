@@ -1,14 +1,17 @@
 
 import { Nav } from '@/components/Nav';
-import { HeroSection } from '@/components/HeroSection';
-import { TemplatesSection } from '@/components/TemplatesSection';
-import { FeaturesSection } from '@/components/FeaturesSection';
-import { TestimonialsSection } from '@/components/TestimonialsSection';
-import { PricingSection } from '@/components/PricingSection';
-import { CTASection } from '@/components/CTASection';
 import { Footer } from '@/components/Footer';
 import { BetaBanner } from '@/components/BetaBanner';
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
+import { Loading } from '@/components/ui/loading';
+
+// Lazy load heavy components
+const HeroSection = lazy(() => import('@/components/HeroSection').then(module => ({ default: module.HeroSection })));
+const TemplatesSection = lazy(() => import('@/components/TemplatesSection').then(module => ({ default: module.TemplatesSection })));
+const FeaturesSection = lazy(() => import('@/components/FeaturesSection').then(module => ({ default: module.FeaturesSection })));
+const TestimonialsSection = lazy(() => import('@/components/TestimonialsSection').then(module => ({ default: module.TestimonialsSection })));
+const PricingSection = lazy(() => import('@/components/PricingSection').then(module => ({ default: module.PricingSection })));
+const CTASection = lazy(() => import('@/components/CTASection').then(module => ({ default: module.CTASection })));
 
 const Index = () => {
   // For SEO: Add structured data and page tracking
@@ -28,7 +31,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Skip to main content link for accessibility */}
       <a href="#main-content" className="skip-to-content">
         Skip to main content
       </a>
@@ -36,12 +38,24 @@ const Index = () => {
       <Nav />
       
       <main id="main-content">
-        <HeroSection />
-        <TemplatesSection />
-        <FeaturesSection />
-        <TestimonialsSection />
-        <PricingSection />
-        <CTASection />
+        <Suspense fallback={<Loading />}>
+          <HeroSection />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <TemplatesSection />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <FeaturesSection />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <TestimonialsSection />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <PricingSection />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <CTASection />
+        </Suspense>
         
         {/* FAQ Section for SEO */}
         <section className="py-16 md:py-24 bg-gray-50">
