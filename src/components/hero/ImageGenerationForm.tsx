@@ -66,7 +66,6 @@ export const ImageGenerationForm = ({
   const [prompt, setPrompt] = useState('');
   const [showApiKeyForm, setShowApiKeyForm] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
-  // Disable API key check during development
   const [isCheckingServerKey, setIsCheckingServerKey] = useState(false);
 
   const [style, setStyle] = useState(DEFAULT_STYLES[0]);
@@ -79,7 +78,6 @@ export const ImageGenerationForm = ({
   const { generateImageFromPrompt, isRetrying, state } = useImageGeneration({
     onImageGenerated: (url) => {
       onImageGenerated(url);
-      // Optionally add to gallery row
       if (onNewGalleryRow && url) {
         onNewGalleryRow([{ url, prompt, style, resolution }]);
       }
@@ -88,9 +86,8 @@ export const ImageGenerationForm = ({
     onError,
   });
 
-  // Temporary development mode - bypass API key check
   useEffect(() => {
-    // For development, we'll skip the server key check
+    // Disable API key check and API key form display for now (development mode)
     setIsCheckingServerKey(false);
     setShowApiKeyForm(false);
     toast.info("Development mode: API key check bypassed", {
@@ -98,7 +95,7 @@ export const ImageGenerationForm = ({
     });
   }, []);
 
-  // AUTH LOADING
+  // AUTH LOADING STATE
   if (authLoading || isCheckingServerKey) {
     return (
       <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
@@ -112,7 +109,7 @@ export const ImageGenerationForm = ({
     );
   }
 
-  // If user not logged in, show the Generate button but show modal on click
+  // NON AUTH USERS GET MODAL PROMPT
   const handleProtectedGenerate = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!user) {
@@ -122,25 +119,23 @@ export const ImageGenerationForm = ({
     handleFormSubmit(e as any);
   };
 
-  // Handle prompt input change with limit
+  // PROMPT CHANGE WITH MAX LENGTH
   const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val = e.target.value.slice(0, MAX_PROMPT_LENGTH);
     setPrompt(val);
   };
 
-  // Handle param changes
+  // STYLE, RESOLUTION, COUNT CHANGE HANDLERS
   const onStyleChange = (e: React.ChangeEvent<HTMLSelectElement>) => setStyle(e.target.value);
   const onResolutionChange = (e: React.ChangeEvent<HTMLSelectElement>) => setResolution(e.target.value);
   const onCountChange = (e: React.ChangeEvent<HTMLSelectElement>) => setCount(Number(e.target.value));
 
-  // For development, always allow generation
   const canGenerate = !!prompt.trim() && prompt.length <= MAX_PROMPT_LENGTH;
 
-  // Form submit logic
+  // FORM SUBMISSION GENERATION LOGIC
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (!canGenerate) return;
-    // Forward to normal generator, but only generate one (demo)
     for (let i = 0; i < count; i++) {
       await generateImageFromPrompt(
         `[${style}] ${prompt}`,
@@ -150,8 +145,8 @@ export const ImageGenerationForm = ({
     }
   };
 
-  // Style param UI class
-  const dropdownClass = "rounded-md border border-gray-300 py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400";
+  const dropdownClass =
+    "rounded-md border border-gray-300 py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400";
 
   return (
     <div className="relative bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
@@ -163,8 +158,7 @@ export const ImageGenerationForm = ({
         </div>
 
         <form onSubmit={handleFormSubmit}>
-          {/* Enhanced prompt with placeholder */}
-          <div className="mb-3">
+          <div className="mb-3 relative">
             <Input
               type="text"
               placeholder="A serene mountain lake at sunrise, ultra‑detailed HDR style"
@@ -175,27 +169,54 @@ export const ImageGenerationForm = ({
               aria-label="Image prompt"
               autoFocus
             />
-            {/* Char counter */}
+            {/* Character counter */}
             <div className="absolute right-6 bottom-14 text-xs text-gray-400 pointer-events-none select-none">
               {prompt.length}/{MAX_PROMPT_LENGTH}
             </div>
           </div>
 
-          {/* Style & params */}
+          {/* Style & params UI */}
           <div className="flex flex-wrap gap-3 mb-4">
             <div>
-              <select value={style} onChange={onStyleChange} className={dropdownClass} aria-label="Art Style">
-                {DEFAULT_STYLES.map(s => <option key={s} value={s}>{s}</option>)}
+              <select
+                value={style}
+                onChange={onStyleChange}
+                className={dropdownClass}
+                aria-label="Art Style"
+              >
+                {DEFAULT_STYLES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
-              <select value={count} onChange={onCountChange} className={dropdownClass} aria-label="Number of Images">
-                {IMAGE_COUNTS.map(n => <option key={n} value={n}>{n} image{n > 1 ? 's' : ''}</option>)}
+              <select
+                value={count}
+                onChange={onCountChange}
+                className={dropdownClass}
+                aria-label="Number of Images"
+              >
+                {IMAGE_COUNTS.map((n) => (
+                  <option key={n} value={n}>
+                    {n} image{n > 1 ? "s" : ""}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
-              <select value={resolution} onChange={onResolutionChange} className={dropdownClass} aria-label="Resolution">
-                {RESOLUTIONS.map(res => <option key={res} value={res}>{res}</option>)}
+              <select
+                value={resolution}
+                onChange={onResolutionChange}
+                className={dropdownClass}
+                aria-label="Resolution"
+              >
+                {RESOLUTIONS.map((res) => (
+                  <option key={res} value={res}>
+                    {res}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -206,11 +227,13 @@ export const ImageGenerationForm = ({
               type="submit"
               onClick={handleProtectedGenerate}
               disabled={state.isGenerating || !canGenerate}
-              className={`w-full transition-all flex items-center justify-center rounded-full ${state.isGenerating ? 'cursor-not-allowed' : ''}`}
+              className={`w-full transition-all flex items-center justify-center rounded-full ${
+                state.isGenerating ? "cursor-not-allowed" : ""
+              }`}
               style={{
                 height: state.isGenerating ? 48 : undefined,
                 borderRadius: "9999px",
-                minHeight: 48
+                minHeight: 48,
               }}
             >
               {state.isGenerating ? (
@@ -219,22 +242,25 @@ export const ImageGenerationForm = ({
                   Generating...
                 </span>
               ) : (
-                'Generate Image'
+                "Generate Image"
               )}
             </Button>
           </div>
         </form>
-        
-        {/* Next Steps & Implementation */}
+
+        {/* Next Steps & Implementation roadmap */}
         <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">Next Steps & Implementation</h3>
+          <h3 className="text-lg font-semibold text-blue-800 mb-2">Next Steps &amp; Implementation</h3>
           <ol className="list-decimal list-inside space-y-2 text-sm text-blue-700">
             <li>Wireframe the New Section in your design tool, sketching the input, controls, button, and gallery</li>
             <li>Update Your Lovable Spec with the above components and copy, then generate the React UI</li>
             <li>Test Edge Cases: Very long prompts, network failures, and unauthenticated clicks</li>
             <li>Gather Feedback: Roll out to a beta group or use Hotjar to watch interactions</li>
-            <li>Iterate & Polish: Refine styling, tweak animations, and A/B‑test messaging</li>
+            <li>Iterate &amp; Polish: Refine styling, tweak animations, and A/B‑test messaging</li>
           </ol>
+          <p className="mt-4 text-sm text-blue-600">
+            By layering these proven UX patterns into your WordToImage “Image Generate” section, you’ll boost engagement, clarity, and conversion—turning casual visitors into enthusiastic creators.
+          </p>
         </div>
       </div>
       <AuthModal open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
