@@ -13,9 +13,6 @@ const PLACEHOLDER_IMAGES = [
   "https://images.unsplash.com/photo-1682687220208-22ac9ae8b817?w=500&auto=format&fit=crop&q=60"
 ];
 
-// Toggle for development mode - change to false to enable real API calls
-const isDevelopmentMode = false; // <-- set false to stop auto-generate simulation
-
 export const generateImage = async (options: ImageGenerationOptions): Promise<ImageGenerationResponse> => {
   console.log('Image Generation Request:', options);
   
@@ -23,6 +20,9 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
     if (!options.prompt?.trim()) {
       throw new ImageGenerationError('Prompt is required', 'VALIDATION_ERROR');
     }
+
+    // DEVELOPMENT MODE: Return placeholder image instead of calling the API
+    const isDevelopmentMode = true; // Set this to false when ready for production
 
     if (isDevelopmentMode) {
       console.log('DEVELOPMENT MODE: Using placeholder image instead of API call');
