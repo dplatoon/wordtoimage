@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 interface CharacterCounterProps {
   current: number;
   max: number;
