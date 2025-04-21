@@ -15,6 +15,7 @@ export type Database = {
           id: string
           image_url: string
           model: string
+          plan: string
           prompt: string
           prompt_id: string | null
           quality: string
@@ -26,6 +27,7 @@ export type Database = {
           id?: string
           image_url: string
           model?: string
+          plan?: string
           prompt: string
           prompt_id?: string | null
           quality?: string
@@ -37,6 +39,7 @@ export type Database = {
           id?: string
           image_url?: string
           model?: string
+          plan?: string
           prompt?: string
           prompt_id?: string | null
           quality?: string
