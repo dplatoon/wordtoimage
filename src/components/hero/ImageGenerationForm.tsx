@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ApiKeyForm } from '@/components/ApiKeyForm';
+
+import { useState, useRef } from 'react';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
-import { InfoAlert } from './InfoAlert';
-import { ApiKeyHeader } from './ApiKeyHeader';
-import { toast } from '@/components/ui/sonner';
-import type { MouseEvent } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { Link } from 'react-router-dom';
-import { useRef } from 'react';
-import { SkeletonGallery } from './SkeletonGallery';
+import { toast } from '@/components/ui/sonner';
+import { type MouseEvent } from 'react';
+
+// Import our new atomic components
+import { PromptInput } from './ImageGenerationForm/molecules/PromptInput';
+import { ParameterControls } from './ImageGenerationForm/molecules/ParameterControls';
+import { GenerateButton } from './ImageGenerationForm/atoms/GenerateButton';
+import { AuthModal } from './ImageGenerationForm/molecules/AuthModal';
+import { NextStepsPanel } from './ImageGenerationForm/molecules/NextStepsPanel';
+import { useProgressiveSignup } from './ImageGenerationForm/hooks/useProgressiveSignup';
 
 const MAX_PROMPT_LENGTH = 200;
 const DEFAULT_STYLES = [
@@ -32,53 +33,28 @@ interface ImageGenerationFormProps {
   onNewGalleryRow?: (images: { url: string; prompt: string, style?: string, resolution?: string }[]) => void;
 }
 
-/**
- * Friendly Auth Modal for unauthenticated generate click or after X generations.
- */
-export const AuthModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
-  if (!open) return null;
-  return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center animate-fade-in">
-      <div className="bg-white rounded-2xl shadow-2xl px-8 py-9 max-w-sm w-full text-center flex flex-col gap-6 relative">
-        <h2 className="text-2xl font-bold">Sign up or Log in to WordToImage</h2>
-        <p className="text-gray-600">
-          Log in or sign up in seconds. It's free!
-        </p>
-        <Link to="/auth?tab=signup">
-          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white" autoFocus>Get Started — It's Free</Button>
-        </Link>
-        <div>
-          <Link to="/auth" className="text-blue-700 underline hover:text-blue-900">
-            Already have an account? Log in
-          </Link>
-        </div>
-        <button aria-label="Close Modal" onClick={onClose} className="absolute right-6 top-6 text-gray-400 hover:text-black text-2xl font-bold">&times;</button>
-      </div>
-    </div>
-  );
-};
-
 export const ImageGenerationForm = ({
   onImageGenerated,
   onGeneratingChange,
   onError,
   onNewGalleryRow
 }: ImageGenerationFormProps) => {
-  // Modal/image/auth logic
+  // Form state
   const [prompt, setPrompt] = useState('');
   const [showApiKeyForm, setShowApiKeyForm] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
   const [isCheckingServerKey, setIsCheckingServerKey] = useState(false);
-
   const [style, setStyle] = useState(DEFAULT_STYLES[0]);
   const [resolution, setResolution] = useState(RESOLUTIONS[1]);
   const [count, setCount] = useState(1);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-
-  // NEW: Track unauthenticated generation count
-  const [unauthGenCount, setUnauthGenCount] = useState(
-    () => Number(localStorage.getItem("unauthGenCount")) || 0
-  );
+  
+  // Progressive signup hook
+  const { 
+    authModalOpen, 
+    setAuthModalOpen, 
+    incrementGenCount, 
+    shouldShowAuthModal 
+  } = useProgressiveSignup(2);
 
   const promptInputRef = useRef<HTMLInputElement>(null);
   const { user, loading: authLoading } = useAuth();
@@ -103,12 +79,51 @@ export const ImageGenerationForm = ({
     });
   }, []);
 
-  // Handle when a non-auth user generates images: hard gate after 2 images
-  useEffect(() => {
-    if (!user && unauthGenCount >= 2) {
+  // PROMPT CHANGE WITH MAX LENGTH
+  const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let val = e.target.value.slice(0, MAX_PROMPT_LENGTH);
+    setPrompt(val);
+  };
+
+  // STYLE, RES, COUNT CHANGE HANDLERS
+  const onStyleChange = (e: React.ChangeEvent<HTMLSelectElement>) => setStyle(e.target.value);
+  const onResolutionChange = (e: React.ChangeEvent<HTMLSelectElement>) => setResolution(e.target.value);
+  const onCountChange = (e: React.ChangeEvent<HTMLSelectElement>) => setCount(Number(e.target.value));
+
+  const canGenerate = !!prompt.trim() && prompt.length <= MAX_PROMPT_LENGTH && !shouldShowAuthModal;
+
+  // NON AUTH USERS GET MODAL after two image generations
+  const handleProtectedGenerate = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (shouldShowAuthModal) {
       setAuthModalOpen(true);
+      return;
     }
-  }, [unauthGenCount, user]);
+    handleFormSubmit(e as any);
+  };
+
+  // FORM SUBMISSION GENERATION LOGIC
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (!canGenerate) return;
+    
+    // Track unauthenticated generation for the "progressive signup gate"
+    if (!user) {
+      const newCount = incrementGenCount();
+      if (newCount > 2) {
+        setAuthModalOpen(true);
+        return;
+      }
+    }
+    
+    for (let i = 0; i < count; i++) {
+      await generateImageFromPrompt(
+        `[${style}] ${prompt}`,
+        tempApiKey,
+        false
+      );
+    }
+  };
 
   // AUTH LOADING STATE
   if (authLoading || isCheckingServerKey) {
@@ -124,52 +139,6 @@ export const ImageGenerationForm = ({
     );
   }
 
-  // NON AUTH USERS GET MODAL after two image generations
-  const handleProtectedGenerate = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (!user && unauthGenCount >= 2) {
-      setAuthModalOpen(true);
-      return;
-    }
-    handleFormSubmit(e as any);
-  };
-
-  // PROMPT CHANGE WITH MAX LENGTH
-  const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let val = e.target.value.slice(0, MAX_PROMPT_LENGTH);
-    setPrompt(val);
-  };
-
-  // STYLE, RES, COUNT CHANGE HANDLERS
-  const onStyleChange = (e: React.ChangeEvent<HTMLSelectElement>) => setStyle(e.target.value);
-  const onResolutionChange = (e: React.ChangeEvent<HTMLSelectElement>) => setResolution(e.target.value);
-  const onCountChange = (e: React.ChangeEvent<HTMLSelectElement>) => setCount(Number(e.target.value));
-
-  const canGenerate = !!prompt.trim() && prompt.length <= MAX_PROMPT_LENGTH && (!(!user && unauthGenCount >= 2));
-
-  // FORM SUBMISSION GENERATION LOGIC
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    if (!canGenerate) return;
-    // Track unauthenticated generation for the "progressive signup gate"
-    if (!user) {
-      const newUnauthCount = unauthGenCount + 1;
-      setUnauthGenCount(newUnauthCount);
-      localStorage.setItem("unauthGenCount", String(newUnauthCount));
-      if (newUnauthCount > 2) {
-        setAuthModalOpen(true);
-        return;
-      }
-    }
-    for (let i = 0; i < count; i++) {
-      await generateImageFromPrompt(
-        `[${style}] ${prompt}`,
-        tempApiKey,
-        false
-      );
-    }
-  };
-
   // CARD UX + ENHANCED PROMPT FIELD + PARAM CONTROLS + COUNTER
   return (
     <div className="relative flex items-center justify-center min-h-[520px]">
@@ -181,112 +150,41 @@ export const ImageGenerationForm = ({
           </div>
           <form onSubmit={handleFormSubmit}>
             {/* Input with char counter */}
-            <div className="relative mb-4">
-              <Input
-                type="text"
-                placeholder="A serene mountain lake at sunrise, ultra‑detailed HDR style"
-                value={prompt}
-                onChange={handlePromptChange}
-                className="w-full pr-16"
-                maxLength={MAX_PROMPT_LENGTH}
-                aria-label="Image prompt"
-                autoFocus
-                ref={promptInputRef}
-              />
-              <div className="absolute right-2 bottom-[-1.5rem] text-xs text-gray-400 pointer-events-none select-none">
-                {prompt.length}/{MAX_PROMPT_LENGTH}
-              </div>
-            </div>
+            <PromptInput
+              value={prompt}
+              onChange={handlePromptChange}
+              maxLength={MAX_PROMPT_LENGTH}
+              ref={promptInputRef}
+            />
+            
             {/* Style/Param controls - labeled + bg */}
-            <div className="flex flex-wrap gap-3 mb-6 justify-between md:flex-nowrap">
-              <div className="flex flex-col">
-                <label className="text-xs text-gray-700 mb-1 ml-1">Style</label>
-                <select
-                  value={style}
-                  onChange={onStyleChange}
-                  className="rounded-md border border-gray-300 py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
-                  aria-label="Art Style"
-                >
-                  {DEFAULT_STYLES.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex flex-col">
-                <label className="text-xs text-gray-700 mb-1 ml-1">Resolution</label>
-                <select
-                  value={resolution}
-                  onChange={onResolutionChange}
-                  className="rounded-md border border-gray-300 py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
-                  aria-label="Resolution"
-                >
-                  {RESOLUTIONS.map((res) => (
-                    <option key={res} value={res}>
-                      {res}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex flex-col">
-                <label className="text-xs text-gray-700 mb-1 ml-1">Count</label>
-                <select
-                  value={count}
-                  onChange={onCountChange}
-                  className="rounded-md border border-gray-300 py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
-                  aria-label="Number of Images"
-                >
-                  {IMAGE_COUNTS.map((n) => (
-                    <option key={n} value={n}>
-                      {n}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            <ParameterControls
+              style={style}
+              resolution={resolution}
+              count={count}
+              onStyleChange={onStyleChange}
+              onResolutionChange={onResolutionChange}
+              onCountChange={onCountChange}
+              styleOptions={DEFAULT_STYLES}
+              resolutionOptions={RESOLUTIONS}
+              countOptions={IMAGE_COUNTS}
+            />
+            
             {/* Generate button - morphs to spinner, disables as needed */}
             <div className="mb-2">
-              <Button
-                type="submit"
+              <GenerateButton
+                isGenerating={state.isGenerating}
+                isDisabled={!canGenerate}
                 onClick={handleProtectedGenerate}
-                disabled={state.isGenerating || !canGenerate}
-                className={`w-full transition-all flex items-center justify-center rounded-full ${
-                  state.isGenerating ? "cursor-not-allowed" : ""
-                }`}
-                style={{
-                  height: state.isGenerating ? 48 : undefined,
-                  borderRadius: "9999px",
-                  minHeight: 48,
-                }}
-              >
-                {state.isGenerating ? (
-                  <span className="flex items-center justify-center gap-2 animate-fade-in">
-                    <span className="h-5 w-5 border-2 border-blue-200 border-b-blue-600 rounded-full animate-spin mr-2" />
-                    Generating...
-                  </span>
-                ) : (
-                  "Generate Image"
-                )}
-              </Button>
+              />
             </div>
           </form>
+          
           {/* Next Steps Panel */}
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-            <h3 className="text-lg font-semibold text-blue-800 mb-2">Next Steps &amp; Implementation</h3>
-            <ol className="list-decimal list-inside space-y-2 text-sm text-blue-700">
-              <li>Wireframe the New Section in your design tool, sketching the input, controls, button, and gallery</li>
-              <li>Update Your Lovable Spec with the above components and copy, then generate the React UI</li>
-              <li>Test Edge Cases: Very long prompts, network failures, and unauthenticated clicks</li>
-              <li>Gather Feedback: Roll out to a beta group or use Hotjar to watch interactions</li>
-              <li>Iterate &amp; Polish: Refine styling, tweak animations, and A/B test messaging</li>
-            </ol>
-            <p className="mt-4 text-sm text-blue-600">
-              By layering these proven UX patterns into your WordToImage “Image Generate” section, you’ll boost engagement, clarity, and conversion—turning casual visitors into enthusiastic creators.
-            </p>
-          </div>
+          <NextStepsPanel />
         </div>
       </div>
+      
       {/* Auth modal appears after 2 unauth generations */}
       <AuthModal open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </div>
