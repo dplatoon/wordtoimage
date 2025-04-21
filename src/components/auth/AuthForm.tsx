@@ -9,8 +9,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/lib/supabase';
 import { Github, Loader2 } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -27,6 +29,7 @@ interface AuthFormProps {
 export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
   const navigate = useNavigate();
   const [authError, setAuthError] = useState<string | null>(null);
+  const [isConfigured, setIsConfigured] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,9 +56,10 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
           },
         });
         if (error) throw error;
-        toast.success('Check your email to confirm your account');
+        toast.success('Check your email to confirm your account. If you do not see email confirmation in Supabase Dashboard, you can sign in directly.');
+        navigate('/');
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { error, data } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
@@ -64,6 +68,7 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
         navigate('/');
       }
     } catch (error) {
+      console.error("Auth error:", error);
       setAuthError(error instanceof Error ? error.message : 'An error occurred');
       toast.error('Authentication failed', {
         description: error instanceof Error ? error.message : 'Please try again',
@@ -78,15 +83,28 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth`,
+        }
       });
       if (error) throw error;
     } catch (error) {
       toast.error('Failed to sign in with Google', {
         description: error instanceof Error ? error.message : 'Please try again',
       });
-    } finally {
       setIsLoading(false);
     }
+  }
+
+  if (!isConfigured) {
+    return (
+      <Alert variant="destructive" className="mb-6">
+        <AlertCircle className="h-4 w-4 mr-2" />
+        <AlertDescription>
+          Supabase configuration is missing. Please set up your environment variables.
+        </AlertDescription>
+      </Alert>
+    );
   }
 
   return (
