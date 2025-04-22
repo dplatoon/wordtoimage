@@ -1,4 +1,8 @@
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   body {
     @apply bg-lovable-brand-background text-lovable-brand-text font-nunito leading-relaxed;
