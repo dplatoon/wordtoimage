@@ -1,7 +1,9 @@
+
 import { createContext, useContext, useState, useEffect } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
-import { trackEvent, events } from '@/utils/analytics'; // Add this import
+import { trackEvent, events } from '@/utils/analytics';
+import { toast } from '@/components/ui/sonner';
 
 type AuthContextType = {
   session: Session | null;
@@ -30,11 +32,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const getInitialSession = async () => {
-      setIsLoading(true);
       try {
         const { data: { session }, error } = await supabase.auth.getSession();
         if (error) {
           console.error("Error fetching session:", error);
+          toast.error("Authentication error", {
+            description: "There was a problem with your authentication. Please try logging in again."
+          });
         }
         setSession(session);
         setUser(session?.user || null);
@@ -43,18 +47,43 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
+    // Set up auth state listener first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         setSession(session);
         setUser(session?.user || null);
         
         if (event === 'SIGNED_IN') {
           const user = session?.user;
-          if (user && new Date(user.created_at).getTime() > Date.now() - (5 * 60 * 1000)) {
-            trackEvent(events.SIGN_UP, {
-              method: user.app_metadata?.provider || 'email',
-              isNewUser: true
-            });
+          if (user) {
+            // Check if profile exists
+            const { data: profile } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('user_id', user.id)
+              .single();
+
+            if (!profile) {
+              // Create profile if it doesn't exist
+              const { error: profileError } = await supabase
+                .from('profiles')
+                .insert([{ user_id: user.id, username: user.email }]);
+
+              if (profileError) {
+                console.error("Error creating profile:", profileError);
+                toast.error("Profile creation failed", {
+                  description: "There was a problem setting up your profile."
+                });
+              }
+            }
+
+            // Track signup event for new users
+            if (new Date(user.created_at).getTime() > Date.now() - (5 * 60 * 1000)) {
+              trackEvent(events.SIGN_UP, {
+                method: user.app_metadata?.provider || 'email',
+                isNewUser: true
+              });
+            }
           }
         }
       }
@@ -73,7 +102,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { error } = await supabase.auth.signInWithOtp({ email });
       if (error) {
         console.error("Error signing in:", error);
+        toast.error("Sign in failed", {
+          description: error.message
+        });
         throw error;
+      } else {
+        toast.success("Check your email", {
+          description: "We've sent you a magic link to sign in."
+        });
       }
     } finally {
       setIsLoading(false);
@@ -86,8 +122,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { error } = await supabase.auth.signOut();
       if (error) {
         console.error("Error signing out:", error);
+        toast.error("Sign out failed", {
+          description: error.message
+        });
         throw error;
       }
+      toast.success("Signed out successfully");
     } finally {
       setIsLoading(false);
     }
