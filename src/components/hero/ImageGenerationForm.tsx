@@ -11,6 +11,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS } from './constants';
 import { trackEvent, events } from '@/utils/analytics';
 import { toast } from '@/components/ui/sonner';
+import { useIsMobile } from '@/hooks/use-mobile';
 import type { MouseEvent } from 'react';
 
 interface ImageGenerationFormProps {
@@ -38,6 +39,7 @@ export const ImageGenerationForm = ({
   const [style, setStyle] = useState<string>(DEFAULT_STYLES[0]);
   const [resolution, setResolution] = useState<string>(RESOLUTIONS[1]);
   const [count, setCount] = useState(1);
+  const isMobile = useIsMobile();
 
   const { user, isLoading: authLoading } = useAuth();
 
@@ -161,7 +163,7 @@ export const ImageGenerationForm = ({
 
   return (
     <div className="relative bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
-      <div className="bg-white rounded-xl p-5">
+      <div className="bg-white rounded-xl p-4 sm:p-5">
         <InfoAlert usingServerKey={!showApiKeyForm} />
         
         {showApiKeyForm && (
@@ -172,19 +174,19 @@ export const ImageGenerationForm = ({
           />
         )}
 
-        <form onSubmit={handleFormSubmit}>
-          <div className="mb-3">
+        <form onSubmit={handleFormSubmit} className="space-y-4">
+          <div className="mb-2 relative">
             <Input
               type="text"
               placeholder="A serene mountain lake at sunrise, ultra‑detailed HDR style"
               value={prompt}
               onChange={handlePromptChange}
-              className="w-full pr-16"
+              className="w-full pr-16 border-gray-300 focus:border-blue-500 shadow-sm"
               maxLength={MAX_PROMPT_LENGTH}
               aria-label="Image prompt"
               autoFocus
             />
-            <div className="absolute right-6 bottom-14 text-xs text-gray-400 pointer-events-none select-none">
+            <div className="absolute right-3 top-2.5 text-xs text-gray-400 pointer-events-none select-none">
               {prompt.length}/{MAX_PROMPT_LENGTH}
             </div>
           </div>
@@ -198,16 +200,16 @@ export const ImageGenerationForm = ({
             onCountChange={(value) => setCount(Number(value))}
           />
 
-          <div className="relative">
+          <div className="relative mt-4">
             <Button
               type="submit"
               onClick={handleProtectedGenerate}
               disabled={state.isGenerating || !canGenerate}
-              className="w-full transition-all flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              className="w-full transition-all flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-md"
               style={{
                 height: state.isGenerating ? 48 : undefined,
                 borderRadius: "9999px",
-                minHeight: 48
+                minHeight: isMobile ? 44 : 48
               }}
             >
               {state.isGenerating ? (
@@ -218,15 +220,33 @@ export const ImageGenerationForm = ({
               ) : (
                 <>
                 {!user && generationCount < MAX_FREE_GENERATIONS && (
-                  <span className="absolute top-0 right-3 -mt-2 bg-blue-700 text-white text-xs px-2 py-0.5 rounded-full">
+                  <span className="absolute top-0 right-3 -mt-2 bg-blue-700 text-white text-xs px-2 py-0.5 rounded-full shadow-sm">
                     {MAX_FREE_GENERATIONS - generationCount}/{MAX_FREE_GENERATIONS} free
                   </span>
                 )}
-                Generate Image
+                <span className="font-medium">Generate Image</span>
                 </>
               )}
             </Button>
           </div>
+          
+          {/* Free tier usage indicator */}
+          {!user && (
+            <div className="mt-2 text-center">
+              <p className="text-xs text-gray-500">
+                {generationCount >= MAX_FREE_GENERATIONS ? (
+                  <span>Free limit reached. <button 
+                    onClick={() => setAuthModalOpen(true)}
+                    className="text-blue-600 hover:underline"
+                  >
+                    Sign up
+                  </button> for unlimited generations.</span>
+                ) : (
+                  <span>{MAX_FREE_GENERATIONS - generationCount} free generations remaining</span>
+                )}
+              </p>
+            </div>
+          )}
         </form>
       </div>
       <AuthModalDialog open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
