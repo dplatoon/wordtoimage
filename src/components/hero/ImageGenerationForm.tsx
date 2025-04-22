@@ -1,7 +1,4 @@
-
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { ApiKeyForm } from '@/components/ApiKeyForm';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { InfoAlert } from './InfoAlert';
@@ -9,9 +6,11 @@ import { AuthModalDialog } from './AuthModalDialog';
 import { GenerationControls } from './GenerationControls';
 import { useAuth } from '@/contexts/AuthContext';
 import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS } from './constants';
-import { trackEvent, events } from '@/utils/analytics';
 import { toast } from '@/components/ui/sonner';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { trackEvent, events } from '@/utils/analytics';
+import { PromptInput } from './form/PromptInput';
+import { GenerateButton } from './form/GenerateButton';
+import { FreeGenerationCounter } from './form/FreeGenerationCounter';
 import type { MouseEvent } from 'react';
 
 interface ImageGenerationFormProps {
@@ -35,11 +34,9 @@ export const ImageGenerationForm = ({
   const [isCheckingServerKey, setIsCheckingServerKey] = useState(true);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [generationCount, setGenerationCount] = useState(0);
-
   const [style, setStyle] = useState<string>(DEFAULT_STYLES[0]);
   const [resolution, setResolution] = useState<string>(RESOLUTIONS[1]);
   const [count, setCount] = useState(1);
-  const isMobile = useIsMobile();
 
   const { user, isLoading: authLoading } = useAuth();
 
@@ -119,12 +116,7 @@ export const ImageGenerationForm = ({
     );
   }
 
-  const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let val = e.target.value.slice(0, MAX_PROMPT_LENGTH);
-    setPrompt(val);
-  };
-
-  const handleProtectedGenerate = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleProtectedGenerate = async (e: React.FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     
     // Check if free user has reached generation limit
@@ -174,22 +166,11 @@ export const ImageGenerationForm = ({
           />
         )}
 
-        <form onSubmit={handleFormSubmit} className="space-y-3">
-          <div className="mb-2 relative">
-            <Input
-              type="text"
-              placeholder="A serene mountain lake at sunrise, ultra‑detailed HDR style"
-              value={prompt}
-              onChange={handlePromptChange}
-              className="w-full pr-16 border-gray-300 focus:border-blue-500 shadow-sm py-6 text-base"
-              maxLength={MAX_PROMPT_LENGTH}
-              aria-label="Image prompt"
-              autoFocus
-            />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 bg-white px-1 rounded">
-              {prompt.length}/{MAX_PROMPT_LENGTH}
-            </div>
-          </div>
+        <form onSubmit={handleProtectedGenerate} className="space-y-3">
+          <PromptInput 
+            prompt={prompt}
+            onChange={setPrompt}
+          />
 
           <GenerationControls
             style={style}
@@ -200,51 +181,20 @@ export const ImageGenerationForm = ({
             onCountChange={(value) => setCount(Number(value))}
           />
 
-          <div className="relative mt-4">
-            <Button
-              type="submit"
-              onClick={handleProtectedGenerate}
-              disabled={state.isGenerating || !canGenerate}
-              className={`w-full transition-all flex items-center justify-center rounded-full py-6 
-                ${state.isGenerating ? 'bg-gray-200' : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'}
-                shadow-lg hover:shadow-xl`}
-            >
-              {state.isGenerating ? (
-                <span className="flex items-center justify-center gap-2 animate-fade-in">
-                  <span className="h-5 w-5 border-2 border-blue-200 border-b-blue-600 rounded-full animate-spin mr-2" />
-                  <span className="text-gray-700">Generating...</span>
-                </span>
-              ) : (
-                <>
-                {!user && generationCount < MAX_FREE_GENERATIONS && (
-                  <div className="absolute top-0 right-4 -mt-2.5">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
-                      {MAX_FREE_GENERATIONS - generationCount}/{MAX_FREE_GENERATIONS} free
-                    </span>
-                  </div>
-                )}
-                <span className="font-medium text-lg">Generate Image</span>
-                </>
-              )}
-            </Button>
-          </div>
+          <GenerateButton 
+            isGenerating={state.isGenerating}
+            isDisabled={!canGenerate}
+            generationCount={generationCount}
+            maxFreeGenerations={MAX_FREE_GENERATIONS}
+            user={user}
+          />
           
-          {/* Free tier usage indicator */}
           {!user && (
-            <div className="mt-2 text-center">
-              <p className="text-xs text-gray-500">
-                {generationCount >= MAX_FREE_GENERATIONS ? (
-                  <span>Free limit reached. <button 
-                    onClick={() => setAuthModalOpen(true)}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Sign up
-                  </button> for unlimited generations.</span>
-                ) : (
-                  <span>{MAX_FREE_GENERATIONS - generationCount} free generations remaining</span>
-                )}
-              </p>
-            </div>
+            <FreeGenerationCounter 
+              generationCount={generationCount}
+              maxFreeGenerations={MAX_FREE_GENERATIONS}
+              onSignUpClick={() => setAuthModalOpen(true)}
+            />
           )}
         </form>
       </div>
