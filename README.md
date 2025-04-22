@@ -38,7 +38,7 @@ Vercel automatically deploys from your GitHub repo's main branch.
 - Find the most recent build and click Redeploy.
 
 ### 3. Verify Live Site
-- Once deployment succeeds, visit https://wordtoimage.com
+- Once deployment succeeds, visit your deployed site
 - Reload and confirm your changes are visible
 
 ### Troubleshooting

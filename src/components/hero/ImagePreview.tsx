@@ -19,8 +19,8 @@ const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
   useEffect(() => {
     if (imageUrl && !isGenerating) {
       setGallery((g) => {
-        if (g.find((img) => img.url === imageUrl)) return g; // prevent duplicates
-        return [...g, { url: imageUrl, prompt: '' }].slice(-12); // Store more images for the enhanced gallery
+        if (g.find((img) => img.url === imageUrl)) return g;
+        return [...g, { url: imageUrl, prompt: '' }].slice(-12);
       });
     }
   }, [imageUrl, isGenerating]);
@@ -41,7 +41,6 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
       a.click();
       document.body.removeChild(a);
       
-      // Track download event
       trackEvent(events.DOWNLOAD_IMAGE, {
         location: 'main_preview' 
       });
@@ -63,19 +62,18 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
         {isGenerating ? (
           <div className="text-center px-8">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-500">Generating your custom graphic...</p>
+            <p className="text-gray-500">Creating your masterpiece...</p>
           </div>
         ) : error ? (
           <Alert variant="destructive" className="w-full max-w-md mx-4">
             <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>Image Generation Error</AlertTitle>
+            <AlertTitle>Generation Error</AlertTitle>
             <AlertDescription>
               {isApiNotFoundError ? (
                 <div>
-                  <p className="mb-2">{error}</p>
+                  <p className="mb-2">Unable to generate image at this time</p>
                   <p className="text-sm">
-                    The API endpoint for image generation is not available.
-                    This is likely because the Supabase edge function isn't deployed or properly configured.
+                    Please try again in a few moments. If the problem persists, contact support.
                   </p>
                 </div>
               ) : (
@@ -87,13 +85,9 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
           <div className="relative w-full h-full group">
             <img
               src={imageUrl}
-              alt="Generated social media graphic"
+              alt="Generated image"
               className="w-full h-full object-contain"
-              loading="lazy" 
-              decoding="async"
-              width="1024" 
-              height="1024"
-              style={{contentVisibility: 'auto'}}
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-300 ease-in-out flex items-center justify-center opacity-0 group-hover:opacity-100">
               <Button
@@ -110,7 +104,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
         ) : (
           <div className="text-center px-8">
             <Image className="h-10 w-10 mx-auto mb-4 text-gray-400" />
-            <p className="text-gray-500">Enter a prompt and generate your custom social media graphic with WordToImage AI</p>
+            <p className="text-gray-500">Enter a prompt above to generate your custom image with AI</p>
           </div>
         )}
       </div>
