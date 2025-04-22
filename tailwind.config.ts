@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -48,6 +47,13 @@ export default {
 					softgray: '#F1F0FB',
 					rose: '#FF719A',
 					gold: '#FFD700',
+					brand: {
+						primary: '#5B5CFF',
+						secondary: '#9B87F5',
+						accent: '#6E59A5',
+						background: '#F4F3FF',
+						text: '#1A1F2C',
+					}
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
