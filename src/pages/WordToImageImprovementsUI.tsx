@@ -27,19 +27,26 @@ export default function WordToImageImprovementsUI() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
 
-  // This function will apply the style intensity to the prompt
-  const applyStyleIntensity = (basePrompt: string, intensity: number) => {
-    if (intensity === 50) return basePrompt; // Default intensity, no changes needed
+  // Format the prompt for better compatibility with DALL-E
+  const formatPrompt = (basePrompt: string, intensity: number) => {
+    if (!basePrompt.trim()) return '';
     
-    const intensityPhrase = intensity > 50 
-      ? `, strong style, highly detailed, intensity: ${intensity}%` 
-      : `, subtle style, minimal details, intensity: ${intensity}%`;
+    let formattedPrompt = basePrompt.trim();
     
-    return `${basePrompt}${intensityPhrase}`;
+    // Only add intensity modifiers if it's not at the default level
+    if (intensity !== 50) {
+      const intensityPhrase = intensity > 50 
+        ? `Detailed, high quality render with ${intensity}% enhanced details.` 
+        : `Simple, minimalist style with ${intensity}% reduced details.`;
+      
+      formattedPrompt = `${formattedPrompt}. ${intensityPhrase}`;
+    }
+    
+    return formattedPrompt;
   };
 
   const handleGenerate = async () => {
-    if (!prompt) {
+    if (!prompt.trim()) {
       toast.error("Please enter a prompt first!");
       return;
     }
@@ -48,8 +55,9 @@ export default function WordToImageImprovementsUI() {
     setImages([]);
     setProgress(0);
 
-    // Create a styled prompt with the intensity value
-    const styledPrompt = applyStyleIntensity(prompt, styleIntensity);
+    // Format the prompt with the intensity value
+    const formattedPrompt = formatPrompt(prompt, styleIntensity);
+    console.log('Sending prompt to OpenAI:', formattedPrompt);
 
     try {
       // Start progress animation
@@ -65,7 +73,7 @@ export default function WordToImageImprovementsUI() {
       }, 200);
 
       const { data, error } = await supabase.functions.invoke('generate-runware-image', {
-        body: { prompt: styledPrompt }
+        body: { prompt: formattedPrompt }
       });
 
       clearInterval(progressInterval);

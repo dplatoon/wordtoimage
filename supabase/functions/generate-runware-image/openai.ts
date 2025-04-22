@@ -38,21 +38,26 @@ export async function generateDalleImage({
     quality: quality
   }));
 
-  const response = await fetch('https://api.openai.com/v1/images/generations', requestOptions);
+  try {
+    const response = await fetch('https://api.openai.com/v1/images/generations', requestOptions);
 
-  if (!response.ok) {
-    let errorData;
-    try {
-      errorData = await response.json();
-    } catch {
-      errorData = null;
+    if (!response.ok) {
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = null;
+      }
+      throw {
+        isOpenAI: true,
+        response,
+        errorData
+      };
     }
-    throw {
-      isOpenAI: true,
-      response,
-      errorData
-    };
-  }
 
-  return response.json();
+    return response.json();
+  } catch (error) {
+    console.error('OpenAI API Error Details:', error);
+    throw error;
+  }
 }

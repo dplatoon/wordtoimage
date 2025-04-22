@@ -65,9 +65,12 @@ serve(async (req) => {
       );
     }
 
+    // Clean the prompt for DALL-E
+    // Remove style tags like [Photorealistic] that may be causing issues
+    const cleanedPrompt = prompt.replace(/^\[(.*?)\]\s*/i, '');
+    
     // Test prompt for validation purposes
-    const testPrompt = prompt.replace(/\[Test\]\s*/i, "").trim();
-    if (testPrompt === "server key check") {
+    if (cleanedPrompt.trim().toLowerCase() === "server key check") {
       // If it's just a server key check, return a success message without calling OpenAI
       return new Response(
         JSON.stringify({
@@ -144,7 +147,7 @@ serve(async (req) => {
     }
 
     console.log("Processing DALL-E 3 image generation request:", {
-      prompt: prompt.substring(0, 30) + "...",
+      prompt: cleanedPrompt.substring(0, 30) + "...",
       size,
       quality,
       n,
@@ -154,7 +157,7 @@ serve(async (req) => {
     let data;
     try {
       data = await generateDalleImage({
-        prompt,
+        prompt: cleanedPrompt, // Use the cleaned prompt
         n,
         size,
         quality,
@@ -231,7 +234,7 @@ serve(async (req) => {
         SUPABASE_SERVICE_ROLE_KEY,
         data: {
           user_id: userId,
-          prompt,
+          prompt: cleanedPrompt, // Store the cleaned prompt
           image_url: data.data[0].url,
           size,
           model: "dall-e-3",
