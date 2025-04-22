@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { Sparkles, Wand2, ImagePlus, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -48,7 +47,7 @@ export const HeroHeader = () => {
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-3xl" aria-hidden="true" />
         <h1 className="relative text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 font-poppins mb-6">
-          Create <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Social Media Graphics</span> in Seconds
+          Transform <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Text Into Stunning AI Images</span> in Seconds
         </h1>
         <p className="relative text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
           Transform your words into stunning, shareable graphics for all social platforms with our AI-powered design tool. No design skills required!
