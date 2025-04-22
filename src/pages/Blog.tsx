@@ -78,7 +78,35 @@ const Blog = () => {
     }
   ];
 
-  const defaultWebsiteImage = 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b';
+  // Collection of different default images from Unsplash for different blog post categories
+  const defaultImages = {
+    aiNews: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e", // robot image
+    designTips: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158", // person using laptop
+    productUpdates: "https://images.unsplash.com/photo-1518770660439-4636190af475", // circuit board
+    tutorials: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6", // coding screen
+    caseStudies: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d", // person using MacBook
+    industry: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5", // digital matrix
+  };
+
+  // Function to get the appropriate default image based on category
+  const getDefaultImageForPost = (post) => {
+    switch (post.category) {
+      case "AI News":
+        return defaultImages.aiNews;
+      case "Design Tips":
+        return defaultImages.designTips;
+      case "Product Updates":
+        return defaultImages.productUpdates;
+      case "Tutorials":
+        return defaultImages.tutorials;
+      case "Case Studies":
+        return defaultImages.caseStudies;
+      case "Industry Insights":
+        return defaultImages.industry;
+      default:
+        return "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"; // default fallback
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -96,7 +124,7 @@ const Blog = () => {
             <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48 bg-gray-200 relative overflow-hidden">
                 <img 
-                  src={post.image === '/placeholder.svg' ? defaultWebsiteImage : post.image}
+                  src={post.image === '/placeholder.svg' ? getDefaultImageForPost(post) : post.image}
                   alt={post.title}
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   loading="lazy"
