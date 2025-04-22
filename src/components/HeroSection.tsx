@@ -18,15 +18,11 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="py-12 md:py-20 lg:py-28 bg-gradient-to-br from-blue-50 via-white to-purple-50 image-generation-section" aria-labelledby="hero-heading">
+    <section className="py-10 md:py-16 lg:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 image-generation-section" aria-labelledby="hero-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-          <div className={`${isMobile ? "w-full" : "flex-1"} mb-8 lg:mb-0`}>
+        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
+          <div className={`${isMobile ? "w-full" : "flex-1"} mb-6 lg:mb-0`}>
             <HeroHeader />
-            <p className="mt-6 text-lg text-gray-600 max-w-lg mx-auto lg:mx-0">
-              Turn your ideas into vivid images in seconds—no design skills needed.
-              Create professional-looking visuals for social media, presentations, or inspiration.
-            </p>
           </div>
           <div className={`${isMobile ? "w-full" : "flex-1"}`}>
             <div className="relative">
@@ -36,7 +32,7 @@ export const HeroSection = () => {
                 onError={setGenerationError}
                 onNewGalleryRow={handleNewGalleryRow}
               />
-              <div className="mt-6">
+              <div className="mt-5">
                 <ImagePreview
                   imageUrl={generatedImageUrl}
                   isGenerating={isGenerating}

@@ -108,7 +108,7 @@ export const ImageGenerationForm = ({
 
   if (authLoading || isCheckingServerKey) {
     return (
-      <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
+      <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl p-1">
         <div className="bg-white rounded-xl p-5 w-full">
           <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -162,7 +162,7 @@ export const ImageGenerationForm = ({
   };
 
   return (
-    <div className="relative bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-xl p-1">
+    <div className="relative bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl p-1">
       <div className="bg-white rounded-xl p-4 sm:p-5">
         <InfoAlert usingServerKey={!showApiKeyForm} />
         
@@ -174,19 +174,19 @@ export const ImageGenerationForm = ({
           />
         )}
 
-        <form onSubmit={handleFormSubmit} className="space-y-4">
+        <form onSubmit={handleFormSubmit} className="space-y-3">
           <div className="mb-2 relative">
             <Input
               type="text"
               placeholder="A serene mountain lake at sunrise, ultra‑detailed HDR style"
               value={prompt}
               onChange={handlePromptChange}
-              className="w-full pr-16 border-gray-300 focus:border-blue-500 shadow-sm"
+              className="w-full pr-16 border-gray-300 focus:border-blue-500 shadow-sm py-6 text-base"
               maxLength={MAX_PROMPT_LENGTH}
               aria-label="Image prompt"
               autoFocus
             />
-            <div className="absolute right-3 top-2.5 text-xs text-gray-400 pointer-events-none select-none">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 bg-white px-1 rounded">
               {prompt.length}/{MAX_PROMPT_LENGTH}
             </div>
           </div>
@@ -205,26 +205,25 @@ export const ImageGenerationForm = ({
               type="submit"
               onClick={handleProtectedGenerate}
               disabled={state.isGenerating || !canGenerate}
-              className="w-full transition-all flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-md"
-              style={{
-                height: state.isGenerating ? 48 : undefined,
-                borderRadius: "9999px",
-                minHeight: isMobile ? 44 : 48
-              }}
+              className={`w-full transition-all flex items-center justify-center rounded-full py-6 
+                ${state.isGenerating ? 'bg-gray-200' : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'}
+                shadow-lg hover:shadow-xl`}
             >
               {state.isGenerating ? (
                 <span className="flex items-center justify-center gap-2 animate-fade-in">
                   <span className="h-5 w-5 border-2 border-blue-200 border-b-blue-600 rounded-full animate-spin mr-2" />
-                  Generating...
+                  <span className="text-gray-700">Generating...</span>
                 </span>
               ) : (
                 <>
                 {!user && generationCount < MAX_FREE_GENERATIONS && (
-                  <span className="absolute top-0 right-3 -mt-2 bg-blue-700 text-white text-xs px-2 py-0.5 rounded-full shadow-sm">
-                    {MAX_FREE_GENERATIONS - generationCount}/{MAX_FREE_GENERATIONS} free
-                  </span>
+                  <div className="absolute top-0 right-4 -mt-2.5">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                      {MAX_FREE_GENERATIONS - generationCount}/{MAX_FREE_GENERATIONS} free
+                    </span>
+                  </div>
                 )}
-                <span className="font-medium">Generate Image</span>
+                <span className="font-medium text-lg">Generate Image</span>
                 </>
               )}
             </Button>
