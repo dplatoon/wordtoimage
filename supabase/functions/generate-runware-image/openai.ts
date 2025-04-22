@@ -48,6 +48,10 @@ export async function generateDalleImage({
       } catch {
         errorData = null;
       }
+      
+      console.error('OpenAI API Error Status:', response.status, response.statusText);
+      if (errorData) console.error('OpenAI API Error Details:', errorData);
+      
       throw {
         isOpenAI: true,
         response,

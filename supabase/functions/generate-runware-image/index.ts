@@ -21,6 +21,7 @@ serve(async (req) => {
     console.log("Request body:", requestBody);
     const { prompt, n = 1, size = "1024x1024", quality = "standard", apiKey = null, userId = null } = JSON.parse(requestBody);
 
+    // Check if the OpenAI API key is available
     let openaiKey = Deno.env.get("OPENAI_API_KEY");
     if (!openaiKey && apiKey) {
       console.log("Using client-provided API key");
@@ -72,6 +73,7 @@ serve(async (req) => {
     // Test prompt for validation purposes
     if (cleanedPrompt.trim().toLowerCase() === "server key check") {
       // If it's just a server key check, return a success message without calling OpenAI
+      console.log("Server key check successful");
       return new Response(
         JSON.stringify({
           imageUrl: "https://via.placeholder.com/1024x1024?text=Server+Key+Valid",
@@ -156,13 +158,22 @@ serve(async (req) => {
 
     let data;
     try {
+      console.log("Calling OpenAI API with prompt:", cleanedPrompt.substring(0, 30) + "...");
       data = await generateDalleImage({
-        prompt: cleanedPrompt, // Use the cleaned prompt
+        prompt: cleanedPrompt,
         n,
         size,
         quality,
         openaiKey
       });
+      
+      console.log("OpenAI API response received");
+      
+      if (!data || !data.data || !data.data[0] || !data.data[0].url) {
+        console.error("Invalid response format from OpenAI:", data);
+        throw new Error("Invalid response format from OpenAI");
+      }
+      
     } catch (err) {
       console.error("OpenAI API Error:", err);
 
@@ -234,18 +245,19 @@ serve(async (req) => {
         SUPABASE_SERVICE_ROLE_KEY,
         data: {
           user_id: userId,
-          prompt: cleanedPrompt, // Store the cleaned prompt
+          prompt: cleanedPrompt,
           image_url: data.data[0].url,
           size,
           model: "dall-e-3",
           quality,
           prompt_id: promptId,
           created_at: createdAt,
-          plan: 'free' // Record the plan used; 'free' assumed here, could be upgraded with later logic
+          plan: 'free'
         }
       });
     }
 
+    console.log("Successfully generated image, returning URL");
     return new Response(
       JSON.stringify({
         imageUrl: data.data[0].url,
