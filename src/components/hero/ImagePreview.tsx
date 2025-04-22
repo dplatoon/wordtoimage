@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -92,7 +93,6 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
               decoding="async"
               width="1024" 
               height="1024"
-              fetchPriority="high"
               style={{contentVisibility: 'auto'}}
             />
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-300 ease-in-out flex items-center justify-center opacity-0 group-hover:opacity-100">

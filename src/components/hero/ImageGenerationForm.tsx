@@ -9,8 +9,9 @@ import { AuthModalDialog } from './AuthModalDialog';
 import { GenerationControls } from './GenerationControls';
 import { useAuth } from '@/contexts/AuthContext';
 import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS } from './constants';
-import type { MouseEvent } from 'react';
 import { trackEvent, events } from '@/utils/analytics';
+import { toast } from '@/components/ui/sonner';
+import type { MouseEvent } from 'react';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -18,6 +19,8 @@ interface ImageGenerationFormProps {
   onError: (error: string | null) => void;
   onNewGalleryRow?: (images: { url: string; prompt: string, style?: string, resolution?: string }[]) => void;
 }
+
+const MAX_FREE_GENERATIONS = 3;
 
 export const ImageGenerationForm = ({
   onImageGenerated,
@@ -30,6 +33,7 @@ export const ImageGenerationForm = ({
   const [tempApiKey, setTempApiKey] = useState('');
   const [isCheckingServerKey, setIsCheckingServerKey] = useState(true);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [generationCount, setGenerationCount] = useState(0);
 
   const [style, setStyle] = useState<string>(DEFAULT_STYLES[0]);
   const [resolution, setResolution] = useState<string>(RESOLUTIONS[1]);
@@ -49,11 +53,40 @@ export const ImageGenerationForm = ({
           resolution,
           authenticated: !!user
         });
+        
+        // Increment generation count for free tier limiting
+        if (!user) {
+          const newCount = generationCount + 1;
+          setGenerationCount(newCount);
+          localStorage.setItem('freeGenerationCount', newCount.toString());
+          
+          // Show sign up prompt when approaching limit
+          if (newCount === MAX_FREE_GENERATIONS - 1) {
+            toast.info("Almost reached free limit", { 
+              description: `You have 1 free generation remaining. Sign up to continue creating!`,
+              duration: 8000,
+              action: {
+                label: "Sign Up",
+                onClick: () => setAuthModalOpen(true)
+              }
+            });
+          }
+        }
       }
     },
     onGeneratingChange,
     onError,
   });
+
+  // Load free tier usage on component mount
+  useEffect(() => {
+    if (!user) {
+      const savedCount = localStorage.getItem('freeGenerationCount');
+      if (savedCount) {
+        setGenerationCount(parseInt(savedCount, 10));
+      }
+    }
+  }, [user]);
 
   useEffect(() => {
     const checkServerKey = async () => {
@@ -77,7 +110,7 @@ export const ImageGenerationForm = ({
         <div className="bg-white rounded-xl p-5 w-full">
           <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <span className="ml-3 text-gray-600">Checking authentication...</span>
+            <span className="ml-3 text-gray-600">Loading generator...</span>
           </div>
         </div>
       </div>
@@ -91,11 +124,24 @@ export const ImageGenerationForm = ({
 
   const handleProtectedGenerate = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!user) {
+    
+    // Check if free user has reached generation limit
+    if (!user && generationCount >= MAX_FREE_GENERATIONS) {
       setAuthModalOpen(true);
+      toast.error("Free generation limit reached", {
+        description: "Sign up to continue generating images!",
+        duration: 8000
+      });
       return;
     }
-    handleFormSubmit(e as any);
+    
+    if (!user) {
+      // Already checked limit above, so allow generation but show sign up modal at proper time
+      handleFormSubmit(e as any);
+    } else {
+      // Authenticated user - no limits
+      handleFormSubmit(e as any);
+    }
   };
 
   const canGenerate = !!prompt.trim() && prompt.length <= MAX_PROMPT_LENGTH;
@@ -103,6 +149,7 @@ export const ImageGenerationForm = ({
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (!canGenerate) return;
+    
     for (let i = 0; i < count; i++) {
       await generateImageFromPrompt(
         `[${style}] ${prompt}`,
@@ -169,7 +216,14 @@ export const ImageGenerationForm = ({
                   Generating...
                 </span>
               ) : (
+                <>
+                {!user && (
+                  <span className="absolute top-0 right-3 -mt-2 bg-blue-700 text-white text-xs px-2 py-0.5 rounded-full">
+                    {MAX_FREE_GENERATIONS - generationCount}/{MAX_FREE_GENERATIONS} free
+                  </span>
+                )}
                 'Generate Image'
+                </>
               )}
             </Button>
           </div>
