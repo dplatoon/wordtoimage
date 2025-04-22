@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
 
-## Project info
+# Welcome to WordToImage
 
-**URL**: https://lovable.dev/projects/8eae415c-b0a8-4358-ac52-4f607712bf73
+## Project Overview
+WordToImage is an AI-powered text-to-image generation platform that transforms text prompts into stunning graphics.
 
-## How can I edit this code?
+## Getting Started
+... (existing README content)
 
-There are several ways of editing your application.
+## Deployment Workflow
 
-**Use Lovable**
+### 1. Sync Your Local (or Lovable) Changes to GitHub
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8eae415c-b0a8-4358-ac52-4f607712bf73) and start prompting.
+#### If you're working in Lovable:
+- Click the Git / Sync button in the top-right corner of the Lovable editor.
+- Select the correct branch (usually main or master).
+- Click Push to GitHub.
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+#### If you're working locally:
+```bash
+# In your project folder
+git status            # see changed files
+git add .             # stage all changes (or specify individual files)
+git commit -m "Describe your changes—e.g. 'Polish hero title and loading states'"
+git push origin main  # push to the main branch on GitHub
 ```
 
-**Edit a file directly in GitHub**
+### 2. Trigger (or Verify) the Vercel Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Vercel automatically deploys from your GitHub repo's main branch.
 
-**Use GitHub Codespaces**
+#### Automatic Deploy:
+- Head to your Vercel dashboard at https://vercel.com/dashboard.
+- Look for a new "Production" deployment in progress.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+#### Manual Redeploy (if needed):
+- In Vercel, select your WordToImage project → Deployments tab.
+- Find the most recent build and click Redeploy.
 
-## What technologies are used for this project?
+### 3. Verify Live Site
+- Once deployment succeeds, visit https://wordtoimage.com
+- Reload and confirm your changes are visible
 
-This project is built with:
+### Troubleshooting
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+#### No new commit on GitHub?
+- Verify Git remote: `git remote -v`
+- Check current branch: `git branch`
 
-## How can I deploy this project?
+#### Vercel not picking up the push?
+- In Vercel Settings → Git, confirm GitHub integration
+- Re-authorize GitHub App if repo privacy changed
 
-Simply open [Lovable](https://lovable.dev/projects/8eae415c-b0a8-4358-ac52-4f607712bf73) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+#### Environment Variables
+- In Vercel Settings → Environment Variables
+- Ensure all secrets are defined for Production
+- Mirror new local variables in Vercel before deploying
