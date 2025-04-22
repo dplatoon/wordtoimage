@@ -2,7 +2,11 @@
 import { useState, useEffect } from 'react';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
-import { DEFAULT_STYLES, RESOLUTIONS } from '@/components/hero/constants';
+import { 
+  DEFAULT_STYLES, 
+  RESOLUTIONS, 
+  MAX_PROMPT_LENGTH 
+} from '@/components/hero/constants';
 import { toast } from '@/components/ui/sonner';
 import { trackEvent, events } from '@/utils/analytics';
 
