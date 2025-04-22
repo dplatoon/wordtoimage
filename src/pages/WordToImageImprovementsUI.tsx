@@ -9,6 +9,7 @@ import { IntensitySlider } from '@/components/word-to-image/IntensitySlider';
 import { ImageGallery } from '@/components/word-to-image/ImageGallery';
 import { EditImageModal } from '@/components/word-to-image/EditImageModal';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/components/ui/sonner';
 
 export default function WordToImageImprovementsUI() {
   const [prompt, setPrompt] = useState('');
@@ -26,24 +27,71 @@ export default function WordToImageImprovementsUI() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
 
+  // This function will apply the style intensity to the prompt
+  const applyStyleIntensity = (basePrompt: string, intensity: number) => {
+    if (intensity === 50) return basePrompt; // Default intensity, no changes needed
+    
+    const intensityPhrase = intensity > 50 
+      ? `, strong style, highly detailed, intensity: ${intensity}%` 
+      : `, subtle style, minimal details, intensity: ${intensity}%`;
+    
+    return `${basePrompt}${intensityPhrase}`;
+  };
+
   const handleGenerate = async () => {
-    if (!prompt) return;
+    if (!prompt) {
+      toast.error("Please enter a prompt first!");
+      return;
+    }
+    
     setLoading(true);
     setImages([]);
     setProgress(0);
 
+    // Create a styled prompt with the intensity value
+    const styledPrompt = applyStyleIntensity(prompt, styleIntensity);
+
     try {
+      // Start progress animation
+      const progressInterval = setInterval(() => {
+        setProgress(prev => {
+          const newProgress = prev + 5;
+          if (newProgress >= 95) {
+            clearInterval(progressInterval);
+            return 95; // Keep at 95% until we actually get the response
+          }
+          return newProgress;
+        });
+      }, 200);
+
       const { data, error } = await supabase.functions.invoke('generate-runware-image', {
-        body: { prompt }
+        body: { prompt: styledPrompt }
       });
 
-      if (error) throw error;
+      clearInterval(progressInterval);
+
+      if (error) {
+        console.error('Error generating image:', error);
+        toast.error("Failed to generate image", { 
+          description: error.message || "An unexpected error occurred" 
+        });
+        setLoading(false);
+        setProgress(0);
+        return;
+      }
 
       if (data?.imageUrl) {
+        // Successfully generated the image
         setImages([{ url: data.imageUrl }]);
+        toast.success("Image generated successfully!");
+      } else {
+        toast.error("No image was returned from the API");
       }
     } catch (error) {
       console.error('Error generating image:', error);
+      toast.error("Failed to generate image", {
+        description: "Something went wrong while processing your request"
+      });
     } finally {
       setLoading(false);
       setProgress(100);
