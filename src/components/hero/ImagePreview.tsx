@@ -62,22 +62,22 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
         {isGenerating ? (
           <div className="text-center px-8">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-500">Creating your masterpiece...</p>
+            <p className="text-gray-600 font-medium">Creating your masterpiece...</p>
           </div>
         ) : error ? (
-          <Alert variant="destructive" className="w-full max-w-md mx-4">
-            <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>Generation Error</AlertTitle>
-            <AlertDescription>
+          <Alert variant="destructive" className="w-full max-w-md mx-4 border-2 border-red-200 shadow-md">
+            <AlertTriangle className="h-5 w-5 text-red-500" />
+            <AlertTitle className="text-red-600 font-semibold">Generation Error</AlertTitle>
+            <AlertDescription className="text-gray-700">
               {isApiNotFoundError ? (
                 <div>
-                  <p className="mb-2">Unable to generate image at this time</p>
+                  <p className="mb-2 font-medium">Unable to generate image</p>
                   <p className="text-sm">
-                    Please try again in a few moments. If the problem persists, contact support.
+                    Your prompt may be too short or unclear. Try adding more details to your description.
                   </p>
                 </div>
               ) : (
-                error
+                <div className="font-medium">{error}</div>
               )}
             </AlertDescription>
           </Alert>

@@ -203,7 +203,7 @@ export const ImageGenerationForm = ({
               type="submit"
               onClick={handleProtectedGenerate}
               disabled={state.isGenerating || !canGenerate}
-              className="w-full transition-all flex items-center justify-center rounded-full"
+              className="w-full transition-all flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               style={{
                 height: state.isGenerating ? 48 : undefined,
                 borderRadius: "9999px",
@@ -217,12 +217,12 @@ export const ImageGenerationForm = ({
                 </span>
               ) : (
                 <>
-                {!user && (
+                {!user && generationCount < MAX_FREE_GENERATIONS && (
                   <span className="absolute top-0 right-3 -mt-2 bg-blue-700 text-white text-xs px-2 py-0.5 rounded-full">
                     {MAX_FREE_GENERATIONS - generationCount}/{MAX_FREE_GENERATIONS} free
                   </span>
                 )}
-                'Generate Image'
+                Generate Image
                 </>
               )}
             </Button>
