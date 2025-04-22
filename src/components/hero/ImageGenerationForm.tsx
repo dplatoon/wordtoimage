@@ -1,17 +1,12 @@
-import { useState, useEffect } from 'react';
-import { ApiKeyForm } from '@/components/ApiKeyForm';
-import { useImageGeneration } from '@/hooks/useImageGeneration';
-import { InfoAlert } from './InfoAlert';
+
+import { useImageGenerationForm } from '@/hooks/useImageGenerationForm';
 import { AuthModalDialog } from './AuthModalDialog';
-import { GenerationControls } from './GenerationControls';
-import { useAuth } from '@/contexts/AuthContext';
-import { MAX_PROMPT_LENGTH, DEFAULT_STYLES, RESOLUTIONS } from './constants';
-import { toast } from '@/components/ui/sonner';
-import { trackEvent, events } from '@/utils/analytics';
+import { GenerationControls } from './form/GenerationControls';
 import { PromptInput } from './form/PromptInput';
 import { GenerateButton } from './form/GenerateButton';
 import { FreeGenerationCounter } from './form/FreeGenerationCounter';
-import type { MouseEvent } from 'react';
+import { ApiKeySection } from './form/ApiKeySection';
+import { FormLayout } from './form/FormLayout';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -20,88 +15,39 @@ interface ImageGenerationFormProps {
   onNewGalleryRow?: (images: { url: string; prompt: string, style?: string, resolution?: string }[]) => void;
 }
 
-const MAX_FREE_GENERATIONS = 3;
-
 export const ImageGenerationForm = ({
   onImageGenerated,
   onGeneratingChange,
   onError,
   onNewGalleryRow
 }: ImageGenerationFormProps) => {
-  const [prompt, setPrompt] = useState('');
-  const [showApiKeyForm, setShowApiKeyForm] = useState(false);
-  const [tempApiKey, setTempApiKey] = useState('');
-  const [isCheckingServerKey, setIsCheckingServerKey] = useState(true);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [generationCount, setGenerationCount] = useState(0);
-  const [style, setStyle] = useState<string>(DEFAULT_STYLES[0]);
-  const [resolution, setResolution] = useState<string>(RESOLUTIONS[1]);
-  const [count, setCount] = useState(1);
-
-  const { user, isLoading: authLoading } = useAuth();
-
-  const { generateImageFromPrompt, isRetrying, state } = useImageGeneration({
-    onImageGenerated: (url) => {
-      onImageGenerated(url);
-      if (onNewGalleryRow && url) {
-        onNewGalleryRow([{ url, prompt, style, resolution }]);
-        
-        trackEvent(events.GENERATE_IMAGE, {
-          prompt,
-          style,
-          resolution,
-          authenticated: !!user
-        });
-        
-        // Increment generation count for free tier limiting
-        if (!user) {
-          const newCount = generationCount + 1;
-          setGenerationCount(newCount);
-          localStorage.setItem('freeGenerationCount', newCount.toString());
-          
-          // Show sign up prompt when approaching limit
-          if (newCount === MAX_FREE_GENERATIONS - 1) {
-            toast.info("Almost reached free limit", { 
-              description: `You have 1 free generation remaining. Sign up to continue creating!`,
-              duration: 8000,
-              action: {
-                label: "Sign Up",
-                onClick: () => setAuthModalOpen(true)
-              }
-            });
-          }
-        }
-      }
-    },
+  const {
+    prompt,
+    setPrompt,
+    showApiKeyForm,
+    tempApiKey,
+    setTempApiKey,
+    isCheckingServerKey,
+    authModalOpen,
+    setAuthModalOpen,
+    generationCount,
+    style,
+    setStyle,
+    resolution,
+    setResolution,
+    count,
+    setCount,
+    user,
+    authLoading,
+    state,
+    canGenerate,
+    handleProtectedGenerate,
+  } = useImageGenerationForm({
+    onImageGenerated,
     onGeneratingChange,
     onError,
+    onNewGalleryRow
   });
-
-  // Load free tier usage on component mount
-  useEffect(() => {
-    if (!user) {
-      const savedCount = localStorage.getItem('freeGenerationCount');
-      if (savedCount) {
-        setGenerationCount(parseInt(savedCount, 10));
-      }
-    }
-  }, [user]);
-
-  useEffect(() => {
-    const checkServerKey = async () => {
-      try {
-        const serverKeyTest = await generateImageFromPrompt('[Test] server key check', '', true);
-        setShowApiKeyForm(false);
-        setIsCheckingServerKey(false);
-      } catch (error) {
-        console.log('No server key available, requiring user API key');
-        setShowApiKeyForm(true);
-        setIsCheckingServerKey(false);
-      }
-    };
-
-    checkServerKey();
-  }, []);
 
   if (authLoading || isCheckingServerKey) {
     return (
@@ -116,89 +62,49 @@ export const ImageGenerationForm = ({
     );
   }
 
-  const handleProtectedGenerate = async (e: React.FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    
-    // Check if free user has reached generation limit
-    if (!user && generationCount >= MAX_FREE_GENERATIONS) {
-      setAuthModalOpen(true);
-      toast.error("Free generation limit reached", {
-        description: "Sign up to continue generating images!",
-        duration: 8000
-      });
-      return;
-    }
-    
-    if (!user) {
-      // Already checked limit above, so allow generation but show sign up modal at proper time
-      handleFormSubmit(e as any);
-    } else {
-      // Authenticated user - no limits
-      handleFormSubmit(e as any);
-    }
-  };
-
-  const canGenerate = !!prompt.trim() && prompt.length <= MAX_PROMPT_LENGTH;
-
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    if (!canGenerate) return;
-    
-    for (let i = 0; i < count; i++) {
-      await generateImageFromPrompt(
-        `[${style}] ${prompt}`,
-        tempApiKey,
-        false
-      );
-    }
-  };
-
   return (
-    <div className="relative bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl p-1">
-      <div className="bg-white rounded-xl p-4 sm:p-5">
-        <InfoAlert usingServerKey={!showApiKeyForm} />
+    <>
+      <FormLayout onSubmit={handleProtectedGenerate}>
+        <ApiKeySection 
+          showApiKeyForm={showApiKeyForm}
+          onApiKeySubmit={setTempApiKey}
+        />
+
+        <PromptInput 
+          prompt={prompt}
+          onChange={setPrompt}
+        />
+
+        <GenerationControls
+          style={style}
+          resolution={resolution}
+          count={count}
+          onStyleChange={setStyle}
+          onResolutionChange={setResolution}
+          onCountChange={(value) => setCount(Number(value))}
+        />
+
+        <GenerateButton 
+          isGenerating={state.isGenerating}
+          isDisabled={!canGenerate}
+          generationCount={generationCount}
+          maxFreeGenerations={3}
+          user={user}
+        />
         
-        {showApiKeyForm && (
-          <ApiKeyForm 
-            onSubmit={setTempApiKey} 
-            serviceName="OpenAI" 
-            keyPlaceholder="Enter your OpenAI API key" 
+        {!user && (
+          <FreeGenerationCounter 
+            generationCount={generationCount}
+            maxFreeGenerations={3}
+            onSignUpClick={() => setAuthModalOpen(true)}
           />
         )}
-
-        <form onSubmit={handleProtectedGenerate} className="space-y-3">
-          <PromptInput 
-            prompt={prompt}
-            onChange={setPrompt}
-          />
-
-          <GenerationControls
-            style={style}
-            resolution={resolution}
-            count={count}
-            onStyleChange={setStyle}
-            onResolutionChange={setResolution}
-            onCountChange={(value) => setCount(Number(value))}
-          />
-
-          <GenerateButton 
-            isGenerating={state.isGenerating}
-            isDisabled={!canGenerate}
-            generationCount={generationCount}
-            maxFreeGenerations={MAX_FREE_GENERATIONS}
-            user={user}
-          />
-          
-          {!user && (
-            <FreeGenerationCounter 
-              generationCount={generationCount}
-              maxFreeGenerations={MAX_FREE_GENERATIONS}
-              onSignUpClick={() => setAuthModalOpen(true)}
-            />
-          )}
-        </form>
-      </div>
-      <AuthModalDialog open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
-    </div>
+      </FormLayout>
+      
+      <AuthModalDialog 
+        open={authModalOpen} 
+        onClose={() => setAuthModalOpen(false)} 
+      />
+    </>
   );
 };
