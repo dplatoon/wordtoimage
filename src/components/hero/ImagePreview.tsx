@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -96,14 +95,14 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
               fetchPriority="high"
               style={{contentVisibility: 'auto'}}
             />
-            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-300 ease-in-out flex items-center justify-center opacity-0 group-hover:opacity-100">
               <Button
                 variant="secondary"
                 size="lg"
                 onClick={handleDownload}
-                className="gap-2"
+                className="gap-2 transform scale-90 group-hover:scale-100 transition-all duration-300"
               >
-                <Download className="h-4 w-4" />
+                <Download className="h-5 w-5" />
                 Download Image
               </Button>
             </div>
