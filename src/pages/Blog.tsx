@@ -78,6 +78,8 @@ const Blog = () => {
     }
   ];
 
+  const defaultWebsiteImage = 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b';
+
   return (
     <div className="min-h-screen flex flex-col">
       <Nav />
@@ -94,9 +96,10 @@ const Blog = () => {
             <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48 bg-gray-200 relative overflow-hidden">
                 <img 
-                  src={post.image} 
+                  src={post.image === '/placeholder.svg' ? defaultWebsiteImage : post.image}
                   alt={post.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
                 />
               </div>
               <div className="p-6">
@@ -112,9 +115,10 @@ const Blog = () => {
                 <div className="flex items-center">
                   <div className="h-8 w-8 rounded-full overflow-hidden bg-gray-300">
                     <img 
-                      src={post.author.avatar} 
+                      src={post.author.avatar === '/placeholder.svg' ? `https://ui-avatars.com/api/?name=${encodeURIComponent(post.author.name)}` : post.author.avatar}
                       alt={post.author.name}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </div>
                   <div className="ml-3">
