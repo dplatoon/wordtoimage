@@ -15,5 +15,9 @@ export const events = {
   SIGN_UP: 'sign_up',
   DOWNLOAD_IMAGE: 'download_image',
   SHARE_IMAGE: 'share_image',
-  VIEW_GALLERY: 'view_gallery'
+  VIEW_GALLERY: 'view_gallery',
+  GENERATION_STARTED: 'generation_started',
+  IMAGE_DISPLAYED: 'image_displayed',
+  RETRY_GENERATION: 'retry_generation',
+  IMAGE_LOADED: 'image_loaded'
 };
