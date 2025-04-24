@@ -19,7 +19,26 @@ serve(async (req) => {
   try {
     const requestBody = await req.text();
     console.log("Request body:", requestBody);
-    const { prompt, n = 1, size = "1024x1024", quality = "standard", apiKey = null, userId = null } = JSON.parse(requestBody);
+    let parsedBody;
+    
+    try {
+      parsedBody = JSON.parse(requestBody);
+    } catch (error) {
+      console.error("Failed to parse request body:", error);
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Invalid JSON in request body",
+          errors: [{ code: "VALIDATION_ERROR", message: "Invalid JSON format" }]
+        }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        }
+      );
+    }
+    
+    const { prompt, n = 1, size = "1024x1024", quality = "standard", apiKey = null, userId = null } = parsedBody;
 
     // Check if the OpenAI API key is available
     let openaiKey = Deno.env.get("OPENAI_API_KEY");
@@ -240,21 +259,26 @@ serve(async (req) => {
     };
 
     if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
-      await logImageGeneration({
-        SUPABASE_URL,
-        SUPABASE_SERVICE_ROLE_KEY,
-        data: {
-          user_id: userId,
-          prompt: cleanedPrompt,
-          image_url: data.data[0].url,
-          size,
-          model: "dall-e-3",
-          quality,
-          prompt_id: promptId,
-          created_at: createdAt,
-          plan: 'free'
-        }
-      });
+      try {
+        await logImageGeneration({
+          SUPABASE_URL,
+          SUPABASE_SERVICE_ROLE_KEY,
+          data: {
+            user_id: userId,
+            prompt: cleanedPrompt,
+            image_url: data.data[0].url,
+            size,
+            model: "dall-e-3",
+            quality,
+            prompt_id: promptId,
+            created_at: createdAt,
+            plan: 'free'
+          }
+        });
+      } catch (logError) {
+        console.error("Failed to log image generation:", logError);
+        // Continue anyway, this is not critical
+      }
     }
 
     console.log("Successfully generated image, returning URL");

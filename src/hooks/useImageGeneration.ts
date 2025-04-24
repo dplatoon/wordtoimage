@@ -72,9 +72,17 @@ export const useImageGeneration = ({
         userId: user?.id || null     // Pass user ID if authenticated
       };
       
+      console.log("Calling generate image with options:", {
+        prompt: options.prompt.substring(0, 20) + "...",
+        size: options.size,
+        quality: options.quality,
+        userId: options.userId ? "provided" : "not provided"
+      });
+      
       const result = await generateImage(options);
       
       if (result.error) {
+        console.error("Generation error in result:", result.error);
         const error = getErrorMessage(result.error);
         const errorDetails = getErrorDisplayDetails(error);
         throw new Error(errorDetails.description);
