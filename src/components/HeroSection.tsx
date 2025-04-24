@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HeroHeader } from './hero/HeroHeader';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
 import { ImagePreview } from './hero/ImagePreview';
@@ -12,9 +12,22 @@ export const HeroSection = () => {
   const [generationError, setGenerationError] = useState<string | null>(null);
   const [galleryRows, setGalleryRows] = useState<{url: string; prompt: string; style?: string; resolution?: string}[][]>([]);
   const isMobile = useIsMobile();
+  
+  // Track when generation starts and image is shown
+  useEffect(() => {
+    if (isGenerating) {
+      trackEvent(events.GENERATION_STARTED, {});
+    } else if (generatedImageUrl) {
+      trackEvent(events.IMAGE_DISPLAYED, {});
+    }
+  }, [isGenerating, generatedImageUrl]);
 
   const handleNewGalleryRow = (row: {url: string; prompt: string; style?: string; resolution?: string}[]) => {
-    setGalleryRows(prev => [...prev, row]);
+    setGalleryRows(prev => {
+      // Store only the last 10 rows to avoid memory issues
+      const newRows = [...prev, row];
+      return newRows.slice(-10);
+    });
   };
 
   return (

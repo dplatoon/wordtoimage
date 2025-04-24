@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { SettingsModal } from '@/components/word-to-image/SettingsModal';
 import { PromptInput } from '@/components/word-to-image/PromptInput';
@@ -10,6 +10,8 @@ import { ImageGallery } from '@/components/word-to-image/ImageGallery';
 import { EditImageModal } from '@/components/word-to-image/EditImageModal';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/components/ui/sonner';
+import { Progress } from '@/components/ui/progress';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function WordToImageImprovementsUI() {
   const [prompt, setPrompt] = useState('');
@@ -26,6 +28,7 @@ export default function WordToImageImprovementsUI() {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Format the prompt for better compatibility with DALL-E
   const formatPrompt = (basePrompt: string, intensity: number) => {
@@ -45,6 +48,21 @@ export default function WordToImageImprovementsUI() {
     return formattedPrompt;
   };
 
+  const runProgressSimulation = () => {
+    setProgress(0);
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        const newProgress = prev + Math.random() * 5;
+        if (newProgress >= 95) {
+          clearInterval(progressInterval);
+          return 95; // Keep at 95% until we actually get the response
+        }
+        return newProgress;
+      });
+    }, 200);
+    return progressInterval;
+  };
+
   const handleGenerate = async () => {
     if (!prompt.trim()) {
       toast.error("Please enter a prompt first!");
@@ -54,6 +72,7 @@ export default function WordToImageImprovementsUI() {
     setLoading(true);
     setImages([]);
     setProgress(0);
+    setError(null);
 
     // Format the prompt with the intensity value
     const formattedPrompt = formatPrompt(prompt, styleIntensity);
@@ -61,27 +80,27 @@ export default function WordToImageImprovementsUI() {
 
     try {
       // Start progress animation
-      const progressInterval = setInterval(() => {
-        setProgress(prev => {
-          const newProgress = prev + 5;
-          if (newProgress >= 95) {
-            clearInterval(progressInterval);
-            return 95; // Keep at 95% until we actually get the response
-          }
-          return newProgress;
-        });
-      }, 200);
+      const progressInterval = runProgressSimulation();
 
       const { data, error } = await supabase.functions.invoke('generate-runware-image', {
-        body: { prompt: formattedPrompt }
+        body: { 
+          prompt: formattedPrompt,
+          size: '1024x1024',
+          quality: styleIntensity > 70 ? 'hd' : 'standard'
+        }
       });
 
       clearInterval(progressInterval);
 
       if (error) {
         console.error('Error generating image:', error);
+        setError(error.message || "An unexpected error occurred");
         toast.error("Failed to generate image", { 
-          description: error.message || "An unexpected error occurred" 
+          description: error.message || "An unexpected error occurred",
+          action: {
+            label: "Try Again",
+            onClick: handleGenerate
+          }
         });
         setLoading(false);
         setProgress(0);
@@ -91,18 +110,37 @@ export default function WordToImageImprovementsUI() {
       if (data?.imageUrl) {
         // Successfully generated the image
         setImages([{ url: data.imageUrl }]);
+        setProgress(100);
         toast.success("Image generated successfully!");
       } else {
-        toast.error("No image was returned from the API");
+        setError("No image was returned from the API");
+        toast.error("Generation failed", {
+          description: "No image was returned from the API",
+          action: {
+            label: "Try Again",
+            onClick: handleGenerate
+          }
+        });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating image:', error);
+      setError(error?.message || "An unexpected error occurred");
       toast.error("Failed to generate image", {
-        description: "Something went wrong while processing your request"
+        description: error?.message || "Something went wrong while processing your request",
+        action: {
+          label: "Try Again",
+          onClick: handleGenerate
+        }
       });
     } finally {
       setLoading(false);
+      // Ensure progress completes even in error cases
       setProgress(100);
+      
+      // Reset progress after a short delay
+      setTimeout(() => {
+        if (!loading) setProgress(0);
+      }, 1000);
     }
   };
 
@@ -135,16 +173,42 @@ export default function WordToImageImprovementsUI() {
       />
 
       {loading && (
-        <motion.div
-          className="h-1 bg-blue-500 mb-4 rounded"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ ease: 'easeOut', duration: 0.3 }}
-        />
+        <div className="mb-4">
+          <div className="flex items-center mb-2">
+            <span className="text-sm text-gray-500 mr-2">Generating image...</span>
+            <span className="text-sm font-semibold">{Math.round(progress)}%</span>
+          </div>
+          <Progress value={progress} className="h-2" />
+        </div>
       )}
 
-      <Button onClick={handleGenerate} disabled={loading} className="mb-6">
-        {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Generate'}
+      {error && !loading && (
+        <Alert variant="destructive" className="mb-4">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Generation Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleGenerate} 
+            className="mt-2"
+          >
+            Try Again
+          </Button>
+        </Alert>
+      )}
+
+      <Button 
+        onClick={handleGenerate} 
+        disabled={loading || !prompt.trim()} 
+        className="mb-6 w-full md:w-auto"
+      >
+        {loading ? (
+          <span className="flex items-center">
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
+            Generating...
+          </span>
+        ) : 'Generate Image'}
       </Button>
 
       <ImageGallery

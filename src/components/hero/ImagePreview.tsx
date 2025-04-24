@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Image, Download, AlertTriangle } from 'lucide-react';
+import { Image, Download, AlertCircle, RefreshCw } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 import { GenerationGallery } from './GenerationGallery';
 import { trackEvent, events } from '@/utils/analytics';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Progress } from '@/components/ui/progress';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface ImagePreviewProps {
   imageUrl: string;
@@ -16,22 +18,43 @@ interface ImagePreviewProps {
 
 const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
   const [gallery, setGallery] = useState<{ url: string; prompt: string }[]>([]);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
+  // Simulate loading progress
+  useEffect(() => {
+    if (isGenerating) {
+      setImageLoaded(false);
+      setLoadingProgress(0);
+      const interval = setInterval(() => {
+        setLoadingProgress(prev => {
+          const nextProgress = prev + Math.random() * 5;
+          return nextProgress >= 95 ? 95 : nextProgress;
+        });
+      }, 150);
+      return () => clearInterval(interval);
+    }
+  }, [isGenerating]);
+
+  // Add new image to gallery when generated
   useEffect(() => {
     if (imageUrl && !isGenerating) {
       setGallery((g) => {
         if (g.find((img) => img.url === imageUrl)) return g;
         return [...g, { url: imageUrl, prompt: '' }].slice(-12);
       });
+      setLoadingProgress(100);
+      setTimeout(() => setImageLoaded(true), 300);
     }
   }, [imageUrl, isGenerating]);
 
-  return { gallery, setGallery };
+  return { gallery, setGallery, imageLoaded, loadingProgress };
 };
 
 export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProps) => {
-  const { gallery } = useImageGallery(imageUrl, isGenerating);
+  const { gallery, imageLoaded, loadingProgress } = useImageGallery(imageUrl, isGenerating);
   const isMobile = useIsMobile();
+  const [retryCount, setRetryCount] = useState(0);
 
   const handleDownload = () => {
     if (!imageUrl) return;
@@ -51,9 +74,21 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
     } catch (error) {
       console.error('Download error:', error);
       toast.error('Failed to download image', {
-        description: 'Please try right-clicking the image and selecting "Save image as..."'
+        description: 'Please try right-clicking the image and selecting "Save image as..."',
+        action: {
+          label: 'Try Again',
+          onClick: handleDownload
+        }
       });
     }
+  };
+
+  const handleRetry = () => {
+    setRetryCount(count => count + 1);
+    trackEvent(events.RETRY_GENERATION, { 
+      error: error || 'unknown',
+      retryCount: retryCount + 1
+    });
   };
 
   const isApiNotFoundError = error?.includes('not configured') || error?.includes('not available');
@@ -63,14 +98,18 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
       <div className="h-[300px] sm:h-[350px] bg-white rounded-xl flex items-center justify-center overflow-hidden relative shadow-md border border-gray-200">
         {isGenerating ? (
           <div className="text-center px-4 sm:px-8 w-full">
-            <div className="animate-pulse flex flex-col items-center justify-center w-full">
+            <div className="flex flex-col items-center justify-center w-full">
               <div className="relative w-12 h-12 mb-4">
                 <div className="absolute inset-0 rounded-full border-t-2 border-blue-500 animate-spin"></div>
                 <div className="absolute inset-1 rounded-full border-2 border-blue-200"></div>
               </div>
               <p className="text-gray-700 font-medium text-lg">Creating your masterpiece...</p>
-              <div className="w-full max-w-[200px] mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse rounded-full"></div>
+              <div className="w-full max-w-[250px] mt-4">
+                <div className="flex justify-between mb-1 text-xs text-gray-500">
+                  <span>Processing</span>
+                  <span>{Math.round(loadingProgress)}%</span>
+                </div>
+                <Progress value={loadingProgress} className="h-2" />
               </div>
               <p className="text-xs text-gray-500 mt-3">This may take a few seconds</p>
             </div>
@@ -78,8 +117,8 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
         ) : error ? (
           <Alert variant="destructive" className="w-full max-w-md mx-4 border border-red-200 shadow-md bg-white">
             <div className="flex items-start">
-              <AlertTriangle className="h-5 w-5 text-red-500 mt-0.5 mr-2 flex-shrink-0" />
-              <div>
+              <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-2 flex-shrink-0" />
+              <div className="flex-1">
                 <AlertTitle className="text-red-600 font-semibold text-sm mb-1">Generation Error</AlertTitle>
                 <AlertDescription className="text-gray-700 text-xs">
                   {isApiNotFoundError ? (
@@ -91,16 +130,27 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
                     <div className="font-medium">{error}</div>
                   )}
                 </AlertDescription>
+                <Button 
+                  size="sm" 
+                  variant="secondary"
+                  className="mt-2 flex items-center" 
+                  onClick={handleRetry}
+                >
+                  <RefreshCw className="mr-1 h-3 w-3" /> Try Again
+                </Button>
               </div>
             </div>
           </Alert>
         ) : imageUrl ? (
           <div className="relative w-full h-full group">
+            {!imageLoaded && <Skeleton className="absolute inset-0" />}
             <img
               src={imageUrl}
               alt="Generated image"
-              className="w-full h-full object-contain"
+              className={`w-full h-full object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
               loading="lazy"
+              decoding="async"
+              onLoad={() => setTimeout(() => trackEvent(events.IMAGE_LOADED, {}), 100)}
             />
             <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-300 ease-in-out flex items-center justify-center opacity-0 group-hover:opacity-100">
               <Button
