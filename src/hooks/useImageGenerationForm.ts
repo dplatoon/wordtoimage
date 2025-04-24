@@ -84,11 +84,17 @@ export const useImageGenerationForm = ({
   useEffect(() => {
     const checkServerKey = async () => {
       try {
-        const serverKeyTest = await generateImageFromPrompt('[Test] server key check', '', true);
+        console.log('Checking if server API key is available...');
+        await generateImageFromPrompt('server key check', '', true);
+        console.log('Server API key is available and working');
         setShowApiKeyForm(false);
         setIsCheckingServerKey(false);
       } catch (error) {
-        console.log('No server key available, requiring user API key');
+        console.log('No server key available or server key invalid, requiring user API key');
+        toast.warning("OpenAI API Key Required", {
+          description: "Please enter your OpenAI API key to generate images",
+          duration: 8000
+        });
         setShowApiKeyForm(true);
         setIsCheckingServerKey(false);
       }
@@ -116,9 +122,12 @@ export const useImageGenerationForm = ({
     event.preventDefault();
     if (!canGenerate) return;
     
+    // For testing, use a simple prompt without style tags when experiencing issues
+    const finalPrompt = `[${style}] ${prompt}`;
+    
     for (let i = 0; i < count; i++) {
       await generateImageFromPrompt(
-        `[${style}] ${prompt}`,
+        finalPrompt,
         tempApiKey,
         false
       );

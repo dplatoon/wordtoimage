@@ -63,8 +63,13 @@ export const useImageGeneration = ({
     onError(null);
     
     try {
+      // For server key check, use a simplified special prompt
+      const finalPrompt = retry && prompt.includes('server key check') 
+        ? prompt 
+        : prompt.trim().replace(/^\[(.*?)\]\s*/i, ''); // Remove style tags for better compatibility
+      
       const options: ImageGenerationOptions = {
-        prompt: prompt.trim(),
+        prompt: finalPrompt,
         size: '1024x1024',
         quality: 'standard',
         numberResults: 1,

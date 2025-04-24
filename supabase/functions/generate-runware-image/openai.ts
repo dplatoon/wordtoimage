@@ -39,7 +39,9 @@ export async function generateDalleImage({
   }));
 
   try {
+    console.log('Sending request to OpenAI API...');
     const response = await fetch('https://api.openai.com/v1/images/generations', requestOptions);
+    console.log('Response status:', response.status, response.statusText);
 
     if (!response.ok) {
       let errorData;
@@ -59,7 +61,9 @@ export async function generateDalleImage({
       };
     }
 
-    return response.json();
+    const responseData = await response.json();
+    console.log('OpenAI API response received successfully');
+    return responseData;
   } catch (error) {
     console.error('OpenAI API Error Details:', error);
     throw error;
