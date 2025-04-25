@@ -42,8 +42,8 @@ const Contact = () => {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Visit Us</h3>
               <p className="text-gray-700">
-                0198-00, Khagdohor<br />
-                Mymensingh, Bangladesh
+                1400 Executive Parkway, Suite 400<br />
+                Eugene, OR 97401, USA
               </p>
             </div>
           </div>
