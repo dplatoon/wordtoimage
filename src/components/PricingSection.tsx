@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Check, X, CreditCard, Users } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { Button } from './ui/button';
 import { PaymentMethodModal } from './PaymentMethodModal';
 import { Switch } from "./ui/switch";
@@ -18,7 +18,7 @@ const plans = [
     annualPrice: "0",
     description: "Perfect for trying out our platform",
     features: [
-      { included: true, text: "10 AI image generations per month" },
+      { included: true, text: "20 AI image generations per month" },
       { included: true, text: "Basic templates" },
       { included: true, text: "Standard resolution" },
       { included: true, text: "Personal use license" },
@@ -32,8 +32,8 @@ const plans = [
   },
   {
     name: "Pro",
-    price: "9.99",
-    annualPrice: calculateAnnualPrice(9.99),
+    price: "14.99",
+    annualPrice: calculateAnnualPrice(14.99),
     description: "Perfect for individual creators",
     features: [
       { included: true, text: "250 AI image generations per month" },
@@ -41,7 +41,7 @@ const plans = [
       { included: true, text: "High resolution" },
       { included: true, text: "Commercial use license" },
       { included: true, text: "Priority queue" },
-      { included: false, text: "Unlimited HD downloads" },
+      { included: true, text: "HD downloads (10/month)" },
       { included: false, text: "Team collaboration" }
     ],
     cta: "Subscribe",
@@ -52,8 +52,8 @@ const plans = [
   },
   {
     name: "Business",
-    price: "24.99",
-    annualPrice: calculateAnnualPrice(24.99),
+    price: "29.99",
+    annualPrice: calculateAnnualPrice(29.99),
     description: "For teams and growing businesses",
     features: [
       { included: true, text: "500 AI image generations per month" },
