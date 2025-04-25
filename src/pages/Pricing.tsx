@@ -12,41 +12,44 @@ const pricingPlans = [
     price: "0",
     description: "Perfect for trying out our platform",
     features: [
-      "5 AI image generations per month",
-      "Access to basic templates",
-      "Standard image resolution",
+      "10 AI image generations per month",
+      "Basic templates",
+      "Standard resolution",
+      "Personal use license",
       "Community support"
     ],
     cta: "Get Started",
     popular: false
   },
   {
-    name: "Professional",
-    price: "19",
-    description: "Great for individuals and small teams",
+    name: "Pro",
+    price: "9.99",
+    description: "Perfect for individual creators",
     features: [
-      "100 AI image generations per month",
-      "Access to all templates",
+      "250 AI image generations per month",
+      "All templates",
       "High resolution images",
+      "Commercial use license",
+      "Priority queue",
       "Priority support",
-      "Brand kit (1 brand)",
-      "Remove watermarks"
+      "$0.05 per additional image"
     ],
     cta: "Subscribe",
     popular: true
   },
   {
     name: "Business",
-    price: "49",
+    price: "24.99",
     description: "For teams and growing businesses",
     features: [
-      "Unlimited AI image generations",
-      "Access to all templates and premium content",
-      "Highest resolution images",
-      "Priority support with dedicated manager",
-      "Multiple brand kits (5 brands)",
-      "Team collaboration features",
-      "API access"
+      "500 AI image generations per month",
+      "All templates + priority support",
+      "4K resolution",
+      "Extended commercial license",
+      "Priority generation queue",
+      "Unlimited HD downloads",
+      "Team collaboration (5 seats)",
+      "$0.04 per additional image"
     ],
     cta: "Contact Sales",
     popular: false
