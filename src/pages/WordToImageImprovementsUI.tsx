@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
@@ -20,8 +19,14 @@ export default function WordToImageImprovementsUI() {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  
+  const promptSuggestions = [
+    "A futuristic cityscape at dusk, watercolor style",
+    "Serene mountain lake with reflection, photorealistic",
+    "Abstract geometric patterns in vibrant colors",
+    "Whimsical forest with magical creatures, illustration style"
+  ];
 
-  // Format the prompt for better compatibility with DALL-E
   const formatPrompt = (basePrompt: string, intensity: number) => {
     if (!basePrompt.trim()) return '';
     
@@ -138,6 +143,7 @@ export default function WordToImageImprovementsUI() {
       <PromptInput
         prompt={prompt}
         onPromptChange={setPrompt}
+        suggestions={promptSuggestions}
       />
 
       <StyleSlider
