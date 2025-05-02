@@ -11,6 +11,7 @@ interface GalleryImageProps {
   onDownload: () => void;
   onShare: () => void;
   onFavoriteToggle: () => void;
+  fallback?: React.ReactNode; // Add fallback prop as optional
 }
 
 export const GalleryImage: React.FC<GalleryImageProps> = ({
@@ -19,7 +20,8 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
   favorite,
   onDownload,
   onShare,
-  onFavoriteToggle
+  onFavoriteToggle,
+  fallback = <ImageErrorPlaceholder /> // Default to ImageErrorPlaceholder if not provided
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -78,7 +80,8 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       {imageError ? (
-        <ImageErrorPlaceholder />
+        // Use provided fallback or default
+        React.isValidElement(fallback) ? fallback : <ImageErrorPlaceholder />
       ) : (
         <>
           {!imageLoaded && (

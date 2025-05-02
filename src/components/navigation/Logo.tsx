@@ -44,7 +44,8 @@ export const Logo = () => {
             height="40"
             loading="eager"
             decoding="async"
-            importance="high"
+            // Removed the 'importance' attribute as it's not a valid HTML attribute in TypeScript definitions
+            fetchPriority="high" // Use fetchPriority instead, which is the standard attribute
           />
         )}
       </div>
