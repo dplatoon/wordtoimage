@@ -1,10 +1,15 @@
-
 import { useState } from "react";
 import { Check, X } from "lucide-react";
 import { Button } from './ui/button';
 import { PaymentMethodModal } from './PaymentMethodModal';
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
+
+// Product IDs for reference
+const STRIPE_PRODUCTS = {
+  PRO: 'prod_SEe2MxYit85qLo', // Word To Image Pro
+  BUSINESS: 'prod_SEe3iHfdBt84EE' // Word To Image Business
+};
 
 const calculateAnnualPrice = (monthlyPrice: number) => {
   const annualPrice = (monthlyPrice * 12 * 0.833).toFixed(2); // 2 months free
@@ -35,6 +40,7 @@ const plans = [
     price: "14.99",
     annualPrice: calculateAnnualPrice(14.99),
     description: "Perfect for individual creators",
+    productId: STRIPE_PRODUCTS.PRO,
     features: [
       { included: true, text: "250 AI image generations per month" },
       { included: true, text: "All templates" },
@@ -55,6 +61,7 @@ const plans = [
     price: "29.99",
     annualPrice: calculateAnnualPrice(29.99),
     description: "For teams and growing businesses",
+    productId: STRIPE_PRODUCTS.BUSINESS,
     features: [
       { included: true, text: "500 AI image generations per month" },
       { included: true, text: "All templates + priority support" },
@@ -123,6 +130,11 @@ export const PricingSection = () => {
                   <span className="text-gray-500 ml-1">/{isAnnual ? 'year' : 'month'}</span>
                 </div>
                 <p className="mt-2 text-gray-600">{plan.description}</p>
+                {plan.productId && (
+                  <div className="mt-1">
+                    <span className="text-xs text-gray-500">Product ID: {plan.productId}</span>
+                  </div>
+                )}
               </div>
 
               <ul className="space-y-3 mb-8 flex-1">

@@ -3,6 +3,12 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader, Di
 import { Button } from "./ui/button";
 import { CreditCard, Users } from "lucide-react";
 
+// Product IDs for reference
+const STRIPE_PRODUCTS = {
+  PRO: 'prod_SEe2MxYit85qLo', // Word To Image Pro
+  BUSINESS: 'prod_SEe3iHfdBt84EE' // Word To Image Business
+};
+
 interface PaymentMethodModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -11,9 +17,18 @@ interface PaymentMethodModalProps {
 
 export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMethodModalProps) {
   function handleChooseMethod(method: string) {
-    // Placeholder: show alert for now
+    // Get the appropriate product ID based on the plan name
+    let productId = '';
+    
+    if (planName === 'Pro') {
+      productId = STRIPE_PRODUCTS.PRO;
+    } else if (planName === 'Business') {
+      productId = STRIPE_PRODUCTS.BUSINESS;
+    }
+    
+    // Placeholder: show alert with product information
     alert(
-      `You selected "${method}" for the ${planName} plan.\nActual payment integration coming soon.`
+      `You selected "${method}" for the ${planName} plan.\nProduct ID: ${productId}\nActual payment integration coming soon.`
     );
     onOpenChange(false);
   }
