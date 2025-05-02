@@ -52,6 +52,11 @@ export const ImageGenerationForm = ({
 
   const MAX_FREE_GENERATIONS = 1; // Changed from 3 to 1
 
+  // Create a wrapper function to handle string to number conversion
+  const handleCountChange = (value: string) => {
+    setCount(Number(value));
+  };
+
   if (authLoading || isCheckingServerKey) {
     return (
       <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-r from-violet-500 to-indigo-600 rounded-2xl shadow-xl p-1">
@@ -79,7 +84,7 @@ export const ImageGenerationForm = ({
           count={count}
           onStyleChange={setStyle}
           onResolutionChange={setResolution}
-          onCountChange={setCount}
+          onCountChange={handleCountChange}
         />
 
         <PromptInput 
