@@ -1,11 +1,8 @@
 
 import { Button } from '@/components/ui/button';
 import { Wand2, Play } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 export const HeroHeader = () => {
-  const navigate = useNavigate();
-
   const handleGenerateImageClick = () => {
     // Scroll to the image generation form
     const imageForm = document.querySelector('.image-generation-section');
@@ -24,12 +21,12 @@ export const HeroHeader = () => {
 
   return (
     <div className="text-center mb-8">
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-poppins mb-6">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6">
         Transform Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">Words</span> into <br className="hidden md:block" />
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500">Stunning Visuals</span> with AI
       </h1>
       
-      <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+      <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
         Effortlessly convert text into high-quality, customizable images in seconds.
         No design skills required.
       </p>
@@ -37,7 +34,7 @@ export const HeroHeader = () => {
       <div className="flex flex-col sm:flex-row justify-center gap-4">
         <Button 
           size="lg" 
-          className="bg-gradient-to-r from-blue-500 to-blue-700 text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
+          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-none hover:bg-blue-600 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
           onClick={handleGenerateImageClick}
         >
           Get Started for Free
@@ -47,7 +44,7 @@ export const HeroHeader = () => {
         <Button 
           size="lg" 
           variant="outline" 
-          className="text-lg border-2 border-blue-300 text-white hover:bg-blue-800/20"
+          className="text-lg border-2 border-blue-300 text-gray-700 hover:bg-blue-50"
           onClick={handleLearnHowClick}
         >
           Learn How It Works

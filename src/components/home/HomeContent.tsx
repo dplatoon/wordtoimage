@@ -64,9 +64,11 @@ export const HomeContent = () => {
     
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
-        const id = entry.target.id.replace('-section', '');
-        if (entry.isIntersecting) {
-          setVisibleSections(prev => ({ ...prev, [id]: true }));
+        if (entry.target instanceof HTMLElement) {
+          const id = entry.target.id.replace('-section', '');
+          if (entry.isIntersecting) {
+            setVisibleSections(prev => ({ ...prev, [id]: true }));
+          }
         }
       });
     };
