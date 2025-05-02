@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ImageActions } from './ImageActions';
 import { ImageOverlay } from './ImageOverlay';
+import { ImageErrorPlaceholder } from './ImageErrorPlaceholder';
 
 interface GalleryImageProps {
   url: string;
@@ -10,7 +11,6 @@ interface GalleryImageProps {
   onDownload: () => void;
   onShare: () => void;
   onFavoriteToggle: () => void;
-  fallback?: React.ReactNode;
 }
 
 export const GalleryImage: React.FC<GalleryImageProps> = ({
@@ -19,13 +19,15 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
   favorite,
   onDownload,
   onShare,
-  onFavoriteToggle,
-  fallback
+  onFavoriteToggle
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
+  
+  const fallbackImage = "https://images.unsplash.com/photo-1661956600684-97d3a4320e45?auto=format&fit=crop&w=300&h=300&q=80";
 
   // Use Intersection Observer for lazy loading
   useEffect(() => {
@@ -60,8 +62,13 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
   };
 
   const handleImageError = () => {
-    setImageError(true);
-    setImageLoaded(false);
+    console.error('Failed to load gallery image:', url);
+    if (!useFallback) {
+      setUseFallback(true);
+    } else {
+      setImageError(true);
+      setImageLoaded(false);
+    }
   };
 
   return (
@@ -70,8 +77,8 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {imageError && fallback ? (
-        <div className="w-full h-full">{fallback}</div>
+      {imageError ? (
+        <ImageErrorPlaceholder />
       ) : (
         <>
           {!imageLoaded && (
@@ -81,7 +88,7 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
           <img
             ref={imgRef}
             src=""
-            data-src={url}
+            data-src={useFallback ? fallbackImage : url}
             alt={prompt || 'Generated image'}
             className={`w-full h-full object-cover transition duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             loading="lazy"

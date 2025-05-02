@@ -42,9 +42,9 @@ export const Logo = () => {
             onError={handleImageError}
             width="160"
             height="40"
-            fetchPriority="high"
             loading="eager"
             decoding="async"
+            importance="high"
           />
         )}
       </div>

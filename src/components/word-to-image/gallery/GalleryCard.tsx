@@ -32,7 +32,10 @@ export function GalleryCard({
   const isHovered = hoveredImage === index;
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
+  
+  const fallbackImage = "https://images.unsplash.com/photo-1686002359940-6a51b0d8184b?auto=format&fit=crop&w=400&q=75";
   
   // Use Intersection Observer for lazy loading
   useEffect(() => {
@@ -44,7 +47,7 @@ export function GalleryCard({
           const img = entry.target as HTMLImageElement;
           // Only set the src when the image is visible
           if (img.dataset.src) {
-            img.src = img.dataset.src;
+            img.src = useFallback ? fallbackImage : img.dataset.src;
             observer.unobserve(img);
           }
         }
@@ -59,15 +62,23 @@ export function GalleryCard({
     return () => {
       if (imgRef.current) observer.unobserve(imgRef.current);
     };
-  }, [imageUrl]);
+  }, [imageUrl, useFallback]);
   
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
   
   const handleImageError = () => {
-    setImageError(true);
-    setImageLoaded(false);
+    console.error('Failed to load gallery card image:', imageUrl);
+    if (!useFallback) {
+      setUseFallback(true);
+      if (imgRef.current) {
+        imgRef.current.src = fallbackImage;
+      }
+    } else {
+      setImageError(true);
+      setImageLoaded(false);
+    }
   };
   
   return (
@@ -104,7 +115,7 @@ export function GalleryCard({
           )}
           
           {/* Only show overlays and actions if the image loaded successfully */}
-          {!imageError && (
+          {(!imageError && imageLoaded) && (
             <>
               {/* Gradient overlay */}
               <div 
@@ -125,6 +136,7 @@ export function GalleryCard({
                           size="sm" 
                           variant="secondary" 
                           className="bg-white/90 hover:bg-white text-gray-800 shadow-md transition-all duration-300 hover:scale-105"
+                          onClick={() => window.open(useFallback ? fallbackImage : imageUrl, '_blank')}
                         >
                           <Download className="h-4 w-4" />
                           <span className="sr-only md:not-sr-only md:ml-2">Save</span>
@@ -141,7 +153,7 @@ export function GalleryCard({
                       <TooltipTrigger asChild>
                         <Button 
                           size="sm" 
-                          onClick={() => onEdit(imageUrl)} 
+                          onClick={() => onEdit(useFallback ? fallbackImage : imageUrl)} 
                           className="bg-white/90 hover:bg-white text-gray-800 shadow-md transition-all duration-300 hover:scale-105"
                         >
                           <Edit className="h-4 w-4" />

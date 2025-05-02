@@ -24,6 +24,11 @@ export const GeneratedImage = ({
 }: GeneratedImageProps) => {
   const isMobile = useIsMobile();
   const imgRef = useRef<HTMLImageElement>(null);
+  const [fallbackAttempted, setFallbackAttempted] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
+  
+  // Fallback image for when the main image fails to load
+  const fallbackImageUrl = "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=512&q=80";
   
   // Optimize image loading with progressive enhancement
   useEffect(() => {
@@ -32,14 +37,34 @@ export const GeneratedImage = ({
       const img = new Image();
       img.src = imageUrl;
       img.onload = onLoad;
-      img.onerror = onError;
+      img.onerror = () => {
+        console.error('Failed to load image:', imageUrl);
+        if (!fallbackAttempted) {
+          setFallbackAttempted(true);
+          setUseFallback(true);
+        } else {
+          onError();
+        }
+      };
     }
-  }, [imageUrl, onLoad, onError]);
+  }, [imageUrl, onLoad, onError, fallbackAttempted]);
+  
+  // Second useEffect to handle fallback image loading
+  useEffect(() => {
+    if (useFallback && imgRef.current) {
+      const fallbackImg = new Image();
+      fallbackImg.src = fallbackImageUrl;
+      fallbackImg.onload = onLoad;
+      fallbackImg.onerror = onError;
+    }
+  }, [useFallback, onLoad, onError]);
   
   const handleDownload = () => {
-    if (!imageUrl) return;
+    const downloadUrl = useFallback ? fallbackImageUrl : imageUrl;
+    if (!downloadUrl) return;
+    
     try {
-      window.open(imageUrl, '_blank');
+      window.open(downloadUrl, '_blank');
       
       trackEvent(events.DOWNLOAD_IMAGE, {
         location: 'main_preview' 
@@ -71,7 +96,7 @@ export const GeneratedImage = ({
       
       <img
         ref={imgRef}
-        src={imageUrl}
+        src={useFallback ? fallbackImageUrl : imageUrl}
         alt="Generated"
         className={`w-full h-full object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
         loading="lazy"
