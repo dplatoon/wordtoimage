@@ -21,8 +21,10 @@ const Index = () => {
       <SkipToContent />
       <Nav />
       
-      <DecorativeBackground />
-      <HomeContent />
+      <div className="bg-gradient-to-b from-blue-50 via-purple-50/30 to-white">
+        <DecorativeBackground />
+        <HomeContent />
+      </div>
       
       <Footer />
       <BetaBanner />

@@ -1,9 +1,11 @@
+
 import { useState, useEffect } from 'react';
 import { HeroHeader } from './hero/HeroHeader';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
 import { ImagePreview } from './hero/ImagePreview';
 import { trackEvent, events } from '@/utils/analytics';
 import { useIsMobile } from '@/hooks/use-mobile';
+
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImageUrl, setGeneratedImageUrl] = useState('');
@@ -24,6 +26,7 @@ export const HeroSection = () => {
       trackEvent(events.IMAGE_DISPLAYED, {});
     }
   }, [isGenerating, generatedImageUrl]);
+
   const handleNewGalleryRow = (row: {
     url: string;
     prompt: string;
@@ -36,8 +39,10 @@ export const HeroSection = () => {
       return newRows.slice(-10);
     });
   };
-  return <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 rounded-full">
+
+  return (
+    <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center text-center mb-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-6">
             Transform <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Text to Image</span> with AI
@@ -48,21 +53,32 @@ export const HeroSection = () => {
           </p>
         </div>
         
-        {/* Form section - Now full width */}
-        <div className="max-w-2xl mx-auto mb-12">
-          <ImageGenerationForm onImageGenerated={setGeneratedImageUrl} onGeneratingChange={setIsGenerating} onError={setGenerationError} onNewGalleryRow={handleNewGalleryRow} />
+        {/* Form and Preview in a card-like container */}
+        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-12">
+          <div className="max-w-4xl mx-auto">
+            <ImageGenerationForm 
+              onImageGenerated={setGeneratedImageUrl} 
+              onGeneratingChange={setIsGenerating} 
+              onError={setGenerationError} 
+              onNewGalleryRow={handleNewGalleryRow} 
+            />
+          </div>
+          
+          <div className="max-w-4xl mx-auto mt-8">
+            <ImagePreview 
+              imageUrl={generatedImageUrl} 
+              isGenerating={isGenerating} 
+              error={generationError} 
+            />
+          </div>
         </div>
         
-        {/* Preview section - Now below the form */}
-        <div className="max-w-4xl mx-auto">
-          <ImagePreview imageUrl={generatedImageUrl} isGenerating={isGenerating} error={generationError} />
-        </div>
-        
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <p className="text-sm text-gray-500">
             Powered by state-of-the-art AI models • Free to try • No credit card required
           </p>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };

@@ -8,9 +8,10 @@ interface StyleCardProps {
   label: string;
   selected: boolean;
   onClick: () => void;
+  color?: string;
 }
 
-export const StyleCard = ({ image, label, selected, onClick }: StyleCardProps) => {
+export const StyleCard = ({ image, label, selected, onClick, color }: StyleCardProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
   
   return (
@@ -18,12 +19,13 @@ export const StyleCard = ({ image, label, selected, onClick }: StyleCardProps) =
       onClick={onClick}
       className={cn(
         "flex flex-col items-center justify-end relative overflow-hidden rounded-lg border h-[108px] w-full transition-all duration-200",
-        selected ? "border-blue-600 ring-2 ring-blue-400" : "border-gray-200 hover:border-gray-300"
+        selected ? "border-violet-600 ring-2 ring-violet-400" : "border-gray-200 hover:border-gray-300"
       )}
       aria-label={`Select ${label} style`}
       aria-pressed={selected}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ background: color || 'transparent' }}
     >
       <img 
         src={image} 
@@ -34,8 +36,8 @@ export const StyleCard = ({ image, label, selected, onClick }: StyleCardProps) =
         <p className="text-white text-sm font-medium text-center">{label}</p>
       </div>
       {selected && (
-        <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center">
-          <div className="bg-blue-600 rounded-full p-1">
+        <div className="absolute inset-0 bg-violet-500/20 flex items-center justify-center">
+          <div className="bg-violet-600 rounded-full p-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-white">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>

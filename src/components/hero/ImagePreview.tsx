@@ -31,7 +31,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
 
   return (
     <div>
-      <div className="h-[300px] sm:h-[350px] bg-white rounded-xl flex items-center justify-center overflow-hidden relative shadow-md border border-gray-200 group transition-all duration-300 hover:shadow-lg">
+      <div className="bg-gray-50 border border-gray-200 h-[300px] sm:h-[350px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group transition-all duration-300 hover:shadow-lg">
         {isGenerating ? (
           <LoadingState progress={loadingProgress} />
         ) : error ? (

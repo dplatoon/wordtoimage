@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
 
 interface GenerateButtonProps {
   isGenerating: boolean;
@@ -19,12 +18,14 @@ export const GenerateButton = ({
 }: GenerateButtonProps) => {
   return (
     <div className="relative mt-4">
-      <Button
+      <button
         type="submit"
         disabled={isGenerating || isDisabled}
-        className={`w-full flex items-center justify-center rounded-lg py-6 
-          ${isGenerating ? 'bg-gray-200' : 'bg-violet-600 hover:bg-violet-700'}
-          text-white font-medium text-lg`}
+        className={`w-full flex items-center justify-center rounded-lg py-6 text-white font-medium text-lg transition-all duration-300
+          ${isGenerating || isDisabled 
+            ? 'bg-gray-300 cursor-not-allowed' 
+            : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-md hover:shadow-lg'
+          }`}
       >
         {isGenerating ? (
           <span className="flex items-center justify-center gap-2">
@@ -40,10 +41,10 @@ export const GenerateButton = ({
                 </span>
               </div>
             )}
-            <span>Create now</span>
+            <span>Start Creating</span>
           </>
         )}
-      </Button>
+      </button>
     </div>
   );
 };
