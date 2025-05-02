@@ -52,7 +52,7 @@ export function GalleryCard({
           />
           
           {/* Only show overlays and actions if the image loaded successfully */}
-          {(!imageError && imageLoaded) && (
+          {imageLoaded && !imageError && (
             <>
               <div className={`absolute inset-0 transition-all duration-300 ${
                 isHovered ? 'scale-105 brightness-90' : ''
