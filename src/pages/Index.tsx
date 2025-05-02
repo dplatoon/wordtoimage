@@ -6,8 +6,8 @@ import { CursorTrail } from '@/components/home/CursorTrail';
 import { SeoHead } from '@/components/home/SeoHead';
 import { DecorativeBackground } from '@/components/home/DecorativeBackground';
 import { SkipToContent } from '@/components/home/SkipToContent';
-import { HomeContent } from '@/components/home/HomeContent';
 import { AnalyticsTracker } from '@/components/home/AnalyticsTracker';
+import MinimalLanding from '@/components/home/MinimalLanding';
 
 const Index = () => {
   return (
@@ -22,7 +22,7 @@ const Index = () => {
       <Nav />
       
       <DecorativeBackground />
-      <HomeContent />
+      <MinimalLanding />
       
       <Footer />
       <BetaBanner />
