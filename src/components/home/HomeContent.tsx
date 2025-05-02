@@ -4,13 +4,10 @@ import { HeroSection } from '@/components/HeroSection';
 import { FaqSection } from './FaqSection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { ShowcaseSection } from '@/components/home/ShowcaseSection';
-
-// Dynamically load non-critical sections
-const LazyTemplatesSection = lazy(() => import('@/components/TemplatesSection').then(module => ({ default: module.TemplatesSection })));
-const LazyFeaturesSection = lazy(() => import('@/components/FeaturesSection').then(module => ({ default: module.FeaturesSection })));
-const LazyTestimonialsSection = lazy(() => import('@/components/TestimonialsSection').then(module => ({ default: module.TestimonialsSection })));
-const LazyPricingSection = lazy(() => import('@/components/PricingSection').then(module => ({ default: module.PricingSection })));
-const LazyCTASection = lazy(() => import('@/components/CTASection').then(module => ({ default: module.CTASection })));
+import { FeaturesSection } from '@/components/FeaturesSection';
+import { TestimonialsSection } from '@/components/TestimonialsSection';
+import { PricingSection } from '@/components/PricingSection';
+import { CTASection } from '@/components/home/CTASection';
 
 // Simple skeletal loading component
 const SectionSkeleton = ({ height = "h-40", bg = "bg-white" }: { height?: string, bg?: string }) => (
@@ -33,7 +30,7 @@ const demoImages = [
   },
   {
     url: 'https://images.unsplash.com/photo-1655635949212-1d8f4f103ea1?auto=format&fit=crop&w=400&q=75&fm=webp',
-    prompt: 'Abstract geometric patterns',
+    prompt: 'Abstract shapes in blue and purple flowing like liquid',
     style: 'Abstract'
   },
   {
@@ -46,7 +43,6 @@ const demoImages = [
 // Using Intersection Observer to load components on-demand
 export const HomeContent = () => {
   const [visibleSections, setVisibleSections] = useState({
-    templates: false,
     features: false,
     testimonials: false,
     pricing: false,
@@ -54,7 +50,7 @@ export const HomeContent = () => {
   });
 
   useEffect(() => {
-    const sectionIds = ['templates', 'features', 'testimonials', 'pricing', 'cta'];
+    const sectionIds = ['features', 'testimonials', 'pricing', 'cta'];
     const sectionRefs: Record<string, HTMLElement | null> = {};
     
     sectionIds.forEach(id => {
@@ -119,37 +115,22 @@ export const HomeContent = () => {
       
       {/* Features section */}
       <div id="features-section" className="bg-white">
-        <Suspense fallback={<SectionSkeleton />}>
-          {visibleSections.features && <LazyFeaturesSection />}
-        </Suspense>
-      </div>
-      
-      {/* Templates section */}
-      <div id="templates-section" className="bg-gray-50">
-        <Suspense fallback={<SectionSkeleton bg="bg-gray-50" />}>
-          {visibleSections.templates && <LazyTemplatesSection />}
-        </Suspense>
+        <FeaturesSection />
       </div>
       
       {/* Testimonials section */}
       <div id="testimonials-section" className="bg-gray-100">
-        <Suspense fallback={<SectionSkeleton bg="bg-gray-100" />}>
-          {visibleSections.testimonials && <LazyTestimonialsSection />}
-        </Suspense>
+        <TestimonialsSection />
       </div>
       
       {/* Pricing section */}
       <div id="pricing-section" className="bg-white">
-        <Suspense fallback={<SectionSkeleton />}>
-          {visibleSections.pricing && <LazyPricingSection />}
-        </Suspense>
+        <PricingSection />
       </div>
       
       {/* CTA section */}
       <div id="cta-section" className="bg-gray-50">
-        <Suspense fallback={<SectionSkeleton bg="bg-gray-50" height="h-24" />}>
-          {visibleSections.cta && <LazyCTASection />}
-        </Suspense>
+        <CTASection />
       </div>
       
       <FaqSection />

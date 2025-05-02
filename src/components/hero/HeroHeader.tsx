@@ -34,7 +34,7 @@ export const HeroHeader = () => {
       <div className="flex flex-col sm:flex-row justify-center gap-4">
         <Button 
           size="lg" 
-          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-none hover:bg-blue-600 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
+          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-blue-600 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
           onClick={handleGenerateImageClick}
         >
           Get Started for Free
@@ -44,7 +44,7 @@ export const HeroHeader = () => {
         <Button 
           size="lg" 
           variant="outline" 
-          className="text-lg border-2 border-blue-300 text-gray-700 hover:bg-blue-50"
+          className="text-lg border-2 border-blue-300 text-gray-700 hover:bg-blue-50 transition-colors"
           onClick={handleLearnHowClick}
         >
           Learn How It Works

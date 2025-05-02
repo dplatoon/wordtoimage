@@ -1,194 +1,196 @@
-import { useState } from "react";
-import { Check, X } from "lucide-react";
-import { Button } from './ui/button';
-import { PaymentMethodModal } from './PaymentMethodModal';
-import { Switch } from "./ui/switch";
-import { Label } from "./ui/label";
 
-// Product IDs for reference
-const STRIPE_PRODUCTS = {
-  PRO: 'prod_SEe2MxYit85qLo', // Word To Image Pro
-  BUSINESS: 'prod_SEe3iHfdBt84EE' // Word To Image Business
-};
-
-const calculateAnnualPrice = (monthlyPrice: number) => {
-  const annualPrice = (monthlyPrice * 12 * 0.833).toFixed(2); // 2 months free
-  return annualPrice;
-};
-
-const plans = [
-  {
-    name: "Free",
-    price: "0",
-    annualPrice: "0",
-    description: "Perfect for trying out our platform",
-    features: [
-      { included: true, text: "20 AI image generations per month" },
-      { included: true, text: "Basic templates" },
-      { included: true, text: "Standard resolution" },
-      { included: true, text: "Personal use license" },
-      { included: false, text: "Priority queue" },
-      { included: false, text: "HD downloads" },
-      { included: false, text: "Team collaboration" }
-    ],
-    cta: "Start Free",
-    buttonVariant: "outline" as const,
-    disabled: true
-  },
-  {
-    name: "Pro",
-    price: "14.99",
-    annualPrice: calculateAnnualPrice(14.99),
-    description: "Perfect for individual creators",
-    productId: STRIPE_PRODUCTS.PRO,
-    features: [
-      { included: true, text: "250 AI image generations per month" },
-      { included: true, text: "All templates" },
-      { included: true, text: "High resolution" },
-      { included: true, text: "Commercial use license" },
-      { included: true, text: "Priority queue" },
-      { included: true, text: "HD downloads (10/month)" },
-      { included: false, text: "Team collaboration" }
-    ],
-    cta: "Subscribe",
-    buttonVariant: "default" as const,
-    popular: true,
-    disabled: false,
-    overageRate: "$0.05 per additional image"
-  },
-  {
-    name: "Business",
-    price: "29.99",
-    annualPrice: calculateAnnualPrice(29.99),
-    description: "For teams and growing businesses",
-    productId: STRIPE_PRODUCTS.BUSINESS,
-    features: [
-      { included: true, text: "500 AI image generations per month" },
-      { included: true, text: "All templates + priority support" },
-      { included: true, text: "4K resolution" },
-      { included: true, text: "Extended commercial license" },
-      { included: true, text: "Priority generation queue" },
-      { included: true, text: "Unlimited HD downloads" },
-      { included: true, text: "Team collaboration (5 seats)" }
-    ],
-    cta: "Get Business",
-    buttonVariant: "outline" as const,
-    disabled: false,
-    overageRate: "$0.04 per additional image"
-  }
-];
+import { Check, Info } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export const PricingSection = () => {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-  const [isAnnual, setIsAnnual] = useState(false);
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
+
+  const plans = [
+    {
+      name: 'Free',
+      description: 'Perfect for testing the waters',
+      price: { monthly: 0, annual: 0 },
+      features: [
+        '10 image generations per month',
+        'Basic styles and filters',
+        'Standard resolution images',
+        'Community support',
+        'Watermarked downloads'
+      ],
+      limitations: [
+        'Limited style options',
+        'Standard resolution only',
+        'Watermarked images'
+      ],
+      ctaText: 'Get Started',
+      ctaColor: 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+    },
+    {
+      name: 'Pro',
+      description: 'Best for individuals and creators',
+      popular: true,
+      price: { monthly: 9.99, annual: 7.99 },
+      features: [
+        'Unlimited image generations',
+        'All styles and filters',
+        'High-resolution downloads',
+        'Priority support',
+        'No watermarks',
+        'API access (100 calls/day)',
+        'Commercial usage rights'
+      ],
+      ctaText: 'Choose Pro',
+      ctaColor: 'bg-blue-600 text-white hover:bg-blue-700'
+    },
+    {
+      name: 'Enterprise',
+      description: 'For teams and organizations',
+      price: { monthly: 29.99, annual: 24.99 },
+      features: [
+        'Everything in Pro',
+        'Ultra high-resolution',
+        'Dedicated account manager',
+        'Custom style development',
+        'Advanced API access (10,000 calls/day)',
+        'White-label options',
+        'Priority rendering'
+      ],
+      ctaText: 'Contact Sales',
+      ctaColor: 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700'
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 15 }
+    }
+  };
+
+  const discount = 20; // 20% discount for annual billing
 
   return (
-    <section id="pricing" className="py-16 md:py-24 bg-white">
+    <section id="pricing" className="py-16 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
-            Simple, Transparent Pricing
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium">
+            <span>Pricing</span>
+          </span>
+          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
+            Affordable Plans for Everyone
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-            Choose the plan that works best for your needs. All plans include our core features.
+            Choose the perfect plan for your needs, from free to enterprise-grade features
           </p>
           
-          <div className="flex items-center justify-center mt-8 gap-3">
-            <Label htmlFor="billing-toggle" className={!isAnnual ? "font-semibold" : ""}>Monthly</Label>
-            <Switch
-              id="billing-toggle"
-              checked={isAnnual}
-              onCheckedChange={setIsAnnual}
-            />
-            <Label htmlFor="billing-toggle" className={isAnnual ? "font-semibold" : ""}>
-              Annual <span className="text-green-600 font-medium">(Save 20%)</span>
-            </Label>
+          <div className="mt-8 inline-flex items-center p-1 border border-gray-300 rounded-lg bg-white">
+            <button
+              onClick={() => setBillingCycle('monthly')}
+              className={`px-4 py-2 rounded-md text-sm font-medium ${
+                billingCycle === 'monthly'
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-gray-700 hover:text-gray-900'
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBillingCycle('annual')}
+              className={`px-4 py-2 rounded-md text-sm font-medium flex items-center ${
+                billingCycle === 'annual'
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-gray-700 hover:text-gray-900'
+              }`}
+            >
+              Annual <span className="ml-1 text-xs px-1.5 py-0.5 rounded-full bg-green-100 text-green-800">Save {discount}%</span>
+            </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {plans.map((plan) => (
-            <div 
-              key={plan.name} 
-              className={`
-                rounded-xl border p-8 relative flex flex-col
-                ${plan.popular ? 'shadow-lg border-blue-200 bg-blue-50/30' : 'bg-white'}
-              `}
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className={`relative rounded-2xl overflow-hidden ${
+                plan.popular
+                  ? 'ring-2 ring-blue-500 shadow-xl'
+                  : 'border border-gray-200 shadow-sm'
+              }`}
             >
               {plan.popular && (
-                <div className="absolute top-0 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-1 rounded-full font-medium text-sm">
-                  Most Popular
+                <div className="absolute top-0 right-0 mt-4 mr-4">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    Most Popular
+                  </span>
                 </div>
               )}
-              <div className="mb-5">
-                <h3 className="text-xl font-bold">{plan.name}</h3>
-                <div className="mt-2 flex items-baseline">
-                  <span className="text-4xl font-bold">
-                    ${isAnnual ? plan.annualPrice : plan.price}
+              <div className="p-6 bg-white">
+                <h3 className="text-2xl font-bold text-gray-900">{plan.name}</h3>
+                <p className="mt-1 text-sm text-gray-500">{plan.description}</p>
+                <div className="mt-4 flex items-baseline text-gray-900">
+                  <span className="text-4xl font-extrabold">
+                    ${billingCycle === 'annual' ? plan.price.annual : plan.price.monthly}
                   </span>
-                  <span className="text-gray-500 ml-1">/{isAnnual ? 'year' : 'month'}</span>
+                  <span className="ml-1 text-xl font-medium text-gray-500">/mo</span>
                 </div>
-                <p className="mt-2 text-gray-600">{plan.description}</p>
-                {plan.productId && (
-                  <div className="mt-1">
-                    <span className="text-xs text-gray-500">Product ID: {plan.productId}</span>
-                  </div>
+                {billingCycle === 'annual' && plan.price.annual !== 0 && (
+                  <p className="mt-1 text-xs text-green-600">Billed annually (${(plan.price.annual * 12).toFixed(2)})</p>
                 )}
+                <ul className="mt-6 space-y-3">
+                  {plan.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex">
+                      <Check className="h-5 w-5 text-green-500 shrink-0" />
+                      <span className="ml-2 text-sm text-gray-600">{feature}</span>
+                    </li>
+                  ))}
+                  {plan.limitations && plan.limitations.map((limitation, limitationIndex) => (
+                    <li key={`limitation-${limitationIndex}`} className="flex">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-5 w-5 text-gray-400 shrink-0" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Limitation of the free plan</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      <span className="ml-2 text-sm text-gray-400 line-through">{limitation}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button 
+                  className={`mt-8 w-full ${plan.ctaColor}`}
+                >
+                  {plan.ctaText}
+                </Button>
               </div>
-
-              <ul className="space-y-3 mb-8 flex-1">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start">
-                    {feature.included ? (
-                      <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    ) : (
-                      <X className="h-5 w-5 text-gray-300 mr-2 flex-shrink-0 mt-0.5" />
-                    )}
-                    <span className={`${feature.included ? 'text-gray-700' : 'text-gray-400'}`}>
-                      {feature.text}
-                    </span>
-                  </li>
-                ))}
-                {plan.overageRate && (
-                  <li className="text-sm text-gray-600 mt-2">
-                    Overage: {plan.overageRate}
-                  </li>
-                )}
-              </ul>
-
-              <Button 
-                variant={plan.buttonVariant} 
-                className={`w-full ${plan.popular ? 'bg-blue-600 hover:bg-blue-700 text-white' : ''}`}
-                disabled={plan.disabled}
-                onClick={() => {
-                  if (!plan.disabled) {
-                    setSelectedPlan(plan.name);
-                    setPaymentModalOpen(true);
-                  }
-                }}
-              >
-                {plan.cta}
-              </Button>
-            </div>
+            </motion.div>
           ))}
-        </div>
-
-        <div className="mt-12 text-center bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold">Need a custom enterprise plan?</h3>
-          <p className="text-gray-600 mt-1">Contact our sales team for custom volume pricing and advanced features.</p>
-          <Button variant="link" className="text-blue-600 mt-2">
-            Contact Sales
-          </Button>
-        </div>
+        </motion.div>
       </div>
-
-      {/* Payment Method Modal */}
-      <PaymentMethodModal
-        open={paymentModalOpen}
-        onOpenChange={setPaymentModalOpen}
-        planName={selectedPlan}
-      />
     </section>
   );
 };
