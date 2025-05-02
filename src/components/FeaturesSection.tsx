@@ -2,6 +2,7 @@
 import { Wand2, Palette, Clock, ShieldCheck, Download, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const FeaturesSection = () => {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
@@ -9,8 +10,8 @@ export const FeaturesSection = () => {
   const features = [
     {
       icon: Wand2,
-      title: "AI-Powered Creativity",
-      description: "Generate unique visuals from any text input with our advanced AI technology that understands context and nuance.",
+      title: "AI-Driven Creativity",
+      description: "Generate unique images from your text with our advanced AI technology that understands context and nuance.",
       extendedDescription: "Our AI model has been trained on millions of images to understand the relationships between words and visuals, enabling it to create truly unique artwork from your descriptions."
     },
     {
@@ -21,8 +22,8 @@ export const FeaturesSection = () => {
     },
     {
       icon: Clock,
-      title: "Fast and Easy",
-      description: "Get results in seconds with our intuitive, user-friendly interface designed for creators of all skill levels.",
+      title: "Fast and User-Friendly",
+      description: "Create images in seconds with our intuitive, easy-to-use interface designed for creators of all skill levels.",
       extendedDescription: "No more waiting hours for design work. Our optimized AI generates high-quality images in under 10 seconds, letting you iterate quickly on your creative ideas."
     },
     {
@@ -64,7 +65,7 @@ export const FeaturesSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.span 
-            className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium"
+            className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4"
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -75,17 +76,17 @@ export const FeaturesSection = () => {
           </motion.span>
           
           <motion.h2 
-            className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 font-poppins"
+            className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            Why Choose WordToImage?
+            Why Use WordToImage?
           </motion.h2>
           
           <motion.p 
-            className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -105,30 +106,33 @@ export const FeaturesSection = () => {
           {features.map((feature, index) => (
             <motion.div 
               key={index} 
-              className={`p-6 bg-white rounded-xl border border-gray-100 shadow-sm transition-all duration-300 ${
-                hoveredFeature === index ? 'shadow-lg border-blue-200 scale-105' : 'hover:shadow-md'
-              }`}
+              className="group"
               variants={itemVariants}
               onMouseEnter={() => setHoveredFeature(index)}
               onMouseLeave={() => setHoveredFeature(null)}
             >
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-gray-600 mb-4">{feature.description}</p>
-              
-              {hoveredFeature === index && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-sm text-gray-500 border-t pt-3 mt-3"
-                >
-                  {feature.extendedDescription}
-                </motion.div>
-              )}
+              <Card className="h-full transition-all duration-300 hover:shadow-lg border border-gray-100 hover:border-blue-200">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                    <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
+                  </div>
+                  <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
+                  <CardDescription className="text-gray-600">{feature.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {hoveredFeature === index && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-sm text-gray-500 pt-2 border-t mt-2"
+                    >
+                      {feature.extendedDescription}
+                    </motion.div>
+                  )}
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </motion.div>
