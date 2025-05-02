@@ -13,32 +13,32 @@ const STYLE_OPTIONS: Style[] = [
   {
     id: 'auto',
     label: 'Auto',
-    image: 'https://placehold.co/300x200/777/fff?text=Auto'
+    image: 'https://placehold.co/300x200/8B5CF6/fff?text=Auto'
   },
   {
     id: '3d_anime',
     label: '3D Anime',
-    image: 'https://placehold.co/300x200/f90/fff?text=3D+Anime'
+    image: 'https://placehold.co/300x200/FF6B6B/fff?text=3D+Anime'
   },
   {
     id: '3d_model',
     label: '3D Model',
-    image: 'https://placehold.co/300x200/09f/fff?text=3D+Model'
+    image: 'https://placehold.co/300x200/4ECDC4/fff?text=3D+Model'
   },
   {
     id: 'japanese_anime',
     label: 'Japanese Anime',
-    image: 'https://placehold.co/300x200/f09/fff?text=Japanese+Anime'
+    image: 'https://placehold.co/300x200/FF8C42/fff?text=Japanese+Anime'
   },
   {
     id: 'movie',
     label: 'Movie',
-    image: 'https://placehold.co/300x200/90f/fff?text=Movie'
+    image: 'https://placehold.co/300x200/6A0572/fff?text=Movie'
   },
   {
     id: 'comic',
     label: 'Comic',
-    image: 'https://placehold.co/300x200/9f0/fff?text=Comic'
+    image: 'https://placehold.co/300x200/1A535C/fff?text=Comic'
   }
 ];
 
