@@ -53,14 +53,14 @@ export const HomeContent = () => {
 
   useEffect(() => {
     const sectionIds = ['templates', 'features', 'testimonials', 'pricing', 'cta'];
-    const sectionRefs = {};
+    const sectionRefs: Record<string, HTMLElement | null> = {};
     
     sectionIds.forEach(id => {
       const element = document.getElementById(id + '-section');
       if (element) sectionRefs[id] = element;
     });
     
-    const observerCallback = (entries) => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         const id = entry.target.id.replace('-section', '');
         if (entry.isIntersecting) {
@@ -141,3 +141,4 @@ export const HomeContent = () => {
     </main>
   );
 };
+
