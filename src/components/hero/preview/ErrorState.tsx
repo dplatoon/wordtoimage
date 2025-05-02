@@ -12,31 +12,34 @@ export const ErrorState = ({ error, onRetry }: ErrorStateProps) => {
   const isApiNotFoundError = error?.includes('not configured') || error?.includes('not available');
   
   return (
-    <Alert variant="destructive" className="w-full max-w-md mx-4 border border-red-200 shadow-md bg-white">
-      <div className="flex items-start">
-        <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-2 flex-shrink-0" />
-        <div className="flex-1">
-          <AlertTitle className="text-red-600 font-semibold text-sm mb-1">Generation Error</AlertTitle>
-          <AlertDescription className="text-gray-700 text-xs">
-            {isApiNotFoundError ? (
-              <div>
-                <p className="mb-1 font-medium">Unable to generate image</p>
-                <p>Your prompt may be too short or unclear. Try adding more details to your description.</p>
-              </div>
-            ) : (
-              <div className="font-medium">{error}</div>
-            )}
-          </AlertDescription>
-          <Button 
-            size="sm" 
-            variant="secondary"
-            className="mt-2 flex items-center bg-gradient-to-r from-rose-100 to-red-100 hover:from-rose-200 hover:to-red-200 text-red-700" 
-            onClick={onRetry}
-          >
-            <RefreshCw className="mr-1 h-3 w-3" /> Try Again
-          </Button>
+    <div className="w-full h-full flex items-center justify-center p-4">
+      <div className="flex flex-col items-center text-center max-w-md">
+        <div className="mb-6">
+          <div className="h-16 w-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+            <AlertCircle className="h-8 w-8 text-gray-400" />
+          </div>
+          <h3 className="text-lg font-medium text-gray-800 mb-2">Failed to load image</h3>
+          <p className="text-sm text-gray-500 mb-4">The generated image could not be displayed</p>
+          
+          {isApiNotFoundError ? (
+            <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded-md mb-4">
+              Your prompt may be too short or unclear. Try adding more details to your description.
+            </p>
+          ) : (
+            <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded-md mb-4">{error}</p>
+          )}
         </div>
+        
+        <Button 
+          size="sm" 
+          variant="outline"
+          className="flex items-center gap-2" 
+          onClick={onRetry}
+        >
+          <RefreshCw className="h-4 w-4" /> 
+          Try Again
+        </Button>
       </div>
-    </Alert>
+    </div>
   );
 };

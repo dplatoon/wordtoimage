@@ -1,83 +1,78 @@
 
-import { useState } from 'react';
-import { ImageSkeleton } from './ImageSkeleton';
-import { ImageErrorPlaceholder } from './ImageErrorPlaceholder';
-import { ImageOverlay } from './ImageOverlay';
+import React, { useState } from 'react';
 import { ImageActions } from './ImageActions';
+import { ImageOverlay } from './ImageOverlay';
 
 interface GalleryImageProps {
-  image: {
-    url: string;
-    prompt: string;
-    style?: string;
-    resolution?: string;
-  };
-  index: number;
-  onDownload: (image: any, index: number) => void;
-  onShare: (image: any, index: number) => void;
-  onFavoriteToggle: (index: number) => void;
-  isFavorite: boolean;
+  url: string;
+  prompt: string;
+  favorite: boolean;
+  onDownload: () => void;
+  onShare: () => void;
+  onFavoriteToggle: () => void;
+  fallback?: React.ReactNode;
 }
 
-export const GalleryImage = ({ 
-  image, 
-  index, 
-  onDownload, 
-  onShare, 
-  onFavoriteToggle, 
-  isFavorite 
-}: GalleryImageProps) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  
+export const GalleryImage: React.FC<GalleryImageProps> = ({
+  url,
+  prompt,
+  favorite,
+  onDownload,
+  onShare,
+  onFavoriteToggle,
+  fallback
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   const handleImageLoad = () => {
-    setIsLoaded(true);
+    setImageLoaded(true);
+    setImageError(false);
   };
 
   const handleImageError = () => {
-    setHasError(true);
-    console.error(`Failed to load image: ${image.url}`);
+    setImageError(true);
+    setImageLoaded(false);
   };
-  
+
   return (
-    <div
-      className="relative group overflow-hidden rounded-lg shadow-md bg-white"
-      style={{ borderRadius: 8 }}
+    <div 
+      className="relative w-full h-full group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Show skeleton while loading */}
-      {!isLoaded && !hasError && <ImageSkeleton />}
-      
-      {/* Show error placeholder if image fails to load */}
-      {hasError && <ImageErrorPlaceholder />}
-      
-      {/* Actual image with onLoad and onError handlers */}
-      <img
-        src={image.url}
-        alt={image.prompt || "Generated image"}
-        className={`w-full h-48 object-cover ${isLoaded ? 'block' : 'hidden'}`}
-        width="256" 
-        height="192"
-        loading="lazy"
-        decoding="async"
-        fetchPriority="low"
-        style={{ contentVisibility: 'auto' }}
-        onLoad={handleImageLoad}
-        onError={handleImageError}
-      />
-      
-      {/* Image details overlay */}
-      {isLoaded && (
-        <ImageOverlay prompt={image.prompt} style={image.style} />
-      )}
-      
-      {/* Action buttons */}
-      {isLoaded && (
-        <ImageActions
-          onDownload={() => onDownload(image, index)}
-          onShare={() => onShare(image, index)}
-          onFavoriteToggle={() => onFavoriteToggle(index)}
-          isFavorite={isFavorite}
-        />
+      {imageError && fallback ? (
+        <div className="w-full h-full">{fallback}</div>
+      ) : (
+        <>
+          {!imageLoaded && (
+            <div className="absolute inset-0 bg-gray-100 animate-pulse"></div>
+          )}
+          
+          <img
+            src={url}
+            alt={prompt || 'Generated image'}
+            className={`w-full h-full object-cover transition duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            loading="lazy"
+            decoding="async"
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+          />
+          
+          {imageLoaded && (
+            <>
+              <ImageOverlay isVisible={isHovered} />
+              <ImageActions
+                isVisible={isHovered}
+                favorite={favorite}
+                onDownload={onDownload}
+                onShare={onShare}
+                onFavoriteToggle={onFavoriteToggle}
+              />
+            </>
+          )}
+        </>
       )}
     </div>
   );
