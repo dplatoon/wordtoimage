@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Astronaut, Castle, Volcano, Contact } from 'lucide-react';
+import { Rocket, Castle, Mountain, Contact } from 'lucide-react';
 
 interface ExamplePrompt {
   text: string;
@@ -15,7 +15,7 @@ export const ExamplePrompts = ({ onSelect }: ExamplePromptsProps) => {
   const examples: ExamplePrompt[] = [
     {
       text: 'Astronaut in Space',
-      icon: <Astronaut className="h-4 w-4 mr-1.5" />
+      icon: <Rocket className="h-4 w-4 mr-1.5" />
     },
     {
       text: 'Medieval Castle',
@@ -23,7 +23,7 @@ export const ExamplePrompts = ({ onSelect }: ExamplePromptsProps) => {
     },
     {
       text: 'Volcanic Eruption',
-      icon: <Volcano className="h-4 w-4 mr-1.5" />
+      icon: <Mountain className="h-4 w-4 mr-1.5" />
     }
   ];
 
