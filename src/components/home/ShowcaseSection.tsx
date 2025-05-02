@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ImagePlus, ExternalLink } from 'lucide-react';
+import { Gallery, ImagePlus, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -78,6 +78,11 @@ export const ShowcaseSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-4">
+            <Gallery className="h-4 w-4 mr-2" aria-hidden="true" />
+            <span>Inspiration Gallery</span>
+          </span>
+          
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins">
             See What You Can Create
           </h2>
@@ -102,7 +107,7 @@ export const ShowcaseSection = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-white">
                       <p className="font-medium text-sm">{item.prompt}</p>
                       <div className="flex justify-between items-center mt-2">
-                        <span className="text-xs bg-blue-500 bg-opacity-50 rounded-full px-2 py-0.5 inline-block">
+                        <span className="text-xs bg-purple-500 bg-opacity-50 rounded-full px-2 py-0.5 inline-block">
                           {item.style}
                         </span>
                         <span className="text-xs">by {item.author}</span>
@@ -146,7 +151,7 @@ export const ShowcaseSection = () => {
               >
                 <p className="font-medium">{item.prompt}</p>
                 <div className="flex justify-between items-center mt-3">
-                  <span className="text-sm bg-blue-500 bg-opacity-40 rounded-full px-3 py-1 w-fit">
+                  <span className="text-sm bg-purple-500 bg-opacity-40 rounded-full px-3 py-1 w-fit">
                     {item.style}
                   </span>
                   <div className="flex items-center gap-1">
@@ -191,7 +196,7 @@ export const ShowcaseSection = () => {
           >
             <Button
               variant="outline"
-              className="border-blue-400 text-blue-600 hover:bg-blue-50 transform hover:scale-105 transition-transform duration-300"
+              className="border-purple-400 text-purple-600 hover:bg-purple-50 transform hover:scale-105 transition-transform duration-300"
               onClick={() => navigate('/gallery')}
             >
               Explore More Creations

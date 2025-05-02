@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Star } from 'lucide-react';
+import { Star, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const testimonials = [
@@ -63,6 +63,17 @@ export const TestimonialsSection = () => {
     <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
+          <motion.span 
+            className="inline-flex items-center px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-4"
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <MessageSquare className="h-4 w-4 mr-2" aria-hidden="true" />
+            <span>Testimonials</span>
+          </motion.span>
+          
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
             Loved by Creators Everywhere
           </h2>
@@ -176,7 +187,7 @@ export const TestimonialsSection = () => {
                   key={index}
                   onClick={() => setActiveTestimonial(index)}
                   className={`w-2 h-2 rounded-full ${
-                    index === activeTestimonial ? "bg-blue-600" : "bg-gray-300"
+                    index === activeTestimonial ? "bg-purple-600" : "bg-gray-300"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -195,13 +206,13 @@ export const TestimonialsSection = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full">
+          <div className="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-full">
             <div className="flex -space-x-1">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-6 w-6 rounded-full bg-blue-400 border-2 border-white" />
+                <div key={i} className="h-6 w-6 rounded-full bg-purple-400 border-2 border-white" />
               ))}
             </div>
-            <span className="text-blue-800 font-medium text-sm">Join 10,000+ happy users</span>
+            <span className="text-purple-800 font-medium text-sm">Join 10,000+ happy users</span>
           </div>
         </div>
       </div>

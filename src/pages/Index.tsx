@@ -7,6 +7,7 @@ import { SeoHead } from '@/components/home/SeoHead';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { HomeContent } from '@/components/home/HomeContent';
 import { AnalyticsTracker } from '@/components/home/AnalyticsTracker';
+import { DecorativeBackground } from '@/components/DecorativeBackground';
 
 const Index = () => {
   return (
@@ -20,7 +21,10 @@ const Index = () => {
       <SkipToContent />
       <Nav />
       
-      <div className="bg-gradient-to-b from-blue-50 via-purple-50/30 to-white">
+      <div className="relative">
+        {/* Add decorative background elements */}
+        <DecorativeBackground />
+        
         <HomeContent />
       </div>
       
