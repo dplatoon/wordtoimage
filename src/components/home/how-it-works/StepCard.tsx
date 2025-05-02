@@ -1,16 +1,10 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
+import type { Step } from './stepsData';
 
 interface StepCardProps {
-  step: {
-    title: string;
-    description: string;
-    icon: LucideIcon;
-    color: string;
-    demoContent: string;
-  };
+  step: Step;
   index: number;
   isActive: boolean;
   onClick: () => void;

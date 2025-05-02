@@ -2,14 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { StepCard } from './StepCard';
-
-interface Step {
-  title: string;
-  description: string;
-  icon: React.ElementType;
-  color: string;
-  demoContent: string;
-}
+import type { Step } from './stepsData';
 
 interface DesktopTimelineProps {
   steps: Step[];

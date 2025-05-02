@@ -1,15 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
-
-interface Step {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  color: string;
-  demoContent: string;
-}
+import type { Step } from './stepsData';
 
 interface MobileTimelineProps {
   steps: Step[];

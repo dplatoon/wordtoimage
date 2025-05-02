@@ -1,7 +1,16 @@
 
 import { PenTool, Wand2, Download } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-export const steps = [
+export interface Step {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  color: string;
+  demoContent: string;
+}
+
+export const steps: Step[] = [
   {
     title: "Enter Your Text",
     description: "Input any text or phrase that you want to visualize. Our AI understands complex descriptions and contexts.",
