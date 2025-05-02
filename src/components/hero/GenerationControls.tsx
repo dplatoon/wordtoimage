@@ -1,8 +1,8 @@
 
 import { memo } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { DEFAULT_STYLES, RESOLUTIONS, IMAGE_COUNTS } from './constants';
 import { Dispatch, SetStateAction } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface GenerationControlsProps {
   style: string;

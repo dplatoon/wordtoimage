@@ -2,7 +2,7 @@
 import { useImageGenerationForm } from '@/hooks/useImageGenerationForm';
 import { AuthModalDialog } from './AuthModalDialog';
 import { FormLayout } from './form/FormLayout';
-import { StyleSelector } from './form/StyleSelector';
+import { GenerationControls } from './form/controls/GenerationControls';
 import { PromptInput } from './form/PromptInput';
 import { GenerateButton } from './form/GenerateButton';
 import { ExamplePrompts } from './form/ExamplePrompts';
@@ -73,9 +73,13 @@ export const ImageGenerationForm = ({
           onApiKeySubmit={setTempApiKey}
         />
 
-        <StyleSelector 
-          selectedStyle={style} 
+        <GenerationControls 
+          style={style}
+          resolution={resolution}
+          count={count}
           onStyleChange={setStyle}
+          onResolutionChange={setResolution}
+          onCountChange={setCount}
         />
 
         <PromptInput 
