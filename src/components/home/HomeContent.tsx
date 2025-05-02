@@ -1,9 +1,8 @@
-
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { HeroSection } from '@/components/HeroSection';
 import { FaqSection } from './FaqSection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
-import { ShowcaseSection } from '@/components/home/ShowcaseSection';
+import { ShowcaseSection } from '@/components/home/showcase/ShowcaseSection';
 import { FeaturesSection } from '@/components/FeaturesSection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
 import { PricingSection } from '@/components/home/PricingSection';
