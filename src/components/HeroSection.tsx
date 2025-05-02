@@ -35,7 +35,7 @@ export const HeroSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center text-center mb-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-6">
-            Transform <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Text to Image</span> with AI
+            Transform <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Text to Image</span> with AI
           </h1>
           
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
@@ -43,24 +43,22 @@ export const HeroSection = () => {
           </p>
         </div>
         
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-            <div className="p-6">
-              <ImageGenerationForm
-                onImageGenerated={setGeneratedImageUrl}
-                onGeneratingChange={setIsGenerating}
-                onError={setGenerationError}
-                onNewGalleryRow={handleNewGalleryRow}
-              />
-              
-              <div className="mt-6">
-                <ImagePreview
-                  imageUrl={generatedImageUrl}
-                  isGenerating={isGenerating}
-                  error={generationError}
-                />
-              </div>
-            </div>
+        <div className="grid lg:grid-cols-2 gap-8">
+          <div>
+            <ImageGenerationForm
+              onImageGenerated={setGeneratedImageUrl}
+              onGeneratingChange={setIsGenerating}
+              onError={setGenerationError}
+              onNewGalleryRow={handleNewGalleryRow}
+            />
+          </div>
+          
+          <div>
+            <ImagePreview
+              imageUrl={generatedImageUrl}
+              isGenerating={isGenerating}
+              error={generationError}
+            />
           </div>
         </div>
         

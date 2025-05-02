@@ -1,12 +1,13 @@
 
 import { useImageGenerationForm } from '@/hooks/useImageGenerationForm';
 import { AuthModalDialog } from './AuthModalDialog';
-import { GenerationControls } from './form/GenerationControls';
+import { FormLayout } from './form/FormLayout';
+import { StyleSelector } from './form/StyleSelector';
 import { PromptInput } from './form/PromptInput';
 import { GenerateButton } from './form/GenerateButton';
+import { ExamplePrompts } from './form/ExamplePrompts';
 import { FreeGenerationCounter } from './form/FreeGenerationCounter';
 import { ApiKeySection } from './form/ApiKeySection';
-import { FormLayout } from './form/FormLayout';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -51,10 +52,10 @@ export const ImageGenerationForm = ({
 
   if (authLoading || isCheckingServerKey) {
     return (
-      <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl p-1">
+      <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-r from-violet-500 to-indigo-600 rounded-2xl shadow-xl p-1">
         <div className="bg-white rounded-xl p-5 w-full">
           <div className="flex items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-violet-600"></div>
             <span className="ml-3 text-gray-600">Loading generator...</span>
           </div>
         </div>
@@ -70,18 +71,18 @@ export const ImageGenerationForm = ({
           onApiKeySubmit={setTempApiKey}
         />
 
+        <StyleSelector 
+          selectedStyle={style} 
+          onStyleChange={setStyle}
+        />
+
         <PromptInput 
           prompt={prompt}
           onChange={setPrompt}
         />
 
-        <GenerationControls
-          style={style}
-          resolution={resolution}
-          count={count}
-          onStyleChange={setStyle}
-          onResolutionChange={setResolution}
-          onCountChange={(value) => setCount(Number(value))}
+        <ExamplePrompts 
+          onSelect={setPrompt}
         />
 
         <GenerateButton 

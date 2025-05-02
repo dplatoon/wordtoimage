@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
 import { 
-  DEFAULT_STYLES, 
   RESOLUTIONS, 
   MAX_PROMPT_LENGTH 
 } from '@/components/hero/constants';
@@ -19,6 +18,16 @@ interface UseImageGenerationFormProps {
 
 const MAX_FREE_GENERATIONS = 3;
 
+// Map of style IDs to their display names for the prompt
+const STYLE_TO_PROMPT_MAP: Record<string, string> = {
+  'auto': 'Auto',
+  '3d_anime': '3D Anime style',
+  '3d_model': 'realistic 3D Model',
+  'japanese_anime': 'Japanese Anime style',
+  'movie': 'Photorealistic movie scene',
+  'comic': 'Comic book style'
+};
+
 export const useImageGenerationForm = ({
   onImageGenerated,
   onGeneratingChange,
@@ -31,7 +40,7 @@ export const useImageGenerationForm = ({
   const [isCheckingServerKey, setIsCheckingServerKey] = useState(true);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [generationCount, setGenerationCount] = useState(0);
-  const [style, setStyle] = useState<string>(DEFAULT_STYLES[0]);
+  const [style, setStyle] = useState<string>('auto');
   const [resolution, setResolution] = useState<string>(RESOLUTIONS[1]);
   const [count, setCount] = useState(1);
 
@@ -122,8 +131,9 @@ export const useImageGenerationForm = ({
     event.preventDefault();
     if (!canGenerate) return;
     
-    // For testing, use a simple prompt without style tags when experiencing issues
-    const finalPrompt = `[${style}] ${prompt}`;
+    // Use the style mapping to enhance the prompt
+    const stylePrefix = style !== 'auto' ? STYLE_TO_PROMPT_MAP[style] || '' : '';
+    const finalPrompt = stylePrefix ? `${prompt}, ${stylePrefix}` : prompt;
     
     for (let i = 0; i < count; i++) {
       await generateImageFromPrompt(

@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { Button } from '@/components/ui/button';
 
 interface GenerateButtonProps {
@@ -21,25 +22,25 @@ export const GenerateButton = ({
       <Button
         type="submit"
         disabled={isGenerating || isDisabled}
-        className={`w-full flex items-center justify-center rounded-full py-6 
-          ${isGenerating ? 'bg-gray-200' : 'bg-gradient-to-r from-blue-500 to-purple-600'}
-          shadow-lg`}
+        className={`w-full flex items-center justify-center rounded-lg py-6 
+          ${isGenerating ? 'bg-gray-200' : 'bg-violet-600 hover:bg-violet-700'}
+          text-white font-medium text-lg`}
       >
         {isGenerating ? (
           <span className="flex items-center justify-center gap-2">
-            <span className="h-5 w-5 border-2 border-blue-200 border-b-blue-600 rounded-full animate-spin mr-2" />
-            <span className="text-gray-700">Generating...</span>
+            <span className="h-5 w-5 border-2 border-white/20 border-b-white/80 rounded-full animate-spin mr-2" />
+            <span>Generating...</span>
           </span>
         ) : (
           <>
             {!user && generationCount < maxFreeGenerations && (
               <div className="absolute top-0 right-4 -mt-2.5">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-violet-100 text-violet-800 border border-violet-200">
                   {maxFreeGenerations - generationCount}/{maxFreeGenerations} free
                 </span>
               </div>
             )}
-            <span className="font-medium text-lg">Generate Image</span>
+            <span>Create now</span>
           </>
         )}
       </Button>

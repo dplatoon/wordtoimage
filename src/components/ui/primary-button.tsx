@@ -24,8 +24,8 @@ export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
         className={cn(
           "font-medium",
           gradient
-            ? "bg-gradient-to-r from-blue-600 to-purple-600 focus:ring-blue-500"
-            : "bg-blue-600 hover:bg-blue-700 focus:ring-blue-500",
+            ? "bg-gradient-to-r from-violet-600 to-indigo-600 focus:ring-violet-500"
+            : "bg-violet-600 hover:bg-violet-700 focus:ring-violet-500",
           className
         )}
         disabled={isLoading || props.disabled}
