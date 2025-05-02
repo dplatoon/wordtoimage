@@ -20,7 +20,7 @@ export const HeroHeader = () => {
 
   return (
     <div className="text-center mb-8">
-      <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-900/30 text-blue-300 mb-6 text-sm font-medium animate-fade-in">
+      <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-900/30 text-blue-300 mb-6 text-sm font-medium">
         <Sparkles className="h-4 w-4 mr-2" aria-hidden="true" />
         <span>AI Image Generator</span>
       </div>
@@ -37,7 +37,7 @@ export const HeroHeader = () => {
       <div className="flex flex-col sm:flex-row justify-center gap-4">
         <Button 
           size="lg" 
-          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-lg px-6 shadow-md"
+          className="bg-gradient-to-r from-blue-500 to-blue-700 text-lg px-6 shadow-md"
           onClick={handleGenerateImageClick}
         >
           Create Your Image

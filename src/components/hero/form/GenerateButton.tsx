@@ -21,12 +21,12 @@ export const GenerateButton = ({
       <Button
         type="submit"
         disabled={isGenerating || isDisabled}
-        className={`w-full transition-all flex items-center justify-center rounded-full py-6 
-          ${isGenerating ? 'bg-gray-200' : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'}
-          shadow-lg hover:shadow-xl`}
+        className={`w-full flex items-center justify-center rounded-full py-6 
+          ${isGenerating ? 'bg-gray-200' : 'bg-gradient-to-r from-blue-500 to-purple-600'}
+          shadow-lg`}
       >
         {isGenerating ? (
-          <span className="flex items-center justify-center gap-2 animate-fade-in">
+          <span className="flex items-center justify-center gap-2">
             <span className="h-5 w-5 border-2 border-blue-200 border-b-blue-600 rounded-full animate-spin mr-2" />
             <span className="text-gray-700">Generating...</span>
           </span>

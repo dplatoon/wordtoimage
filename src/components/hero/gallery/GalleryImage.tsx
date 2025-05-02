@@ -41,7 +41,7 @@ export const GalleryImage = ({
   
   return (
     <div
-      className="relative group overflow-hidden rounded-lg shadow-md bg-white transition-all hover:shadow-lg"
+      className="relative group overflow-hidden rounded-lg shadow-md bg-white"
       style={{ borderRadius: 8 }}
     >
       {/* Show skeleton while loading */}
@@ -54,7 +54,7 @@ export const GalleryImage = ({
       <img
         src={image.url}
         alt={image.prompt || "Generated image"}
-        className={`w-full h-48 object-cover transition-transform group-hover:scale-105 ${isLoaded ? 'block' : 'hidden'}`}
+        className={`w-full h-48 object-cover ${isLoaded ? 'block' : 'hidden'}`}
         width="256" 
         height="192"
         loading="lazy"

@@ -16,7 +16,7 @@ export const ImageActions = ({
   isFavorite 
 }: ImageActionsProps) => {
   return (
-    <div className="absolute bottom-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+    <div className="absolute bottom-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100">
       <Button
         size="icon"
         variant="secondary"

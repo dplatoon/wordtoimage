@@ -79,7 +79,7 @@ export const CTASection = () => {
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <PrimaryButton 
                 size="lg" 
-                className="bg-white text-blue-600 hover:bg-white/90 text-lg px-8 shadow-lg hover:shadow-xl transition-all"
+                className="bg-white text-blue-600 text-lg px-8 shadow-lg"
                 onClick={handleCreateDesignClick}
                 aria-label="Create your first design with WordToImage"
               >
@@ -117,7 +117,7 @@ export const CTASection = () => {
             <div className="mt-8 pt-4 border-t border-white/20 w-full max-w-md">
               <button 
                 onClick={handleFeedbackClick}
-                className="text-white/90 hover:text-white text-sm font-medium flex items-center justify-center mx-auto hover:bg-white/10 px-4 py-2 rounded-full transition-colors"
+                className="text-white/90 hover:text-white text-sm font-medium flex items-center justify-center mx-auto hover:bg-white/10 px-4 py-2 rounded-full"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />

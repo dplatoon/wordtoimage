@@ -42,10 +42,10 @@ export const AuthButtons = () => {
           <DropdownMenuTrigger asChild>
             <Button 
               variant="ghost" 
-              className="relative group focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              className="relative focus:ring-2 focus:ring-offset-2 focus:ring-primary"
               aria-label="Account menu"
             >
-              <User className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+              <User className="h-4 w-4 mr-2" />
               <span className="font-medium truncate max-w-[180px]">{user.email}</span>
             </Button>
           </DropdownMenuTrigger>
@@ -79,18 +79,18 @@ export const AuthButtons = () => {
       <Link to="/auth">
         <Button 
           variant="ghost"
-          className="group focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          className="focus:ring-2 focus:ring-offset-2 focus:ring-primary"
         >
-          <LogIn className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+          <LogIn className="mr-2 h-4 w-4" />
           <span>{t('sign_in')}</span>
         </Button>
       </Link>
       <Link to="/auth?tab=signup">
         <PrimaryButton 
           gradient 
-          className="group focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
-          <User className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+          <User className="mr-2 h-4 w-4" />
           <span>{t('start_creating')}</span>
         </PrimaryButton>
       </Link>

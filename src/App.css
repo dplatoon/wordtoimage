@@ -8,14 +8,6 @@
 .logo {
   height: 6em;
   padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em rgba(100, 108, 255, 0.67));
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em rgba(97, 218, 251, 0.67));
 }
 
 @keyframes logo-spin {
@@ -55,7 +47,6 @@ textarea:focus-visible,
 select:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 /* Remove default focus styles for mouse users, but keep them for keyboard */

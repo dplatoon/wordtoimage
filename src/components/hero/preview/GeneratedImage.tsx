@@ -52,7 +52,7 @@ export const GeneratedImage = ({
   };
 
   return (
-    <div className="relative w-full h-full group transition-transform duration-300">
+    <div className="relative w-full h-full">
       {!imageLoaded && !imageError && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
           <Skeleton className="w-full h-full animate-pulse" />
@@ -72,9 +72,7 @@ export const GeneratedImage = ({
       <img
         src={imageUrl}
         alt="Generated image"
-        className={`w-full h-full object-contain transition-all duration-500 ${
-          imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-        }`}
+        className={`w-full h-full object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
         loading="lazy"
         decoding="async"
         width="512"
@@ -85,12 +83,12 @@ export const GeneratedImage = ({
       />
       
       {imageLoaded && (
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-6">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/30 flex items-end justify-center p-6">
           <Button
             variant="secondary"
             size={isMobile ? "default" : "lg"}
             onClick={handleDownload}
-            className="gap-2 transform scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 bg-white/95 hover:bg-white shadow-lg border-2 border-white/50"
+            className="gap-2 bg-white/95 hover:bg-white shadow-lg border-2 border-white/50"
           >
             <Download className="h-5 w-5 text-blue-600" />
             <span>

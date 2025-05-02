@@ -22,9 +22,9 @@ export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
       <Button
         ref={ref}
         className={cn(
-          "font-medium transition-all duration-300 focus:ring-2 focus:ring-offset-2",
+          "font-medium",
           gradient
-            ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-600/20 focus:ring-blue-500"
+            ? "bg-gradient-to-r from-blue-600 to-purple-600 focus:ring-blue-500"
             : "bg-blue-600 hover:bg-blue-700 focus:ring-blue-500",
           className
         )}
