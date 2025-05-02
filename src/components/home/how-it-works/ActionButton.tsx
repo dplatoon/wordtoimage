@@ -1,24 +1,37 @@
 
 import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Wand2 } from 'lucide-react';
 
-export const ActionButton: React.FC = () => {
+export const ActionButton = () => {
+  const handleButtonClick = () => {
+    // Scroll to the image generation form
+    const imageForm = document.querySelector('.image-generation-section');
+    if (imageForm) {
+      imageForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="text-center mt-16">
+    <motion.div 
+      className="text-center mt-12"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
       <Button 
-        size="lg"
-        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-6 py-3 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300"
-        onClick={() => {
-          const heroSection = document.querySelector('.image-generation-section');
-          if (heroSection) {
-            heroSection.scrollIntoView({ behavior: 'smooth' });
-          }
-        }}
+        onClick={handleButtonClick}
+        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-blue-600 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
       >
-        Try It Now
-        <Wand2 className="ml-2 h-5 w-5" />
+        Create Your Image Now
+        <ArrowRight className="ml-2 h-5 w-5" />
       </Button>
-    </div>
+      
+      <p className="mt-4 text-sm text-gray-500">
+        No credit card required • Free to try
+      </p>
+    </motion.div>
   );
 };

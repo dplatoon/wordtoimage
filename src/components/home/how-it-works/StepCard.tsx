@@ -44,7 +44,20 @@ export const StepCard: React.FC<StepCardProps> = ({
           animate={{ opacity: 1, height: 'auto' }}
           transition={{ duration: 0.3 }}
         >
-          <p className="text-sm text-gray-500">{step.demoContent}</p>
+          {step.illustration ? (
+            <div className="space-y-3">
+              <p className="text-sm text-gray-500 mb-2">{step.demoContent}</p>
+              <div className="rounded-lg overflow-hidden border border-gray-200">
+                <img 
+                  src={step.illustration} 
+                  alt={`${step.title} illustration`} 
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+          ) : (
+            <p className="text-sm text-gray-500">{step.demoContent}</p>
+          )}
         </motion.div>
       )}
     </motion.div>
