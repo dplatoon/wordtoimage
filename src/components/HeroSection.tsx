@@ -35,11 +35,12 @@ export const HeroSection = () => {
       className="py-10 md:py-16 lg:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 image-generation-section relative overflow-hidden" 
       aria-labelledby="hero-heading"
     >
-      {/* Decorative background elements */}
+      {/* Enhanced decorative background elements with more vibrant colors and dimensionality */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <div className="absolute -right-40 -top-40 w-80 h-80 bg-purple-200 rounded-full opacity-20 blur-3xl"></div>
-        <div className="absolute -left-20 top-40 w-60 h-60 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
-        <div className="absolute right-1/4 bottom-0 w-80 h-80 bg-indigo-200 rounded-full opacity-10 blur-3xl"></div>
+        <div className="absolute -right-40 -top-40 w-96 h-96 bg-gradient-to-br from-purple-300 to-indigo-200 rounded-full opacity-20 blur-3xl animate-slow-spin"></div>
+        <div className="absolute -left-20 top-40 w-80 h-80 bg-gradient-to-tr from-blue-300 to-cyan-200 rounded-full opacity-20 blur-3xl"></div>
+        <div className="absolute right-1/4 bottom-0 w-96 h-96 bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 rounded-full opacity-15 blur-3xl"></div>
+        <div className="absolute left-1/3 top-1/4 w-64 h-64 bg-gradient-to-b from-blue-200 to-teal-100 rounded-full opacity-10 blur-3xl animate-float"></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -49,7 +50,8 @@ export const HeroSection = () => {
           </div>
           <div className={`${isMobile ? "w-full" : "flex-1"}`}>
             <div className="relative">
-              <div className="relative transform transition-all duration-300 hover:scale-[1.01]">
+              <div className="relative transform transition-all duration-300 hover:scale-[1.01] group">
+                <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-70 blur-sm group-hover:opacity-100 transition duration-500 group-hover:blur-md"></div>
                 <ImageGenerationForm
                   onImageGenerated={setGeneratedImageUrl}
                   onGeneratingChange={setIsGenerating}

@@ -52,7 +52,6 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
           <Progress 
             value={progress} 
             className="h-2 bg-blue-200" 
-            // Instead of using indicatorClassName, we can style the indicator using CSS variables
             style={{
               "--progress-background": "linear-gradient(to right, #2563eb, #9333ea)",
             } as React.CSSProperties}
@@ -69,7 +68,10 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
       
       <div className="relative">
         {showSuccessIndicator && (
-          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-200 text-green-800 px-4 py-2 rounded-full text-sm font-medium shadow-md animate-fade-in">
+          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-100 to-emerald-100 border border-green-200 text-green-800 px-4 py-2 rounded-full text-sm font-medium shadow-md animate-fade-in flex items-center">
+            <svg className="w-4 h-4 mr-1.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+            </svg>
             Image generated successfully!
           </div>
         )}
@@ -80,17 +82,20 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
           className={cn(
             "w-full md:w-auto transition-all duration-500",
             disabled ? 'bg-gray-400' : 
-              'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700',
+              'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700',
             'px-6 py-6 h-auto rounded-xl shadow-md hover:shadow-lg',
-            animateButton && !disabled && !loading ? 'scale-[1.03] shadow-blue-400/20' : '',
+            animateButton && !disabled && !loading ? 'scale-[1.03] shadow-blue-400/30' : '',
             "relative overflow-hidden"
           )}
           onMouseEnter={handleButtonHover}
           onMouseLeave={handleButtonLeave}
         >
-          {/* Button background effects */}
+          {/* Enhanced button background effects */}
           {!disabled && !loading && (
-            <span className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            <>
+              <span className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></span>
+              <span className={`absolute inset-0 bg-gradient-to-br from-transparent via-indigo-500/5 to-purple-500/10 ${animateButton ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}></span>
+            </>
           )}
           
           {loading ? (
@@ -100,7 +105,7 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
             </span>
           ) : (
             <span className="flex items-center justify-center font-medium text-lg">
-              <Sparkles className={`mr-2 h-5 w-5 ${animateButton ? 'animate-pulse' : ''}`} />
+              <Sparkles className={`mr-2 h-5 w-5 ${animateButton ? 'animate-pulse text-yellow-300' : ''}`} />
               Generate Image
             </span>
           )}
