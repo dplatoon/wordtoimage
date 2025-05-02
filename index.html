@@ -4,62 +4,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>WordToImage - AI-Powered Text to Image Generation in Seconds</title>
-    <meta name="description" content="Transform your words into stunning visuals instantly with WordToImage. Create professional social media graphics using AI in seconds. No design skills required." />
+    <title>WordToImage - AI-Powered Text to Image Generation</title>
+    <meta name="description" content="Transform text into stunning visuals with AI" />
     <meta name="theme-color" content="#ffffff">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Core CSS -->
     <link rel="stylesheet" href="/src/index.css">
 
-    <!-- Performance optimizations -->
+    <!-- Performance optimization: preconnect to essential domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.openai.com" crossorigin>
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.gpteng.co" crossorigin>
     
-    <!-- Critical resource loading -->
+    <!-- Preload critical assets -->
     <link rel="preload" href="/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png" as="image" type="image/png" fetchpriority="high">
     <link rel="preload" href="/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png" as="image" type="image/png">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <!-- Web fonts with display=swap to prevent render blocking -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
     
     <!-- Open Graph / Social Meta Tags -->
     <meta property="og:title" content="WordToImage - AI-Powered Text to Image Generation" />
-    <meta property="og:description" content="Transform your words into stunning visuals instantly. Create professional social media graphics using AI in seconds." />
+    <meta property="og:description" content="Transform text to images instantly with AI" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/wordtoimage-social.png" />
     <meta property="og:url" content="https://wordtoimage.lovable.dev" />
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@wordtoimage" />
-    <meta name="twitter:title" content="WordToImage - AI Text to Image Generation Tool" />
-    <meta name="twitter:description" content="Transform your words into stunning visuals instantly with AI in seconds" />
+    <meta name="twitter:title" content="WordToImage" />
+    <meta name="twitter:description" content="AI Text to Image Generator" />
     <meta name="twitter:image" content="https://lovable.dev/wordtoimage-social.png" />
     
-    <!-- Structured Data -->
+    <!-- Simplified structured data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "WordToImage",
-        "description": "AI-powered text to image generation platform for creating professional social media graphics",
-        "applicationCategory": "GraphicsApplication",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "featureList": [
-          "AI text to image generation",
-          "Social media templates",
-          "Brand kit customization",
-          "Fast image creation in seconds",
-          "No design skills required"
-        ]
+        "description": "AI-powered text to image generation"
       }
     </script>
     
@@ -68,19 +55,14 @@
     <link rel="apple-touch-icon" href="/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png">
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Deferred analytics -->
+    <!-- Defer analytics -->
     <script defer src="https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-KND5GPN1W7', {
-        send_page_view: false
-      });
-      // Load analytics after page loads
-      window.addEventListener('load', function() {
-        gtag('event', 'page_view');
-      });
+      gtag('config', 'G-KND5GPN1W7', { send_page_view: false });
+      window.addEventListener('load', function() { gtag('event', 'page_view'); });
     </script>
   </head>
 

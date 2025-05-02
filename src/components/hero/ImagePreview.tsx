@@ -1,7 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { trackEvent, events } from '@/utils/analytics';
-import { GenerationGallery } from './GenerationGallery';
 import { useImageLoader } from './preview/useImageLoader';
 import { useGalleryState } from './preview/useGalleryState';
 import { LoadingState } from './preview/LoadingState';
@@ -9,6 +8,11 @@ import { ErrorState } from './preview/ErrorState';
 import { EmptyState } from './preview/EmptyState';
 import { GeneratedImage } from './preview/GeneratedImage';
 import { useIsMobile } from '@/hooks/use-mobile';
+
+// Lazy load the gallery component to improve initial load time
+const GenerationGallery = lazy(() => import('./GenerationGallery').then(module => ({ 
+  default: module.GenerationGallery 
+})));
 
 interface ImagePreviewProps {
   imageUrl: string;
@@ -33,7 +37,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
 
   return (
     <div>
-      <div className="bg-gray-50 border border-gray-200 h-[250px] sm:h-[300px] md:h-[350px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group transition-all duration-300 hover:shadow-lg">
+      <div className="bg-gray-50 border border-gray-200 h-[250px] sm:h-[300px] md:h-[350px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group">
         {isGenerating ? (
           <LoadingState progress={loadingProgress} />
         ) : error ? (
@@ -51,7 +55,9 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
         )}
       </div>
       
-      <GenerationGallery images={gallery} />
+      <Suspense fallback={<div className="h-12 w-full bg-gray-100 animate-pulse mt-6 rounded"></div>}>
+        {gallery.length > 0 && <GenerationGallery images={gallery} />}
+      </Suspense>
     </div>
   );
 };

@@ -27,23 +27,16 @@ export const GeneratedImage = ({
   const handleDownload = () => {
     if (!imageUrl) return;
     try {
-      // Open image in a new tab instead of downloading directly
       window.open(imageUrl, '_blank');
       
       trackEvent(events.DOWNLOAD_IMAGE, {
         location: 'main_preview' 
       });
       
-      toast.success("Image opened in a new tab!");
+      toast.success("Image opened in a new tab");
     } catch (error) {
       console.error('Opening error:', error);
-      toast.error('Failed to open image in new tab', {
-        description: 'Please try right-clicking the image and selecting "Open image in new tab"',
-        action: {
-          label: 'Try Again',
-          onClick: handleDownload
-        }
-      });
+      toast.error('Failed to open image');
     }
   };
 
@@ -56,40 +49,36 @@ export const GeneratedImage = ({
       )}
       
       {imageError && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 p-6">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 p-4">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
-          <p className="text-gray-600 text-base font-medium mb-2">Failed to load image</p>
-          <p className="text-gray-500 text-sm text-center mb-1">The generated image could not be displayed</p>
+          <p className="text-gray-600 text-sm font-medium">Failed to load image</p>
         </div>
       )}
       
       <img
         src={imageUrl}
-        alt="Generated image"
+        alt="Generated"
         className={`w-full h-full object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
         loading="lazy"
         decoding="async"
         width="512"
         height="512"
-        fetchPriority="high"
         onLoad={onLoad}
         onError={onError}
       />
       
       {imageLoaded && (
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/30 flex items-end justify-center p-6">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/30 flex items-end justify-center p-4">
           <Button
             variant="secondary"
-            size={isMobile ? "default" : "lg"}
+            size="sm"
             onClick={handleDownload}
-            className="gap-2 bg-white/95 hover:bg-white shadow-lg border-2 border-white/50"
+            className="gap-2 bg-white/95 hover:bg-white shadow-md"
           >
-            <Download className="h-5 w-5 text-blue-600" />
-            <span>
-              {isMobile ? "Open Image" : "Open in New Tab"}
-            </span>
+            <Download className="h-4 w-4 text-blue-600" />
+            <span>Open Image</span>
           </Button>
         </div>
       )}
