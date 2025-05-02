@@ -1,6 +1,5 @@
 
 import { Plugin } from 'vite';
-import { resolve } from 'path';
 
 // Simple plugin to add image optimization hints
 export function imageOptimizer(): Plugin {
