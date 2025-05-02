@@ -8,22 +8,24 @@
     <meta name="description" content="Transform your words into stunning visuals instantly with WordToImage. Create professional social media graphics using AI in seconds. No design skills required." />
     <meta name="theme-color" content="#ffffff">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/src/index.css">
 
     <!-- Performance optimizations -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://api.openai.com">
-    <link rel="dns-prefetch" href="https://api.openai.com">
-    <link rel="preconnect" href="https://images.unsplash.com">
-    <link rel="dns-prefetch" href="https://images.unsplash.com">
-    
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/src/index.css" as="style">
-    <link rel="preload" href="/src/main.tsx" as="script" type="module">
-    
-    <!-- Resource hints -->
+    <link rel="preconnect" href="https://api.openai.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="preconnect" href="https://cdn.gpteng.co" crossorigin>
-
+    
+    <!-- Critical resource loading -->
+    <link rel="preload" href="/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png" as="image" type="image/png" fetchpriority="high">
+    <link rel="preload" href="/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png" as="image" type="image/png">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    
     <!-- Open Graph / Social Meta Tags -->
     <meta property="og:title" content="WordToImage - AI-Powered Text to Image Generation" />
     <meta property="og:description" content="Transform your words into stunning visuals instantly. Create professional social media graphics using AI in seconds." />
@@ -66,18 +68,18 @@
     <link rel="apple-touch-icon" href="/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png">
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Font loading optimization -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
-
-    <!-- Async load non-critical scripts -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7"></script>
+    <!-- Deferred analytics -->
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-KND5GPN1W7', {
-        send_page_view: false // Defer pageview until after page load
+        send_page_view: false
+      });
+      // Load analytics after page loads
+      window.addEventListener('load', function() {
+        gtag('event', 'page_view');
       });
     </script>
   </head>

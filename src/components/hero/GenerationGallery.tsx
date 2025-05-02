@@ -138,16 +138,17 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
                 src={img.url}
                 alt={img.prompt || "Generated image"}
                 className={`w-full h-48 object-cover transition-transform group-hover:scale-105 ${isLoaded ? 'block' : 'hidden'}`}
-                width="512"
+                width="256" 
                 height="192"
                 loading="lazy"
                 decoding="async"
-                style={{ borderRadius: 8, contentVisibility: 'auto' }}
+                fetchpriority="low"
+                style={{ contentVisibility: 'auto' }}
                 onLoad={() => handleImageLoad(img.url, i)}
                 onError={() => handleImageError(img.url, i)}
               />
               
-              {/* Image details overlay - only show if image loaded successfully */}
+              {/* Image details overlay */}
               {isLoaded && (
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent p-4 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity">
                   <p className="text-white text-sm font-medium line-clamp-2 mb-2">{img.prompt}</p>
@@ -157,7 +158,7 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
                 </div>
               )}
               
-              {/* Action buttons - only show if image loaded successfully */}
+              {/* Action buttons */}
               {isLoaded && (
                 <div className="absolute bottom-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Button

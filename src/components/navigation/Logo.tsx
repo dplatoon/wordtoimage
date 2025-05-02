@@ -28,6 +28,9 @@ export const Logo = () => {
             className="h-8 md:h-10 object-cover" 
             src="/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png"
             onError={handleImageError}
+            width="160"
+            height="40"
+            fetchpriority="high"
           />
         )}
       </div>

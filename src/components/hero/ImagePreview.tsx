@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -35,7 +34,7 @@ const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
           const nextProgress = prev + increment;
           return nextProgress >= 95 ? 95 : nextProgress;
         });
-      }, 150);
+      }, 200); // Slightly lower frequency for better performance
       return () => clearInterval(interval);
     }
   }, [isGenerating]);
@@ -45,7 +44,7 @@ const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
     if (imageUrl && !isGenerating) {
       setGallery((g) => {
         if (g.find((img) => img.url === imageUrl)) return g;
-        return [...g, { url: imageUrl, prompt: '' }].slice(-12);
+        return [...g, { url: imageUrl, prompt: '' }].slice(-8); // Limit to 8 images
       });
       setLoadingProgress(100);
     }
@@ -115,25 +114,18 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
           <div className="text-center px-4 sm:px-8 w-full">
             <div className="flex flex-col items-center justify-center w-full">
               <div className="relative w-16 h-16 mb-4">
-                {/* Enhanced loading animation with gradients */}
+                {/* Simplified loading animation */}
                 <div className="absolute inset-0 rounded-full border-4 border-t-4 border-blue-500 border-b-purple-500 border-l-indigo-500 border-r-indigo-300 animate-spin"></div>
-                <div className="absolute inset-3 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 opacity-50"></div>
               </div>
-              <p className="text-gray-700 font-medium text-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Creating your masterpiece...</p>
+              <p className="text-gray-700 font-medium text-lg">Creating your masterpiece...</p>
               <div className="w-full max-w-[250px] mt-4">
                 <div className="flex justify-between mb-1 text-xs text-gray-500">
                   <span>Processing</span>
                   <span>{Math.round(loadingProgress)}%</span>
                 </div>
-                <Progress 
-                  value={loadingProgress} 
-                  className="h-2" 
-                  style={{
-                    "--progress-background": "linear-gradient(to right, #2563eb, #9333ea)",
-                  } as React.CSSProperties}
-                />
+                <Progress value={loadingProgress} className="h-2" />
               </div>
-              <p className="text-xs text-gray-500 mt-3 animate-pulse">This may take a few seconds</p>
+              <p className="text-xs text-gray-500 mt-3">This may take a few seconds</p>
             </div>
           </div>
         ) : error ? (
@@ -189,6 +181,9 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
               }`}
               loading="lazy"
               decoding="async"
+              width="512"
+              height="512"
+              fetchpriority="high"
               onLoad={handleImageLoad}
               onError={handleImageError}
             />
@@ -202,7 +197,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
                   className="gap-2 transform scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 bg-white/95 hover:bg-white shadow-lg border-2 border-white/50"
                 >
                   <Download className="h-5 w-5 text-blue-600" />
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-medium">
+                  <span>
                     {isMobile ? "Download" : "Download Image"}
                   </span>
                 </Button>
@@ -219,6 +214,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
           </div>
         )}
       </div>
+      
       <GenerationGallery images={gallery} />
     </div>
   );
