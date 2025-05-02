@@ -19,12 +19,14 @@ interface ImagePreviewProps {
 const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
   const [gallery, setGallery] = useState<{ url: string; prompt: string }[]>([]);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
   // Simulate loading progress with enhanced animation
   useEffect(() => {
     if (isGenerating) {
       setImageLoaded(false);
+      setImageError(false);
       setLoadingProgress(0);
       const interval = setInterval(() => {
         setLoadingProgress(prev => {
@@ -46,15 +48,26 @@ const useImageGallery = (imageUrl: string, isGenerating: boolean) => {
         return [...g, { url: imageUrl, prompt: '' }].slice(-12);
       });
       setLoadingProgress(100);
-      setTimeout(() => setImageLoaded(true), 300);
     }
   }, [imageUrl, isGenerating]);
 
-  return { gallery, setGallery, imageLoaded, loadingProgress };
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+    setImageError(false);
+    setTimeout(() => trackEvent(events.IMAGE_LOADED, {}), 100);
+  };
+
+  const handleImageError = () => {
+    console.error('Failed to load image:', imageUrl);
+    setImageError(true);
+    setImageLoaded(false);
+  };
+
+  return { gallery, setGallery, imageLoaded, imageError, loadingProgress, handleImageLoad, handleImageError };
 };
 
 export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProps) => {
-  const { gallery, imageLoaded, loadingProgress } = useImageGallery(imageUrl, isGenerating);
+  const { gallery, imageLoaded, imageError, loadingProgress, handleImageLoad, handleImageError } = useImageGallery(imageUrl, isGenerating);
   const isMobile = useIsMobile();
   const [retryCount, setRetryCount] = useState(0);
 
@@ -152,28 +165,49 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
           </Alert>
         ) : imageUrl ? (
           <div className="relative w-full h-full group transition-transform duration-300">
-            {!imageLoaded && <Skeleton className="absolute inset-0 animate-pulse" />}
+            {!imageLoaded && !imageError && (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+                <Skeleton className="w-full h-full animate-pulse" />
+              </div>
+            )}
+            
+            {imageError && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 p-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <p className="text-gray-600 text-sm mb-1 font-medium">Failed to load image</p>
+                <p className="text-gray-500 text-xs text-center">The generated image could not be displayed</p>
+              </div>
+            )}
+            
             <img
               src={imageUrl}
               alt="Generated image"
-              className={`w-full h-full object-contain ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} transition-all duration-500`}
+              className={`w-full h-full object-contain transition-all duration-500 ${
+                imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              }`}
               loading="lazy"
               decoding="async"
-              onLoad={() => setTimeout(() => trackEvent(events.IMAGE_LOADED, {}), 100)}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-6">
-              <Button
-                variant="secondary"
-                size={isMobile ? "default" : "lg"}
-                onClick={handleDownload}
-                className="gap-2 transform scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 bg-white/95 hover:bg-white shadow-lg border-2 border-white/50"
-              >
-                <Download className="h-5 w-5 text-blue-600" />
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-medium">
-                  {isMobile ? "Download" : "Download Image"}
-                </span>
-              </Button>
-            </div>
+            
+            {imageLoaded && (
+              <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-6">
+                <Button
+                  variant="secondary"
+                  size={isMobile ? "default" : "lg"}
+                  onClick={handleDownload}
+                  className="gap-2 transform scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 bg-white/95 hover:bg-white shadow-lg border-2 border-white/50"
+                >
+                  <Download className="h-5 w-5 text-blue-600" />
+                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-medium">
+                    {isMobile ? "Download" : "Download Image"}
+                  </span>
+                </Button>
+              </div>
+            )}
           </div>
         ) : (
           <div className="text-center px-4 sm:px-8 py-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg w-full h-full flex flex-col items-center justify-center">
