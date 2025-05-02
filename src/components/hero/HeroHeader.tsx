@@ -1,9 +1,12 @@
+
 import { Button } from '@/components/ui/button';
 import { Sparkles, Wand2, ImagePlus, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export const HeroHeader = () => {
   const navigate = useNavigate();
+  const [samplePromptPreview, setSamplePromptPreview] = useState(false);
   
   const handleSamplePrompt = () => {
     // You can replace this with your actual prompt
@@ -20,6 +23,10 @@ export const HeroHeader = () => {
         generateButton.click();
       }
     }
+    
+    // Show preview animation
+    setSamplePromptPreview(true);
+    setTimeout(() => setSamplePromptPreview(false), 3000);
   };
 
   const handleGenerateImageClick = () => {
@@ -37,7 +44,7 @@ export const HeroHeader = () => {
   return (
     <div className="text-center lg:text-left mb-8">
       <div 
-        className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 mb-6 text-sm font-medium"
+        className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 mb-6 text-sm font-medium animate-fade-in"
         role="banner"
         aria-label="Feature highlight"
       >
@@ -50,13 +57,13 @@ export const HeroHeader = () => {
           Transform <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Text Into Stunning AI Images</span> in Seconds
         </h1>
         <p className="relative text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
-          Transform your words into stunning, shareable graphics for all social platforms with our AI-powered design tool. No design skills required!
+          Create professional visuals for social media, presentations, or inspiration—all from simple text prompts. <span className="font-medium">No design skills required.</span>
         </p>
       </div>
       <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
         <Button 
           size="lg" 
-          className="bg-blue-600 hover:bg-blue-700 text-lg px-6"
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-6 shadow-md hover:shadow-lg transition-all duration-300"
           onClick={handleGenerateImageClick}
         >
           Generate Your First Image
@@ -65,7 +72,7 @@ export const HeroHeader = () => {
         <Button 
           size="lg" 
           variant="outline" 
-          className="text-lg"
+          className="text-lg border-gray-300 hover:bg-gray-50"
           onClick={handleTemplateGalleryClick}
         >
           Browse Template Gallery
@@ -79,6 +86,16 @@ export const HeroHeader = () => {
         Try a Sample Prompt
         <ArrowRight className="ml-1 h-4 w-4 transform transition-transform group-hover:translate-x-1" />
       </button>
+      
+      {samplePromptPreview && (
+        <div className="mt-4 bg-white shadow-lg p-3 rounded-lg border border-gray-100 animate-fade-in absolute z-10">
+          <p className="text-sm text-gray-600">Processing sample prompt...</p>
+          <div className="h-1.5 bg-gray-100 rounded-full mt-1 overflow-hidden">
+            <div className="h-full bg-blue-500 animate-pulse" style={{ width: '60%' }}></div>
+          </div>
+        </div>
+      )}
+      
       <div 
         className="mt-8 flex items-center justify-center lg:justify-start"
         role="complementary"
