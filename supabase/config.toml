@@ -1,5 +1,1 @@
-
 project_id = "itkfghwxbodjlmpgydsq"
-
-[functions.generate-runware-image]
-verify_jwt = false
