@@ -1,33 +1,10 @@
 
 import { Button } from '@/components/ui/button';
-import { Sparkles, Wand2, ImagePlus, ArrowRight } from 'lucide-react';
+import { Sparkles, Wand2, ImagePlus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 export const HeroHeader = () => {
   const navigate = useNavigate();
-  const [samplePromptPreview, setSamplePromptPreview] = useState(false);
-  
-  const handleSamplePrompt = () => {
-    // You can replace this with your actual prompt
-    const samplePrompt = "A serene landscape with mountains at sunset, digital art style";
-    // Find the nearest input and set its value
-    const promptInput = document.querySelector('input[placeholder*="Describe"]') as HTMLInputElement;
-    if (promptInput) {
-      promptInput.value = samplePrompt;
-      promptInput.focus();
-      
-      // Optionally trigger the generate button click
-      const generateButton = promptInput.closest('form')?.querySelector('button') as HTMLButtonElement;
-      if (generateButton) {
-        generateButton.click();
-      }
-    }
-    
-    // Show preview animation
-    setSamplePromptPreview(true);
-    setTimeout(() => setSamplePromptPreview(false), 3000);
-  };
 
   const handleGenerateImageClick = () => {
     // Scroll to the image generation form
@@ -42,73 +19,40 @@ export const HeroHeader = () => {
   };
 
   return (
-    <div className="text-center lg:text-left mb-8">
-      <div 
-        className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 mb-6 text-sm font-medium animate-fade-in"
-        role="banner"
-        aria-label="Feature highlight"
-      >
+    <div className="text-center mb-8">
+      <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 mb-6 text-sm font-medium animate-fade-in">
         <Sparkles className="h-4 w-4 mr-2" aria-hidden="true" />
-        <span>Turn Words Into Stunning Graphics</span>
+        <span>AI Image Generator</span>
       </div>
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-3xl" aria-hidden="true" />
-        <h1 className="relative text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 font-poppins mb-6">
-          Transform <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Text Into Stunning AI Images</span> in Seconds
-        </h1>
-        <p className="relative text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
-          Create professional visuals for social media, presentations, or inspiration—all from simple text prompts. <span className="font-medium">No design skills required.</span>
-        </p>
-      </div>
-      <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+      
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6">
+        Create Amazing Images <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">From Text</span>
+      </h1>
+      
+      <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Type your description and our AI will generate stunning visuals in seconds.
+        No design skills required.
+      </p>
+      
+      <div className="flex flex-col sm:flex-row justify-center gap-4">
         <Button 
           size="lg" 
-          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-6 shadow-md hover:shadow-lg transition-all duration-300"
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-6 shadow-md"
           onClick={handleGenerateImageClick}
         >
-          Generate Your First Image
+          Create Your Image
           <Wand2 className="ml-2 h-5 w-5" />
         </Button>
+        
         <Button 
           size="lg" 
           variant="outline" 
           className="text-lg border-gray-300 hover:bg-gray-50"
           onClick={handleTemplateGalleryClick}
         >
-          Browse Template Gallery
+          Browse Templates
           <ImagePlus className="ml-2 h-5 w-5" />
         </Button>
-      </div>
-      <button
-        onClick={handleSamplePrompt}
-        className="mt-4 text-blue-600 hover:text-blue-700 flex items-center justify-center lg:justify-start mx-auto lg:mx-0 text-sm font-medium group"
-      >
-        Try a Sample Prompt
-        <ArrowRight className="ml-1 h-4 w-4 transform transition-transform group-hover:translate-x-1" />
-      </button>
-      
-      {samplePromptPreview && (
-        <div className="mt-4 bg-white shadow-lg p-3 rounded-lg border border-gray-100 animate-fade-in absolute z-10">
-          <p className="text-sm text-gray-600">Processing sample prompt...</p>
-          <div className="h-1.5 bg-gray-100 rounded-full mt-1 overflow-hidden">
-            <div className="h-full bg-blue-500 animate-pulse" style={{ width: '60%' }}></div>
-          </div>
-        </div>
-      )}
-      
-      <div 
-        className="mt-8 flex items-center justify-center lg:justify-start"
-        role="complementary"
-        aria-label="User statistics"
-      >
-        <div className="flex -space-x-2">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="inline-block h-8 w-8 rounded-full bg-gray-300 border-2 border-white" />
-          ))}
-        </div>
-        <div className="ml-3 text-sm text-gray-600">
-          <span className="font-medium text-gray-900">2,500+</span> creators trust WordToImage
-        </div>
       </div>
     </div>
   );

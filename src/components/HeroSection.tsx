@@ -31,35 +31,29 @@ export const HeroSection = () => {
   };
 
   return (
-    <section 
-      className="py-10 md:py-16 lg:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 image-generation-section relative overflow-hidden" 
-      aria-labelledby="hero-heading"
-    >
-      {/* Enhanced decorative background elements with more vibrant colors and dimensionality */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <div className="absolute -right-40 -top-40 w-96 h-96 bg-gradient-to-br from-purple-300 to-indigo-200 rounded-full opacity-20 blur-3xl animate-slow-spin"></div>
-        <div className="absolute -left-20 top-40 w-80 h-80 bg-gradient-to-tr from-blue-300 to-cyan-200 rounded-full opacity-20 blur-3xl"></div>
-        <div className="absolute right-1/4 bottom-0 w-96 h-96 bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 rounded-full opacity-15 blur-3xl"></div>
-        <div className="absolute left-1/3 top-1/4 w-64 h-64 bg-gradient-to-b from-blue-200 to-teal-100 rounded-full opacity-10 blur-3xl animate-float"></div>
-      </div>
-      
+    <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
-          <div className={`${isMobile ? "w-full" : "flex-1"} mb-6 lg:mb-0`}>
-            <HeroHeader />
-          </div>
-          <div className={`${isMobile ? "w-full" : "flex-1"}`}>
-            <div className="relative">
-              <div className="relative transform transition-all duration-300 hover:scale-[1.01] group">
-                <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-70 blur-sm group-hover:opacity-100 transition duration-500 group-hover:blur-md"></div>
-                <ImageGenerationForm
-                  onImageGenerated={setGeneratedImageUrl}
-                  onGeneratingChange={setIsGenerating}
-                  onError={setGenerationError}
-                  onNewGalleryRow={handleNewGalleryRow}
-                />
-              </div>
-              <div className="mt-5">
+        <div className="flex flex-col items-center justify-center text-center mb-12">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-6">
+            Transform <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Text to Image</span> with AI
+          </h1>
+          
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            Create stunning, unique images from your text descriptions using our advanced AI image generator
+          </p>
+        </div>
+        
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+            <div className="p-6">
+              <ImageGenerationForm
+                onImageGenerated={setGeneratedImageUrl}
+                onGeneratingChange={setIsGenerating}
+                onError={setGenerationError}
+                onNewGalleryRow={handleNewGalleryRow}
+              />
+              
+              <div className="mt-6">
                 <ImagePreview
                   imageUrl={generatedImageUrl}
                   isGenerating={isGenerating}
@@ -68,6 +62,12 @@ export const HeroSection = () => {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="mt-12 text-center">
+          <p className="text-sm text-gray-500">
+            Powered by state-of-the-art AI models • Free to try • No credit card required
+          </p>
         </div>
       </div>
     </section>

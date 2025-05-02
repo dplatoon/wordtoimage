@@ -1,103 +1,110 @@
 
-import { ArrowRight, Instagram, Linkedin, Facebook } from 'lucide-react';
+import { ImagePlus, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
-import { Card, CardContent } from './ui/card';
-import { Badge } from './ui/badge';
-
-const templateCategories = [
-  { 
-    name: "Instagram", 
-    icon: Instagram, 
-    count: 120, 
-    color: "bg-pink-500",
-    useCase: "Perfect for lifestyle brands: Create eye-catching Story templates in seconds",
-    examples: [
-      "Product showcase with lifestyle context",
-      "Quote cards with branded backgrounds",
-      "Before/after transformation posts"
-    ]
-  },
-  { 
-    name: "Facebook", 
-    icon: Facebook, 
-    count: 85, 
-    color: "bg-blue-600",
-    useCase: "Ideal for businesses: Generate engaging feed and ad content",
-    examples: [
-      "Event announcements with RSVP buttons",
-      "Product carousel ads with AI-enhanced backgrounds",
-      "Customer testimonial cards"
-    ]
-  },
-  { 
-    name: "LinkedIn", 
-    icon: Linkedin, 
-    count: 65, 
-    color: "bg-blue-800",
-    useCase: "Great for professionals: Create polished business content",
-    examples: [
-      "Professional headshot backgrounds",
-      "Company milestone announcements",
-      "Industry insight cards"
-    ]
-  }
-];
 
 export const TemplatesSection = () => {
+  // Sample template categories
+  const categories = [
+    { name: 'Social Media', count: 24, color: 'bg-blue-100' },
+    { name: 'Art Styles', count: 18, color: 'bg-purple-100' },
+    { name: 'Photography', count: 15, color: 'bg-pink-100' },
+    { name: 'Landscapes', count: 12, color: 'bg-green-100' }
+  ];
+
+  // Sample featured templates
+  const featuredTemplates = [
+    { 
+      id: 1, 
+      title: 'Neon City Lights', 
+      description: 'Cyberpunk urban landscape with neon colors',
+      image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
+      style: 'Cyberpunk'
+    },
+    { 
+      id: 2, 
+      title: 'Serene Nature', 
+      description: 'Peaceful landscape with mountains and lake',
+      image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
+      style: 'Photography'
+    },
+    { 
+      id: 3, 
+      title: 'Abstract Patterns', 
+      description: 'Colorful geometric abstract art',
+      image: 'https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80',
+      style: 'Abstract'
+    },
+    { 
+      id: 4, 
+      title: 'Digital Portrait', 
+      description: 'Stylized portrait with digital effects',
+      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Nnx8fGVufDB8fHx8&w=1000&q=80',
+      style: 'Digital Art'
+    }
+  ];
+
   return (
-    <section id="templates" className="py-16 md:py-24 bg-white">
+    <section id="templates" className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <Badge className="mb-3 bg-blue-100 hover:bg-blue-100 text-blue-800 border-none">Templates</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
-            Professionally Designed Templates
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Start with a Template
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-            Choose from hundreds of templates optimized for every social media platform. Customizable to match your brand and message.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Choose from our curated collection of templates or start from scratch
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {templateCategories.map((category) => (
-            <Card key={category.name} className="border hover:shadow-md transition-shadow overflow-hidden">
-              <CardContent className="p-0">
-                <div className={`${category.color} p-5 h-36 flex items-center justify-center`}>
-                  <category.icon className="text-white h-12 w-12" />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-semibold text-lg mb-2">{category.name} Templates</h3>
-                  <p className="text-gray-600 mb-3">{category.count}+ templates</p>
-                  <p className="text-sm text-gray-700 mb-4">{category.useCase}</p>
-                  <ul className="space-y-2 mb-4">
-                    {category.examples.map((example, idx) => (
-                      <li key={idx} className="text-sm text-gray-600 flex items-start">
-                        <span className="mr-2 text-blue-600">•</span>
-                        {example}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button variant="link" className="p-0 h-auto mt-3 flex items-center text-blue-600">
-                    Browse templates
-                    <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {[...Array(6)].map((_, idx) => (
-            <div key={idx} className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
-              <p className="text-gray-400 text-sm">Template {idx + 1}</p>
+        
+        {/* Categories */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          {categories.map((category, index) => (
+            <div 
+              key={index}
+              className={`${category.color} rounded-lg p-4 text-center hover:shadow-md transition-shadow cursor-pointer`}
+            >
+              <h3 className="font-medium text-gray-800">{category.name}</h3>
+              <p className="text-sm text-gray-600">{category.count} templates</p>
             </div>
           ))}
         </div>
         
-        <div className="mt-12 text-center">
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+        {/* Featured Templates */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featuredTemplates.map((template) => (
+            <div 
+              key={template.id}
+              className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100"
+            >
+              <div className="h-40 overflow-hidden">
+                <img 
+                  src={template.image} 
+                  alt={template.title}
+                  className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-medium text-gray-900">{template.title}</h3>
+                <p className="text-sm text-gray-500 mb-3">{template.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="inline-block px-2 py-1 bg-gray-100 text-xs rounded-full text-gray-600">
+                    {template.style}
+                  </span>
+                  <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800 p-0">
+                    Use <ChevronRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-10 text-center">
+          <Button 
+            variant="outline" 
+            className="border-blue-300 text-blue-600 hover:bg-blue-50"
+          >
             View All Templates
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <ImagePlus className="h-4 w-4 ml-2" />
           </Button>
         </div>
       </div>
