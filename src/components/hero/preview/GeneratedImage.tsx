@@ -27,22 +27,18 @@ export const GeneratedImage = ({
   const handleDownload = () => {
     if (!imageUrl) return;
     try {
-      const a = document.createElement('a');
-      a.href = imageUrl;
-      a.download = `wordtoimage-${Date.now()}.png`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      // Open image in a new tab instead of downloading directly
+      window.open(imageUrl, '_blank');
       
       trackEvent(events.DOWNLOAD_IMAGE, {
         location: 'main_preview' 
       });
       
-      toast.success("Image downloaded successfully!");
+      toast.success("Image opened in a new tab!");
     } catch (error) {
-      console.error('Download error:', error);
-      toast.error('Failed to download image', {
-        description: 'Please try right-clicking the image and selecting "Save image as..."',
+      console.error('Opening error:', error);
+      toast.error('Failed to open image in new tab', {
+        description: 'Please try right-clicking the image and selecting "Open image in new tab"',
         action: {
           label: 'Try Again',
           onClick: handleDownload
@@ -92,7 +88,7 @@ export const GeneratedImage = ({
           >
             <Download className="h-5 w-5 text-blue-600" />
             <span>
-              {isMobile ? "Download" : "Download Image"}
+              {isMobile ? "Open Image" : "Open in New Tab"}
             </span>
           </Button>
         </div>

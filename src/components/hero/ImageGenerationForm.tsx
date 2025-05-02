@@ -50,6 +50,8 @@ export const ImageGenerationForm = ({
     onNewGalleryRow
   });
 
+  const MAX_FREE_GENERATIONS = 1; // Changed from 3 to 1
+
   if (authLoading || isCheckingServerKey) {
     return (
       <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-r from-violet-500 to-indigo-600 rounded-2xl shadow-xl p-1">
@@ -89,14 +91,14 @@ export const ImageGenerationForm = ({
           isGenerating={state.isGenerating}
           isDisabled={!canGenerate}
           generationCount={generationCount}
-          maxFreeGenerations={3}
+          maxFreeGenerations={MAX_FREE_GENERATIONS}
           user={user}
         />
         
         {!user && (
           <FreeGenerationCounter 
             generationCount={generationCount}
-            maxFreeGenerations={3}
+            maxFreeGenerations={MAX_FREE_GENERATIONS}
             onSignUpClick={() => setAuthModalOpen(true)}
           />
         )}

@@ -27,7 +27,7 @@ export const FreeGenerationCounter = ({
             Sign up
           </Button> for unlimited generations.</span>
         ) : (
-          <span>{remainingGenerations} free generations remaining</span>
+          <span>{remainingGenerations} free {remainingGenerations === 1 ? 'generation' : 'generations'} remaining</span>
         )}
       </p>
     </div>

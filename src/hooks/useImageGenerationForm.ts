@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
@@ -16,7 +15,7 @@ interface UseImageGenerationFormProps {
   onNewGalleryRow?: (images: { url: string; prompt: string, style?: string, resolution?: string }[]) => void;
 }
 
-const MAX_FREE_GENERATIONS = 3;
+const MAX_FREE_GENERATIONS = 1; // Changed from 3 to 1 to require signup after first generation
 
 // Map of style IDs to their display names for the prompt
 const STYLE_TO_PROMPT_MAP: Record<string, string> = {
@@ -64,9 +63,9 @@ export const useImageGenerationForm = ({
           setGenerationCount(newCount);
           localStorage.setItem('freeGenerationCount', newCount.toString());
           
-          if (newCount === MAX_FREE_GENERATIONS - 1) {
-            toast.info("Almost reached free limit", { 
-              description: `You have 1 free generation remaining. Sign up to continue creating!`,
+          if (newCount === MAX_FREE_GENERATIONS) {
+            toast.info("Free limit reached", { 
+              description: `You've used your free generation. Sign up to continue creating!`,
               duration: 8000,
               action: {
                 label: "Sign Up",
