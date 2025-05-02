@@ -142,7 +142,7 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
                 height="192"
                 loading="lazy"
                 decoding="async"
-                fetchpriority="low"
+                fetchPriority="low"
                 style={{ contentVisibility: 'auto' }}
                 onLoad={() => handleImageLoad(img.url, i)}
                 onError={() => handleImageError(img.url, i)}

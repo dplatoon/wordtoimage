@@ -30,7 +30,7 @@ export const Logo = () => {
             onError={handleImageError}
             width="160"
             height="40"
-            fetchpriority="high"
+            fetchPriority="high"
           />
         )}
       </div>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -183,7 +184,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
               decoding="async"
               width="512"
               height="512"
-              fetchpriority="high"
+              fetchPriority="high"
               onLoad={handleImageLoad}
               onError={handleImageError}
             />
