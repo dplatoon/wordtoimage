@@ -43,23 +43,23 @@ export const HeroSection = () => {
           </p>
         </div>
         
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div>
-            <ImageGenerationForm
-              onImageGenerated={setGeneratedImageUrl}
-              onGeneratingChange={setIsGenerating}
-              onError={setGenerationError}
-              onNewGalleryRow={handleNewGalleryRow}
-            />
-          </div>
-          
-          <div>
-            <ImagePreview
-              imageUrl={generatedImageUrl}
-              isGenerating={isGenerating}
-              error={generationError}
-            />
-          </div>
+        {/* Form section - Now full width */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <ImageGenerationForm
+            onImageGenerated={setGeneratedImageUrl}
+            onGeneratingChange={setIsGenerating}
+            onError={setGenerationError}
+            onNewGalleryRow={handleNewGalleryRow}
+          />
+        </div>
+        
+        {/* Preview section - Now below the form */}
+        <div className="max-w-4xl mx-auto">
+          <ImagePreview
+            imageUrl={generatedImageUrl}
+            isGenerating={isGenerating}
+            error={generationError}
+          />
         </div>
         
         <div className="mt-12 text-center">
