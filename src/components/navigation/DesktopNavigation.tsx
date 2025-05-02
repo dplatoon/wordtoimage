@@ -1,18 +1,8 @@
-
 import { Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { 
-  NavigationMenu, 
-  NavigationMenuContent, 
-  NavigationMenuItem, 
-  NavigationMenuList, 
-  NavigationMenuTrigger, 
-  NavigationMenuLink 
-} from '@/components/ui/navigation-menu';
-
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger, NavigationMenuLink } from '@/components/ui/navigation-menu';
 export const DesktopNavigation = () => {
-  return (
-    <NavigationMenu>
+  return <NavigationMenu className="px-0">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 transition-colors duration-300">Product</NavigationMenuTrigger>
@@ -136,6 +126,5 @@ export const DesktopNavigation = () => {
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
-    </NavigationMenu>
-  );
+    </NavigationMenu>;
 };
