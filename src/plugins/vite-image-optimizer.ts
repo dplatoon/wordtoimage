@@ -1,23 +1,42 @@
 
 import { Plugin } from 'vite';
 
-// Simple plugin to add image optimization hints
+// Enhanced image optimizer plugin with more optimizations
 export function imageOptimizer(): Plugin {
   return {
     name: 'image-optimizer',
     enforce: 'post',
     
     transformIndexHtml(html) {
-      // Add preloading hints for critical resources
-      const preloadHints = [
-        '<link rel="preload" as="image" href="/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png" type="image/png" fetchpriority="high">'
+      // Add resource hints for critical resources
+      const resourceHints = [
+        // Preload critical images
+        '<link rel="preload" as="image" href="/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png" type="image/png" fetchpriority="high">',
+        // Preconnect to important domains
+        '<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>',
+        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+        '<link rel="preconnect" href="https://api.openai.com" crossorigin>',
+        // DNS prefetch for other domains
+        '<link rel="dns-prefetch" href="https://fonts.googleapis.com">',
       ].join('\n');
       
-      return html.replace('</head>', `${preloadHints}\n</head>`);
+      // Add native lazy loading and other performance attributes to images
+      let optimizedHtml = html.replace(/<img(?!.*?loading=)/g, '<img loading="lazy" decoding="async"');
+      
+      // Add preload hints
+      optimizedHtml = optimizedHtml.replace('</head>', `${resourceHints}\n</head>`);
+      
+      // Add fetchpriority to hero images
+      optimizedHtml = optimizedHtml.replace(
+        /<img.*?src="\/lovable-uploads\/610669b3-849e-4ee2-a163-df90a0e6704e\.png".*?>/g,
+        match => match.includes('fetchpriority') ? match : match.replace('<img', '<img fetchpriority="high"')
+      );
+      
+      return optimizedHtml;
     },
     
     configResolved(config) {
-      console.log('✅ Image optimizer plugin enabled');
+      console.log('✅ Enhanced image optimizer plugin enabled');
     }
   };
 }

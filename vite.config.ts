@@ -26,15 +26,22 @@ export default defineConfig(({ mode }) => ({
     sourcemap: mode === 'development',
     target: "esnext",
     minify: "esbuild",
+    cssMinify: true,
     emptyOutDir: true,
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
           ui: ['@/components/ui'],
           icons: ['lucide-react'],
+          routing: ['react-router-dom'],
+          forms: ['react-hook-form', 'zod', '@hookform/resolvers'],
         }
       }
     }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom', 'lucide-react'],
   },
 }));

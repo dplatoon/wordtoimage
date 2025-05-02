@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, Edit, Heart, Share2, ImageOff } from 'lucide-react';
@@ -30,8 +30,40 @@ export function GalleryCard({
   setHoveredImage,
 }: GalleryCardProps) {
   const isHovered = hoveredImage === index;
-  const [imageLoaded, setImageLoaded] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  
+  // Use Intersection Observer for lazy loading
+  useEffect(() => {
+    if (!imageUrl || !imgRef.current) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target as HTMLImageElement;
+          // Only set the src when the image is visible
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            observer.unobserve(img);
+          }
+        }
+      });
+    }, {
+      rootMargin: '100px', // Load when image is 100px from viewport
+      threshold: 0.1
+    });
+    
+    observer.observe(imgRef.current);
+    
+    return () => {
+      if (imgRef.current) observer.unobserve(imgRef.current);
+    };
+  }, [imageUrl]);
+  
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
   
   const handleImageError = () => {
     setImageError(true);
@@ -52,16 +84,23 @@ export function GalleryCard({
               <p className="text-sm text-gray-400">Image unavailable</p>
             </div>
           ) : (
-            <img
-              src={imageUrl}
-              loading="lazy"
-              alt={`Generated ${index}`}
-              className={`w-full h-48 object-cover transition-all duration-500 ${
-                isHovered ? 'scale-105 brightness-90' : ''
-              }`}
-              decoding="async"
-              onError={handleImageError}
-            />
+            <>
+              <div className="w-full h-48 bg-gray-50"></div> {/* Placeholder */}
+              <img
+                ref={imgRef}
+                data-src={imageUrl}
+                loading="lazy"
+                alt={`Generated ${index}`}
+                className={`w-full h-48 object-cover transition-all duration-500 absolute top-0 left-0 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                } ${isHovered ? 'scale-105 brightness-90' : ''}`}
+                width="300"
+                height="192"
+                decoding="async" 
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+              />
+            </>
           )}
           
           {/* Only show overlays and actions if the image loaded successfully */}

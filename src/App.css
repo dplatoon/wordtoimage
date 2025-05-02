@@ -10,6 +10,8 @@
 body {
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
 }
 
 /* Focus styles for accessibility */
@@ -39,17 +41,12 @@ body {
   top: 0;
 }
 
-/* Print styles */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-}
-
 /* Image optimizations */
 img {
   max-width: 100%;
   height: auto;
+  font-style: italic;
+  vertical-align: middle;
 }
 
 /* Responsive container */

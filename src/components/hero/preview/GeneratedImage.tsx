@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -23,6 +23,18 @@ export const GeneratedImage = ({
   onError 
 }: GeneratedImageProps) => {
   const isMobile = useIsMobile();
+  const imgRef = useRef<HTMLImageElement>(null);
+  
+  // Optimize image loading with progressive enhancement
+  useEffect(() => {
+    if (imageUrl && imgRef.current) {
+      // Create a new image to preload
+      const img = new Image();
+      img.src = imageUrl;
+      img.onload = onLoad;
+      img.onerror = onError;
+    }
+  }, [imageUrl, onLoad, onError]);
   
   const handleDownload = () => {
     if (!imageUrl) return;
@@ -58,6 +70,7 @@ export const GeneratedImage = ({
       )}
       
       <img
+        ref={imgRef}
         src={imageUrl}
         alt="Generated"
         className={`w-full h-full object-contain ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}

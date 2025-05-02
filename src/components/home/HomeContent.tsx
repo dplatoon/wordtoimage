@@ -1,9 +1,23 @@
 
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { HeroSection } from '@/components/HeroSection';
 import { FaqSection } from './FaqSection';
 
-// Sample demo images using WebP format and optimized sizes
+// Dynamically load non-critical sections
+const LazyTemplatesSection = lazy(() => import('@/components/TemplatesSection').then(module => ({ default: module.TemplatesSection })));
+const LazyFeaturesSection = lazy(() => import('@/components/FeaturesSection').then(module => ({ default: module.FeaturesSection })));
+const LazyTestimonialsSection = lazy(() => import('@/components/TestimonialsSection').then(module => ({ default: module.TestimonialsSection })));
+const LazyPricingSection = lazy(() => import('@/components/PricingSection').then(module => ({ default: module.PricingSection })));
+const LazyCTASection = lazy(() => import('@/components/CTASection').then(module => ({ default: module.CTASection })));
+
+// Simple skeletal loading component
+const SectionSkeleton = ({ height = "h-40", bg = "bg-white" }: { height?: string, bg?: string }) => (
+  <div className={`${height} ${bg} w-full animate-pulse flex items-center justify-center`}>
+    <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+  </div>
+);
+
+// Demo images for initial rendering
 const demoImages = [
   {
     url: 'https://images.unsplash.com/photo-1686002359940-6a51b0d8184b?auto=format&fit=crop&w=400&q=75&fm=webp',
@@ -27,53 +41,101 @@ const demoImages = [
   }
 ];
 
-// Lazy load all non-critical sections
-const LazyGenerationGallery = lazy(() => import('@/components/hero/GenerationGallery').then(module => ({ default: module.GenerationGallery })));
-const LazyTemplatesSection = lazy(() => import('@/components/TemplatesSection').then(module => ({ default: module.TemplatesSection })));
-const LazyFeaturesSection = lazy(() => import('@/components/FeaturesSection').then(module => ({ default: module.FeaturesSection })));
-const LazyTestimonialsSection = lazy(() => import('@/components/TestimonialsSection').then(module => ({ default: module.TestimonialsSection })));
-const LazyPricingSection = lazy(() => import('@/components/PricingSection').then(module => ({ default: module.PricingSection })));
-const LazyCTASection = lazy(() => import('@/components/CTASection').then(module => ({ default: module.CTASection })));
-
+// Using Intersection Observer to load components on-demand
 export const HomeContent = () => {
+  const [visibleSections, setVisibleSections] = useState({
+    templates: false,
+    features: false,
+    testimonials: false,
+    pricing: false,
+    cta: false,
+  });
+
+  useEffect(() => {
+    const sectionIds = ['templates', 'features', 'testimonials', 'pricing', 'cta'];
+    const sectionRefs = {};
+    
+    sectionIds.forEach(id => {
+      const element = document.getElementById(id + '-section');
+      if (element) sectionRefs[id] = element;
+    });
+    
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id.replace('-section', '');
+        if (entry.isIntersecting) {
+          setVisibleSections(prev => ({ ...prev, [id]: true }));
+        }
+      });
+    };
+    
+    const observer = new IntersectionObserver(observerCallback, {
+      rootMargin: '200px',
+      threshold: 0.1
+    });
+    
+    Object.values(sectionRefs).forEach(ref => {
+      if (ref) observer.observe(ref);
+    });
+    
+    return () => {
+      Object.values(sectionRefs).forEach(ref => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
+  
+  const LazyGallery = lazy(() => import('@/components/hero/GenerationGallery').then(module => ({ default: module.GenerationGallery })));
+
   return (
     <main id="main-content" className="relative">
       <div className="bg-gradient-to-b from-blue-50 to-white">
         <HeroSection />
       </div>
       
-      {/* Lazily load gallery with lightweight loading state */}
-      <Suspense fallback={<div className="h-40 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>}>
-        <div className="py-8 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <LazyGenerationGallery images={demoImages} />
-          </div>
+      {/* Gallery section */}
+      <div className="py-8 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Suspense fallback={<SectionSkeleton height="h-64" />}>
+            <LazyGallery images={demoImages} />
+          </Suspense>
         </div>
-      </Suspense>
+      </div>
       
-      <div className="bg-gray-50">
-        <Suspense fallback={<div className="h-40 bg-gray-50"></div>}>
-          <LazyTemplatesSection />
+      {/* Templates section */}
+      <div id="templates-section" className="bg-gray-50">
+        <Suspense fallback={<SectionSkeleton bg="bg-gray-50" />}>
+          {visibleSections.templates && <LazyTemplatesSection />}
         </Suspense>
       </div>
       
-      <Suspense fallback={<div className="h-40 bg-white"></div>}>
-        <LazyFeaturesSection />
-      </Suspense>
+      {/* Features section */}
+      <div id="features-section" className="bg-white">
+        <Suspense fallback={<SectionSkeleton />}>
+          {visibleSections.features && <LazyFeaturesSection />}
+        </Suspense>
+      </div>
       
-      <Suspense fallback={<div className="h-40 bg-gray-100"></div>}>
-        <LazyTestimonialsSection />
-      </Suspense>
+      {/* Testimonials section */}
+      <div id="testimonials-section" className="bg-gray-100">
+        <Suspense fallback={<SectionSkeleton bg="bg-gray-100" />}>
+          {visibleSections.testimonials && <LazyTestimonialsSection />}
+        </Suspense>
+      </div>
       
-      <Suspense fallback={<div className="h-40 bg-white"></div>}>
-        <LazyPricingSection />
-      </Suspense>
+      {/* Pricing section */}
+      <div id="pricing-section" className="bg-white">
+        <Suspense fallback={<SectionSkeleton />}>
+          {visibleSections.pricing && <LazyPricingSection />}
+        </Suspense>
+      </div>
       
-      <Suspense fallback={<div className="h-24 bg-gray-50"></div>}>
-        <LazyCTASection />
-      </Suspense>
+      {/* CTA section */}
+      <div id="cta-section" className="bg-gray-50">
+        <Suspense fallback={<SectionSkeleton bg="bg-gray-50" height="h-24" />}>
+          {visibleSections.cta && <LazyCTASection />}
+        </Suspense>
+      </div>
       
       <FaqSection />
     </main>

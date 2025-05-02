@@ -9,8 +9,15 @@
     <meta name="theme-color" content="#ffffff">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="/src/index.css">
+    <!-- Core CSS with minimal critical styles -->
+    <style>
+      body {background:#fff;font-family:system-ui,-apple-system,sans-serif;margin:0}
+      .critical-loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:#fff;z-index:9999}
+      .critical-loader::after{content:'';width:40px;height:40px;border:3px solid #f3f3f3;border-top:3px solid #8B5CF6;border-radius:50%;animation:spin 1s linear infinite}
+      @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    </style>
+    <link rel="stylesheet" href="/src/index.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
 
     <!-- Performance optimization: preconnect to essential domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -61,13 +68,20 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-KND5GPN1W7', { send_page_view: false });
+      gtag('config', 'G-KND5GPN1W7', { 
+        send_page_view: false,
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure'
+      });
       window.addEventListener('load', function() { gtag('event', 'page_view'); });
     </script>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Critical path loader -->
+      <div class="critical-loader"></div>
+    </div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>

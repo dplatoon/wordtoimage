@@ -1,9 +1,21 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Logo = () => {
   const [logoError, setLogoError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  // Preload the logo image
+  useEffect(() => {
+    const img = new Image();
+    img.src = '/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png';
+    img.onload = () => setIsLoaded(true);
+    img.onerror = () => {
+      console.error('Failed to preload logo image');
+      setLogoError(true);
+    };
+  }, []);
   
   const handleImageError = () => {
     console.error('Failed to load logo image');
@@ -31,6 +43,8 @@ export const Logo = () => {
             width="160"
             height="40"
             fetchPriority="high"
+            loading="eager"
+            decoding="async"
           />
         )}
       </div>

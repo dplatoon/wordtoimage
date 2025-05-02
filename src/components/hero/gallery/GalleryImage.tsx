@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ImageActions } from './ImageActions';
 import { ImageOverlay } from './ImageOverlay';
 
@@ -25,6 +25,34 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // Use Intersection Observer for lazy loading
+  useEffect(() => {
+    if (!url || !imgRef.current) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target as HTMLImageElement;
+          // Only set the src when the image is visible
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            observer.unobserve(img);
+          }
+        }
+      });
+    }, {
+      rootMargin: '200px', // Load when image is 200px from viewport
+      threshold: 0.01
+    });
+
+    observer.observe(imgRef.current);
+    
+    return () => {
+      if (imgRef.current) observer.unobserve(imgRef.current);
+    };
+  }, [url]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
@@ -51,11 +79,15 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
           )}
           
           <img
-            src={url}
+            ref={imgRef}
+            src=""
+            data-src={url}
             alt={prompt || 'Generated image'}
             className={`w-full h-full object-cover transition duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             loading="lazy"
             decoding="async"
+            width="300"
+            height="300"
             onLoad={handleImageLoad}
             onError={handleImageError}
           />
