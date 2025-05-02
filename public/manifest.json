@@ -6,10 +6,10 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#4f46e5",
+  "theme_color": "#1EAEDB",
   "icons": [
     {
-      "src": "/favicon.png",
+      "src": "/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png",
       "sizes": "192x192",
       "type": "image/png"
     }
