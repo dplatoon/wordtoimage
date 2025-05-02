@@ -17,7 +17,7 @@ export const PromptInput = ({ prompt, onChange }: PromptInputProps) => {
       <h3 className="font-medium text-gray-800 mb-3">Creation Description</h3>
       <Input
         type="text"
-        placeholder="Describe the picture in your dream, such as "quiet riverside sunset"..."
+        placeholder="Describe the picture in your dream, such as 'quiet riverside sunset'..."
         value={prompt}
         onChange={handlePromptChange}
         className="w-full border-gray-200 py-6 text-base rounded-lg"
