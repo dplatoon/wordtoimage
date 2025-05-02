@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Gallery, ImagePlus, ExternalLink } from 'lucide-react';
+import { GalleryHorizontal, ImagePlus, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -79,7 +78,7 @@ export const ShowcaseSection = () => {
           transition={{ duration: 0.5 }}
         >
           <span className="inline-flex items-center px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-4">
-            <Gallery className="h-4 w-4 mr-2" aria-hidden="true" />
+            <GalleryHorizontal className="h-4 w-4 mr-2" aria-hidden="true" />
             <span>Inspiration Gallery</span>
           </span>
           
