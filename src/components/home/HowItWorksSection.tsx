@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from 'react';
-import { Wand2, PenTool, Download, Play } from 'lucide-react';
+import React from 'react';
+import { Wand2, PenTool, Download } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 
@@ -33,7 +35,7 @@ export const HowItWorksSection = () => {
   ];
   
   // Auto-advance demo when playing
-  React.useEffect(() => {
+  useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     
     if (isPlaying) {
@@ -225,7 +227,3 @@ export const HowItWorksSection = () => {
     </section>
   );
 };
-
-// Adding this import at the top since it was used in the component
-import React from 'react';
-import { Play } from 'lucide-react';
