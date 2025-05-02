@@ -4,7 +4,6 @@ import { Footer } from '@/components/Footer';
 import { BetaBanner } from '@/components/BetaBanner';
 import { CursorTrail } from '@/components/home/CursorTrail';
 import { SeoHead } from '@/components/home/SeoHead';
-import { DecorativeBackground } from '@/components/home/DecorativeBackground';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { HomeContent } from '@/components/home/HomeContent';
 import { AnalyticsTracker } from '@/components/home/AnalyticsTracker';
@@ -22,7 +21,6 @@ const Index = () => {
       <Nav />
       
       <div className="bg-gradient-to-b from-blue-50 via-purple-50/30 to-white">
-        <DecorativeBackground />
         <HomeContent />
       </div>
       

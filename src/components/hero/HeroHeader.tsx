@@ -43,7 +43,7 @@ export const HeroHeader = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.7 }}
       >
-        Experience the magic of AI as your text transforms into beautiful visuals in seconds.
+        Harness the power of AI to create beautiful visuals from any text.
         No design skills required.
       </motion.p>
       
@@ -58,7 +58,7 @@ export const HeroHeader = () => {
           className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-blue-600 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
           onClick={handleGenerateImageClick}
         >
-          Start Creating Now
+          Create Your Image
           <Wand2 className="ml-2 h-5 w-5" />
         </Button>
         
@@ -68,7 +68,7 @@ export const HeroHeader = () => {
           className="text-lg border-2 border-blue-300 text-gray-700 hover:bg-blue-50 transition-colors transform hover:scale-105"
           onClick={handleLearnHowClick}
         >
-          Watch Demo
+          See Examples
           <Play className="ml-2 h-4 w-4 fill-current" />
         </Button>
       </motion.div>

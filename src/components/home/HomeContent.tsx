@@ -104,7 +104,7 @@ export const HomeContent = () => {
       </div>
       
       {/* How it works section */}
-      <div className="bg-gray-50 py-16">
+      <div id="how-it-works" className="bg-gray-50 py-16">
         <HowItWorksSection />
       </div>
       

@@ -3,6 +3,7 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
 import { ImagePreview } from './hero/ImagePreview';
 import { HeroHeader } from './hero/HeroHeader';
+import { DecorativeBackground } from './DecorativeBackground';
 import { trackEvent, events } from '@/utils/analytics';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -39,7 +40,9 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="py-8 md:py-12 lg:py-16 relative overflow-hidden image-generation-section">
+    <section className="py-8 md:py-20 lg:py-24 relative overflow-hidden image-generation-section">
+      <DecorativeBackground />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <HeroHeader />
         
