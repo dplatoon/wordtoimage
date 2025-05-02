@@ -38,7 +38,7 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
         favorites={favorites}
         onDownload={handleDownload}
         onShare={handleShare}
-        onFavoriteToggle={toggleFavorite}
+        toggleFavorite={toggleFavorite}
       />
     </div>
   );
