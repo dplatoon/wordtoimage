@@ -22,7 +22,7 @@ const Contact = () => {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Email Us</h3>
               <p className="text-gray-700">
-                <a href="mailto:hello@wordtoimage.com" className="text-blue-600 hover:underline">hello@wordtoimage.com</a>
+                <a href="mailto:contact@wordtoimage.com" className="text-blue-600 hover:underline">contact@wordtoimage.com</a>
               </p>
             </div>
             
@@ -42,8 +42,9 @@ const Contact = () => {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Visit Us</h3>
               <p className="text-gray-700">
-                1400 Executive Parkway, Suite 400<br />
-                Eugene, OR 97401, USA
+                490 Post St<br />
+                Ste 500 PMB 2060<br />
+                San Francisco, CA 94102
               </p>
             </div>
           </div>
