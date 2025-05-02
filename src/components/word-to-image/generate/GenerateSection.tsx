@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Loader2, Sparkles } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface GenerateSectionProps {
   loading: boolean;
@@ -22,7 +23,14 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
             </div>
             <span className="text-sm font-bold bg-white px-2 py-0.5 rounded-full text-blue-700">{Math.round(progress)}%</span>
           </div>
-          <Progress value={progress} className="h-2 bg-blue-200" indicatorClassName="bg-gradient-to-r from-blue-600 to-purple-600" />
+          <Progress 
+            value={progress} 
+            className="h-2 bg-blue-200" 
+            // Instead of using indicatorClassName, we can style the indicator using CSS variables
+            style={{
+              "--progress-background": "linear-gradient(to right, #2563eb, #9333ea)",
+            } as React.CSSProperties}
+          />
         </div>
       )}
       
