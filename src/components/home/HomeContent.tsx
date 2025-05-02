@@ -2,6 +2,8 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { HeroSection } from '@/components/HeroSection';
 import { FaqSection } from './FaqSection';
+import { HowItWorksSection } from '@/components/home/HowItWorksSection';
+import { ShowcaseSection } from '@/components/home/ShowcaseSection';
 
 // Dynamically load non-critical sections
 const LazyTemplatesSection = lazy(() => import('@/components/TemplatesSection').then(module => ({ default: module.TemplatesSection })));
@@ -89,6 +91,7 @@ export const HomeContent = () => {
 
   return (
     <main id="main-content" className="relative">
+      {/* Hero section with gradient background */}
       <div className="bg-gradient-to-b from-blue-50 to-white">
         <HeroSection />
       </div>
@@ -102,17 +105,27 @@ export const HomeContent = () => {
         </div>
       </div>
       
-      {/* Templates section */}
-      <div id="templates-section" className="bg-gray-50">
-        <Suspense fallback={<SectionSkeleton bg="bg-gray-50" />}>
-          {visibleSections.templates && <LazyTemplatesSection />}
-        </Suspense>
+      {/* How it works section */}
+      <div className="bg-gray-50 py-16">
+        <HowItWorksSection />
+      </div>
+      
+      {/* Showcase section */}
+      <div className="bg-white py-16">
+        <ShowcaseSection />
       </div>
       
       {/* Features section */}
       <div id="features-section" className="bg-white">
         <Suspense fallback={<SectionSkeleton />}>
           {visibleSections.features && <LazyFeaturesSection />}
+        </Suspense>
+      </div>
+      
+      {/* Templates section */}
+      <div id="templates-section" className="bg-gray-50">
+        <Suspense fallback={<SectionSkeleton bg="bg-gray-50" />}>
+          {visibleSections.templates && <LazyTemplatesSection />}
         </Suspense>
       </div>
       
@@ -141,4 +154,3 @@ export const HomeContent = () => {
     </main>
   );
 };
-

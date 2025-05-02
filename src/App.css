@@ -12,6 +12,14 @@ body {
   -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Add font imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Focus styles for accessibility */
@@ -76,4 +84,67 @@ img {
   .responsive-container {
     max-width: 1280px;
   }
+}
+
+/* Animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Gradient Backgrounds */
+.bg-hero-gradient {
+  background: linear-gradient(135deg, #4A90E2, #9b87f5);
+}
+
+.bg-card-gradient {
+  background: linear-gradient(to right, #4A90E2, #9b87f5);
+}
+
+/* Interactive Elements */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Additional Button Styles */
+.btn-primary {
+  background: linear-gradient(to right, #4A90E2, #9b87f5);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(74, 144, 226, 0.25);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 10px rgba(74, 144, 226, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #4A90E2;
+  border: 2px solid #4A90E2;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(74, 144, 226, 0.1);
 }
