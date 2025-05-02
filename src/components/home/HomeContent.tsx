@@ -6,7 +6,7 @@ import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { ShowcaseSection } from '@/components/home/ShowcaseSection';
 import { FeaturesSection } from '@/components/FeaturesSection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
-import { PricingSection } from '@/components/PricingSection';
+import { PricingSection } from '@/components/home/PricingSection';
 import { CTASection } from '@/components/home/CTASection';
 
 // Simple skeletal loading component
@@ -124,7 +124,7 @@ export const HomeContent = () => {
       </div>
       
       {/* Pricing section */}
-      <div id="pricing-section" className="bg-white">
+      <div id="pricing-section" className="bg-gray-50">
         <PricingSection />
       </div>
       
