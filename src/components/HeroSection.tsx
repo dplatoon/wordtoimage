@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { HeroHeader } from './hero/HeroHeader';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
 import { ImagePreview } from './hero/ImagePreview';
 import { trackEvent, events } from '@/utils/analytics';
@@ -41,20 +40,20 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden">
+    <section className="py-12 md:py-16 lg:py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col items-center justify-center text-center mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-6">
+        <div className="flex flex-col items-center justify-center text-center mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-4 md:mb-6">
             Transform <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Text to Image</span> with AI
           </h1>
           
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+          <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto mb-6 md:mb-8">
             Create stunning, unique images from your text descriptions using our advanced AI image generator
           </p>
         </div>
         
         {/* Form and Preview in a card-like container */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-12">
+        <div className="bg-white rounded-2xl shadow-xl p-4 md:p-8 mb-8 md:mb-12">
           <div className="max-w-4xl mx-auto">
             <ImageGenerationForm 
               onImageGenerated={setGeneratedImageUrl} 
@@ -64,7 +63,7 @@ export const HeroSection = () => {
             />
           </div>
           
-          <div className="max-w-4xl mx-auto mt-8">
+          <div className="max-w-4xl mx-auto mt-6 md:mt-8">
             <ImagePreview 
               imageUrl={generatedImageUrl} 
               isGenerating={isGenerating} 
@@ -73,8 +72,8 @@ export const HeroSection = () => {
           </div>
         </div>
         
-        <div className="mt-8 text-center">
-          <p className="text-sm text-gray-500">
+        <div className="mt-6 md:mt-8 text-center">
+          <p className="text-xs md:text-sm text-gray-500">
             Powered by state-of-the-art AI models • Free to try • No credit card required
           </p>
         </div>

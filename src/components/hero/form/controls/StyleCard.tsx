@@ -18,7 +18,7 @@ export const StyleCard = ({ image, label, selected, onClick, color }: StyleCardP
     <button
       onClick={onClick}
       className={cn(
-        "flex flex-col items-center justify-end relative overflow-hidden rounded-lg border h-[108px] w-full transition-all duration-200",
+        "flex flex-col items-center justify-end relative overflow-hidden rounded-lg border h-[90px] md:h-[108px] w-full transition-all duration-200",
         selected ? "border-violet-600 ring-2 ring-violet-400" : "border-gray-200 hover:border-gray-300"
       )}
       aria-label={`Select ${label} style`}
@@ -32,8 +32,8 @@ export const StyleCard = ({ image, label, selected, onClick, color }: StyleCardP
         alt={label}
         className="absolute inset-0 w-full h-full object-cover"
       />
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-        <p className="text-white text-sm font-medium text-center">{label}</p>
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-1 md:p-2">
+        <p className="text-white text-xs md:text-sm font-medium text-center line-clamp-1">{label}</p>
       </div>
       {selected && (
         <div className="absolute inset-0 bg-violet-500/20 flex items-center justify-center">

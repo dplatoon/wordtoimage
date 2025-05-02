@@ -2,6 +2,7 @@
 import React from 'react';
 import { StyleCard } from './controls/StyleCard';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Style {
   id: string;
@@ -20,7 +21,7 @@ const STYLE_OPTIONS: Style[] = [
   {
     id: '3d_anime',
     label: '3D Anime',
-    image: 'https://placehold.co/300x200/FF6B6B/fff?text=3D+Anime',
+    image: '/lovable-uploads/99f5c8dc-6b8d-4daf-81a1-ff186d0ee10a.png',
     color: '#F87171'
   },
   {
@@ -56,6 +57,7 @@ interface StyleSelectorProps {
 
 export const StyleSelector = ({ selectedStyle, onStyleChange }: StyleSelectorProps) => {
   const scrollRef = React.useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -76,7 +78,7 @@ export const StyleSelector = ({ selectedStyle, onStyleChange }: StyleSelectorPro
       <div className="relative">
         <div 
           ref={scrollRef}
-          className="grid grid-cols-6 gap-3 overflow-x-auto pb-2 hide-scrollbar"
+          className={`grid gap-3 overflow-x-auto pb-2 hide-scrollbar ${isMobile ? 'grid-cols-3' : 'grid-cols-6'}`}
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {STYLE_OPTIONS.map(style => (

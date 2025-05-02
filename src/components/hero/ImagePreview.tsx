@@ -8,6 +8,7 @@ import { LoadingState } from './preview/LoadingState';
 import { ErrorState } from './preview/ErrorState';
 import { EmptyState } from './preview/EmptyState';
 import { GeneratedImage } from './preview/GeneratedImage';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ImagePreviewProps {
   imageUrl: string;
@@ -20,6 +21,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
     useImageLoader(imageUrl, isGenerating);
   const { gallery } = useGalleryState(imageUrl, isGenerating);
   const [retryCount, setRetryCount] = useState(0);
+  const isMobile = useIsMobile();
 
   const handleRetry = () => {
     setRetryCount(count => count + 1);
@@ -31,7 +33,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
 
   return (
     <div>
-      <div className="bg-gray-50 border border-gray-200 h-[300px] sm:h-[350px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group transition-all duration-300 hover:shadow-lg">
+      <div className="bg-gray-50 border border-gray-200 h-[250px] sm:h-[300px] md:h-[350px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group transition-all duration-300 hover:shadow-lg">
         {isGenerating ? (
           <LoadingState progress={loadingProgress} />
         ) : error ? (

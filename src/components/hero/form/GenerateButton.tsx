@@ -21,7 +21,7 @@ export const GenerateButton = ({
       <button
         type="submit"
         disabled={isGenerating || isDisabled}
-        className={`w-full flex items-center justify-center rounded-lg py-6 text-white font-medium text-lg transition-all duration-300
+        className={`w-full flex items-center justify-center rounded-lg py-4 md:py-6 text-white font-medium text-lg transition-all duration-300
           ${isGenerating || isDisabled 
             ? 'bg-gray-300 cursor-not-allowed' 
             : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-md hover:shadow-lg'

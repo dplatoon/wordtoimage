@@ -24,7 +24,7 @@
 
 @layer components {
   .section-spacing {
-    @apply py-16 md:py-24;
+    @apply py-12 md:py-16 lg:py-24;
   }
 
   .content-container {
@@ -39,5 +39,28 @@
   
   .hide-scrollbar::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .content-container {
+      @apply px-3;
+    }
+    
+    h1 {
+      @apply text-3xl;
+    }
+    
+    h2 {
+      @apply text-2xl;
+    }
+    
+    h3 {
+      @apply text-xl;
+    }
+    
+    p {
+      @apply text-sm;
+    }
   }
 }
