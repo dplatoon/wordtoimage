@@ -31,20 +31,32 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="py-10 md:py-16 lg:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 image-generation-section" aria-labelledby="hero-heading">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section 
+      className="py-10 md:py-16 lg:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 image-generation-section relative overflow-hidden" 
+      aria-labelledby="hero-heading"
+    >
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div className="absolute -right-40 -top-40 w-80 h-80 bg-purple-200 rounded-full opacity-20 blur-3xl"></div>
+        <div className="absolute -left-20 top-40 w-60 h-60 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
+        <div className="absolute right-1/4 bottom-0 w-80 h-80 bg-indigo-200 rounded-full opacity-10 blur-3xl"></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
           <div className={`${isMobile ? "w-full" : "flex-1"} mb-6 lg:mb-0`}>
             <HeroHeader />
           </div>
           <div className={`${isMobile ? "w-full" : "flex-1"}`}>
             <div className="relative">
-              <ImageGenerationForm
-                onImageGenerated={setGeneratedImageUrl}
-                onGeneratingChange={setIsGenerating}
-                onError={setGenerationError}
-                onNewGalleryRow={handleNewGalleryRow}
-              />
+              <div className="relative transform transition-all duration-300 hover:scale-[1.01]">
+                <ImageGenerationForm
+                  onImageGenerated={setGeneratedImageUrl}
+                  onGeneratingChange={setIsGenerating}
+                  onError={setGenerationError}
+                  onNewGalleryRow={handleNewGalleryRow}
+                />
+              </div>
               <div className="mt-5">
                 <ImagePreview
                   imageUrl={generatedImageUrl}
