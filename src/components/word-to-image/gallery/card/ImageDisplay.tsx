@@ -1,7 +1,9 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { ImageOff, Loader } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Loader } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useImageWithFallback } from '@/hooks/useImageWithFallback';
+import { ImageErrorState } from './ImageErrorState';
 
 interface ImageDisplayProps {
   imageUrl: string;
@@ -11,53 +13,27 @@ interface ImageDisplayProps {
 }
 
 export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayProps) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const imgRef = useRef<HTMLImageElement>(null);
   
-  // Use Intersection Observer for lazy loading
-  useEffect(() => {
-    if (!imageUrl) {
-      setImageError(true);
-      setIsLoading(false);
-      return;
-    }
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Start loading the image when it becomes visible
-          setIsLoading(true);
-          const img = new Image();
-          img.src = imageUrl;
-          img.onload = () => {
-            setImageLoaded(true);
-            setIsLoading(false);
-            onLoad();
-          };
-          img.onerror = () => {
-            console.error('Failed to load gallery image:', imageUrl);
-            setImageError(true);
-            setIsLoading(false);
-            onError();
-          };
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      rootMargin: '200px', // Start loading when image is 200px from viewport
-      threshold: 0.1
-    });
-    
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
-    
-    return () => {
-      if (imgRef.current) observer.unobserve(imgRef.current);
-    };
-  }, [imageUrl, onLoad, onError]);
+  const {
+    imageSrc,
+    isLoading,
+    isError,
+    handleLoad,
+    handleError
+  } = useImageWithFallback({
+    src: imageUrl,
+    fallbackSrc: "https://images.unsplash.com/photo-1686002359940-6a51b0d8184b?auto=format&fit=crop&w=400&q=75",
+    onLoadSuccess: onLoad,
+    onLoadError: onError,
+    trackSuccess: true,
+    trackEvent: 'gallery_image',
+  });
+  
+  // Error state
+  if (isError) {
+    return <ImageErrorState />;
+  }
   
   // Loading skeleton
   if (isLoading) {
@@ -71,26 +47,18 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
     );
   }
   
-  // Error state
-  if (imageError) {
-    return (
-      <div className="w-full h-48 bg-gray-100 flex flex-col items-center justify-center p-4">
-        <ImageOff className="h-8 w-8 text-gray-300 mb-2" />
-        <p className="text-sm text-gray-400">Image unavailable</p>
-      </div>
-    );
-  }
-  
   // Successfully loaded image
   return (
     <div className="relative w-full h-48 overflow-hidden">
       <img
         ref={imgRef}
-        src={imageUrl}
+        src={imageSrc}
         alt={`Generated image ${index}`}
         className="w-full h-full object-cover transition-all duration-300"
         loading="lazy"
         decoding="async"
+        onLoad={handleLoad}
+        onError={handleError}
       />
     </div>
   );
