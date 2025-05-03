@@ -1,4 +1,14 @@
 
+// Google Analytics event tracking utility
+export const trackEvent = (eventName: string, eventParams?: Record<string, any>) => {
+  if (typeof window === 'undefined' || !window.gtag) {
+    console.warn('Google Analytics not initialized');
+    return;
+  }
+
+  window.gtag('event', eventName, eventParams);
+};
+
 // Add SIGN_OUT to the events object
 export const events = {
   GENERATE_IMAGE: 'generate_image',
