@@ -15,7 +15,7 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { session, user, isLoading, isConfigured } = useAuthState();
+  const { session, user, isLoading, isConfigured, lastError } = useAuthState();
 
   // Handle profile creation and updates
   useEffect(() => {
@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     user,
     isLoading,
     isConfigured,
+    lastError,
     signIn: async (email: string, password: string) => {
       await authService.signIn(email, password);
     },

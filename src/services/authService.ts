@@ -3,23 +3,28 @@ import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 
 export async function setupUserProfile(userId: string, email: string | undefined) {
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('user_id', userId)
-    .single();
-
-  if (!profile) {
-    const { error: profileError } = await supabase
+  try {
+    const { data: profile } = await supabase
       .from('profiles')
-      .insert([{ user_id: userId, username: email }]);
+      .select('*')
+      .eq('user_id', userId)
+      .single();
 
-    if (profileError) {
-      console.error("Error creating profile:", profileError);
-      toast.error("Profile creation failed", {
-        description: "There was a problem setting up your profile."
-      });
+    if (!profile) {
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert([{ user_id: userId, username: email }]);
+
+      if (profileError) {
+        console.error("Error creating profile:", profileError);
+        toast.error("Profile creation failed", {
+          description: "There was a problem setting up your profile."
+        });
+      }
     }
+  } catch (error) {
+    console.error("Error in profile setup:", error);
+    // Don't show toast here as this is a background operation
   }
 }
 
@@ -78,6 +83,7 @@ export async function signUp(email: string, password: string, username?: string)
       password,
       options: {
         data: { username },
+        emailRedirectTo: `${window.location.origin}/auth/callback`
       },
     });
     

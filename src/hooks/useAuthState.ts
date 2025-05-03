@@ -9,6 +9,7 @@ export function useAuthState() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isConfigured] = useState(true);
+  const [lastError, setLastError] = useState<string | null>(null);
 
   useEffect(() => {
     // First set up the auth state listener
@@ -16,6 +17,8 @@ export function useAuthState() {
       async (_event, currentSession) => {
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
+        // Clear any previous errors when auth state successfully changes
+        if (currentSession) setLastError(null);
       }
     );
 
@@ -23,6 +26,7 @@ export function useAuthState() {
     supabase.auth.getSession().then(({ data: { session: initialSession }, error }) => {
       if (error) {
         console.error("Error fetching initial session:", error);
+        setLastError(error.message);
         toast.error("Authentication error", {
           description: "There was a problem with your authentication. Please try logging in again."
         });
@@ -33,8 +37,18 @@ export function useAuthState() {
       setIsLoading(false);
     });
 
+    // Set up a refresh interval for the session
+    const refreshInterval = setInterval(() => {
+      if (session) {
+        supabase.auth.refreshSession().catch(err => {
+          console.warn("Failed to refresh session:", err);
+        });
+      }
+    }, 10 * 60 * 1000); // Refresh every 10 minutes
+
     return () => {
       subscription.unsubscribe();
+      clearInterval(refreshInterval);
     };
   }, []);
 
@@ -42,6 +56,7 @@ export function useAuthState() {
     session,
     user,
     isLoading,
-    isConfigured
+    isConfigured,
+    lastError
   };
 }

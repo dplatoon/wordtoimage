@@ -6,6 +6,7 @@ export type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   isConfigured: boolean;
+  lastError: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signUp: (email: string, password: string, username?: string) => Promise<void>;
