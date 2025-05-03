@@ -1,4 +1,5 @@
 
+import React, { memo } from 'react';
 import { trackEvent, events } from '@/utils/analytics';
 import { GalleryHeader } from './gallery/GalleryHeader';
 import { GalleryGrid } from './gallery/GalleryGrid';
@@ -9,13 +10,14 @@ interface GalleryImage {
   prompt: string;
   style?: string;
   resolution?: string;
+  timestamp?: number;
 }
 
 interface GenerationGalleryProps {
   images: GalleryImage[];
 }
 
-export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
+const GenerationGallery = ({ images }: GenerationGalleryProps) => {
   const { favorites, handleDownload, handleShare, toggleFavorite } = useGallery(images);
   
   if (!images?.length) return null;
@@ -25,7 +27,10 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
     trackEvent(events.VIEW_GALLERY, { imageCount: images.length });
   }
   
-  const galleryImages = images.slice(-8).reverse();
+  // Sort by timestamp (newest first) and limit to 8
+  const galleryImages = [...images]
+    .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
+    .slice(0, 8);
   
   return (
     <div className="mt-8 w-full">
@@ -43,3 +48,5 @@ export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
     </div>
   );
 };
+
+export default memo(GenerationGallery);

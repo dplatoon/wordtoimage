@@ -1,10 +1,10 @@
 
+import { memo, useState } from 'react';
 import { StyleSelect } from './StyleSelect';
 import { ResolutionSelect } from './ResolutionSelect';
 import { CountSelect } from './CountSelect';
 import { Separator } from '@/components/ui/separator';
 import { ImageUploader } from './ImageUploader';
-import { useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface GenerationControlsProps {
@@ -17,7 +17,7 @@ interface GenerationControlsProps {
   onSourceImageChange?: (imageData: string) => void;
 }
 
-export const GenerationControls = ({
+export const GenerationControls = memo(({
   style,
   resolution,
   count,
@@ -57,4 +57,6 @@ export const GenerationControls = ({
       )}
     </div>
   );
-}
+});
+
+GenerationControls.displayName = 'GenerationControls';

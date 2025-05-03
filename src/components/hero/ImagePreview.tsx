@@ -2,7 +2,6 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { trackEvent, events } from '@/utils/analytics';
 import { useImageLoader } from './preview/useImageLoader';
-import { useGalleryState } from './preview/useGalleryState';
 import { LoadingState } from './preview/LoadingState';
 import { ErrorState } from './preview/ErrorState';
 import { EmptyState } from './preview/EmptyState';
@@ -18,12 +17,23 @@ interface ImagePreviewProps {
   imageUrl: string;
   isGenerating: boolean;
   error: string | null;
+  gallery?: {
+    url: string;
+    prompt: string;
+    style?: string;
+    resolution?: string;
+    timestamp?: number;
+  }[];
 }
 
-export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProps) => {
+export const ImagePreview = ({ 
+  imageUrl, 
+  isGenerating, 
+  error,
+  gallery = []
+}: ImagePreviewProps) => {
   const { imageLoaded, imageError, loadingProgress, handleImageLoad, handleImageError } = 
     useImageLoader(imageUrl, isGenerating);
-  const { gallery } = useGalleryState(imageUrl, isGenerating);
   const [retryCount, setRetryCount] = useState(0);
   const isMobile = useIsMobile();
 
@@ -56,7 +66,7 @@ export const ImagePreview = ({ imageUrl, isGenerating, error }: ImagePreviewProp
       </div>
       
       <Suspense fallback={<div className="h-12 w-full bg-gray-100 animate-pulse mt-6 rounded"></div>}>
-        {gallery.length > 0 && <GenerationGallery images={gallery} />}
+        {gallery && gallery.length > 0 && <GenerationGallery images={gallery} />}
       </Suspense>
     </div>
   );

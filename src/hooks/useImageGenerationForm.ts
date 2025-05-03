@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
@@ -13,7 +12,7 @@ interface UseImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
   onGeneratingChange: (isGenerating: boolean) => void;
   onError: (error: string | null) => void;
-  onNewGalleryRow?: (images: { url: string; prompt: string, style?: string, resolution?: string }[]) => void;
+  onNewGalleryRow?: (images: { url: string; prompt: string, style?: string, resolution?: string, timestamp?: number }[]) => void;
 }
 
 const MAX_FREE_GENERATIONS = 1; // Changed from 3 to 1 to require signup after first generation
@@ -51,7 +50,18 @@ export const useImageGenerationForm = ({
     onImageGenerated: (url) => {
       onImageGenerated(url);
       if (onNewGalleryRow && url) {
-        onNewGalleryRow([{ url, prompt, style, resolution }]);
+        // Add unique timestamp and ID to prevent caching/duplicates
+        const timestamp = new Date().getTime();
+        const uniqueId = Math.random().toString(36).substring(2, 10);
+        const uniqueUrl = `${url}?id=${uniqueId}`;
+        
+        onNewGalleryRow([{ 
+          url: uniqueUrl, 
+          prompt, 
+          style, 
+          resolution,
+          timestamp
+        }]);
         
         trackEvent(events.GENERATE_IMAGE, {
           prompt,

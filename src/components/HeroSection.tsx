@@ -7,16 +7,22 @@ import { DecorativeBackground } from './DecorativeBackground';
 import { trackEvent, events } from '@/utils/analytics';
 import { useIsMobile } from '@/hooks/use-mobile';
 
+// Use dynamic import for better performance
+const GenerationGallery = lazy(() => import('./hero/GenerationGallery').then(module => ({ 
+  default: module.GenerationGallery 
+})));
+
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImageUrl, setGeneratedImageUrl] = useState('');
   const [generationError, setGenerationError] = useState<string | null>(null);
-  const [galleryRows, setGalleryRows] = useState<{
+  const [galleryImages, setGalleryImages] = useState<{
     url: string;
     prompt: string;
     style?: string;
     resolution?: string;
-  }[][]>([]);
+    timestamp?: number;
+  }[]>([]);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -27,15 +33,37 @@ export const HeroSection = () => {
     }
   }, [isGenerating, generatedImageUrl]);
 
+  // Load saved gallery from localStorage on component mount
+  useEffect(() => {
+    try {
+      const savedGallery = localStorage.getItem('imageGenerationGallery');
+      if (savedGallery) {
+        const parsed = JSON.parse(savedGallery);
+        if (Array.isArray(parsed)) {
+          setGalleryImages(parsed);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load gallery from localStorage:', e);
+    }
+  }, []);
+
   const handleNewGalleryRow = (row: {
     url: string;
     prompt: string;
     style?: string;
     resolution?: string;
+    timestamp?: number;
   }[]) => {
-    setGalleryRows(prev => {
-      const newRows = [...prev, row];
-      return newRows.slice(-5); // Store fewer rows to reduce memory usage
+    setGalleryImages(prev => {
+      const newGallery = [...prev, ...row];
+      // Store the updated gallery in localStorage
+      try {
+        localStorage.setItem('imageGenerationGallery', JSON.stringify(newGallery));
+      } catch (e) {
+        console.error('Failed to save gallery to localStorage:', e);
+      }
+      return newGallery;
     });
   };
 
@@ -61,6 +89,7 @@ export const HeroSection = () => {
               imageUrl={generatedImageUrl} 
               isGenerating={isGenerating} 
               error={generationError} 
+              gallery={galleryImages}
             />
           </div>
         </div>
