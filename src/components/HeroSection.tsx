@@ -1,4 +1,3 @@
-
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
 import { ImagePreview } from './hero/ImagePreview';
@@ -8,9 +7,7 @@ import { trackEvent, events } from '@/utils/analytics';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 // Use dynamic import for better performance
-const GenerationGallery = lazy(() => import('./hero/GenerationGallery').then(module => ({ 
-  default: module.GenerationGallery 
-})));
+const GenerationGallery = lazy(() => import('./hero/GenerationGallery'));
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);

@@ -17,7 +17,7 @@ interface GenerationGalleryProps {
   images: GalleryImage[];
 }
 
-const GenerationGallery = ({ images }: GenerationGalleryProps) => {
+export const GenerationGallery = ({ images }: GenerationGalleryProps) => {
   const { favorites, handleDownload, handleShare, toggleFavorite } = useGallery(images);
   
   if (!images?.length) return null;
@@ -49,4 +49,5 @@ const GenerationGallery = ({ images }: GenerationGalleryProps) => {
   );
 };
 
-export default memo(GenerationGallery);
+// Export as default as well for compatibility with existing imports
+export default GenerationGallery;

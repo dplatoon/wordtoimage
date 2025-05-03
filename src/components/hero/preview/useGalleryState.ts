@@ -6,6 +6,7 @@ interface GalleryImage {
   prompt: string;
   style?: string;
   resolution?: string;
+  timestamp?: number; // Add timestamp property to the interface
 }
 
 export const useGalleryState = (imageUrl: string, isGenerating: boolean) => {

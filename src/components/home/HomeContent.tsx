@@ -84,7 +84,7 @@ export const HomeContent = () => {
     };
   }, []);
   
-  const LazyGallery = lazy(() => import('@/components/hero/GenerationGallery').then(module => ({ default: module.GenerationGallery })));
+  const LazyGallery = lazy(() => import('@/components/hero/GenerationGallery'));
 
   return (
     <main id="main-content" className="relative">

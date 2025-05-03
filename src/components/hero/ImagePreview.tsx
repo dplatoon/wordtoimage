@@ -1,4 +1,3 @@
-
 import React, { useState, lazy, Suspense } from 'react';
 import { trackEvent, events } from '@/utils/analytics';
 import { useImageLoader } from './preview/useImageLoader';
@@ -9,9 +8,7 @@ import { GeneratedImage } from './preview/GeneratedImage';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 // Lazy load the gallery component to improve initial load time
-const GenerationGallery = lazy(() => import('./GenerationGallery').then(module => ({ 
-  default: module.GenerationGallery 
-})));
+const GenerationGallery = lazy(() => import('./GenerationGallery'));
 
 interface ImagePreviewProps {
   imageUrl: string;
