@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const value: AuthContextType = {
     session,
     user,
+    loading: isLoading, // Added this property for backward compatibility
     isLoading,
     isConfigured,
     lastError,

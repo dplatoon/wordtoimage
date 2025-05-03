@@ -4,6 +4,7 @@ import { User, Session } from '@supabase/supabase-js';
 export type AuthContextType = {
   session: Session | null;
   user: User | null;
+  loading: boolean; // Added this property
   isLoading: boolean;
   isConfigured: boolean;
   lastError: string | null;

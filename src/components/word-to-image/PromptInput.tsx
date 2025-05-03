@@ -6,9 +6,10 @@ import { Sparkles } from 'lucide-react';
 interface PromptInputProps {
   prompt: string;
   onPromptChange: (value: string) => void;
+  suggestions?: string[]; // Added this optional property
 }
 
-export function PromptInput({ prompt, onPromptChange }: PromptInputProps) {
+export function PromptInput({ prompt, onPromptChange, suggestions }: PromptInputProps) {
   const MAX_LENGTH = 1000;
   
   return (
@@ -27,6 +28,20 @@ export function PromptInput({ prompt, onPromptChange }: PromptInputProps) {
         <div className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400 flex items-center pointer-events-none">
           <span className="animate-pulse">✨</span>
           <span className="ml-1 text-sm">Write a detailed description</span>
+        </div>
+      )}
+      
+      {suggestions && suggestions.length > 0 && prompt.length === 0 && (
+        <div className="mt-2 flex flex-wrap gap-2">
+          {suggestions.map((suggestion, index) => (
+            <button
+              key={index}
+              onClick={() => onPromptChange(suggestion)}
+              className="bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs py-1 px-2 rounded-full"
+            >
+              {suggestion}
+            </button>
+          ))}
         </div>
       )}
       
