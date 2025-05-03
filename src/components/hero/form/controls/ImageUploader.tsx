@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/sonner';
 import { Skeleton } from '@/components/ui/skeleton';
-import { upload, image as imageIcon, x } from 'lucide-react';
+import { Upload, Image as ImageIcon, X } from 'lucide-react';
 import { trackEvent, events } from '@/utils/analytics';
 
 interface ImageUploaderProps {
@@ -41,7 +41,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
       onImageSelected(result);
       setIsLoading(false);
       
-      trackEvent(events.IMAGE_UPLOADED, {
+      trackEvent(events.IMAGE_LOADED, {
         fileType: file.type,
         fileSize: file.size
       });
@@ -85,7 +85,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
               onChange={handleFileChange}
               disabled={disabled}
             />
-            <upload className="h-8 w-8 text-gray-400 mb-2" />
+            <Upload className="h-8 w-8 text-gray-400 mb-2" />
             <span className="text-sm text-gray-500">Click to upload an image</span>
             <span className="text-xs text-gray-400 mt-1">or drag and drop</span>
           </div>
@@ -107,14 +107,14 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
               className="absolute top-2 right-2 h-6 w-6 rounded-full opacity-80 hover:opacity-100"
               onClick={handleRemoveImage}
             >
-              <x className="h-3 w-3" />
+              <X className="h-3 w-3" />
             </Button>
           </div>
         )}
       </div>
       
       <div className="text-xs text-gray-500 mt-1 flex items-center">
-        <imageIcon className="h-3 w-3 mr-1 inline" />
+        <ImageIcon className="h-3 w-3 mr-1 inline" />
         <span>For best results, use clear images with good lighting</span>
       </div>
     </div>

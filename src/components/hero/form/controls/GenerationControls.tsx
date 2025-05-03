@@ -5,6 +5,7 @@ import { CountSelect } from './CountSelect';
 import { Separator } from '@/components/ui/separator';
 import { ImageUploader } from './ImageUploader';
 import { useState } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface GenerationControlsProps {
   style: string;
@@ -26,6 +27,7 @@ export const GenerationControls = ({
   onSourceImageChange = () => {},
 }: GenerationControlsProps) => {
   const [showImageUpload, setShowImageUpload] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleImageSelected = (imageData: string) => {
     onSourceImageChange(imageData);
@@ -35,7 +37,7 @@ export const GenerationControls = ({
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StyleSelect value={style} onChange={onStyleChange} />
-        <ResolutionSelect value={resolution} onChange={onResolutionChange} />
+        <ResolutionSelect value={resolution} onChange={onResolutionChange} isMobile={isMobile} />
         <CountSelect value={count} onChange={onCountChange} />
       </div>
       
