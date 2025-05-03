@@ -8,7 +8,12 @@ import { supabase } from "@/integrations/supabase/client";
 const isDevelopmentMode = false; // Set this to false now that we have a real API key
 
 export const generateImage = async (options: ImageGenerationOptions): Promise<ImageGenerationResponse> => {
-  console.log('Image Generation Request:', options);
+  console.log('Image Generation Request:', {
+    ...options,
+    prompt: options.prompt.substring(0, 20) + '...',
+    apiKey: options.apiKey ? '[API KEY PROVIDED]' : '[NO API KEY]',
+    sourceImage: options.sourceImage ? '[SOURCE IMAGE PROVIDED]' : '[NO SOURCE IMAGE]'
+  });
   
   try {
     if (!options.prompt?.trim()) {
@@ -24,7 +29,8 @@ export const generateImage = async (options: ImageGenerationOptions): Promise<Im
         size: options.size || '1024x1024',
         quality: options.quality || 'standard',
         apiKey: options.apiKey || null,
-        userId: options.userId || null
+        userId: options.userId || null,
+        sourceImage: options.sourceImage || null
       }
     });
     

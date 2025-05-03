@@ -38,6 +38,8 @@ export const ImageGenerationForm = ({
     setResolution,
     count,
     setCount,
+    sourceImage,
+    setSourceImage,
     user,
     authLoading,
     state,
@@ -85,6 +87,7 @@ export const ImageGenerationForm = ({
           onStyleChange={setStyle}
           onResolutionChange={setResolution}
           onCountChange={handleCountChange}
+          onSourceImageChange={setSourceImage}
         />
 
         <PromptInput 

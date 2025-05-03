@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
@@ -42,6 +43,7 @@ export const useImageGenerationForm = ({
   const [style, setStyle] = useState<string>('auto');
   const [resolution, setResolution] = useState<string>(RESOLUTIONS[1]);
   const [count, setCount] = useState(1);
+  const [sourceImage, setSourceImage] = useState<string>('');
 
   const { user, isLoading: authLoading } = useAuth();
 
@@ -55,6 +57,7 @@ export const useImageGenerationForm = ({
           prompt,
           style,
           resolution,
+          sourceImageUsed: !!sourceImage,
           authenticated: !!user
         });
         
@@ -138,7 +141,8 @@ export const useImageGenerationForm = ({
       await generateImageFromPrompt(
         finalPrompt,
         tempApiKey,
-        false
+        false,
+        sourceImage
       );
     }
   };
@@ -161,6 +165,8 @@ export const useImageGenerationForm = ({
     setResolution,
     count,
     setCount,
+    sourceImage,
+    setSourceImage,
     user,
     authLoading,
     state,

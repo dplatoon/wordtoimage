@@ -39,15 +39,17 @@ export const useImageWithFallback = ({
   const [useFallback, setUseFallback] = useState(false);
   const [fallbackAttempted, setFallbackAttempted] = useState(false);
   const [imageSrc, setImageSrc] = useState<string>(src);
-
+  
+  // Reset states when source changes
   useEffect(() => {
-    if (src !== imageSrc && !useFallback) {
+    if (src) {
       setImageSrc(src);
       setIsLoading(true);
       setIsError(false);
+      setUseFallback(false);
       setFallbackAttempted(false);
     }
-  }, [src, imageSrc, useFallback]);
+  }, [src]);
 
   // Load the image and handle states
   useEffect(() => {
@@ -62,7 +64,10 @@ export const useImageWithFallback = ({
       onLoadSuccess?.();
 
       if (trackSuccess && trackEventName) {
-        trackEvent(events.IMAGE_LOADED, { source: trackEventName });
+        trackEvent(events.IMAGE_LOADED, { 
+          source: trackEventName,
+          fallback: useFallback ? 'yes' : 'no'
+        });
       }
     };
 
@@ -84,7 +89,7 @@ export const useImageWithFallback = ({
       img.onload = null;
       img.onerror = null;
     };
-  }, [imageSrc, fallbackSrc, onLoadSuccess, onLoadError, trackSuccess, trackEventName, fallbackAttempted, lazyLoad]);
+  }, [imageSrc, fallbackSrc, onLoadSuccess, onLoadError, trackSuccess, trackEventName, fallbackAttempted, lazyLoad, useFallback]);
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -105,7 +110,7 @@ export const useImageWithFallback = ({
   };
 
   return {
-    imageSrc: useFallback ? fallbackSrc : src,
+    imageSrc,
     isLoading,
     isError,
     handleLoad,

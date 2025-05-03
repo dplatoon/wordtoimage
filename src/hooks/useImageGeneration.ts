@@ -30,7 +30,8 @@ export const useImageGeneration = ({
   const generateImageFromPrompt = async (
     prompt: string, 
     tempApiKey: string, 
-    retry: boolean = false
+    retry: boolean = false,
+    sourceImage: string = ''
   ): Promise<void> => {
     // If this is a retry and we're already retrying, skip
     if (state.isRetrying && !retry) return;
@@ -74,14 +75,16 @@ export const useImageGeneration = ({
         quality: 'standard',
         numberResults: 1,
         apiKey: tempApiKey || null, // Pass API key only if provided
-        userId: user?.id || null     // Pass user ID if authenticated
+        userId: user?.id || null,    // Pass user ID if authenticated
+        sourceImage: sourceImage || undefined // Pass source image if available
       };
       
       console.log("Calling generate image with options:", {
         prompt: options.prompt.substring(0, 20) + "...",
         size: options.size,
         quality: options.quality,
-        userId: options.userId ? "provided" : "not provided"
+        userId: options.userId ? "provided" : "not provided",
+        hasSourceImage: !!sourceImage
       });
       
       const result = await generateImage(options);
@@ -108,7 +111,7 @@ export const useImageGeneration = ({
             duration: 5000,
             action: {
               label: 'Generate Another',
-              onClick: () => generateImageFromPrompt(prompt, tempApiKey, false)
+              onClick: () => generateImageFromPrompt(prompt, tempApiKey, false, sourceImage)
             }
           });
         }
@@ -141,7 +144,7 @@ export const useImageGeneration = ({
           label: errorDetails.action,
           onClick: () => {
             if (errorDetails.action === 'Retry') {
-              generateImageFromPrompt(prompt, tempApiKey, true);
+              generateImageFromPrompt(prompt, tempApiKey, true, sourceImage);
             }
           }
         } : undefined

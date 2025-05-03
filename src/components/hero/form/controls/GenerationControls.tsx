@@ -1,37 +1,58 @@
 
-import { memo } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { StyleSelector } from './StyleSelector';
-import { CountSelect } from './CountSelect';
+import { StyleSelect } from './StyleSelect';
 import { ResolutionSelect } from './ResolutionSelect';
+import { CountSelect } from './CountSelect';
+import { Separator } from '@/components/ui/separator';
+import { ImageUploader } from './ImageUploader';
+import { useState } from 'react';
 
 interface GenerationControlsProps {
   style: string;
   resolution: string;
   count: number;
-  onStyleChange: React.Dispatch<React.SetStateAction<string>>;
-  onResolutionChange: React.Dispatch<React.SetStateAction<string>>;
-  onCountChange: (value: string) => void;
+  onStyleChange: (style: string) => void;
+  onResolutionChange: (resolution: string) => void;
+  onCountChange: (count: string) => void;
+  onSourceImageChange?: (imageData: string) => void;
 }
 
-export const GenerationControls = memo(({
+export const GenerationControls = ({
   style,
   resolution,
   count,
   onStyleChange,
   onResolutionChange,
-  onCountChange
+  onCountChange,
+  onSourceImageChange = () => {},
 }: GenerationControlsProps) => {
-  const isMobile = useIsMobile();
-  
+  const [showImageUpload, setShowImageUpload] = useState(false);
+
+  const handleImageSelected = (imageData: string) => {
+    onSourceImageChange(imageData);
+  };
+
   return (
-    <div className={`grid ${isMobile ? 'grid-cols-2' : 'grid-cols-3'} gap-3 mb-4`}>
-      <StyleSelector value={style} onChange={onStyleChange} />
-      <CountSelect value={count} onChange={onCountChange} />
-      <ResolutionSelect value={resolution} onChange={onResolutionChange} isMobile={isMobile} />
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StyleSelect value={style} onChange={onStyleChange} />
+        <ResolutionSelect value={resolution} onChange={onResolutionChange} />
+        <CountSelect value={count} onChange={onCountChange} />
+      </div>
+      
+      <div className="flex items-center">
+        <button
+          type="button"
+          onClick={() => setShowImageUpload(!showImageUpload)}
+          className="text-sm text-blue-600 hover:text-blue-800 transition-colors flex items-center space-x-1"
+        >
+          <span>{showImageUpload ? 'Hide' : 'Show'} Image-to-Image options</span>
+        </button>
+        <Separator className="flex-1 mx-4" />
+      </div>
+      
+      {showImageUpload && (
+        <ImageUploader onImageSelected={handleImageSelected} />
+      )}
     </div>
   );
-});
-
-// Add display name for better debugging
-GenerationControls.displayName = 'GenerationControls';
+}

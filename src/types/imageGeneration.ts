@@ -8,6 +8,7 @@ export interface ImageGenerationOptions {
   numberResults?: number;
   apiKey?: string | null;
   userId?: string | null;  // Add userId to track who generated the image
+  sourceImage?: string;    // Add sourceImage for image-to-image generation
 }
 
 export interface ImageGenerationResponse {
@@ -38,7 +39,7 @@ export interface ImageGenerationState {
 }
 
 export interface ImageGenerationHookReturn {
-  generateImageFromPrompt: (prompt: string, tempApiKey: string, retry?: boolean) => Promise<void>;
+  generateImageFromPrompt: (prompt: string, tempApiKey: string, retry?: boolean, sourceImage?: string) => Promise<void>;
   isRetrying: boolean;
   state: ImageGenerationState;
 }

@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { Loader } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useImageWithFallback } from '@/hooks/useImageWithFallback';
@@ -13,14 +13,13 @@ interface ImageDisplayProps {
 }
 
 export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayProps) {
-  const imgRef = useRef<HTMLImageElement>(null);
-  
   const {
     imageSrc,
     isLoading,
     isError,
     handleLoad,
-    handleError
+    handleError,
+    useFallback
   } = useImageWithFallback({
     src: imageUrl,
     fallbackSrc: "https://images.unsplash.com/photo-1686002359940-6a51b0d8184b?auto=format&fit=crop&w=400&q=75",
@@ -32,7 +31,7 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
   
   // Error state
   if (isError) {
-    return <ImageErrorState />;
+    return <ImageErrorState message={useFallback ? "Using placeholder image" : "Image unavailable"} />;
   }
   
   // Loading skeleton
@@ -51,7 +50,6 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
   return (
     <div className="relative w-full h-48 overflow-hidden">
       <img
-        ref={imgRef}
         src={imageSrc}
         alt={`Generated image ${index}`}
         className="w-full h-full object-cover transition-all duration-300"
