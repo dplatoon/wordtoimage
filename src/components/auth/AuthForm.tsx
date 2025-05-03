@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,11 +9,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
-import { Github, Loader2, Mail } from 'lucide-react';
+import { Github, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 import { trackEvent, events } from '@/utils/analytics';
+import { useAuth } from '@/contexts/AuthContext';
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -30,6 +31,7 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
   const navigate = useNavigate();
   const [authError, setAuthError] = useState<string | null>(null);
   const [isConfigured] = useState(true);
+  const { signIn, signUp, signInWithGoogle } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,26 +48,11 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
 
     try {
       if (mode === 'signup') {
-        const { error } = await supabase.auth.signUp({
-          email: values.email,
-          password: values.password,
-          options: {
-            data: {
-              username: values.username,
-            },
-          },
-        });
-        if (error) throw error;
-        toast.success('Account created successfully! You may now sign in.');
-        navigate('/auth?tab=signin');
+        await signUp(values.email, values.password, values.username);
+        // Don't navigate, let user see the success message
       } else {
-        const { error, data } = await supabase.auth.signInWithPassword({
-          email: values.email,
-          password: values.password,
-        });
-        if (error) throw error;
-        toast.success('Successfully signed in');
-        navigate('/');
+        await signIn(values.email, values.password);
+        // AuthContext will handle the navigation after successful login
       }
     } catch (error) {
       console.error("Auth error:", error);
@@ -78,43 +65,21 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
       }
       
       setAuthError(errorMessage);
-      toast.error('Authentication failed', {
-        description: errorMessage,
-      });
     } finally {
       setIsLoading(false);
     }
   }
 
-  async function signInWithGoogle() {
-    setIsLoading(true);
-    setAuthError(null);
+  async function handleSignInWithGoogle() {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          },
-        }
-      });
-      
-      if (error) throw error;
+      setAuthError(null);
+      await signInWithGoogle();
       
       if (mode === 'signup') {
         trackEvent(events.SIGN_UP, { provider: 'google' });
       }
     } catch (error) {
-      console.error('Google auth error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Failed to sign in with Google';
-      setAuthError(errorMessage);
-      toast.error('Authentication failed', {
-        description: errorMessage
-      });
-    } finally {
-      setIsLoading(false);
+      // Error is already handled in the AuthContext
     }
   }
 
@@ -200,7 +165,7 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
       <Button 
         variant="outline" 
         className="w-full" 
-        onClick={signInWithGoogle} 
+        onClick={handleSignInWithGoogle} 
         disabled={isLoading}
       >
         {isLoading ? (

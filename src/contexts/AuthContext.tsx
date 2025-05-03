@@ -1,16 +1,17 @@
 
 import { createContext, useContext, useState, useEffect } from 'react';
 import { User, Session } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
-import { trackEvent, events } from '@/utils/analytics';
-import { toast } from '@/components/ui/sonner';
+import { supabase } from '@/lib/supabase';
+import { toast } from 'sonner';
 
 type AuthContextType = {
   session: Session | null;
   user: User | null;
   isLoading: boolean;
   isConfigured: boolean;
-  signIn: (email: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  signUp: (email: string, password: string, username?: string) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -86,21 +87,79 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [user]);
 
-  const signIn = async (email: string) => {
+  const signIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+      
       if (error) {
-        console.error("Error signing in:", error);
-        toast.error("Sign in failed", {
-          description: error.message
-        });
         throw error;
       } else {
-        toast.success("Check your email", {
-          description: "We've sent you a magic link to sign in."
-        });
+        toast.success("Signed in successfully");
       }
+    } catch (error) {
+      console.error("Error signing in:", error);
+      toast.error("Sign in failed", {
+        description: error instanceof Error ? error.message : "Please check your credentials and try again"
+      });
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    setIsLoading(true);
+    try {
+      // Using the current origin as the redirect URL to ensure it matches what's configured in Google
+      const redirectTo = `${window.location.origin}/auth/callback`;
+      console.log("Redirect URL for Google auth:", redirectTo);
+      
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        }
+      });
+      
+      if (error) throw error;
+    } catch (error) {
+      console.error('Google auth error:', error);
+      toast.error('Authentication failed', {
+        description: error instanceof Error ? error.message : 'Failed to sign in with Google'
+      });
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signUp = async (email: string, password: string, username?: string) => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { username },
+        },
+      });
+      
+      if (error) throw error;
+      toast.success("Account created! Please check your email for confirmation.");
+    } catch (error) {
+      console.error("Error signing up:", error);
+      toast.error("Sign up failed", {
+        description: error instanceof Error ? error.message : "Please try again"
+      });
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -111,13 +170,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) {
-        console.error("Error signing out:", error);
-        toast.error("Sign out failed", {
-          description: error.message
-        });
         throw error;
       }
       toast.success("Signed out successfully");
+    } catch (error) {
+      console.error("Error signing out:", error);
+      toast.error("Sign out failed", {
+        description: error instanceof Error ? error.message : "Please try again"
+      });
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -129,6 +190,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     isLoading,
     isConfigured,
     signIn,
+    signInWithGoogle,
+    signUp,
     signOut,
   };
 

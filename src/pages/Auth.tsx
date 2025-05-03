@@ -22,16 +22,27 @@ export default function Auth() {
 
   // Check for auth hash in URL (from OAuth redirects)
   useEffect(() => {
-    const handleHashChange = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (data.session && !error) {
-        navigate('/', { replace: true });
+    const handleAuthCallback = async () => {
+      if (window.location.hash.includes('access_token') || 
+          window.location.search.includes('code=')) {
+        setIsLoading(true);
+        try {
+          // This will handle the OAuth callback
+          const { data, error } = await supabase.auth.getSession();
+          if (data.session && !error) {
+            navigate('/', { replace: true });
+          } else if (error) {
+            console.error("Auth callback error:", error);
+          }
+        } catch (err) {
+          console.error("Error processing auth callback:", err);
+        } finally {
+          setIsLoading(false);
+        }
       }
     };
     
-    if (window.location.hash.includes('access_token')) {
-      handleHashChange();
-    }
+    handleAuthCallback();
   }, [navigate]);
 
   // Redirect if already logged in
