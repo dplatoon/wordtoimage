@@ -6,7 +6,7 @@ import { Sparkles } from 'lucide-react';
 interface PromptInputProps {
   prompt: string;
   onPromptChange: (value: string) => void;
-  suggestions?: string[]; // Added this optional property
+  suggestions?: string[];
 }
 
 export function PromptInput({ prompt, onPromptChange, suggestions }: PromptInputProps) {
@@ -37,8 +37,9 @@ export function PromptInput({ prompt, onPromptChange, suggestions }: PromptInput
             <button
               key={index}
               onClick={() => onPromptChange(suggestion)}
-              className="bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs py-1 px-2 rounded-full"
+              className="bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs py-1 px-2 rounded-full flex items-center"
             >
+              <Sparkles className="h-3 w-3 mr-1" />
               {suggestion}
             </button>
           ))}
