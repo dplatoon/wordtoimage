@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Image } from 'lucide-react';
+import { Image as LucideImage } from 'lucide-react';
 
 export const Logo = () => {
   const [logoError, setLogoError] = useState(false);
@@ -9,7 +9,7 @@ export const Logo = () => {
   
   // Preload the logo image
   useEffect(() => {
-    const img = new Image();
+    const img = new window.Image(); // Use window.Image to access the browser's built-in Image constructor
     img.src = '/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png';
     img.onload = () => setIsLoaded(true);
     img.onerror = () => {
@@ -33,7 +33,7 @@ export const Logo = () => {
         {logoError ? (
           // Fallback text logo if image fails to load
           <div className="flex items-center">
-            <Image className="h-6 w-6 mr-2 text-blue-600" />
+            <LucideImage className="h-6 w-6 mr-2 text-blue-600" />
             <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               WordToImage
             </span>
