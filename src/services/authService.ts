@@ -55,7 +55,7 @@ export async function signInWithGoogle(): Promise<void> {
     const redirectTo = `${window.location.origin}/auth/callback`;
     console.log("Redirect URL for Google auth:", redirectTo);
     
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo,
@@ -67,6 +67,8 @@ export async function signInWithGoogle(): Promise<void> {
     });
     
     if (error) throw error;
+    
+    console.log("Google auth initiated successfully", data);
   } catch (error) {
     console.error('Google auth error:', error);
     toast.error('Authentication failed', {

@@ -31,9 +31,17 @@ export default function Auth() {
       if (window.location.hash.includes('access_token') || 
           window.location.search.includes('code=')) {
         setIsLoading(true);
+        console.log("Auth callback detected in URL", { 
+          hash: window.location.hash,
+          search: window.location.search
+        });
+        
         try {
           // This will handle the OAuth callback
           const { data, error } = await supabase.auth.getSession();
+          
+          console.log("Auth callback result:", { data, error });
+          
           if (data.session && !error) {
             toast.success('Successfully authenticated');
             trackEvent('auth_success', { method: 'oauth' });

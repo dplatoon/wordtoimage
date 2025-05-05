@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 
 interface SocialLoginButtonProps {
   provider: 'google';
@@ -8,7 +9,24 @@ interface SocialLoginButtonProps {
   isLoading: boolean;
 }
 
-export function SocialLoginButton({ provider, onClick, isLoading }: SocialLoginButtonProps) {
+export function SocialLoginButton({ provider, onClick, isLoading: parentIsLoading }: SocialLoginButtonProps) {
+  const [localLoading, setLocalLoading] = useState(false);
+  const isLoading = parentIsLoading || localLoading;
+  
+  const handleClick = async () => {
+    if (isLoading) return;
+    
+    setLocalLoading(true);
+    try {
+      await onClick();
+    } catch (error) {
+      console.error(`Error with ${provider} login:`, error);
+      // Error is handled in the parent component
+    } finally {
+      setLocalLoading(false);
+    }
+  };
+  
   const getProviderIcon = () => {
     switch (provider) {
       case 'google':
@@ -50,7 +68,7 @@ export function SocialLoginButton({ provider, onClick, isLoading }: SocialLoginB
     <Button 
       variant="outline" 
       className="w-full" 
-      onClick={onClick} 
+      onClick={handleClick} 
       disabled={isLoading}
     >
       {isLoading ? (
