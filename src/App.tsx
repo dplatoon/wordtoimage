@@ -14,7 +14,11 @@ import Community from '@/pages/Community';
 import DesignTips from '@/pages/DesignTips';
 import Tutorials from '@/pages/Tutorials';
 import About from '@/pages/About';
-import Beta from '@/pages/Beta'; // Add this import
+import Beta from '@/pages/Beta';
+import Features from '@/pages/Features';
+import Pricing from '@/pages/Pricing';
+import Updates from '@/pages/Updates';
+// Removing Templates since it's redundant with Templates Library
 
 function App() {
   return (
@@ -33,7 +37,10 @@ function App() {
         <Route path="/design-tips" element={<DesignTips />} />
         <Route path="/tutorials" element={<Tutorials />} />
         <Route path="/about" element={<About />} />
-        <Route path="/beta" element={<Beta />} /> {/* Add this route */}
+        <Route path="/beta" element={<Beta />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/updates" element={<Updates />} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,6 +1,8 @@
+
 import { Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger, NavigationMenuLink } from '@/components/ui/navigation-menu';
+
 export const DesktopNavigation = () => {
   return <NavigationMenu className="px-0">
       <NavigationMenuList>
@@ -31,7 +33,7 @@ export const DesktopNavigation = () => {
               </li>
               <li>
                 <NavigationMenuLink asChild>
-                  <Link to="/templates" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
+                  <Link to="/text-to-image" className="block select-none space-y-1 rounded-md p-3 hover:bg-gray-100">
                     <div className="font-medium">Templates Library</div>
                   </Link>
                 </NavigationMenuLink>

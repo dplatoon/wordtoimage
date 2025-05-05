@@ -1,6 +1,7 @@
 
 import { ImagePlus, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
 
 export const TemplatesSection = () => {
   // Sample template categories
@@ -99,13 +100,15 @@ export const TemplatesSection = () => {
         </div>
         
         <div className="mt-10 text-center">
-          <Button 
-            variant="outline" 
-            className="border-blue-300 text-blue-600 hover:bg-blue-50"
-          >
-            View All Templates
-            <ImagePlus className="h-4 w-4 ml-2" />
-          </Button>
+          <Link to="/text-to-image">
+            <Button 
+              variant="outline" 
+              className="border-blue-300 text-blue-600 hover:bg-blue-50"
+            >
+              View All Templates
+              <ImagePlus className="h-4 w-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

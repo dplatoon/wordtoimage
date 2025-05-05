@@ -4,7 +4,7 @@ import { Users, Settings, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dispatch, SetStateAction } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 
 interface MobileMenuProps {
@@ -38,7 +38,7 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
           <Link to="/features" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Features</Link>
           <Link to="/pricing" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Pricing</Link>
           <Link to="/updates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Updates</Link>
-          <Link to="/templates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Templates Library</Link>
+          <Link to="/text-to-image" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Templates Library</Link>
           <Link to="/beta" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Beta Program</Link>
         </div>
         
