@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Image } from 'lucide-react';
 
 export const Logo = () => {
   const [logoError, setLogoError] = useState(false);
@@ -31,8 +32,11 @@ export const Logo = () => {
       <div className="flex items-center h-10">
         {logoError ? (
           // Fallback text logo if image fails to load
-          <div className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            WordToImage
+          <div className="flex items-center">
+            <Image className="h-6 w-6 mr-2 text-blue-600" />
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              WordToImage
+            </span>
           </div>
         ) : (
           <img 
@@ -44,8 +48,7 @@ export const Logo = () => {
             height="40"
             loading="eager"
             decoding="async"
-            // Removed the 'importance' attribute as it's not a valid HTML attribute in TypeScript definitions
-            fetchPriority="high" // Use fetchPriority instead, which is the standard attribute
+            fetchPriority="high"
           />
         )}
       </div>
