@@ -11,8 +11,12 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12 mb-12">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-5">
-              <Image className="h-6 w-6 text-blue-400" />
-              <span className="font-poppins font-semibold text-xl text-white">WordToImage</span>
+              <img 
+                src="/lovable-uploads/5cc3bb2f-158e-4a9d-8ff5-0efe1c96ab93.png" 
+                alt="WordToImage Logo" 
+                className="h-8 w-auto"
+                loading="lazy"
+              />
             </div>
             <p className="text-gray-400 mb-5">
               Transform your words into stunning social media graphics in seconds with our AI-powered design tool.

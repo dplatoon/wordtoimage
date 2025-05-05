@@ -10,7 +10,7 @@ export const Logo = () => {
   // Preload the logo image
   useEffect(() => {
     const img = new window.Image(); // Use window.Image to access the browser's built-in Image constructor
-    img.src = '/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png';
+    img.src = '/lovable-uploads/5cc3bb2f-158e-4a9d-8ff5-0efe1c96ab93.png';
     img.onload = () => setIsLoaded(true);
     img.onerror = () => {
       console.error('Failed to preload logo image');
@@ -41,10 +41,10 @@ export const Logo = () => {
         ) : (
           <img 
             alt="WordToImage Logo" 
-            className="h-8 md:h-10 object-cover" 
-            src="/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png"
+            className="h-8 md:h-10 object-contain" 
+            src="/lovable-uploads/5cc3bb2f-158e-4a9d-8ff5-0efe1c96ab93.png"
             onError={handleImageError}
-            width="160"
+            width="200"
             height="40"
             loading="eager"
             decoding="async"
