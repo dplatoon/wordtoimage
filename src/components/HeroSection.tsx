@@ -1,13 +1,10 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+
+import { useState } from 'react';
 import { ImageGenerationForm } from './hero/ImageGenerationForm';
 import { ImagePreview } from './hero/ImagePreview';
 import { HeroHeader } from './hero/HeroHeader';
 import { DecorativeBackground } from './DecorativeBackground';
-import { trackEvent, events } from '@/utils/analytics';
-import { useIsMobile } from '@/hooks/use-mobile';
-
-// Use dynamic import for better performance
-const GenerationGallery = lazy(() => import('./hero/GenerationGallery'));
+import { events } from '@/utils/analytics';
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -20,30 +17,6 @@ export const HeroSection = () => {
     resolution?: string;
     timestamp?: number;
   }[]>([]);
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (isGenerating) {
-      trackEvent(events.GENERATION_STARTED, {});
-    } else if (generatedImageUrl) {
-      trackEvent(events.IMAGE_DISPLAYED, {});
-    }
-  }, [isGenerating, generatedImageUrl]);
-
-  // Load saved gallery from localStorage on component mount
-  useEffect(() => {
-    try {
-      const savedGallery = localStorage.getItem('imageGenerationGallery');
-      if (savedGallery) {
-        const parsed = JSON.parse(savedGallery);
-        if (Array.isArray(parsed)) {
-          setGalleryImages(parsed);
-        }
-      }
-    } catch (e) {
-      console.error('Failed to load gallery from localStorage:', e);
-    }
-  }, []);
 
   const handleNewGalleryRow = (row: {
     url: string;
@@ -86,7 +59,6 @@ export const HeroSection = () => {
               imageUrl={generatedImageUrl} 
               isGenerating={isGenerating} 
               error={generationError} 
-              gallery={galleryImages}
             />
           </div>
         </div>

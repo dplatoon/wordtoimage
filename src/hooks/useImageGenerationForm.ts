@@ -7,6 +7,7 @@ import {
   MAX_PROMPT_LENGTH 
 } from '@/components/hero/constants';
 import { toast } from 'sonner';
+import { trackEvent } from '@/utils/analytics';
 
 interface UseImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -63,8 +64,12 @@ export const useImageGenerationForm = ({
           timestamp
         }]);
         
-        // Log the event to console instead of using trackEvent
-        console.log('Generated image with prompt:', prompt, style, resolution);
+        // Track successful image generation
+        trackEvent('image_generated', { 
+          style, 
+          resolution,
+          promptLength: prompt.length 
+        });
         
         if (!user) {
           const newCount = generationCount + 1;
@@ -113,6 +118,7 @@ export const useImageGenerationForm = ({
         });
         setShowApiKeyForm(true);
         setIsCheckingServerKey(false);
+        trackEvent('api_key_required');
       }
     };
 
@@ -128,6 +134,7 @@ export const useImageGenerationForm = ({
         description: "Sign up to continue generating images!",
         duration: 8000
       });
+      trackEvent('free_limit_reached');
       return;
     }
     
@@ -137,6 +144,14 @@ export const useImageGenerationForm = ({
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (!canGenerate) return;
+    
+    trackEvent('generate_button_clicked', {
+      style,
+      resolution,
+      sourceImage: !!sourceImage,
+      count,
+      authenticated: !!user
+    });
     
     // Use the style mapping to enhance the prompt
     const stylePrefix = style !== 'auto' ? STYLE_TO_PROMPT_MAP[style] || '' : '';

@@ -13,10 +13,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
-import { events } from "@/utils/analytics";
+import { trackEvent, events } from "@/utils/analytics";
 
 export const Nav = () => {
-  const { user, signOut, isLoading } = useAuth(); // Changed from loading to isLoading
+  const { user, signOut, isLoading } = useAuth();
   const { toast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -27,8 +27,7 @@ export const Nav = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
-      // Using event constant without trackEvent function
-      console.log(`User signed out: ${events.SIGN_OUT}`);
+      trackEvent(events.SIGN_OUT);
       toast({
         title: "Signed out",
         description: "You have been successfully signed out.",
@@ -79,12 +78,24 @@ export const Nav = () => {
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                       <Avatar className="h-8 w-8">
-                        <AvatarImage src={user?.user_metadata?.avatar_url} alt={user?.user_metadata?.full_name || user.email!} />
-                        <AvatarFallback>{user?.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0)}</AvatarFallback>
+                        <AvatarImage 
+                          src={user?.user_metadata?.avatar_url} 
+                          alt={user?.user_metadata?.full_name || user.email || "User"} 
+                        />
+                        <AvatarFallback>
+                          {user?.user_metadata?.full_name?.charAt(0) || 
+                          user.email?.charAt(0) || "U"}
+                        </AvatarFallback>
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuItem className="focus:bg-gray-100">
+                      <span className="truncate text-sm font-medium">
+                        {user.email}
+                      </span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem className="focus:outline-none" asChild>
                       <Link to="/dashboard">Profile</Link>
                     </DropdownMenuItem>

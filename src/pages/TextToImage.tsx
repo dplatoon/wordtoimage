@@ -6,7 +6,7 @@ import { ImageGallery } from '@/components/word-to-image/ImageGallery';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
 import { AuthModalDialog } from '@/components/hero/AuthModalDialog';
-import { useNavigate } from 'react-router-dom';
+import { trackEvent } from '@/utils/analytics';
 
 export default function TextToImage() {
   const [generatedImageUrl, setGeneratedImageUrl] = useState<string>('');
@@ -16,28 +16,42 @@ export default function TextToImage() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   
   const { user, isLoading } = useAuth();
-  const navigate = useNavigate();
 
   const { generateImageFromPrompt } = useImageGeneration({
     onImageGenerated: (url) => {
       setGeneratedImageUrl(url);
       setGeneratedImages(prev => [...prev, { url }]);
       toast.success("Image generated successfully!");
+      trackEvent('text_to_image_generated');
     },
     onGeneratingChange: setIsGenerating,
-    onError: setError
+    onError: (errorMsg) => {
+      setError(errorMsg);
+      toast.error("Failed to generate image", {
+        description: errorMsg || "An unexpected error occurred"
+      });
+      trackEvent('text_to_image_error', {
+        errorMessage: errorMsg
+      });
+    }
   });
   
   const handleGenerate = async (prompt: string) => {
     if (!user && !isLoading) {
       setAuthModalOpen(true);
+      trackEvent('auth_modal_opened', { source: 'text_to_image' });
       return;
     }
     
     try {
+      trackEvent('text_to_image_generate_attempt', { promptLength: prompt.length });
       await generateImageFromPrompt(prompt, '', false);
     } catch (error) {
       console.error('Failed to generate image:', error);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      toast.error("Failed to generate image", {
+        description: errorMessage
+      });
     }
   };
 

@@ -1,3 +1,4 @@
+
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { HeroSection } from '@/components/HeroSection';
 import { FaqSection } from './FaqSection';
@@ -14,30 +15,6 @@ const SectionSkeleton = ({ height = "h-40", bg = "bg-white" }: { height?: string
     <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
   </div>
 );
-
-// Demo images for initial rendering
-const demoImages = [
-  {
-    url: 'https://images.unsplash.com/photo-1686002359940-6a51b0d8184b?auto=format&fit=crop&w=400&q=75&fm=webp',
-    prompt: 'Futuristic city with flying cars',
-    style: 'Futuristic'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=400&q=75&fm=webp',
-    prompt: 'Mountain landscape with lake',
-    style: 'Photorealistic'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1655635949212-1d8f4f103ea1?auto=format&fit=crop&w=400&q=75&fm=webp',
-    prompt: 'Abstract shapes in blue and purple flowing like liquid',
-    style: 'Abstract'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1638803040283-7a5ffd48dad5?auto=format&fit=crop&w=400&q=75&fm=webp',
-    prompt: 'Enchanted forest',
-    style: 'Fantasy'
-  }
-];
 
 // Using Intersection Observer to load components on-demand
 export const HomeContent = () => {
@@ -83,23 +60,12 @@ export const HomeContent = () => {
       });
     };
   }, []);
-  
-  const LazyGallery = lazy(() => import('@/components/hero/GenerationGallery'));
 
   return (
     <main id="main-content" className="relative">
       {/* Hero section with gradient background */}
       <div className="bg-gradient-to-b from-blue-50 to-white">
         <HeroSection />
-      </div>
-      
-      {/* Gallery section */}
-      <div className="py-8 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Suspense fallback={<SectionSkeleton height="h-64" />}>
-            <LazyGallery images={demoImages} />
-          </Suspense>
-        </div>
       </div>
       
       {/* How it works section */}

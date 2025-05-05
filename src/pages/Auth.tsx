@@ -9,10 +9,11 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
+import { trackEvent } from '@/utils/analytics';
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
-  const { session, isConfigured, user } = useAuth();
+  const { session, isConfigured, user, isLoading: authLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -35,17 +36,27 @@ export default function Auth() {
           const { data, error } = await supabase.auth.getSession();
           if (data.session && !error) {
             toast.success('Successfully authenticated');
+            trackEvent('auth_success', { method: 'oauth' });
             navigate(redirectTo, { replace: true });
           } else if (error) {
             console.error("Auth callback error:", error);
+            trackEvent('auth_error', { 
+              error: error.message,
+              method: 'oauth'
+            });
             toast.error("Authentication error", {
               description: error.message
             });
           }
         } catch (err) {
           console.error("Error processing auth callback:", err);
+          const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
+          trackEvent('auth_error', { 
+            error: errorMessage,
+            method: 'oauth'
+          });
           toast.error("Authentication error", {
-            description: err instanceof Error ? err.message : "An unexpected error occurred"
+            description: errorMessage
           });
         } finally {
           setIsLoading(false);
@@ -55,6 +66,15 @@ export default function Auth() {
     
     handleAuthCallback();
   }, [navigate, redirectTo]);
+
+  // Show loading state while checking auth
+  if (authLoading) {
+    return (
+      <div className="container flex items-center justify-center min-h-screen py-8">
+        <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   // Redirect if already logged in
   if (session) {
