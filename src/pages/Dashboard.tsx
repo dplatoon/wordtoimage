@@ -6,6 +6,8 @@ import { toast } from 'sonner';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { ProfileCard } from '@/components/dashboard/ProfileCard';
 import { ProfileSkeleton } from '@/components/dashboard/ProfileSkeleton';
+import { Nav } from '@/components/Nav';
+import { Footer } from '@/components/Footer';
 
 interface Profile {
   id: number;
@@ -57,9 +59,18 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute>
-      <div className="container max-w-4xl py-12">
-        <h1 className="text-3xl font-bold mb-8 text-center md:text-left">Profile Settings</h1>
-        {loading ? <ProfileSkeleton /> : profile && <ProfileCard profile={profile} />}
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+        <Nav />
+        <div className="container max-w-4xl py-12 px-4">
+          <h1 className="text-3xl font-bold mb-8 text-center md:text-left bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            Profile Settings
+          </h1>
+          
+          <div className="bg-white rounded-xl shadow-md p-6">
+            {loading ? <ProfileSkeleton /> : profile && <ProfileCard profile={profile} />}
+          </div>
+        </div>
+        <Footer />
       </div>
     </ProtectedRoute>
   );

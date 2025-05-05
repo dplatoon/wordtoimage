@@ -5,12 +5,10 @@ import { BetaBanner } from '@/components/BetaBanner';
 import { CursorTrail } from '@/components/home/CursorTrail';
 import { SeoHead } from '@/components/home/SeoHead';
 import { SkipToContent } from '@/components/home/SkipToContent';
-import { DecorativeBackground } from '@/components/DecorativeBackground';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Wand2, Star, Download, Image } from 'lucide-react';
-import { HeroSection } from '@/components/HeroSection';
 import { useAuth } from '@/contexts/AuthContext';
 import { trackEvent } from '@/utils/analytics';
 

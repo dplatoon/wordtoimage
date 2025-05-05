@@ -44,7 +44,9 @@ export default function TextToImage() {
     "A futuristic cityscape at night with neon lights",
     "Serene mountain lake at sunset with reflection",
     "Abstract geometric patterns in vibrant colors",
-    "Tropical beach with crystal clear water and palm trees"
+    "Tropical beach with crystal clear water and palm trees",
+    "A magical forest with glowing mushrooms and fairies",
+    "Modern minimalist interior design with plants"
   ];
 
   const handleGenerate = async (promptText: string) => {
