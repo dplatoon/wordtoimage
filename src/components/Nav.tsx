@@ -57,6 +57,14 @@ export const Nav = () => {
               Text to Image
             </Link>
             
+            <Link to="/templates" className="px-3 py-2 text-sm font-medium">
+              Templates
+            </Link>
+            
+            <Link to="/about" className="px-3 py-2 text-sm font-medium">
+              About
+            </Link>
+            
             {isMounted &&
               (isLoading ? (
                 <Skeleton className="h-10 w-[100px]" />
