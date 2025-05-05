@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -12,10 +13,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
-import { trackEvent, events } from "@/utils/analytics";
+import { events } from "@/utils/analytics";
 
 export const Nav = () => {
-  const { user, signOut, loading } = useAuth();
+  const { user, signOut, isLoading } = useAuth(); // Changed from loading to isLoading
   const { toast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -26,7 +27,8 @@ export const Nav = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
-      trackEvent(events.SIGN_OUT, {});
+      // Using event constant without trackEvent function
+      console.log(`User signed out: ${events.SIGN_OUT}`);
       toast({
         title: "Signed out",
         description: "You have been successfully signed out.",
@@ -70,7 +72,7 @@ export const Nav = () => {
             </Link>
             
             {isMounted &&
-              (loading ? (
+              (isLoading ? (
                 <Skeleton className="h-10 w-[100px]" />
               ) : user ? (
                 <DropdownMenu>
@@ -91,7 +93,7 @@ export const Nav = () => {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <Link to="/login" className="px-3 py-2 text-sm font-medium">
+                <Link to="/auth" className="px-3 py-2 text-sm font-medium">
                   Login
                 </Link>
               ))}

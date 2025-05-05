@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
@@ -5,8 +6,7 @@ import {
   RESOLUTIONS, 
   MAX_PROMPT_LENGTH 
 } from '@/components/hero/constants';
-import { toast } from '@/components/ui/sonner';
-import { trackEvent, events } from '@/utils/analytics';
+import { toast } from 'sonner';
 
 interface UseImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -63,13 +63,8 @@ export const useImageGenerationForm = ({
           timestamp
         }]);
         
-        trackEvent(events.GENERATE_IMAGE, {
-          prompt,
-          style,
-          resolution,
-          sourceImageUsed: !!sourceImage,
-          authenticated: !!user
-        });
+        // Log the event to console instead of using trackEvent
+        console.log('Generated image with prompt:', prompt, style, resolution);
         
         if (!user) {
           const newCount = generationCount + 1;

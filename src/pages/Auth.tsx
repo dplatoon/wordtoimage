@@ -8,10 +8,11 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { toast } from 'sonner';
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
-  const { session, isConfigured } = useAuth();
+  const { session, isConfigured, user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -19,6 +20,9 @@ export default function Auth() {
   const params = new URLSearchParams(location.search);
   const tabParam = params.get('tab');
   const defaultTab = tabParam === 'signup' ? 'signup' : 'signin';
+  
+  // Get the redirect URL if any
+  const redirectTo = params.get('redirectTo') || '/';
 
   // Check for auth hash in URL (from OAuth redirects)
   useEffect(() => {
@@ -30,12 +34,19 @@ export default function Auth() {
           // This will handle the OAuth callback
           const { data, error } = await supabase.auth.getSession();
           if (data.session && !error) {
-            navigate('/', { replace: true });
+            toast.success('Successfully authenticated');
+            navigate(redirectTo, { replace: true });
           } else if (error) {
             console.error("Auth callback error:", error);
+            toast.error("Authentication error", {
+              description: error.message
+            });
           }
         } catch (err) {
           console.error("Error processing auth callback:", err);
+          toast.error("Authentication error", {
+            description: err instanceof Error ? err.message : "An unexpected error occurred"
+          });
         } finally {
           setIsLoading(false);
         }
@@ -43,11 +54,11 @@ export default function Auth() {
     };
     
     handleAuthCallback();
-  }, [navigate]);
+  }, [navigate, redirectTo]);
 
   // Redirect if already logged in
   if (session) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={redirectTo} replace />;
   }
 
   if (!isConfigured) {

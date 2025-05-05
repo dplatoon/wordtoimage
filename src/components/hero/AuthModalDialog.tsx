@@ -17,14 +17,16 @@ export const AuthModalDialog = ({ open, onClose }: AuthModalDialogProps) => {
         <p className="text-gray-600">
           Log in or sign up in seconds. It's free!
         </p>
-        <Link to="/auth?tab=signup">
+        <Link to="/auth?tab=signup" onClick={onClose}>
           <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white" autoFocus>
             Get Started — It's Free
           </Button>
         </Link>
         <div>
-          <Link to="/auth" className="text-blue-700 underline hover:text-blue-900">
-            Already have an account? Log in
+          <Link to="/auth" onClick={onClose}>
+            <span className="text-blue-700 underline hover:text-blue-900">
+              Already have an account? Log in
+            </span>
           </Link>
         </div>
         <button 
