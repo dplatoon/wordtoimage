@@ -39,17 +39,19 @@ export const Logo = () => {
             </span>
           </div>
         ) : (
-          <img 
-            alt="WordToImage Logo" 
-            className="h-8 md:h-10 object-contain" 
-            src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png"
-            onError={handleImageError}
-            width="200"
-            height="40"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-          />
+          <div className="h-10 w-auto relative">
+            <img 
+              alt="WordToImage Logo" 
+              className="h-full w-auto object-contain" 
+              src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png"
+              onError={handleImageError}
+              width="auto"
+              height="40"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
+          </div>
         )}
       </div>
     </Link>

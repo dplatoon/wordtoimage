@@ -57,6 +57,20 @@ img {
   vertical-align: middle;
 }
 
+/* Logo specific styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: auto;
+}
+
+.logo-image {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
 /* Responsive container */
 .responsive-container {
   width: 100%;
