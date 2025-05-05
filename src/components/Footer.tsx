@@ -1,22 +1,13 @@
-
 import { Facebook, Instagram, Twitter, Linkedin, Image, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
-  return (
-    <footer className="bg-gray-900 text-white py-12 md:py-16">
+  return <footer className="text-white py-12 md:py-16 bg-violet-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12 mb-12">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-5">
-              <img 
-                src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" 
-                alt="WordToImage Logo" 
-                className="h-8 w-auto"
-                loading="lazy"
-              />
+              <img src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" alt="WordToImage Logo" className="h-8 w-auto" loading="lazy" />
             </div>
             <p className="text-gray-400 mb-5">
               Transform your words into stunning social media graphics in seconds with our AI-powered design tool.
@@ -85,6 +76,5 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
