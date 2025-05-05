@@ -7,6 +7,7 @@ import NotFound from '@/pages/NotFound';
 import WordToImageImprovementsUI from '@/pages/WordToImageImprovementsUI';
 import TextToImage from '@/pages/TextToImage';
 import Auth from '@/pages/Auth';
+import Privacy from '@/pages/Privacy'; // Add import for Privacy page
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/word-to-image-improvements-ui" element={<WordToImageImprovementsUI />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/auth/callback" element={<Auth />} />
+        <Route path="/privacy" element={<Privacy />} /> {/* Add Privacy Policy route */}
         
         <Route path="*" element={<NotFound />} />
       </Routes>
