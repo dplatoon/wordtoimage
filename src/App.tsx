@@ -18,6 +18,11 @@ import Beta from '@/pages/Beta';
 import Features from '@/pages/Features';
 import Pricing from '@/pages/Pricing';
 import Updates from '@/pages/Updates';
+import Blog from '@/pages/Blog';
+import Help from '@/pages/Help';
+import API from '@/pages/API';
+import Careers from '@/pages/Careers';
+import Contact from '@/pages/Contact';
 // Removing Templates since it's redundant with Templates Library
 
 function App() {
@@ -41,6 +46,11 @@ function App() {
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/updates" element={<Updates />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/help" element={<Help />} />
+        <Route path="/api" element={<API />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/contact" element={<Contact />} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>

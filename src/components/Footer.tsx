@@ -1,3 +1,4 @@
+
 import { Facebook, Instagram, Twitter, Linkedin, Image, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -39,11 +40,11 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold text-lg mb-4">Product</h3>
             <ul className="space-y-3">
-              <li><a href="#templates" className="text-gray-400 hover:text-white transition-colors">Templates</a></li>
-              <li><a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
-              <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+              <li><Link to="/text-to-image" className="text-gray-400 hover:text-white transition-colors">Templates</Link></li>
+              <li><Link to="/features" className="text-gray-400 hover:text-white transition-colors">Features</Link></li>
+              <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
               <li><Link to="/updates" className="text-gray-400 hover:text-white transition-colors">Updates</Link></li>
-              <li><Link to="/templates" className="text-gray-400 hover:text-white transition-colors">Templates Library</Link></li>
+              <li><Link to="/text-to-image" className="text-gray-400 hover:text-white transition-colors">Templates Library</Link></li>
               <li><Link to="/beta" className="text-gray-400 hover:text-white transition-colors">Beta Program</Link></li>
             </ul>
           </div>

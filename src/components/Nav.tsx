@@ -57,8 +57,8 @@ export const Nav = () => {
               Text to Image
             </Link>
             
-            <Link to="/templates" className="px-3 py-2 text-sm font-medium">
-              Templates
+            <Link to="/blog" className="px-3 py-2 text-sm font-medium">
+              Blog
             </Link>
             
             <Link to="/about" className="px-3 py-2 text-sm font-medium">
