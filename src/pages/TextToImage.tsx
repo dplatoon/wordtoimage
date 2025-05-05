@@ -10,6 +10,8 @@ import { trackEvent } from '@/utils/analytics';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { PromptInput } from '@/components/word-to-image/PromptInput';
+import { Button } from '@/components/ui/button';
+import { Sparkles } from 'lucide-react';
 
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
@@ -65,34 +67,81 @@ export default function TextToImage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Nav />
       
-      <div className="container mx-auto px-4 py-8 flex-grow">
-        <h1 className="text-2xl font-bold mb-6 text-center">Text to Image Generator</h1>
+      <div className="container mx-auto px-4 py-12 flex-grow">
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            Turn Words Into Stunning Images
+          </h1>
+          <p className="text-gray-600 text-lg">
+            Generate beautiful visuals with AI – create exactly what you imagine.
+          </p>
+        </div>
         
-        <div className="max-w-2xl mx-auto">
-          <PromptInput 
-            prompt={prompt}
-            onPromptChange={setPrompt}
-            suggestions={promptSuggestions}
-          />
-          
-          <div className="mt-4">
-            <button
-              onClick={() => handleGenerate(prompt)}
-              disabled={isGenerating || !prompt.trim()}
-              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isGenerating ? "Generating..." : "Generate Image"}
-            </button>
+        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-6">
+          <div className="mb-6">
+            <PromptInput 
+              prompt={prompt}
+              onPromptChange={setPrompt}
+              suggestions={promptSuggestions}
+            />
           </div>
           
-          <ImageGallery 
-            images={generatedImages}
-            onEdit={() => {}}
-            loading={isGenerating}
-          />
+          <Button
+            onClick={() => handleGenerate(prompt)}
+            disabled={isGenerating || !prompt.trim()}
+            className="w-full py-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium text-lg hover:from-blue-600 hover:to-purple-700 transition-all"
+          >
+            {isGenerating ? (
+              <span className="flex items-center justify-center">
+                <span className="animate-spin h-5 w-5 mr-3 border-b-2 border-white rounded-full"></span>
+                Generating...
+              </span>
+            ) : (
+              <span className="flex items-center justify-center">
+                <Sparkles className="mr-2 h-5 w-5" />
+                Generate Image
+              </span>
+            )}
+          </Button>
+          
+          <div className="mt-8">
+            <ImageGallery 
+              images={generatedImages}
+              onEdit={() => {}}
+              loading={isGenerating}
+            />
+          </div>
+          
+          {!user && !isLoading && (
+            <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
+              <p className="text-sm text-blue-700 text-center">
+                <span className="font-semibold">Pro tip:</span> Sign up for free to save your images and generate HD quality renders
+              </p>
+            </div>
+          )}
+        </div>
+        
+        <div className="max-w-4xl mx-auto mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+              <div className="text-2xl mb-2">🎨</div>
+              <h3 className="font-semibold mb-2">HD Renders</h3>
+              <p className="text-sm text-gray-600">Unlock 2K+ images with no watermarks</p>
+            </div>
+            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+              <div className="text-2xl mb-2">⚡</div>
+              <h3 className="font-semibold mb-2">Faster Generation</h3>
+              <p className="text-sm text-gray-600">Pro users get results 3× faster</p>
+            </div>
+            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+              <div className="text-2xl mb-2">💾</div>
+              <h3 className="font-semibold mb-2">Save History</h3>
+              <p className="text-sm text-gray-600">Keep your renders in your gallery</p>
+            </div>
+          </div>
         </div>
       </div>
       
