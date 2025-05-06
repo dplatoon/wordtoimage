@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -21,10 +22,8 @@ export default defineConfig(({ mode }) => {
         normalizeWhitespace: mode === 'production',
       }]
     }));
-  } catch (error: unknown) {
-    // Properly type the error and provide a safe error message
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.warn('PostCSS plugins (autoprefixer, cssnano) could not be loaded:', errorMessage);
+  } catch (error) {
+    console.warn('PostCSS plugins (autoprefixer, cssnano) could not be loaded:', error.message);
   }
 
   return {
