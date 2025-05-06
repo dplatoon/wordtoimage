@@ -11,7 +11,7 @@ import { ApiKeySection } from './form/ApiKeySection';
 import { lazy, Suspense } from 'react';
 
 // Lazily load non-critical components
-const ApiKeySection = lazy(() => import('./form/ApiKeySection').then(module => ({ default: module.ApiKeySection })));
+const LazyApiKeySection = lazy(() => import('./form/ApiKeySection').then(module => ({ default: module.ApiKeySection })));
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -81,7 +81,7 @@ export const ImageGenerationForm = ({
       <FormLayout onSubmit={handleProtectedGenerate}>
         {showApiKeyForm && (
           <Suspense fallback={<div className="h-20 bg-gray-100 animate-pulse rounded-md"></div>}>
-            <ApiKeySection 
+            <LazyApiKeySection 
               showApiKeyForm={showApiKeyForm}
               onApiKeySubmit={setTempApiKey}
             />
