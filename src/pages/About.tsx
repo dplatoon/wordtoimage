@@ -1,6 +1,7 @@
 
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
+import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 
 const About = () => {
   return (
@@ -27,20 +28,29 @@ const About = () => {
               We're passionate about building tools that bridge the gap between imagination and creation.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
               <div className="text-center">
-                <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4"></div>
-                <h3 className="font-semibold text-gray-900">Alex Johnson</h3>
+                <div className="w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full">
+                  <ResponsiveImage 
+                    src="/lovable-uploads/c258fc93-b285-4676-9418-c690eaa9fa60.png"
+                    alt="Tawhid Hasan"
+                    className="w-full h-full"
+                    objectFit="cover"
+                  />
+                </div>
+                <h3 className="font-semibold text-lg text-gray-900">Tawhid Hasan</h3>
                 <p className="text-gray-600">CEO & Co-Founder</p>
               </div>
               <div className="text-center">
-                <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4"></div>
-                <h3 className="font-semibold text-gray-900">Maya Patel</h3>
-                <p className="text-gray-600">CTO & Co-Founder</p>
-              </div>
-              <div className="text-center">
-                <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4"></div>
-                <h3 className="font-semibold text-gray-900">Sam Lee</h3>
+                <div className="w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full">
+                  <ResponsiveImage 
+                    src="/lovable-uploads/c258fc93-b285-4676-9418-c690eaa9fa60.png"
+                    alt="Tawhid Hasan"
+                    className="w-full h-full"
+                    objectFit="cover"
+                  />
+                </div>
+                <h3 className="font-semibold text-lg text-gray-900">Tawhid Hasan</h3>
                 <p className="text-gray-600">Head of Design</p>
               </div>
             </div>
