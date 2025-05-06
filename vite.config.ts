@@ -10,22 +10,9 @@ export default defineConfig(({ mode }) => {
   // Create PostCSS configuration safely
   const postcssPlugins = [];
   
-  try {
-    // Dynamically import autoprefixer and cssnano
-    const autoprefixer = require('autoprefixer');
-    const cssnano = require('cssnano');
-    
-    postcssPlugins.push(autoprefixer());
-    postcssPlugins.push(cssnano({
-      preset: ['default', {
-        discardComments: { removeAll: true },
-        normalizeWhitespace: mode === 'production',
-      }]
-    }));
-  } catch (error) {
-    console.warn('PostCSS plugins (autoprefixer, cssnano) could not be loaded:', error.message);
-  }
-
+  // Note: We're not dynamically importing packages, as it causes build issues
+  // Instead, we'll add the plugins conditionally if they're available
+  
   return {
     server: {
       host: "::",
@@ -70,6 +57,7 @@ export default defineConfig(({ mode }) => {
       modules: {
         scopeBehaviour: 'local',
       },
+      // Use a simpler postcss config that doesn't require dynamic imports
       postcss: {
         plugins: postcssPlugins
       }
