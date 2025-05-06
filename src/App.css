@@ -61,9 +61,9 @@ img {
 .logo-container {
   display: flex;
   align-items: center;
-  height: 48px;
+  height: 64px;
   width: auto;
-  min-width: 150px;
+  min-width: 180px;
 }
 
 .logo-image {

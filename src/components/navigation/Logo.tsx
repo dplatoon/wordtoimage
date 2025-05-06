@@ -29,27 +29,26 @@ export const Logo = () => {
       className="flex items-center space-x-2" 
       aria-label="WordToImage - Homepage"
     >
-      <div className="flex items-center h-12">
+      <div className="flex items-center h-16">
         {logoError ? (
           // Fallback text logo if image fails to load
           <div className="flex items-center">
-            <LucideImage className="h-8 w-8 mr-2 text-blue-500" />
-            <span className="text-xl font-bold text-[#0D2645]">
+            <LucideImage className="h-10 w-10 mr-2 text-blue-500" />
+            <span className="text-2xl font-bold text-[#0D2645]">
               WordtoImage
             </span>
           </div>
         ) : (
-          <div className="h-12 w-auto relative min-w-[150px]">
+          <div className="h-16 w-auto relative min-w-[180px]">
             <img 
               alt="WordToImage Logo" 
               className="h-full w-auto object-contain" 
               src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png"
               onError={handleImageError}
               width="auto"
-              height="48"
+              height="64"
               loading="eager"
               decoding="async"
-              fetchPriority="high"
             />
           </div>
         )}

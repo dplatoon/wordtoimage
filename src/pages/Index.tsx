@@ -1,4 +1,3 @@
-
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { BetaBanner } from '@/components/BetaBanner';
@@ -11,6 +10,19 @@ import { Link } from 'react-router-dom';
 import { Sparkles, Wand2, Star, Download, Image } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { trackEvent } from '@/utils/analytics';
+import { ResponsiveImage } from '@/components/common/ResponsiveImage';
+
+// Gallery images with reliable sources
+const galleryImages = [
+  "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1633109741715-82b70739edc1?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=600&q=80",
+];
 
 const Index = () => {
   const [showProModal, setShowProModal] = useState(false);
@@ -226,13 +238,16 @@ const Index = () => {
               </div>
               
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                {galleryImages.map((src, i) => (
                   <div key={i} className="aspect-square bg-gray-200 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
-                    <img 
-                      src={`https://source.unsplash.com/random/300x300?sig=${i}`} 
-                      alt="AI generated" 
+                    <ResponsiveImage 
+                      src={src}
+                      alt={`AI generated image ${i + 1}`}
                       className="w-full h-full object-cover"
-                      loading="lazy"
+                      width="300"
+                      height="300"
+                      trackEvent="gallery_home"
+                      fallbackSrc="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=600&q=80"
                     />
                   </div>
                 ))}

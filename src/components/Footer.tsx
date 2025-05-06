@@ -1,3 +1,4 @@
+
 import { Facebook, Instagram, Twitter, Linkedin, Image, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 export const Footer = () => {
@@ -6,8 +7,8 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12 mb-12">
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-5 h-10">
-              <div className="h-10 w-auto relative min-w-[150px]">
+            <div className="flex items-center space-x-2 mb-5 h-14">
+              <div className="h-14 w-auto relative min-w-[180px]">
                 <img 
                   src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" 
                   alt="WordToImage Logo" 

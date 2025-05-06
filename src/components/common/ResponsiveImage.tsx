@@ -1,8 +1,8 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { useImageWithFallback } from '@/hooks/useImageWithFallback';
+import React, { useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ImageOff } from 'lucide-react';
+import { trackEvent } from '@/utils/analytics';
 
 interface ResponsiveImageProps {
   src: string;
@@ -14,103 +14,74 @@ interface ResponsiveImageProps {
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   onLoad?: () => void;
   onError?: () => void;
-  errorComponent?: React.ReactNode;
-  loadingComponent?: React.ReactNode;
   trackEvent?: string;
 }
 
 export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   src,
   alt,
-  fallbackSrc,
+  fallbackSrc = "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=300&h=300&q=80",
   className = '',
   width,
   height,
   objectFit = 'cover',
   onLoad,
   onError,
-  errorComponent,
-  loadingComponent,
-  trackEvent,
+  trackEvent: trackEventName,
 }) => {
-  const imgRef = useRef<HTMLImageElement>(null);
-  const [isInView, setIsInView] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [imageSrc, setImageSrc] = useState(src);
+  const [usedFallback, setUsedFallback] = useState(false);
 
-  const {
-    imageSrc,
-    isLoading,
-    isError,
-    handleLoad,
-    handleError,
-  } = useImageWithFallback({
-    src,
-    fallbackSrc,
-    onLoadSuccess: onLoad,
-    onLoadError: onError,
-    trackSuccess: !!trackEvent,
-    trackEvent,
-    lazyLoad: true,
-  });
+  const handleLoad = () => {
+    setIsLoading(false);
+    setHasError(false);
+    
+    if (onLoad) onLoad();
+    
+    // Track successful image load if tracking is enabled
+    if (trackEventName) {
+      trackEvent(trackEventName + '_loaded', { src: imageSrc });
+    }
+  };
 
-  // Use Intersection Observer for lazy loading
-  useEffect(() => {
-    if (!imgRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInView(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: '200px', threshold: 0.1 }
-    );
-
-    observer.observe(imgRef.current);
-
-    return () => {
-      if (imgRef.current) observer.unobserve(imgRef.current);
-    };
-  }, []);
-
-  // Default error component
-  const DefaultErrorComponent = () => (
-    <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-50">
-      <ImageOff className="h-8 w-8 text-gray-300 mb-2" />
-      <p className="text-xs text-gray-400 text-center">Image unavailable</p>
-    </div>
-  );
-
-  // Default loading component
-  const DefaultLoadingComponent = () => (
-    <Skeleton className="w-full h-full animate-pulse" />
-  );
-
-  if (isError) {
-    return (
-      <div
-        className={`relative overflow-hidden ${className}`}
-        style={{ width, height }}
-      >
-        {errorComponent || <DefaultErrorComponent />}
-      </div>
-    );
-  }
+  const handleError = () => {
+    console.error('Image failed to load:', imageSrc);
+    
+    if (!usedFallback && fallbackSrc) {
+      // Try loading the fallback image
+      setImageSrc(fallbackSrc);
+      setUsedFallback(true);
+    } else {
+      // If fallback also fails or no fallback provided
+      setIsLoading(false);
+      setHasError(true);
+      if (onError) onError();
+      
+      // Track error if tracking is enabled
+      if (trackEventName) {
+        trackEvent(trackEventName + '_error', { src: imageSrc });
+      }
+    }
+  };
 
   return (
     <div className={`relative ${className}`} style={{ width, height }}>
-      {isLoading && (loadingComponent || <DefaultLoadingComponent />)}
+      {isLoading && (
+        <Skeleton className="absolute inset-0 w-full h-full" />
+      )}
       
-      {isInView && (
+      {hasError ? (
+        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-100">
+          <ImageOff className="h-8 w-8 text-gray-300 mb-2" />
+          <p className="text-xs text-gray-400 text-center">Image unavailable</p>
+        </div>
+      ) : (
         <img
-          ref={imgRef}
           src={imageSrc}
           alt={alt}
-          className={`${
-            isLoading ? 'opacity-0' : 'opacity-100'
-          } transition-opacity duration-300 w-full h-full`}
+          className={`w-full h-full transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
           style={{ objectFit }}
           onLoad={handleLoad}
           onError={handleError}
