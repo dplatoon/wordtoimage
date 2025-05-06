@@ -29,6 +29,7 @@ export default defineConfig(({ mode }) => ({
     cssMinify: true,
     emptyOutDir: true,
     chunkSizeWarningLimit: 1000,
+    reportCompressedSize: false, // Speed up build
     rollupOptions: {
       output: {
         manualChunks: {
@@ -43,5 +44,22 @@ export default defineConfig(({ mode }) => ({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom', 'lucide-react'],
+  },
+  css: {
+    devSourcemap: false,
+    modules: {
+      scopeBehaviour: 'local',
+    },
+    postcss: {
+      plugins: [
+        require('autoprefixer'),
+        require('cssnano')({
+          preset: ['default', {
+            discardComments: { removeAll: true },
+            normalizeWhitespace: mode === 'production',
+          }]
+        })
+      ]
+    }
   },
 }));

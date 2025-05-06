@@ -8,6 +8,10 @@ import { GenerateButton } from './form/GenerateButton';
 import { ExamplePrompts } from './form/ExamplePrompts';
 import { FreeGenerationCounter } from './form/FreeGenerationCounter';
 import { ApiKeySection } from './form/ApiKeySection';
+import { lazy, Suspense } from 'react';
+
+// Lazily load non-critical components
+const ApiKeySection = lazy(() => import('./form/ApiKeySection').then(module => ({ default: module.ApiKeySection })));
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -75,10 +79,14 @@ export const ImageGenerationForm = ({
   return (
     <>
       <FormLayout onSubmit={handleProtectedGenerate}>
-        <ApiKeySection 
-          showApiKeyForm={showApiKeyForm}
-          onApiKeySubmit={setTempApiKey}
-        />
+        {showApiKeyForm && (
+          <Suspense fallback={<div className="h-20 bg-gray-100 animate-pulse rounded-md"></div>}>
+            <ApiKeySection 
+              showApiKeyForm={showApiKeyForm}
+              onApiKeySubmit={setTempApiKey}
+            />
+          </Suspense>
+        )}
 
         <GenerationControls 
           style={style}
@@ -116,10 +124,12 @@ export const ImageGenerationForm = ({
         )}
       </FormLayout>
       
-      <AuthModalDialog 
-        open={authModalOpen} 
-        onClose={() => setAuthModalOpen(false)} 
-      />
+      <Suspense fallback={null}>
+        <AuthModalDialog 
+          open={authModalOpen} 
+          onClose={() => setAuthModalOpen(false)} 
+        />
+      </Suspense>
     </>
   );
 };

@@ -7,16 +7,19 @@ export const Logo = () => {
   const [logoError, setLogoError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   
-  // Preload the logo image
+  // Preload the logo image once on component mount
   useEffect(() => {
-    const img = new window.Image();
-    img.src = '/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png';
-    img.onload = () => setIsLoaded(true);
-    img.onerror = () => {
-      console.error('Failed to preload logo image');
-      setLogoError(true);
-    };
-  }, []);
+    // Only run this once
+    if (!isLoaded) {
+      const img = new Image();
+      img.src = '/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png';
+      img.onload = () => setIsLoaded(true);
+      img.onerror = () => {
+        console.error('Failed to preload logo image');
+        setLogoError(true);
+      };
+    }
+  }, [isLoaded]);
   
   const handleImageError = () => {
     console.error('Failed to load logo image');
@@ -45,10 +48,11 @@ export const Logo = () => {
               className="h-full w-auto object-contain" 
               src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png"
               onError={handleImageError}
-              width="auto"
+              width="180"
               height="64"
               loading="eager"
-              decoding="async"
+              decoding="sync"
+              fetchPriority="high"
             />
           </div>
         )}

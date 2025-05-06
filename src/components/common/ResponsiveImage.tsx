@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ImageOff } from 'lucide-react';
 import { trackEvent } from '@/utils/analytics';
@@ -15,6 +15,7 @@ interface ResponsiveImageProps {
   onLoad?: () => void;
   onError?: () => void;
   trackEvent?: string;
+  priority?: boolean;
 }
 
 export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
@@ -28,11 +29,38 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   onLoad,
   onError,
   trackEvent: trackEventName,
+  priority = false,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [imageSrc, setImageSrc] = useState(src);
+  const [imageSrc, setImageSrc] = useState<string | null>(priority ? src : null);
   const [usedFallback, setUsedFallback] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  // Use intersection observer for better lazy loading
+  useEffect(() => {
+    if (!priority && imgRef.current && !imageSrc) {
+      observer.current = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setImageSrc(src);
+          observer.current?.disconnect();
+        }
+      }, {
+        rootMargin: '200px', // Load when image is 200px from viewport
+        threshold: 0.01
+      });
+      
+      observer.current.observe(imgRef.current);
+    }
+    
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
+  }, [src, imageSrc, priority]);
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -66,6 +94,23 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
     }
   };
 
+  // Generate srcset for responsive images if width is provided
+  const getSrcSet = () => {
+    if (!imageSrc) return undefined;
+    
+    // Only generate srcset for URLs that support sizing parameters
+    if (imageSrc.includes('unsplash.com')) {
+      return `${imageSrc}&w=300 300w, ${imageSrc}&w=600 600w, ${imageSrc}&w=900 900w`;
+    }
+    
+    return undefined;
+  };
+
+  // Generate sizes attribute for responsive images
+  const getSizes = () => {
+    return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
+  };
+
   return (
     <div className={`relative ${className}`} style={{ width, height }}>
       {isLoading && (
@@ -79,14 +124,20 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
         </div>
       ) : (
         <img
-          src={imageSrc}
+          ref={imgRef}
+          src={imageSrc || ''}
+          srcSet={getSrcSet()}
+          sizes={getSizes()}
           alt={alt}
           className={`w-full h-full transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
           style={{ objectFit }}
           onLoad={handleLoad}
           onError={handleError}
-          loading="lazy"
-          decoding="async"
+          loading={priority ? "eager" : "lazy"}
+          decoding={priority ? "sync" : "async"}
+          width={typeof width === 'number' ? width : undefined}
+          height={typeof height === 'number' ? height : undefined}
+          fetchPriority={priority ? "high" : "auto"}
         />
       )}
     </div>
