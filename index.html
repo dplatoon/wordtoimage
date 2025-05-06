@@ -9,17 +9,13 @@
     <meta name="theme-color" content="#ffffff">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Critical CSS inline for faster rendering -->
+    <!-- Core CSS with minimal critical styles -->
     <style>
-      body{background:#fff;font-family:system-ui,-apple-system,sans-serif;margin:0;overflow-x:hidden}
+      body {background:#fff;font-family:system-ui,-apple-system,sans-serif;margin:0}
       .critical-loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:#fff;z-index:9999}
       .critical-loader::after{content:'';width:40px;height:40px;border:3px solid #f3f3f3;border-top:3px solid #8B5CF6;border-radius:50%;animation:spin 1s linear infinite}
       @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-      img{max-width:100%;height:auto}
-      a{text-decoration:none}
     </style>
-    
-    <!-- Non-critical CSS loaded asynchronously -->
     <link rel="stylesheet" href="/src/index.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
 
@@ -27,19 +23,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.openai.com" crossorigin>
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     
     <!-- Preload critical assets -->
     <link rel="preload" href="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" as="image" type="image/png" fetchpriority="high">
+    <link rel="preload" href="/lovable-uploads/9baa5403-54fd-4d41-9dff-b6762b238e3e.png" as="image" type="image/png">
     
-    <!-- Web fonts with optimized loading -->
-    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLEj6Z1xlFd2JQEk.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVIUx6EQ.woff2" type="font/woff2" crossorigin>
-    
-    <!-- Minimal font loading instead of full Google Fonts -->
-    <style>
-      /* Font definitions are in App.css */
-    </style>
+    <!-- Web fonts with display=swap to prevent render blocking -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
     
     <!-- Open Graph / Social Meta Tags -->
     <meta property="og:title" content="WordToImage - AI-Powered Text to Image Generation" />
@@ -56,7 +49,12 @@
     
     <!-- Simplified structured data -->
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"WebApplication","name":"WordToImage","description":"AI-powered text to image generation"}
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "WordToImage",
+        "description": "AI-powered text to image generation"
+      }
     </script>
     
     <!-- Favicon -->
@@ -64,12 +62,18 @@
     <link rel="apple-touch-icon" href="/lovable-uploads/9baa5403-54fd-4d41-9dff-b6762b238e3e.png">
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Defer non-critical JavaScript -->
+    <!-- Defer analytics -->
     <script defer src="https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7"></script>
     <script>
-      window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-      gtag('js',new Date());gtag('config','G-KND5GPN1W7',{send_page_view:false,anonymize_ip:true});
-      window.addEventListener('load',function(){gtag('event','page_view');});
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KND5GPN1W7', { 
+        send_page_view: false,
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure'
+      });
+      window.addEventListener('load', function() { gtag('event', 'page_view'); });
     </script>
   </head>
 

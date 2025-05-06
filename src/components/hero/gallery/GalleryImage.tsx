@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect, memo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ImageActions } from './ImageActions';
 import { ImageOverlay } from './ImageOverlay';
 import { ImageErrorPlaceholder } from './ImageErrorPlaceholder';
@@ -15,7 +15,7 @@ interface GalleryImageProps {
   fallback?: React.ReactNode;
 }
 
-export const GalleryImage: React.FC<GalleryImageProps> = memo(({
+export const GalleryImage: React.FC<GalleryImageProps> = ({
   url,
   prompt,
   favorite,
@@ -29,7 +29,6 @@ export const GalleryImage: React.FC<GalleryImageProps> = memo(({
   const [imageError, setImageError] = useState(false);
   const [useFallback, setUseFallback] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const observer = useRef<IntersectionObserver | null>(null);
   
   // Extract a unique ID from the URL to prevent browser caching
   const uniqueUrl = url.includes('?') ? url : `${url}?random=${Math.random()}`;
@@ -39,14 +38,14 @@ export const GalleryImage: React.FC<GalleryImageProps> = memo(({
   useEffect(() => {
     if (!url || !imgRef.current) return;
 
-    observer.current = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const img = entry.target as HTMLImageElement;
           // Only set the src when the image is visible
           if (img.dataset.src) {
             img.src = img.dataset.src;
-            observer.current?.unobserve(img);
+            observer.unobserve(img);
           }
         }
       });
@@ -55,13 +54,10 @@ export const GalleryImage: React.FC<GalleryImageProps> = memo(({
       threshold: 0.01
     });
 
-    observer.current.observe(imgRef.current);
+    observer.observe(imgRef.current);
     
     return () => {
-      if (imgRef.current && observer.current) {
-        observer.current.unobserve(imgRef.current);
-        observer.current.disconnect();
-      }
+      if (imgRef.current) observer.unobserve(imgRef.current);
     };
   }, [uniqueUrl]);
 
@@ -82,11 +78,6 @@ export const GalleryImage: React.FC<GalleryImageProps> = memo(({
       setImageError(true);
       setImageLoaded(false);
     }
-  };
-
-  // Generate sizes for responsive images
-  const getSizes = () => {
-    return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px';
   };
 
   return (
@@ -116,7 +107,6 @@ export const GalleryImage: React.FC<GalleryImageProps> = memo(({
             height="300"
             onLoad={handleImageLoad}
             onError={handleImageError}
-            sizes={getSizes()}
           />
           
           {imageLoaded && (
@@ -135,6 +125,4 @@ export const GalleryImage: React.FC<GalleryImageProps> = memo(({
       )}
     </div>
   );
-});
-
-GalleryImage.displayName = 'GalleryImage';
+};
