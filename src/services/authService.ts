@@ -51,8 +51,10 @@ export async function signIn(email: string, password: string): Promise<void> {
 
 export async function signInWithGoogle(): Promise<void> {
   try {
-    // Using the current origin as the redirect URL to ensure it matches what's configured in Google
+    // Use the exact redirect URL that's configured in Google Cloud Console
+    // This should match what you've set in your Supabase redirect URLs
     const redirectTo = `${window.location.origin}/auth/callback`;
+    
     console.log("Redirect URL for Google auth:", redirectTo);
     
     const { data, error } = await supabase.auth.signInWithOAuth({
