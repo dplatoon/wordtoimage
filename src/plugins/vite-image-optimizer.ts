@@ -18,7 +18,7 @@ export function imageOptimizer(): Plugin {
         '<link rel="preconnect" href="https://api.openai.com" crossorigin>',
         // DNS prefetch for other domains
         '<link rel="dns-prefetch" href="https://fonts.googleapis.com">',
-        '<link rel="dns-prefetch" href="https://images.unsplash.com">',
+        '<link rel="dns-prefetch" href="https://images.unsplash.com">'
       ].join('\n');
       
       // Add native lazy loading and other performance attributes to images
@@ -39,21 +39,10 @@ export function imageOptimizer(): Plugin {
         match => match.includes('fetchpriority') ? match : match.replace('<img', '<img fetchpriority="high"')
       );
       
-      // Remove unused CSS and JS
-      optimizedHtml = optimizedHtml.replace(
-        /<link.*?href="(.*?)" rel="stylesheet".*?>/g,
-        (match, href) => {
-          if (href.includes('font-awesome') || href.includes('bootstrap') || href.includes('unused')) {
-            return '<!-- Removed unused CSS -->';
-          }
-          return match;
-        }
-      );
-      
       return optimizedHtml;
     },
     
-    configResolved(config) {
+    configResolved() {
       console.log('✅ Enhanced image optimizer plugin enabled');
     }
   };
