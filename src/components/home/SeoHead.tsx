@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 export const SeoHead = () => {
   return (
     <Helmet>
-      <title>WordToImage - Transform Text Into Images with AI</title>
+      <title>WordToImage - Transform Text Into Images with AI | WordToImage</title>
       <meta name="description" content="Turn your ideas into vivid images in seconds—no design skills needed. Create professional-looking visuals for social media, presentations, or inspiration." />
       <meta property="og:url" content="https://wordtoimage.com" />
       <meta property="og:title" content="WordToImage: AI Text-to-Image Generator" />
