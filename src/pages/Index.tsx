@@ -13,32 +13,20 @@ import { trackEvent } from '@/utils/analytics';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 
 // Gallery images with reliable sources
-const galleryImages = [
-  "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1633109741715-82b70739edc1?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=600&q=80",
-];
-
+const galleryImages = ["https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1633109741715-82b70739edc1?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=600&q=80"];
 const Index = () => {
   const [showProModal, setShowProModal] = useState(false);
-  const { user } = useAuth();
-
+  const {
+    user
+  } = useAuth();
   const handleGetStarted = () => {
     trackEvent('cta_get_started_clicked');
   };
-
   const handleProFeatures = () => {
     setShowProModal(true);
     trackEvent('cta_pro_features_clicked');
   };
-
-  return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+  return <div className="min-h-screen bg-white overflow-x-hidden">
       <SeoHead />
       <CursorTrail />
       <SkipToContent />
@@ -53,28 +41,17 @@ const Index = () => {
                 Turn Words Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Stunning Images</span>
               </h1>
               
-              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Generate beautiful visuals with AI – now with HD and Pro features.
-              </p>
+              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Word To Image - Transform Word Into Images Generation in Seconds</p>
               
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-                  asChild
-                >
+                <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all" asChild>
                   <Link to="/text-to-image" onClick={handleGetStarted}>
                     Start Free
                     <Wand2 className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
                 
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="text-lg border-2 border-blue-300 text-gray-700 hover:bg-blue-50 transition-colors px-8 py-6"
-                  onClick={handleProFeatures}
-                >
+                <Button size="lg" variant="outline" className="text-lg border-2 border-blue-300 text-gray-700 hover:bg-blue-50 transition-colors px-8 py-6" onClick={handleProFeatures}>
                   View Pro Features
                   <Star className="ml-2 h-5 w-5" />
                 </Button>
@@ -216,10 +193,7 @@ const Index = () => {
                 <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
                   Turn your words into stunning visuals with our AI-powered generator. Start creating now.
                 </p>
-                <Button 
-                  className="bg-white text-blue-600 hover:bg-gray-100 text-lg shadow-lg px-8 py-6"
-                  asChild
-                >
+                <Button className="bg-white text-blue-600 hover:bg-gray-100 text-lg shadow-lg px-8 py-6" asChild>
                   <Link to="/text-to-image">
                     <Image className="mr-2 h-5 w-5" />
                     Start Creating
@@ -238,27 +212,13 @@ const Index = () => {
               </div>
               
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {galleryImages.map((src, i) => (
-                  <div key={i} className="aspect-square bg-gray-200 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
-                    <ResponsiveImage 
-                      src={src}
-                      alt={`AI generated image ${i + 1}`}
-                      className="w-full h-full object-cover"
-                      width="300"
-                      height="300"
-                      trackEvent="gallery_home"
-                      fallbackSrc="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=600&q=80"
-                    />
-                  </div>
-                ))}
+                {galleryImages.map((src, i) => <div key={i} className="aspect-square bg-gray-200 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
+                    <ResponsiveImage src={src} alt={`AI generated image ${i + 1}`} className="w-full h-full object-cover" width="300" height="300" trackEvent="gallery_home" fallbackSrc="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=600&q=80" />
+                  </div>)}
               </div>
               
               <div className="text-center mt-10">
-                <Button 
-                  variant="outline"
-                  className="border-blue-300 text-blue-700 hover:bg-blue-50"
-                  asChild
-                >
+                <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-50" asChild>
                   <Link to="/text-to-image">
                     <Download className="mr-2 h-5 w-5" />
                     Create Your Own
@@ -273,13 +233,9 @@ const Index = () => {
       <Footer />
       <BetaBanner />
       
-      {showProModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      {showProModal && <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6 relative">
-            <button 
-              onClick={() => setShowProModal(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-            >
+            <button onClick={() => setShowProModal(false)} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
               ✕
             </button>
             
@@ -298,10 +254,7 @@ const Index = () => {
               </Button>
             </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        </div>}
+    </div>;
 };
-
 export default Index;
