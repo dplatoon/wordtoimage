@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Check } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { PaymentMethodModal } from '@/components/PaymentMethodModal';
 
+// Define the structure for each pricing plan
 interface PricingPlan {
   name: string;
   price: string;
@@ -12,9 +13,13 @@ interface PricingPlan {
   popular?: boolean;
   ctaText: string;
   ctaColor?: string;
+  productId: string; // Added product ID from Stripe
 }
 
 export function PricingTable() {
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+
   const plans: PricingPlan[] = [
     {
       name: "Free",
@@ -27,7 +32,8 @@ export function PricingTable() {
         "Standard resolution"
       ],
       ctaText: "Get Started",
-      ctaColor: "bg-gray-200 hover:bg-gray-300 text-gray-800"
+      ctaColor: "bg-gray-200 hover:bg-gray-300 text-gray-800",
+      productId: "" // Free plan doesn't need a product ID
     },
     {
       name: "Standard",
@@ -40,7 +46,8 @@ export function PricingTable() {
         "Commercial usage"
       ],
       ctaText: "Choose Standard",
-      ctaColor: "bg-blue-600 hover:bg-blue-700 text-white"
+      ctaColor: "bg-blue-600 hover:bg-blue-700 text-white",
+      productId: "prod_SGdyRu7i1RabBb"
     },
     {
       name: "Pro",
@@ -54,7 +61,8 @@ export function PricingTable() {
       ],
       popular: true,
       ctaText: "Choose Pro",
-      ctaColor: "bg-blue-600 hover:bg-blue-700 text-white"
+      ctaColor: "bg-blue-600 hover:bg-blue-700 text-white",
+      productId: "prod_SEe2MxYit85qLo"
     },
     {
       name: "Business",
@@ -67,9 +75,22 @@ export function PricingTable() {
         "Extended API access"
       ],
       ctaText: "Contact Sales",
-      ctaColor: "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white"
+      ctaColor: "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white",
+      productId: "prod_SEe3iHfdBt84EE"
     }
   ];
+
+  const handlePlanSelect = (plan: PricingPlan) => {
+    // For free plan, just show an alert
+    if (plan.name === "Free") {
+      alert("You've selected the Free plan. No payment required.");
+      return;
+    }
+    
+    // For paid plans, open payment modal
+    setSelectedPlan(plan.name);
+    setPaymentModalOpen(true);
+  };
 
   return (
     <div className="my-12">
@@ -111,6 +132,7 @@ export function PricingTable() {
               <Button 
                 className={`w-full mt-2 ${plan.ctaColor || ''}`}
                 variant={plan.ctaColor ? "default" : "outline"}
+                onClick={() => handlePlanSelect(plan)}
               >
                 {plan.ctaText}
               </Button>
@@ -122,6 +144,13 @@ export function PricingTable() {
       <p className="text-center text-sm text-gray-500 mt-4">
         All plans include access to our core features. Additional credits can be purchased as needed.
       </p>
+
+      {/* Payment method modal */}
+      <PaymentMethodModal 
+        open={paymentModalOpen} 
+        onOpenChange={setPaymentModalOpen}
+        planName={selectedPlan}
+      />
     </div>
   );
 }
