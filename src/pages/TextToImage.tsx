@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { TextToImageForm } from '@/components/word-to-image/TextToImageForm';
 import { toast } from '@/components/ui/sonner';
@@ -11,6 +12,8 @@ import { Footer } from '@/components/Footer';
 import { PromptInput } from '@/components/word-to-image/PromptInput';
 import { Button } from '@/components/ui/button';
 import { Sparkles } from 'lucide-react';
+import { PricingTable } from '@/components/pricing/PricingTable';
+
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -66,6 +69,7 @@ export default function TextToImage() {
       });
     }
   };
+
   return <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Nav />
       
@@ -102,6 +106,9 @@ export default function TextToImage() {
               </p>
             </div>}
         </div>
+        
+        {/* Pricing Table Section */}
+        <PricingTable />
         
         <div className="max-w-4xl mx-auto mt-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
