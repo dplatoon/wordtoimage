@@ -11,6 +11,7 @@ import { Sparkles, Wand2, Star, Download, Image } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { trackEvent } from '@/utils/analytics';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
+import { PricingTable } from '@/components/pricing/PricingTable';
 
 // Gallery images with reliable sources
 const galleryImages = ["https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1633109741715-82b70739edc1?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=600&q=80"];
@@ -115,73 +116,8 @@ const Index = () => {
                 <p className="mt-4 text-lg text-gray-600">Choose the plan that works for you</p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-                  <h3 className="text-2xl font-bold mb-2">Free</h3>
-                  <p className="text-4xl font-bold mb-6">$0<span className="text-lg text-gray-500">/month</span></p>
-                  
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>SD Quality (720px)</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>3 renders/day</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>Basic prompts</span>
-                    </li>
-                  </ul>
-                  
-                  <Button className="w-full" asChild>
-                    <Link to="/text-to-image">
-                      Start Free
-                    </Link>
-                  </Button>
-                </div>
-                
-                <div className="bg-white p-8 rounded-xl shadow-lg border-2 border-blue-500 relative">
-                  <div className="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
-                    POPULAR
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold mb-2">Pro</h3>
-                  <p className="text-4xl font-bold mb-6">$9.99<span className="text-lg text-gray-500">/month</span></p>
-                  
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>HD Quality (2048px)</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>50 renders/day</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>No watermarks</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>Gallery access</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>Prompt boost</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="mr-2 text-green-500">✓</span>
-                      <span>Faster queue</span>
-                    </li>
-                  </ul>
-                  
-                  <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700" onClick={handleProFeatures}>
-                    Go Pro
-                  </Button>
-                </div>
-              </div>
+              {/* Replace the old pricing with the consistent PricingTable component */}
+              <PricingTable />
             </div>
           </section>
           
