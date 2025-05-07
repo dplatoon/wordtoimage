@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from '@/pages/Dashboard';
@@ -23,6 +22,7 @@ import Help from '@/pages/Help';
 import API from '@/pages/API';
 import Careers from '@/pages/Careers';
 import Contact from '@/pages/Contact';
+import PaymentSuccess from "./pages/PaymentSuccess";
 // Removing Templates since it's redundant with Templates Library
 
 function App() {
@@ -51,6 +51,7 @@ function App() {
         <Route path="/api" element={<API />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>

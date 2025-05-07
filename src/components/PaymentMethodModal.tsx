@@ -2,12 +2,9 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 import { CreditCard, Users } from "lucide-react";
-
-// Product IDs for reference
-const STRIPE_PRODUCTS = {
-  PRO: 'prod_SEe2MxYit85qLo', // Word To Image Pro
-  BUSINESS: 'prod_SEe3iHfdBt84EE' // Word To Image Business
-};
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/sonner";
 
 interface PaymentMethodModalProps {
   open: boolean;
@@ -16,21 +13,66 @@ interface PaymentMethodModalProps {
 }
 
 export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMethodModalProps) {
-  function handleChooseMethod(method: string) {
-    // Get the appropriate product ID based on the plan name
-    let productId = '';
-    
-    if (planName === 'Pro') {
-      productId = STRIPE_PRODUCTS.PRO;
-    } else if (planName === 'Business') {
-      productId = STRIPE_PRODUCTS.BUSINESS;
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Get the product ID based on the plan name
+  const getProductId = () => {
+    switch (planName) {
+      case 'Standard':
+        return 'prod_SGdyRu7i1RabBb';
+      case 'Pro':
+        return 'prod_SEe2MxYit85qLo';
+      case 'Business':
+        return 'prod_SEe3iHfdBt84EE';
+      default:
+        return '';
     }
+  };
+
+  async function handleChooseMethod(method: string) {
+    // Don't process if no plan is selected
+    if (!planName) return;
     
-    // Placeholder: show alert with product information
-    alert(
-      `You selected "${method}" for the ${planName} plan.\nProduct ID: ${productId}\nActual payment integration coming soon.`
-    );
-    onOpenChange(false);
+    const productId = getProductId();
+    if (!productId) {
+      toast.error("Invalid plan selected");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      if (method === "Stripe (Credit/Debit Card)") {
+        // Call our Supabase Edge Function
+        const { data, error } = await supabase.functions.invoke('create-checkout', {
+          body: { planId: productId }
+        });
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        if (data && data.url) {
+          // Redirect to Stripe Checkout
+          window.location.href = data.url;
+        } else {
+          throw new Error("No checkout URL returned");
+        }
+      } else {
+        // For other payment methods (placeholder for now)
+        toast.info(`${method} payment option will be available soon`, { 
+          description: `You selected the ${planName} plan` 
+        });
+        onOpenChange(false);
+      }
+    } catch (error) {
+      console.error("Payment processing error:", error);
+      toast.error("Payment processing failed", { 
+        description: error instanceof Error ? error.message : "Please try again later" 
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   if (!planName) return null;
@@ -41,9 +83,9 @@ export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMeth
         <DialogHeader>
           <DialogTitle>Choose Payment Method</DialogTitle>
           <DialogDescription>
-            {planName === "Pro" && "Subscribe to Pro for $9.99/month"}
-            {planName === "Business" && "Subscribe to Business for $19.99/month"}
-            {planName === "Free" && "No payment required for Free plan"}
+            {planName === "Standard" && "Subscribe to Standard plan for $9.99/month"}
+            {planName === "Pro" && "Subscribe to Pro plan for $14.99/month"}
+            {planName === "Business" && "Subscribe to Business plan for $29.99/month"}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4 py-4">
@@ -51,14 +93,17 @@ export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMeth
             className="w-full flex items-center gap-2"
             variant="default"
             onClick={() => handleChooseMethod("Stripe (Credit/Debit Card)")}
+            disabled={isLoading}
           >
             <CreditCard className="h-5 w-5" />
             Stripe (Credit/Debit Card)
+            {isLoading && <span className="ml-2 animate-spin">⊚</span>}
           </Button>
           <Button
             className="w-full flex items-center gap-2"
             variant="outline"
             onClick={() => handleChooseMethod("Other (bKash, Nagad, SSLCommerz)")}
+            disabled={isLoading}
           >
             <Users className="h-5 w-5" />
             Other (bKash, Nagad, SSLCommerz)
@@ -68,7 +113,7 @@ export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMeth
           </p>
         </div>
         <DialogFooter>
-          <Button variant="ghost" className="w-full" onClick={() => onOpenChange(false)}>
+          <Button variant="ghost" className="w-full" onClick={() => onOpenChange(false)} disabled={isLoading}>
             Cancel
           </Button>
         </DialogFooter>
