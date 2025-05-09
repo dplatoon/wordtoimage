@@ -23,11 +23,11 @@ export const HeroSection = () => {
     <section className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6">
-          Turn Words Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Stunning Images</span>
+          Transform Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Words</span> Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Visual Magic</span>
         </h1>
         
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          Word To Image - Transform Word Into Images Generation in Seconds
+        <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+          Create stunning images from text descriptions in seconds using our advanced AI technology
         </p>
         
         <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -37,7 +37,7 @@ export const HeroSection = () => {
             asChild
           >
             <Link to="/text-to-image" onClick={handleGetStarted}>
-              Start Free
+              Create Free
               <Wand2 className="ml-2 h-5 w-5" />
             </Link>
           </Button>
@@ -48,7 +48,7 @@ export const HeroSection = () => {
             className="text-lg border-2 border-blue-300 text-gray-700 hover:bg-blue-50 transition-colors px-8 py-6"
             onClick={handleProFeatures}
           >
-            View Pro Features
+            Explore Pro Features
             <Star className="ml-2 h-5 w-5" />
           </Button>
         </div>
