@@ -11,7 +11,7 @@ export function imageOptimizer(): Plugin {
       // Add resource hints for critical resources
       const resourceHints = [
         // Preload critical images
-        '<link rel="preload" as="image" href="/lovable-uploads/c0cd939b-5fe6-4732-af93-ee61f070b689.png" type="image/png" fetchpriority="high">',
+        '<link rel="preload" as="image" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" type="image/png" fetchpriority="high">',
         // Preconnect to important domains
         '<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>',
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
@@ -28,7 +28,7 @@ export function imageOptimizer(): Plugin {
       
       // Add fetchPriority to hero images (using correct capitalization)
       optimizedHtml = optimizedHtml.replace(
-        /<img.*?src="\/lovable-uploads\/c0cd939b-5fe6-4732-af93-ee61f070b689\.png".*?>/g,
+        /<img.*?src="\/lovable-uploads\/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a\.png".*?>/g,
         match => match.includes('fetchPriority') ? match : match.replace('<img', '<img fetchPriority="high"')
       );
       
@@ -40,4 +40,3 @@ export function imageOptimizer(): Plugin {
     }
   };
 }
-
