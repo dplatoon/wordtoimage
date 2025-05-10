@@ -25,9 +25,9 @@ export const FreeGenerationCounter = ({
             className="text-blue-600 hover:underline p-0 h-auto font-normal"
           >
             Sign up
-          </Button> for unlimited generations.</span>
+          </Button> for 3 free generations on your first day, then 1 per day.</span>
         ) : (
-          <span>{remainingGenerations} free {remainingGenerations === 1 ? 'generation' : 'generations'} remaining</span>
+          <span>{remainingGenerations} free {remainingGenerations === 1 ? 'generation' : 'generations'} remaining. Sign up for more daily free images.</span>
         )}
       </p>
     </div>

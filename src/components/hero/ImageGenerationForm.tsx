@@ -45,6 +45,8 @@ export const ImageGenerationForm = ({
     state,
     canGenerate,
     handleProtectedGenerate,
+    isFirstDay,
+    dailyGenerationsLeft,
   } = useImageGenerationForm({
     onImageGenerated,
     onGeneratingChange,
@@ -52,7 +54,7 @@ export const ImageGenerationForm = ({
     onNewGalleryRow
   });
 
-  const MAX_FREE_GENERATIONS = 1; // Changed from 3 to 1
+  const MAX_FREE_ANONYMOUS_GENERATIONS = 1; // Anonymous users can generate 1 image for free
 
   // Create a wrapper function to handle string to number conversion
   const handleCountChange = (value: string) => {
@@ -103,14 +105,16 @@ export const ImageGenerationForm = ({
           isGenerating={state.isGenerating}
           isDisabled={!canGenerate}
           generationCount={generationCount}
-          maxFreeGenerations={MAX_FREE_GENERATIONS}
+          maxFreeGenerations={MAX_FREE_ANONYMOUS_GENERATIONS}
           user={user}
+          dailyGenerationsLeft={dailyGenerationsLeft}
+          isFirstDay={isFirstDay}
         />
         
         {!user && (
           <FreeGenerationCounter 
             generationCount={generationCount}
-            maxFreeGenerations={MAX_FREE_GENERATIONS}
+            maxFreeGenerations={MAX_FREE_ANONYMOUS_GENERATIONS}
             onSignUpClick={() => setAuthModalOpen(true)}
           />
         )}

@@ -7,6 +7,8 @@ interface GenerateButtonProps {
   generationCount: number;
   maxFreeGenerations: number;
   user: any;
+  dailyGenerationsLeft?: number;
+  isFirstDay?: boolean;
 }
 
 export const GenerateButton = ({
@@ -14,7 +16,9 @@ export const GenerateButton = ({
   isDisabled,
   generationCount,
   maxFreeGenerations,
-  user
+  user,
+  dailyGenerationsLeft,
+  isFirstDay
 }: GenerateButtonProps) => {
   return (
     <div className="relative mt-4">
@@ -38,6 +42,13 @@ export const GenerateButton = ({
               <div className="absolute top-0 right-4 -mt-2.5">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-violet-100 text-violet-800 border border-violet-200">
                   {maxFreeGenerations - generationCount}/{maxFreeGenerations} free
+                </span>
+              </div>
+            )}
+            {user && typeof dailyGenerationsLeft !== 'undefined' && dailyGenerationsLeft > 0 && (
+              <div className="absolute top-0 right-4 -mt-2.5">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-violet-100 text-violet-800 border border-violet-200">
+                  {dailyGenerationsLeft} free {isFirstDay ? `(first day)` : ''}
                 </span>
               </div>
             )}
