@@ -39,7 +39,7 @@ export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) =
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                 loading="lazy"
                 decoding="async"
-                fetchpriority={item.id === 1 ? "high" : "auto"}
+                fetchPriority={item.id === 1 ? "high" : "auto"}
                 onError={() => handleImageError(item.id)}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-white">
@@ -60,3 +60,4 @@ export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) =
     </Carousel>
   );
 };
+

@@ -26,10 +26,10 @@ export function imageOptimizer(): Plugin {
       // Add preload hints
       optimizedHtml = optimizedHtml.replace('</head>', `${resourceHints}\n</head>`);
       
-      // Add fetchpriority to hero images
+      // Add fetchPriority to hero images (using correct capitalization)
       optimizedHtml = optimizedHtml.replace(
         /<img.*?src="\/lovable-uploads\/c0cd939b-5fe6-4732-af93-ee61f070b689\.png".*?>/g,
-        match => match.includes('fetchpriority') ? match : match.replace('<img', '<img fetchpriority="high"')
+        match => match.includes('fetchPriority') ? match : match.replace('<img', '<img fetchPriority="high"')
       );
       
       return optimizedHtml;
@@ -40,3 +40,4 @@ export function imageOptimizer(): Plugin {
     }
   };
 }
+
