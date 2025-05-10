@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { defaultFallbackImage } from '@/utils/imageUtils';
 
 interface ShowcaseCardProps {
   item: {
@@ -33,8 +34,6 @@ export const ShowcaseCard = ({
     setImageError(true);
   };
 
-  const fallbackImage = "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80";
-
   return (
     <motion.div
       key={item.id}
@@ -47,7 +46,7 @@ export const ShowcaseCard = ({
       onMouseLeave={onMouseLeave}
     >
       <motion.img
-        src={imageError ? fallbackImage : item.imageUrl}
+        src={imageError ? defaultFallbackImage : item.imageUrl}
         alt={item.prompt}
         className="w-full h-full object-cover"
         loading="lazy"
@@ -88,7 +87,7 @@ export const ShowcaseCard = ({
               className="bg-white/30 backdrop-blur-sm text-white hover:bg-white/50"
               onClick={(e) => {
                 e.stopPropagation();
-                window.open(imageError ? fallbackImage : item.imageUrl, '_blank');
+                window.open(imageError ? defaultFallbackImage : item.imageUrl, '_blank');
               }}
             >
               <ExternalLink className="h-4 w-4" />

@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { trackEvent, events } from '@/utils/analytics';
+import { defaultFallbackImage } from '@/utils/imageUtils';
 
 interface UseImageWithFallbackProps {
   src: string;
@@ -27,7 +28,7 @@ interface UseImageWithFallbackResult {
  */
 export const useImageWithFallback = ({
   src,
-  fallbackSrc = "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=512&q=80",
+  fallbackSrc = defaultFallbackImage,
   onLoadSuccess,
   onLoadError,
   trackSuccess = false,

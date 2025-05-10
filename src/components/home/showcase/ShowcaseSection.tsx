@@ -7,62 +7,21 @@ import { motion } from 'framer-motion';
 import { ShowcaseHeader } from './ShowcaseHeader';
 import { ShowcaseGrid } from './ShowcaseGrid';
 import { ShowcaseMobileCarousel } from './ShowcaseMobileCarousel';
+import { localGalleryImages } from '@/utils/imageUtils';
 
 export const ShowcaseSection = () => {
   const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
-  // Sample showcase items with extended information
-  const showcaseItems = [
-    {
-      id: 1,
-      imageUrl: "https://images.unsplash.com/photo-1614624532983-4ce03382d63d?auto=format&fit=crop&w=800&q=80",
-      prompt: "Vibrant cityscape at sunset with neon lights and flying cars",
-      style: "Futuristic",
-      author: "Alex M.",
-      likes: 342
-    },
-    {
-      id: 2,
-      imageUrl: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=800&q=80",
-      prompt: "Portrait of a woman with flowers growing from her hair",
-      style: "Digital Art",
-      author: "Sophia R.",
-      likes: 287
-    },
-    {
-      id: 3,
-      imageUrl: "https://images.unsplash.com/photo-1633109741715-82b70739edc1?auto=format&fit=crop&w=800&q=80",
-      prompt: "Mystical forest with glowing mushrooms and fairy lights",
-      style: "Fantasy",
-      author: "Noah T.",
-      likes: 156
-    },
-    {
-      id: 4,
-      imageUrl: "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=800&q=80",
-      prompt: "Abstract shapes in blue and purple flowing like liquid",
-      style: "Abstract",
-      author: "Emma K.",
-      likes: 221
-    },
-    {
-      id: 5,
-      imageUrl: "https://images.unsplash.com/photo-1650240505146-9f0a0ef28c60?auto=format&fit=crop&w=800&q=80",
-      prompt: "Mountain landscape with aurora borealis in the night sky",
-      style: "Photorealistic",
-      author: "Michael J.",
-      likes: 198
-    },
-    {
-      id: 6,
-      imageUrl: "https://images.unsplash.com/photo-1618172193622-ae2d025f4032?auto=format&fit=crop&w=800&q=80",
-      prompt: "Cyberpunk character in a rainy neon street",
-      style: "Cyberpunk",
-      author: "Lila P.",
-      likes: 312
-    }
-  ];
+  // Generate showcase items from our local gallery images
+  const showcaseItems = localGalleryImages.slice(0, 6).map((image, index) => ({
+    id: index + 1,
+    imageUrl: image.src,
+    prompt: image.alt,
+    style: image.style,
+    author: ["Alex M.", "Sophia R.", "Noah T.", "Emma K.", "Michael J.", "Lila P."][index % 6],
+    likes: Math.floor(Math.random() * 300) + 100
+  }));
 
   return (
     <section id="showcase" className="py-16 md:py-24 bg-white">

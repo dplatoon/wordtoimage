@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ImageOff } from 'lucide-react';
 import { trackEvent } from '@/utils/analytics';
+import { defaultFallbackImage, isExternalUrl } from '@/utils/imageUtils';
 
 interface ResponsiveImageProps {
   src: string;
@@ -20,7 +21,7 @@ interface ResponsiveImageProps {
 export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   src,
   alt,
-  fallbackSrc = "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=300&h=300&q=80",
+  fallbackSrc = defaultFallbackImage,
   className = '',
   width,
   height,
@@ -34,6 +35,9 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   const [imageSrc, setImageSrc] = useState(src);
   const [usedFallback, setUsedFallback] = useState(false);
 
+  // Handle local vs external URLs differently
+  const isExternal = isExternalUrl(src);
+
   const handleLoad = () => {
     setIsLoading(false);
     setHasError(false);
@@ -42,7 +46,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
     
     // Track successful image load if tracking is enabled
     if (trackEventName) {
-      trackEvent(trackEventName + '_loaded', { src: imageSrc });
+      trackEvent(trackEventName + '_loaded', { src: imageSrc, isExternal });
     }
   };
 
@@ -61,7 +65,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
       
       // Track error if tracking is enabled
       if (trackEventName) {
-        trackEvent(trackEventName + '_error', { src: imageSrc });
+        trackEvent(trackEventName + '_error', { src: imageSrc, isExternal });
       }
     }
   };

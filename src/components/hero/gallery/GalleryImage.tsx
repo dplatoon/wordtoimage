@@ -4,6 +4,7 @@ import { ImageActions } from './ImageActions';
 import { ImageOverlay } from './ImageOverlay';
 import { ImageErrorPlaceholder } from './ImageErrorPlaceholder';
 import { trackEvent, events } from '@/utils/analytics';
+import { defaultFallbackImage } from '@/utils/imageUtils';
 
 interface GalleryImageProps {
   url: string;
@@ -32,7 +33,6 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
   
   // Extract a unique ID from the URL to prevent browser caching
   const uniqueUrl = url.includes('?') ? url : `${url}?random=${Math.random()}`;
-  const fallbackImage = "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=300&h=300&q=80";
 
   // Use Intersection Observer for lazy loading
   useEffect(() => {
@@ -72,7 +72,7 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
     if (!useFallback) {
       setUseFallback(true);
       if (imgRef.current) {
-        imgRef.current.src = fallbackImage;
+        imgRef.current.src = defaultFallbackImage;
       }
     } else {
       setImageError(true);
@@ -98,7 +98,7 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
           <img
             ref={imgRef}
             src=""
-            data-src={useFallback ? fallbackImage : uniqueUrl}
+            data-src={useFallback ? defaultFallbackImage : uniqueUrl}
             alt={prompt || 'Generated image'}
             className={`w-full h-full object-cover transition duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             loading="lazy"

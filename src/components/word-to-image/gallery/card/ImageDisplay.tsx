@@ -4,6 +4,7 @@ import { Loader } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useImageWithFallback } from '@/hooks/useImageWithFallback';
 import { ImageErrorState } from './ImageErrorState';
+import { defaultFallbackImage } from '@/utils/imageUtils';
 
 interface ImageDisplayProps {
   imageUrl: string;
@@ -22,7 +23,7 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
     useFallback
   } = useImageWithFallback({
     src: imageUrl,
-    fallbackSrc: "https://images.unsplash.com/photo-1686002359940-6a51b0d8184b?auto=format&fit=crop&w=400&q=75",
+    fallbackSrc: defaultFallbackImage,
     onLoadSuccess: onLoad,
     onLoadError: onError,
     trackSuccess: true,

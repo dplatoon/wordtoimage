@@ -7,6 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { defaultFallbackImage } from '@/utils/imageUtils';
 
 interface ShowcaseMobileCarouselProps {
   items: Array<{
@@ -25,8 +26,6 @@ export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) =
     console.log('Failed to load carousel image:', id);
     setImageErrors(prev => ({ ...prev, [id]: true }));
   };
-  
-  const fallbackImage = "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80";
 
   return (
     <Carousel className="w-full max-w-xs mx-auto">
@@ -35,7 +34,7 @@ export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) =
           <CarouselItem key={item.id} className="pl-1">
             <div className="relative overflow-hidden rounded-xl aspect-square">
               <img
-                src={imageErrors[item.id] ? fallbackImage : item.imageUrl}
+                src={imageErrors[item.id] ? defaultFallbackImage : item.imageUrl}
                 alt={item.prompt}
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                 loading="lazy"

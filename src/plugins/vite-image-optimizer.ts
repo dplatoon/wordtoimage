@@ -12,7 +12,6 @@ export function imageOptimizer(): Plugin {
       const resourceHints = [
         // Preload critical images
         '<link rel="preload" as="image" href="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" type="image/png" fetchpriority="high">',
-        '<link rel="preload" as="image" href="/lovable-uploads/9baa5403-54fd-4d41-9dff-b6762b238e3e.png" type="image/png" fetchpriority="high">',
         // Preconnect to important domains
         '<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>',
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',

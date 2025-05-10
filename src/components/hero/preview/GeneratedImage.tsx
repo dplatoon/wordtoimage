@@ -7,6 +7,7 @@ import { toast } from '@/components/ui/sonner';
 import { trackEvent, events } from '@/utils/analytics';
 import { useImageWithFallback } from '@/hooks/useImageWithFallback';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { defaultFallbackImage } from '@/utils/imageUtils';
 
 interface GeneratedImageProps {
   imageUrl: string;
@@ -34,7 +35,7 @@ export const GeneratedImage = ({
     useFallback,
   } = useImageWithFallback({
     src: imageUrl,
-    fallbackSrc: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=512&q=80",
+    fallbackSrc: defaultFallbackImage,
     onLoadSuccess: onLoad,
     onLoadError: onError,
     trackSuccess: true,
