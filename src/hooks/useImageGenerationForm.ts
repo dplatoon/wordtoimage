@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
@@ -7,7 +8,7 @@ import {
 } from '@/components/hero/constants';
 import { toast } from 'sonner';
 import { trackEvent } from '@/utils/analytics';
-import { supabase } from '@/lib/supabase'; // Added missing import for the supabase client
+import { supabase } from '@/integrations/supabase/client'; // Fixed import for the supabase client
 
 interface UseImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
