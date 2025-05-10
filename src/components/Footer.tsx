@@ -1,4 +1,3 @@
-
 import { Facebook, Instagram, Twitter, Linkedin, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Logo } from '@/components/navigation/Logo';
@@ -82,26 +81,12 @@ export const Footer = () => {
           </div>
         </div>
         
-        {/* Updated footer bottom with legal/compliance information */}
-        <div className="pt-8 border-t border-gray-700">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-4">
-            <p className="text-gray-400 text-sm">© {currentYear} WordToImage.com — All rights reserved.</p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Use</Link>
-              <Link to="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">Contact Us</Link>
-            </div>
-          </div>
-          
-          <div className="text-center md:text-left text-gray-400 text-sm">
-            <p>Operated by Available View LLC</p>
-            <p>1234 Business Center Rd, #456</p>
-            <p>Sheridan, WY 82801, United States</p>
-            <p className="mt-2">
-              <a href="mailto:support@wordtoimage.com" className="text-gray-400 hover:text-white transition-colors">
-                support@wordtoimage.com
-              </a>
-            </p>
+        <div className="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 text-sm">© {currentYear} WordToImage. All rights reserved.</p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy</Link>
+            <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">Terms</Link>
+            <Link to="/cookies" className="text-gray-400 hover:text-white text-sm transition-colors">Cookies</Link>
           </div>
         </div>
       </div>
