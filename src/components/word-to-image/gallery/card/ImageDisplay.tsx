@@ -56,6 +56,7 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
         className="w-full h-full object-cover transition-all duration-300"
         loading="lazy"
         decoding="async"
+        fetchpriority={index === 0 ? "high" : "auto"}
         onLoad={handleLoad}
         onError={handleError}
       />
