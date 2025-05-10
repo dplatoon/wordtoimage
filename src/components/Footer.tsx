@@ -1,6 +1,6 @@
-
-import { Facebook, Instagram, Twitter, Linkedin, Image, Users } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Logo } from '@/components/navigation/Logo';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -18,13 +18,9 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12 mb-12">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-5 h-14">
-              <div className="h-14 w-auto relative min-w-[180px]">
-                <img 
-                  src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" 
-                  alt="WordToImage Logo" 
-                  className="h-full w-auto object-contain brightness-200 contrast-75 filter" 
-                  loading="lazy"
-                />
+              {/* Use the Logo component with footer variant */}
+              <div className="min-w-[180px]">
+                <Logo variant="footer" />
               </div>
             </div>
             <p className="text-gray-300 mb-5">
