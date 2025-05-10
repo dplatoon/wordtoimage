@@ -1,10 +1,9 @@
+
 import { Facebook, Instagram, Twitter, Linkedin, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Logo } from '@/components/navigation/Logo';
 
 export const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  
   return (
     <footer className="text-white py-12 md:py-16 relative overflow-hidden">
       {/* Gradient background */}
@@ -82,7 +81,7 @@ export const Footer = () => {
         </div>
         
         <div className="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">© {currentYear} WordToImage. All rights reserved.</p>
+          <p className="text-gray-400 text-sm">© 2025 Available View LLC | All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy</Link>
             <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">Terms</Link>
