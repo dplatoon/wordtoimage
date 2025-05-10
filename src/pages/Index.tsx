@@ -12,6 +12,7 @@ import { FeaturesSection } from '@/components/home/FeaturesSection';
 import { CtaGeneratorSection } from '@/components/home/CtaGeneratorSection';
 import { GallerySection } from '@/components/home/GallerySection';
 import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
+import { motion } from 'framer-motion';
 
 const Index = () => {
   const [showProModal, setShowProModal] = useState(false);
@@ -25,14 +26,27 @@ const Index = () => {
       
       <main id="main-content" className="relative">
         {/* Hero section with gradient background */}
-        <div className="bg-gradient-to-b from-blue-50 to-white">
+        <div className="bg-gradient-to-b from-indigo-50 to-white">
           <HeroSection />
           
           {/* Features section */}
-          <FeaturesSection />
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <FeaturesSection />
+          </motion.div>
           
           {/* Pricing section */}
-          <section className="py-16 bg-gray-50">
+          <motion.section 
+            className="py-16 bg-gray-50"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-gray-900">Simple Pricing</h2>
@@ -42,13 +56,20 @@ const Index = () => {
               {/* Replace the old pricing with the consistent PricingTable component */}
               <PricingTable />
             </div>
-          </section>
+          </motion.section>
           
           {/* Generator section with CTA */}
           <CtaGeneratorSection />
           
           {/* Sample gallery section */}
-          <GallerySection />
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <GallerySection />
+          </motion.div>
         </div>
       </main>
       

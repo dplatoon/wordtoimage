@@ -4,13 +4,17 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-lovable-brand-background text-lovable-brand-text font-nunito leading-relaxed;
     letter-spacing: -0.02em; /* Slight letter spacing reduction for modern look */
   }
 
   h1, h2, h3, h4 {
-    @apply text-lovable-brand-text tracking-tight;
+    @apply text-lovable-brand-text tracking-tight font-poppins;
   }
 
   a {
@@ -41,6 +45,59 @@
     display: none;  /* Chrome, Safari and Opera */
   }
 
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-500 bg-clip-text text-transparent;
+  }
+  
+  /* Button gradients */
+  .btn-gradient-primary {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600;
+  }
+  
+  .btn-gradient-secondary {
+    @apply bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600;
+  }
+
+  /* Glass effect for header */
+  .glass-header {
+    @apply backdrop-blur-sm bg-white/80;
+  }
+  
+  /* Card with hover effect */
+  .hover-card {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+}
+
+@layer utilities {
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  
   /* Mobile optimizations */
   @media (max-width: 768px) {
     .content-container {

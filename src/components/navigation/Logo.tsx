@@ -2,6 +2,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Image as LucideImage } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
+
 export const Logo = () => {
   const [logoError, setLogoError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -16,22 +19,39 @@ export const Logo = () => {
       setLogoError(true);
     };
   }, []);
+  
   const handleImageError = () => {
     console.error('Failed to load logo image');
     setLogoError(true);
   };
-  return <Link to="/" aria-label="WordToImage - Homepage" className="flex items-center space-x-2 mx-0 py-0 my-[5px]">
-      <div className="flex items-center h-16">
-        {logoError ?
-      // Fallback text logo if image fails to load
-      <div className="flex items-center">
-            <LucideImage className="h-10 w-10 mr-2 text-blue-500" />
-            <span className="text-2xl font-bold text-[#0D2645]">
-              WordtoImage
-            </span>
-          </div> : <div className="h-16 w-auto relative min-w-[180px] rounded-none py-0 px-0 mx-[13px] my-[28px]">
-            <img alt="WordToImage Logo" src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" onError={handleImageError} width="auto" height="64" loading="eager" decoding="async" className="h-full w-auto object-contain" />
-          </div>}
-      </div>
-    </Link>;
+  
+  return (
+    <Link 
+      to="/" 
+      aria-label="WordToImage - Homepage" 
+      className="flex items-center h-full"
+    >
+      {!isLoaded && !logoError ? (
+        <Skeleton className="h-10 w-32 rounded-md" />
+      ) : logoError ? (
+        <div className="flex items-center">
+          <LucideImage className="h-8 w-8 mr-2 text-indigo-500" />
+          <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-500 bg-clip-text text-transparent">
+            WordtoImage
+          </span>
+        </div>
+      ) : (
+        <div className="h-10 sm:h-12 relative">
+          <img 
+            alt="WordToImage Logo" 
+            src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png"
+            onError={handleImageError}
+            className="h-full w-auto object-contain"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )}
+    </Link>
+  );
 };

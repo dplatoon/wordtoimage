@@ -1,11 +1,14 @@
 
 import { Link } from 'react-router-dom';
-import { Users, Settings, LogOut } from 'lucide-react';
+import { Users, Settings, LogOut, X, ChevronRight, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { Dispatch, SetStateAction } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
+import { supabase } from '@/lib/supabase';
+import { Logo } from './Logo';
+import { cn } from '@/lib/utils';
 
 interface MobileMenuProps {
   open: boolean;
@@ -30,72 +33,107 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
 
   if (!open) return null;
 
+  const MenuLink = ({ to, label, icon: Icon }: { to: string; label: string; icon?: any }) => (
+    <Link
+      to={to}
+      className="flex items-center justify-between py-3 px-4 hover:bg-gray-50 rounded-md"
+      onClick={() => setOpen(false)}
+    >
+      <div className="flex items-center">
+        {Icon && <Icon className="mr-3 h-5 w-5 text-gray-500" />}
+        <span className="text-gray-700 font-medium">{label}</span>
+      </div>
+      <ChevronRight className="h-4 w-4 text-gray-400" />
+    </Link>
+  );
+
+  const MenuSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+    <div className="py-2">
+      <h3 className="px-4 text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">
+        {title}
+      </h3>
+      {children}
+    </div>
+  );
+
   return (
-    <div className="md:hidden fixed top-16 left-0 right-0 z-50 bg-white shadow-lg border-t border-gray-200 max-h-[80vh] overflow-y-auto">
-      <div className="flex flex-col space-y-1 px-2 py-3">
-        <div className="py-2">
-          <p className="px-3 text-sm font-semibold text-gray-500">Product</p>
-          <Link to="/features" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Features</Link>
-          <Link to="/pricing" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Pricing</Link>
-          <Link to="/updates" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Updates</Link>
-          <Link to="/text-to-image" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Templates Library</Link>
-          <Link to="/beta" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Beta Program</Link>
-        </div>
+    <div className="h-full flex flex-col">
+      <div className="flex items-center justify-between py-4 px-4 border-b">
+        <Logo />
+        <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => setOpen(false)}>
+          <X className="h-5 w-5" />
+        </Button>
+      </div>
+      
+      <div className="flex-1 overflow-y-auto py-2">
+        <MenuSection title="Product">
+          <MenuLink to="/features" label="Features" />
+          <MenuLink to="/pricing" label="Pricing" />
+          <MenuLink to="/updates" label="Updates" />
+          <MenuLink to="/text-to-image" label="Templates Library" />
+          <MenuLink to="/beta" label="Beta Program" />
+        </MenuSection>
         
-        <div className="py-2">
-          <p className="px-3 text-sm font-semibold text-gray-500">Resources</p>
-          <Link to="/blog" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Blog</Link>
-          <Link to="/design-tips" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Design Tips</Link>
-          <Link to="/tutorials" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Tutorials</Link>
-          <Link to="/help" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Help Center</Link>
-          <Link to="/api" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>API</Link>
-        </div>
+        <Separator className="my-2" />
         
-        <div className="py-2">
-          <p className="px-3 text-sm font-semibold text-gray-500">Company</p>
-          <Link to="/about" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>About</Link>
-          <Link to="/careers" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Careers</Link>
-          <Link to="/contact" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md block" onClick={() => setOpen(false)}>Contact</Link>
-        </div>
-
-        <div className="py-2">
-          <Link to="/community" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md flex items-center" onClick={() => setOpen(false)}>
-            <Users className="mr-2 h-4 w-4" />
-            Community
-          </Link>
-        </div>
-
-        <div className="py-2 border-t border-gray-200 mt-2 pt-4">
-          {user ? (
-            <div className="space-y-2">
-              <p className="px-3 text-sm font-semibold text-gray-500">Account</p>
-              <Link 
-                to="/dashboard" 
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md flex items-center"
-                onClick={() => setOpen(false)}
-              >
-                <Settings className="mr-2 h-4 w-4" />
-                Profile Settings
-              </Link>
-              <button
-                onClick={handleSignOut}
-                className="w-full text-left text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md flex items-center"
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Sign Out
-              </button>
-            </div>
-          ) : (
-            <div className="flex flex-col space-y-2 px-3 pt-2">
-              <Link to="/auth" onClick={() => setOpen(false)}>
-                <Button variant="outline" className="w-full">Sign In</Button>
-              </Link>
-              <Link to="/auth?tab=signup" onClick={() => setOpen(false)}>
-                <Button className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700">Get Started</Button>
-              </Link>
-            </div>
-          )}
-        </div>
+        <MenuSection title="Resources">
+          <MenuLink to="/blog" label="Blog" />
+          <MenuLink to="/design-tips" label="Design Tips" />
+          <MenuLink to="/tutorials" label="Tutorials" />
+          <MenuLink to="/help" label="Help Center" />
+          <MenuLink to="/api" label="API" />
+        </MenuSection>
+        
+        <Separator className="my-2" />
+        
+        <MenuSection title="Company">
+          <MenuLink to="/about" label="About" />
+          <MenuLink to="/careers" label="Careers" />
+          <MenuLink to="/contact" label="Contact" />
+        </MenuSection>
+        
+        <Separator className="my-2" />
+        
+        <MenuSection title="Community">
+          <MenuLink to="/community" label="Community" icon={Users} />
+        </MenuSection>
+      </div>
+      
+      <div className="border-t p-4">
+        {user ? (
+          <div className="space-y-3">
+            <Link
+              to="/dashboard"
+              className="flex items-center justify-between py-2 px-3 rounded-md bg-gray-50 hover:bg-gray-100"
+              onClick={() => setOpen(false)}
+            >
+              <div className="flex items-center">
+                <Settings className="mr-3 h-5 w-5 text-indigo-500" />
+                <span className="font-medium">Profile Settings</span>
+              </div>
+            </Link>
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-gray-700 hover:text-red-600"
+              onClick={handleSignOut}
+            >
+              <LogOut className="mr-3 h-5 w-5" />
+              Sign Out
+            </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" className="w-full" asChild>
+              <Link to="/auth" onClick={() => setOpen(false)}>Sign In</Link>
+            </Button>
+            <Button
+              className="w-full bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600"
+              asChild
+            >
+              <Link to="/auth?tab=signup" onClick={() => setOpen(false)}>Get Started</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

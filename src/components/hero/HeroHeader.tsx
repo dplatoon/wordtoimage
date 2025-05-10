@@ -33,8 +33,8 @@ export const HeroHeader = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.7 }}
       >
-        Turn Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">Words</span> into <br className="hidden md:block" />
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500">Stunning Visuals</span> Instantly!
+        Turn Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Words</span> into <br className="hidden md:block" />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Stunning Visuals</span> Instantly!
       </motion.h1>
       
       <motion.p 
@@ -55,7 +55,7 @@ export const HeroHeader = () => {
       >
         <Button 
           size="lg" 
-          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-blue-600 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+          className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
           onClick={handleGenerateImageClick}
         >
           Create Your Image
@@ -65,7 +65,7 @@ export const HeroHeader = () => {
         <Button 
           size="lg" 
           variant="outline" 
-          className="text-lg border-2 border-blue-300 text-gray-700 hover:bg-blue-50 transition-colors transform hover:scale-105"
+          className="text-lg border-2 border-indigo-300 text-gray-700 hover:bg-indigo-50 transition-colors transform hover:scale-105"
           onClick={handleLearnHowClick}
         >
           See Examples

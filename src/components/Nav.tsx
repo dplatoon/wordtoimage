@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -8,19 +9,23 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
 import { trackEvent, events } from "@/utils/analytics";
 import { Logo } from "@/components/navigation/Logo";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Menu, X } from "lucide-react";
+import { MobileMenu } from "@/components/navigation/MobileMenu";
+import { DesktopNavigation } from "@/components/navigation/DesktopNavigation";
+import { useIsMobile } from "@/hooks/use-mobile";
+
 export const Nav = () => {
-  const {
-    user,
-    signOut,
-    isLoading
-  } = useAuth();
-  const {
-    toast
-  } = useToast();
+  const { user, signOut, isLoading } = useAuth();
+  const { toast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
+  
   useEffect(() => {
     setIsMounted(true);
   }, []);
+  
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -37,27 +42,26 @@ export const Nav = () => {
       });
     }
   };
-  return <header className="sticky top-0 z-40 w-full border-b bg-background">
-      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-        <Logo />
+
+  return (
+    <header className="sticky top-0 z-40 w-full border-b backdrop-blur-sm bg-white/80">
+      <div className="container flex h-16 items-center justify-between">
+        <div className="flex items-center">
+          <Logo />
+        </div>
         
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="flex items-center space-x-1">
-            <Link to="/" className="px-3 py-2 text-sm font-medium">
-              Home
-            </Link>
-            
-            <Link to="/text-to-image" className="px-3 py-2 text-sm font-medium">Word to Image</Link>
-            
-            <Link to="/blog" className="px-3 py-2 text-sm font-medium">
-              Blog
-            </Link>
-            
-            <Link to="/about" className="px-3 py-2 text-sm font-medium">
-              About
-            </Link>
-            
-            {isMounted && (isLoading ? <Skeleton className="h-10 w-[100px]" /> : user ? <DropdownMenu>
+        <div className="flex items-center">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center">
+            <DesktopNavigation />
+          </div>
+          
+          {/* User Menu or Auth Button */}
+          <div className="flex items-center space-x-2 ml-2">
+            {isMounted && (isLoading ? 
+              <Skeleton className="h-10 w-[100px]" /> 
+              : user ? 
+                <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                       <Avatar className="h-8 w-8">
@@ -81,11 +85,39 @@ export const Nav = () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleSignOut}>Logout</DropdownMenuItem>
                   </DropdownMenuContent>
-                </DropdownMenu> : <Link to="/auth" className="px-3 py-2 text-sm font-medium">
-                  Login
-                </Link>)}
-          </nav>
+                </DropdownMenu>
+              : 
+                <div className="flex space-x-2">
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link to="/auth">Login</Link>
+                  </Button>
+                  <Button 
+                    className="bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600" 
+                    size="sm" 
+                    asChild
+                  >
+                    <Link to="/auth?tab=signup">Sign Up</Link>
+                  </Button>
+                </div>
+            )}
+          </div>
+          
+          {/* Mobile Menu */}
+          <div className="md:hidden ml-2">
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-9 w-9">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full max-w-xs p-0">
+                <MobileMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
-    </header>;
+    </header>
+  );
 };
