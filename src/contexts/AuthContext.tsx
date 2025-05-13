@@ -1,5 +1,5 @@
 
-import { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { useAuthState } from '@/hooks/useAuthState';
 import * as authService from '@/services/authService';
 import { AuthContextType } from '@/types/auth';
@@ -14,7 +14,7 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { session, user, isLoading, isConfigured, lastError } = useAuthState();
 
   // Handle profile creation and updates
