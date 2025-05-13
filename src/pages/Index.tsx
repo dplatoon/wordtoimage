@@ -29,7 +29,27 @@ const Index = () => {
         <div className="bg-gradient-to-b from-indigo-50 to-white">
           <HeroSection />
           
-          {/* Features section */}
+          {/* CTA Generator section moved up */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <CtaGeneratorSection />
+          </motion.div>
+          
+          {/* Gallery section moved up */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <GallerySection />
+          </motion.div>
+          
+          {/* Features section moved down */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -39,7 +59,7 @@ const Index = () => {
             <FeaturesSection />
           </motion.div>
           
-          {/* Pricing section */}
+          {/* Pricing section kept at the bottom */}
           <motion.section 
             className="py-16 bg-gray-50"
             initial={{ opacity: 0 }}
@@ -57,19 +77,6 @@ const Index = () => {
               <PricingTable />
             </div>
           </motion.section>
-          
-          {/* Generator section with CTA */}
-          <CtaGeneratorSection />
-          
-          {/* Sample gallery section */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <GallerySection />
-          </motion.div>
         </div>
       </main>
       

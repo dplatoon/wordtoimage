@@ -68,17 +68,22 @@ export const HomeContent = () => {
         <HeroSection />
       </div>
       
+      {/* CTA section moved up */}
+      <div id="cta-section" className="bg-white">
+        <CTASection />
+      </div>
+      
+      {/* Showcase section (similar to Gallery) moved up */}
+      <div className="bg-white py-16">
+        <ShowcaseSection />
+      </div>
+      
       {/* How it works section */}
       <div id="how-it-works" className="bg-gray-50 py-16">
         <HowItWorksSection />
       </div>
       
-      {/* Showcase section */}
-      <div className="bg-white py-16">
-        <ShowcaseSection />
-      </div>
-      
-      {/* Features section */}
+      {/* Features section moved down */}
       <div id="features-section" className="bg-white">
         <FeaturesSection />
       </div>
@@ -88,14 +93,9 @@ export const HomeContent = () => {
         <TestimonialsSection />
       </div>
       
-      {/* Pricing section */}
+      {/* Pricing section kept at bottom */}
       <div id="pricing-section" className="bg-gray-50">
         <PricingSection />
-      </div>
-      
-      {/* CTA section */}
-      <div id="cta-section" className="bg-gray-50">
-        <CTASection />
       </div>
       
       <FaqSection />
