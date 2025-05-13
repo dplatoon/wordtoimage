@@ -4,6 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ImageOff } from 'lucide-react';
 import { trackEvent } from '@/utils/analytics';
 import { defaultFallbackImage, isExternalUrl } from '@/utils/imageUtils';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface ResponsiveImageProps {
   src: string;
@@ -12,6 +13,7 @@ interface ResponsiveImageProps {
   className?: string;
   width?: number | string;
   height?: number | string;
+  aspectRatio?: number;
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   onLoad?: () => void;
   onError?: () => void;
@@ -25,6 +27,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   className = '',
   width,
   height,
+  aspectRatio,
   objectFit = 'cover',
   onLoad,
   onError,
@@ -70,6 +73,19 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
     }
   };
 
+  const ImageComponent = () => (
+    <img
+      src={imageSrc}
+      alt={alt}
+      className={`w-full h-full transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+      style={{ objectFit }}
+      onLoad={handleLoad}
+      onError={handleError}
+      loading="lazy"
+      decoding="async"
+    />
+  );
+
   return (
     <div className={`relative ${className}`} style={{ width, height }}>
       {isLoading && (
@@ -81,17 +97,12 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
           <ImageOff className="h-8 w-8 text-gray-300 mb-2" />
           <p className="text-xs text-gray-400 text-center">Image unavailable</p>
         </div>
+      ) : aspectRatio ? (
+        <AspectRatio ratio={aspectRatio}>
+          <ImageComponent />
+        </AspectRatio>
       ) : (
-        <img
-          src={imageSrc}
-          alt={alt}
-          className={`w-full h-full transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-          style={{ objectFit }}
-          onLoad={handleLoad}
-          onError={handleError}
-          loading="lazy"
-          decoding="async"
-        />
+        <ImageComponent />
       )}
     </div>
   );

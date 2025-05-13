@@ -45,7 +45,7 @@ export const ImagePreview = ({
 
   return (
     <div>
-      <div className="bg-gray-50 border border-gray-200 h-[250px] sm:h-[300px] md:h-[350px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group">
+      <div className="bg-gray-50 border border-gray-200 h-[350px] sm:h-[400px] md:h-[450px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group">
         {isGenerating ? (
           <LoadingState progress={loadingProgress} />
         ) : error ? (

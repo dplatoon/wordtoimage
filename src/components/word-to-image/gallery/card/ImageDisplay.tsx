@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useImageWithFallback } from '@/hooks/useImageWithFallback';
 import { ImageErrorState } from './ImageErrorState';
 import { defaultFallbackImage } from '@/utils/imageUtils';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface ImageDisplayProps {
   imageUrl: string;
@@ -38,29 +39,32 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
   // Loading skeleton
   if (isLoading) {
     return (
-      <div className="relative w-full h-48">
-        <Skeleton className="absolute inset-0 w-full h-full rounded-t-lg" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Loader className="h-6 w-6 text-gray-400 animate-spin" />
-        </div>
+      <div className="relative w-full">
+        <AspectRatio ratio={1}>
+          <Skeleton className="absolute inset-0 w-full h-full rounded-t-lg" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Loader className="h-6 w-6 text-gray-400 animate-spin" />
+          </div>
+        </AspectRatio>
       </div>
     );
   }
   
   // Successfully loaded image
   return (
-    <div className="relative w-full h-48 overflow-hidden">
-      <img
-        src={imageSrc}
-        alt={`Generated image ${index}`}
-        className="w-full h-full object-cover transition-all duration-300"
-        loading="lazy"
-        decoding="async"
-        fetchPriority={index === 0 ? "high" : "auto"}
-        onLoad={handleLoad}
-        onError={handleError}
-      />
+    <div className="relative w-full overflow-hidden">
+      <AspectRatio ratio={1}>
+        <img
+          src={imageSrc}
+          alt={`Generated image ${index}`}
+          className="w-full h-full object-cover transition-all duration-300"
+          loading="lazy"
+          decoding="async"
+          fetchPriority={index === 0 ? "high" : "auto"}
+          onLoad={handleLoad}
+          onError={handleError}
+        />
+      </AspectRatio>
     </div>
   );
 }
-

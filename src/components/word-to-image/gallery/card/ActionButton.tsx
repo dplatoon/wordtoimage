@@ -23,8 +23,8 @@ export function ActionButton({
   rounded = false,
   active = false
 }: ActionButtonProps) {
-  const baseClasses = "transition-all duration-300 hover:scale-105";
-  const standardClasses = "bg-white/90 hover:bg-white text-gray-800 shadow-md";
+  const baseClasses = "transition-all duration-300 shadow-md";
+  const standardClasses = "bg-white hover:bg-gray-100 text-gray-800";
   const roundedClasses = "rounded-full h-8 w-8 p-0";
   const activeClasses = "bg-red-100 text-red-500";
   
@@ -35,7 +35,7 @@ export function ActionButton({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button 
-            size="sm" 
+            size={rounded ? "icon" : "sm"}
             variant={variant}
             className={buttonClasses}
             onClick={onClick}

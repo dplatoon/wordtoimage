@@ -12,7 +12,6 @@ import { Footer } from '@/components/Footer';
 import { PromptInput } from '@/components/word-to-image/PromptInput';
 import { Button } from '@/components/ui/button';
 import { Sparkles } from 'lucide-react';
-import { PricingTable } from '@/components/pricing/PricingTable';
 import { motion } from 'framer-motion';
 
 export default function TextToImage() {
@@ -95,7 +94,7 @@ export default function TextToImage() {
         </motion.div>
         
         <motion.div 
-          className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-6 border border-gray-100"
+          className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 border border-gray-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.7 }}
@@ -133,15 +132,6 @@ export default function TextToImage() {
               </p>
             </div>
           )}
-        </motion.div>
-        
-        {/* Pricing Table Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.7 }}
-        >
-          <PricingTable />
         </motion.div>
         
         <motion.div 

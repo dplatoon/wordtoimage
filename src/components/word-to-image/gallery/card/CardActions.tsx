@@ -26,13 +26,14 @@ export function CardActions({
   const displayUrl = useFallback ? fallbackImage : imageUrl;
   
   return (
-    <div className="absolute inset-0 flex items-end justify-between p-4">
+    <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-3 bg-gradient-to-t from-black/70 to-transparent">
       <div className="flex gap-2">
         <ActionButton
           icon={Download}
           label="Save"
           tooltipText="Download image"
           onClick={() => window.open(displayUrl, '_blank')}
+          variant="default"
         />
         
         <ActionButton
@@ -40,17 +41,11 @@ export function CardActions({
           label="Edit"
           tooltipText="Edit this image"
           onClick={() => onEdit(displayUrl)}
+          variant="default"
         />
       </div>
       
       <div className="flex gap-2">
-        <ActionButton
-          icon={Share2}
-          label="Share"
-          tooltipText="Share image"
-          rounded={true}
-        />
-        
         <ActionButton
           icon={Heart}
           label="Favorite"

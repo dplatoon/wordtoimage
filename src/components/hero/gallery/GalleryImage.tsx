@@ -5,6 +5,7 @@ import { ImageOverlay } from './ImageOverlay';
 import { ImageErrorPlaceholder } from './ImageErrorPlaceholder';
 import { trackEvent, events } from '@/utils/analytics';
 import { defaultFallbackImage } from '@/utils/imageUtils';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface GalleryImageProps {
   url: string;
@@ -95,19 +96,21 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
             <div className="absolute inset-0 bg-gray-100 animate-pulse"></div>
           )}
           
-          <img
-            ref={imgRef}
-            src=""
-            data-src={useFallback ? defaultFallbackImage : uniqueUrl}
-            alt={prompt || 'Generated image'}
-            className={`w-full h-full object-cover transition duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-            loading="lazy"
-            decoding="async"
-            width="300"
-            height="300"
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-          />
+          <AspectRatio ratio={1} className="w-full h-full">
+            <img
+              ref={imgRef}
+              src=""
+              data-src={useFallback ? defaultFallbackImage : uniqueUrl}
+              alt={prompt || 'Generated image'}
+              className={`w-full h-full object-cover transition duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              loading="lazy"
+              decoding="async"
+              width="300"
+              height="300"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+          </AspectRatio>
           
           {imageLoaded && (
             <>

@@ -8,6 +8,7 @@ import { trackEvent, events } from '@/utils/analytics';
 import { useImageWithFallback } from '@/hooks/useImageWithFallback';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { defaultFallbackImage } from '@/utils/imageUtils';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface GeneratedImageProps {
   imageUrl: string;
@@ -91,18 +92,18 @@ export const GeneratedImage = ({
       />
       
       {!isLoading && !isError && (
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/30 flex items-end justify-center p-4">
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center">
           <Button
-            variant="secondary"
-            size="sm"
+            variant="default"
+            size="lg"
             onClick={handleDownload}
-            className="gap-2 bg-white/95 hover:bg-white shadow-md"
+            className="gap-2 bg-white/95 hover:bg-white text-blue-600 shadow-lg border border-blue-100 px-6 py-2 h-auto"
           >
-            <Download className="h-4 w-4 text-blue-600" />
-            <span>Open Image</span>
+            <Download className="h-5 w-5" />
+            <span>{isMobile ? "Open" : "Open Image"}</span>
           </Button>
         </div>
       )}
     </div>
   );
-};
+}
