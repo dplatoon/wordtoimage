@@ -14,3 +14,4 @@ Allow: /
 User-agent: *
 Allow: /
 
+Sitemap: https://wordtoimage.com/sitemap.xml
