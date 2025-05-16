@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Rocket, Castle, Mountain, Contact, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { PromptInput } from './PromptInput';
+import { ExamplePrompts } from '@/components/hero/form/ExamplePrompts';
 
 interface TextToImageFormProps {
   onGenerate: (prompt: string) => void;
@@ -12,12 +13,6 @@ interface TextToImageFormProps {
 
 export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormProps) {
   const [prompt, setPrompt] = useState('');
-  
-  const examplePrompts = [
-    { text: 'Astronaut in Space', icon: <Rocket className="h-4 w-4 mr-2" /> },
-    { text: 'Medieval Castle', icon: <Castle className="h-4 w-4 mr-2" /> },
-    { text: 'Volcanic Eruption', icon: <Mountain className="h-4 w-4 mr-2" /> }
-  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,20 +45,7 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
             </p>
           </div>
           
-          <div className="space-y-3">
-            {examplePrompts.map((example, index) => (
-              <button
-                key={index}
-                type="button"
-                className="w-full flex items-center justify-center py-3 px-4 bg-gray-50 hover:bg-gray-100 
-                  rounded-full text-gray-700 font-medium transition-colors"
-                onClick={() => handleExampleClick(example.text)}
-              >
-                {example.icon}
-                {example.text}
-              </button>
-            ))}
-          </div>
+          <ExamplePrompts onSelect={handleExampleClick} />
           
           <div className="flex items-center justify-between text-sm">
             <div className="text-gray-500 flex items-center">

@@ -11,8 +11,10 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { PromptInput } from '@/components/word-to-image/PromptInput';
 import { Button } from '@/components/ui/button';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ExamplePrompts } from '@/components/hero/form/ExamplePrompts';
+import { SkipToContent } from '@/components/home/SkipToContent';
 
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
@@ -76,9 +78,10 @@ export default function TextToImage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-indigo-50 to-white">
+      <SkipToContent />
       <Nav />
       
-      <div className="container mx-auto px-4 py-12 flex-grow">
+      <div className="container mx-auto px-4 py-12 flex-grow" id="main-content">
         <motion.div 
           className="max-w-3xl mx-auto text-center mb-10"
           initial={{ opacity: 0, y: 20 }}
@@ -101,6 +104,10 @@ export default function TextToImage() {
         >
           <div className="mb-6">
             <PromptInput prompt={prompt} onPromptChange={setPrompt} suggestions={promptSuggestions} />
+          </div>
+          
+          <div className="mb-6">
+            <ExamplePrompts onSelect={setPrompt} />
           </div>
           
           <Button 
