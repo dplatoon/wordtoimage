@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Sparkles } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface PromptInputProps {
   prompt: string;
@@ -17,6 +18,7 @@ export function PromptInput({
   suggestions
 }: PromptInputProps) {
   const MAX_LENGTH = 1000;
+  const isMobile = useIsMobile();
   
   return (
     <div className="relative">
@@ -27,13 +29,24 @@ export function PromptInput({
             onChange={e => onPromptChange(e.target.value)} 
             placeholder="" 
             maxLength={MAX_LENGTH} 
-            className="w-full min-h-[120px] resize-y border-blue-100 px-4 rounded-xl focus:border-blue-300 focus:ring-blue-200 py-3" 
+            className={cn(
+              "w-full resize-y border-blue-100 px-4 rounded-xl focus:border-blue-300 focus:ring-blue-200 py-3",
+              isMobile ? "min-h-[100px]" : "min-h-[120px]"
+            )} 
           />
           
           {prompt.length === 0 && (
-            <div className="absolute left-4 top-8 transform -translate-y-1/2 text-gray-400 flex items-center pointer-events-none">
+            <div className={cn(
+              "absolute left-4 top-8 transform -translate-y-1/2 text-gray-400 flex items-center pointer-events-none",
+              isMobile ? "flex-col items-start" : ""
+            )}>
               <span className="animate-pulse mr-2">✨</span>
-              <span className="text-sm">Write a detailed description with style, composition, and lighting details...</span>
+              <span className={cn(
+                "text-sm",
+                isMobile ? "text-xs mt-1" : ""
+              )}>
+                Write a detailed description with style, composition, and lighting details...
+              </span>
             </div>
           )}
         </div>
@@ -51,17 +64,26 @@ export function PromptInput({
               )}
             >
               <Sparkles className="h-3 w-3 mr-1" />
-              {suggestion}
+              {suggestion.length > 20 ? suggestion.substring(0, 20) + '...' : suggestion}
             </button>
           ))}
         </div>
       )}
       
-      <div className="mt-2 flex justify-between items-center">
-        <div className="text-xs text-gray-500">
+      <div className={cn(
+        "mt-2 flex justify-between items-center",
+        isMobile ? "flex-col items-start space-y-1" : ""
+      )}>
+        <div className={cn(
+          "text-gray-500",
+          isMobile ? "text-xs w-full" : "text-xs"
+        )}>
           Pro tip: Include details about style, lighting, and perspective for better results
         </div>
-        <span className="text-sm text-blue-500 font-medium">
+        <span className={cn(
+          "text-blue-500 font-medium",
+          isMobile ? "text-xs" : "text-sm"
+        )}>
           {prompt.length}/{MAX_LENGTH}
         </span>
       </div>

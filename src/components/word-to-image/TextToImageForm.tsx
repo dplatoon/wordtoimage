@@ -5,6 +5,7 @@ import { Rocket, Castle, Mountain, Contact, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { PromptInput } from './PromptInput';
 import { ExamplePrompts } from '@/components/hero/form/ExamplePrompts';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface TextToImageFormProps {
   onGenerate: (prompt: string) => void;
@@ -13,6 +14,7 @@ interface TextToImageFormProps {
 
 export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormProps) {
   const [prompt, setPrompt] = useState('');
+  const isMobile = useIsMobile();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,11 +25,21 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
 
   const handleExampleClick = (text: string) => {
     setPrompt(text);
+    
+    // Scroll to input for better mobile UX
+    if (isMobile) {
+      setTimeout(() => {
+        const textareaElement = document.querySelector('textarea');
+        if (textareaElement) {
+          textareaElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
   };
 
   return (
     <Card className="mb-6 shadow-sm border-gray-200">
-      <CardContent className="pt-6">
+      <CardContent className={cn("pt-6", isMobile ? "px-3" : "")}>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <div className="flex items-center">
@@ -40,27 +52,23 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
               onPromptChange={setPrompt}
             />
             
-            <p className="text-sm text-gray-500">
+            <p className={cn(
+              "text-gray-500",
+              isMobile ? "text-xs" : "text-sm"
+            )}>
               Be specific with details like style, lighting, and perspective
             </p>
           </div>
           
           <ExamplePrompts onSelect={handleExampleClick} />
           
-          <div className="flex items-center justify-between text-sm">
-            <div className="text-gray-500 flex items-center">
-              <span>Issues?</span>
-              <Button variant="ghost" size="sm" className="text-blue-600 font-medium pl-2">
-                <Contact className="h-4 w-4 mr-1.5" />
-                Contact
-              </Button>
-            </div>
-          </div>
-          
           <Button
             type="submit"
             disabled={!prompt.trim() || isGenerating}
-            className="w-full py-6 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium text-lg"
+            className={cn(
+              "w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium",
+              isMobile ? "py-4 text-base" : "py-6 text-lg"
+            )}
           >
             {isGenerating ? (
               <span className="flex items-center">

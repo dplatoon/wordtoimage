@@ -9,12 +9,12 @@ import { AuthModalDialog } from '@/components/hero/AuthModalDialog';
 import { trackEvent } from '@/utils/analytics';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
-import { PromptInput } from '@/components/word-to-image/PromptInput';
 import { Button } from '@/components/ui/button';
-import { Sparkles, FileText } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { ExamplePrompts } from '@/components/hero/form/ExamplePrompts';
 import { SkipToContent } from '@/components/home/SkipToContent';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
@@ -25,6 +25,7 @@ export default function TextToImage() {
   }[]>([]);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const { user, isLoading } = useAuth();
+  const isMobile = useIsMobile();
   
   const { generateImageFromPrompt } = useImageGeneration({
     onImageGenerated: url => {
@@ -48,9 +49,7 @@ export default function TextToImage() {
     "A futuristic cityscape at night with neon lights", 
     "Serene mountain lake at sunset with reflection", 
     "Abstract geometric patterns in vibrant colors", 
-    "Tropical beach with crystal clear water and palm trees", 
-    "A magical forest with glowing mushrooms and fairies", 
-    "Modern minimalist interior design with plants"
+    "Tropical beach with crystal clear water"
   ];
   
   const handleGenerate = async (promptText: string) => {
@@ -81,52 +80,45 @@ export default function TextToImage() {
       <SkipToContent />
       <Nav />
       
-      <div className="container mx-auto px-4 py-12 flex-grow" id="main-content">
+      <div className={cn(
+        "container mx-auto px-4 py-8 flex-grow",
+        isMobile ? "px-2" : "py-12"
+      )} id="main-content">
         <motion.div 
-          className="max-w-3xl mx-auto text-center mb-10"
+          className={cn(
+            "mx-auto text-center mb-8",
+            isMobile ? "max-w-full" : "max-w-3xl mb-10"
+          )}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+          <h1 className={cn(
+            "font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600",
+            isMobile ? "text-2xl" : "text-3xl md:text-4xl"
+          )}>
             AI-Powered Text to Image Generation
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className={cn(
+            "text-gray-600",
+            isMobile ? "text-base px-4" : "text-lg"
+          )}>
             Generate beautiful visuals with AI – create exactly what you imagine.
           </p>
         </motion.div>
         
         <motion.div 
-          className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 border border-gray-100"
+          className={cn(
+            "mx-auto bg-white rounded-xl shadow-lg border border-gray-100",
+            isMobile ? "p-3 max-w-full" : "p-6 max-w-3xl"
+          )}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.7 }}
         >
           <div className="mb-6">
-            <PromptInput prompt={prompt} onPromptChange={setPrompt} suggestions={promptSuggestions} />
+            <TextToImageForm onGenerate={handleGenerate} isGenerating={isGenerating} />
           </div>
-          
-          <div className="mb-6">
-            <ExamplePrompts onSelect={setPrompt} />
-          </div>
-          
-          <Button 
-            onClick={() => handleGenerate(prompt)} 
-            disabled={isGenerating || !prompt.trim()} 
-            className="w-full py-6 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-medium text-lg transition-all hover:shadow-lg"
-          >
-            {isGenerating ? (
-              <span className="flex items-center justify-center">
-                <span className="animate-spin h-5 w-5 mr-3 border-b-2 border-white rounded-full"></span>
-                Generating...
-              </span>
-            ) : (
-              <span className="flex items-center justify-center">
-                <Sparkles className="mr-2 h-5 w-5" />
-                Generate Image
-              </span>
-            )}
-          </Button>
           
           <div className="mt-8">
             <ImageGallery images={generatedImages} onEdit={() => {}} loading={isGenerating} />
@@ -134,7 +126,10 @@ export default function TextToImage() {
           
           {!user && !isLoading && (
             <div className="mt-6 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-              <p className="text-sm text-indigo-700 text-center">
+              <p className={cn(
+                "text-indigo-700 text-center",
+                isMobile ? "text-xs" : "text-sm"
+              )}>
                 <span className="font-semibold">Pro tip:</span> Sign up for free to save your images and generate HD quality renders
               </p>
             </div>
@@ -142,26 +137,29 @@ export default function TextToImage() {
         </motion.div>
         
         <motion.div 
-          className="max-w-4xl mx-auto mt-16"
+          className={cn(
+            "mx-auto mt-12",
+            isMobile ? "max-w-full" : "max-w-4xl mt-16"
+          )}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.7 }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🎨</div>
-              <h3 className="font-semibold mb-2">HD Renders</h3>
-              <p className="text-sm text-gray-600">Unlock 2K+ images with no watermarks</p>
+              <h3 className="font-semibold mb-1 md:mb-2">HD Renders</h3>
+              <p className="text-xs md:text-sm text-gray-600">Unlock 2K+ images with no watermarks</p>
             </div>
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
+            <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">⚡</div>
-              <h3 className="font-semibold mb-2">Faster Generation</h3>
-              <p className="text-sm text-gray-600">Pro users get results 3× faster</p>
+              <h3 className="font-semibold mb-1 md:mb-2">Faster Generation</h3>
+              <p className="text-xs md:text-sm text-gray-600">Pro users get results 3× faster</p>
             </div>
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
+            <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">💾</div>
-              <h3 className="font-semibold mb-2">Save History</h3>
-              <p className="text-sm text-gray-600">Keep your renders in your gallery</p>
+              <h3 className="font-semibold mb-1 md:mb-2">Save History</h3>
+              <p className="text-xs md:text-sm text-gray-600">Keep your renders in your gallery</p>
             </div>
           </div>
         </motion.div>
