@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,7 +30,7 @@ export const CommunitySidebar = () => {
   return (
     <div className="space-y-6">
       {/* Trending Topics Card */}
-      <Card>
+      <Card className="bg-white shadow-md border-gray-100">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Flame className="h-5 w-5 mr-2 text-orange-500" />
@@ -51,7 +52,7 @@ export const CommunitySidebar = () => {
       </Card>
 
       {/* Suggested Users Card */}
-      <Card>
+      <Card className="bg-white shadow-md border-gray-100">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Users className="h-5 w-5 mr-2 text-blue-500" />
@@ -82,7 +83,7 @@ export const CommunitySidebar = () => {
       </Card>
 
       {/* Upcoming Events Card */}
-      <Card>
+      <Card className="bg-white shadow-md border-gray-100">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Calendar className="h-5 w-5 mr-2 text-purple-500" />
@@ -105,7 +106,7 @@ export const CommunitySidebar = () => {
       </Card>
 
       {/* Community Stats Card */}
-      <Card>
+      <Card className="bg-white shadow-md border-gray-100">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Award className="h-5 w-5 mr-2 text-green-500" />

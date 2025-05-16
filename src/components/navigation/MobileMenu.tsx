@@ -36,12 +36,12 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
   const MenuLink = ({ to, label, icon: Icon }: { to: string; label: string; icon?: any }) => (
     <Link
       to={to}
-      className="flex items-center justify-between py-3 px-4 hover:bg-gray-50 rounded-md"
+      className="flex items-center justify-between py-3 px-4 hover:bg-gray-700/30 rounded-md"
       onClick={() => setOpen(false)}
     >
       <div className="flex items-center">
-        {Icon && <Icon className="mr-3 h-5 w-5 text-gray-500" />}
-        <span className="text-gray-700 font-medium">{label}</span>
+        {Icon && <Icon className="mr-3 h-5 w-5 text-gray-300" />}
+        <span className="text-gray-100 font-medium">{label}</span>
       </div>
       <ChevronRight className="h-4 w-4 text-gray-400" />
     </Link>
@@ -49,7 +49,7 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
 
   const MenuSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
     <div className="py-2">
-      <h3 className="px-4 text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">
+      <h3 className="px-4 text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">
         {title}
       </h3>
       {children}
@@ -57,10 +57,10 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
   );
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex items-center justify-between py-4 px-4 border-b">
+    <div className="h-full flex flex-col bg-[#1A1F2C] text-white">
+      <div className="flex items-center justify-between py-4 px-4 border-b border-gray-700">
         <Logo />
-        <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => setOpen(false)}>
+        <Button variant="ghost" size="icon" className="h-9 w-9 text-gray-300 hover:bg-gray-700/50 hover:text-white" onClick={() => setOpen(false)}>
           <X className="h-5 w-5" />
         </Button>
       </div>
@@ -74,7 +74,7 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
           <MenuLink to="/beta" label="Beta Program" />
         </MenuSection>
         
-        <Separator className="my-2" />
+        <Separator className="my-2 bg-gray-700" />
         
         <MenuSection title="Resources">
           <MenuLink to="/blog" label="Blog" />
@@ -84,7 +84,7 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
           <MenuLink to="/api" label="API" />
         </MenuSection>
         
-        <Separator className="my-2" />
+        <Separator className="my-2 bg-gray-700" />
         
         <MenuSection title="Company">
           <MenuLink to="/about" label="About" />
@@ -92,29 +92,29 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
           <MenuLink to="/contact" label="Contact" />
         </MenuSection>
         
-        <Separator className="my-2" />
+        <Separator className="my-2 bg-gray-700" />
         
         <MenuSection title="Community">
           <MenuLink to="/community" label="Community" icon={Users} />
         </MenuSection>
       </div>
       
-      <div className="border-t p-4">
+      <div className="border-t border-gray-700 p-4">
         {user ? (
           <div className="space-y-3">
             <Link
               to="/dashboard"
-              className="flex items-center justify-between py-2 px-3 rounded-md bg-gray-50 hover:bg-gray-100"
+              className="flex items-center justify-between py-2 px-3 rounded-md bg-gray-800 hover:bg-gray-700"
               onClick={() => setOpen(false)}
             >
               <div className="flex items-center">
-                <Settings className="mr-3 h-5 w-5 text-indigo-500" />
-                <span className="font-medium">Profile Settings</span>
+                <Settings className="mr-3 h-5 w-5 text-indigo-400" />
+                <span className="font-medium text-gray-100">Profile Settings</span>
               </div>
             </Link>
             <Button
               variant="ghost"
-              className="w-full justify-start text-gray-700 hover:text-red-600"
+              className="w-full justify-start text-gray-300 hover:text-red-400 hover:bg-gray-800"
               onClick={handleSignOut}
             >
               <LogOut className="mr-3 h-5 w-5" />
@@ -123,11 +123,11 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline" className="w-full" asChild>
+            <Button variant="outline" className="w-full bg-transparent border-gray-600 text-gray-200 hover:bg-gray-700 hover:text-white" asChild>
               <Link to="/auth" onClick={() => setOpen(false)}>Sign In</Link>
             </Button>
             <Button
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
               asChild
             >
               <Link to="/auth?tab=signup" onClick={() => setOpen(false)}>Get Started</Link>
@@ -138,3 +138,4 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
     </div>
   );
 };
+
