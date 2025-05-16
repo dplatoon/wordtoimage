@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { PromptInput } from './PromptInput';
 import { ExamplePrompts } from '@/components/hero/form/ExamplePrompts';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 
 interface TextToImageFormProps {
   onGenerate: (prompt: string) => void;
