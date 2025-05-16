@@ -3,14 +3,13 @@ import { useState } from 'react';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { BetaBanner } from '@/components/BetaBanner';
-import { CursorTrail } from '@/components/home/CursorTrail';
 import { SeoHead } from '@/components/home/SeoHead';
 import { SkipToContent } from '@/components/home/SkipToContent';
-import { PricingTable } from '@/components/pricing/PricingTable';
-import { HeroSection } from '@/components/home/HeroSection';
-import { FeaturesSection } from '@/components/home/FeaturesSection';
-import { CtaGeneratorSection } from '@/components/home/CtaGeneratorSection';
-import { GallerySection } from '@/components/home/GallerySection';
+import { MinimalistHero } from '@/components/home/MinimalistHero';
+import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
+import { MinimalistFeatures } from '@/components/home/MinimalistFeatures';
+import { TestimonialsSlider } from '@/components/home/TestimonialsSlider';
+import { MinimalistPricing } from '@/components/home/MinimalistPricing';
 import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
 import { motion } from 'framer-motion';
 
@@ -20,64 +19,59 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <SeoHead />
-      <CursorTrail />
       <SkipToContent />
       <Nav />
       
       <main id="main-content" className="relative">
-        {/* Hero section with gradient background */}
-        <div className="bg-gradient-to-b from-indigo-50 to-white">
-          <HeroSection />
-          
-          {/* CTA Generator section moved up */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <CtaGeneratorSection />
-          </motion.div>
-          
-          {/* Gallery section moved up */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <GallerySection />
-          </motion.div>
-          
-          {/* Features section moved down */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <FeaturesSection />
-          </motion.div>
-          
-          {/* Pricing section kept at the bottom */}
-          <motion.section 
-            className="py-16 bg-gray-50"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900">Simple Pricing</h2>
-                <p className="mt-4 text-lg text-gray-600">Choose the plan that works for you</p>
-              </div>
-              
-              {/* Replace the old pricing with the consistent PricingTable component */}
-              <PricingTable />
-            </div>
-          </motion.section>
-        </div>
+        {/* Hero section with gradient background and blurred image */}
+        <MinimalistHero onShowProFeatures={() => setShowProModal(true)} />
+        
+        {/* Image Showcase Grid */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="py-16 md:py-20 bg-gray-50"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">See What You Can Create</h2>
+            <ImageShowcaseGrid />
+          </div>
+        </motion.section>
+        
+        {/* Minimalist Features Section */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="py-16 md:py-20 bg-white"
+        >
+          <MinimalistFeatures />
+        </motion.section>
+        
+        {/* Testimonials Slider */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="py-16 md:py-20 bg-gray-50"
+        >
+          <TestimonialsSlider />
+        </motion.section>
+        
+        {/* Minimalist Pricing */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="py-16 md:py-20 bg-white"
+        >
+          <MinimalistPricing onShowProFeatures={() => setShowProModal(true)} />
+        </motion.section>
       </main>
       
       <Footer />
