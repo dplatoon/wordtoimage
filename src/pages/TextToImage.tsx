@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { TextToImageForm } from '@/components/word-to-image/TextToImageForm';
 import { toast } from '@/components/ui/sonner';
@@ -64,9 +63,9 @@ export default function TextToImage() {
     
     try {
       trackEvent('text_to_image_generate_attempt', {
-        promptLength: promptText.length
+        promptLength: promptText.length,
+        hasSourceImage: !!sourceImage
       });
-      // Pass the sourceImage to the generation function
       await generateImageFromPrompt(promptText, '', false, sourceImage);
     } catch (error) {
       console.error('Failed to generate image:', error);

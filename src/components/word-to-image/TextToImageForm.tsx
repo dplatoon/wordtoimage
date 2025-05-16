@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Rocket, Castle, Mountain, Contact, Sparkles } from 'lucide-react';
+import { Rocket, Castle, Mountain, Contact, Sparkles, ImageIcon, Image as ImageLucide } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { PromptInput } from './PromptInput';
 import { ExamplePrompts } from '@/components/hero/form/ExamplePrompts';
@@ -17,8 +17,8 @@ interface TextToImageFormProps {
 
 export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormProps) {
   const [prompt, setPrompt] = useState('');
-  const [showImageUpload, setShowImageUpload] = useState(false);
   const [sourceImage, setSourceImage] = useState<string>('');
+  const [selectedTemplate, setSelectedTemplate] = useState<string>('');
   const isMobile = useIsMobile();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -44,9 +44,35 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
 
   const handleImageSelected = (imageData: string) => {
     setSourceImage(imageData);
+    setSelectedTemplate('');
     // Here you would normally pass this to the onGenerate function
     // For now we're just storing it in state
   };
+  
+  const handleTemplateSelect = (templateUrl: string) => {
+    setSelectedTemplate(templateUrl);
+    setSourceImage(templateUrl);
+    // Clear any uploaded image when selecting a template
+  };
+  
+  // Template options
+  const templates = [
+    {
+      id: 'template1',
+      url: '/placeholder.svg',
+      label: 'Minimal',
+    },
+    {
+      id: 'template2',
+      url: '/placeholder.svg',
+      label: 'Portrait',
+    },
+    {
+      id: 'template3',
+      url: '/placeholder.svg', 
+      label: 'Landscape',
+    }
+  ];
 
   return (
     <Card className="mb-6 shadow-sm border-gray-200">
@@ -73,25 +99,46 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
           
           <ExamplePrompts onSelect={handleExampleClick} />
           
-          <div className="flex items-center">
-            <button
-              type="button"
-              onClick={() => setShowImageUpload(!showImageUpload)}
-              className="text-sm text-blue-600 hover:text-blue-800 transition-colors flex items-center space-x-1"
-            >
-              <span>{showImageUpload ? 'Hide' : 'Show'} Image-to-Image options</span>
-            </button>
-            <Separator className="flex-1 mx-4" />
-          </div>
-          
-          {showImageUpload && (
-            <div className="pt-2">
+          <div className="pt-2">
+            <div className="flex items-center mb-4">
+              <ImageLucide className="text-blue-600 h-5 w-5 mr-2" />
+              <h2 className="text-xl font-medium text-gray-800">Image-to-Image Generation</h2>
+            </div>
+            
+            <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 p-4 rounded-xl">
               <ImageUploader 
                 onImageSelected={handleImageSelected}
                 disabled={isGenerating}
               />
+              
+              <div className="mt-6">
+                <h3 className="text-sm font-bold mb-3 text-gray-700">Start with a Template</h3>
+                <div className="grid grid-cols-3 gap-3">
+                  {templates.map((template) => (
+                    <div 
+                      key={template.id}
+                      onClick={() => handleTemplateSelect(template.url)}
+                      className={cn(
+                        "cursor-pointer rounded-md overflow-hidden border-2 transition-all",
+                        selectedTemplate === template.url 
+                          ? "border-blue-500 shadow-md" 
+                          : "border-gray-200 hover:border-blue-300"
+                      )}
+                    >
+                      <div className="aspect-square bg-gray-100 flex items-center justify-center">
+                        <img 
+                          src={template.url} 
+                          alt={template.label} 
+                          className="object-cover h-full w-full"
+                        />
+                      </div>
+                      <div className="text-xs p-1 text-center bg-white text-gray-600">{template.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          )}
+          </div>
           
           <Button
             type="submit"
