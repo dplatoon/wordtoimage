@@ -7,6 +7,8 @@ import { PromptInput } from './PromptInput';
 import { ExamplePrompts } from '@/components/hero/form/ExamplePrompts';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
+import { ImageUploader } from '@/components/hero/form/controls/ImageUploader';
+import { Separator } from '@/components/ui/separator';
 
 interface TextToImageFormProps {
   onGenerate: (prompt: string) => void;
@@ -15,6 +17,8 @@ interface TextToImageFormProps {
 
 export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormProps) {
   const [prompt, setPrompt] = useState('');
+  const [showImageUpload, setShowImageUpload] = useState(false);
+  const [sourceImage, setSourceImage] = useState<string>('');
   const isMobile = useIsMobile();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -36,6 +40,12 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
         }
       }, 100);
     }
+  };
+
+  const handleImageSelected = (imageData: string) => {
+    setSourceImage(imageData);
+    // Here you would normally pass this to the onGenerate function
+    // For now we're just storing it in state
   };
 
   return (
@@ -62,6 +72,26 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
           </div>
           
           <ExamplePrompts onSelect={handleExampleClick} />
+          
+          <div className="flex items-center">
+            <button
+              type="button"
+              onClick={() => setShowImageUpload(!showImageUpload)}
+              className="text-sm text-blue-600 hover:text-blue-800 transition-colors flex items-center space-x-1"
+            >
+              <span>{showImageUpload ? 'Hide' : 'Show'} Image-to-Image options</span>
+            </button>
+            <Separator className="flex-1 mx-4" />
+          </div>
+          
+          {showImageUpload && (
+            <div className="pt-2">
+              <ImageUploader 
+                onImageSelected={handleImageSelected}
+                disabled={isGenerating}
+              />
+            </div>
+          )}
           
           <Button
             type="submit"

@@ -20,6 +20,7 @@ export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sourceImage, setSourceImage] = useState<string>('');
   const [generatedImages, setGeneratedImages] = useState<{
     url: string;
   }[]>([]);
@@ -65,7 +66,8 @@ export default function TextToImage() {
       trackEvent('text_to_image_generate_attempt', {
         promptLength: promptText.length
       });
-      await generateImageFromPrompt(promptText, '', false);
+      // Pass the sourceImage to the generation function
+      await generateImageFromPrompt(promptText, '', false, sourceImage);
     } catch (error) {
       console.error('Failed to generate image:', error);
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
