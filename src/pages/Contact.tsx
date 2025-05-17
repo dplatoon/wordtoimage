@@ -2,7 +2,7 @@
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 const Contact = () => {
   return (
@@ -12,39 +12,17 @@ const Contact = () => {
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">Get in Touch</h1>
           <p className="text-lg text-gray-700 mb-12 text-center">
-            We'd love to hear from you. Please fill out the form below or reach out through one of our channels.
+            We'd love to hear from you. Please fill out the form below or reach out through our email.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center">
+          <div className="flex justify-center mb-12">
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center max-w-sm w-full">
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="h-6 w-6 text-blue-600" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Email Us</h3>
               <p className="text-gray-700">
                 <a href="mailto:contact@wordtoimage.com" className="text-blue-600 hover:underline">contact@wordtoimage.com</a>
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Phone className="h-6 w-6 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Call Us</h3>
-              <p className="text-gray-700">
-                <a href="tel:+13074001973" className="text-blue-600 hover:underline">+1 (307) 400-1973</a>
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-6 w-6 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Visit Us</h3>
-              <p className="text-gray-700">
-                490 Post St<br />
-                Ste 500 PMB 2060<br />
-                San Francisco, CA 94102
               </p>
             </div>
           </div>
