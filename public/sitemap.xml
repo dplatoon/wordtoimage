@@ -3,105 +3,105 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Main pages -->
   <url>
-    <loc>https://wordtoimage.com/</loc>
+    <loc>/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/text-to-image</loc>
+    <loc>/text-to-image</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/dashboard</loc>
+    <loc>/dashboard</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <!-- Product pages -->
   <url>
-    <loc>https://wordtoimage.com/features</loc>
+    <loc>/features</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/pricing</loc>
+    <loc>/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/updates</loc>
+    <loc>/updates</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/beta</loc>
+    <loc>/beta</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <!-- Resource pages -->
   <url>
-    <loc>https://wordtoimage.com/blog</loc>
+    <loc>/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/design-tips</loc>
+    <loc>/design-tips</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/tutorials</loc>
+    <loc>/tutorials</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/help</loc>
+    <loc>/help</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/api</loc>
+    <loc>/api</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <!-- Company pages -->
   <url>
-    <loc>https://wordtoimage.com/about</loc>
+    <loc>/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/careers</loc>
+    <loc>/careers</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/contact</loc>
+    <loc>/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/community</loc>
+    <loc>/community</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <!-- Legal pages -->
   <url>
-    <loc>https://wordtoimage.com/privacy</loc>
+    <loc>/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/terms</loc>
+    <loc>/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://wordtoimage.com/cookies</loc>
+    <loc>/cookies</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>

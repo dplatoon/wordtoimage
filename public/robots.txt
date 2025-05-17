@@ -14,4 +14,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://wordtoimage.com/sitemap.xml
+Sitemap: https://YOUR_DOMAIN.vercel.app/sitemap.xml
