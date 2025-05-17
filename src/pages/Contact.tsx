@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
+import { PrimaryButton } from '@/components/ui/primary-button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -42,20 +45,26 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Store the contact submission in Supabase
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert([
-          { 
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message 
-          }
-        ]);
+      // Use the REST API directly to avoid TypeScript issues
+      const response = await fetch('https://itkfghwxbodjlmpgydsq.supabase.co/rest/v1/contact_submissions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0a2ZnaHd4Ym9kamxtcGd5ZHNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUwMzMzOTQsImV4cCI6MjA2MDYwOTM5NH0.1QFLzTYlsFK6eGi_kpnN-pF1xqz3FJP5fphD8wGCC9M',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ 
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message 
+        })
+      });
       
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
       
       // Show success message
       toast({
@@ -115,10 +124,9 @@ const Contact = () => {
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
                     First Name
                   </label>
-                  <input
+                  <Input
                     type="text"
                     id="firstName"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="John"
                     value={formData.firstName}
                     onChange={handleChange}
@@ -128,10 +136,9 @@ const Contact = () => {
                   <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
                     Last Name
                   </label>
-                  <input
+                  <Input
                     type="text"
                     id="lastName"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Doe"
                     value={formData.lastName}
                     onChange={handleChange}
@@ -143,10 +150,9 @@ const Contact = () => {
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                   Email Address <span className="text-red-500">*</span>
                 </label>
-                <input
+                <Input
                   type="email"
                   id="email"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="john.doe@example.com"
                   required
                   value={formData.email}
@@ -158,10 +164,9 @@ const Contact = () => {
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
                   Subject
                 </label>
-                <input
+                <Input
                   type="text"
                   id="subject"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="How can we help you?"
                   value={formData.subject}
                   onChange={handleChange}
@@ -172,25 +177,25 @@ const Contact = () => {
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                   Message <span className="text-red-500">*</span>
                 </label>
-                <textarea
+                <Textarea
                   id="message"
                   rows={5}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Your message here..."
                   required
                   value={formData.message}
                   onChange={handleChange}
-                ></textarea>
+                />
               </div>
               
               <div>
-                <Button 
+                <PrimaryButton 
                   type="submit" 
                   className="w-full"
-                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
+                  loadingText="Sending..."
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </Button>
+                  Send Message
+                </PrimaryButton>
               </div>
             </form>
           </div>
