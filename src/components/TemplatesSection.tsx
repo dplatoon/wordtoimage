@@ -130,7 +130,6 @@ export const TemplatesSection = () => {
       description: `Using "${template.title}" template. Redirecting to generator...`,
     });
     
-    // Here you would typically navigate to the generator with the template data
     console.log('Using template:', template);
   };
 
@@ -157,11 +156,11 @@ export const TemplatesSection = () => {
   return (
     <section id="templates" className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-space">
             Start with a Template
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-slate-600 max-w-2xl mx-auto leading-relaxed">
             Choose from our curated collection of templates or start from scratch. Find the perfect starting point for your creative vision.
           </p>
         </div>
@@ -179,7 +178,7 @@ export const TemplatesSection = () => {
         
         {/* Results Summary */}
         <div className="mt-8 mb-6">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-brand-slate-600 font-medium">
             Showing {filteredTemplates.length} template{filteredTemplates.length !== 1 ? 's' : ''}
             {activeCategory && ` in ${activeCategory}`}
             {searchQuery && ` matching "${searchQuery}"`}
@@ -199,8 +198,8 @@ export const TemplatesSection = () => {
         </div>
 
         {filteredTemplates.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 mb-4">No templates found matching your criteria.</p>
+          <div className="text-center py-16">
+            <p className="text-brand-slate-500 mb-6 text-lg">No templates found matching your criteria.</p>
             <Button 
               variant="outline" 
               onClick={() => {
@@ -208,17 +207,18 @@ export const TemplatesSection = () => {
                 setSearchQuery('');
                 setSelectedTags([]);
               }}
+              className="border-brand-slate-200 hover:bg-brand-slate-50 font-medium rounded-xl"
             >
               Clear Filters
             </Button>
           </div>
         )}
         
-        <div className="mt-12 text-center">
+        <div className="mt-16 text-center">
           <Link to="/text-to-image">
             <Button 
               variant="outline" 
-              className="border-blue-300 text-blue-600 hover:bg-blue-50"
+              className="border-brand-purple text-brand-purple hover:bg-brand-purple/5 hover:border-brand-purple/60 font-semibold rounded-xl shadow-subtle transition-all duration-200"
             >
               Create Your Own
               <ImagePlus className="h-4 w-4 ml-2" />

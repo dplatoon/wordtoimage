@@ -28,7 +28,7 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
   return (
     <div 
       ref={ref}
-      className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 group"
+      className="bg-white rounded-xl overflow-hidden shadow-subtle hover:shadow-modern transition-all duration-300 border border-gray-100 group hover:border-brand-purple/20 hover:-translate-y-1 transform-gpu"
     >
       <div className="relative h-40 overflow-hidden bg-gray-100">
         {isIntersecting && (
@@ -44,14 +44,15 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
                 onLoad={() => setImageLoaded(true)}
                 onError={() => setImageError(true)}
                 loading="lazy"
+                style={{ borderRadius: '0.75rem 0.75rem 0 0' }}
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                <span className="text-gray-400 text-sm">Image unavailable</span>
+              <div className="w-full h-full flex items-center justify-center bg-brand-slate-100">
+                <span className="text-brand-slate-400 text-sm font-medium">Image unavailable</span>
               </div>
             )}
             
-            {/* Hover overlay */}
+            {/* Hover overlay with consistent interaction */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
               <div className="flex gap-2">
                 <Button
@@ -61,7 +62,7 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
                     e.stopPropagation();
                     onPreview(template);
                   }}
-                  className="bg-white/90 hover:bg-white text-gray-800"
+                  className="bg-white/95 hover:bg-white text-gray-800 shadow-brand font-medium"
                 >
                   <Eye className="h-4 w-4 mr-1" />
                   Preview
@@ -74,7 +75,7 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
                     onUse(template);
                   }}
                   disabled={template.isPro}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-brand-purple hover:bg-brand-purple/90 shadow-brand font-medium"
                 >
                   {template.isPro ? <Lock className="h-4 w-4 mr-1" /> : <ChevronRight className="h-4 w-4 mr-1" />}
                   {template.isPro ? 'Pro' : 'Use'}
@@ -85,11 +86,11 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
         )}
         
         {!imageLoaded && !imageError && isIntersecting && (
-          <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+          <div className="absolute inset-0 bg-brand-slate-200 animate-pulse" />
         )}
         
         {template.isPro && (
-          <Badge className="absolute top-2 right-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white border-none">
+          <Badge className="absolute top-3 right-3 bg-gradient-to-r from-brand-purple to-brand-navy text-white border-none shadow-brand font-medium">
             <Lock className="h-3 w-3 mr-1" />
             Pro
           </Badge>
@@ -97,16 +98,16 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
       </div>
       
       <div className="p-4">
-        <h3 className="font-medium text-gray-900 mb-1">{template.title}</h3>
-        <p className="text-sm text-gray-500 mb-3 line-clamp-2">{template.description}</p>
+        <h3 className="font-semibold text-gray-900 mb-2 font-space">{template.title}</h3>
+        <p className="text-sm text-brand-slate-600 mb-3 line-clamp-2 leading-relaxed">{template.description}</p>
         
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap gap-1">
-            <span className="inline-block px-2 py-1 bg-gray-100 text-xs rounded-full text-gray-600">
+            <span className="inline-block px-2.5 py-1 bg-brand-slate-100 text-xs rounded-full text-brand-slate-700 font-medium">
               {template.style}
             </span>
             {template.tags?.slice(0, 2).map((tag, index) => (
-              <span key={index} className="inline-block px-2 py-1 bg-blue-50 text-xs rounded-full text-blue-600">
+              <span key={index} className="inline-block px-2.5 py-1 bg-brand-purple/10 text-xs rounded-full text-brand-purple font-medium">
                 {tag}
               </span>
             ))}
@@ -115,7 +116,7 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
           <Button 
             variant="ghost" 
             size="sm" 
-            className="text-blue-600 hover:text-blue-800 p-0 h-auto font-medium"
+            className="text-brand-purple hover:text-brand-purple/80 hover:bg-brand-purple/5 p-0 h-auto font-semibold transition-all duration-200"
             onClick={() => onUse(template)}
           >
             Use <ChevronRight className="h-4 w-4 ml-1" />
