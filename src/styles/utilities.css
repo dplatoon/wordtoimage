@@ -1,0 +1,139 @@
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .font-display {
+    font-display: swap;
+  }
+
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  /* Enhanced mobile-specific improvements */
+  @media (max-width: 768px) {
+    .content-container {
+      @apply px-4;
+    }
+    
+    h1 {
+      @apply text-3xl leading-tight;
+      line-height: 1.1;
+    }
+    
+    h2 {
+      @apply text-2xl leading-tight;
+      line-height: 1.15;
+    }
+    
+    h3 {
+      @apply text-xl leading-tight;
+      line-height: 1.2;
+    }
+    
+    p {
+      line-height: 1.8;
+      @apply text-base;
+    }
+    
+    .btn-primary,
+    .btn-accent,
+    .btn-outline,
+    .btn-secondary,
+    .btn-ai-neon,
+    .btn-ai-outline {
+      @apply px-6 py-3 text-base;
+      min-height: 48px;
+    }
+
+    .interactive-hover {
+      @apply hover:scale-100;
+    }
+    
+    .card-modern,
+    .card-feature,
+    .ai-card {
+      @apply p-4;
+    }
+    
+    .section-spacing {
+      @apply py-10;
+    }
+  }
+  
+  /* Small mobile devices */
+  @media (max-width: 640px) {
+    .content-container {
+      @apply px-3;
+    }
+    
+    h1 {
+      @apply text-2xl;
+      line-height: 1.1;
+    }
+    
+    h2 {
+      @apply text-xl;
+      line-height: 1.15;
+    }
+
+    p {
+      line-height: 1.9;
+    }
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .card-modern,
+    .card-feature,
+    .ai-card {
+      @apply border-brand-slate-600;
+    }
+    
+    .text-gradient-brand,
+    .text-gradient-accent,
+    .text-gradient,
+    .text-gradient-neon {
+      @apply bg-none text-brand-slate-900;
+    }
+
+    .btn-primary,
+    .btn-accent,
+    .btn-ai-neon {
+      @apply border-2 border-current;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-blob,
+    .interactive-hover {
+      animation: none;
+    }
+    
+    .interactive-hover {
+      @apply hover:scale-100;
+    }
+    
+    * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* Enhanced touch improvements */
+  @media (hover: none) and (pointer: coarse) {
+    .interactive-hover:hover {
+      transform: none;
+    }
+    
+    button, .btn-primary, .btn-accent, .btn-outline, .btn-secondary, .btn-ai-neon, .btn-ai-outline {
+      min-height: 44px;
+    }
+  }
+}
