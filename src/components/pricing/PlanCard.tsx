@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Check, Star, Crown, Zap, Info } from 'lucide-react';
+import { Check, Star, Crown, Zap, Info, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PaymentMethodModal } from '@/components/PaymentMethodModal';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -28,6 +28,7 @@ interface PlanCardProps {
   badge?: string;
   icon?: React.ReactNode;
   guarantee?: string;
+  isFree?: boolean;
 }
 
 export const PlanCard = ({
@@ -42,14 +43,15 @@ export const PlanCard = ({
   productId,
   badge,
   icon,
-  guarantee
+  guarantee,
+  isFree
 }: PlanCardProps) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   
   const currentPrice = billingCycle === 'monthly' ? price.monthly : price.annual;
   const monthlyPrice = billingCycle === 'annual' ? price.annual : price.monthly;
   const yearlyTotal = price.annual * 12;
-  const savings = billingCycle === 'annual' ? Math.round((1 - (yearlyTotal / (price.monthly * 12))) * 100) : 0;
+  const savings = billingCycle === 'annual' && price.monthly > 0 ? Math.round((1 - (yearlyTotal / (price.monthly * 12))) * 100) : 0;
 
   const handlePlanSelect = () => {
     if (name === 'Free') {
@@ -74,7 +76,10 @@ export const PlanCard = ({
       'White-label option': 'Remove all WordToImage branding from your generated images and interface.',
       'Extended commercial license': 'Includes rights to resell generated images and use in client work.',
       'Priority rendering queue': 'Your images are processed ahead of standard users during peak times.',
-      'Team workspace': 'Shared account with individual user management and centralized billing.'
+      'Team workspace': 'Shared account with individual user management and centralized billing.',
+      'Community support': 'Access to community forum with peer support and basic documentation.',
+      'Priority email support': 'Direct email support with faster response times during business hours.',
+      'Dedicated phone & chat support': 'Direct phone and live chat access with priority queue placement.'
     };
     
     const key = Object.keys(tooltips).find(k => featureName.includes(k));
@@ -88,43 +93,58 @@ export const PlanCard = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className={`relative rounded-2xl overflow-hidden ${
+        className={`relative rounded-2xl overflow-hidden bg-white ${
           popular
-            ? 'ring-2 ring-blue-500 shadow-xl scale-105'
-            : 'border border-gray-200 shadow-sm hover:shadow-lg'
-        } transition-all duration-300`}
+            ? 'ring-2 ring-blue-500 shadow-xl scale-105 z-10'
+            : 'border border-gray-200 shadow-lg hover:shadow-xl'
+        } transition-all duration-300 hover:-translate-y-1`}
+        role="listitem"
+        aria-labelledby={`plan-${name.toLowerCase()}`}
       >
+        {/* Free plan ribbon */}
+        {isFree && (
+          <div className="absolute top-4 left-4 z-20">
+            <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-sm">
+              <Zap className="h-3 w-3" />
+              FREE
+            </div>
+          </div>
+        )}
+
+        {/* Popular plan badge */}
         {popular && (
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1 shadow-lg">
               <Star className="h-3 w-3 fill-current" />
               Most Popular
             </div>
           </div>
         )}
 
+        {/* Best value badge */}
         {badge && !popular && (
-          <div className="absolute top-4 right-4">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          <div className="absolute top-4 right-4 z-20">
+            <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-sm">
+              <Crown className="h-3 w-3" />
               {badge}
-            </span>
+            </div>
           </div>
         )}
 
-        <div className="p-8 bg-white">
+        <div className="p-8 bg-gradient-to-b from-white to-gray-50/50">
           <div className="flex items-center gap-3 mb-4">
             <div className={`p-2 rounded-lg ${popular ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600'}`}>
               {getIcon()}
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900">{name}</h3>
+              <h3 className="text-xl font-bold text-gray-900" id={`plan-${name.toLowerCase()}`}>{name}</h3>
               <p className="text-sm text-gray-500">{description}</p>
             </div>
           </div>
 
           <div className="mb-6">
             <div className="flex items-baseline">
-              <span className="text-4xl font-bold text-gray-900">
+              <span className="text-4xl font-bold text-gray-900" aria-label={`${currentPrice} dollars`}>
                 ${currentPrice}
               </span>
               <span className="text-gray-500 ml-1">
@@ -145,7 +165,7 @@ export const PlanCard = ({
             )}
           </div>
 
-          <ul className="space-y-3 mb-8">
+          <ul className="space-y-3 mb-8" role="list" aria-label={`${name} plan features`}>
             {features.map((feature, index) => {
               const tooltip = getFeatureTooltip(feature.name);
               
@@ -157,28 +177,34 @@ export const PlanCard = ({
                         ? 'bg-blue-100 text-blue-600'
                         : 'bg-green-100 text-green-600'
                       : 'bg-gray-100'
-                  }`}>
+                  }`} aria-hidden="true">
                     {feature.included ? (
                       <Check className="h-3 w-3" />
                     ) : (
-                      <span className="w-2 h-0.5 bg-gray-400 rounded"></span>
+                      <X className="h-3 w-3 text-gray-400" />
                     )}
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 flex-1">
                     <span className={`text-sm ${
                       feature.included 
                         ? feature.highlight 
                           ? 'text-gray-900 font-medium' 
                           : 'text-gray-700'
-                        : 'text-gray-400'
+                        : 'text-gray-400 line-through'
                     }`}>
-                      {feature.name}
+                      {feature.included ? feature.name : `${feature.name} (Not included)`}
                     </span>
                     {tooltip && (
                       <TooltipProvider>
                         <Tooltip>
-                          <TooltipTrigger>
-                            <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded"
+                              aria-label={`More information about ${feature.name}`}
+                            >
+                              <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
+                            </button>
                           </TooltipTrigger>
                           <TooltipContent>
                             <p className="max-w-xs">{tooltip}</p>
@@ -197,12 +223,13 @@ export const PlanCard = ({
             variant={popular ? 'default' : ctaVariant}
             className={`w-full mb-4 ${
               popular
-                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'
                 : ctaVariant === 'outline'
                 ? 'border-gray-300 hover:bg-gray-50'
                 : ''
             }`}
             size="lg"
+            aria-label={`${ctaText} for ${name} plan`}
           >
             {ctaText}
           </Button>
