@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { GalleryHeader } from './gallery/GalleryHeader';
 import { GalleryGrid } from './gallery/GalleryGrid';
@@ -31,7 +30,7 @@ export function ImageGallery({ images, onEdit, loading }: ImageGalleryProps) {
   const handleGenerateClick = () => {
     const generateButton = document.querySelector('button[type="submit"]');
     if (generateButton && generateButton instanceof HTMLButtonElement) {
-      const textarea = document.querySelector('textarea[aria-label="Image description"]');
+      const textarea = document.querySelector('textarea[aria-label="Image description"]') as HTMLTextAreaElement;
       if (textarea) {
         textarea.focus();
         textarea.scrollIntoView({ behavior: 'smooth' });
