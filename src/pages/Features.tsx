@@ -5,123 +5,288 @@ import { FeaturesSection } from '@/components/FeaturesSection';
 import { TemplatesSection } from '@/components/TemplatesSection';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, Sparkles, Image as ImageIcon } from 'lucide-react';
-import { useState } from 'react';
+import { Check, Sparkles, Image as ImageIcon, Zap, Palette, Download, Shield, Clock, Users } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { ImageGenerationForm } from '@/components/hero/ImageGenerationForm';
 import { ImagePreview } from '@/components/hero/ImagePreview';
+import { motion } from 'framer-motion';
 
 const Features = () => {
   const [generatedImageUrl, setGeneratedImageUrl] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Scroll animation observer
+  useEffect(() => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
+      rootMargin: '50px'
+    });
+
+    const elements = document.querySelectorAll('.scroll-fade-in, .scroll-slide-left, .scroll-slide-right');
+    elements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const aiFeatures = [
+    {
+      icon: Zap,
+      title: "Lightning Fast Generation",
+      description: "Generate stunning images in seconds with our optimized AI models",
+      stats: "< 10 seconds",
+      color: "from-yellow-400 to-orange-500"
+    },
+    {
+      icon: Palette,
+      title: "Multiple Art Styles",
+      description: "Choose from dozens of artistic styles from photorealistic to abstract",
+      stats: "50+ styles",
+      color: "from-purple-400 to-pink-500"
+    },
+    {
+      icon: Download,
+      title: "High Resolution Output",
+      description: "Download your creations in up to 4K resolution without watermarks",
+      stats: "Up to 4K",
+      color: "from-blue-400 to-cyan-500"
+    },
+    {
+      icon: Shield,
+      title: "Commercial License",
+      description: "Use your generated images for commercial projects with full rights",
+      stats: "100% yours",
+      color: "from-green-400 to-emerald-500"
+    },
+    {
+      icon: Clock,
+      title: "Batch Processing",
+      description: "Generate multiple variations simultaneously to find the perfect image",
+      stats: "Up to 5 at once",
+      color: "from-indigo-400 to-purple-500"
+    },
+    {
+      icon: Users,
+      title: "Team Collaboration",
+      description: "Share your generations with team members and build together",
+      stats: "Unlimited sharing",
+      color: "from-pink-400 to-rose-500"
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-ai-dark via-ai-surface to-ai-muted text-white overflow-hidden">
+      {/* Animated background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-ai-primary/20 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute top-40 right-10 w-96 h-96 bg-ai-secondary/20 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-ai-accent/20 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+      </div>
+
       <Nav />
       
-      <main>
-        {/* Hero Section */}
-        <section className="py-16 md:py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="relative z-10">
+        {/* Enhanced Hero Section */}
+        <section className="py-20 md:py-32 relative">
+          <div className="content-container">
             <div className="text-center">
-              <Badge className="mb-3 bg-blue-100 hover:bg-blue-100 text-blue-800 border-none">
-                <Sparkles className="h-4 w-4 mr-1" />
-                Features
-              </Badge>
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-                Meet the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Features</span> That Power Your Creativity
-              </h1>
-              <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                Transform your words into stunning visuals with our comprehensive suite of AI-powered tools and features.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                  Get Started Free
-                </Button>
-                <Button size="lg" variant="outline">
-                  Watch Demo
-                </Button>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <Badge className="mb-6 bg-gradient-to-r from-ai-primary to-ai-secondary text-white border-none px-6 py-2 text-lg">
+                  <Sparkles className="h-5 w-5 mr-2" />
+                  AI-Powered Features
+                </Badge>
+                
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">
+                  <span className="text-gradient-neon">Unleash Your</span>
+                  <br />
+                  <span className="text-white">Creative Potential</span>
+                </h1>
+                
+                <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-4xl mx-auto leading-relaxed">
+                  Transform your imagination into stunning visuals with our cutting-edge AI technology. 
+                  From concept to creation in seconds.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row justify-center gap-6">
+                  <Button className="btn-ai-neon text-lg px-10 py-6">
+                    Start Creating Now
+                    <Zap className="ml-2 h-5 w-5" />
+                  </Button>
+                  <Button className="btn-ai-outline text-lg px-10 py-6">
+                    Watch Demo
+                    <ImageIcon className="ml-2 h-5 w-5" />
+                  </Button>
+                </div>
+              </motion.div>
             </div>
+          </div>
+          
+          {/* Floating decorative elements */}
+          <div className="absolute top-1/4 left-10 floating">
+            <div className="w-4 h-4 bg-ai-neon rounded-full animate-pulse"></div>
+          </div>
+          <div className="absolute top-1/3 right-20 floating-delayed">
+            <div className="w-6 h-6 bg-ai-secondary rounded-full animate-pulse"></div>
+          </div>
+          <div className="absolute bottom-1/4 right-10 floating-slow">
+            <div className="w-3 h-3 bg-ai-accent rounded-full animate-pulse"></div>
           </div>
         </section>
 
-        {/* AI Image Generation Demo */}
-        <section className="py-16 md:py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <Badge className="mb-3 bg-blue-100 hover:bg-blue-100 text-blue-800 border-none">
-                <ImageIcon className="h-4 w-4 mr-1" />
-                Try It Now
-              </Badge>
-              <h2 className="text-3xl font-bold text-gray-900 font-poppins mb-4">
-                AI-Powered Image Generation
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Experience the power of AI-generated images right now. Enter a prompt and watch as your ideas transform into stunning visuals.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-              <ImageGenerationForm 
-                onImageGenerated={setGeneratedImageUrl}
-                onGeneratingChange={setIsGenerating}
-                onError={setError}
-              />
-              <ImagePreview 
-                imageUrl={generatedImageUrl}
-                isGenerating={isGenerating}
-                error={error}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Reuse the existing FeaturesSection component */}
-        <FeaturesSection />
-
-        {/* Advanced Features Section */}
-        <section className="py-16 md:py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <Badge className="mb-3 bg-purple-100 hover:bg-purple-100 text-purple-800 border-none">
+        {/* AI Features Grid */}
+        <section className="py-20 md:py-32 relative">
+          <div className="content-container">
+            <motion.div
+              className="text-center mb-16 scroll-fade-in"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <Badge className="mb-4 bg-ai-primary/20 text-ai-neon border-ai-primary/30 px-4 py-2">
+                <Sparkles className="h-4 w-4 mr-2" />
                 Advanced Capabilities
               </Badge>
-              <h2 className="text-3xl font-bold text-gray-900 font-poppins mb-4">
-                AI-Powered Design Tools
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="text-gradient">Powered by AI,</span>
+                <br />
+                <span className="text-white">Designed for You</span>
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Our cutting-edge AI technology makes design accessible to everyone, regardless of skill level.
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Our advanced AI features are built to make image generation effortless, 
+                powerful, and accessible to everyone.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+            >
+              {aiFeatures.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="ai-card group hover:scale-105 transition-all duration-300"
+                >
+                  <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold mb-4 text-white">{feature.title}</h3>
+                  <p className="text-gray-300 mb-4 leading-relaxed">{feature.description}</p>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-ai-neon font-semibold">{feature.stats}</span>
+                    <div className="w-8 h-8 bg-ai-primary/20 rounded-full flex items-center justify-center group-hover:bg-ai-primary/40 transition-colors duration-300">
+                      <Check className="h-4 w-4 text-ai-neon" />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Live Demo Section */}
+        <section className="py-20 md:py-32 bg-gradient-to-r from-ai-surface/50 to-ai-muted/50 backdrop-blur-sm">
+          <div className="content-container">
+            <div className="text-center mb-16 scroll-fade-in">
+              <Badge className="mb-4 bg-ai-accent/20 text-ai-accent border-ai-accent/30 px-4 py-2">
+                <ImageIcon className="h-4 w-4 mr-2" />
+                Live Demo
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                Try It <span className="text-gradient-neon">Right Now</span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Experience the power of AI image generation instantly. 
+                Enter your prompt and watch your ideas come to life.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-2xl font-bold mb-6">Text-to-Image Generation</h3>
-                <ul className="space-y-4">
-                  {[
-                    "Transform text descriptions into professional graphics",
-                    "Control style, mood, and composition with simple prompts",
-                    "Generate multiple variations to choose from",
-                    "Refine results with feedback and iterations",
-                    "Built on state-of-the-art AI models"
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              <div className="scroll-slide-left">
+                <ImageGenerationForm 
+                  onImageGenerated={setGeneratedImageUrl}
+                  onGeneratingChange={setIsGenerating}
+                  onError={setError}
+                />
               </div>
-              <div className="bg-gray-100 h-80 rounded-lg flex items-center justify-center">
-                <p className="text-gray-500">AI Generation Preview</p>
+              <div className="scroll-slide-right">
+                <ImagePreview 
+                  imageUrl={generatedImageUrl}
+                  isGenerating={isGenerating}
+                  error={error}
+                />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Reuse the existing TemplatesSection component */}
+        {/* Enhanced Features Section */}
+        <FeaturesSection />
+
+        {/* Templates Section */}
         <TemplatesSection />
+
+        {/* CTA Section */}
+        <section className="py-20 md:py-32 relative">
+          <div className="content-container text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-8">
+                Ready to <span className="text-gradient-neon">Create Magic</span>?
+              </h2>
+              <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                Join thousands of creators who are already using WordToImage to bring their ideas to life.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row justify-center gap-6">
+                <Button className="btn-ai-neon text-lg px-12 py-6">
+                  Start Your Free Trial
+                  <Sparkles className="ml-2 h-5 w-5" />
+                </Button>
+                <Button className="btn-ai-outline text-lg px-12 py-6">
+                  View Pricing
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
       </main>
 
       <Footer />

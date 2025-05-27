@@ -4,6 +4,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { PrimaryButton } from '@/components/ui/primary-button';
+import { Send, User, Mail, MessageSquare, Tag } from 'lucide-react';
 
 type ContactFormData = {
   firstName: string;
@@ -96,13 +97,19 @@ export const ContactForm = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-6">Send Us a Message</h2>
+    <div className="ai-card max-w-2xl mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-white mb-4">Send Us a Message</h2>
+        <p className="text-gray-300">
+          Share your thoughts, questions, or ideas with us. We'd love to hear from you!
+        </p>
+      </div>
       
-      <form onSubmit={handleSubmit}>
-        <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label htmlFor="firstName" className="flex items-center text-sm font-medium text-gray-300">
+              <User className="h-4 w-4 mr-2 text-ai-neon" />
               First Name
             </label>
             <Input
@@ -111,10 +118,13 @@ export const ContactForm = () => {
               placeholder="John"
               value={formData.firstName}
               onChange={handleChange}
+              className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon"
             />
           </div>
-          <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
+          
+          <div className="space-y-2">
+            <label htmlFor="lastName" className="flex items-center text-sm font-medium text-gray-300">
+              <User className="h-4 w-4 mr-2 text-ai-neon" />
               Last Name
             </label>
             <Input
@@ -123,13 +133,15 @@ export const ContactForm = () => {
               placeholder="Doe"
               value={formData.lastName}
               onChange={handleChange}
+              className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon"
             />
           </div>
         </div>
         
-        <div className="mb-6">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email Address <span className="text-red-500">*</span>
+        <div className="space-y-2">
+          <label htmlFor="email" className="flex items-center text-sm font-medium text-gray-300">
+            <Mail className="h-4 w-4 mr-2 text-ai-neon" />
+            Email Address <span className="text-red-400 ml-1">*</span>
           </label>
           <Input
             type="email"
@@ -138,11 +150,13 @@ export const ContactForm = () => {
             required
             value={formData.email}
             onChange={handleChange}
+            className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon"
           />
         </div>
         
-        <div className="mb-6">
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-2">
+          <label htmlFor="subject" className="flex items-center text-sm font-medium text-gray-300">
+            <Tag className="h-4 w-4 mr-2 text-ai-neon" />
             Subject
           </label>
           <Input
@@ -151,30 +165,34 @@ export const ContactForm = () => {
             placeholder="How can we help you?"
             value={formData.subject}
             onChange={handleChange}
+            className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon"
           />
         </div>
         
-        <div className="mb-6">
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-            Message <span className="text-red-500">*</span>
+        <div className="space-y-2">
+          <label htmlFor="message" className="flex items-center text-sm font-medium text-gray-300">
+            <MessageSquare className="h-4 w-4 mr-2 text-ai-neon" />
+            Message <span className="text-red-400 ml-1">*</span>
           </label>
           <Textarea
             id="message"
             rows={5}
-            placeholder="Your message here..."
+            placeholder="Tell us more about your question or feedback..."
             required
             value={formData.message}
             onChange={handleChange}
+            className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon resize-none"
           />
         </div>
         
-        <div>
+        <div className="pt-4">
           <PrimaryButton 
             type="submit" 
-            className="w-full"
+            className="w-full btn-ai-neon text-lg py-4"
             isLoading={isSubmitting}
             loadingText="Sending..."
           >
+            <Send className="mr-2 h-5 w-5" />
             Send Message
           </PrimaryButton>
         </div>

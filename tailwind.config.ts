@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,6 +22,7 @@ export default {
 			fontFamily: {
 				'nunito': ['Nunito', 'sans-serif'],
 				'poppins': ['Poppins', 'sans-serif'],
+				'space': ['Space Grotesk', 'sans-serif'],
 			},
 			fontSize: {
 				'xs': ['0.75rem', { lineHeight: '1.5' }],
@@ -32,6 +34,8 @@ export default {
 				'3xl': ['1.875rem', { lineHeight: '1.25' }],
 				'4xl': ['2.25rem', { lineHeight: '1.25' }],
 				'5xl': ['3rem', { lineHeight: '1.2' }],
+				'6xl': ['3.75rem', { lineHeight: '1.1' }],
+				'7xl': ['4.5rem', { lineHeight: '1.1' }],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -39,6 +43,16 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				// AI-themed color palette
+				ai: {
+					primary: '#6366f1', // Indigo
+					secondary: '#8b5cf6', // Purple
+					accent: '#06b6d4', // Cyan
+					neon: '#00f0ff', // Bright cyan
+					dark: '#0f0f23', // Deep dark blue
+					surface: '#1a1a2e', // Dark surface
+					muted: '#16213e', // Muted dark
+				},
 				lovable: {
 					pink: '#FFDEE2',
 					peach: '#FDE1D3',
@@ -94,6 +108,13 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'ai-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+				'neon-gradient': 'linear-gradient(90deg, #00f0ff, #a600ff)',
+				'dark-gradient': 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
@@ -118,10 +139,65 @@ export default {
 				},
 				'float': {
 					'0%, 100%': {
-						transform: 'translateY(0)'
+						transform: 'translateY(0) rotate(0deg)'
+					},
+					'33%': {
+						transform: 'translateY(-10px) rotate(1deg)'
+					},
+					'66%': {
+						transform: 'translateY(5px) rotate(-1deg)'
+					}
+				},
+				'blob': {
+					'0%': {
+						transform: 'translate(0px, 0px) scale(1)',
+					},
+					'33%': {
+						transform: 'translate(30px, -50px) scale(1.1)',
+					},
+					'66%': {
+						transform: 'translate(-20px, 20px) scale(0.9)',
+					},
+					'100%': {
+						transform: 'translate(0px, 0px) scale(1)',
+					}
+				},
+				'glow': {
+					'0%, 100%': {
+						boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)',
 					},
 					'50%': {
-						transform: 'translateY(-10px)'
+						boxShadow: '0 0 40px rgba(99, 102, 241, 0.6), 0 0 60px rgba(139, 92, 246, 0.3)',
+					}
+				},
+				'gradient-x': {
+					'0%, 100%': {
+						'background-size': '200% 200%',
+						'background-position': 'left center'
+					},
+					'50%': {
+						'background-size': '200% 200%',
+						'background-position': 'right center'
+					}
+				},
+				'slide-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(30px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'scale-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.9)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
 					}
 				},
 				'heart-beat': {
@@ -158,7 +234,12 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'float': 'float 3s ease-in-out infinite',
+				'float': 'float 6s ease-in-out infinite',
+				'blob': 'blob 7s infinite',
+				'glow': 'glow 2s ease-in-out infinite alternate',
+				'gradient-x': 'gradient-x 15s ease infinite',
+				'slide-up': 'slide-up 0.6s ease-out',
+				'scale-in': 'scale-in 0.5s ease-out',
 				'heart-beat': 'heart-beat 2s ease-in-out infinite',
 				'fade-in': 'fade-in 0.7s ease-out',
 				'slow-spin': 'slow-spin 12s linear infinite',
@@ -166,6 +247,13 @@ export default {
 			},
 			boxShadow: {
 				'focus': '0 0 0 2px rgba(59, 130, 246, 0.5)',
+				'glow': '0 0 20px rgba(99, 102, 241, 0.3)',
+				'glow-lg': '0 0 40px rgba(99, 102, 241, 0.4)',
+				'neon': '0 0 5px theme(colors.ai.neon), 0 0 20px theme(colors.ai.neon), 0 0 35px theme(colors.ai.neon)',
+				'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+			},
+			backdropBlur: {
+				xs: '2px',
 			}
 		}
 	},

@@ -17,58 +17,82 @@ const Index = () => {
   const [showProModal, setShowProModal] = useState(false);
   
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-ai-dark via-ai-surface to-ai-muted text-white overflow-hidden">
       <SeoHead />
       <SkipToContent />
+      
+      {/* Animated background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-ai-primary/10 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute top-40 right-10 w-96 h-96 bg-ai-secondary/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-ai-accent/10 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+        <div className="absolute inset-0 bg-circuit-pattern opacity-20"></div>
+      </div>
+
       <Nav />
       
-      <main id="main-content" className="relative">
-        {/* Hero section with gradient background and blurred image */}
-        <MinimalistHero onShowProFeatures={() => setShowProModal(true)} />
+      <main id="main-content" className="relative z-10">
+        {/* Enhanced Hero section with AI theme */}
+        <div className="relative">
+          <MinimalistHero onShowProFeatures={() => setShowProModal(true)} />
+        </div>
         
-        {/* Image Showcase Grid */}
+        {/* Image Showcase Grid with enhanced styling */}
         <motion.section
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="py-16 md:py-20 bg-gray-50"
+          className="py-20 md:py-32 bg-gradient-to-r from-ai-surface/30 to-ai-muted/30 backdrop-blur-sm"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">See What You Can Create</h2>
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                See What <span className="text-gradient-neon">You Can Create</span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                From simple prompts to stunning visuals - explore the endless possibilities
+              </p>
+            </motion.div>
             <ImageShowcaseGrid />
           </div>
         </motion.section>
         
-        {/* Minimalist Features Section */}
+        {/* Enhanced Features Section */}
         <motion.section
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="py-16 md:py-20 bg-white"
+          className="py-20 md:py-32 relative"
         >
           <MinimalistFeatures />
         </motion.section>
         
-        {/* Testimonials Slider */}
+        {/* Enhanced Testimonials */}
         <motion.section
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="py-16 md:py-20 bg-gray-50"
+          className="py-20 md:py-32 bg-gradient-to-r from-ai-muted/20 to-ai-surface/20 backdrop-blur-sm"
         >
           <TestimonialsSlider />
         </motion.section>
         
-        {/* Minimalist Pricing */}
+        {/* Enhanced Pricing */}
         <motion.section
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="py-16 md:py-20 bg-white"
+          className="py-20 md:py-32 relative"
         >
           <MinimalistPricing onShowProFeatures={() => setShowProModal(true)} />
         </motion.section>
