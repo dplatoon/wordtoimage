@@ -6,6 +6,7 @@ import { useImageWithFallback } from '@/hooks/useImageWithFallback';
 import { ImageErrorState } from './ImageErrorState';
 import { defaultFallbackImage } from '@/utils/imageUtils';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { OptimizedImage } from '@/components/common/OptimizedImage';
 
 interface ImageDisplayProps {
   imageUrl: string;
@@ -50,17 +51,16 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
     );
   }
   
-  // Successfully loaded image
+  // Successfully loaded image with optimization
   return (
     <div className="relative w-full overflow-hidden">
       <AspectRatio ratio={1}>
-        <img
+        <OptimizedImage
           src={imageSrc}
           alt={`Generated image ${index}`}
+          priority={index === 0}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="w-full h-full object-cover transition-all duration-300"
-          loading="lazy"
-          decoding="async"
-          fetchPriority={index === 0 ? "high" : "auto"}
           onLoad={handleLoad}
           onError={handleError}
         />

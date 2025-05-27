@@ -11,10 +11,16 @@
   body {
     @apply bg-lovable-brand-background text-lovable-brand-text font-nunito leading-relaxed;
     letter-spacing: -0.02em;
+    /* Critical performance optimizations */
+    contain: layout style paint;
+    will-change: auto;
   }
 
   h1, h2, h3, h4 {
     @apply text-lovable-brand-text tracking-tight font-poppins;
+    /* Optimize text rendering */
+    text-rendering: optimizeLegibility;
+    font-display: swap;
   }
 
   a {
@@ -23,6 +29,18 @@
 
   button, input, select, textarea {
     @apply focus:ring-2 focus:ring-lovable-brand-primary focus:ring-opacity-50 transition-all duration-300;
+  }
+
+  /* Performance optimizations for images */
+  img {
+    content-visibility: auto;
+    contain-intrinsic-size: 300px 200px;
+  }
+
+  /* Optimize animations for 60fps */
+  * {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
   }
 }
 
@@ -35,79 +53,100 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  /* Hide scrollbars but allow scrolling */
+  /* Performance optimized scrollbars */
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overflow: -moz-scrollbars-none;
   }
   
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
+    width: 0;
+    height: 0;
   }
 
-  /* AI-themed gradients */
+  /* AI-themed gradients with GPU acceleration */
   .text-gradient {
     @apply bg-gradient-to-r from-ai-primary via-ai-secondary to-ai-accent bg-clip-text text-transparent;
+    will-change: background-position;
   }
   
   .text-gradient-neon {
     @apply bg-gradient-to-r from-ai-neon to-ai-secondary bg-clip-text text-transparent;
+    will-change: background-position;
   }
   
-  /* Enhanced button styles */
+  /* Enhanced button styles with hardware acceleration */
   .btn-ai-primary {
     @apply bg-gradient-to-r from-ai-primary to-ai-secondary hover:from-ai-secondary hover:to-ai-accent;
     @apply text-white font-semibold px-8 py-4 rounded-xl shadow-glow transition-all duration-300;
     @apply hover:shadow-glow-lg hover:scale-105 transform;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
   
   .btn-ai-neon {
     @apply bg-gradient-to-r from-ai-neon to-ai-accent text-ai-dark;
     @apply font-bold px-8 py-4 rounded-xl shadow-neon transition-all duration-300;
     @apply hover:shadow-neon hover:scale-105 transform animate-glow;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
   
   .btn-ai-outline {
     @apply border-2 border-ai-primary text-ai-primary bg-transparent;
     @apply hover:bg-ai-primary hover:text-white transition-all duration-300;
     @apply px-8 py-4 rounded-xl font-semibold;
+    will-change: background-color, color;
   }
 
-  /* Glassmorphism effects */
+  /* Glassmorphism effects with optimized backdrop-filter */
   .glass {
     @apply backdrop-blur-md bg-white/10 border border-white/20;
     @apply shadow-glass rounded-xl;
+    backdrop-filter: blur(12px);
+    will-change: backdrop-filter;
   }
   
   .glass-dark {
     @apply backdrop-blur-md bg-ai-dark/40 border border-ai-primary/20;
     @apply shadow-glass rounded-xl;
+    backdrop-filter: blur(12px);
+    will-change: backdrop-filter;
   }
 
-  /* AI-themed card styles */
+  /* AI-themed card styles with optimized transforms */
   .ai-card {
     @apply bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm;
     @apply border border-white/20 rounded-2xl p-6;
     @apply shadow-glass hover:shadow-glow transition-all duration-300;
     @apply hover:border-ai-primary/30 hover:-translate-y-1;
+    will-change: transform, border-color, box-shadow;
+    transform: translateZ(0);
   }
   
   .ai-card-solid {
     @apply bg-white border border-gray-100 rounded-2xl p-6;
     @apply shadow-sm hover:shadow-glow transition-all duration-300;
     @apply hover:border-ai-primary/30 hover:-translate-y-1;
+    will-change: transform, border-color, box-shadow;
+    transform: translateZ(0);
   }
 
-  /* Interactive elements */
+  /* Interactive elements with optimized animations */
   .interactive-hover {
     @apply transition-all duration-300 hover:scale-105 hover:shadow-glow;
     @apply cursor-pointer transform;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
 
-  /* Background patterns */
+  /* Background patterns optimized for performance */
   .bg-ai-pattern {
     background-image: radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
                       radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    background-attachment: fixed;
   }
   
   .bg-circuit-pattern {
@@ -115,61 +154,74 @@
       linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px),
       linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px);
     background-size: 20px 20px;
+    will-change: background-position;
   }
 
-  /* Floating animations for decorative elements */
+  /* Optimized floating animations */
   .floating {
     @apply animate-float;
+    will-change: transform;
+    transform: translateZ(0);
   }
   
   .floating-delayed {
     @apply animate-float;
     animation-delay: 2s;
+    will-change: transform;
+    transform: translateZ(0);
   }
   
   .floating-slow {
     @apply animate-float;
     animation-duration: 8s;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
-  /* Scroll animations */
+  /* Performance optimized scroll animations */
   .scroll-fade-in {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(30px) translateZ(0);
     transition: all 0.6s ease-out;
+    will-change: opacity, transform;
   }
   
   .scroll-fade-in.animate {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
   
   .scroll-slide-left {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-50px) translateZ(0);
     transition: all 0.6s ease-out;
+    will-change: opacity, transform;
   }
   
   .scroll-slide-left.animate {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
   }
   
   .scroll-slide-right {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(50px) translateZ(0);
     transition: all 0.6s ease-out;
+    will-change: opacity, transform;
   }
   
   .scroll-slide-right.animate {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
   }
 }
 
 @layer utilities {
+  /* Optimized blob animation with GPU acceleration */
   .animate-blob {
     animation: blob 7s infinite;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   .animation-delay-2000 {
@@ -180,31 +232,34 @@
     animation-delay: 4s;
   }
   
-  /* Text effects */
+  /* Hardware accelerated text effects */
   .text-shadow-glow {
     text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    will-change: text-shadow;
   }
   
   .text-shadow-neon {
     text-shadow: 0 0 5px theme(colors.ai.neon), 0 0 10px theme(colors.ai.neon), 0 0 20px theme(colors.ai.neon);
+    will-change: text-shadow;
   }
 
+  /* Performance optimized keyframes */
   @keyframes blob {
     0% {
-      transform: translate(0px, 0px) scale(1);
+      transform: translate(0px, 0px) scale(1) translateZ(0);
     }
     33% {
-      transform: translate(30px, -50px) scale(1.1);
+      transform: translate(30px, -50px) scale(1.1) translateZ(0);
     }
     66% {
-      transform: translate(-20px, 20px) scale(0.9);
+      transform: translate(-20px, 20px) scale(0.9) translateZ(0);
     }
     100% {
-      transform: translate(0px, 0px) scale(1);
+      transform: translate(0px, 0px) scale(1) translateZ(0);
     }
   }
   
-  /* Responsive optimizations */
+  /* Performance optimizations for different screen sizes */
   @media (max-width: 768px) {
     .content-container {
       @apply px-3;
@@ -231,6 +286,17 @@
     .btn-ai-outline {
       @apply px-6 py-3 text-sm;
     }
+
+    /* Reduce animations on mobile for better performance */
+    .interactive-hover {
+      @apply hover:scale-100;
+    }
+    
+    .floating,
+    .floating-delayed,
+    .floating-slow {
+      animation-duration: 4s;
+    }
   }
   
   /* High contrast mode support */
@@ -246,7 +312,7 @@
     }
   }
   
-  /* Reduced motion support */
+  /* Reduced motion support for accessibility and battery life */
   @media (prefers-reduced-motion: reduce) {
     .animate-blob,
     .animate-float,
@@ -260,5 +326,50 @@
     .interactive-hover {
       @apply hover:scale-100;
     }
+    
+    * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Performance optimization utilities */
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .contain-layout {
+    contain: layout;
+  }
+  
+  .contain-style {
+    contain: style;
+  }
+  
+  .contain-paint {
+    contain: paint;
+  }
+  
+  .contain-strict {
+    contain: strict;
+  }
+}
+
+/* Critical performance CSS that loads first */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+/* Optimize for high DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
 }

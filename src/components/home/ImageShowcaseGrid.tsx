@@ -5,13 +5,16 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { localGalleryImages } from '@/utils/imageUtils';
+import { OptimizedImage } from '@/components/common/OptimizedImage';
+import { useLazyLoading } from '@/hooks/useLazyLoading';
 
 export const ImageShowcaseGrid = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [containerRef, isInView] = useLazyLoading({ rootMargin: '100px' });
   const images = localGalleryImages.slice(0, 8); // Only show the first 8 images
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" ref={containerRef}>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {images.map((image, index) => (
           <motion.div
@@ -24,19 +27,27 @@ export const ImageShowcaseGrid = () => {
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
           >
-            <img 
-              src={image.src} 
-              alt={image.alt} 
-              className={`w-full h-full object-cover transition-transform duration-500 ${hoveredIndex === index ? 'scale-110' : 'scale-100'}`} 
-            />
-            <div 
-              className={`absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4 transition-opacity duration-300 ${
-                hoveredIndex === index ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <p className="text-white text-sm font-medium line-clamp-2">{image.alt}</p>
-              {image.style && <p className="text-white/70 text-xs mt-1">Style: {image.style}</p>}
-            </div>
+            {isInView && (
+              <>
+                <OptimizedImage
+                  src={image.src}
+                  alt={image.alt}
+                  priority={index < 2} // Prioritize first 2 images
+                  className={`w-full h-full object-cover transition-transform duration-500 ${
+                    hoveredIndex === index ? 'scale-110' : 'scale-100'
+                  }`}
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                />
+                <div 
+                  className={`absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4 transition-opacity duration-300 ${
+                    hoveredIndex === index ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  <p className="text-white text-sm font-medium line-clamp-2">{image.alt}</p>
+                  {image.style && <p className="text-white/70 text-xs mt-1">Style: {image.style}</p>}
+                </div>
+              </>
+            )}
           </motion.div>
         ))}
       </div>
