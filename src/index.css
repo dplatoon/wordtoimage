@@ -115,6 +115,7 @@
   .bg-ai-accent { background-color: var(--ai-accent); }
   .text-ai-neon { color: var(--ai-neon); }
   .border-ai-primary { border-color: var(--ai-primary); }
+  .border-ai-neon { border-color: var(--ai-neon); }
 
   /* AI Theme Gradient Classes */
   .from-ai-primary { --tw-gradient-from: var(--ai-primary); --tw-gradient-to: rgb(79 70 229 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
