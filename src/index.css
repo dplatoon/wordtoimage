@@ -15,19 +15,19 @@
     contain: layout style paint;
     will-change: auto;
     font-feature-settings: 'kern' 1, 'liga' 1;
-    line-height: 1.7; /* Improved line-height for mobile readability */
+    line-height: 1.7;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply text-brand-slate-900 tracking-tight font-inter font-semibold;
     text-rendering: optimizeLegibility;
     font-display: swap;
-    line-height: 1.2; /* Consistent heading line-height */
+    line-height: 1.2;
   }
 
   h1 {
     @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold;
-    line-height: 1.1; /* Tighter for large headings */
+    line-height: 1.1;
   }
 
   h2 {
@@ -42,7 +42,7 @@
 
   p {
     @apply text-brand-slate-600;
-    line-height: 1.7; /* Consistent body text line-height */
+    line-height: 1.7;
   }
 
   a {
@@ -62,6 +62,17 @@
     transform-style: preserve-3d;
     backface-visibility: hidden;
   }
+
+  /* Enhanced focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-teal ring-offset-2 ring-offset-white;
+  }
+
+  /* Skip link for screen readers */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50;
+    @apply bg-brand-navy text-white px-4 py-2 rounded-lg font-medium;
+  }
 }
 
 @layer components {
@@ -71,7 +82,6 @@
 
   .content-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12;
-    /* Standardized max-width and padding for all pages */
   }
   
   .hide-scrollbar {
@@ -96,13 +106,14 @@
     will-change: background-position;
   }
   
-  /* Standardized button styles for consistency across all pages */
+  /* Enhanced button styles with better contrast and accessibility */
   .btn-primary {
     @apply bg-brand-navy hover:bg-brand-purple text-white font-medium;
     @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-brand transition-all duration-200;
     @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
     @apply text-sm sm:text-base font-semibold;
-    @apply min-h-[44px] sm:min-h-[48px]; /* Touch-friendly minimum height */
+    @apply min-h-[44px] sm:min-h-[48px];
+    @apply focus:ring-2 focus:ring-brand-navy focus:ring-offset-2;
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
@@ -113,6 +124,7 @@
     @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
     @apply text-sm sm:text-base font-semibold;
     @apply min-h-[44px] sm:min-h-[48px];
+    @apply focus:ring-2 focus:ring-brand-teal focus:ring-offset-2;
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
@@ -123,6 +135,7 @@
     @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium;
     @apply text-sm sm:text-base font-semibold;
     @apply min-h-[44px] sm:min-h-[48px];
+    @apply focus:ring-2 focus:ring-brand-navy focus:ring-offset-2;
     will-change: background-color, color;
   }
 
@@ -131,12 +144,14 @@
     @apply font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-200;
     @apply text-sm sm:text-base font-semibold;
     @apply min-h-[44px] sm:min-h-[48px];
+    @apply focus:ring-2 focus:ring-brand-slate-400 focus:ring-offset-2;
   }
 
   .card-modern {
     @apply bg-white border border-brand-slate-200 rounded-2xl p-6 sm:p-8;
     @apply shadow-modern hover:shadow-brand-lg transition-all duration-300;
     @apply hover:border-brand-slate-300 hover:-translate-y-1;
+    @apply focus-within:ring-2 focus-within:ring-brand-teal focus-within:ring-offset-2;
     will-change: transform, border-color, box-shadow;
     transform: translateZ(0);
   }
@@ -145,20 +160,24 @@
     @apply bg-white border border-brand-slate-100 rounded-xl p-4 sm:p-6;
     @apply shadow-subtle hover:shadow-modern transition-all duration-200;
     @apply hover:border-brand-slate-200;
+    @apply focus-within:ring-2 focus-within:ring-brand-teal focus-within:ring-offset-2;
     will-change: border-color, box-shadow;
   }
 
   .interactive-hover {
     @apply transition-all duration-200 hover:scale-105 hover:shadow-modern;
     @apply cursor-pointer transform;
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-teal focus:ring-offset-2;
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
 
+  /* Enhanced AI-themed background patterns */
   .bg-pattern-subtle {
     background-image: 
       radial-gradient(circle at 25% 25%, rgba(30, 58, 138, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.03) 0%, transparent 50%);
+      radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.02) 0%, transparent 30%);
     background-attachment: fixed;
   }
   
@@ -182,7 +201,7 @@
     transform: translateY(0) translateZ(0);
   }
 
-  /* Standardized testimonial styles */
+  /* Enhanced testimonial styles */
   .testimonial-card {
     @apply card-modern text-center max-w-2xl mx-auto;
   }
@@ -197,6 +216,30 @@
 
   .testimonial-title {
     @apply text-brand-slate-500 text-sm;
+  }
+
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
   }
 }
 
@@ -231,7 +274,7 @@
     }
     
     p {
-      line-height: 1.8; /* Improved mobile readability */
+      line-height: 1.8;
       @apply text-base;
     }
     
@@ -240,11 +283,11 @@
     .btn-outline,
     .btn-secondary {
       @apply px-6 py-3 text-base;
-      min-height: 48px; /* Touch-friendly minimum */
+      min-height: 48px;
     }
 
     .interactive-hover {
-      @apply hover:scale-100; /* Disable scale on mobile */
+      @apply hover:scale-100;
     }
     
     .card-modern,
@@ -252,12 +295,10 @@
       @apply p-4;
     }
     
-    /* Improved spacing for mobile */
     .section-spacing {
       @apply py-10;
     }
 
-    /* Better button spacing on mobile */
     .btn-primary,
     .btn-accent,
     .btn-outline,
@@ -283,22 +324,29 @@
     }
 
     p {
-      line-height: 1.9; /* Extra line-height for small screens */
+      line-height: 1.9;
     }
   }
   
+  /* High contrast mode support */
   @media (prefers-contrast: high) {
     .card-modern,
     .card-feature {
-      @apply border-brand-slate-400;
+      @apply border-brand-slate-600;
     }
     
     .text-gradient-brand,
     .text-gradient-accent {
       @apply bg-none text-brand-slate-900;
     }
+
+    .btn-primary,
+    .btn-accent {
+      @apply border-2 border-current;
+    }
   }
   
+  /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     .animate-float,
     .interactive-hover {
@@ -329,7 +377,25 @@
     }
     
     button, .btn-primary, .btn-accent, .btn-outline, .btn-secondary {
-      min-height: 44px; /* iOS recommended touch target */
+      min-height: 44px;
     }
+  }
+
+  /* Color contrast utilities for WCAG AA compliance */
+  .contrast-aa {
+    color: contrast(theme('colors.brand.slate.900'));
+  }
+
+  /* Improved line-height utilities */
+  .leading-prose {
+    line-height: 1.7;
+  }
+
+  .leading-heading {
+    line-height: 1.2;
+  }
+
+  .leading-tight-heading {
+    line-height: 1.1;
   }
 }
