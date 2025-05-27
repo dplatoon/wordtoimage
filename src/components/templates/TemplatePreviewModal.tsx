@@ -1,10 +1,10 @@
-
 import { useState } from 'react';
 import { X, ChevronLeft, ChevronRight, Copy, Share } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 interface TemplatePreviewModalProps {
   template: any;
