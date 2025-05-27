@@ -122,6 +122,10 @@
   .from-ai-neon { --tw-gradient-from: var(--ai-neon); --tw-gradient-to: rgb(0 245 255 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
   .to-ai-accent { --tw-gradient-to: var(--ai-accent); }
 
+  /* AI Theme Ring Classes */
+  .ring-ai-primary { --tw-ring-color: var(--ai-primary); }
+  .ring-ai-neon { --tw-ring-color: var(--ai-neon); }
+
   .text-gradient-brand {
     @apply bg-gradient-to-r from-brand-navy via-brand-purple to-brand-teal bg-clip-text text-transparent;
     will-change: background-position;
