@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Wand2, Play } from 'lucide-react';
+import { Wand2, Play, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -17,7 +17,7 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
   }, []);
   
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden">
+    <section className="relative py-16 sm:py-20 md:py-28 lg:py-36 overflow-hidden">
       {/* Professional background with subtle pattern */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-grid-subtle opacity-40" />
@@ -55,17 +55,44 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
           </h1>
           
           <motion.p 
-            className="text-lg sm:text-xl md:text-2xl text-brand-slate-600 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-12 px-4 sm:px-6 lg:px-0"
+            className="text-lg sm:text-xl md:text-2xl text-brand-slate-600 max-w-4xl mx-auto leading-relaxed mb-6 sm:mb-8 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             style={{ lineHeight: '1.7' }}
           >
             Create beautiful AI-generated visuals from simple text descriptions.
-            <span className="block mt-3 sm:mt-2 text-base sm:text-lg text-brand-slate-500">
+            <span className="block mt-3 sm:mt-2 text-base sm:text-lg text-brand-slate-500 font-medium">
               No design skills required.
             </span>
           </motion.p>
+
+          {/* How it Works Summary */}
+          <motion.div
+            className="max-w-3xl mx-auto mb-8 sm:mb-10 px-4 sm:px-6 lg:px-0"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <div className="bg-white/80 backdrop-blur-sm border border-brand-slate-200 rounded-2xl p-6 sm:p-8 shadow-subtle">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-brand-slate-700">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-brand-teal rounded-full flex items-center justify-center text-white font-semibold text-sm">1</div>
+                  <span className="font-medium">Describe your image</span>
+                </div>
+                <ArrowRight className="h-5 w-5 text-brand-slate-400 rotate-90 sm:rotate-0" />
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center text-white font-semibold text-sm">2</div>
+                  <span className="font-medium">Choose your style</span>
+                </div>
+                <ArrowRight className="h-5 w-5 text-brand-slate-400 rotate-90 sm:rotate-0" />
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-brand-coral rounded-full flex items-center justify-center text-white font-semibold text-sm">3</div>
+                  <span className="font-medium">Generate instantly</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
           
           <motion.div 
             className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-8 sm:mb-12 px-4 sm:px-6 lg:px-0"
@@ -75,7 +102,7 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
           >
             <Button 
               size="lg" 
-              className="btn-primary text-lg h-12 sm:h-14 px-8 sm:px-10 group w-full sm:w-auto" 
+              className="btn-primary group w-full sm:w-auto" 
               asChild
             >
               <Link to="/text-to-image">
@@ -87,7 +114,7 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="btn-outline text-lg h-12 sm:h-14 px-8 sm:px-10 group w-full sm:w-auto"
+              className="btn-outline group w-full sm:w-auto"
               onClick={onShowProFeatures}
             >
               See Examples
@@ -95,7 +122,7 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
             </Button>
           </motion.div>
           
-          {/* Trust indicators with improved mobile layout */}
+          {/* Enhanced Trust indicators */}
           <motion.div
             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-brand-slate-500 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0 }}

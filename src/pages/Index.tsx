@@ -70,9 +70,42 @@ const Index = () => {
             <ImageShowcaseGrid />
           </div>
         </motion.section>
+
+        {/* Enhanced Testimonial Section */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="section-spacing bg-white border-t border-brand-slate-100"
+        >
+          <div className="content-container">
+            <div className="testimonial-card">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <blockquote className="testimonial-quote">
+                  "WordToImage has completely transformed my content creation process. I can now generate professional-quality visuals in seconds instead of spending hours on design. It's incredibly intuitive and the results are consistently impressive."
+                </blockquote>
+                <div className="flex items-center justify-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-brand-teal to-brand-purple rounded-full flex items-center justify-center text-white font-semibold">
+                    SJ
+                  </div>
+                  <div className="text-left">
+                    <div className="testimonial-author">Sarah Johnson</div>
+                    <div className="testimonial-title">Content Creator & Marketing Professional</div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
         
         {/* Features section with modern cards */}
-        <section className="section-spacing bg-white">
+        <section className="section-spacing bg-gradient-to-b from-brand-slate-50/30 to-white">
           <FeaturesDetailed />
         </section>
         
@@ -82,18 +115,18 @@ const Index = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="section-spacing bg-gradient-to-b from-brand-slate-50/30 to-white"
+          className="section-spacing bg-white border-t border-brand-slate-100"
         >
           <TestimonialsSlider />
         </motion.section>
         
         {/* FAQ section for better SEO */}
-        <section className="section-spacing bg-white border-t border-brand-slate-100">
+        <section className="section-spacing bg-gradient-to-b from-brand-slate-50/30 to-white border-t border-brand-slate-100">
           <FAQSection />
         </section>
         
         {/* SEO Content section */}
-        <section className="section-spacing bg-brand-slate-50/30">
+        <section className="section-spacing bg-white border-t border-brand-slate-100">
           <SEOContent />
         </section>
         
@@ -103,7 +136,7 @@ const Index = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="section-spacing bg-white border-t border-brand-slate-100"
+          className="section-spacing bg-gradient-to-b from-brand-slate-50/30 to-white border-t border-brand-slate-100"
         >
           <MinimalistPricing onShowProFeatures={() => setShowProModal(true)} />
         </motion.section>

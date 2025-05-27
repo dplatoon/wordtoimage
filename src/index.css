@@ -15,29 +15,34 @@
     contain: layout style paint;
     will-change: auto;
     font-feature-settings: 'kern' 1, 'liga' 1;
+    line-height: 1.7; /* Improved line-height for mobile readability */
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply text-brand-slate-900 tracking-tight font-inter font-semibold;
     text-rendering: optimizeLegibility;
     font-display: swap;
+    line-height: 1.2; /* Consistent heading line-height */
   }
 
   h1 {
-    @apply text-5xl md:text-6xl lg:text-7xl font-bold;
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold;
+    line-height: 1.1; /* Tighter for large headings */
   }
 
   h2 {
-    @apply text-3xl md:text-4xl lg:text-5xl;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+    line-height: 1.15;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl;
+    @apply text-xl sm:text-2xl md:text-3xl;
+    line-height: 1.2;
   }
 
   p {
     @apply text-brand-slate-600;
-    line-height: 1.7;
+    line-height: 1.7; /* Consistent body text line-height */
   }
 
   a {
@@ -61,11 +66,12 @@
 
 @layer components {
   .section-spacing {
-    @apply py-12 sm:py-16 md:py-24 lg:py-32;
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
   }
 
   .content-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12;
+    /* Standardized max-width and padding for all pages */
   }
   
   .hide-scrollbar {
@@ -90,9 +96,13 @@
     will-change: background-position;
   }
   
+  /* Standardized button styles for consistency across all pages */
   .btn-primary {
-    @apply bg-brand-navy hover:bg-brand-purple text-white font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-brand transition-all duration-200;
+    @apply bg-brand-navy hover:bg-brand-purple text-white font-medium;
+    @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-brand transition-all duration-200;
     @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
+    @apply text-sm sm:text-base font-semibold;
+    @apply min-h-[44px] sm:min-h-[48px]; /* Touch-friendly minimum height */
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
@@ -101,6 +111,8 @@
     @apply bg-brand-teal hover:bg-brand-coral text-white;
     @apply font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-teal transition-all duration-200;
     @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
+    @apply text-sm sm:text-base font-semibold;
+    @apply min-h-[44px] sm:min-h-[48px];
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
@@ -109,7 +121,16 @@
     @apply border-2 border-brand-navy text-brand-navy bg-transparent;
     @apply hover:bg-brand-navy hover:text-white transition-all duration-200;
     @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium;
+    @apply text-sm sm:text-base font-semibold;
+    @apply min-h-[44px] sm:min-h-[48px];
     will-change: background-color, color;
+  }
+
+  .btn-secondary {
+    @apply bg-brand-slate-100 hover:bg-brand-slate-200 text-brand-slate-700;
+    @apply font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-200;
+    @apply text-sm sm:text-base font-semibold;
+    @apply min-h-[44px] sm:min-h-[48px];
   }
 
   .card-modern {
@@ -160,6 +181,23 @@
     opacity: 1;
     transform: translateY(0) translateZ(0);
   }
+
+  /* Standardized testimonial styles */
+  .testimonial-card {
+    @apply card-modern text-center max-w-2xl mx-auto;
+  }
+
+  .testimonial-quote {
+    @apply text-lg sm:text-xl text-brand-slate-700 italic leading-relaxed mb-6;
+  }
+
+  .testimonial-author {
+    @apply text-brand-slate-600 font-medium;
+  }
+
+  .testimonial-title {
+    @apply text-brand-slate-500 text-sm;
+  }
 }
 
 @layer utilities {
@@ -171,7 +209,7 @@
     font-display: swap;
   }
   
-  /* Mobile-specific improvements */
+  /* Enhanced mobile-specific improvements */
   @media (max-width: 768px) {
     .content-container {
       @apply px-4;
@@ -179,24 +217,28 @@
     
     h1 {
       @apply text-3xl leading-tight;
+      line-height: 1.1;
     }
     
     h2 {
       @apply text-2xl leading-tight;
+      line-height: 1.15;
     }
     
     h3 {
       @apply text-xl leading-tight;
+      line-height: 1.2;
     }
     
     p {
-      line-height: 1.7;
+      line-height: 1.8; /* Improved mobile readability */
       @apply text-base;
     }
     
     .btn-primary,
     .btn-accent,
-    .btn-outline {
+    .btn-outline,
+    .btn-secondary {
       @apply px-6 py-3 text-base;
       min-height: 48px; /* Touch-friendly minimum */
     }
@@ -214,6 +256,14 @@
     .section-spacing {
       @apply py-10;
     }
+
+    /* Better button spacing on mobile */
+    .btn-primary,
+    .btn-accent,
+    .btn-outline,
+    .btn-secondary {
+      @apply mb-2 last:mb-0;
+    }
   }
   
   /* Small mobile devices */
@@ -224,10 +274,16 @@
     
     h1 {
       @apply text-2xl;
+      line-height: 1.1;
     }
     
     h2 {
       @apply text-xl;
+      line-height: 1.15;
+    }
+
+    p {
+      line-height: 1.9; /* Extra line-height for small screens */
     }
   }
   
@@ -266,13 +322,13 @@
     transform: translateZ(0);
   }
   
-  /* Touch improvements */
+  /* Enhanced touch improvements */
   @media (hover: none) and (pointer: coarse) {
     .interactive-hover:hover {
       transform: none;
     }
     
-    button, .btn-primary, .btn-accent, .btn-outline {
+    button, .btn-primary, .btn-accent, .btn-outline, .btn-secondary {
       min-height: 44px; /* iOS recommended touch target */
     }
   }

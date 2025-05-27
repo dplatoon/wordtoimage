@@ -43,19 +43,19 @@ export const Nav = () => {
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="content-container">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
+          {/* Standardized Logo */}
           <Link 
             to="/" 
             className="flex items-center space-x-2 group z-50"
             aria-label="WordToImage Home"
             onClick={() => setIsMenuOpen(false)}
           >
-            <div className="w-8 h-8 bg-gradient-to-r from-brand-teal to-brand-purple rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <Sparkles className="h-5 w-5 text-white" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-r from-brand-teal to-brand-purple rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-gradient-brand">WordToImage</span>
+            <span className="text-xl sm:text-2xl font-bold text-gradient-brand">WordToImage</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -84,7 +84,7 @@ export const Nav = () => {
             ))}
           </div>
 
-          {/* CTA Buttons - Desktop */}
+          {/* Standardized CTA Buttons - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/auth"
@@ -94,16 +94,16 @@ export const Nav = () => {
             </Link>
             <Link
               to="/text-to-image"
-              className="btn-primary text-sm px-6 py-2"
+              className="btn-primary"
             >
               Try Free
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Improved Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center text-brand-slate-600 hover:text-brand-navy hover:bg-brand-slate-100 transition-all duration-200 z-50"
+            className="md:hidden w-12 h-12 rounded-lg flex items-center justify-center text-brand-slate-600 hover:text-brand-navy hover:bg-brand-slate-100 transition-all duration-200 z-50 touch-manipulation"
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
           >
@@ -112,7 +112,7 @@ export const Nav = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Enhanced Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
@@ -126,7 +126,7 @@ export const Nav = () => {
               onClick={() => setIsMenuOpen(false)}
             />
             
-            {/* Menu Panel */}
+            {/* Menu Panel with improved spacing */}
             <motion.div
               initial={{ opacity: 0, x: '100%' }}
               animate={{ opacity: 1, x: 0 }}
@@ -135,14 +135,14 @@ export const Nav = () => {
               className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-40 md:hidden"
             >
               <div className="flex flex-col h-full pt-20 px-6 pb-6">
-                {/* Navigation Links */}
-                <div className="space-y-2">
+                {/* Navigation Links with improved touch targets */}
+                <div className="space-y-3">
                   {navItems.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
                       onClick={() => setIsMenuOpen(false)}
-                      className={`block px-4 py-4 text-lg font-medium rounded-xl transition-all duration-200 ${
+                      className={`block px-4 py-4 text-lg font-medium rounded-xl transition-all duration-200 touch-manipulation ${
                         isCurrentPage(item.path)
                           ? 'text-brand-navy bg-brand-teal/10 border-l-4 border-brand-teal'
                           : 'text-brand-slate-700 hover:text-brand-navy hover:bg-brand-slate-50'
@@ -153,19 +153,19 @@ export const Nav = () => {
                   ))}
                 </div>
                 
-                {/* Mobile CTA Section */}
+                {/* Mobile CTA Section with standardized buttons */}
                 <div className="mt-8 pt-8 border-t border-brand-slate-200 space-y-4">
                   <Link
                     to="/auth"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block w-full px-4 py-3 text-center text-brand-slate-700 hover:text-brand-navy font-medium transition-colors duration-200"
+                    className="block w-full px-4 py-3 text-center text-brand-slate-700 hover:text-brand-navy font-medium transition-colors duration-200 rounded-lg hover:bg-brand-slate-50 touch-manipulation"
                   >
                     Sign In
                   </Link>
                   <Link
                     to="/text-to-image"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block w-full btn-primary text-center py-4 text-lg"
+                    className="btn-primary w-full text-center"
                   >
                     Try Free
                   </Link>
