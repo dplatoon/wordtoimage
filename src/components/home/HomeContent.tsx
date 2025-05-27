@@ -1,7 +1,6 @@
-
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { HeroSection } from '@/components/HeroSection';
-import { FaqSection } from './FaqSection';
+import { FAQSection } from '@/components/home/FAQSection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { ShowcaseSection } from '@/components/home/showcase/ShowcaseSection';
 import { FeaturesSection } from '@/components/FeaturesSection';
@@ -98,7 +97,7 @@ export const HomeContent = () => {
         <PricingSection />
       </div>
       
-      <FaqSection />
+      <FAQSection />
     </main>
   );
 };
