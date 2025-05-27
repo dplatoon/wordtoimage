@@ -106,6 +106,7 @@
     --ai-neon: #00f5ff;
   }
 
+  /* AI Theme Background Classes */
   .bg-ai-dark { background-color: var(--ai-dark); }
   .bg-ai-surface { background-color: var(--ai-surface); }
   .bg-ai-muted { background-color: var(--ai-muted); }
@@ -113,14 +114,41 @@
   .bg-ai-secondary { background-color: var(--ai-secondary); }
   .bg-ai-accent { background-color: var(--ai-accent); }
   .bg-ai-neon { background-color: var(--ai-neon); }
+
+  /* AI Theme Text Classes */
+  .text-ai-dark { color: var(--ai-dark); }
+  .text-ai-surface { color: var(--ai-surface); }
+  .text-ai-muted { color: var(--ai-muted); }
+  .text-ai-primary { color: var(--ai-primary); }
+  .text-ai-secondary { color: var(--ai-secondary); }
+  .text-ai-accent { color: var(--ai-accent); }
   .text-ai-neon { color: var(--ai-neon); }
+
+  /* AI Theme Border Classes */
+  .border-ai-dark { border-color: var(--ai-dark); }
+  .border-ai-surface { border-color: var(--ai-surface); }
+  .border-ai-muted { border-color: var(--ai-muted); }
   .border-ai-primary { border-color: var(--ai-primary); }
+  .border-ai-secondary { border-color: var(--ai-secondary); }
+  .border-ai-accent { border-color: var(--ai-accent); }
   .border-ai-neon { border-color: var(--ai-neon); }
 
   /* AI Theme Hover States */
-  .hover\:bg-ai-neon:hover { background-color: var(--ai-neon); }
   .hover\:bg-ai-dark:hover { background-color: var(--ai-dark); }
+  .hover\:bg-ai-surface:hover { background-color: var(--ai-surface); }
+  .hover\:bg-ai-muted:hover { background-color: var(--ai-muted); }
+  .hover\:bg-ai-primary:hover { background-color: var(--ai-primary); }
+  .hover\:bg-ai-secondary:hover { background-color: var(--ai-secondary); }
+  .hover\:bg-ai-accent:hover { background-color: var(--ai-accent); }
+  .hover\:bg-ai-neon:hover { background-color: var(--ai-neon); }
+
   .hover\:text-ai-dark:hover { color: var(--ai-dark); }
+  .hover\:text-ai-surface:hover { color: var(--ai-surface); }
+  .hover\:text-ai-muted:hover { color: var(--ai-muted); }
+  .hover\:text-ai-primary:hover { color: var(--ai-primary); }
+  .hover\:text-ai-secondary:hover { color: var(--ai-secondary); }
+  .hover\:text-ai-accent:hover { color: var(--ai-accent); }
+  .hover\:text-ai-neon:hover { color: var(--ai-neon); }
 
   /* AI Theme Gradient Classes */
   .from-ai-primary { --tw-gradient-from: var(--ai-primary); --tw-gradient-to: rgb(79 70 229 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
