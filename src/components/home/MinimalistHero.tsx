@@ -17,14 +17,14 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
   }, []);
   
   return (
-    <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
+    <section className="relative py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden">
       {/* Professional background with subtle pattern */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-grid-subtle opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-br from-brand-slate-50 via-white to-brand-slate-50/50" />
       </div>
       
-      {/* Hero content with better typography and spacing */}
+      {/* Hero content with improved mobile typography and spacing */}
       <div className="content-container relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -36,38 +36,46 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isMounted ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-brand-navy/5 border border-brand-navy/10 text-brand-navy text-sm font-medium mb-8"
+            className="inline-flex items-center px-3 sm:px-4 py-2 rounded-full bg-brand-navy/5 border border-brand-navy/10 text-brand-navy text-sm font-medium mb-6 sm:mb-8"
           >
             <span className="w-2 h-2 bg-brand-teal rounded-full mr-2 animate-pulse"></span>
             AI-Powered Creative Studio
           </motion.div>
           
-          <h1 className="font-inter font-bold tracking-tight text-brand-slate-900 leading-tight mb-8">
-            Turn Your Words Into <br className="hidden md:block" />
-            <span className="text-gradient-brand">
+          <h1 className="font-inter font-bold tracking-tight text-brand-slate-900 leading-tight mb-6 sm:mb-8 px-4 sm:px-6 lg:px-0">
+            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl block">
+              Turn Your Words Into
+            </span>
+            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl block mt-2 sm:mt-3 text-gradient-brand">
               Stunning Images
-            </span> Instantly
+            </span>
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl block mt-2 sm:mt-3 font-medium">
+              Instantly
+            </span>
           </h1>
           
           <motion.p 
-            className="text-xl md:text-2xl text-brand-slate-600 max-w-4xl mx-auto leading-relaxed mb-12"
+            className="text-lg sm:text-xl md:text-2xl text-brand-slate-600 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-12 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8 }}
+            style={{ lineHeight: '1.7' }}
           >
             Create beautiful AI-generated visuals from simple text descriptions.
-            <span className="block mt-2 text-lg text-brand-slate-500">No design skills required.</span>
+            <span className="block mt-3 sm:mt-2 text-base sm:text-lg text-brand-slate-500">
+              No design skills required.
+            </span>
           </motion.p>
           
           <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-6 mb-12"
+            className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-8 sm:mb-12 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
             <Button 
               size="lg" 
-              className="btn-primary text-lg h-14 px-10 group" 
+              className="btn-primary text-lg h-12 sm:h-14 px-8 sm:px-10 group w-full sm:w-auto" 
               asChild
             >
               <Link to="/text-to-image">
@@ -79,7 +87,7 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="btn-outline text-lg h-14 px-10 group"
+              className="btn-outline text-lg h-12 sm:h-14 px-8 sm:px-10 group w-full sm:w-auto"
               onClick={onShowProFeatures}
             >
               See Examples
@@ -87,9 +95,9 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
             </Button>
           </motion.div>
           
-          {/* Trust indicators */}
+          {/* Trust indicators with improved mobile layout */}
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-brand-slate-500"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-brand-slate-500 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0 }}
             animate={isMounted ? { opacity: 1 } : { opacity: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
@@ -110,7 +118,7 @@ export const MinimalistHero = ({ onShowProFeatures }: MinimalistHeroProps) => {
         </motion.div>
       </div>
       
-      {/* Decorative elements */}
+      {/* Decorative elements - hidden on mobile for cleaner look */}
       <div className="absolute top-1/4 left-10 w-24 h-24 border border-brand-navy/10 rounded-full opacity-60 hidden lg:block"></div>
       <div className="absolute bottom-1/4 right-10 w-32 h-32 border border-brand-purple/10 rounded-full opacity-60 hidden lg:block"></div>
       <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-brand-teal rounded-full opacity-40 hidden lg:block animate-pulse"></div>
