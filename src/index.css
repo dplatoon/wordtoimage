@@ -116,6 +116,12 @@
   .text-ai-neon { color: var(--ai-neon); }
   .border-ai-primary { border-color: var(--ai-primary); }
 
+  /* AI Theme Gradient Classes */
+  .from-ai-primary { --tw-gradient-from: var(--ai-primary); --tw-gradient-to: rgb(79 70 229 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+  .to-ai-secondary { --tw-gradient-to: var(--ai-secondary); }
+  .from-ai-neon { --tw-gradient-from: var(--ai-neon); --tw-gradient-to: rgb(0 245 255 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+  .to-ai-accent { --tw-gradient-to: var(--ai-accent); }
+
   .text-gradient-brand {
     @apply bg-gradient-to-r from-brand-navy via-brand-purple to-brand-teal bg-clip-text text-transparent;
     will-change: background-position;
