@@ -8,58 +8,62 @@ const faqData = [
     category: 'Plans & Billing',
     questions: [
       {
-        q: 'Can I switch plans anytime?',
-        a: 'Yes! You can upgrade, downgrade, or cancel your plan at any time. Changes take effect at the start of your next billing cycle. When upgrading mid-cycle, you\'ll receive prorated credits immediately.'
+        q: 'Can I upgrade or downgrade my plan anytime?',
+        a: 'Yes! You can change plans instantly from your dashboard. When upgrading mid-cycle, you\'ll be charged the prorated difference immediately and get access to new features right away. When downgrading, the change takes effect at your next billing cycle, and you keep current features until then.'
       },
       {
         q: 'What payment methods do you accept?',
-        a: 'We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and Apple Pay. For enterprise customers, we also offer invoicing and bank transfers.'
+        a: 'We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, and Google Pay. Enterprise customers can also pay via bank transfer or purchase order with Net 30 terms.'
       },
       {
-        q: 'Do you offer refunds?',
-        a: 'We offer a 14-day money-back guarantee for all paid plans. If you\'re not satisfied with your subscription, contact our support team within 14 days for a full refund.'
+        q: 'What\'s your refund policy?',
+        a: 'We offer a 14-day money-back guarantee for Pro plans and 30 days for Business plans. If you\'re not satisfied, contact support within the guarantee period for a full refund. Free plan users can always upgrade risk-free.'
       },
       {
-        q: 'What happens to unused credits?',
-        a: 'Unused credits expire at the end of each billing cycle and don\'t roll over. However, we send you notifications when you\'re running low so you can maximize your usage.'
+        q: 'What happens if I exceed my monthly limits?',
+        a: 'For Free users, generation stops until the next monthly reset. Pro and Business users can purchase additional generation packs ($5 for 100 images) or upgrade to a higher tier. We\'ll always notify you before you hit limits.'
       }
     ]
   },
   {
-    category: 'Features & Usage',
+    category: 'Features & Usage Rights',
     questions: [
       {
-        q: 'What\'s the difference between Standard and HD resolution?',
-        a: 'Standard resolution (1024x1024) is great for web use and social media. HD resolution (2048x2048) is perfect for print materials and professional projects. Pro users also get access to 4K resolution (4096x4096).'
+        q: 'What\'s the difference between resolution options?',
+        a: 'Standard (1024x1024) is perfect for social media and web use. HD (2048x2048) works great for presentations and print materials up to 8x10 inches. 4K (4096x4096) is ideal for large prints, billboards, or professional marketing materials.'
       },
       {
-        q: 'Can I use generated images commercially?',
-        a: 'Pro and Business plans include full commercial usage rights. Free plan images can only be used for personal, non-commercial purposes. All commercial plans include proper licensing documentation.'
+        q: 'Can I use generated images for commercial purposes?',
+        a: 'Free plan images are for personal use only. Pro and Business plans include full commercial rights - you can use images in marketing, sell products with them, or include them in client work. Business plans also include resale rights for the images themselves.'
       },
       {
-        q: 'How does the API access work?',
-        a: 'API access allows you to integrate our image generation into your own applications. Pro plans get 1,000 API calls per month, while Business plans get 10,000 calls. Additional calls can be purchased as needed.'
+        q: 'How does API access work and what are the limits?',
+        a: 'API access lets you integrate image generation into your own apps or workflows. Pro includes 1,000 API calls/month (roughly 1,000 images), Business includes 10,000 calls/month. Additional calls cost $0.02 each. Full API documentation and SDKs are provided.'
       },
+      {
+        q: 'What does "fair use policy" mean for unlimited plans?',
+        a: 'Unlimited means no hard monthly limits for normal business use. Fair use means we don\'t allow bulk downloading for resale, server-to-server automation without API, or other abusive patterns. 99.9% of users never encounter any restrictions.'
+      }
+    ]
+  },
+  {
+    category: 'Technical & Support',
+    questions: [
       {
         q: 'What kind of support do you provide?',
-        a: 'Free users get community support through our forums. Pro users receive priority email support with 24-hour response times. Business users get dedicated account management and phone support.'
-      }
-    ]
-  },
-  {
-    category: 'Technical',
-    questions: [
-      {
-        q: 'Do you have a mobile app?',
-        a: 'Currently, we\'re a web-based platform optimized for all devices. Our mobile web experience provides full functionality, and we\'re working on native mobile apps for 2024.'
+        a: 'Free: Community forum with peer support. Pro: Priority email support with 24-hour response time on business days. Business: Phone and chat support with 4-hour response time, plus a dedicated account manager for onboarding and optimization.'
       },
       {
         q: 'How fast is image generation?',
-        a: 'Most images generate in 10-30 seconds. Pro and Business users get priority queue access for faster processing during peak times. Generation speed also depends on image complexity and resolution.'
+        a: 'Standard images generate in 10-30 seconds. HD images take 30-60 seconds. 4K images take 1-2 minutes. Business users get priority queue access for 2x faster processing during peak hours (evenings and weekends).'
       },
       {
-        q: 'Can I integrate with other tools?',
-        a: 'Yes! We offer integrations with popular design tools like Figma, Adobe Creative Suite, and Canva through our API. Business plans include priority support for custom integrations.'
+        q: 'Do you offer integrations with design tools?',
+        a: 'Yes! We have plugins for Figma, Adobe Creative Suite, and Canva. Business plans include priority support for custom integrations. Our API also works with Zapier, Slack, and most workflow automation tools.'
+      },
+      {
+        q: 'Is there a mobile app?',
+        a: 'Our web app works perfectly on mobile browsers with full functionality. Native iOS and Android apps are launching in Q2 2024 with offline editing capabilities and will be included in all paid plans at no extra cost.'
       }
     ]
   }
@@ -85,8 +89,8 @@ export const EnhancedFAQ = () => {
             <h2 className="text-3xl font-bold text-gray-900">Frequently Asked Questions</h2>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Find answers to common questions about our plans, features, and pricing. 
-            Can't find what you're looking for? <a href="/contact" className="text-blue-600 hover:text-blue-700 font-medium">Contact us</a>.
+            Get clear answers about our plans, features, and policies. Still have questions? 
+            <a href="/contact" className="text-blue-600 hover:text-blue-700 font-medium ml-1">Contact our support team</a>.
           </p>
         </div>
 
@@ -142,22 +146,22 @@ export const EnhancedFAQ = () => {
         </div>
 
         <div className="mt-12 text-center p-6 bg-blue-50 rounded-xl">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Still have questions?</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Need help choosing the right plan?</h3>
           <p className="text-gray-600 mb-4">
-            Our support team is here to help you choose the right plan and get the most out of our platform.
+            Our team can help you find the perfect plan for your needs and budget. We'll even set up your account and provide training.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="/contact"
               className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Contact Support
+              Schedule a Demo Call
             </a>
             <a
-              href="/help"
+              href="mailto:support@wordtoimage.com"
               className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
             >
-              Browse Help Center
+              Email Support Team
             </a>
           </div>
         </div>

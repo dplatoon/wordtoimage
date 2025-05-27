@@ -1,9 +1,10 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Check, Star, Crown, Zap } from 'lucide-react';
+import { Check, Star, Crown, Zap, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PaymentMethodModal } from '@/components/PaymentMethodModal';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface PlanFeature {
   name: string;
@@ -26,6 +27,7 @@ interface PlanCardProps {
   productId?: string;
   badge?: string;
   icon?: React.ReactNode;
+  guarantee?: string;
 }
 
 export const PlanCard = ({
@@ -39,7 +41,8 @@ export const PlanCard = ({
   ctaVariant = 'default',
   productId,
   badge,
-  icon
+  icon,
+  guarantee
 }: PlanCardProps) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   
@@ -50,7 +53,7 @@ export const PlanCard = ({
 
   const handlePlanSelect = () => {
     if (name === 'Free') {
-      alert("You've selected the Free plan. No payment required.");
+      alert("You've selected the Free plan. No payment required - start creating immediately!");
       return;
     }
     setPaymentModalOpen(true);
@@ -62,6 +65,20 @@ export const PlanCard = ({
     if (name === 'Pro') return <Star className="h-5 w-5" />;
     if (name === 'Business' || name === 'Enterprise') return <Crown className="h-5 w-5" />;
     return <Zap className="h-5 w-5" />;
+  };
+
+  const getFeatureTooltip = (featureName: string) => {
+    const tooltips: { [key: string]: string } = {
+      'Fair use policy': 'Unlimited for normal business use. We monitor for abuse but most customers never hit limits.',
+      'API access': 'Programmatic access to generate images from your own applications.',
+      'White-label option': 'Remove all WordToImage branding from your generated images and interface.',
+      'Extended commercial license': 'Includes rights to resell generated images and use in client work.',
+      'Priority rendering queue': 'Your images are processed ahead of standard users during peak times.',
+      'Team workspace': 'Shared account with individual user management and centralized billing.'
+    };
+    
+    const key = Object.keys(tooltips).find(k => featureName.includes(k));
+    return key ? tooltips[key] : null;
   };
 
   return (
@@ -117,50 +134,68 @@ export const PlanCard = ({
             
             {billingCycle === 'annual' && savings > 0 && (
               <p className="text-sm text-green-600 mt-1 font-medium">
-                Save {savings}% vs monthly (${(price.monthly * 12).toFixed(2)}/year)
+                Save {savings}% with annual billing (${(price.monthly * 12 - yearlyTotal).toFixed(2)}/year savings)
               </p>
             )}
             
             {billingCycle === 'monthly' && price.annual > 0 && (
               <p className="text-sm text-gray-500 mt-1">
-                Or ${price.annual}/year billed annually
+                Annual: ${price.annual}/month (billed ${price.annual * 12}/year)
               </p>
             )}
           </div>
 
           <ul className="space-y-3 mb-8">
-            {features.map((feature, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${
-                  feature.included
-                    ? feature.highlight
-                      ? 'bg-blue-100 text-blue-600'
-                      : 'bg-green-100 text-green-600'
-                    : 'bg-gray-100'
-                }`}>
-                  {feature.included ? (
-                    <Check className="h-3 w-3" />
-                  ) : (
-                    <span className="w-2 h-0.5 bg-gray-400 rounded"></span>
-                  )}
-                </div>
-                <span className={`text-sm ${
-                  feature.included 
-                    ? feature.highlight 
-                      ? 'text-gray-900 font-medium' 
-                      : 'text-gray-700'
-                    : 'text-gray-400'
-                }`}>
-                  {feature.name}
-                </span>
-              </li>
-            ))}
+            {features.map((feature, index) => {
+              const tooltip = getFeatureTooltip(feature.name);
+              
+              return (
+                <li key={index} className="flex items-start gap-3">
+                  <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${
+                    feature.included
+                      ? feature.highlight
+                        ? 'bg-blue-100 text-blue-600'
+                        : 'bg-green-100 text-green-600'
+                      : 'bg-gray-100'
+                  }`}>
+                    {feature.included ? (
+                      <Check className="h-3 w-3" />
+                    ) : (
+                      <span className="w-2 h-0.5 bg-gray-400 rounded"></span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className={`text-sm ${
+                      feature.included 
+                        ? feature.highlight 
+                          ? 'text-gray-900 font-medium' 
+                          : 'text-gray-700'
+                        : 'text-gray-400'
+                    }`}>
+                      {feature.name}
+                    </span>
+                    {tooltip && (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="max-w-xs">{tooltip}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
           </ul>
 
           <Button
             onClick={handlePlanSelect}
             variant={popular ? 'default' : ctaVariant}
-            className={`w-full ${
+            className={`w-full mb-4 ${
               popular
                 ? 'bg-blue-600 hover:bg-blue-700 text-white'
                 : ctaVariant === 'outline'
@@ -171,6 +206,12 @@ export const PlanCard = ({
           >
             {ctaText}
           </Button>
+
+          {guarantee && (
+            <p className="text-xs text-center text-gray-500 border-t pt-3">
+              {guarantee}
+            </p>
+          )}
         </div>
       </motion.div>
 
