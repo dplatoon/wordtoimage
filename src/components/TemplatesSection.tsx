@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from 'react';
 import { ImagePlus, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
@@ -6,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { TemplateCard } from './templates/TemplateCard';
 import { CategoryNavigation } from './templates/CategoryNavigation';
 import { TemplatePreviewModal } from './templates/TemplatePreviewModal';
+import { TemplateIntroSection } from './templates/TemplateIntroSection';
 import { useToast } from '@/hooks/use-toast';
 
 export const TemplatesSection = () => {
@@ -24,7 +24,7 @@ export const TemplatesSection = () => {
     { name: 'Landscapes', count: 12, color: 'bg-green-100' }
   ];
 
-  // Enhanced template data with tags and pro indicators
+  // Enhanced template data with more detailed information
   const allTemplates = [
     { 
       id: 1, 
@@ -35,7 +35,11 @@ export const TemplatesSection = () => {
       category: 'Art Styles',
       tags: ['futuristic', 'neon', 'urban', 'sci-fi'],
       isPro: false,
-      prompt: 'A futuristic cyberpunk cityscape at night with vibrant neon lights, towering skyscrapers, and flying vehicles in the sky'
+      isNew: true,
+      isPopular: false,
+      usage: 'Gaming art, sci-fi illustrations, digital wallpapers',
+      difficulty: 'Medium' as const,
+      prompt: 'A futuristic cyberpunk cityscape at night with vibrant neon lights, towering skyscrapers, and flying vehicles in the sky, digital art style with high contrast and glowing effects'
     },
     { 
       id: 2, 
@@ -46,7 +50,11 @@ export const TemplatesSection = () => {
       category: 'Landscapes',
       tags: ['nature', 'peaceful', 'mountains', 'water'],
       isPro: false,
-      prompt: 'A serene mountain landscape with a perfectly still lake reflecting snow-capped peaks under a clear blue sky'
+      isNew: false,
+      isPopular: true,
+      usage: 'Meditation apps, nature photography, relaxation content',
+      difficulty: 'Easy' as const,
+      prompt: 'A serene mountain landscape with a perfectly still lake reflecting snow-capped peaks under a clear blue sky, natural photography style with soft lighting'
     },
     { 
       id: 3, 
@@ -57,7 +65,11 @@ export const TemplatesSection = () => {
       category: 'Art Styles',
       tags: ['geometric', 'colorful', 'modern', 'artistic'],
       isPro: true,
-      prompt: 'Abstract geometric patterns with vibrant colors flowing in organic shapes, modern digital art style'
+      isNew: false,
+      isPopular: false,
+      usage: 'Modern art projects, brand designs, creative backgrounds',
+      difficulty: 'Advanced' as const,
+      prompt: 'Abstract geometric patterns with vibrant colors flowing in organic shapes, modern digital art style with gradient overlays and dynamic composition'
     },
     { 
       id: 4, 
@@ -68,7 +80,11 @@ export const TemplatesSection = () => {
       category: 'Art Styles',
       tags: ['portrait', 'digital', 'artistic', 'stylized'],
       isPro: true,
-      prompt: 'A stylized digital portrait with artistic effects, vibrant colors, and modern digital painting techniques'
+      isNew: false,
+      isPopular: true,
+      usage: 'Profile pictures, character art, digital painting practice',
+      difficulty: 'Medium' as const,
+      prompt: 'A stylized digital portrait with artistic effects, vibrant colors, and modern digital painting techniques, semi-realistic style'
     },
     {
       id: 5,
@@ -79,7 +95,11 @@ export const TemplatesSection = () => {
       category: 'Social Media',
       tags: ['instagram', 'trendy', 'aesthetic', 'square'],
       isPro: false,
-      prompt: 'A trendy social media post design with aesthetic composition perfect for Instagram'
+      isNew: false,
+      isPopular: true,
+      usage: 'Instagram posts, social media content, influencer marketing',
+      difficulty: 'Easy' as const,
+      prompt: 'A trendy social media post design with aesthetic composition perfect for Instagram, clean layout with engaging visual elements'
     },
     {
       id: 6,
@@ -90,7 +110,11 @@ export const TemplatesSection = () => {
       category: 'Photography',
       tags: ['professional', 'business', 'clean', 'portrait'],
       isPro: false,
-      prompt: 'A professional business headshot with clean lighting and neutral background'
+      isNew: false,
+      isPopular: false,
+      usage: 'LinkedIn profiles, business cards, corporate websites',
+      difficulty: 'Easy' as const,
+      prompt: 'A professional business headshot with clean lighting and neutral background, corporate photography style'
     }
   ];
 
@@ -127,7 +151,7 @@ export const TemplatesSection = () => {
 
     toast({
       title: "Template Applied!",
-      description: `Using "${template.title}" template. Redirecting to generator...`,
+      description: `Using "${template.title}" template. Now enter your own text to customize it!`,
     });
     
     console.log('Using template:', template);
@@ -156,14 +180,7 @@ export const TemplatesSection = () => {
   return (
     <section id="templates" className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 font-space">
-            Start with a Template
-          </h2>
-          <p className="text-lg text-brand-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Choose from our curated collection of templates or start from scratch. Find the perfect starting point for your creative vision.
-          </p>
-        </div>
+        <TemplateIntroSection />
         
         <CategoryNavigation
           categories={categories}
