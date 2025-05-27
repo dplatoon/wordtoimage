@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,35 +10,48 @@
   }
   
   body {
-    @apply bg-lovable-brand-background text-lovable-brand-text font-nunito leading-relaxed;
-    letter-spacing: -0.02em;
-    /* Critical performance optimizations */
+    @apply bg-white text-brand-slate-800 font-source leading-relaxed;
+    letter-spacing: -0.01em;
     contain: layout style paint;
     will-change: auto;
+    font-feature-settings: 'kern' 1, 'liga' 1;
   }
 
-  h1, h2, h3, h4 {
-    @apply text-lovable-brand-text tracking-tight font-poppins;
-    /* Optimize text rendering */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-brand-slate-900 tracking-tight font-inter font-semibold;
     text-rendering: optimizeLegibility;
     font-display: swap;
   }
 
+  h1 {
+    @apply text-5xl md:text-6xl lg:text-7xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  p {
+    @apply text-brand-slate-600 leading-relaxed;
+  }
+
   a {
-    @apply transition-colors duration-200 text-lovable-brand-primary hover:text-lovable-brand-accent;
+    @apply transition-colors duration-200 text-brand-navy hover:text-brand-purple;
   }
 
   button, input, select, textarea {
-    @apply focus:ring-2 focus:ring-lovable-brand-primary focus:ring-opacity-50 transition-all duration-300;
+    @apply focus:ring-2 focus:ring-brand-teal focus:ring-opacity-50 transition-all duration-200;
   }
 
-  /* Performance optimizations for images */
   img {
     content-visibility: auto;
     contain-intrinsic-size: 300px 200px;
   }
 
-  /* Optimize animations for 60fps */
   * {
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -46,14 +60,13 @@
 
 @layer components {
   .section-spacing {
-    @apply py-12 md:py-16 lg:py-24;
+    @apply py-16 md:py-24 lg:py-32;
   }
 
   .content-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
   }
   
-  /* Performance optimized scrollbars */
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -66,260 +79,136 @@
     height: 0;
   }
 
-  /* AI-themed gradients with GPU acceleration */
-  .text-gradient {
-    @apply bg-gradient-to-r from-ai-primary via-ai-secondary to-ai-accent bg-clip-text text-transparent;
+  .text-gradient-brand {
+    @apply bg-gradient-to-r from-brand-navy via-brand-purple to-brand-teal bg-clip-text text-transparent;
     will-change: background-position;
   }
   
-  .text-gradient-neon {
-    @apply bg-gradient-to-r from-ai-neon to-ai-secondary bg-clip-text text-transparent;
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-brand-teal to-brand-coral bg-clip-text text-transparent;
     will-change: background-position;
   }
   
-  /* Enhanced button styles with hardware acceleration */
-  .btn-ai-primary {
-    @apply bg-gradient-to-r from-ai-primary to-ai-secondary hover:from-ai-secondary hover:to-ai-accent;
-    @apply text-white font-semibold px-8 py-4 rounded-xl shadow-glow transition-all duration-300;
-    @apply hover:shadow-glow-lg hover:scale-105 transform;
+  .btn-primary {
+    @apply bg-brand-navy hover:bg-brand-purple text-white font-medium px-8 py-4 rounded-xl shadow-brand transition-all duration-200;
+    @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
   
-  .btn-ai-neon {
-    @apply bg-gradient-to-r from-ai-neon to-ai-accent text-ai-dark;
-    @apply font-bold px-8 py-4 rounded-xl shadow-neon transition-all duration-300;
-    @apply hover:shadow-neon hover:scale-105 transform animate-glow;
+  .btn-accent {
+    @apply bg-brand-teal hover:bg-brand-coral text-white;
+    @apply font-medium px-8 py-4 rounded-xl shadow-teal transition-all duration-200;
+    @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
   
-  .btn-ai-outline {
-    @apply border-2 border-ai-primary text-ai-primary bg-transparent;
-    @apply hover:bg-ai-primary hover:text-white transition-all duration-300;
-    @apply px-8 py-4 rounded-xl font-semibold;
+  .btn-outline {
+    @apply border-2 border-brand-navy text-brand-navy bg-transparent;
+    @apply hover:bg-brand-navy hover:text-white transition-all duration-200;
+    @apply px-8 py-4 rounded-xl font-medium;
     will-change: background-color, color;
   }
 
-  /* Glassmorphism effects with optimized backdrop-filter */
-  .glass {
-    @apply backdrop-blur-md bg-white/10 border border-white/20;
-    @apply shadow-glass rounded-xl;
-    backdrop-filter: blur(12px);
-    will-change: backdrop-filter;
-  }
-  
-  .glass-dark {
-    @apply backdrop-blur-md bg-ai-dark/40 border border-ai-primary/20;
-    @apply shadow-glass rounded-xl;
-    backdrop-filter: blur(12px);
-    will-change: backdrop-filter;
-  }
-
-  /* AI-themed card styles with optimized transforms */
-  .ai-card {
-    @apply bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm;
-    @apply border border-white/20 rounded-2xl p-6;
-    @apply shadow-glass hover:shadow-glow transition-all duration-300;
-    @apply hover:border-ai-primary/30 hover:-translate-y-1;
+  .card-modern {
+    @apply bg-white border border-brand-slate-200 rounded-2xl p-8;
+    @apply shadow-modern hover:shadow-brand-lg transition-all duration-300;
+    @apply hover:border-brand-slate-300 hover:-translate-y-1;
     will-change: transform, border-color, box-shadow;
     transform: translateZ(0);
   }
   
-  .ai-card-solid {
-    @apply bg-white border border-gray-100 rounded-2xl p-6;
-    @apply shadow-sm hover:shadow-glow transition-all duration-300;
-    @apply hover:border-ai-primary/30 hover:-translate-y-1;
-    will-change: transform, border-color, box-shadow;
-    transform: translateZ(0);
+  .card-feature {
+    @apply bg-white border border-brand-slate-100 rounded-xl p-6;
+    @apply shadow-subtle hover:shadow-modern transition-all duration-200;
+    @apply hover:border-brand-slate-200;
+    will-change: border-color, box-shadow;
   }
 
-  /* Interactive elements with optimized animations */
   .interactive-hover {
-    @apply transition-all duration-300 hover:scale-105 hover:shadow-glow;
+    @apply transition-all duration-200 hover:scale-105 hover:shadow-modern;
     @apply cursor-pointer transform;
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
 
-  /* Background patterns optimized for performance */
-  .bg-ai-pattern {
-    background-image: radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-                      radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+  .bg-pattern-subtle {
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(30, 58, 138, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.03) 0%, transparent 50%);
     background-attachment: fixed;
   }
   
-  .bg-circuit-pattern {
+  .bg-grid-subtle {
     background-image: 
-      linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-      linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
+      linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px),
+      linear-gradient(rgba(30, 58, 138, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
     will-change: background-position;
   }
 
-  /* Optimized floating animations */
-  .floating {
-    @apply animate-float;
-    will-change: transform;
-    transform: translateZ(0);
-  }
-  
-  .floating-delayed {
-    @apply animate-float;
-    animation-delay: 2s;
-    will-change: transform;
-    transform: translateZ(0);
-  }
-  
-  .floating-slow {
-    @apply animate-float;
-    animation-duration: 8s;
-    will-change: transform;
-    transform: translateZ(0);
-  }
-
-  /* Performance optimized scroll animations */
-  .scroll-fade-in {
+  .animate-on-scroll {
     opacity: 0;
     transform: translateY(30px) translateZ(0);
     transition: all 0.6s ease-out;
     will-change: opacity, transform;
   }
   
-  .scroll-fade-in.animate {
+  .animate-on-scroll.in-view {
     opacity: 1;
     transform: translateY(0) translateZ(0);
-  }
-  
-  .scroll-slide-left {
-    opacity: 0;
-    transform: translateX(-50px) translateZ(0);
-    transition: all 0.6s ease-out;
-    will-change: opacity, transform;
-  }
-  
-  .scroll-slide-left.animate {
-    opacity: 1;
-    transform: translateX(0) translateZ(0);
-  }
-  
-  .scroll-slide-right {
-    opacity: 0;
-    transform: translateX(50px) translateZ(0);
-    transition: all 0.6s ease-out;
-    will-change: opacity, transform;
-  }
-  
-  .scroll-slide-right.animate {
-    opacity: 1;
-    transform: translateX(0) translateZ(0);
   }
 }
 
 @layer utilities {
-  /* Optimized blob animation with GPU acceleration */
-  .animate-blob {
-    animation: blob 7s infinite;
-    will-change: transform;
-    transform: translateZ(0);
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  .animation-delay-4000 {
-    animation-delay: 4s;
+  .text-balance {
+    text-wrap: balance;
   }
   
-  /* Hardware accelerated text effects */
-  .text-shadow-glow {
-    text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-    will-change: text-shadow;
+  .font-display {
+    font-display: swap;
   }
   
-  .text-shadow-neon {
-    text-shadow: 0 0 5px theme(colors.ai.neon), 0 0 10px theme(colors.ai.neon), 0 0 20px theme(colors.ai.neon);
-    will-change: text-shadow;
-  }
-
-  /* Performance optimized keyframes */
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1) translateZ(0);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1) translateZ(0);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9) translateZ(0);
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1) translateZ(0);
-    }
-  }
-  
-  /* Performance optimizations for different screen sizes */
   @media (max-width: 768px) {
     .content-container {
-      @apply px-3;
+      @apply px-4;
     }
     
     h1 {
-      @apply text-3xl;
+      @apply text-4xl;
     }
     
     h2 {
-      @apply text-2xl;
+      @apply text-3xl;
     }
     
-    h3 {
-      @apply text-xl;
-    }
-    
-    p {
-      @apply text-sm;
-    }
-    
-    .btn-ai-primary,
-    .btn-ai-neon,
-    .btn-ai-outline {
+    .btn-primary,
+    .btn-accent,
+    .btn-outline {
       @apply px-6 py-3 text-sm;
     }
 
-    /* Reduce animations on mobile for better performance */
     .interactive-hover {
       @apply hover:scale-100;
     }
-    
-    .floating,
-    .floating-delayed,
-    .floating-slow {
-      animation-duration: 4s;
-    }
   }
   
-  /* High contrast mode support */
   @media (prefers-contrast: high) {
-    .glass,
-    .glass-dark {
-      @apply bg-white border-gray-800;
+    .card-modern,
+    .card-feature {
+      @apply border-brand-slate-400;
     }
     
-    .text-gradient,
-    .text-gradient-neon {
-      @apply bg-none text-gray-900;
+    .text-gradient-brand,
+    .text-gradient-accent {
+      @apply bg-none text-brand-slate-900;
     }
   }
   
-  /* Reduced motion support for accessibility and battery life */
   @media (prefers-reduced-motion: reduce) {
-    .animate-blob,
     .animate-float,
-    .animate-glow,
-    .floating,
-    .floating-delayed,
-    .floating-slow {
+    .interactive-hover {
       animation: none;
     }
     
@@ -335,41 +224,8 @@
     }
   }
 
-  /* Performance optimization utilities */
   .gpu-accelerated {
     will-change: transform;
     transform: translateZ(0);
-  }
-  
-  .contain-layout {
-    contain: layout;
-  }
-  
-  .contain-style {
-    contain: style;
-  }
-  
-  .contain-paint {
-    contain: paint;
-  }
-  
-  .contain-strict {
-    contain: strict;
-  }
-}
-
-/* Critical performance CSS that loads first */
-@media (max-width: 640px) {
-  body {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-}
-
-/* Optimize for high DPI displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
   }
 }
