@@ -4,6 +4,7 @@ import { GalleryHeader } from './gallery/GalleryHeader';
 import { GalleryGrid } from './gallery/GalleryGrid';
 import { GallerySkeleton } from './gallery/GallerySkeleton';
 import { EmptyState } from './gallery/EmptyState';
+import { motion } from 'framer-motion';
 
 interface Image {
   url: string;
@@ -28,22 +29,46 @@ export function ImageGallery({ images, onEdit, loading }: ImageGalleryProps) {
   };
 
   const handleGenerateClick = () => {
-    const generateButton = document.querySelector('button:has(.h-5.w-5[aria-hidden="true"])');
+    const generateButton = document.querySelector('button[type="submit"]');
     if (generateButton && generateButton instanceof HTMLButtonElement) {
-      generateButton.click();
+      const textarea = document.querySelector('textarea');
+      if (textarea) {
+        textarea.focus();
+        textarea.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
   
   if (loading) {
-    return <GallerySkeleton />;
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <GallerySkeleton />
+      </motion.div>
+    );
   }
 
   if (!images || images.length === 0) {
-    return <EmptyState onGenerateClick={handleGenerateClick} />;
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <EmptyState onGenerateClick={handleGenerateClick} />
+      </motion.div>
+    );
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <GalleryHeader imageCount={images.length} />
       <GalleryGrid
         images={images}
@@ -53,6 +78,6 @@ export function ImageGallery({ images, onEdit, loading }: ImageGalleryProps) {
         toggleFavorite={toggleFavorite}
         onEdit={onEdit}
       />
-    </div>
+    </motion.div>
   );
 }
