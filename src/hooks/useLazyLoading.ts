@@ -7,9 +7,9 @@ interface UseLazyLoadingOptions {
   triggerOnce?: boolean;
 }
 
-export const useLazyLoading = (
+export const useLazyLoading = <T extends HTMLElement = HTMLDivElement>(
   options: UseLazyLoadingOptions = {}
-): [RefObject<HTMLElement>, boolean] => {
+): [RefObject<T>, boolean] => {
   const {
     threshold = 0.1,
     rootMargin = '50px',
@@ -17,7 +17,7 @@ export const useLazyLoading = (
   } = options;
 
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<T>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

@@ -10,7 +10,7 @@ import { useLazyLoading } from '@/hooks/useLazyLoading';
 
 export const ImageShowcaseGrid = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [containerRef, isInView] = useLazyLoading({ rootMargin: '100px' });
+  const [containerRef, isInView] = useLazyLoading<HTMLDivElement>({ rootMargin: '100px' });
   const images = localGalleryImages.slice(0, 8); // Only show the first 8 images
   
   return (
