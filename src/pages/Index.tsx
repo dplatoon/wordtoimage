@@ -7,10 +7,13 @@ import { SeoHead } from '@/components/home/SeoHead';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { MinimalistHero } from '@/components/home/MinimalistHero';
 import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
-import { MinimalistFeatures } from '@/components/home/MinimalistFeatures';
 import { TestimonialsSlider } from '@/components/home/TestimonialsSlider';
 import { MinimalistPricing } from '@/components/home/MinimalistPricing';
 import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
+import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
+import { FeaturesDetailed } from '@/components/home/FeaturesDetailed';
+import { FAQSection } from '@/components/home/FAQSection';
+import { SEOContent } from '@/components/home/SEOContent';
 import { motion } from 'framer-motion';
 
 const Index = () => {
@@ -37,6 +40,9 @@ const Index = () => {
           <MinimalistHero onShowProFeatures={() => setShowProModal(true)} />
         </div>
         
+        {/* How It Works - Detailed Section */}
+        <HowItWorksDetailed />
+        
         {/* Image Showcase Grid with enhanced styling */}
         <motion.section
           initial={{ opacity: 0 }}
@@ -57,23 +63,15 @@ const Index = () => {
                 See What <span className="text-gradient-neon">You Can Create</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                From simple prompts to stunning visuals - explore the endless possibilities
+                From simple prompts to stunning visuals - explore the endless possibilities with AI-powered image generation
               </p>
             </motion.div>
             <ImageShowcaseGrid />
           </div>
         </motion.section>
         
-        {/* Enhanced Features Section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="py-20 md:py-32 relative"
-        >
-          <MinimalistFeatures />
-        </motion.section>
+        {/* Enhanced Features Section - Now More Detailed */}
+        <FeaturesDetailed />
         
         {/* Enhanced Testimonials */}
         <motion.section
@@ -85,6 +83,12 @@ const Index = () => {
         >
           <TestimonialsSlider />
         </motion.section>
+        
+        {/* FAQ Section for Better SEO */}
+        <FAQSection />
+        
+        {/* SEO Content Section */}
+        <SEOContent />
         
         {/* Enhanced Pricing */}
         <motion.section

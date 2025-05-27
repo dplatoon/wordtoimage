@@ -1,123 +1,156 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/components/ui/use-toast";
-import { trackEvent, events } from "@/utils/analytics";
-import { Logo } from "@/components/navigation/Logo";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import { Menu, X } from "lucide-react";
-import { MobileMenu } from "@/components/navigation/MobileMenu";
-import { DesktopNavigation } from "@/components/navigation/DesktopNavigation";
-import { useIsMobile } from "@/hooks/use-mobile";
+
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Nav = () => {
-  const { user, signOut, isLoading } = useAuth();
-  const { toast } = useToast();
-  const [isMounted, setIsMounted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const isMobile = useIsMobile();
-  
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+
   useEffect(() => {
-    setIsMounted(true);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      trackEvent(events.SIGN_OUT);
-      toast({
-        title: "Signed out",
-        description: "You have been successfully signed out."
-      });
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error signing out",
-        description: error.message
-      });
-    }
-  };
+
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Features', path: '/features' },
+    { name: 'Pricing', path: '/pricing' },
+    { name: 'Contact', path: '/contact' }
+  ];
+
+  const isCurrentPage = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b backdrop-blur-sm bg-white/80">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center">
-          {/* Logo with default variant */}
-          <Logo />
-        </div>
-        
-        <div className="flex items-center">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'glass-dark shadow-glow border-b border-ai-primary/20' 
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2 group"
+            aria-label="WordToImage Home"
+          >
+            <div className="w-8 h-8 bg-gradient-to-r from-ai-neon to-ai-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <Sparkles className="h-5 w-5 text-ai-dark" />
+            </div>
+            <span className="text-xl font-bold text-gradient-neon">WordToImage</span>
+          </Link>
+
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center">
-            <DesktopNavigation />
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  isCurrentPage(item.path)
+                    ? 'text-ai-neon'
+                    : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                {item.name}
+                {isCurrentPage(item.path) && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-x-0 bottom-0 h-0.5 bg-ai-neon"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </Link>
+            ))}
           </div>
-          
-          {/* User Menu or Auth Button */}
-          <div className="flex items-center space-x-2 ml-2">
-            {isMounted && (isLoading ? 
-              <Skeleton className="h-10 w-[100px]" /> 
-              : user ? 
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage src={user?.user_metadata?.avatar_url} alt={user?.user_metadata?.full_name || user.email || "User"} />
-                        <AvatarFallback>
-                          {user?.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0) || "U"}
-                        </AvatarFallback>
-                      </Avatar>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56" align="end" forceMount>
-                    <DropdownMenuItem className="focus:bg-gray-100">
-                      <span className="truncate text-sm font-medium">
-                        {user.email}
-                      </span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="focus:outline-none" asChild>
-                      <Link to="/dashboard">Profile</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleSignOut}>Logout</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              : 
-                <div className="flex space-x-2">
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link to="/auth">Login</Link>
-                  </Button>
-                  <Button 
-                    className="bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600" 
-                    size="sm" 
-                    asChild
-                  >
-                    <Link to="/auth?tab=signup">Sign Up</Link>
-                  </Button>
-                </div>
-            )}
+
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Link
+              to="/auth"
+              className="text-gray-300 hover:text-white transition-colors duration-200"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/#generator"
+              className="btn-ai-neon text-sm px-6 py-2"
+            >
+              Try Free
+            </Link>
           </div>
-          
-          {/* Mobile Menu */}
-          <div className="md:hidden ml-2">
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-9 w-9">
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Open menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-full max-w-xs p-0">
-                <MobileMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
-              </SheetContent>
-            </Sheet>
-          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center text-gray-300 hover:text-white transition-colors duration-200"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </div>
-    </header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden glass-dark border-t border-ai-primary/20"
+          >
+            <div className="px-4 py-6 space-y-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                    isCurrentPage(item.path)
+                      ? 'text-ai-neon bg-ai-primary/20 rounded-lg'
+                      : 'text-gray-300 hover:text-white hover:bg-ai-surface/30 rounded-lg'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              <div className="pt-4 space-y-3 border-t border-ai-primary/20">
+                <Link
+                  to="/auth"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white transition-colors duration-200"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/#generator"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block btn-ai-neon text-center"
+                >
+                  Try Free
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 };
