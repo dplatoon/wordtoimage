@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
 @tailwind base;
 @tailwind components;
@@ -113,9 +112,15 @@
   .bg-ai-primary { background-color: var(--ai-primary); }
   .bg-ai-secondary { background-color: var(--ai-secondary); }
   .bg-ai-accent { background-color: var(--ai-accent); }
+  .bg-ai-neon { background-color: var(--ai-neon); }
   .text-ai-neon { color: var(--ai-neon); }
   .border-ai-primary { border-color: var(--ai-primary); }
   .border-ai-neon { border-color: var(--ai-neon); }
+
+  /* AI Theme Hover States */
+  .hover\:bg-ai-neon:hover { background-color: var(--ai-neon); }
+  .hover\:bg-ai-dark:hover { background-color: var(--ai-dark); }
+  .hover\:text-ai-dark:hover { color: var(--ai-dark); }
 
   /* AI Theme Gradient Classes */
   .from-ai-primary { --tw-gradient-from: var(--ai-primary); --tw-gradient-to: rgb(79 70 229 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
