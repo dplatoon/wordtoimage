@@ -16,18 +16,19 @@ export const FeaturesHeroSection = () => {
           >
             <Badge className="mb-6 bg-gradient-to-r from-ai-primary to-ai-secondary text-white border-none px-6 py-2 text-lg">
               <Sparkles className="h-5 w-5 mr-2" />
-              ✨ Powerful Features
+              ✨ Powerful AI Features
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-              <span className="text-gradient-neon">Unleash Your</span>
+              <span className="text-gradient-neon">Transform Ideas into</span>
               <br />
-              <span className="text-white">Creative Potential</span>
+              <span className="text-white">Stunning Visuals</span>
             </h1>
             
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Transform your imagination into stunning visuals with our cutting-edge AI technology. 
-              From concept to creation in seconds.
+              Experience the power of advanced AI technology that converts your imagination into 
+              high-quality images in seconds. From concept to creation with 50+ artistic styles, 
+              4K resolution output, and lightning-fast generation.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">

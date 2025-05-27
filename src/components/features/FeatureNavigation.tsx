@@ -20,34 +20,42 @@ export const FeatureNavigation = ({
   onSectionClick 
 }: FeatureNavigationProps) => {
   return (
-    <div className="sticky top-16 z-40 bg-ai-dark/80 backdrop-blur-sm border-b border-ai-primary/20">
+    <nav 
+      className="sticky top-16 z-40 bg-ai-dark/80 backdrop-blur-sm border-b border-ai-primary/20"
+      aria-label="Feature navigation"
+    >
       <div className="content-container">
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center space-x-1 overflow-x-auto hide-scrollbar">
             {featureSections.map((section) => {
               const IconComponent = section.icon;
+              const isActive = activeSection === section.id;
+              
               return (
                 <button
                   key={section.id}
                   onClick={() => onSectionClick(section.id)}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                    activeSection === section.id
+                    isActive
                       ? 'bg-ai-primary text-white'
                       : 'text-gray-300 hover:text-white hover:bg-ai-primary/20'
                   }`}
+                  aria-current={isActive ? 'page' : undefined}
+                  aria-label={`Navigate to ${section.title} section`}
                 >
-                  <IconComponent className="h-4 w-4" />
+                  <IconComponent className="h-4 w-4" aria-hidden="true" />
                   <span className="hidden sm:inline">{section.title}</span>
                 </button>
               );
             })}
           </div>
           <Button className="btn-ai-neon text-sm px-4 py-2 ml-4">
-            <ArrowRight className="h-4 w-4 mr-1" />
+            <ArrowRight className="h-4 w-4 mr-1" aria-hidden="true" />
             <span className="hidden sm:inline">Get Started</span>
+            <span className="sm:hidden">Start</span>
           </Button>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };

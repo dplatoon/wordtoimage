@@ -96,6 +96,26 @@
     height: 0;
   }
 
+  /* AI Theme Colors */
+  :root {
+    --ai-dark: #0f0f23;
+    --ai-surface: #1a1a2e;
+    --ai-muted: #16213e;
+    --ai-primary: #4f46e5;
+    --ai-secondary: #7c3aed;
+    --ai-accent: #06b6d4;
+    --ai-neon: #00f5ff;
+  }
+
+  .bg-ai-dark { background-color: var(--ai-dark); }
+  .bg-ai-surface { background-color: var(--ai-surface); }
+  .bg-ai-muted { background-color: var(--ai-muted); }
+  .bg-ai-primary { background-color: var(--ai-primary); }
+  .bg-ai-secondary { background-color: var(--ai-secondary); }
+  .bg-ai-accent { background-color: var(--ai-accent); }
+  .text-ai-neon { color: var(--ai-neon); }
+  .border-ai-primary { border-color: var(--ai-primary); }
+
   .text-gradient-brand {
     @apply bg-gradient-to-r from-brand-navy via-brand-purple to-brand-teal bg-clip-text text-transparent;
     will-change: background-position;
@@ -105,7 +125,74 @@
     @apply bg-gradient-to-r from-brand-teal to-brand-coral bg-clip-text text-transparent;
     will-change: background-position;
   }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-ai-primary to-ai-secondary bg-clip-text text-transparent;
+  }
+
+  .text-gradient-neon {
+    @apply bg-gradient-to-r from-ai-neon to-ai-accent bg-clip-text text-transparent;
+  }
   
+  /* Enhanced AI-themed button styles */
+  .btn-ai-neon {
+    @apply bg-gradient-to-r from-ai-primary to-ai-secondary text-white font-medium;
+    @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-brand transition-all duration-200;
+    @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
+    @apply text-sm sm:text-base font-semibold;
+    @apply min-h-[44px] sm:min-h-[48px];
+    @apply focus:ring-2 focus:ring-ai-primary focus:ring-offset-2;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
+  }
+  
+  .btn-ai-outline {
+    @apply border-2 border-ai-neon text-ai-neon bg-transparent;
+    @apply hover:bg-ai-neon hover:text-ai-dark transition-all duration-200;
+    @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium;
+    @apply text-sm sm:text-base font-semibold;
+    @apply min-h-[44px] sm:min-h-[48px];
+    @apply focus:ring-2 focus:ring-ai-neon focus:ring-offset-2;
+    will-change: background-color, color;
+  }
+
+  .ai-card {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8;
+    @apply shadow-modern hover:shadow-brand-lg transition-all duration-300;
+    @apply hover:border-white/20 hover:-translate-y-1;
+    @apply focus-within:ring-2 focus-within:ring-ai-neon focus-within:ring-offset-2;
+    will-change: transform, border-color, box-shadow;
+    transform: translateZ(0);
+  }
+
+  /* Animation keyframes */
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
   /* Enhanced button styles with better contrast and accessibility */
   .btn-primary {
     @apply bg-brand-navy hover:bg-brand-purple text-white font-medium;
@@ -172,52 +259,6 @@
     transform: translateZ(0);
   }
 
-  /* Enhanced AI-themed background patterns */
-  .bg-pattern-subtle {
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(30, 58, 138, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.02) 0%, transparent 30%);
-    background-attachment: fixed;
-  }
-  
-  .bg-grid-subtle {
-    background-image: 
-      linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px),
-      linear-gradient(rgba(30, 58, 138, 0.02) 1px, transparent 1px);
-    background-size: 40px 40px;
-    will-change: background-position;
-  }
-
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px) translateZ(0);
-    transition: all 0.6s ease-out;
-    will-change: opacity, transform;
-  }
-  
-  .animate-on-scroll.in-view {
-    opacity: 1;
-    transform: translateY(0) translateZ(0);
-  }
-
-  /* Enhanced testimonial styles */
-  .testimonial-card {
-    @apply card-modern text-center max-w-2xl mx-auto;
-  }
-
-  .testimonial-quote {
-    @apply text-lg sm:text-xl text-brand-slate-700 italic leading-relaxed mb-6;
-  }
-
-  .testimonial-author {
-    @apply text-brand-slate-600 font-medium;
-  }
-
-  .testimonial-title {
-    @apply text-brand-slate-500 text-sm;
-  }
-
   /* Screen reader only utility */
   .sr-only {
     position: absolute;
@@ -281,7 +322,9 @@
     .btn-primary,
     .btn-accent,
     .btn-outline,
-    .btn-secondary {
+    .btn-secondary,
+    .btn-ai-neon,
+    .btn-ai-outline {
       @apply px-6 py-3 text-base;
       min-height: 48px;
     }
@@ -291,19 +334,13 @@
     }
     
     .card-modern,
-    .card-feature {
+    .card-feature,
+    .ai-card {
       @apply p-4;
     }
     
     .section-spacing {
       @apply py-10;
-    }
-
-    .btn-primary,
-    .btn-accent,
-    .btn-outline,
-    .btn-secondary {
-      @apply mb-2 last:mb-0;
     }
   }
   
@@ -331,24 +368,28 @@
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .card-modern,
-    .card-feature {
+    .card-feature,
+    .ai-card {
       @apply border-brand-slate-600;
     }
     
     .text-gradient-brand,
-    .text-gradient-accent {
+    .text-gradient-accent,
+    .text-gradient,
+    .text-gradient-neon {
       @apply bg-none text-brand-slate-900;
     }
 
     .btn-primary,
-    .btn-accent {
+    .btn-accent,
+    .btn-ai-neon {
       @apply border-2 border-current;
     }
   }
   
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
-    .animate-float,
+    .animate-blob,
     .interactive-hover {
       animation: none;
     }
@@ -376,26 +417,8 @@
       transform: none;
     }
     
-    button, .btn-primary, .btn-accent, .btn-outline, .btn-secondary {
+    button, .btn-primary, .btn-accent, .btn-outline, .btn-secondary, .btn-ai-neon, .btn-ai-outline {
       min-height: 44px;
     }
-  }
-
-  /* Color contrast utilities for WCAG AA compliance */
-  .contrast-aa {
-    color: contrast(theme('colors.brand.slate.900'));
-  }
-
-  /* Improved line-height utilities */
-  .leading-prose {
-    line-height: 1.7;
-  }
-
-  .leading-heading {
-    line-height: 1.2;
-  }
-
-  .leading-tight-heading {
-    line-height: 1.1;
   }
 }

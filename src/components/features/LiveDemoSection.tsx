@@ -17,14 +17,14 @@ export const LiveDemoSection = () => {
         <div className="text-center mb-12">
           <Badge className="mb-4 bg-ai-accent/20 text-ai-accent border-ai-accent/30 px-4 py-2">
             <ImageIcon className="h-4 w-4 mr-2" />
-            Live Demo
+            Interactive Demo
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            Try It <span className="text-gradient-neon">Right Now</span>
+            Try AI Image Generation <span className="text-gradient-neon">Right Now</span>
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Experience the power of AI image generation instantly. 
-            Enter your prompt and watch your ideas come to life.
+            Experience the power of our AI image generator instantly. Enter your creative prompt 
+            and watch your ideas transform into stunning visuals in under 10 seconds.
           </p>
         </div>
 
@@ -35,24 +35,37 @@ export const LiveDemoSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <ImageGenerationForm 
-              onImageGenerated={setGeneratedImageUrl}
-              onGeneratingChange={setIsGenerating}
-              onError={setError}
-            />
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <h3 className="text-xl font-semibold text-white mb-4">Create Your Image</h3>
+              <ImageGenerationForm 
+                onImageGenerated={setGeneratedImageUrl}
+                onGeneratingChange={setIsGenerating}
+                onError={setError}
+              />
+            </div>
           </motion.div>
+          
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <ImagePreview 
-              imageUrl={generatedImageUrl}
-              isGenerating={isGenerating}
-              error={error}
-            />
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <h3 className="text-xl font-semibold text-white mb-4">Your Generated Image</h3>
+              <ImagePreview 
+                imageUrl={generatedImageUrl}
+                isGenerating={isGenerating}
+                error={error}
+              />
+            </div>
           </motion.div>
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="text-gray-400 text-sm">
+            Try prompts like: "A majestic mountain landscape at sunset" or "Modern minimalist living room design"
+          </p>
         </div>
       </div>
     </section>
