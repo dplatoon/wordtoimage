@@ -151,6 +151,6 @@ export const Nav = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
