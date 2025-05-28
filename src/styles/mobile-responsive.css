@@ -1,0 +1,76 @@
+
+/* Mobile-first responsive enhancements */
+@layer utilities {
+  /* Enhanced mobile typography */
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 2.25rem;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+    
+    .section-title {
+      font-size: 1.875rem;
+      line-height: 1.2;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      line-height: 1.3;
+    }
+  }
+
+  /* Tablet adjustments */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .hero-title {
+      font-size: 3rem;
+      line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.25rem;
+      line-height: 1.6;
+    }
+  }
+
+  /* Enhanced touch targets for mobile */
+  @media (max-width: 768px) {
+    button, .btn-primary, .btn-accent, .btn-outline, .btn-secondary {
+      min-height: 48px;
+      min-width: 48px;
+      padding: 0.875rem 1.5rem;
+    }
+    
+    .nav-link {
+      min-height: 48px;
+      padding: 0.75rem 1rem;
+    }
+    
+    .form-input {
+      min-height: 48px;
+      padding: 0.75rem 1rem;
+    }
+  }
+
+  /* Mobile-optimized spacing */
+  @media (max-width: 640px) {
+    .section-spacing {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+    
+    .content-container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .card-modern, .card-feature {
+      padding: 1.5rem 1rem;
+    }
+  }
+}

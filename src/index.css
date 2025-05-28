@@ -6,6 +6,7 @@
 @import './styles/animations.css';
 @import './styles/ai-theme.css';
 @import './styles/accessibility.css';
+@import './styles/mobile-responsive.css';
 
 @tailwind base;
 @tailwind components;
