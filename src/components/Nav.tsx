@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { EnhancedMobileMenu } from './navigation/EnhancedMobileMenu';
+import { ResponsiveMobileMenu } from './navigation/ResponsiveMobileMenu';
+import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { isMobile, isTablet } = useResponsiveDesign();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,21 +47,29 @@ export const Nav = () => {
       }`}
     >
       <div className="content-container">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Enhanced Logo */}
+        <div className={`flex items-center justify-between ${
+          isMobile ? 'h-16' : isTablet ? 'h-18' : 'h-20'
+        }`}>
+          {/* Enhanced Logo with responsive sizing */}
           <Link 
             to="/" 
             className="flex items-center space-x-2 group z-50"
             aria-label="WordToImage Home"
             onClick={() => setIsMenuOpen(false)}
           >
-            <div className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-r from-brand-teal to-brand-purple rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
-              <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+            <div className={`bg-gradient-to-r from-brand-teal to-brand-purple rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm ${
+              isMobile ? 'w-8 h-8' : 'w-9 h-9'
+            }`}>
+              <Sparkles className={`text-white ${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} />
             </div>
-            <span className="text-xl sm:text-2xl font-bold text-gradient-brand">WordToImage</span>
+            <span className={`font-bold text-gradient-brand ${
+              isMobile ? 'text-lg' : 'text-xl sm:text-2xl'
+            }`}>
+              WordToImage
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Enhanced Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
@@ -104,8 +114,8 @@ export const Nav = () => {
             </Link>
           </div>
 
-          {/* Enhanced Mobile Menu */}
-          <EnhancedMobileMenu 
+          {/* Enhanced Responsive Mobile Menu */}
+          <ResponsiveMobileMenu 
             isOpen={isMenuOpen}
             onToggle={() => setIsMenuOpen(!isMenuOpen)}
             onClose={() => setIsMenuOpen(false)}
