@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { initPerformanceOptimizations } from "@/utils/performanceOptimizer";
+import { initAccessibility } from "@/utils/accessibility";
 import "./App.css";
 
 // Lazy load non-critical pages for better performance
@@ -34,6 +35,9 @@ function App() {
   useEffect(() => {
     // Initialize performance optimizations on app start
     initPerformanceOptimizations();
+    
+    // Initialize accessibility features
+    initAccessibility();
   }, []);
 
   return (

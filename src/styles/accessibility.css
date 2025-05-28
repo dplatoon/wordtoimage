@@ -1,46 +1,96 @@
 
-/* Screen reader only content */
+/* Enhanced WCAG AA Compliant Accessibility Styles */
+
+/* Screen reader only content with better positioning */
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 .sr-only:focus,
 .focus\:not-sr-only:focus {
-  position: static;
-  width: auto;
-  height: auto;
-  padding: inherit;
-  margin: inherit;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
 }
 
-/* High contrast mode support */
+/* Skip links with enhanced styling */
+.skip-links a {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 9999;
+  transition: top 0.3s ease;
+}
+
+.skip-links a:focus {
+  top: 6px;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support with better coverage */
 @media (prefers-contrast: high) {
-  .border-slate-200 {
-    border-color: #000000;
+  .border-slate-200,
+  .border-gray-200 {
+    border-color: #000000 !important;
   }
   
-  .text-slate-400 {
-    color: #000000;
+  .text-slate-400,
+  .text-gray-400,
+  .text-slate-500,
+  .text-gray-500 {
+    color: #000000 !important;
   }
   
-  .bg-slate-100 {
-    background-color: #ffffff;
-    border: 2px solid #000000;
+  .bg-slate-100,
+  .bg-gray-100,
+  .bg-slate-50,
+  .bg-gray-50 {
+    background-color: #ffffff !important;
+    border: 2px solid #000000 !important;
+  }
+  
+  .text-white {
+    color: #ffffff !important;
+  }
+  
+  .bg-white {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  /* Ensure sufficient contrast for interactive elements */
+  button, .btn {
+    border: 2px solid #000000 !important;
+  }
+  
+  a {
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
   }
 }
 
-/* Reduced motion support */
+/* Enhanced reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -48,56 +98,216 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Keep essential animations for feedback */
+  .loading-spinner,
+  .progress-bar,
+  [role="progressbar"] {
+    animation-duration: 0.5s !important;
   }
 }
 
-/* Focus indicators */
-.focus-visible\:ring-2:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
-
-/* Enhanced focus for interactive elements */
+/* Enhanced focus indicators with WCAG compliance */
+.focus-visible\:ring-2:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
-a:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
+a:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 5px #3b82f6 !important;
 }
 
-/* Loading animation with reduced motion consideration */
+/* Keyboard navigation indicators */
+.keyboard-navigation *:focus {
+  outline: 3px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+}
+
+.keyboard-navigation button:focus,
+.keyboard-navigation .btn:focus {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 5px #3b82f6 !important;
+}
+
+/* Enhanced focus for specific components */
+.nav-link:focus-visible {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-radius: 4px !important;
+}
+
+/* Ensure minimum touch target size (44px x 44px) */
+button,
+.btn,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Exception for text links in paragraphs */
+p a, 
+li a,
+.text-link {
+  min-height: auto;
+  min-width: auto;
+  display: inline;
+}
+
+/* Color contrast improvements for better readability */
+.text-slate-500 {
+  color: #475569 !important; /* Improved contrast */
+}
+
+.text-slate-600 {
+  color: #334155 !important; /* Improved contrast */
+}
+
+.text-gray-500 {
+  color: #475569 !important; /* Improved contrast */
+}
+
+.text-gray-600 {
+  color: #334155 !important; /* Improved contrast */
+}
+
+/* Error and success state styling with better contrast */
+[aria-invalid="true"],
+.error {
+  border-color: #dc2626 !important;
+  color: #dc2626 !important;
+}
+
+[role="alert"],
+.error-message {
+  color: #dc2626 !important;
+  font-weight: 600 !important;
+  margin-top: 4px !important;
+}
+
+.success-message {
+  color: #059669 !important;
+  font-weight: 600 !important;
+}
+
+/* Enhanced loading animations with accessibility considerations */
 @keyframes spin-accessible {
   to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-accessible {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .animate-spin {
     animation: spin-accessible 1s linear infinite;
   }
+  
+  .animate-pulse {
+    animation: pulse-accessible 2s ease-in-out infinite;
+  }
 }
 
-/* Ensure minimum touch target size (44px x 44px) */
-button {
-  min-height: 44px;
-  min-width: 44px;
+/* Loading states with screen reader announcements */
+.loading[aria-live="polite"]::after {
+  content: " (Loading...)";
+  position: absolute;
+  left: -9999px;
 }
 
-/* Color contrast improvements */
-.text-slate-500 {
-  color: #64748b;
+/* Form validation styling */
+.field-error {
+  border: 2px solid #dc2626 !important;
 }
 
-.text-slate-600 {
-  color: #475569;
+.field-success {
+  border: 2px solid #059669 !important;
 }
 
-/* Error state styling */
-[aria-invalid="true"] {
-  border-color: #ef4444;
+/* Required field indicators */
+.required::after {
+  content: " *";
+  color: #dc2626;
+  font-weight: bold;
+  margin-left: 2px;
 }
 
-[role="alert"] {
-  font-weight: 500;
+/* Better visibility for disabled elements */
+:disabled,
+[aria-disabled="true"] {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  background-color: #f3f4f6 !important;
+}
+
+/* Enhanced table accessibility */
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  background-color: #f9fafb;
+}
+
+th, td {
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+}
+
+/* Modal and dialog accessibility */
+[role="dialog"],
+[role="alertdialog"] {
+  border: 2px solid #374151;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Breadcrumb navigation */
+[aria-label="Breadcrumb"] ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+[aria-label="Breadcrumb"] li:not(:last-child)::after {
+  content: "/";
+  margin-left: 8px;
+  color: #6b7280;
+}
+
+/* Print styles for accessibility */
+@media print {
+  .no-print,
+  button,
+  .btn,
+  nav,
+  .navigation {
+    display: none !important;
+  }
+  
+  a::after {
+    content: " (" attr(href) ")";
+  }
+  
+  .sr-only {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    clip: auto !important;
+    overflow: visible !important;
+  }
 }
