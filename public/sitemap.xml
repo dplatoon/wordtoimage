@@ -1,108 +1,139 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <!-- Main pages -->
   <url>
-    <loc>/</loc>
+    <loc>https://wordtoimage.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <lastmod>2025-01-01</lastmod>
+    <image:image>
+      <image:loc>https://wordtoimage.com/hero-ai-generator.jpg</image:loc>
+      <image:title>WordToImage AI Image Generator Interface</image:title>
+      <image:caption>AI-powered text-to-image generation tool</image:caption>
+    </image:image>
   </url>
   <url>
-    <loc>/text-to-image</loc>
+    <loc>https://wordtoimage.com/text-to-image</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/dashboard</loc>
+    <loc>https://wordtoimage.com/dashboard</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   
   <!-- Product pages -->
   <url>
-    <loc>/features</loc>
+    <loc>https://wordtoimage.com/features</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/pricing</loc>
+    <loc>https://wordtoimage.com/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/updates</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://wordtoimage.com/templates</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/beta</loc>
+    <loc>https://wordtoimage.com/updates</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <lastmod>2025-01-01</lastmod>
+  </url>
+  <url>
+    <loc>https://wordtoimage.com/beta</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   
   <!-- Resource pages -->
   <url>
-    <loc>/blog</loc>
+    <loc>https://wordtoimage.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/design-tips</loc>
+    <loc>https://wordtoimage.com/design-tips</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/tutorials</loc>
+    <loc>https://wordtoimage.com/tutorials</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/help</loc>
+    <loc>https://wordtoimage.com/help</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/api</loc>
+    <loc>https://wordtoimage.com/api</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   
   <!-- Company pages -->
   <url>
-    <loc>/about</loc>
+    <loc>https://wordtoimage.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/careers</loc>
+    <loc>https://wordtoimage.com/careers</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/contact</loc>
+    <loc>https://wordtoimage.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/community</loc>
+    <loc>https://wordtoimage.com/community</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   
   <!-- Legal pages -->
   <url>
-    <loc>/privacy</loc>
+    <loc>https://wordtoimage.com/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/terms</loc>
+    <loc>https://wordtoimage.com/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
   <url>
-    <loc>/cookies</loc>
+    <loc>https://wordtoimage.com/cookies</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
+    <lastmod>2025-01-01</lastmod>
   </url>
 </urlset>

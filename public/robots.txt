@@ -1,9 +1,11 @@
 
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Twitterbot
 Allow: /
@@ -13,5 +15,32 @@ Allow: /
 
 User-agent: *
 Allow: /
+Crawl-delay: 2
 
-Sitemap: https://YOUR_DOMAIN.vercel.app/sitemap.xml
+# Disallow non-public directories
+Disallow: /admin/
+Disallow: /api/private/
+Disallow: /temp/
+Disallow: /*.json$
+Disallow: /*?*
+
+# Allow important resources for rendering
+Allow: /src/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+
+# Sitemaps
+Sitemap: https://wordtoimage.com/sitemap.xml
+
+# Additional crawling preferences
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
