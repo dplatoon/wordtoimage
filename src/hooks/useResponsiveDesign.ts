@@ -15,6 +15,7 @@ interface ResponsiveDesignHook {
   isMobile: boolean;
   isTablet: boolean;
   isDesktop: boolean;
+  isTouch: boolean;
   orientation: 'portrait' | 'landscape';
   prefersReducedMotion: boolean;
   prefersDarkMode: boolean;
@@ -26,6 +27,7 @@ export const useResponsiveDesign = (): ResponsiveDesignHook => {
   const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [prefersDarkMode, setPrefersDarkMode] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
   const updateScreenSize = useCallback(() => {
     setScreenSize({
@@ -40,6 +42,9 @@ export const useResponsiveDesign = (): ResponsiveDesignHook => {
     
     setPrefersReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     setPrefersDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    
+    // Detect touch capability
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
 
   useEffect(() => {
@@ -82,9 +87,18 @@ export const useResponsiveDesign = (): ResponsiveDesignHook => {
     isMobile,
     isTablet,
     isDesktop,
+    isTouch,
     orientation,
     prefersReducedMotion,
     prefersDarkMode,
     screenSize,
   };
+};
+
+// Utility function for responsive grid columns
+export const getResponsiveGridCols = (screenSize: { width: number; height: number }) => {
+  if (screenSize.width < 480) return 1;
+  if (screenSize.width < 768) return 2;
+  if (screenSize.width < 1024) return 3;
+  return 4;
 };

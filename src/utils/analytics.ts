@@ -9,6 +9,35 @@ interface AnalyticsEvent {
   custom_parameters?: Record<string, any>;
 }
 
+// Predefined events for consistent tracking
+export const events = {
+  // User interactions
+  BUTTON_CLICKED: 'button_clicked',
+  LINK_CLICKED: 'link_clicked',
+  
+  // Image generation
+  IMAGE_GENERATED: 'image_generated',
+  IMAGE_LOADED: 'image_loaded',
+  IMAGE_ERROR: 'image_error',
+  RETRY_GENERATION: 'retry_generation',
+  
+  // Gallery interactions
+  VIEW_GALLERY: 'view_gallery',
+  DOWNLOAD_IMAGE: 'download_image',
+  SHARE_IMAGE: 'share_image',
+  
+  // Authentication
+  SIGN_UP: 'sign_up',
+  SIGN_IN: 'sign_in',
+  SIGN_OUT: 'sign_out',
+  
+  // Navigation
+  PAGE_VIEW: 'page_view',
+  
+  // Performance
+  PERFORMANCE_METRIC: 'performance_metric'
+};
+
 class AnalyticsManager {
   private static instance: AnalyticsManager;
   private isInitialized = false;
@@ -64,19 +93,32 @@ class AnalyticsManager {
     }
   }
 
-  // Track custom events
-  trackEvent({ action, category, label, value, custom_parameters }: AnalyticsEvent): void {
+  // Track custom events - support both old and new signatures
+  trackEvent(eventOrAction: AnalyticsEvent | string, legacyParams?: Record<string, any>): void {
     if (typeof window === 'undefined' || !window.gtag) return;
 
-    window.gtag('event', action, {
-      event_category: category,
-      event_label: label,
-      value: value,
-      ...custom_parameters,
+    let eventData: AnalyticsEvent;
+
+    // Handle legacy string-based calls
+    if (typeof eventOrAction === 'string') {
+      eventData = {
+        action: eventOrAction,
+        category: 'interaction',
+        custom_parameters: legacyParams || {}
+      };
+    } else {
+      eventData = eventOrAction;
+    }
+
+    window.gtag('event', eventData.action, {
+      event_category: eventData.category,
+      event_label: eventData.label,
+      value: eventData.value,
+      ...eventData.custom_parameters,
     });
 
     if (this.debugMode) {
-      console.log('Event tracked:', { action, category, label, value, custom_parameters });
+      console.log('Event tracked:', eventData);
     }
   }
 
@@ -130,18 +172,11 @@ class AnalyticsManager {
 export const analytics = AnalyticsManager.getInstance();
 
 // Convenience functions
-export const trackEvent = (event: AnalyticsEvent) => analytics.trackEvent(event);
+export const trackEvent = (event: AnalyticsEvent | string, params?: Record<string, any>) => 
+  analytics.trackEvent(event, params);
 export const trackPageView = (path: string, title?: string) => analytics.trackPageView(path, title);
 export const trackInteraction = (element: string, action: string, details?: Record<string, any>) => 
   analytics.trackInteraction(element, action, details);
 
 // Initialize analytics
 export const initAnalytics = (measurementId: string) => analytics.init(measurementId);
-
-// Declare global gtag types
-declare global {
-  interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
-  }
-}

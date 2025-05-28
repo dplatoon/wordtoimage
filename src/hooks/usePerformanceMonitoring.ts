@@ -1,118 +1,125 @@
-
-import { useEffect, useCallback, useRef } from 'react';
-import { PerformanceOptimizer } from '@/utils/performanceOptimizer';
+import { useEffect, useRef, useState } from 'react';
+import { trackEvent } from '@/utils/analytics';
 
 interface PerformanceMetrics {
-  componentMountTime: number;
   renderCount: number;
+  averageRenderTime: number;
+  slowRenders: number;
   lastRenderTime: number;
 }
 
-export const usePerformanceMonitoring = (componentName: string) => {
-  const mountTime = useRef<number>(performance.now());
-  const renderCount = useRef<number>(0);
-  const lastRenderTime = useRef<number>(performance.now());
-  const optimizer = PerformanceOptimizer.getInstance();
+interface PerformanceMonitoringResult {
+  measurePerformance: <T extends any[], R>(fn: (...args: T) => R, fnName: string) => (...args: T) => R;
+  optimizeImage: (src: string, width?: number, quality?: number) => string;
+  getMetrics: () => PerformanceMetrics;
+  reportSlowRender: (threshold?: number) => boolean;
+  renderCount: number;
+  trackInteraction: (element: string, action: string, details?: Record<string, any>) => void;
+}
 
-  // Track component mounting and rendering
+export const usePerformanceMonitoring = (componentName: string): PerformanceMonitoringResult => {
+  const [renderCount, setRenderCount] = useState(0);
+  const renderTimes = useRef<number[]>([]);
+  const lastRenderStart = useRef<number>(0);
+
   useEffect(() => {
-    renderCount.current += 1;
-    lastRenderTime.current = performance.now();
+    lastRenderStart.current = performance.now();
+    setRenderCount(prev => prev + 1);
     
-    const renderTime = lastRenderTime.current - mountTime.current;
-    
-    // Log slow renders in development
-    if (process.env.NODE_ENV === 'development' && renderTime > 100) {
-      console.warn(`Slow render detected in ${componentName}: ${renderTime.toFixed(2)}ms`);
-    }
+    return () => {
+      const renderTime = performance.now() - lastRenderStart.current;
+      renderTimes.current.push(renderTime);
+      
+      // Keep only last 100 render times for memory efficiency
+      if (renderTimes.current.length > 100) {
+        renderTimes.current = renderTimes.current.slice(-100);
+      }
+    };
   });
 
-  // Measure function performance
-  const measurePerformance = useCallback(<T extends any[], R>(
-    fn: (...args: T) => R,
+  const measurePerformance = <T extends any[], R>(
+    fn: (...args: T) => R, 
     fnName: string
   ) => {
     return (...args: T): R => {
       const start = performance.now();
       const result = fn(...args);
-      const end = performance.now();
+      const duration = performance.now() - start;
       
-      const duration = end - start;
-      if (duration > 50) { // Log functions taking > 50ms
-        console.log(`[${componentName}] ${fnName}: ${duration.toFixed(2)}ms`);
+      if (duration > 16) { // Longer than a frame
+        trackEvent({
+          action: 'performance_slow_function',
+          category: 'performance',
+          label: `${componentName}.${fnName}`,
+          value: Math.round(duration)
+        });
       }
       
       return result;
     };
-  }, [componentName]);
+  };
 
-  // Optimize image loading
-  const optimizeImage = useCallback((src: string, width?: number, quality?: number) => {
-    return optimizer.optimizeImageSrc(src, width || 800, quality || 85);
-  }, [optimizer]);
-
-  // Get performance metrics
-  const getMetrics = useCallback((): PerformanceMetrics => ({
-    componentMountTime: mountTime.current,
-    renderCount: renderCount.current,
-    lastRenderTime: lastRenderTime.current,
-  }), []);
-
-  // Report performance issues
-  const reportSlowRender = useCallback((threshold: number = 100) => {
-    const renderTime = lastRenderTime.current - mountTime.current;
-    if (renderTime > threshold) {
-      console.warn(`${componentName} render exceeded ${threshold}ms: ${renderTime.toFixed(2)}ms`);
-      return true;
+  const optimizeImage = (src: string, width?: number, quality?: number): string => {
+    if (!src) return '';
+    
+    // For external URLs, try to add optimization parameters
+    try {
+      const url = new URL(src);
+      if (width) url.searchParams.set('w', width.toString());
+      if (quality) url.searchParams.set('q', quality.toString());
+      return url.toString();
+    } catch {
+      return src;
     }
-    return false;
-  }, [componentName]);
+  };
+
+  const getMetrics = (): PerformanceMetrics => {
+    const times = renderTimes.current;
+    const averageRenderTime = times.length > 0 
+      ? times.reduce((sum, time) => sum + time, 0) / times.length 
+      : 0;
+    const slowRenders = times.filter(time => time > 16).length;
+    const lastRenderTime = times[times.length - 1] || 0;
+    
+    return {
+      renderCount,
+      averageRenderTime,
+      slowRenders,
+      lastRenderTime
+    };
+  };
+
+  const reportSlowRender = (threshold = 16): boolean => {
+    const metrics = getMetrics();
+    const isSlow = metrics.lastRenderTime > threshold;
+    
+    if (isSlow) {
+      trackEvent({
+        action: 'performance_slow_render',
+        category: 'performance',
+        label: componentName,
+        value: Math.round(metrics.lastRenderTime)
+      });
+    }
+    
+    return isSlow;
+  };
+
+  const trackInteraction = (element: string, action: string, details?: Record<string, any>) => {
+    trackEvent({
+      action: 'user_interaction',
+      category: 'engagement',
+      label: `${componentName}.${element}.${action}`,
+      custom_parameters: details
+    });
+  };
 
   return {
     measurePerformance,
     optimizeImage,
     getMetrics,
     reportSlowRender,
-    renderCount: renderCount.current
+    renderCount,
+    trackInteraction
   };
-};
-
-// Hook for monitoring page performance
-export const usePagePerformance = (pageName: string) => {
-  useEffect(() => {
-    const startTime = performance.now();
-    
-    // Monitor when page becomes interactive
-    const observer = new PerformanceObserver((list) => {
-      list.getEntries().forEach((entry) => {
-        if (entry.entryType === 'measure' && entry.name === 'page-interactive') {
-          console.log(`${pageName} became interactive in: ${entry.duration.toFixed(2)}ms`);
-        }
-      });
-    });
-    
-    observer.observe({ entryTypes: ['measure'] });
-    
-    // Mark page as loaded
-    const handleLoad = () => {
-      const loadTime = performance.now() - startTime;
-      console.log(`${pageName} loaded in: ${loadTime.toFixed(2)}ms`);
-      
-      // Mark as interactive
-      performance.mark('page-interactive-start');
-      performance.mark('page-interactive-end');
-      performance.measure('page-interactive', 'page-interactive-start', 'page-interactive-end');
-    };
-    
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
-    }
-    
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('load', handleLoad);
-    };
-  }, [pageName]);
 };

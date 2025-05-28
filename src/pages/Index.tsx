@@ -55,7 +55,7 @@ const Index = () => {
       
       <main id="main-content" className="relative">
         <UserEngagementTracker contentId="home-hero" contentType="hero">
-          <ModernAIHero onPricingClick={handlePricingClick} />
+          <ModernAIHero />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-features" contentType="features">
@@ -83,7 +83,7 @@ const Index = () => {
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-pricing" contentType="pricing">
-          <MinimalistPricing onLearnMoreClick={handlePricingClick} />
+          <MinimalistPricing />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-faq" contentType="faq">
@@ -95,7 +95,6 @@ const Index = () => {
       
       {isPricingModalOpen && (
         <ProFeaturesModal 
-          isOpen={isPricingModalOpen}
           onClose={() => setIsPricingModalOpen(false)}
         />
       )}
