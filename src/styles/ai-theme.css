@@ -91,9 +91,14 @@
   .ai-card-modern {
     @apply bg-white/95 backdrop-blur-sm border border-gray-200/50 rounded-2xl p-8;
     @apply shadow-xl hover:shadow-2xl transition-all duration-500;
-    @apply hover:border-ai-accent/30 hover:-translate-y-2;
+    @apply hover:-translate-y-2;
     @apply relative overflow-hidden;
+    border-color: rgba(203, 213, 225, 0.5);
     will-change: transform, border-color, box-shadow;
+  }
+
+  .ai-card-modern:hover {
+    border-color: rgba(6, 214, 160, 0.3);
   }
 
   .ai-card-modern::before {
