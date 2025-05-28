@@ -27,69 +27,41 @@ export function PromptInput({
   };
   
   return (
-    <div className="relative">
-      <label htmlFor="image-prompt" className="block text-sm font-medium text-gray-700 mb-3">
+    <div className="space-y-4">
+      <label htmlFor="image-prompt" className="block text-sm font-medium text-gray-700">
         Image Description
       </label>
       
       <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 p-1 rounded-xl shadow-sm">
-        <div className="relative">
-          <Textarea 
-            id="image-prompt"
-            value={prompt} 
-            onChange={handleChange}
-            placeholder="A watercolor painting of a sunset over mountains with dramatic clouds..."
-            maxLength={MAX_LENGTH} 
-            className={cn(
-              "w-full resize-y border-blue-100 px-4 rounded-xl focus:border-blue-300 focus:ring-blue-200 py-4 bg-white transition-all duration-200",
-              isMobile ? "min-h-[120px] text-base" : "min-h-[140px]"
-            )}
-            aria-label="Image description"
-            aria-describedby="prompt-help prompt-counter"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-                e.preventDefault();
-                if (prompt.trim()) {
-                  const form = e.currentTarget.closest('form');
-                  if (form) {
-                    form.requestSubmit();
-                  }
+        <Textarea 
+          id="image-prompt"
+          value={prompt} 
+          onChange={handleChange}
+          placeholder="A watercolor painting of a sunset over mountains with dramatic clouds..."
+          maxLength={MAX_LENGTH} 
+          className={cn(
+            "w-full resize-y border-blue-100 px-4 rounded-xl focus:border-blue-300 focus:ring-blue-200 py-4 bg-white transition-all duration-200",
+            isMobile ? "min-h-[120px] text-base" : "min-h-[140px]"
+          )}
+          aria-label="Image description"
+          aria-describedby="prompt-help prompt-counter"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+              e.preventDefault();
+              if (prompt.trim()) {
+                const form = e.currentTarget.closest('form');
+                if (form) {
+                  form.requestSubmit();
                 }
               }
-            }}
-          />
-          
-          {/* Enhanced placeholder with better positioning */}
-          {prompt.length === 0 && (
-            <div className={cn(
-              "absolute inset-4 flex flex-col pointer-events-none text-gray-400 transition-opacity duration-200 z-10",
-              "top-4 left-4 right-4"
-            )} aria-hidden="true">
-              <div className="flex items-center mb-2">
-                <span className="animate-pulse mr-2 text-lg">✨</span>
-                <span className={cn(
-                  "font-medium",
-                  isMobile ? "text-sm" : "text-base"
-                )}>
-                  Be specific and creative! Try:
-                </span>
-              </div>
-              <div className={cn(
-                "ml-6 space-y-1 text-gray-500",
-                isMobile ? "text-xs" : "text-sm"
-              )}>
-                <div>"A cozy coffee shop with warm lighting"</div>
-                <div>"Modern minimalist logo design"</div>
-                <div>"Futuristic cityscape at night"</div>
-              </div>
-            </div>
-          )}
-        </div>
+            }
+          }}
+        />
       </div>
       
-      {/* Improved spacing for help text and counter */}
+      {/* Help text and character counter with proper spacing */}
       <div className={cn(
-        "mt-3 flex justify-between items-start gap-3",
+        "flex justify-between items-start gap-4",
         isMobile ? "flex-col space-y-2" : "items-center"
       )}>
         <div className={cn(
@@ -117,11 +89,11 @@ export function PromptInput({
         </span>
       </div>
       
-      {/* Style suggestions with better mobile spacing */}
+      {/* Style suggestions - only show when prompt is empty */}
       {prompt.length === 0 && (
         <div className={cn(
-          "mt-4 flex flex-wrap gap-2",
-          isMobile && "gap-1.5"
+          "flex flex-wrap gap-2",
+          isMobile ? "gap-1.5 mt-3" : "mt-4"
         )} role="group" aria-label="Quick style suggestions">
           {[
             "watercolor style",

@@ -138,7 +138,7 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
       <Card className="shadow-sm border-gray-200">
         <CardContent className={cn(
           "pt-6",
-          isMobile ? "px-4 py-4" : "px-6 py-6"
+          isMobile ? "px-3 py-4" : "px-6 py-6"
         )}>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className={cn(
@@ -165,8 +165,8 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
 
             <TabsContent value="single" className="space-y-6">
               <div className={cn(
-                "space-y-4",
-                isMobile && "space-y-3"
+                "space-y-6",
+                isMobile && "space-y-4"
               )}>
                 <div className="flex items-center">
                   <Wand2 className="text-blue-600 mr-2 h-5 w-5" />
@@ -179,8 +179,8 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
                 </div>
                 
                 <form onSubmit={handleSubmit} className={cn(
-                  "space-y-4",
-                  isMobile && "space-y-3"
+                  "space-y-6",
+                  isMobile && "space-y-4"
                 )}>
                   <PromptInput 
                     prompt={prompt}
@@ -206,7 +206,7 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
                     disabled={!prompt.trim() || isGenerating || prompt.trim().length < 10}
                     className={cn(
                       "w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold shadow-lg transition-all duration-200",
-                      isMobile ? "py-4 text-base h-14 mt-4" : "py-6 text-lg h-16 mt-6"
+                      isMobile ? "py-4 text-base h-14 mt-6" : "py-6 text-lg h-16 mt-8"
                     )}
                   >
                     {isGenerating ? (
