@@ -7,8 +7,8 @@ export interface ImageGenerationOptions {
   quality: 'standard' | 'hd';
   numberResults?: number;
   apiKey?: string | null;
-  userId?: string | null;  // Add userId to track who generated the image
-  sourceImage?: string;    // Add sourceImage for image-to-image generation
+  userId?: string | null;
+  sourceImage?: string;    // Base64 encoded image data for image-to-image
 }
 
 export interface ImageGenerationResponse {
@@ -20,7 +20,8 @@ export interface ImageGenerationResponse {
     promptId: string;
     size: string;
     createdAt: string;
-    userId?: string;  // Add userId in the response metadata
+    userId?: string;
+    isImageToImage?: boolean;  // Flag to indicate if this was image-to-image generation
   };
 }
 
@@ -28,6 +29,7 @@ export interface ImageGenerationHookProps {
   onImageGenerated: (url: string) => void;
   onGeneratingChange: (isGenerating: boolean) => void;
   onError: (error: string | null) => void;
+  onNewGalleryRow?: (images: { url: string; prompt: string, style?: string, resolution?: string }[]) => void;
 }
 
 export interface ImageGenerationState {
@@ -36,6 +38,7 @@ export interface ImageGenerationState {
   error: string | null;
   lastPrompt: string | null;
   usingServerKey?: boolean;
+  isImageToImage?: boolean;  // Track if current generation is image-to-image
 }
 
 export interface ImageGenerationHookReturn {
