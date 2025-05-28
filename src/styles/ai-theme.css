@@ -1,4 +1,5 @@
 
+
 @layer components {
   /* Modern AI Theme Colors */
   :root {
@@ -50,13 +51,21 @@
     background: linear-gradient(135deg, var(--ai-primary) 0%, var(--ai-secondary) 50%, var(--ai-accent) 100%);
   }
 
-  /* AI Theme Gradient Text Classes */
+  /* AI Theme Gradient Text Classes - Fixed */
   .text-gradient-ai {
-    @apply bg-gradient-to-r from-ai-primary to-ai-secondary bg-clip-text text-transparent;
+    background: linear-gradient(to right, var(--ai-primary), var(--ai-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 
   .text-gradient-neon {
-    @apply bg-gradient-to-r from-ai-neon to-ai-accent bg-clip-text text-transparent;
+    background: linear-gradient(to right, var(--ai-neon), var(--ai-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 
   /* Enhanced AI-themed button styles with modern interactivity */

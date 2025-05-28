@@ -43,6 +43,14 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				// AI Theme Colors
+				'ai-dark': 'var(--ai-dark)',
+				'ai-surface': 'var(--ai-surface)',
+				'ai-muted': 'var(--ai-muted)',
+				'ai-primary': 'var(--ai-primary)',
+				'ai-secondary': 'var(--ai-secondary)',
+				'ai-accent': 'var(--ai-accent)',
+				'ai-neon': 'var(--ai-neon)',
 				// Professional color palette
 				brand: {
 					navy: '#1e3a8a',      // Deep navy blue (primary)
