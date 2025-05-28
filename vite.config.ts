@@ -66,9 +66,5 @@ export default defineConfig(({ mode }) => ({
       '@tanstack/react-query'
     ],
     exclude: ['@vite/client', '@vite/env']
-  },
-  // Enable compression and caching
-  experimental: {
-    buildAdvancedBaseOptions: true
   }
 }));
