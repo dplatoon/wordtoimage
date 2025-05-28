@@ -83,10 +83,10 @@ export const ResponsiveMobileMenu = ({ isOpen, onToggle, onClose }: ResponsiveMo
 
   return (
     <>
-      {/* Enhanced Mobile Menu Button with better touch target */}
+      {/* Enhanced Mobile Menu Button with AI styling */}
       <button
         onClick={onToggle}
-        className={`md:hidden w-12 h-12 rounded-xl flex items-center justify-center text-brand-slate-600 hover:text-brand-navy hover:bg-brand-slate-100 transition-all duration-200 z-50 touch-manipulation relative overflow-hidden ${
+        className={`md:hidden w-12 h-12 rounded-xl flex items-center justify-center text-gray-600 hover:text-ai-primary hover:bg-ai-accent/10 transition-all duration-300 z-50 touch-manipulation relative overflow-hidden group ${
           isTouch ? 'min-w-[48px] min-h-[48px]' : ''
         }`}
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -101,59 +101,66 @@ export const ResponsiveMobileMenu = ({ isOpen, onToggle, onClose }: ResponsiveMo
           {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </motion.div>
         
-        {/* Enhanced ripple effect for touch feedback */}
+        {/* Enhanced AI-themed ripple effect */}
         <motion.div
-          className="absolute inset-0 bg-brand-teal/20 rounded-xl"
+          className="absolute inset-0 bg-ai-neon-gradient opacity-20 rounded-xl"
           initial={{ scale: 0, opacity: 0 }}
-          whileTap={{ scale: 1.2, opacity: 1 }}
+          whileTap={{ scale: 1.2, opacity: 0.3 }}
           transition={{ duration: 0.15 }}
         />
+        
+        {/* Subtle glow effect */}
+        <div className="absolute inset-0 rounded-xl bg-ai-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </button>
 
-      {/* Enhanced Mobile Menu Overlay */}
+      {/* Enhanced Mobile Menu Overlay with AI theming */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Enhanced Backdrop with better blur and touch handling */}
+            {/* Enhanced Backdrop with AI gradient overlay */}
             <motion.div
               variants={backdropVariants}
               initial="closed"
               animate="open"
               exit="closed"
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-brand-slate-900/70 backdrop-blur-md z-40 md:hidden"
+              className="fixed inset-0 bg-gradient-to-br from-ai-dark/80 via-ai-surface/70 to-ai-muted/60 backdrop-blur-md z-40 md:hidden"
               onClick={onClose}
               style={{ touchAction: 'none' }}
             />
             
-            {/* Enhanced Menu Panel with better mobile optimization */}
+            {/* Enhanced Menu Panel with AI surface styling */}
             <motion.div
               variants={menuVariants}
               initial="closed"
               animate="open"
               exit="closed"
-              className={`fixed top-0 right-0 h-full bg-white shadow-2xl z-50 md:hidden overflow-y-auto optimize-scrolling ${
+              className={`fixed top-0 right-0 h-full bg-white/95 backdrop-blur-xl shadow-2xl z-50 md:hidden overflow-y-auto optimize-scrolling border-l border-ai-accent/20 ${
                 isMobile ? 'w-full max-w-sm' : 'w-80'
               }`}
-              style={{ maxWidth: isMobile ? '85vw' : '320px' }}
+              style={{ 
+                maxWidth: isMobile ? '85vw' : '320px',
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.95) 100%)'
+              }}
             >
               <div className="flex flex-col h-full">
-                {/* Enhanced Header with better spacing */}
-                <div className="flex items-center justify-between p-4 sm:p-6 border-b border-brand-slate-100 min-h-[72px]">
-                  <div className="text-lg font-semibold text-brand-slate-900">Navigation</div>
+                {/* Enhanced Header with AI accent */}
+                <div className="flex items-center justify-between p-4 sm:p-6 border-b border-ai-accent/20 min-h-[72px] bg-gradient-to-r from-ai-accent/5 to-transparent">
+                  <div className="text-lg font-semibold text-ai-primary">Navigation</div>
                   <button
                     onClick={onClose}
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center text-brand-slate-400 hover:text-brand-slate-600 hover:bg-brand-slate-50 transition-colors touch-manipulation ${
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center text-gray-400 hover:text-ai-primary hover:bg-ai-accent/10 transition-all duration-300 touch-manipulation group ${
                       isTouch ? 'min-w-[48px] min-h-[48px]' : ''
                     }`}
                     aria-label="Close menu"
                     type="button"
                   >
                     <X className="h-5 w-5" />
+                    <div className="absolute inset-0 rounded-lg bg-ai-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
                 </div>
 
-                {/* Enhanced Navigation Links with better mobile design */}
+                {/* Enhanced Navigation Links with AI theming */}
                 <div className="flex-1 px-4 sm:px-6 py-4">
                   <nav className="space-y-2" role="navigation" aria-label="Main navigation">
                     {navItems.map((item, index) => (
@@ -161,73 +168,81 @@ export const ResponsiveMobileMenu = ({ isOpen, onToggle, onClose }: ResponsiveMo
                         <Link
                           to={item.path}
                           onClick={onClose}
-                          className={`group flex items-center justify-between w-full px-4 py-4 text-left rounded-xl transition-all duration-200 touch-manipulation ${
+                          className={`group flex items-center justify-between w-full px-4 py-4 text-left rounded-xl transition-all duration-300 touch-manipulation relative overflow-hidden ${
                             isCurrentPage(item.path)
-                              ? 'text-brand-navy bg-gradient-to-r from-brand-teal/10 to-brand-purple/5 border-l-4 border-brand-teal shadow-sm'
-                              : 'text-brand-slate-700 hover:text-brand-navy hover:bg-brand-slate-50'
+                              ? 'text-ai-primary bg-gradient-to-r from-ai-accent/10 to-ai-purple/5 border-l-4 border-ai-accent shadow-lg shadow-ai-accent/10'
+                              : 'text-gray-700 hover:text-ai-primary hover:bg-ai-accent/5'
                           } ${isTouch ? 'min-h-[56px]' : 'min-h-[48px]'}`}
                           role="menuitem"
                           aria-current={isCurrentPage(item.path) ? 'page' : undefined}
                         >
-                          <div className="flex items-center flex-1">
-                            <item.icon className={`h-5 w-5 mr-3 ${
-                              isCurrentPage(item.path) ? 'text-brand-teal' : 'text-brand-slate-400'
+                          <div className="flex items-center flex-1 relative z-10">
+                            <item.icon className={`h-5 w-5 mr-3 transition-colors duration-300 ${
+                              isCurrentPage(item.path) ? 'text-ai-accent' : 'text-gray-400 group-hover:text-ai-accent'
                             }`} />
                             <div className="flex-1">
                               <div className="font-medium text-base">{item.name}</div>
-                              <div className="text-sm text-brand-slate-500 mt-0.5">{item.description}</div>
+                              <div className="text-sm text-gray-500 mt-0.5 group-hover:text-gray-600 transition-colors duration-300">{item.description}</div>
                             </div>
                           </div>
-                          <ChevronRight className={`h-4 w-4 transition-transform ${
-                            isCurrentPage(item.path) ? 'text-brand-teal' : 'text-brand-slate-400 group-hover:translate-x-1'
+                          <ChevronRight className={`h-4 w-4 transition-all duration-300 relative z-10 ${
+                            isCurrentPage(item.path) ? 'text-ai-accent' : 'text-gray-400 group-hover:translate-x-1 group-hover:text-ai-accent'
                           }`} />
+                          
+                          {/* Subtle background glow effect */}
+                          <div className="absolute inset-0 rounded-xl bg-ai-neon-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-300" />
                         </Link>
                       </motion.div>
                     ))}
                   </nav>
                 </div>
                 
-                {/* Enhanced CTA Section with better mobile optimization */}
+                {/* Enhanced CTA Section with AI gradient styling */}
                 <motion.div 
                   variants={itemVariants}
-                  className="px-4 sm:px-6 py-6 border-t border-brand-slate-100 bg-gradient-to-r from-brand-slate-50/50 to-white"
+                  className="px-4 sm:px-6 py-6 border-t border-ai-accent/20 bg-gradient-to-r from-ai-accent/5 to-ai-purple/5"
                 >
                   <div className="space-y-3">
                     <Link
                       to="/auth"
                       onClick={onClose}
-                      className={`block w-full px-4 py-3 text-center text-brand-slate-700 hover:text-brand-navy font-medium transition-colors duration-200 rounded-lg hover:bg-white border border-brand-slate-200 touch-manipulation ${
+                      className={`block w-full px-4 py-3 text-center text-gray-700 hover:text-ai-primary font-medium transition-all duration-300 rounded-lg hover:bg-white border border-ai-accent/20 hover:border-ai-accent/40 touch-manipulation group relative overflow-hidden ${
                         isTouch ? 'min-h-[48px]' : ''
                       }`}
                     >
-                      Sign In
+                      <span className="relative z-10">Sign In</span>
+                      <div className="absolute inset-0 bg-ai-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </Link>
                     <Link
                       to="/text-to-image"
                       onClick={onClose}
-                      className={`btn-primary w-full text-center touch-manipulation ${
+                      className={`btn-ai-primary w-full text-center touch-manipulation relative overflow-hidden group ${
                         isTouch ? 'min-h-[48px] text-base' : ''
                       }`}
                     >
-                      Try AI Generator
+                      <span className="relative z-10">Try AI Generator</span>
+                      <div className="absolute inset-0 bg-ai-purple-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </Link>
                   </div>
                   
-                  {/* Enhanced trust indicators */}
-                  <div className="mt-4 pt-4 border-t border-brand-slate-100">
-                    <div className="flex items-center justify-center gap-4 text-xs text-brand-slate-500">
+                  {/* Enhanced trust indicators with AI accent */}
+                  <div className="mt-4 pt-4 border-t border-ai-accent/20">
+                    <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
                       <span className="flex items-center gap-1">
-                        <div className="w-1.5 h-1.5 bg-brand-teal rounded-full animate-pulse"></div>
+                        <div className="w-1.5 h-1.5 bg-ai-accent rounded-full animate-pulse-glow"></div>
                         Free to try
                       </span>
                       <span className="flex items-center gap-1">
-                        <div className="w-1.5 h-1.5 bg-brand-teal rounded-full animate-pulse"></div>
+                        <div className="w-1.5 h-1.5 bg-ai-accent rounded-full animate-pulse-glow"></div>
                         No credit card
                       </span>
                     </div>
                   </div>
                 </motion.div>
               </div>
+              
+              {/* Subtle side accent line */}
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-ai-neon-gradient opacity-30" />
             </motion.div>
           </>
         )}
