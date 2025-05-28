@@ -111,7 +111,7 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
           >
             <Button 
               size="lg" 
-              className="btn-ai-neon group w-full sm:w-auto touch-target-large text-xl px-10 py-6" 
+              className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold px-10 py-6 text-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto touch-target-large" 
               asChild
             >
               <Link to="/text-to-image">
