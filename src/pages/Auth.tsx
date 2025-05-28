@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
@@ -93,8 +92,8 @@ export default function Auth() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
       <AuthBackground />
 
-      <div className="relative z-10 container flex items-center justify-center min-h-screen py-8 px-4">
-        <div className="w-full flex flex-col items-center">
+      <div className="relative z-10 container flex items-center justify-center min-h-screen py-12 px-4">
+        <div className="w-full flex flex-col items-center space-y-2">
           <AuthHeader />
           <AuthCard 
             defaultTab={defaultTab}
