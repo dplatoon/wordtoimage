@@ -4,12 +4,13 @@ import { AuthForm } from '@/components/auth/AuthForm';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, Link } from 'react-router-dom';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 import { trackEvent } from '@/utils/analytics';
+import { Button } from '@/components/ui/button';
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +24,7 @@ export default function Auth() {
   const defaultTab = tabParam === 'signup' ? 'signup' : 'signin';
   
   // Get the redirect URL if any
-  const redirectTo = params.get('redirectTo') || '/';
+  const redirectTo = params.get('redirectTo') || '/dashboard';
 
   // Check for auth hash in URL (from OAuth redirects)
   useEffect(() => {
@@ -103,26 +104,64 @@ export default function Auth() {
   }
 
   return (
-    <div className="container flex items-center justify-center min-h-screen py-8">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-center">Welcome</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Tabs defaultValue={defaultTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
-            </TabsList>
-            <TabsContent value="signin">
-              <AuthForm mode="signin" isLoading={isLoading} setIsLoading={setIsLoading} />
-            </TabsContent>
-            <TabsContent value="signup">
-              <AuthForm mode="signup" isLoading={isLoading} setIsLoading={setIsLoading} />
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <div className="container flex items-center justify-center min-h-screen py-8">
+        <div className="w-full max-w-md">
+          {/* Back to home button */}
+          <div className="mb-6">
+            <Link to="/">
+              <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-900">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to home
+              </Button>
+            </Link>
+          </div>
+
+          <Card className="shadow-lg border-0">
+            <CardHeader className="space-y-1 pb-4">
+              <CardTitle className="text-2xl font-bold text-center text-slate-900">
+                {defaultTab === 'signup' ? 'Create your account' : 'Welcome back'}
+              </CardTitle>
+              <p className="text-center text-slate-600">
+                {defaultTab === 'signup' 
+                  ? 'Start creating amazing images with AI' 
+                  : 'Sign in to your account to continue'
+                }
+              </p>
+            </CardHeader>
+            <CardContent>
+              <Tabs defaultValue={defaultTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="signin" disabled={isLoading}>
+                    Sign In
+                  </TabsTrigger>
+                  <TabsTrigger value="signup" disabled={isLoading}>
+                    Sign Up
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="signin" className="space-y-4">
+                  <AuthForm mode="signin" isLoading={isLoading} setIsLoading={setIsLoading} />
+                </TabsContent>
+                <TabsContent value="signup" className="space-y-4">
+                  <AuthForm mode="signup" isLoading={isLoading} setIsLoading={setIsLoading} />
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+
+          {/* Terms and Privacy notice */}
+          <p className="mt-6 text-xs text-center text-slate-500">
+            By continuing, you agree to our{' '}
+            <Link to="/terms" className="underline hover:text-slate-700">
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link to="/privacy" className="underline hover:text-slate-700">
+              Privacy Policy
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
