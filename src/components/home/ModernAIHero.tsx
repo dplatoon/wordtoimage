@@ -17,113 +17,112 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
   }, []);
   
   return (
-    <section className="hero-section-modern py-20 sm:py-28 md:py-36 lg:py-44">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-ai-primary/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-ai-secondary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-ai-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }}></div>
+    <section className="relative py-16 sm:py-20 md:py-28 lg:py-36 overflow-hidden bg-ai-hero-gradient">
+      {/* AI-themed animated background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-ai-neon/10 rounded-full blur-3xl animate-float-slow"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-ai-purple/10 rounded-full blur-3xl animate-float-slow" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-ai-coral/5 rounded-full blur-3xl animate-pulse-glow"></div>
+        
+        {/* Floating AI particles */}
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
+        <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-ai-coral rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-ai-purple rounded-full animate-pulse" style={{ animationDelay: '3s' }}></div>
       </div>
       
+      {/* Hero content */}
       <div className="content-container relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* AI Badge with enhanced styling */}
+          {/* AI Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isMounted ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center px-6 py-3 rounded-full bg-ai-gradient text-white text-sm font-semibold mb-8 shadow-lg hover-glow"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-ai-neon/20 border border-ai-neon/30 text-ai-neon text-sm font-medium mb-6 sm:mb-8 backdrop-blur-sm"
           >
-            <Sparkles className="w-4 h-4 mr-2 animate-pulse-slow" />
+            <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
             AI-Powered Creative Studio
             <Zap className="w-4 h-4 ml-2" />
           </motion.div>
           
-          {/* Hero Title with improved typography hierarchy */}
-          <h1 className="hero-title text-gray-900 mb-6 px-4 sm:px-6 lg:px-0">
-            <span className="block">Transform Your Words Into</span>
-            <span className="block mt-2 text-gradient-ai">
-              Stunning AI Visuals
+          {/* Main Headline */}
+          <h1 className="hero-title text-white leading-tight mb-6 sm:mb-8 px-4 sm:px-6 lg:px-0">
+            <span className="block">
+              Transform Your
             </span>
-            <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-gray-700">
-              In Seconds
+            <span className="block mt-2 text-gradient-neon">
+              Words Into Magic
+            </span>
+            <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-ai-accent">
+              Instantly with AI
             </span>
           </h1>
           
-          {/* Enhanced subtitle with better readability */}
+          {/* Subtitle */}
           <motion.p 
-            className="hero-subtitle text-gray-600 max-w-4xl mx-auto mb-8 px-4 sm:px-6 lg:px-0"
+            className="hero-subtitle text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-10 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Create beautiful AI-generated visuals from simple text descriptions.
-            <span className="block mt-3 text-lg text-gray-500 font-medium">
-              No design skills required. Professional results guaranteed.
+            Create stunning AI-generated visuals from simple text descriptions.
+            <span className="block mt-3 text-ai-accent font-medium">
+              No design skills required • Professional quality • Lightning fast
             </span>
           </motion.p>
 
-          {/* Enhanced How it Works with visual indicators */}
+          {/* How it Works Flow */}
           <motion.div
-            className="max-w-4xl mx-auto mb-10 px-4 sm:px-6 lg:px-0"
+            className="max-w-4xl mx-auto mb-10 sm:mb-12 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            <div className="ai-card-modern">
-              <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-gray-700">
-                <div className="flex items-center gap-4 hover-lift">
-                  <div className="w-12 h-12 bg-ai-primary rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">1</div>
-                  <div className="text-left">
-                    <div className="font-semibold text-lg">Describe</div>
-                    <div className="text-sm text-gray-500">Your image idea</div>
-                  </div>
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 sm:p-8">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-white">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-ai-neon rounded-full flex items-center justify-center text-ai-dark font-bold text-lg shadow-lg">1</div>
+                  <span className="font-semibold">Describe</span>
                 </div>
-                <ArrowRight className="h-6 w-6 text-ai-accent rotate-90 md:rotate-0" />
-                <div className="flex items-center gap-4 hover-lift">
-                  <div className="w-12 h-12 bg-ai-secondary rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">2</div>
-                  <div className="text-left">
-                    <div className="font-semibold text-lg">Customize</div>
-                    <div className="text-sm text-gray-500">Style & settings</div>
-                  </div>
+                <ArrowRight className="h-5 w-5 text-ai-accent rotate-90 sm:rotate-0 animate-pulse" />
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-ai-purple rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">2</div>
+                  <span className="font-semibold">Generate</span>
                 </div>
-                <ArrowRight className="h-6 w-6 text-ai-accent rotate-90 md:rotate-0" />
-                <div className="flex items-center gap-4 hover-lift">
-                  <div className="w-12 h-12 bg-ai-accent rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">3</div>
-                  <div className="text-left">
-                    <div className="font-semibold text-lg">Generate</div>
-                    <div className="text-sm text-gray-500">AI magic happens</div>
-                  </div>
+                <ArrowRight className="h-5 w-5 text-ai-accent rotate-90 sm:rotate-0 animate-pulse" />
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-ai-coral rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">3</div>
+                  <span className="font-semibold">Download</span>
                 </div>
               </div>
             </div>
           </motion.div>
           
-          {/* Enhanced CTA buttons with modern styling */}
+          {/* CTA Buttons */}
           <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-6 mb-12 px-4 sm:px-6 lg:px-0"
+            className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-10 sm:mb-12 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
             <Button 
               size="lg" 
-              className="btn-ai-primary group w-full sm:w-auto" 
+              className="btn-ai-neon group w-full sm:w-auto touch-target-large text-xl px-10 py-6" 
               asChild
             >
               <Link to="/text-to-image">
-                Start Creating Free
+                Start Creating Now
                 <Wand2 className="ml-3 h-6 w-6 transition-transform group-hover:rotate-12" />
               </Link>
             </Button>
             
             <Button 
               size="lg" 
-              className="btn-ai-secondary group w-full sm:w-auto"
+              className="btn-ai-secondary group w-full sm:w-auto touch-target-large text-xl px-10 py-6 border-ai-neon text-ai-neon hover:bg-ai-neon hover:text-ai-dark"
               onClick={onShowProFeatures}
             >
               See Examples
@@ -131,32 +130,32 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
             </Button>
           </motion.div>
           
-          {/* Enhanced trust indicators with better visual design */}
+          {/* Trust Indicators */}
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-sm text-gray-500 px-4 sm:px-6 lg:px-0"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-ai-accent px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0 }}
             animate={isMounted ? { opacity: 1 } : { opacity: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            <div className="flex items-center gap-3 hover-lift">
-              <div className="w-3 h-3 bg-ai-accent rounded-full animate-pulse-slow"></div>
-              <span className="font-medium">No credit card required</span>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
+              Free to try
             </div>
-            <div className="flex items-center gap-3 hover-lift">
-              <div className="w-3 h-3 bg-ai-accent rounded-full animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
-              <span className="font-medium">Free tier available</span>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
+              No credit card required
             </div>
-            <div className="flex items-center gap-3 hover-lift">
-              <div className="w-3 h-3 bg-ai-accent rounded-full animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
-              <span className="font-medium">Professional quality</span>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
+              4K quality images
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
+              50+ AI styles
             </div>
           </motion.div>
         </motion.div>
       </div>
-      
-      {/* Subtle decorative elements */}
-      <div className="absolute top-1/3 left-16 w-32 h-32 border border-ai-primary/20 rounded-full opacity-60 hidden lg:block animate-float"></div>
-      <div className="absolute bottom-1/3 right-16 w-40 h-40 border border-ai-secondary/20 rounded-full opacity-60 hidden lg:block animate-float" style={{ animationDelay: '3s' }}></div>
     </section>
   );
 };

@@ -1,13 +1,15 @@
 
 import { useState, useEffect } from 'react';
 import { Nav } from '@/components/Nav';
-import { Footer } from '@/components/Footer';
+import { ModernFooter } from '@/components/home/ModernFooter';
 import { BetaBanner } from '@/components/BetaBanner';
 import { SeoHead } from '@/components/home/SeoHead';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { ModernAIHero } from '@/components/home/ModernAIHero';
+import { StylePresetsGallery } from '@/components/home/StylePresetsGallery';
+import { SamplePromptsSection } from '@/components/home/SamplePromptsSection';
+import { EnhancedTestimonials } from '@/components/home/EnhancedTestimonials';
 import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
-import { TestimonialsSlider } from '@/components/home/TestimonialsSlider';
 import { MinimalistPricing } from '@/components/home/MinimalistPricing';
 import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
 import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
@@ -33,18 +35,40 @@ const Index = () => {
       <Nav />
       
       <main id="main-content" className="relative z-10" role="main">
-        {/* Hero section with proper heading hierarchy */}
+        {/* Modern AI Hero section */}
         <header>
           <ModernAIHero onShowProFeatures={() => setShowProModal(true)} />
         </header>
         
+        {/* Style Presets Gallery section */}
+        <section 
+          aria-labelledby="style-presets-heading"
+          role="region"
+        >
+          <StylePresetsGallery onStyleSelect={(preset) => {
+            // Handle style selection - could navigate to generator with preset
+            console.log('Style selected:', preset);
+          }} />
+        </section>
+        
         {/* How It Works section */}
         <section 
-          className="py-20 md:py-28 bg-white" 
+          className="py-20 md:py-28 bg-gradient-to-b from-white to-gray-50/50" 
           aria-labelledby="how-it-works-heading"
           role="region"
         >
           <HowItWorksDetailed />
+        </section>
+        
+        {/* Sample Prompts section */}
+        <section 
+          aria-labelledby="sample-prompts-heading"
+          role="region"
+        >
+          <SamplePromptsSection onPromptSelect={(prompt) => {
+            // Handle prompt selection - could navigate to generator with prompt
+            console.log('Prompt selected:', prompt);
+          }} />
         </section>
         
         {/* Image Showcase section */}
@@ -76,45 +100,13 @@ const Index = () => {
           </div>
         </motion.section>
 
-        {/* Customer testimonial section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="py-20 md:py-28 bg-white border-t border-gray-100"
-          aria-labelledby="featured-testimonial-heading"
+        {/* Enhanced Testimonials section */}
+        <section 
+          aria-labelledby="testimonials-heading"
           role="region"
         >
-          <div className="content-container">
-            <div className="ai-card-modern max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="text-center"
-              >
-                <h2 id="featured-testimonial-heading" className="sr-only">Featured Customer Testimonial</h2>
-                <blockquote className="text-2xl md:text-3xl font-medium text-gray-900 mb-8 leading-relaxed">
-                  "WordToImage has completely transformed my content creation process. I can now generate professional-quality visuals in seconds instead of spending hours on design. It's incredibly intuitive and the results are consistently impressive."
-                </blockquote>
-                <footer className="flex items-center justify-center space-x-4">
-                  <div 
-                    className="w-16 h-16 bg-ai-gradient rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg" 
-                    aria-hidden="true"
-                  >
-                    SJ
-                  </div>
-                  <div className="text-left">
-                    <cite className="text-xl font-semibold text-gray-900 not-italic">Sarah Johnson</cite>
-                    <div className="text-lg text-gray-600">Content Creator & Marketing Professional</div>
-                  </div>
-                </footer>
-              </motion.div>
-            </div>
-          </div>
-        </motion.section>
+          <EnhancedTestimonials />
+        </section>
         
         {/* Features section */}
         <section 
@@ -124,19 +116,6 @@ const Index = () => {
         >
           <FeaturesDetailed />
         </section>
-        
-        {/* All testimonials section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="py-20 md:py-28 bg-white border-t border-gray-100"
-          aria-labelledby="testimonials-heading"
-          role="region"
-        >
-          <TestimonialsSlider />
-        </motion.section>
         
         {/* FAQ section */}
         <section 
@@ -170,7 +149,7 @@ const Index = () => {
         </motion.section>
       </main>
       
-      <Footer />
+      <ModernFooter />
       <BetaBanner />
       
       <ProFeaturesModal 

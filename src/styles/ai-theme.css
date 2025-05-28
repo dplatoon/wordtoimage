@@ -1,20 +1,24 @@
 
-
 @layer components {
-  /* Modern AI Theme Colors */
+  /* Enhanced AI Theme Colors */
   :root {
-    --ai-dark: #0f0f23;
+    --ai-dark: #0a0a1a;
     --ai-surface: #1a1a2e;
     --ai-muted: #16213e;
     --ai-primary: #4338ca;      /* Deep indigo */
     --ai-secondary: #7c3aed;    /* Rich violet */
     --ai-accent: #06d6a0;       /* Neon green accent */
     --ai-neon: #00f5ff;         /* Electric blue neon */
+    --ai-coral: #ff6b6b;        /* Vibrant coral */
+    --ai-purple: #9333ea;       /* Bright purple */
     --ai-gradient-start: #4338ca;
     --ai-gradient-end: #7c3aed;
+    --ai-neon-gradient: linear-gradient(135deg, #00f5ff 0%, #06d6a0 100%);
+    --ai-purple-gradient: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%);
+    --ai-hero-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
   }
 
-  /* AI Theme Background Classes */
+  /* Enhanced AI Theme Background Classes */
   .bg-ai-dark { background-color: var(--ai-dark); }
   .bg-ai-surface { background-color: var(--ai-surface); }
   .bg-ai-muted { background-color: var(--ai-muted); }
@@ -22,8 +26,10 @@
   .bg-ai-secondary { background-color: var(--ai-secondary); }
   .bg-ai-accent { background-color: var(--ai-accent); }
   .bg-ai-neon { background-color: var(--ai-neon); }
+  .bg-ai-coral { background-color: var(--ai-coral); }
+  .bg-ai-purple { background-color: var(--ai-purple); }
 
-  /* AI Theme Text Classes */
+  /* Enhanced AI Theme Text Classes */
   .text-ai-dark { color: var(--ai-dark); }
   .text-ai-surface { color: var(--ai-surface); }
   .text-ai-muted { color: var(--ai-muted); }
@@ -31,29 +37,29 @@
   .text-ai-secondary { color: var(--ai-secondary); }
   .text-ai-accent { color: var(--ai-accent); }
   .text-ai-neon { color: var(--ai-neon); }
+  .text-ai-coral { color: var(--ai-coral); }
+  .text-ai-purple { color: var(--ai-purple); }
 
-  /* AI Theme Border Classes */
-  .border-ai-primary { border-color: var(--ai-primary); }
-  .border-ai-secondary { border-color: var(--ai-secondary); }
-  .border-ai-accent { border-color: var(--ai-accent); }
-  .border-ai-neon { border-color: var(--ai-neon); }
-
-  /* Modern AI Gradients */
-  .bg-ai-gradient {
-    background: linear-gradient(135deg, var(--ai-gradient-start) 0%, var(--ai-gradient-end) 100%);
+  /* Enhanced AI Gradients */
+  .bg-ai-hero-gradient {
+    background: var(--ai-hero-gradient);
   }
   
-  .bg-ai-gradient-radial {
-    background: radial-gradient(ellipse at center, var(--ai-gradient-start) 0%, var(--ai-gradient-end) 100%);
+  .bg-ai-neon-gradient {
+    background: var(--ai-neon-gradient);
+  }
+  
+  .bg-ai-purple-gradient {
+    background: var(--ai-purple-gradient);
   }
 
-  .bg-ai-hero-gradient {
-    background: linear-gradient(135deg, var(--ai-primary) 0%, var(--ai-secondary) 50%, var(--ai-accent) 100%);
+  .bg-ai-vibrant-gradient {
+    background: linear-gradient(135deg, #ff6b6b 0%, #00f5ff 50%, #06d6a0 100%);
   }
 
-  /* AI Theme Gradient Text Classes - Fixed */
+  /* Enhanced AI Text Gradients */
   .text-gradient-ai {
-    background: linear-gradient(to right, var(--ai-primary), var(--ai-secondary));
+    background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -61,21 +67,29 @@
   }
 
   .text-gradient-neon {
-    background: linear-gradient(to right, var(--ai-neon), var(--ai-accent));
+    background: var(--ai-neon-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
 
-  /* Enhanced AI-themed button styles with modern interactivity */
+  .text-gradient-vibrant {
+    background: linear-gradient(135deg, #ff6b6b 0%, #00f5ff 50%, #06d6a0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Enhanced Button Styles */
   .btn-ai-primary {
-    @apply bg-ai-accent text-white font-semibold;
+    @apply bg-ai-neon-gradient text-white font-bold;
     @apply px-8 py-4 rounded-xl shadow-lg transition-all duration-300;
-    @apply hover:bg-ai-neon hover:shadow-xl hover:-translate-y-1 transform;
+    @apply hover:shadow-2xl hover:-translate-y-1 transform;
     @apply text-lg font-bold;
     @apply focus:ring-4 focus:ring-ai-accent focus:ring-opacity-50;
-    will-change: transform, box-shadow, background-color;
+    will-change: transform, box-shadow;
   }
   
   .btn-ai-secondary {
@@ -84,17 +98,23 @@
     @apply px-8 py-4 rounded-xl font-semibold text-lg;
     @apply hover:shadow-lg hover:-translate-y-0.5 transform;
     @apply focus:ring-4 focus:ring-ai-accent focus:ring-opacity-30;
-    will-change: background-color, color, transform, box-shadow;
   }
 
-  /* Modern AI Card Component */
+  .btn-ai-neon {
+    @apply bg-ai-neon text-ai-dark font-bold;
+    @apply px-8 py-4 rounded-xl shadow-lg transition-all duration-300;
+    @apply hover:shadow-2xl hover:-translate-y-1 transform hover:scale-105;
+    @apply text-lg;
+    @apply focus:ring-4 focus:ring-ai-neon focus:ring-opacity-50;
+  }
+
+  /* Enhanced Card Styles */
   .ai-card-modern {
     @apply bg-white/95 backdrop-blur-sm border border-gray-200/50 rounded-2xl p-8;
     @apply shadow-xl hover:shadow-2xl transition-all duration-500;
     @apply hover:-translate-y-2;
     @apply relative overflow-hidden;
-    border-color: rgba(203, 213, 225, 0.5);
-    will-change: transform, border-color, box-shadow;
+    will-change: transform, box-shadow;
   }
 
   .ai-card-modern:hover {
@@ -108,7 +128,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary), var(--ai-accent));
+    background: var(--ai-neon-gradient);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -117,68 +137,51 @@
     opacity: 1;
   }
 
-  /* Hero Section Enhancements */
-  .hero-section-modern {
-    @apply relative overflow-hidden;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
-  }
-
-  .hero-section-modern::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(67, 56, 202, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  /* Modern Typography Scale */
+  /* Enhanced Typography */
   .hero-title {
     @apply font-bold tracking-tight leading-tight;
-    font-size: clamp(2.5rem, 8vw, 4.5rem); /* Responsive hero title */
+    font-size: clamp(2.5rem, 8vw, 5rem);
     line-height: 1.1;
   }
 
   .hero-subtitle {
     @apply text-xl md:text-2xl leading-relaxed;
-    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
     line-height: 1.6;
   }
 
   .section-title {
     @apply text-3xl md:text-4xl font-bold tracking-tight;
-    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     line-height: 1.2;
   }
 
-  /* Interactive Animations */
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+  /* Enhanced Animations */
+  .animate-float-slow {
+    animation: float 8s ease-in-out infinite;
   }
 
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(6, 214, 160, 0.3);
+    }
+    50% { 
+      box-shadow: 0 0 40px rgba(6, 214, 160, 0.6);
+    }
   }
 
-  /* Micro-interactions */
-  .hover-lift {
-    @apply transition-transform duration-300 hover:-translate-y-1;
+  /* Mobile Touch Targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
   }
 
-  .hover-glow {
-    @apply transition-all duration-300;
-  }
-
-  .hover-glow:hover {
-    box-shadow: 0 0 30px rgba(67, 56, 202, 0.3);
+  .touch-target-large {
+    min-height: 56px;
+    min-width: 56px;
   }
 }
