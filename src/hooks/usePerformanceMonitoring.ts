@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import { trackEvent } from '@/utils/analytics';
 
@@ -122,4 +123,28 @@ export const usePerformanceMonitoring = (componentName: string): PerformanceMoni
     renderCount,
     trackInteraction
   };
+};
+
+// Add the missing usePagePerformance export
+export const usePagePerformance = (pageName: string) => {
+  useEffect(() => {
+    const startTime = performance.now();
+    
+    // Track page load performance
+    trackEvent({
+      action: 'page_load_start',
+      category: 'performance',
+      label: pageName
+    });
+    
+    return () => {
+      const loadTime = performance.now() - startTime;
+      trackEvent({
+        action: 'page_load_complete',
+        category: 'performance',
+        label: pageName,
+        value: Math.round(loadTime)
+      });
+    };
+  }, [pageName]);
 };

@@ -2,11 +2,11 @@
 import { Button } from '@/components/ui/button';
 
 interface ProFeaturesModalProps {
-  showModal: boolean;
+  showModal?: boolean;
   onClose: () => void;
 }
 
-export const ProFeaturesModal = ({ showModal, onClose }: ProFeaturesModalProps) => {
+export const ProFeaturesModal = ({ showModal = true, onClose }: ProFeaturesModalProps) => {
   if (!showModal) return null;
   
   return (

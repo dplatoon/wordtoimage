@@ -1,9 +1,8 @@
-
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Heart, Share2, Maximize2, Grid, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useResponsiveDesign, getResponsiveGridCols } from '@/hooks/useResponsiveDesign';
+import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import { cn } from '@/lib/utils';
 
@@ -33,7 +32,7 @@ export const ResponsiveImageGallery: React.FC<ResponsiveImageGalleryProps> = ({
   onShare,
   className
 }) => {
-  const { isMobile, isTablet, isTouch } = useResponsiveDesign();
+  const { isMobile, isTablet, isTouch, screenSize } = useResponsiveDesign();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
@@ -41,8 +40,13 @@ export const ResponsiveImageGallery: React.FC<ResponsiveImageGalleryProps> = ({
   // Responsive grid calculation
   const gridCols = useMemo(() => {
     if (viewMode === 'list') return 1;
-    return getResponsiveGridCols(1, 2, 3, 4);
-  }, [viewMode]);
+    
+    // Calculate grid columns based on screen size
+    if (screenSize.width < 480) return 1;
+    if (screenSize.width < 768) return 2;
+    if (screenSize.width < 1024) return 3;
+    return 4;
+  }, [viewMode, screenSize.width]);
 
   const toggleFavorite = (imageId: string) => {
     setFavorites(prev => {

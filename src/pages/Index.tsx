@@ -33,7 +33,7 @@ const Index = () => {
     }
   }, []);
 
-  const handlePricingClick = () => {
+  const handleShowProFeatures = () => {
     setIsPricingModalOpen(true);
     trackInteraction('pricing_modal', 'open');
   };
@@ -55,7 +55,7 @@ const Index = () => {
       
       <main id="main-content" className="relative">
         <UserEngagementTracker contentId="home-hero" contentType="hero">
-          <ModernAIHero />
+          <ModernAIHero onShowProFeatures={handleShowProFeatures} />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-features" contentType="features">
@@ -83,7 +83,7 @@ const Index = () => {
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-pricing" contentType="pricing">
-          <MinimalistPricing />
+          <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-faq" contentType="faq">
@@ -95,6 +95,7 @@ const Index = () => {
       
       {isPricingModalOpen && (
         <ProFeaturesModal 
+          showModal={isPricingModalOpen}
           onClose={() => setIsPricingModalOpen(false)}
         />
       )}
