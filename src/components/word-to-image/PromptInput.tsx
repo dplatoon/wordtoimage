@@ -19,6 +19,13 @@ export function PromptInput({
   const MAX_LENGTH = 1000;
   const isMobile = useIsMobile();
   
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value.length <= MAX_LENGTH) {
+      onPromptChange(value);
+    }
+  };
+  
   return (
     <div className="relative">
       <label htmlFor="image-prompt" className="block text-sm font-medium text-gray-700 mb-2">
@@ -30,7 +37,7 @@ export function PromptInput({
           <Textarea 
             id="image-prompt"
             value={prompt} 
-            onChange={e => onPromptChange(e.target.value)} 
+            onChange={handleChange}
             placeholder="A watercolor painting of a sunset over mountains with dramatic clouds..."
             maxLength={MAX_LENGTH} 
             className={cn(
@@ -43,7 +50,6 @@ export function PromptInput({
               if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
                 if (prompt.trim()) {
-                  // Trigger parent form submission
                   const form = e.currentTarget.closest('form');
                   if (form) {
                     form.requestSubmit();
@@ -103,7 +109,6 @@ export function PromptInput({
         </span>
       </div>
       
-      {/* Quick suggestion shortcuts with better accessibility */}
       {prompt.length === 0 && (
         <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Quick style suggestions">
           {[

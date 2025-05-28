@@ -3,47 +3,21 @@ import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { PromptInput } from '@/components/word-to-image/PromptInput';
 import { ImageGallery } from '@/components/word-to-image/ImageGallery';
 import { EditImageModal } from '@/components/word-to-image/EditImageModal';
-import { SettingsPanel } from '@/components/word-to-image/settings/SettingsPanel';
-import { StyleSlider } from '@/components/word-to-image/style/StyleSlider';
-import { GenerateSection } from '@/components/word-to-image/generate/GenerateSection';
+import { TextToImageForm } from '@/components/word-to-image/TextToImageForm';
 import { supabase } from '@/integrations/supabase/client';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Button } from '@/components/ui/button';
 
 export default function WordToImageImprovementsUI() {
-  const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [images, setImages] = useState<{ url: string }[]>([]);
-  const [styleIntensity, setStyleIntensity] = useState(50);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  
-  const promptSuggestions = [
-    "A futuristic cityscape at dusk, watercolor style",
-    "Serene mountain lake with reflection, photorealistic",
-    "Abstract geometric patterns in vibrant colors",
-    "Whimsical forest with magical creatures, illustration style"
-  ];
-
-  const formatPrompt = (basePrompt: string, intensity: number) => {
-    if (!basePrompt.trim()) return '';
-    
-    let formattedPrompt = basePrompt.trim();
-    
-    if (intensity !== 50) {
-      const intensityPhrase = intensity > 50 
-        ? `Detailed, high quality render with ${intensity}% enhanced details.` 
-        : `Simple, minimalist style with ${intensity}% reduced details.`;
-      
-      formattedPrompt = `${formattedPrompt}. ${intensityPhrase}`;
-    }
-    
-    return formattedPrompt;
-  };
+  const [currentPrompt, setCurrentPrompt] = useState('');
 
   const runProgressSimulation = () => {
     setProgress(0);
@@ -60,7 +34,7 @@ export default function WordToImageImprovementsUI() {
     return progressInterval;
   };
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (prompt: string) => {
     if (!prompt.trim()) {
       toast.error("Please enter a prompt first!");
       return;
@@ -70,18 +44,18 @@ export default function WordToImageImprovementsUI() {
     setImages([]);
     setProgress(0);
     setError(null);
+    setCurrentPrompt(prompt);
 
-    const formattedPrompt = formatPrompt(prompt, styleIntensity);
-    console.log('Sending prompt to OpenAI:', formattedPrompt);
+    console.log('Generating image with prompt:', prompt);
 
     try {
       const progressInterval = runProgressSimulation();
 
       const { data, error } = await supabase.functions.invoke('generate-runware-image', {
         body: { 
-          prompt: formattedPrompt,
+          prompt: prompt,
           size: '1024x1024',
-          quality: styleIntensity > 70 ? 'hd' : 'standard'
+          quality: 'standard'
         }
       });
 
@@ -94,23 +68,25 @@ export default function WordToImageImprovementsUI() {
           description: error.message || "An unexpected error occurred",
           action: {
             label: "Try Again",
-            onClick: handleGenerate
+            onClick: () => handleGenerate(prompt)
           }
         });
         return;
       }
 
       if (data?.imageUrl) {
-        setImages([{ url: data.imageUrl }]);
+        const newImage = { url: data.imageUrl };
+        setImages([newImage]);
         setProgress(100);
         toast.success("Image generated successfully!");
+        console.log('Image generated successfully:', data.imageUrl);
       } else {
         setError("No image was returned from the API");
         toast.error("Generation failed", {
           description: "No image was returned from the API",
           action: {
             label: "Try Again",
-            onClick: handleGenerate
+            onClick: () => handleGenerate(prompt)
           }
         });
       }
@@ -121,7 +97,7 @@ export default function WordToImageImprovementsUI() {
         description: error?.message || "Something went wrong while processing your request",
         action: {
           label: "Try Again",
-          onClick: handleGenerate
+          onClick: () => handleGenerate(prompt)
         }
       });
     } finally {
@@ -138,19 +114,29 @@ export default function WordToImageImprovementsUI() {
     setEditModalOpen(true);
   };
 
+  const handleDownload = (imageUrl: string) => {
+    try {
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = 'generated-image.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success('Image download started');
+    } catch (error) {
+      console.error('Download failed:', error);
+      window.open(imageUrl, '_blank');
+      toast.success('Image opened in new tab');
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-          <PromptInput
-            prompt={prompt}
-            onPromptChange={setPrompt}
-            suggestions={promptSuggestions}
-          />
-
-          <StyleSlider
-            value={styleIntensity}
-            onChange={setStyleIntensity}
+          <TextToImageForm
+            onGenerate={handleGenerate}
+            isGenerating={loading}
           />
 
           {error && !loading && (
@@ -161,12 +147,20 @@ export default function WordToImageImprovementsUI() {
             </Alert>
           )}
 
-          <GenerateSection
-            loading={loading}
-            progress={progress}
-            onGenerate={handleGenerate}
-            disabled={!prompt.trim()}
-          />
+          {loading && (
+            <div className="mt-6 text-center">
+              <div className="mb-4">
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div 
+                    className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" 
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+              </div>
+              <p className="text-gray-600">Generating your image... {Math.round(progress)}%</p>
+              <p className="text-sm text-gray-500 mt-1">"{currentPrompt}"</p>
+            </div>
+          )}
 
           <div className="mt-8">
             {images.length > 0 && !loading && (
@@ -178,6 +172,11 @@ export default function WordToImageImprovementsUI() {
                       src={images[0].url} 
                       alt="AI generated image" 
                       className="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        console.error('Failed to load generated image:', images[0].url);
+                        toast.error('Failed to load the generated image');
+                      }}
                     />
                   </AspectRatio>
                   <div className="mt-4 flex justify-center space-x-4">
@@ -188,7 +187,7 @@ export default function WordToImageImprovementsUI() {
                       Edit Image
                     </Button>
                     <Button
-                      onClick={() => window.open(images[0].url, '_blank')}
+                      onClick={() => handleDownload(images[0].url)}
                       className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all"
                     >
                       Download
@@ -215,14 +214,3 @@ export default function WordToImageImprovementsUI() {
     </div>
   );
 }
-
-const Button = ({ children, className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { className?: string }) => {
-  return (
-    <button
-      className={`flex items-center justify-center font-medium ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};

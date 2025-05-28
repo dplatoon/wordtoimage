@@ -1,12 +1,8 @@
 
-import React from 'react';
-import { Loader } from 'lucide-react';
+import React, { useState } from 'react';
+import { Loader, AlertCircle } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useImageWithFallback } from '@/hooks/useImageWithFallback';
-import { ImageErrorState } from './ImageErrorState';
-import { defaultFallbackImage } from '@/utils/imageUtils';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { OptimizedImage } from '@/components/common/OptimizedImage';
 
 interface ImageDisplayProps {
   imageUrl: string;
@@ -16,25 +12,45 @@ interface ImageDisplayProps {
 }
 
 export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayProps) {
-  const {
-    imageSrc,
-    isLoading,
-    isError,
-    handleLoad,
-    handleError,
-    useFallback
-  } = useImageWithFallback({
-    src: imageUrl,
-    fallbackSrc: defaultFallbackImage,
-    onLoadSuccess: onLoad,
-    onLoadError: onError,
-    trackSuccess: true,
-    trackEvent: 'gallery_image',
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [imageSrc, setImageSrc] = useState(imageUrl);
+  
+  const handleImageLoad = () => {
+    setIsLoading(false);
+    setHasError(false);
+    onLoad();
+  };
+  
+  const handleImageError = () => {
+    console.error('Failed to load image:', imageUrl);
+    setIsLoading(false);
+    setHasError(true);
+    onError();
+    
+    // Try fallback image
+    if (imageSrc === imageUrl) {
+      const fallbackUrl = "https://images.unsplash.com/photo-1686002359940-6a51b0d8184b?auto=format&fit=crop&w=400&q=75";
+      setImageSrc(fallbackUrl);
+      setIsLoading(true);
+      setHasError(false);
+    }
+  };
   
   // Error state
-  if (isError) {
-    return <ImageErrorState message={useFallback ? "Using placeholder image" : "Image unavailable"} />;
+  if (hasError && imageSrc !== imageUrl) {
+    return (
+      <div className="relative w-full">
+        <AspectRatio ratio={1}>
+          <div className="absolute inset-0 bg-gray-100 rounded-t-lg flex items-center justify-center">
+            <div className="text-center p-4">
+              <AlertCircle className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+              <p className="text-xs text-gray-500">Image unavailable</p>
+            </div>
+          </div>
+        </AspectRatio>
+      </div>
+    );
   }
   
   // Loading skeleton
@@ -51,18 +67,18 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
     );
   }
   
-  // Successfully loaded image with optimization
+  // Successfully loaded image
   return (
     <div className="relative w-full overflow-hidden">
       <AspectRatio ratio={1}>
-        <OptimizedImage
+        <img
           src={imageSrc}
-          alt={`Generated image ${index}`}
-          priority={index === 0}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="w-full h-full object-cover transition-all duration-300"
-          onLoad={handleLoad}
-          onError={handleError}
+          alt={`Generated image ${index + 1}`}
+          className="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+          onLoad={handleImageLoad}
+          onError={handleImageError}
+          loading="lazy"
+          decoding="async"
         />
       </AspectRatio>
     </div>
