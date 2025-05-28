@@ -1,67 +1,63 @@
 
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import { AuthProvider } from '@/contexts/AuthContext';
-import Dashboard from '@/pages/Dashboard';
-import Index from '@/pages/Index';
-import NotFound from '@/pages/NotFound';
-import WordToImageImprovementsUI from '@/pages/WordToImageImprovementsUI';
-import TextToImage from '@/pages/TextToImage';
-import Auth from '@/pages/Auth';
-import Privacy from '@/pages/Privacy';
-import Terms from '@/pages/Terms';
-import Cookies from '@/pages/Cookies';
-import Community from '@/pages/Community';
-import DesignTips from '@/pages/DesignTips';
-import Tutorials from '@/pages/Tutorials';
-import About from '@/pages/About';
-import Beta from '@/pages/Beta';
-import Features from '@/pages/Features';
-import Pricing from '@/pages/Pricing';
-import Updates from '@/pages/Updates';
-import Blog from '@/pages/Blog';
-import Help from '@/pages/Help';
-import API from '@/pages/API';
-import Careers from '@/pages/Careers';
-import Contact from '@/pages/Contact';
-import PaymentSuccess from "./pages/PaymentSuccess";
+import { Suspense, lazy, useEffect } from "react";
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { initPerformanceOptimizations } from "@/utils/performanceOptimizer";
+import "./App.css";
+
+// Lazy load non-critical pages for better performance
+const Index = lazy(() => import("./pages/Index"));
+const TextToImage = lazy(() => import("./pages/TextToImage"));
+const Templates = lazy(() => import("./pages/Templates"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Features = lazy(() => import("./pages/Features"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Community = lazy(() => import("./pages/Community"));
+const BetaLanding = lazy(() => import("./pages/BetaLanding"));
+
+const queryClient = new QueryClient();
+
+// Loading component for Suspense fallbacks
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 function App() {
+  useEffect(() => {
+    // Initialize performance optimizations on app start
+    initPerformanceOptimizations();
+  }, []);
+
   return (
-    <HelmetProvider>
-      <AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/text-to-image" element={<TextToImage />} />
-            <Route path="/word-to-image-improvements-ui" element={<WordToImageImprovementsUI />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/auth/callback" element={<Auth />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/cookies" element={<Cookies />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/design-tips" element={<DesignTips />} />
-            <Route path="/tutorials" element={<Tutorials />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/beta" element={<Beta />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/updates" element={<Updates />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/api" element={<API />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/payment-success" element={<PaymentSuccess />} />
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/text-to-image" element={<TextToImage />} />
+              <Route path="/templates" element={<Templates />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/features" element={<Features />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/beta" element={<BetaLanding />} />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
-      </AuthProvider>
-    </HelmetProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
   );
 }
 
