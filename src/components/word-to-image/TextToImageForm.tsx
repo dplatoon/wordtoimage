@@ -1,9 +1,12 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Wand2, Settings, Grid3X3, Palette } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { PromptInput } from './PromptInput';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
+import { TabNavigation } from './TabNavigation';
+import { SingleImageTab } from './SingleImageTab';
+import { ExamplePromptsSection } from './ExamplePromptsSection';
+import { GenerationFeedback } from './GenerationFeedback';
 import { StyleGallery } from './StyleGallery';
 import { BatchGeneration } from './BatchGeneration';
 import { ExamplePrompts } from './ExamplePrompts';
@@ -30,6 +33,8 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
   const [currentPrompt, setCurrentPrompt] = useState('');
   const [totalImages, setTotalImages] = useState(0);
   const [completedImages, setCompletedImages] = useState(0);
+  const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
+  const [generatedImagesCount, setGeneratedImagesCount] = useState(0);
   const isMobile = useIsMobile();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -49,7 +54,6 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
     let finalPrompt = prompt.trim();
     if (selectedStyles.length > 0) {
       const stylePrompts = selectedStyles.map(styleId => {
-        // You would map styleId to actual style prompts here
         return styleId.replace('-', ' ');
       }).join(', ');
       finalPrompt = `${finalPrompt}, ${stylePrompts}`;
@@ -58,6 +62,8 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
     setCurrentPrompt(finalPrompt);
     setTotalImages(1);
     setCompletedImages(0);
+    setLastGenerationTime(Date.now());
+    setGeneratedImagesCount(prev => prev + 1);
     onGenerate(finalPrompt);
   };
 
@@ -133,6 +139,8 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
     onGenerate(examplePrompt);
   };
 
+  const generationTime = lastGenerationTime ? ((Date.now() - lastGenerationTime) / 1000).toFixed(1) : null;
+
   return (
     <div className="w-full space-y-6">
       <Card className="shadow-sm border-gray-200">
@@ -141,88 +149,27 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
           isMobile ? "px-3 py-4" : "px-6 py-6"
         )}>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className={cn(
-              "grid w-full grid-cols-4 mb-6",
-              isMobile ? "h-12" : "h-14"
-            )}>
-              <TabsTrigger value="single" className="flex items-center gap-1">
-                <Wand2 className="h-4 w-4" />
-                <span className={isMobile ? "hidden" : "inline"}>Single</span>
-              </TabsTrigger>
-              <TabsTrigger value="styles" className="flex items-center gap-1">
-                <Palette className="h-4 w-4" />
-                <span className={isMobile ? "hidden" : "inline"}>Styles</span>
-              </TabsTrigger>
-              <TabsTrigger value="batch" className="flex items-center gap-1">
-                <Grid3X3 className="h-4 w-4" />
-                <span className={isMobile ? "hidden" : "inline"}>Batch</span>
-              </TabsTrigger>
-              <TabsTrigger value="examples" className="flex items-center gap-1">
-                <Sparkles className="h-4 w-4" />
-                <span className={isMobile ? "hidden" : "inline"}>Examples</span>
-              </TabsTrigger>
-            </TabsList>
+            <TabNavigation activeTab={activeTab} />
 
             <TabsContent value="single" className="space-y-6">
-              <div className={cn(
-                "space-y-6",
-                isMobile && "space-y-4"
-              )}>
-                <div className="flex items-center">
-                  <Wand2 className="text-blue-600 mr-2 h-5 w-5" />
-                  <h2 className={cn(
-                    "font-medium text-gray-800",
-                    isMobile ? "text-lg" : "text-xl"
-                  )}>
-                    Describe Your Image
-                  </h2>
-                </div>
-                
-                <form onSubmit={handleSubmit} className={cn(
-                  "space-y-6",
-                  isMobile && "space-y-4"
-                )}>
-                  <PromptInput 
-                    prompt={prompt}
-                    onPromptChange={setPrompt}
-                  />
-                  
-                  {selectedStyles.length > 0 && (
-                    <div className={cn(
-                      "p-3 bg-blue-50 rounded-lg",
-                      isMobile && "p-2"
-                    )}>
-                      <p className={cn(
-                        "text-blue-700 mb-2",
-                        isMobile ? "text-xs" : "text-sm"
-                      )}>
-                        Selected styles will be applied: {selectedStyles.join(', ')}
-                      </p>
-                    </div>
-                  )}
-                  
-                  <Button
-                    type="submit"
-                    disabled={!prompt.trim() || isGenerating || prompt.trim().length < 10}
-                    className={cn(
-                      "w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold shadow-lg transition-all duration-200",
-                      isMobile ? "py-4 text-base h-14 mt-6" : "py-6 text-lg h-16 mt-8"
-                    )}
-                  >
-                    {isGenerating ? (
-                      <span className="flex items-center justify-center">
-                        <span className="animate-spin mr-3 h-5 w-5 border-b-2 border-white rounded-full" />
-                        Creating Your Image...
-                      </span>
-                    ) : (
-                      <span className="flex items-center justify-center">
-                        <Sparkles className="mr-3 h-5 w-5" />
-                        Generate Image
-                      </span>
-                    )}
-                  </Button>
-                </form>
-              </div>
+              <SingleImageTab
+                prompt={prompt}
+                onPromptChange={setPrompt}
+                selectedStyles={selectedStyles}
+                onSubmit={handleSubmit}
+                isGenerating={isGenerating}
+              />
+              
+              <ExamplePromptsSection
+                onPromptSelect={setPrompt}
+                isGenerating={isGenerating}
+                generatedImagesCount={generatedImagesCount}
+              />
+              
+              <GenerationFeedback
+                isGenerating={isGenerating}
+                generationTime={generationTime}
+              />
             </TabsContent>
 
             <TabsContent value="styles">
