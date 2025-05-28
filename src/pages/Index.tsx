@@ -18,9 +18,11 @@ import { FAQSection } from '@/components/home/FAQSection';
 import { SEOContent } from '@/components/home/SEOContent';
 import { motion } from 'framer-motion';
 import { initAccessibility } from '@/utils/accessibility';
+import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
 
 const Index = () => {
   const [showProModal, setShowProModal] = useState(false);
+  const { isMobile } = useResponsiveDesign();
   
   useEffect(() => {
     // Initialize accessibility features
@@ -28,7 +30,9 @@ const Index = () => {
   }, []);
   
   return (
-    <div className="min-h-screen bg-white text-gray-800 overflow-hidden">
+    <div className={`min-h-screen bg-white text-gray-800 overflow-hidden ${
+      isMobile ? 'pb-20' : ''
+    }`}>
       <SeoHead />
       <SkipToContent />
 
