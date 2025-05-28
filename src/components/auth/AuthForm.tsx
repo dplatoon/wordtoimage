@@ -33,11 +33,15 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
     try {
       if (mode === 'signup') {
         await signUp(values.email, values.password, values.username);
-        toast.success('Account created successfully! Please check your email to verify your account.');
-        // Don't auto-redirect for signup, let user see the verification message
+        toast.success('Account created successfully!', {
+          description: 'Welcome to WordToImage! You can start creating amazing images right away.'
+        });
+        // Don't auto-redirect for signup, let user see the success message
       } else {
         await signIn(values.email, values.password);
-        toast.success('Welcome back!');
+        toast.success('Welcome back!', {
+          description: 'Great to see you again. Ready to create some amazing images?'
+        });
         // Redirect after successful login
         navigate(from, { replace: true });
       }
@@ -73,9 +77,13 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
       
       if (mode === 'signup') {
         trackEvent(events.SIGN_UP, { provider: 'google' });
-        toast.success('Account created successfully!');
+        toast.success('Account created successfully!', {
+          description: 'Welcome to WordToImage! You\'re all set to start creating.'
+        });
       } else {
-        toast.success('Welcome back!');
+        toast.success('Welcome back!', {
+          description: 'Signed in successfully with Google.'
+        });
       }
       
       // Redirect will be handled by auth state change
@@ -83,9 +91,9 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
     } catch (error) {
       console.error("Google auth error:", error);
       const errorMessage = error instanceof Error ? error.message : 'Google authentication failed';
-      setAuthError(errorMessage);
-      toast.error('Authentication failed', {
-        description: errorMessage
+      setAuthError('Unable to sign in with Google. Please try again or use email and password.');
+      toast.error('Google sign-in failed', {
+        description: 'Please try again or use the email and password option below.'
       });
     } finally {
       setIsLoading(false);
@@ -107,10 +115,10 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t border-slate-200" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+          <span className="bg-white px-3 text-slate-500 font-medium">Or continue with</span>
         </div>
       </div>
 
