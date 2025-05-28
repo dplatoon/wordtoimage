@@ -46,16 +46,16 @@ export function SocialLoginButton({ provider, onClick, isLoading }: SocialLoginB
     <Button
       type="button"
       variant="outline"
-      className="w-full h-11 border-gray-300 hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      className="w-full h-12 border-slate-200 hover:bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-medium text-slate-700 transition-all duration-200 hover:border-slate-300"
       onClick={onClick}
       disabled={isLoading}
     >
       {isLoading ? (
         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
       ) : (
-        <span className="mr-2">{config.icon}</span>
+        <span className="mr-3">{config.icon}</span>
       )}
-      <span className="font-medium">
+      <span className="font-semibold">
         {isLoading ? 'Connecting...' : `Continue with ${config.name}`}
       </span>
     </Button>
