@@ -28,7 +28,7 @@ export function PromptInput({
   
   return (
     <div className="relative">
-      <label htmlFor="image-prompt" className="block text-sm font-medium text-gray-700 mb-2">
+      <label htmlFor="image-prompt" className="block text-sm font-medium text-gray-700 mb-3">
         Image Description
       </label>
       
@@ -41,8 +41,8 @@ export function PromptInput({
             placeholder="A watercolor painting of a sunset over mountains with dramatic clouds..."
             maxLength={MAX_LENGTH} 
             className={cn(
-              "w-full resize-y border-blue-100 px-4 rounded-xl focus:border-blue-300 focus:ring-blue-200 py-3 bg-white transition-all duration-200",
-              isMobile ? "min-h-[100px] text-base" : "min-h-[120px]"
+              "w-full resize-y border-blue-100 px-4 rounded-xl focus:border-blue-300 focus:ring-blue-200 py-4 bg-white transition-all duration-200",
+              isMobile ? "min-h-[120px] text-base" : "min-h-[140px]"
             )}
             aria-label="Image description"
             aria-describedby="prompt-help prompt-counter"
@@ -59,46 +59,54 @@ export function PromptInput({
             }}
           />
           
+          {/* Enhanced placeholder with better positioning */}
           {prompt.length === 0 && (
             <div className={cn(
-              "absolute left-4 top-4 text-gray-400 flex items-start pointer-events-none transition-opacity duration-200",
-              isMobile ? "flex-col" : ""
+              "absolute inset-4 flex flex-col pointer-events-none text-gray-400 transition-opacity duration-200 z-10",
+              "top-4 left-4 right-4"
             )} aria-hidden="true">
-              <span className="animate-pulse mr-2">✨</span>
+              <div className="flex items-center mb-2">
+                <span className="animate-pulse mr-2 text-lg">✨</span>
+                <span className={cn(
+                  "font-medium",
+                  isMobile ? "text-sm" : "text-base"
+                )}>
+                  Be specific and creative! Try:
+                </span>
+              </div>
               <div className={cn(
-                "leading-relaxed",
-                isMobile ? "text-sm mt-1" : "text-base"
+                "ml-6 space-y-1 text-gray-500",
+                isMobile ? "text-xs" : "text-sm"
               )}>
-                <div className="font-medium mb-1">Be specific and creative! Try:</div>
-                <div className="text-xs text-gray-500">
-                  "A cozy coffee shop with warm lighting"<br/>
-                  "Modern minimalist logo design"<br/>
-                  "Futuristic cityscape at night"
-                </div>
+                <div>"A cozy coffee shop with warm lighting"</div>
+                <div>"Modern minimalist logo design"</div>
+                <div>"Futuristic cityscape at night"</div>
               </div>
             </div>
           )}
         </div>
       </div>
       
+      {/* Improved spacing for help text and counter */}
       <div className={cn(
-        "mt-2 flex justify-between items-center",
-        isMobile ? "flex-col items-start space-y-1" : ""
+        "mt-3 flex justify-between items-start gap-3",
+        isMobile ? "flex-col space-y-2" : "items-center"
       )}>
         <div className={cn(
-          "text-gray-500 flex items-center",
-          isMobile ? "text-xs w-full" : "text-sm"
+          "text-gray-500 flex items-start flex-1",
+          isMobile ? "text-xs" : "text-sm"
         )} id="prompt-help">
-          <Sparkles className="h-3 w-3 mr-1 text-blue-500" aria-hidden="true" />
-          <span>
+          <Sparkles className="h-3 w-3 mr-2 mt-0.5 text-blue-500 flex-shrink-0" aria-hidden="true" />
+          <span className="leading-relaxed">
             {isMobile ? "Tip: " : "Pro tip: "}
             Include style, lighting, colors, and mood for amazing results
           </span>
         </div>
+        
         <span 
           className={cn(
-            "text-blue-600 font-medium tabular-nums",
-            isMobile ? "text-xs" : "text-sm",
+            "text-blue-600 font-medium tabular-nums flex-shrink-0",
+            isMobile ? "text-xs self-end" : "text-sm",
             prompt.length > MAX_LENGTH * 0.9 && "text-amber-600",
             prompt.length === MAX_LENGTH && "text-red-600"
           )}
@@ -109,11 +117,15 @@ export function PromptInput({
         </span>
       </div>
       
+      {/* Style suggestions with better mobile spacing */}
       {prompt.length === 0 && (
-        <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Quick style suggestions">
+        <div className={cn(
+          "mt-4 flex flex-wrap gap-2",
+          isMobile && "gap-1.5"
+        )} role="group" aria-label="Quick style suggestions">
           {[
             "watercolor style",
-            "photorealistic",
+            "photorealistic", 
             "digital art",
             "minimalist design"
           ].map((suggestion, index) => (
@@ -122,8 +134,8 @@ export function PromptInput({
               type="button"
               onClick={() => onPromptChange(suggestion + " ")}
               className={cn(
-                "bg-blue-50 hover:bg-blue-100 text-blue-700 py-1 px-3 rounded-full flex items-center transition-all hover:shadow-sm border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1",
-                isMobile ? "text-xs" : "text-sm"
+                "bg-blue-50 hover:bg-blue-100 text-blue-700 py-1.5 px-3 rounded-full flex items-center transition-all hover:shadow-sm border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1",
+                isMobile ? "text-xs py-1 px-2" : "text-sm"
               )}
               aria-label={`Add ${suggestion} to your prompt`}
             >
