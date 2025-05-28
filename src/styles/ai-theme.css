@@ -1,14 +1,16 @@
 
 @layer components {
-  /* AI Theme Colors */
+  /* Modern AI Theme Colors */
   :root {
     --ai-dark: #0f0f23;
     --ai-surface: #1a1a2e;
     --ai-muted: #16213e;
-    --ai-primary: #4f46e5;
-    --ai-secondary: #7c3aed;
-    --ai-accent: #06b6d4;
-    --ai-neon: #00f5ff;
+    --ai-primary: #4338ca;      /* Deep indigo */
+    --ai-secondary: #7c3aed;    /* Rich violet */
+    --ai-accent: #06d6a0;       /* Neon green accent */
+    --ai-neon: #00f5ff;         /* Electric blue neon */
+    --ai-gradient-start: #4338ca;
+    --ai-gradient-end: #7c3aed;
   }
 
   /* AI Theme Background Classes */
@@ -30,43 +32,26 @@
   .text-ai-neon { color: var(--ai-neon); }
 
   /* AI Theme Border Classes */
-  .border-ai-dark { border-color: var(--ai-dark); }
-  .border-ai-surface { border-color: var(--ai-surface); }
-  .border-ai-muted { border-color: var(--ai-muted); }
   .border-ai-primary { border-color: var(--ai-primary); }
   .border-ai-secondary { border-color: var(--ai-secondary); }
   .border-ai-accent { border-color: var(--ai-accent); }
   .border-ai-neon { border-color: var(--ai-neon); }
 
-  /* AI Theme Hover States */
-  .hover\:bg-ai-dark:hover { background-color: var(--ai-dark); }
-  .hover\:bg-ai-surface:hover { background-color: var(--ai-surface); }
-  .hover\:bg-ai-muted:hover { background-color: var(--ai-muted); }
-  .hover\:bg-ai-primary:hover { background-color: var(--ai-primary); }
-  .hover\:bg-ai-secondary:hover { background-color: var(--ai-secondary); }
-  .hover\:bg-ai-accent:hover { background-color: var(--ai-accent); }
-  .hover\:bg-ai-neon:hover { background-color: var(--ai-neon); }
+  /* Modern AI Gradients */
+  .bg-ai-gradient {
+    background: linear-gradient(135deg, var(--ai-gradient-start) 0%, var(--ai-gradient-end) 100%);
+  }
+  
+  .bg-ai-gradient-radial {
+    background: radial-gradient(ellipse at center, var(--ai-gradient-start) 0%, var(--ai-gradient-end) 100%);
+  }
 
-  .hover\:text-ai-dark:hover { color: var(--ai-dark); }
-  .hover\:text-ai-surface:hover { color: var(--ai-surface); }
-  .hover\:text-ai-muted:hover { color: var(--ai-muted); }
-  .hover\:text-ai-primary:hover { color: var(--ai-primary); }
-  .hover\:text-ai-secondary:hover { color: var(--ai-secondary); }
-  .hover\:text-ai-accent:hover { color: var(--ai-accent); }
-  .hover\:text-ai-neon:hover { color: var(--ai-neon); }
-
-  /* AI Theme Gradient Classes */
-  .from-ai-primary { --tw-gradient-from: var(--ai-primary); --tw-gradient-to: rgb(79 70 229 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-  .to-ai-secondary { --tw-gradient-to: var(--ai-secondary); }
-  .from-ai-neon { --tw-gradient-from: var(--ai-neon); --tw-gradient-to: rgb(0 245 255 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-  .to-ai-accent { --tw-gradient-to: var(--ai-accent); }
-
-  /* AI Theme Ring Classes */
-  .ring-ai-primary { --tw-ring-color: var(--ai-primary); }
-  .ring-ai-neon { --tw-ring-color: var(--ai-neon); }
+  .bg-ai-hero-gradient {
+    background: linear-gradient(135deg, var(--ai-primary) 0%, var(--ai-secondary) 50%, var(--ai-accent) 100%);
+  }
 
   /* AI Theme Gradient Text Classes */
-  .text-gradient {
+  .text-gradient-ai {
     @apply bg-gradient-to-r from-ai-primary to-ai-secondary bg-clip-text text-transparent;
   }
 
@@ -74,34 +59,112 @@
     @apply bg-gradient-to-r from-ai-neon to-ai-accent bg-clip-text text-transparent;
   }
 
-  /* AI-themed button styles */
-  .btn-ai-neon {
-    @apply bg-gradient-to-r from-ai-primary to-ai-secondary text-white font-medium;
-    @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-brand transition-all duration-200;
-    @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
-    @apply text-sm sm:text-base font-semibold;
-    @apply min-h-[44px] sm:min-h-[48px];
-    @apply focus:ring-2 focus:ring-ai-primary focus:ring-offset-2;
-    will-change: transform, box-shadow;
-    transform: translateZ(0);
+  /* Enhanced AI-themed button styles with modern interactivity */
+  .btn-ai-primary {
+    @apply bg-ai-accent text-white font-semibold;
+    @apply px-8 py-4 rounded-xl shadow-lg transition-all duration-300;
+    @apply hover:bg-ai-neon hover:shadow-xl hover:-translate-y-1 transform;
+    @apply text-lg font-bold;
+    @apply focus:ring-4 focus:ring-ai-accent focus:ring-opacity-50;
+    will-change: transform, box-shadow, background-color;
   }
   
-  .btn-ai-outline {
-    @apply border-2 border-ai-neon text-ai-neon bg-transparent;
-    @apply hover:bg-ai-neon hover:text-ai-dark transition-all duration-200;
-    @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium;
-    @apply text-sm sm:text-base font-semibold;
-    @apply min-h-[44px] sm:min-h-[48px];
-    @apply focus:ring-2 focus:ring-ai-neon focus:ring-offset-2;
-    will-change: background-color, color;
+  .btn-ai-secondary {
+    @apply border-2 border-ai-accent text-ai-accent bg-transparent;
+    @apply hover:bg-ai-accent hover:text-white transition-all duration-300;
+    @apply px-8 py-4 rounded-xl font-semibold text-lg;
+    @apply hover:shadow-lg hover:-translate-y-0.5 transform;
+    @apply focus:ring-4 focus:ring-ai-accent focus:ring-opacity-30;
+    will-change: background-color, color, transform, box-shadow;
   }
 
-  .ai-card {
-    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8;
-    @apply shadow-modern hover:shadow-brand-lg transition-all duration-300;
-    @apply hover:border-white/20 hover:-translate-y-1;
-    @apply focus-within:ring-2 focus-within:ring-ai-neon focus-within:ring-offset-2;
+  /* Modern AI Card Component */
+  .ai-card-modern {
+    @apply bg-white/95 backdrop-blur-sm border border-gray-200/50 rounded-2xl p-8;
+    @apply shadow-xl hover:shadow-2xl transition-all duration-500;
+    @apply hover:border-ai-accent/30 hover:-translate-y-2;
+    @apply relative overflow-hidden;
     will-change: transform, border-color, box-shadow;
-    transform: translateZ(0);
+  }
+
+  .ai-card-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ai-primary), var(--ai-secondary), var(--ai-accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-card-modern:hover::before {
+    opacity: 1;
+  }
+
+  /* Hero Section Enhancements */
+  .hero-section-modern {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+  }
+
+  .hero-section-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(67, 56, 202, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Modern Typography Scale */
+  .hero-title {
+    @apply font-bold tracking-tight leading-tight;
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* Responsive hero title */
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    @apply text-xl md:text-2xl leading-relaxed;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    line-height: 1.6;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold tracking-tight;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  /* Interactive Animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Micro-interactions */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 30px rgba(67, 56, 202, 0.3);
   }
 }
