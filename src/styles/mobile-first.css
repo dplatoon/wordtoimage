@@ -1,4 +1,5 @@
 
+
 /* Mobile-First Design System */
 @layer utilities {
   /* Base mobile-first typography */
@@ -107,10 +108,36 @@
   }
   
   .mobile-button-primary {
-    @apply mobile-button;
-    @apply bg-ai-accent text-white;
-    @apply hover:bg-ai-neon focus:ring-ai-accent/50;
-    @apply active:scale-95;
+    min-height: var(--touch-target-comfortable);
+    min-width: var(--touch-target-comfortable);
+    padding: 1rem 1.5rem;
+    touch-action: manipulation;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s;
+    background-color: var(--ai-accent);
+    color: white;
+    outline: none;
+    transform: scale(1);
+  }
+  
+  .mobile-button-primary:hover {
+    background-color: var(--ai-neon);
+  }
+  
+  .mobile-button-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(6, 214, 160, 0.5), 0 0 0 2px transparent;
+  }
+  
+  .mobile-button-primary:active {
+    transform: scale(0.95);
+  }
+  
+  .mobile-button-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
   
   .mobile-button-secondary {
@@ -273,3 +300,4 @@
     }
   }
 }
+
