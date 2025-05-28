@@ -1,7 +1,10 @@
-
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { Play, Clock, BookOpen } from "lucide-react";
+import { ContentBreadcrumbs } from "@/components/seo/ContentBreadcrumbs";
+import { ContentNavigation } from "@/components/seo/ContentNavigation";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { PageSEO } from "@/components/seo/PageSEO";
 
 const Tutorials = () => {
   const tutorials = [
@@ -45,16 +48,39 @@ const Tutorials = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <PageSEO
+        title="AI Image Generation Tutorials - Step by Step Guides"
+        description="Master AI image generation with our comprehensive tutorials. Learn how to create stunning AI art from text prompts with step-by-step guides for all skill levels."
+        keywords="AI image tutorials, text to image guides, AI art tutorials, machine learning tutorials, AI image generation how-to"
+        aiKeywords={[
+          'AI image generation tutorials',
+          'step by step AI art guide',
+          'text-to-image tutorials',
+          'AI art for beginners',
+          'advanced AI image techniques'
+        ]}
+        voiceSearchQueries={[
+          'how to generate AI images step by step',
+          'AI art tutorial for beginners',
+          'how to create better AI images',
+          'what are the best AI art techniques'
+        ]}
+      />
+      
       <Nav />
       <main className="flex-grow max-w-7xl mx-auto w-full px-4 py-12 sm:px-6 lg:px-8">
+        <ContentBreadcrumbs />
+        
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">Tutorials</h1>
+          <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">AI Art Tutorials</h1>
           <p className="mt-4 text-xl text-gray-600">
-            Learn how to make the most of WordToImage with our step-by-step tutorials
+            Master AI image generation with our comprehensive step-by-step tutorials
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ContentNavigation />
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {tutorials.map((tutorial, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
               <div className="h-48 bg-gray-100 flex items-center justify-center">
@@ -79,6 +105,8 @@ const Tutorials = () => {
             </div>
           ))}
         </div>
+        
+        <RelatedContent currentPath="/tutorials" />
       </main>
       <Footer />
     </div>

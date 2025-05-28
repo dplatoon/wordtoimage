@@ -1,9 +1,12 @@
-
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { Search, HelpCircle, FileText, MessageCircle, Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ContentBreadcrumbs } from "@/components/seo/ContentBreadcrumbs";
+import { ContentNavigation } from "@/components/seo/ContentNavigation";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { PageSEO } from "@/components/seo/PageSEO";
 
 const Help = () => {
   const faqCategories = [
@@ -35,14 +38,37 @@ const Help = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <PageSEO
+        title="Help Center - AI Image Generation Support & FAQ"
+        description="Get help with AI image generation. Find answers to common questions about WordToImage features, troubleshooting, and support resources."
+        keywords="AI image help, WordToImage support, AI art FAQ, text-to-image help, AI generator troubleshooting"
+        aiKeywords={[
+          'AI image generation help',
+          'WordToImage FAQ',
+          'AI art support',
+          'text-to-image troubleshooting',
+          'AI generator customer service'
+        ]}
+        voiceSearchQueries={[
+          'how to get help with AI images',
+          'WordToImage customer support',
+          'AI art generator not working',
+          'how to contact WordToImage support'
+        ]}
+      />
+      
       <Nav />
       <main className="flex-grow max-w-7xl mx-auto w-full px-4 py-12 sm:px-6 lg:px-8">
+        <ContentBreadcrumbs />
+        
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">Help Center</h1>
           <p className="mt-4 text-xl text-gray-600">
-            Find answers to common questions or contact our support team
+            Find answers to common questions or contact our AI art support team
           </p>
         </div>
+        
+        <ContentNavigation />
         
         <div className="max-w-2xl mx-auto mb-12">
           <div className="relative">

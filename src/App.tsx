@@ -22,6 +22,11 @@ const Auth = lazy(() => import("./pages/Auth"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Community = lazy(() => import("./pages/Community"));
 const BetaLanding = lazy(() => import("./pages/BetaLanding"));
+const Blog = lazy(() => import("./pages/Blog"));
+const DesignTips = lazy(() => import("./pages/DesignTips"));
+const Tutorials = lazy(() => import("./pages/Tutorials"));
+const Help = lazy(() => import("./pages/Help"));
+const API = lazy(() => import("./pages/API"));
 
 const queryClient = new QueryClient();
 
@@ -61,6 +66,11 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/community" element={<Community />} />
                   <Route path="/beta" element={<BetaLanding />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/design-tips" element={<DesignTips />} />
+                  <Route path="/tutorials" element={<Tutorials />} />
+                  <Route path="/help" element={<Help />} />
+                  <Route path="/api" element={<API />} />
                 </Routes>
               </Suspense>
             </BrowserRouter>

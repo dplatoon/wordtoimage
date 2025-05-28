@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Users, Settings, LogOut, X, ChevronRight, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -69,8 +68,8 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
         <MenuSection title="Product">
           <MenuLink to="/features" label="Features" />
           <MenuLink to="/pricing" label="Pricing" />
-          <MenuLink to="/updates" label="Updates" />
-          <MenuLink to="/text-to-image" label="Templates Library" />
+          <MenuLink to="/templates" label="Templates Library" />
+          <MenuLink to="/text-to-image" label="AI Generator" />
           <MenuLink to="/beta" label="Beta Program" />
         </MenuSection>
         
@@ -78,8 +77,8 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
         
         <MenuSection title="Resources">
           <MenuLink to="/blog" label="Blog" />
-          <MenuLink to="/design-tips" label="Design Tips" />
           <MenuLink to="/tutorials" label="Tutorials" />
+          <MenuLink to="/design-tips" label="Design Tips" />
           <MenuLink to="/help" label="Help Center" />
           <MenuLink to="/api" label="API" />
         </MenuSection>
@@ -138,4 +137,3 @@ export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
     </div>
   );
 };
-
