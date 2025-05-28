@@ -13,153 +13,92 @@ import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
 import { MinimalistPricing } from '@/components/home/MinimalistPricing';
 import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
 import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
-import { FeaturesDetailed } from '@/components/home/FeaturesDetailed';
+import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
 import { FAQSection } from '@/components/home/FAQSection';
-import { SEOContent } from '@/components/home/SEOContent';
-import { motion } from 'framer-motion';
-import { initAccessibility } from '@/utils/accessibility';
-import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
+import { SocialMetaTags } from '@/components/social/SocialMetaTags';
+import { UserEngagementTracker } from '@/components/analytics/UserEngagementTracker';
+import { ReadingProgress } from '@/components/content/ReadingProgress';
+import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
 
 const Index = () => {
-  const [showProModal, setShowProModal] = useState(false);
-  const { isMobile } = useResponsiveDesign();
-  
-  useEffect(() => {
-    // Initialize accessibility features
-    initAccessibility();
-  }, []);
-  
-  return (
-    <div className={`min-h-screen bg-white text-gray-800 overflow-hidden ${
-      isMobile ? 'pb-20' : ''
-    }`}>
-      <SeoHead />
-      <SkipToContent />
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  const { trackInteraction } = usePerformanceMonitoring('HomePage');
 
+  useEffect(() => {
+    // Track page view
+    if (typeof window !== 'undefined') {
+      import('@/utils/analytics').then(({ trackPageView }) => {
+        trackPageView('/', 'Home - AI Image Generator');
+      });
+    }
+  }, []);
+
+  const handlePricingClick = () => {
+    setIsPricingModalOpen(true);
+    trackInteraction('pricing_modal', 'open');
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      <SeoHead />
+      <SocialMetaTags
+        title="WordToImage - Best AI Image Generator | Create AI Art from Text"
+        description="Transform text into stunning AI-generated images instantly. Free AI art generator with 50+ styles. Create professional images for social media, marketing, and creative projects."
+        type="website"
+        url="https://wordtoimage.com"
+      />
+      
+      <ReadingProgress target="main" />
+      <SkipToContent />
+      <BetaBanner />
       <Nav />
       
-      <main id="main-content" className="relative z-10" role="main">
-        {/* Modern AI Hero section */}
-        <header>
-          <ModernAIHero onShowProFeatures={() => setShowProModal(true)} />
-        </header>
+      <main id="main-content" className="relative">
+        <UserEngagementTracker contentId="home-hero" contentType="hero">
+          <ModernAIHero onPricingClick={handlePricingClick} />
+        </UserEngagementTracker>
         
-        {/* Style Presets Gallery section */}
-        <section 
-          aria-labelledby="style-presets-heading"
-          role="region"
-        >
-          <StylePresetsGallery onStyleSelect={(preset) => {
-            // Handle style selection - could navigate to generator with preset
-            console.log('Style selected:', preset);
-          }} />
-        </section>
+        <UserEngagementTracker contentId="home-features" contentType="features">
+          <FeaturesGridSection />
+        </UserEngagementTracker>
         
-        {/* How It Works section */}
-        <section 
-          className="py-20 md:py-28 bg-gradient-to-b from-white to-gray-50/50" 
-          aria-labelledby="how-it-works-heading"
-          role="region"
-        >
+        <UserEngagementTracker contentId="home-how-it-works" contentType="tutorial">
           <HowItWorksDetailed />
-        </section>
+        </UserEngagementTracker>
         
-        {/* Sample Prompts section */}
-        <section 
-          aria-labelledby="sample-prompts-heading"
-          role="region"
-        >
-          <SamplePromptsSection onPromptSelect={(prompt) => {
-            // Handle prompt selection - could navigate to generator with prompt
-            console.log('Prompt selected:', prompt);
-          }} />
-        </section>
+        <UserEngagementTracker contentId="home-gallery" contentType="gallery">
+          <ImageShowcaseGrid />
+        </UserEngagementTracker>
         
-        {/* Image Showcase section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="py-20 md:py-28 bg-gradient-to-b from-gray-50/50 to-white"
-          aria-labelledby="showcase-heading"
-          role="region"
-        >
-          <div className="content-container">
-            <motion.header 
-              className="text-center mb-20"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 id="showcase-heading" className="section-title text-gray-900 mb-6">
-                See What <span className="text-gradient-ai">You Can Create</span>
-              </h2>
-              <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                From simple prompts to stunning visuals - explore the endless possibilities with AI-powered image generation
-              </p>
-            </motion.header>
-            <ImageShowcaseGrid />
-          </div>
-        </motion.section>
-
-        {/* Enhanced Testimonials section */}
-        <section 
-          aria-labelledby="testimonials-heading"
-          role="region"
-        >
+        <UserEngagementTracker contentId="home-styles" contentType="styles">
+          <StylePresetsGallery />
+        </UserEngagementTracker>
+        
+        <UserEngagementTracker contentId="home-prompts" contentType="prompts">
+          <SamplePromptsSection />
+        </UserEngagementTracker>
+        
+        <UserEngagementTracker contentId="home-testimonials" contentType="testimonials">
           <EnhancedTestimonials />
-        </section>
+        </UserEngagementTracker>
         
-        {/* Features section */}
-        <section 
-          className="py-20 md:py-28 bg-gradient-to-b from-gray-50/30 to-white" 
-          aria-labelledby="features-heading"
-          role="region"
-        >
-          <FeaturesDetailed />
-        </section>
+        <UserEngagementTracker contentId="home-pricing" contentType="pricing">
+          <MinimalistPricing onLearnMoreClick={handlePricingClick} />
+        </UserEngagementTracker>
         
-        {/* FAQ section */}
-        <section 
-          className="py-20 md:py-28 bg-gradient-to-b from-gray-50/30 to-white border-t border-gray-100" 
-          aria-labelledby="faq-heading"
-          role="region"
-        >
+        <UserEngagementTracker contentId="home-faq" contentType="faq">
           <FAQSection />
-        </section>
-        
-        {/* SEO Content section */}
-        <section 
-          className="py-20 md:py-28 bg-white border-t border-gray-100" 
-          aria-labelledby="seo-content-heading"
-          role="region"
-        >
-          <SEOContent />
-        </section>
-        
-        {/* Pricing section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="py-20 md:py-28 bg-gradient-to-b from-gray-50/30 to-white border-t border-gray-100"
-          aria-labelledby="pricing-heading"
-          role="region"
-        >
-          <MinimalistPricing onShowProFeatures={() => setShowProModal(true)} />
-        </motion.section>
+        </UserEngagementTracker>
       </main>
       
       <ModernFooter />
-      <BetaBanner />
       
-      <ProFeaturesModal 
-        showModal={showProModal}
-        onClose={() => setShowProModal(false)}
-      />
+      {isPricingModalOpen && (
+        <ProFeaturesModal 
+          isOpen={isPricingModalOpen}
+          onClose={() => setIsPricingModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

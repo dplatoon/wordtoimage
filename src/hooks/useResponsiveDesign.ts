@@ -1,105 +1,90 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-interface BreakpointState {
+interface ResponsiveBreakpoints {
+  xs: boolean;
+  sm: boolean;
+  md: boolean;
+  lg: boolean;
+  xl: boolean;
+  xxl: boolean;
+}
+
+interface ResponsiveDesignHook {
+  breakpoints: ResponsiveBreakpoints;
   isMobile: boolean;
   isTablet: boolean;
   isDesktop: boolean;
-  isLargeDesktop: boolean;
-  width: number;
-  height: number;
   orientation: 'portrait' | 'landscape';
-  isTouch: boolean;
   prefersReducedMotion: boolean;
+  prefersDarkMode: boolean;
+  screenSize: { width: number; height: number };
 }
 
-export const useResponsiveDesign = (): BreakpointState => {
-  const [state, setState] = useState<BreakpointState>({
-    isMobile: false,
-    isTablet: false,
-    isDesktop: false,
-    isLargeDesktop: false,
-    width: 0,
-    height: 0,
-    orientation: 'portrait',
-    isTouch: false,
-    prefersReducedMotion: false,
-  });
+export const useResponsiveDesign = (): ResponsiveDesignHook => {
+  const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
+  const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [prefersDarkMode, setPrefersDarkMode] = useState(false);
 
-  useEffect(() => {
-    const updateState = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      
-      setState({
-        isMobile: width < 768,
-        isTablet: width >= 768 && width < 1024,
-        isDesktop: width >= 1024 && width < 1440,
-        isLargeDesktop: width >= 1440,
-        width,
-        height,
-        orientation: width > height ? 'landscape' : 'portrait',
-        isTouch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
-        prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      });
-    };
-
-    // Initial update
-    updateState();
-
-    // Add event listeners
-    window.addEventListener('resize', updateState);
-    window.addEventListener('orientationchange', updateState);
-
-    // Debounced resize for performance
-    let timeoutId: NodeJS.Timeout;
-    const debouncedUpdate = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(updateState, 150);
-    };
-
-    window.addEventListener('resize', debouncedUpdate);
-
-    return () => {
-      window.removeEventListener('resize', updateState);
-      window.removeEventListener('orientationchange', updateState);
-      window.removeEventListener('resize', debouncedUpdate);
-      clearTimeout(timeoutId);
-    };
+  const updateScreenSize = useCallback(() => {
+    setScreenSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+    setOrientation(window.innerWidth > window.innerHeight ? 'landscape' : 'portrait');
   }, []);
 
-  return state;
-};
+  const checkMediaQueries = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    
+    setPrefersReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    setPrefersDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }, []);
 
-// Utility hook for specific breakpoints
-export const useBreakpoint = (breakpoint: 'mobile' | 'tablet' | 'desktop' | 'large') => {
-  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsiveDesign();
-  
-  switch (breakpoint) {
-    case 'mobile':
-      return isMobile;
-    case 'tablet':
-      return isTablet;
-    case 'desktop':
-      return isDesktop;
-    case 'large':
-      return isLargeDesktop;
-    default:
-      return false;
-  }
-};
+  useEffect(() => {
+    updateScreenSize();
+    checkMediaQueries();
 
-// Grid utilities for responsive layouts
-export const getResponsiveGridCols = (
-  mobile: number = 1, 
-  tablet: number = 2, 
-  desktop: number = 3, 
-  large: number = 4
-) => {
-  const { isMobile, isTablet, isDesktop } = useResponsiveDesign();
-  
-  if (isMobile) return mobile;
-  if (isTablet) return tablet;
-  if (isDesktop) return desktop;
-  return large;
+    window.addEventListener('resize', updateScreenSize);
+    window.addEventListener('orientationchange', updateScreenSize);
+
+    // Listen for media query changes
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    reducedMotionQuery.addEventListener('change', checkMediaQueries);
+    darkModeQuery.addEventListener('change', checkMediaQueries);
+
+    return () => {
+      window.removeEventListener('resize', updateScreenSize);
+      window.removeEventListener('orientationchange', updateScreenSize);
+      reducedMotionQuery.removeEventListener('change', checkMediaQueries);
+      darkModeQuery.removeEventListener('change', checkMediaQueries);
+    };
+  }, [updateScreenSize, checkMediaQueries]);
+
+  const breakpoints: ResponsiveBreakpoints = {
+    xs: screenSize.width < 480,
+    sm: screenSize.width >= 480 && screenSize.width < 768,
+    md: screenSize.width >= 768 && screenSize.width < 1024,
+    lg: screenSize.width >= 1024 && screenSize.width < 1280,
+    xl: screenSize.width >= 1280 && screenSize.width < 1536,
+    xxl: screenSize.width >= 1536,
+  };
+
+  const isMobile = breakpoints.xs || breakpoints.sm;
+  const isTablet = breakpoints.md;
+  const isDesktop = breakpoints.lg || breakpoints.xl || breakpoints.xxl;
+
+  return {
+    breakpoints,
+    isMobile,
+    isTablet,
+    isDesktop,
+    orientation,
+    prefersReducedMotion,
+    prefersDarkMode,
+    screenSize,
+  };
 };

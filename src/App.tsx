@@ -8,6 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { initPerformanceOptimizations } from "@/utils/performanceOptimizer";
 import { initAccessibility } from "@/utils/accessibility";
+import { initAnalytics } from "@/utils/analytics";
 import "./App.css";
 
 // Lazy load non-critical pages for better performance
@@ -44,6 +45,9 @@ function App() {
     
     // Initialize accessibility features
     initAccessibility();
+    
+    // Initialize analytics (replace with your actual GA4 measurement ID)
+    initAnalytics('G-XXXXXXXXXX');
   }, []);
 
   return (
