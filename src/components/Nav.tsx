@@ -123,14 +123,12 @@ export const Nav = () => {
               </Link>
             </div>
 
-            {/* Mobile menu - only show when not using bottom navigation */}
-            {isMobile && (
-              <ResponsiveMobileMenu 
-                isOpen={isMenuOpen}
-                onToggle={() => setIsMenuOpen(!isMenuOpen)}
-                onClose={() => setIsMenuOpen(false)}
-              />
-            )}
+            {/* Mobile menu - ensure it's properly working */}
+            <ResponsiveMobileMenu 
+              isOpen={isMenuOpen}
+              onToggle={() => setIsMenuOpen(!isMenuOpen)}
+              onClose={() => setIsMenuOpen(false)}
+            />
           </div>
         </div>
         
