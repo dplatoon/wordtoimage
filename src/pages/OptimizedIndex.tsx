@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Nav } from '@/components/Nav';
 import { ModernFooter } from '@/components/home/ModernFooter';
 import { BetaBanner } from '@/components/BetaBanner';
@@ -10,9 +10,12 @@ import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
 import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
 import { EnhancedTestimonials } from '@/components/home/EnhancedTestimonials';
 import { MinimalistPricing } from '@/components/home/MinimalistPricing';
+import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
 import { FAQSection } from '@/components/home/FAQSection';
 
 const OptimizedIndex = () => {
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+
   useEffect(() => {
     // Track page view for analytics
     if (typeof window !== 'undefined') {
@@ -21,6 +24,10 @@ const OptimizedIndex = () => {
       });
     }
   }, []);
+
+  const handleShowProFeatures = () => {
+    setIsPricingModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -69,7 +76,7 @@ const OptimizedIndex = () => {
             <h2 id="pricing-heading" className="text-3xl font-bold text-center mb-12 text-gray-900">
               Choose Your Plan
             </h2>
-            <MinimalistPricing />
+            <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
           </div>
         </section>
         
@@ -85,6 +92,13 @@ const OptimizedIndex = () => {
       </main>
       
       <ModernFooter />
+      
+      {isPricingModalOpen && (
+        <ProFeaturesModal 
+          showModal={isPricingModalOpen}
+          onClose={() => setIsPricingModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
