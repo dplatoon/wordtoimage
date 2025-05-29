@@ -111,6 +111,33 @@ export class PerformanceOptimizer {
     };
   }
 
+  // Add the missing optimizeImageSrc method
+  optimizeImageSrc(src: string, width: number = 800, quality: number = 85): string {
+    if (!src || src.startsWith('blob:') || src.startsWith('data:') || src.includes('.svg')) {
+      return src;
+    }
+
+    // For external URLs, return as-is (can't optimize)
+    if (src.startsWith('http')) {
+      return src;
+    }
+
+    // For local images, we would typically add query parameters for optimization
+    // Since this is a static site, we'll return the original for now
+    return src;
+  }
+
+  // Add the missing generateResponsiveSources method (alias for generateResponsiveSrcSet)
+  generateResponsiveSources(baseSrc: string) {
+    const responsiveData = this.generateResponsiveSrcSet(baseSrc);
+    return {
+      avif: responsiveData.avifSrcSet || baseSrc,
+      webp: responsiveData.webpSrcSet || baseSrc,
+      fallback: responsiveData.srcSet,
+      sizes: responsiveData.sizes
+    };
+  }
+
   // Enhanced lazy loading with Intersection Observer v2
   setupAdvancedLazyLoading(): void {
     if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
