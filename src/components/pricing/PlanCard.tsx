@@ -1,89 +1,94 @@
-
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Check, Star, Crown, Zap, Info, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { Check, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { toast } from '@/components/ui/sonner';
 import { PaymentMethodModal } from '@/components/PaymentMethodModal';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-
-interface PlanFeature {
-  name: string;
-  included: boolean;
-  highlight?: boolean;
-}
+import { useAuthState } from '@/hooks/useAuthState';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { Crown } from 'lucide-react';
 
 interface PlanCardProps {
   name: string;
   description: string;
-  price: {
-    monthly: number;
-    annual: number;
-  };
-  billingCycle: 'monthly' | 'annual';
-  features: PlanFeature[];
-  popular?: boolean;
+  price: { monthly: number; annual: number };
+  features: Array<{
+    name: string;
+    included: boolean;
+    highlight?: boolean;
+  }>;
   ctaText: string;
   ctaVariant?: 'default' | 'outline';
-  productId?: string;
+  guarantee: string;
   badge?: string;
-  icon?: React.ReactNode;
-  guarantee?: string;
+  popular?: boolean;
   isFree?: boolean;
+  productId?: string;
+  billingCycle: 'monthly' | 'annual';
+  isCurrentPlan?: boolean;
 }
 
 export const PlanCard = ({
   name,
   description,
   price,
-  billingCycle,
   features,
-  popular,
   ctaText,
   ctaVariant = 'default',
-  productId,
-  badge,
-  icon,
   guarantee,
-  isFree
+  badge,
+  popular,
+  isFree,
+  productId,
+  billingCycle,
+  isCurrentPlan = false,
 }: PlanCardProps) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-  
-  const currentPrice = billingCycle === 'monthly' ? price.monthly : price.annual;
-  const monthlyPrice = billingCycle === 'annual' ? price.annual : price.monthly;
-  const yearlyTotal = price.annual * 12;
-  const savings = billingCycle === 'annual' && price.monthly > 0 ? Math.round((1 - (yearlyTotal / (price.monthly * 12))) * 100) : 0;
+  const { session } = useAuthState();
+  const { openCustomerPortal } = useSubscription();
 
-  const handlePlanSelect = () => {
-    if (name === 'Free') {
-      alert("You've selected the Free plan. No payment required - start creating immediately!");
+  const handleCTAClick = () => {
+    if (isFree) {
+      // For free plan, redirect to main app
+      window.location.href = '/';
       return;
     }
+
+    if (isCurrentPlan) {
+      // If this is the current plan, open customer portal
+      openCustomerPortal();
+      return;
+    }
+
+    if (!session) {
+      toast.error("Please log in to subscribe to a plan");
+      return;
+    }
+
     setPaymentModalOpen(true);
   };
 
-  const getIcon = () => {
-    if (icon) return icon;
-    if (name === 'Free') return <Zap className="h-5 w-5" />;
-    if (name === 'Pro') return <Star className="h-5 w-5" />;
-    if (name === 'Business' || name === 'Enterprise') return <Crown className="h-5 w-5" />;
-    return <Zap className="h-5 w-5" />;
+  const getDisplayPrice = () => {
+    const currentPrice = price[billingCycle];
+    return currentPrice === 0 ? 'Free' : `$${currentPrice}`;
   };
 
-  const getFeatureTooltip = (featureName: string) => {
-    const tooltips: { [key: string]: string } = {
-      'Fair use policy': 'Unlimited for normal business use. We monitor for abuse but most customers never hit limits.',
-      'API access': 'Programmatic access to generate images from your own applications.',
-      'White-label option': 'Remove all WordToImage branding from your generated images and interface.',
-      'Extended commercial license': 'Includes rights to resell generated images and use in client work.',
-      'Priority rendering queue': 'Your images are processed ahead of standard users during peak times.',
-      'Team workspace': 'Shared account with individual user management and centralized billing.',
-      'Community support': 'Access to community forum with peer support and basic documentation.',
-      'Priority email support': 'Direct email support with faster response times during business hours.',
-      'Dedicated phone & chat support': 'Direct phone and live chat access with priority queue placement.'
-    };
-    
-    const key = Object.keys(tooltips).find(k => featureName.includes(k));
-    return key ? tooltips[key] : null;
+  const getSavingsText = () => {
+    if (billingCycle === 'annual' && price.annual > 0) {
+      const monthlyCost = price.monthly * 12;
+      const annualCost = price.annual * 12;
+      const savings = monthlyCost - annualCost;
+      return `Save $${savings.toFixed(0)}/year`;
+    }
+    return null;
+  };
+
+  const getCTAText = () => {
+    if (isCurrentPlan) {
+      return 'Manage Plan';
+    }
+    return ctaText;
   };
 
   return (
@@ -92,153 +97,105 @@ export const PlanCard = ({
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className={`relative rounded-2xl overflow-hidden bg-white ${
-          popular
-            ? 'ring-2 ring-blue-500 shadow-xl scale-105 z-10'
-            : 'border border-gray-200 shadow-lg hover:shadow-xl'
-        } transition-all duration-300 hover:-translate-y-1`}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        className={`relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl ${
+          popular || isCurrentPlan 
+            ? 'ring-2 ring-blue-500 shadow-lg scale-105' 
+            : 'border border-gray-200 shadow-sm hover:border-blue-300'
+        } ${isCurrentPlan ? 'bg-gradient-to-br from-blue-50 to-indigo-50' : ''}`}
         role="listitem"
-        aria-labelledby={`plan-${name.toLowerCase()}`}
       >
-        {/* Free plan ribbon */}
-        {isFree && (
-          <div className="absolute top-4 left-4 z-20">
-            <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-sm">
-              <Zap className="h-3 w-3" />
-              FREE
+        {/* Header badges */}
+        <div className="relative">
+          {(popular || badge) && !isCurrentPlan && (
+            <div className="absolute -top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+              <Badge 
+                variant="default" 
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 text-xs font-semibold tracking-wide"
+              >
+                {badge || 'Most Popular'}
+              </Badge>
             </div>
-          </div>
-        )}
+          )}
+          
+          {isCurrentPlan && (
+            <div className="absolute -top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+              <Badge 
+                variant="default" 
+                className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-1 text-xs font-semibold tracking-wide flex items-center gap-1"
+              >
+                <Crown className="h-3 w-3" />
+                Your Plan
+              </Badge>
+            </div>
+          )}
+        </div>
 
-        {/* Popular plan badge */}
-        {popular && (
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1 shadow-lg">
-              <Star className="h-3 w-3 fill-current" />
-              Most Popular
-            </div>
-          </div>
-        )}
-
-        {/* Best value badge */}
-        {badge && !popular && (
-          <div className="absolute top-4 right-4 z-20">
-            <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-sm">
-              <Crown className="h-3 w-3" />
-              {badge}
-            </div>
-          </div>
-        )}
-
-        <div className="p-8 bg-gradient-to-b from-white to-gray-50/50">
-          <div className="flex items-center gap-3 mb-4">
-            <div className={`p-2 rounded-lg ${popular ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600'}`}>
-              {getIcon()}
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900" id={`plan-${name.toLowerCase()}`}>{name}</h3>
-              <p className="text-sm text-gray-500">{description}</p>
-            </div>
+        <div className={`p-8 ${popular || isCurrentPlan ? 'pt-12' : 'pt-8'}`}>
+          {/* Plan name and description */}
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">{name}</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
           </div>
 
-          <div className="mb-6">
-            <div className="flex items-baseline">
-              <span className="text-4xl font-bold text-gray-900" aria-label={`${currentPrice} dollars`}>
-                ${currentPrice}
+          {/* Pricing */}
+          <div className="text-center mb-8">
+            <div className="flex items-baseline justify-center mb-2">
+              <span className="text-5xl font-bold text-gray-900">
+                {getDisplayPrice()}
               </span>
-              <span className="text-gray-500 ml-1">
-                /{billingCycle === 'monthly' ? 'month' : 'year'}
-              </span>
+              {!isFree && (
+                <span className="text-gray-500 ml-2">
+                  /{billingCycle === 'monthly' ? 'mo' : 'yr'}
+                </span>
+              )}
             </div>
             
-            {billingCycle === 'annual' && savings > 0 && (
-              <p className="text-sm text-green-600 mt-1 font-medium">
-                Save {savings}% with annual billing (${(price.monthly * 12 - yearlyTotal).toFixed(2)}/year savings)
-              </p>
+            {getSavingsText() && (
+              <div className="text-green-600 text-sm font-medium">
+                {getSavingsText()}
+              </div>
             )}
             
-            {billingCycle === 'monthly' && price.annual > 0 && (
-              <p className="text-sm text-gray-500 mt-1">
-                Annual: ${price.annual}/month (billed ${price.annual * 12}/year)
-              </p>
-            )}
+            <div className="text-gray-500 text-xs mt-1">{guarantee}</div>
           </div>
 
-          <ul className="space-y-3 mb-8" role="list" aria-label={`${name} plan features`}>
-            {features.map((feature, index) => {
-              const tooltip = getFeatureTooltip(feature.name);
-              
-              return (
-                <li key={index} className="flex items-start gap-3">
-                  <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${
-                    feature.included
-                      ? feature.highlight
-                        ? 'bg-blue-100 text-blue-600'
-                        : 'bg-green-100 text-green-600'
-                      : 'bg-gray-100'
-                  }`} aria-hidden="true">
-                    {feature.included ? (
-                      <Check className="h-3 w-3" />
-                    ) : (
-                      <X className="h-3 w-3 text-gray-400" />
-                    )}
-                  </div>
-                  <div className="flex items-center gap-1 flex-1">
-                    <span className={`text-sm ${
-                      feature.included 
-                        ? feature.highlight 
-                          ? 'text-gray-900 font-medium' 
-                          : 'text-gray-700'
-                        : 'text-gray-400 line-through'
-                    }`}>
-                      {feature.included ? feature.name : `${feature.name} (Not included)`}
-                    </span>
-                    {tooltip && (
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded"
-                              aria-label={`More information about ${feature.name}`}
-                            >
-                              <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className="max-w-xs">{tooltip}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
+          {/* Features list */}
+          <ul className="space-y-4 mb-8" role="list">
+            {features.map((feature, index) => (
+              <li key={index} className="flex items-start" role="listitem">
+                {feature.included ? (
+                  <Check className="h-5 w-5 text-green-500 shrink-0 mt-0.5" aria-hidden="true" />
+                ) : (
+                  <X className="h-5 w-5 text-gray-300 shrink-0 mt-0.5" aria-hidden="true" />
+                )}
+                <span 
+                  className={`ml-3 text-sm leading-relaxed ${
+                    feature.included ? 'text-gray-700' : 'text-gray-400'
+                  } ${feature.highlight ? 'font-semibold' : ''}`}
+                >
+                  {feature.name}
+                </span>
+              </li>
+            ))}
           </ul>
 
+          {/* CTA Button */}
           <Button
-            onClick={handlePlanSelect}
-            variant={popular ? 'default' : ctaVariant}
-            className={`w-full mb-4 ${
-              popular
-                ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'
-                : ctaVariant === 'outline'
-                ? 'border-gray-300 hover:bg-gray-50'
-                : ''
-            }`}
+            variant={isCurrentPlan ? 'outline' : (ctaVariant === 'outline' ? 'outline' : 'default')}
             size="lg"
-            aria-label={`${ctaText} for ${name} plan`}
+            className={`w-full text-base font-semibold py-4 transition-all duration-200 ${
+              !isCurrentPlan && ctaVariant === 'default'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl'
+                : isCurrentPlan
+                ? 'border-blue-500 text-blue-600 hover:bg-blue-50'
+                : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`}
+            onClick={handleCTAClick}
+            aria-label={`${getCTAText()} for ${name} plan`}
           >
-            {ctaText}
+            {getCTAText()}
           </Button>
-
-          {guarantee && (
-            <p className="text-xs text-center text-gray-500 border-t pt-3">
-              {guarantee}
-            </p>
-          )}
         </div>
       </motion.div>
 

@@ -96,12 +96,75 @@ export type Database = {
         }
         Relationships: []
       }
+      subscribers: {
+        Row: {
+          cancel_at_period_end: boolean | null
+          created_at: string
+          current_period_end: string | null
+          current_period_start: string | null
+          id: string
+          plan_name: string
+          product_id: string
+          status: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cancel_at_period_end?: boolean | null
+          created_at?: string
+          current_period_end?: string | null
+          current_period_start?: string | null
+          id?: string
+          plan_name: string
+          product_id: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cancel_at_period_end?: boolean | null
+          created_at?: string
+          current_period_end?: string | null
+          current_period_start?: string | null
+          id?: string
+          plan_name?: string
+          product_id?: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_subscription_status: {
+        Args: { user_uuid: string }
+        Returns: {
+          plan_name: string
+          status: string
+          current_period_end: string
+          cancel_at_period_end: boolean
+        }[]
+      }
+      update_subscription_status: {
+        Args: {
+          subscription_id_param: string
+          status_param: string
+          period_start_param: string
+          period_end_param: string
+          cancel_at_period_end_param: boolean
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

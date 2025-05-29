@@ -1,7 +1,8 @@
-
 import { useState } from 'react';
 import { BillingToggle } from './BillingToggle';
 import { PlanCard } from './PlanCard';
+import { SubscriptionStatus } from '@/components/SubscriptionStatus';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
 const pricingPlans = [
   {
@@ -25,9 +26,28 @@ const pricingPlans = [
     isFree: true
   },
   {
+    name: 'Standard',
+    description: 'Great for individual creators',
+    price: { monthly: 9.99, annual: 7.99 },
+    features: [
+      { name: '150 AI generations per month (resets monthly)', included: true, highlight: true },
+      { name: 'HD resolution up to 1792x1024', included: true, highlight: true },
+      { name: 'Advanced editing suite (backgrounds, styles, effects)', included: true },
+      { name: 'Priority email support (24-hour response on business days)', included: true },
+      { name: 'Commercial usage rights', included: true, highlight: true },
+      { name: 'No watermarks on any downloads', included: true },
+      { name: 'API access (500 calls/month)', included: true },
+      { name: 'Access to 30+ premium styles', included: true },
+      { name: 'Export in PNG, JPG, WebP formats', included: true }
+    ],
+    ctaText: 'Choose Standard',
+    productId: 'prod_SGdyRu7i1RabBb',
+    guarantee: '14-day money-back guarantee • Upgrade or cancel anytime'
+  },
+  {
     name: 'Pro',
     description: 'Best for creators and small businesses',
-    price: { monthly: 19, annual: 15 },
+    price: { monthly: 14.99, annual: 11.99 },
     popular: true,
     features: [
       { name: '500 AI generations per month (resets monthly)', included: true, highlight: true },
@@ -40,14 +60,14 @@ const pricingPlans = [
       { name: 'Access to 50+ premium styles', included: true },
       { name: 'Export in PNG, JPG, WebP formats', included: true }
     ],
-    ctaText: 'Start Pro Trial',
+    ctaText: 'Choose Pro',
     productId: 'prod_SEe2MxYit85qLo',
     guarantee: '14-day money-back guarantee • Upgrade or cancel anytime'
   },
   {
     name: 'Business',
     description: 'For teams and growing businesses',
-    price: { monthly: 49, annual: 39 },
+    price: { monthly: 29.99, annual: 23.99 },
     badge: 'Best Value',
     features: [
       { name: 'Unlimited AI generations (fair use policy - normal business use)', included: true, highlight: true },
@@ -60,7 +80,7 @@ const pricingPlans = [
       { name: 'Usage analytics and team reporting dashboard', included: true },
       { name: 'Priority rendering queue (2x faster processing)', included: true }
     ],
-    ctaText: 'Start Business Trial',
+    ctaText: 'Choose Business',
     productId: 'prod_SEe3iHfdBt84EE',
     guarantee: '30-day money-back guarantee • Dedicated account manager included'
   }
@@ -68,6 +88,7 @@ const pricingPlans = [
 
 export const EnhancedPricingTable = () => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
+  const { planName: currentPlan } = useSubscription();
 
   return (
     <section className="py-16 relative overflow-hidden" aria-labelledby="pricing-heading">
@@ -83,12 +104,18 @@ export const EnhancedPricingTable = () => {
           discount={20}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-6" role="list" aria-label="Pricing plans">
+        {/* Subscription Status Display */}
+        <div className="flex justify-center mb-8">
+          <SubscriptionStatus />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-6" role="list" aria-label="Pricing plans">
           {pricingPlans.map((plan, index) => (
             <PlanCard
               key={index}
               {...plan}
               billingCycle={billingCycle}
+              isCurrentPlan={plan.name === currentPlan}
             />
           ))}
         </div>

@@ -1,45 +1,38 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
-// CORS headers for preflight requests
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  // Handle OPTIONS request for CORS
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
   
   try {
-    // Get the Stripe secret key from environment variables
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
     if (!stripeKey) {
       throw new Error("Missing Stripe secret key");
     }
     
-    // Initialize Stripe client
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
     
-    // Get the Stripe signature from the request headers
     const signature = req.headers.get("stripe-signature");
     if (!signature) {
       throw new Error("Missing Stripe signature");
     }
     
-    // Get the webhook secret from environment variables
     const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET");
     if (!webhookSecret) {
       throw new Error("Missing Stripe webhook secret");
     }
     
-    // Get the request body as text for the webhook verification
     const body = await req.text();
     
-    // Verify and construct the event
     let event;
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
@@ -48,47 +41,90 @@ serve(async (req) => {
       return new Response(`Webhook Error: ${err.message}`, { status: 400 });
     }
     
-    // Log the event
     console.log(`Received Stripe event: ${event.type}`);
+
+    // Initialize Supabase client with service role key
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+      { auth: { persistSession: false } }
+    );
     
-    // Handle different event types
     switch (event.type) {
       case "checkout.session.completed":
         const checkoutSession = event.data.object;
         console.log(`Checkout completed for session: ${checkoutSession.id}`);
         
-        // Here you would fulfill the order, enable access to your service, etc.
-        // For example, update user's subscription status in your database
-        // This depends on your specific application needs
-        
+        if (checkoutSession.mode === "subscription") {
+          const subscription = await stripe.subscriptions.retrieve(checkoutSession.subscription as string);
+          const customer = await stripe.customers.retrieve(subscription.customer as string);
+          
+          if (customer && typeof customer === 'object' && customer.email) {
+            // Map product ID to plan name
+            const priceId = subscription.items.data[0].price.id;
+            const price = await stripe.prices.retrieve(priceId);
+            const productId = price.product as string;
+            
+            let planName = 'Unknown';
+            switch (productId) {
+              case 'prod_SGdyRu7i1RabBb':
+                planName = 'Standard';
+                break;
+              case 'prod_SEe2MxYit85qLo':
+                planName = 'Pro';
+                break;
+              case 'prod_SEe3iHfdBt84EE':
+                planName = 'Business';
+                break;
+            }
+
+            // Get user by email
+            const { data: users } = await supabase.auth.admin.listUsers();
+            const user = users.users.find(u => u.email === customer.email);
+            
+            if (user) {
+              await supabase.from("subscribers").upsert({
+                user_id: user.id,
+                stripe_customer_id: customer.id,
+                stripe_subscription_id: subscription.id,
+                plan_name: planName,
+                product_id: productId,
+                status: subscription.status,
+                current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+                current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+                cancel_at_period_end: subscription.cancel_at_period_end,
+                updated_at: new Date().toISOString(),
+              }, { onConflict: 'user_id' });
+              
+              console.log(`Subscription created for user: ${user.id}`);
+            }
+          }
+        }
         break;
       
-      case "invoice.paid":
-        const invoice = event.data.object;
-        console.log(`Invoice paid: ${invoice.id}`);
-        
-        // Here you could update subscription status, extend access, etc.
-        
-        break;
-      
-      case "customer.subscription.created":
       case "customer.subscription.updated":
       case "customer.subscription.deleted":
         const subscription = event.data.object;
         console.log(`Subscription event (${event.type}): ${subscription.id}`);
         
-        // Update subscription status in your database
-        
+        await supabase.rpc('update_subscription_status', {
+          subscription_id_param: subscription.id,
+          status_param: subscription.status,
+          period_start_param: new Date(subscription.current_period_start * 1000).toISOString(),
+          period_end_param: new Date(subscription.current_period_end * 1000).toISOString(),
+          cancel_at_period_end_param: subscription.cancel_at_period_end
+        });
         break;
       
-      // Add more cases for other events you want to handle
+      case "invoice.paid":
+        const invoice = event.data.object;
+        console.log(`Invoice paid: ${invoice.id}`);
+        break;
       
       default:
-        // For events not explicitly handled, just acknowledge receipt
         console.log(`Unhandled event type: ${event.type}`);
     }
     
-    // Return a 200 response to acknowledge receipt of the event
     return new Response(JSON.stringify({ received: true }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
@@ -97,10 +133,8 @@ serve(async (req) => {
   } catch (error) {
     console.error(`Error handling webhook: ${error.message}`);
     
-    // Return an error response, but still with status 200
-    // This prevents Stripe from retrying the webhook
     return new Response(JSON.stringify({ error: error.message }), {
-      status: 200,
+      status: 500,
       headers: { "Content-Type": "application/json" }
     });
   }

@@ -1,4 +1,3 @@
-
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { EnhancedPricingHero } from '@/components/pricing/EnhancedPricingHero';
@@ -6,6 +5,7 @@ import { EnhancedPricingTable } from '@/components/pricing/EnhancedPricingTable'
 import { EnhancedFAQ } from '@/components/pricing/EnhancedFAQ';
 import { PricingCTA } from '@/components/pricing/PricingCTA';
 import { Helmet } from 'react-helmet-async';
+import { SubscriptionProvider } from '@/contexts/SubscriptionContext';
 
 const Pricing = () => {
   return (
@@ -19,12 +19,14 @@ const Pricing = () => {
       <div className="min-h-screen bg-white">
         <Nav />
         
-        <main>
-          <EnhancedPricingHero />
-          <EnhancedPricingTable />
-          <EnhancedFAQ />
-          <PricingCTA />
-        </main>
+        <SubscriptionProvider>
+          <main>
+            <EnhancedPricingHero />
+            <EnhancedPricingTable />
+            <EnhancedFAQ />
+            <PricingCTA />
+          </main>
+        </SubscriptionProvider>
 
         <Footer />
       </div>

@@ -5,6 +5,8 @@ import { CreditCard, Users } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
+import { useAuthState } from "@/hooks/useAuthState";
+import { useSubscription } from "@/contexts/SubscriptionContext";
 
 interface PaymentMethodModalProps {
   open: boolean;
@@ -14,8 +16,9 @@ interface PaymentMethodModalProps {
 
 export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMethodModalProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const { session } = useAuthState();
+  const { checkSubscription } = useSubscription();
 
-  // Get the product ID based on the plan name
   const getProductId = () => {
     switch (planName) {
       case 'Standard':
@@ -30,8 +33,12 @@ export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMeth
   };
 
   async function handleChooseMethod(method: string) {
-    // Don't process if no plan is selected
     if (!planName) return;
+    
+    if (!session?.access_token) {
+      toast.error("Please log in to subscribe");
+      return;
+    }
     
     const productId = getProductId();
     if (!productId) {
@@ -43,9 +50,11 @@ export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMeth
 
     try {
       if (method === "Stripe (Credit/Debit Card)") {
-        // Call our Supabase Edge Function
         const { data, error } = await supabase.functions.invoke('create-checkout', {
-          body: { planId: productId }
+          body: { planId: productId },
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
         });
 
         if (error) {
@@ -53,13 +62,18 @@ export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMeth
         }
 
         if (data && data.url) {
-          // Redirect to Stripe Checkout
-          window.location.href = data.url;
+          // Open Stripe checkout in a new tab
+          window.open(data.url, '_blank');
+          onOpenChange(false);
+          
+          // Check subscription status after a delay (user might complete payment)
+          setTimeout(() => {
+            checkSubscription();
+          }, 5000);
         } else {
           throw new Error("No checkout URL returned");
         }
       } else {
-        // For other payment methods (placeholder for now)
         toast.info(`${method} payment option will be available soon`, { 
           description: `You selected the ${planName} plan` 
         });
