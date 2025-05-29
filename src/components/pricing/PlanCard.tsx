@@ -104,19 +104,32 @@ export const PlanCard = ({
         style={{ minHeight: '600px' }}
         role="listitem"
       >
+        {/* Plan Name Badge */}
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+          <div className={`px-4 py-2 rounded-full text-sm font-semibold shadow-lg ${
+            name === 'Free' 
+              ? 'bg-gray-100 text-gray-700 border border-gray-300'
+              : name === 'Pro'
+              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+              : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white'
+          }`}>
+            {name}
+          </div>
+        </div>
+
         {/* Popular/Current Plan Badge */}
-        {(popular || badge || isCurrentPlan) && (
-          <div className="absolute -top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+        {(popular || isCurrentPlan) && (
+          <div className="absolute top-6 right-4 z-10">
             {isCurrentPlan ? (
               <Badge 
-                className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-1 text-xs font-semibold tracking-wide flex items-center gap-1"
+                className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 py-1 text-xs font-semibold tracking-wide flex items-center gap-1"
               >
                 <Crown className="h-3 w-3" />
                 Your Plan
               </Badge>
             ) : (
               <Badge 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 text-xs font-semibold tracking-wide flex items-center gap-1"
+                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 text-xs font-semibold tracking-wide flex items-center gap-1"
               >
                 <Star className="h-3 w-3" />
                 {badge || 'Most Popular'}
@@ -125,10 +138,9 @@ export const PlanCard = ({
           </div>
         )}
 
-        <div className={`p-8 h-full flex flex-col ${popular || isCurrentPlan ? 'pt-12' : 'pt-8'}`}>
+        <div className="p-8 h-full flex flex-col pt-12">
           {/* Plan Header */}
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{name}</h3>
             <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
           </div>
 

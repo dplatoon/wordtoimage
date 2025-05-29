@@ -114,7 +114,7 @@ export const Nav = () => {
               </Link>
               <Link
                 to="/text-to-image"
-                className="btn-primary relative overflow-hidden group"
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center relative overflow-hidden group"
                 aria-label="Try WordToImage for free - no registration required"
               >
                 <span className="relative z-10">Try Free</span>

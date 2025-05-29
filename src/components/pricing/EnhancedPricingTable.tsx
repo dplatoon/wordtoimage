@@ -100,12 +100,11 @@ export const EnhancedPricingTable = () => {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 mb-16" style={{ gap: '2rem' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 mb-16">
           {pricingPlans.map((plan, index) => (
             <div 
               key={index} 
               className={`relative ${plan.popular ? 'lg:scale-105 lg:z-10' : ''}`}
-              style={{ marginBottom: plan.popular ? '0' : '1rem' }}
             >
               <PlanCard
                 {...plan}
@@ -117,7 +116,7 @@ export const EnhancedPricingTable = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="text-center space-y-6" style={{ marginTop: '3rem', paddingTop: '2rem' }}>
+        <div className="text-center space-y-6 mt-12 pt-8">
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-4xl mx-auto shadow-sm border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Need help choosing?</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600">
