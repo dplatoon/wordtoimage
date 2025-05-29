@@ -4,11 +4,24 @@ import { Footer } from '@/components/Footer';
 import { ContactHeader } from '@/components/contact/ContactHeader';
 import { ContactInfo } from '@/components/contact/ContactInfo';
 import { ContactForm } from '@/components/contact/ContactForm';
+import { PageSEO } from '@/components/seo/PageSEO';
 import { motion } from 'framer-motion';
 
 const Contact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-ai-dark via-ai-surface to-ai-muted text-white">
+      <PageSEO
+        title="Contact – Get in Touch with WordToImage"
+        description="Contact WordToImage support via phone, email, or message form. We're here to help."
+        keywords="WordToImage contact, AI image generator support, customer service, help desk"
+        aiKeywords={[
+          'WordToImage contact support',
+          'AI image generator help',
+          'text-to-image customer service',
+          'AI art support'
+        ]}
+      />
+      
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-ai-primary/10 rounded-full blur-3xl animate-blob"></div>

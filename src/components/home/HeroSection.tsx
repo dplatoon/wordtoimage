@@ -23,9 +23,9 @@ export const HeroSection = () => {
   return (
     <section className="py-16 md:py-24 relative overflow-hidden">
       {/* Decorative blobs */}
-      <div className="absolute top-20 left-0 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-      <div className="absolute top-40 right-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      <div className="absolute bottom-40 left-1/3 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      <div className="absolute top-20 left-0 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" aria-hidden="true"></div>
+      <div className="absolute top-40 right-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" aria-hidden="true"></div>
+      <div className="absolute bottom-40 left-1/3 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" aria-hidden="true"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <motion.h1 
@@ -57,7 +57,7 @@ export const HeroSection = () => {
             className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105" 
             asChild
           >
-            <Link to="/text-to-image" onClick={handleGetStarted}>
+            <Link to="/text-to-image" onClick={handleGetStarted} aria-label="Create AI images for free">
               Create Free
               <Wand2 className="ml-2 h-5 w-5" />
             </Link>
@@ -68,6 +68,7 @@ export const HeroSection = () => {
             variant="outline" 
             className="text-lg border-2 border-indigo-300 text-gray-700 hover:bg-indigo-50 transition-colors transform hover:scale-105 px-8 py-6"
             onClick={handleProFeatures}
+            aria-label="Explore professional AI image features"
           >
             Explore Pro Features
             <Star className="ml-2 h-5 w-5" />

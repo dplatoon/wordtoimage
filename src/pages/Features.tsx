@@ -10,6 +10,7 @@ import { CoreFeaturesGrid } from '@/components/features/CoreFeaturesGrid';
 import { LiveDemoSection } from '@/components/features/LiveDemoSection';
 import { DetailedFeaturesSection } from '@/components/features/DetailedFeaturesSection';
 import { FeaturesCTASection } from '@/components/features/FeaturesCTASection';
+import { PageSEO } from '@/components/seo/PageSEO';
 
 const Features = () => {
   const [activeSection, setActiveSection] = useState<string>('hero');
@@ -51,6 +52,18 @@ const Features = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-ai-dark via-ai-surface to-ai-muted text-white overflow-hidden">
+      <PageSEO
+        title="Features – AI Image Generator by WordToImage"
+        description="Discover features of WordToImage's AI-powered image generator: fast, versatile, perfect for social media and content marketing."
+        keywords="AI image features, text to image capabilities, AI art tools, image generation features"
+        aiKeywords={[
+          'AI image generation features',
+          'text-to-image capabilities',
+          'AI art creation tools',
+          'image generator features'
+        ]}
+      />
+      
       {/* Skip to main content link for accessibility */}
       <a href="#main-content" className="skip-link">
         Skip to main content

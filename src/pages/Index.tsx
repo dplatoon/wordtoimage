@@ -40,8 +40,8 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <SeoHead />
       <SocialMetaTags
-        title="WordToImage - Best AI Image Generator | Create AI Art from Text"
-        description="Transform text into stunning AI-generated images instantly. Free AI art generator with 50+ styles. Create professional images for social media, marketing, and creative projects."
+        title="WordToImage – AI Text-to-Image Generator"
+        description="Create stunning AI-generated images from text descriptions. Fast, easy, and high-quality results."
         type="website"
         url="https://wordtoimage.com"
       />

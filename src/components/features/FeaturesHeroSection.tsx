@@ -53,6 +53,7 @@ export const FeaturesHeroSection = () => {
             <Link
               to="/text-to-image"
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[52px]"
+              aria-label="Try AI image generation features for free"
             >
               Try Features Free
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -60,6 +61,7 @@ export const FeaturesHeroSection = () => {
             <Link
               to="/pricing"
               className="inline-flex items-center px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-indigo-600 hover:text-indigo-600 transition-all duration-300 min-h-[52px]"
+              aria-label="View pricing plans for AI image generation"
             >
               View Pricing
             </Link>
