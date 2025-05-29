@@ -46,7 +46,7 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
     "w-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
     isMobile && "text-base", // Prevent zoom on iOS
     isTouch && "min-h-[48px]", // Better touch targets
-    error && "border-red-500 focus:ring-red-500",
+    error && "border-red-500 focus:ring-red-500 aria-invalid",
     disabled && "opacity-50 cursor-not-allowed"
   );
 
@@ -56,6 +56,12 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
     error ? "text-red-700" : "text-gray-700"
   );
 
+  // Build aria-describedby dynamically
+  const ariaDescribedBy = [
+    error && errorId,
+    helpText && helpId
+  ].filter(Boolean).join(' ') || undefined;
+
   return (
     <div className={cn("space-y-2", className)}>
       <Label 
@@ -63,7 +69,15 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
         className={labelClasses}
       >
         {label}
-        {required && <span className="text-red-500 ml-1" aria-label="required">*</span>}
+        {required && (
+          <span 
+            className="text-red-500 ml-1" 
+            aria-label="required field"
+            title="This field is required"
+          >
+            *
+          </span>
+        )}
       </Label>
       
       {type === 'textarea' ? (
@@ -76,11 +90,9 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
           maxLength={maxLength}
           rows={isMobile ? Math.max(3, rows - 1) : rows}
           className={cn(baseInputClasses, "resize-y")}
-          aria-describedby={cn(
-            error && errorId,
-            helpText && helpId
-          )}
+          aria-describedby={ariaDescribedBy}
           aria-invalid={!!error}
+          aria-required={required}
           autoComplete={autoComplete}
         />
       ) : (
@@ -93,11 +105,9 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
           disabled={disabled}
           maxLength={maxLength}
           className={baseInputClasses}
-          aria-describedby={cn(
-            error && errorId,
-            helpText && helpId
-          )}
+          aria-describedby={ariaDescribedBy}
           aria-invalid={!!error}
+          aria-required={required}
           autoComplete={autoComplete}
         />
       )}
@@ -105,11 +115,14 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
       {/* Character counter for inputs with maxLength */}
       {maxLength && value.length > 0 && (
         <div className="flex justify-end">
-          <span className={cn(
-            "text-xs tabular-nums",
-            value.length > maxLength * 0.9 ? "text-orange-600" : "text-gray-500",
-            value.length >= maxLength && "text-red-600"
-          )}>
+          <span 
+            className={cn(
+              "text-xs tabular-nums",
+              value.length > maxLength * 0.9 ? "text-orange-600" : "text-gray-500",
+              value.length >= maxLength && "text-red-600"
+            )}
+            aria-label={`${value.length} of ${maxLength} characters used`}
+          >
             {value.length}/{maxLength}
           </span>
         </div>
@@ -117,10 +130,13 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
       
       {/* Help text */}
       {helpText && (
-        <p id={helpId} className={cn(
-          "text-gray-600",
-          isMobile ? "text-xs" : "text-sm"
-        )}>
+        <p 
+          id={helpId} 
+          className={cn(
+            "text-gray-600",
+            isMobile ? "text-xs" : "text-sm"
+          )}
+        >
           {helpText}
         </p>
       )}
@@ -136,7 +152,10 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
           role="alert"
           aria-live="polite"
         >
-          <span className="inline-block w-1 h-1 bg-red-600 rounded-full" />
+          <span 
+            className="inline-block w-1 h-1 bg-red-600 rounded-full" 
+            aria-hidden="true"
+          />
           {error}
         </p>
       )}

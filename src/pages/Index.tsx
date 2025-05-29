@@ -49,21 +49,52 @@ const Index = () => {
       <ReadingProgress target="main" />
       <SkipToContent />
       <BetaBanner />
-      <Nav />
+      
+      <header>
+        <Nav />
+      </header>
       
       <main id="main-content" className="relative">
-        <ModernAIHero onShowProFeatures={handleShowProFeatures} />
-        <FeaturesGridSection />
-        <HowItWorksDetailed />
-        <ImageShowcaseGrid />
-        <StylePresetsGallery />
-        <SamplePromptsSection />
-        <EnhancedTestimonials />
-        <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
-        <FAQSection />
+        <section aria-label="Hero section">
+          <ModernAIHero onShowProFeatures={handleShowProFeatures} />
+        </section>
+        
+        <section aria-label="Features overview">
+          <FeaturesGridSection />
+        </section>
+        
+        <section aria-label="How it works">
+          <HowItWorksDetailed />
+        </section>
+        
+        <section aria-label="Image showcase">
+          <ImageShowcaseGrid />
+        </section>
+        
+        <section aria-label="Style presets">
+          <StylePresetsGallery />
+        </section>
+        
+        <section aria-label="Sample prompts">
+          <SamplePromptsSection />
+        </section>
+        
+        <section aria-label="Customer testimonials">
+          <EnhancedTestimonials />
+        </section>
+        
+        <section aria-label="Pricing plans">
+          <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
+        </section>
+        
+        <section aria-label="Frequently asked questions">
+          <FAQSection />
+        </section>
       </main>
       
-      <ModernFooter />
+      <footer id="footer">
+        <ModernFooter />
+      </footer>
       
       {isPricingModalOpen && (
         <ProFeaturesModal 

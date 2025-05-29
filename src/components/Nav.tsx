@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ResponsiveMobileMenu } from './navigation/ResponsiveMobileMenu';
 import { BottomNavigation } from './navigation/BottomNavigation';
 import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
+import { manageFocus, createFocusTrap } from '@/utils/accessibility';
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,6 +27,27 @@ export const Nav = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
+
+  // Focus trap for mobile menu
+  useEffect(() => {
+    if (isMenuOpen) {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu) {
+        const cleanup = createFocusTrap(mobileMenu);
+        return cleanup;
+      }
+    }
+  }, [isMenuOpen]);
+
+  // Handle keyboard navigation for mobile menu
+  const handleMenuKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setIsMenuOpen(false);
+      // Return focus to menu button
+      const menuButton = document.getElementById('mobile-menu-button');
+      manageFocus(menuButton);
+    }
+  };
 
   // Consistent navigation order across all pages
   const navItems = [
@@ -49,6 +71,7 @@ export const Nav = () => {
         }`}
         role="navigation"
         aria-label="Main navigation"
+        id="navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`flex items-center justify-between ${
@@ -57,7 +80,7 @@ export const Nav = () => {
             {/* Enhanced Logo with proper accessibility */}
             <Link 
               to="/" 
-              className="flex items-center space-x-3 group z-50 logo-container"
+              className="flex items-center space-x-3 group z-50 logo-container focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg p-1"
               aria-label="WordToImage Home - Transform text into images with AI"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -79,7 +102,7 @@ export const Nav = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative px-6 py-3 text-base font-medium transition-all duration-300 group rounded-lg min-h-[44px] flex items-center ${
+                  className={`relative px-6 py-3 text-base font-medium transition-all duration-300 group rounded-lg min-h-[44px] flex items-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
                     isCurrentPage(item.path)
                       ? 'text-indigo-600 bg-indigo-50 shadow-sm'
                       : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50'
@@ -107,14 +130,14 @@ export const Nav = () => {
             <div className="hidden md:flex items-center space-x-4">
               <Link
                 to="/auth"
-                className="text-gray-600 hover:text-indigo-600 transition-all duration-300 font-medium px-6 py-3 rounded-lg hover:bg-gray-50 relative group min-h-[44px] flex items-center"
+                className="text-gray-600 hover:text-indigo-600 transition-all duration-300 font-medium px-6 py-3 rounded-lg hover:bg-gray-50 relative group min-h-[44px] flex items-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 aria-label="Sign in to your account"
               >
                 Sign In
               </Link>
               <Link
                 to="/text-to-image"
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center relative overflow-hidden group"
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 aria-label="Try WordToImage for free - no registration required"
               >
                 <span className="relative z-10">Try Free</span>
@@ -124,8 +147,10 @@ export const Nav = () => {
 
             {/* Enhanced Mobile menu button with proper accessibility */}
             <button
-              className="md:hidden mobile-menu-button relative z-50 p-3 rounded-lg transition-colors duration-200 hover:bg-gray-100 focus:bg-gray-100"
+              id="mobile-menu-button"
+              className="md:hidden mobile-menu-button relative z-50 p-3 rounded-lg transition-colors duration-200 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onKeyDown={handleMenuKeyDown}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
               aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}

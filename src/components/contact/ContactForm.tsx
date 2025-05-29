@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { PrimaryButton } from '@/components/ui/primary-button';
-import { Send, User, Mail, MessageSquare, Tag } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { ResponsiveFormField } from '@/components/forms/ResponsiveFormField';
+import { announceToScreenReader } from '@/utils/accessibility';
 
 type ContactFormData = {
   firstName: string;
@@ -52,6 +53,16 @@ export const ContactForm = () => {
     }
     
     setErrors(newErrors);
+
+    // Announce errors to screen readers
+    if (Object.keys(newErrors).length > 0) {
+      const errorCount = Object.keys(newErrors).length;
+      announceToScreenReader(
+        `Form has ${errorCount} error${errorCount > 1 ? 's' : ''}. Please review and correct the highlighted fields.`,
+        'assertive'
+      );
+    }
+    
     return Object.keys(newErrors).length === 0;
   };
 
@@ -83,6 +94,7 @@ export const ContactForm = () => {
     }
     
     setIsSubmitting(true);
+    announceToScreenReader('Sending your message, please wait...', 'polite');
     
     try {
       // Use the REST API directly to avoid TypeScript issues
@@ -112,6 +124,12 @@ export const ContactForm = () => {
         title: "Message sent successfully!",
         description: "Thank you for contacting us. We'll get back to you within 24 hours.",
       });
+
+      // Announce success to screen readers
+      announceToScreenReader(
+        'Your message has been sent successfully. We will get back to you within 24 hours.',
+        'polite'
+      );
       
       // Reset form
       setFormData({
@@ -130,6 +148,11 @@ export const ContactForm = () => {
         description: "Please try again later or contact us directly via phone or email.",
         variant: "destructive"
       });
+
+      announceToScreenReader(
+        'There was an error sending your message. Please try again or contact us directly.',
+        'assertive'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -144,91 +167,115 @@ export const ContactForm = () => {
         </p>
       </div>
       
-      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form 
+        onSubmit={handleSubmit} 
+        className="space-y-6" 
+        noValidate
+        aria-label="Contact form"
+      >
+        <fieldset className="border-0 p-0 m-0">
+          <legend className="sr-only">Personal Information</legend>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <ResponsiveFormField
+              label="First Name"
+              type="text"
+              placeholder="John"
+              value={formData.firstName}
+              onChange={handleChange('firstName')}
+              error={errors.firstName}
+              required
+              autoComplete="given-name"
+            />
+            
+            <ResponsiveFormField
+              label="Last Name"
+              type="text"
+              placeholder="Doe"
+              value={formData.lastName}
+              onChange={handleChange('lastName')}
+              error={errors.lastName}
+              autoComplete="family-name"
+            />
+          </div>
+        </fieldset>
+        
+        <fieldset className="border-0 p-0 m-0">
+          <legend className="sr-only">Contact Information</legend>
           <ResponsiveFormField
-            label="First Name"
-            type="text"
-            placeholder="John"
-            value={formData.firstName}
-            onChange={handleChange('firstName')}
-            error={errors.firstName}
+            label="Email Address"
+            type="email"
+            placeholder="john.doe@example.com"
+            value={formData.email}
+            onChange={handleChange('email')}
+            error={errors.email}
             required
-            autoComplete="given-name"
+            autoComplete="email"
+            helpText="We'll use this to respond to your message"
           />
           
+          <div className="mt-6">
+            <ResponsiveFormField
+              label="Phone Number"
+              type="text"
+              placeholder="+1 (555) 123-4567"
+              value={formData.phone}
+              onChange={handleChange('phone')}
+              error={errors.phone}
+              autoComplete="tel"
+              helpText="Optional - for urgent matters or preferred callback"
+            />
+          </div>
+        </fieldset>
+        
+        <fieldset className="border-0 p-0 m-0">
+          <legend className="sr-only">Message Details</legend>
           <ResponsiveFormField
-            label="Last Name"
+            label="Subject"
             type="text"
-            placeholder="Doe"
-            value={formData.lastName}
-            onChange={handleChange('lastName')}
-            error={errors.lastName}
-            autoComplete="family-name"
+            placeholder="How can we help you?"
+            value={formData.subject}
+            onChange={handleChange('subject')}
+            error={errors.subject}
+            maxLength={100}
           />
-        </div>
-        
-        <ResponsiveFormField
-          label="Email Address"
-          type="email"
-          placeholder="john.doe@example.com"
-          value={formData.email}
-          onChange={handleChange('email')}
-          error={errors.email}
-          required
-          autoComplete="email"
-          helpText="We'll use this to respond to your message"
-        />
-        
-        <ResponsiveFormField
-          label="Phone Number"
-          type="text"
-          placeholder="+1 (555) 123-4567"
-          value={formData.phone}
-          onChange={handleChange('phone')}
-          error={errors.phone}
-          autoComplete="tel"
-          helpText="Optional - for urgent matters or preferred callback"
-        />
-        
-        <ResponsiveFormField
-          label="Subject"
-          type="text"
-          placeholder="How can we help you?"
-          value={formData.subject}
-          onChange={handleChange('subject')}
-          error={errors.subject}
-          maxLength={100}
-        />
-        
-        <ResponsiveFormField
-          label="Message"
-          type="textarea"
-          placeholder="Tell us more about your question, feedback, or how we can assist you..."
-          value={formData.message}
-          onChange={handleChange('message')}
-          error={errors.message}
-          required
-          rows={5}
-          maxLength={1000}
-          helpText="Please provide as much detail as possible to help us assist you better"
-        />
+          
+          <div className="mt-6">
+            <ResponsiveFormField
+              label="Message"
+              type="textarea"
+              placeholder="Tell us more about your question, feedback, or how we can assist you..."
+              value={formData.message}
+              onChange={handleChange('message')}
+              error={errors.message}
+              required
+              rows={5}
+              maxLength={1000}
+              helpText="Please provide as much detail as possible to help us assist you better"
+            />
+          </div>
+        </fieldset>
         
         <div className="pt-4">
           <PrimaryButton 
             type="submit" 
-            className="w-full btn-ai-neon text-lg py-4"
+            className="w-full btn-ai-neon text-lg py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             isLoading={isSubmitting}
             loadingText="Sending your message..."
             disabled={isSubmitting}
+            aria-describedby="submit-help"
           >
-            <Send className="mr-2 h-5 w-5" />
+            <Send className="mr-2 h-5 w-5" aria-hidden="true" />
             Send Message
           </PrimaryButton>
         </div>
         
         <div className="text-center text-sm text-gray-400 mt-4">
-          <p>Your information is secure and will only be used to respond to your inquiry.</p>
+          <p id="submit-help">Your information is secure and will only be used to respond to your inquiry.</p>
+        </div>
+
+        {/* Screen reader status region */}
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          {isSubmitting && "Sending your message..."}
         </div>
       </form>
     </div>
