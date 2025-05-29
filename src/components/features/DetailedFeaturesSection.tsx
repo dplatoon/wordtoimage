@@ -82,9 +82,9 @@ export const DetailedFeaturesSection = () => {
   };
 
   return (
-    <section id="detailed-features" className="py-16 md:py-24 bg-white">
+    <section id="detailed-features" className="py-24 bg-white" style={{ marginTop: '50px', marginBottom: '50px' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" style={{ marginBottom: '50px' }}>
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ export const DetailedFeaturesSection = () => {
           </motion.div>
           
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4"
+            className="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -124,6 +124,7 @@ export const DetailedFeaturesSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
+          style={{ gap: '2rem' }}
         >
           {features.map((feature, index) => (
             <motion.div 
@@ -134,7 +135,7 @@ export const DetailedFeaturesSection = () => {
               onMouseLeave={() => setHoveredFeature(null)}
             >
               <Card className="h-full transition-all duration-300 hover:shadow-lg border border-gray-100 hover:border-blue-200">
-                <CardHeader>
+                <CardHeader style={{ paddingBottom: '1.5rem' }}>
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
                   </div>
