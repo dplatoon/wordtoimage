@@ -1,6 +1,7 @@
 
 import { Heart, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ModernResponsiveImage } from '@/components/common/ModernResponsiveImage';
 
 interface ShowcaseItem {
   id: number;
@@ -21,11 +22,14 @@ export const ShowcaseCard = ({ item, isHovered, altText }: ShowcaseCardProps) =>
   return (
     <div className="group relative bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden">
       <div className="aspect-square relative overflow-hidden">
-        <img
+        <ModernResponsiveImage
           src={item.imageUrl}
           alt={altText}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          loading="lazy"
+          className="w-full h-full group-hover:scale-110 transition-transform duration-500"
+          aspectRatio="1/1"
+          priority={item.id <= 3} // Prioritize first 3 images
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          objectFit="cover"
         />
         
         {/* Overlay with animation */}

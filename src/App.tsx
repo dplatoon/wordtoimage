@@ -29,18 +29,30 @@ const Tutorials = lazy(() => import("./pages/Tutorials"));
 const Help = lazy(() => import("./pages/Help"));
 const API = lazy(() => import("./pages/API"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      cacheTime: 10 * 60 * 1000, // 10 minutes
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
-// Loading component for Suspense fallbacks
+// Enhanced loading component for better UX
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  <div className="min-h-screen flex items-center justify-center bg-white">
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      <p className="text-sm text-gray-600">Loading...</p>
+    </div>
   </div>
 );
 
 function App() {
   useEffect(() => {
-    // Initialize performance optimizations on app start
+    // Initialize enhanced performance optimizations on app start
     initPerformanceOptimizations();
     
     // Initialize accessibility features
@@ -48,6 +60,9 @@ function App() {
     
     // Initialize analytics (replace with your actual GA4 measurement ID)
     initAnalytics('G-XXXXXXXXXX');
+    
+    // Log app initialization
+    console.log('🚀 WordToImage app initialized with enhanced performance optimizations');
   }, []);
 
   return (
