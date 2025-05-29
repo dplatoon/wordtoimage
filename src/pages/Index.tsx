@@ -3,14 +3,17 @@ import { useState, useEffect } from 'react';
 import { Nav } from '@/components/Nav';
 import { ModernFooter } from '@/components/home/ModernFooter';
 import { BetaBanner } from '@/components/BetaBanner';
-import { OptimizedSeoHead } from '@/components/home/OptimizedSeoHead';
-import { SkipToContent } from '@/components/accessibility/SkipToContent';
-import { OptimizedHeroSection } from '@/components/home/OptimizedHeroSection';
-import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
-import { OptimizedGallerySection } from '@/components/home/OptimizedGallerySection';
+import { SeoHead } from '@/components/home/SeoHead';
+import { SkipToContent } from '@/components/home/SkipToContent';
+import { ModernAIHero } from '@/components/home/ModernAIHero';
+import { StylePresetsGallery } from '@/components/home/StylePresetsGallery';
+import { SamplePromptsSection } from '@/components/home/SamplePromptsSection';
 import { EnhancedTestimonials } from '@/components/home/EnhancedTestimonials';
+import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
 import { MinimalistPricing } from '@/components/home/MinimalistPricing';
 import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
+import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
+import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
 import { FAQSection } from '@/components/home/FAQSection';
 import { SocialMetaTags } from '@/components/social/SocialMetaTags';
 import { UserEngagementTracker } from '@/components/analytics/UserEngagementTracker';
@@ -37,7 +40,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <OptimizedSeoHead page="home" />
+      <SeoHead />
       <SocialMetaTags
         title="WordToImage - Best AI Image Generator | Create AI Art from Text"
         description="Transform text into stunning AI-generated images instantly. Free AI art generator with 50+ styles. Create professional images for social media, marketing, and creative projects."
@@ -52,55 +55,39 @@ const Index = () => {
       
       <main id="main-content" className="relative">
         <UserEngagementTracker contentId="home-hero" contentType="hero">
-          <OptimizedHeroSection />
+          <ModernAIHero onShowProFeatures={handleShowProFeatures} />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-features" contentType="features">
-          <section aria-labelledby="features-heading" className="py-16 bg-white">
-            <div className="content-container">
-              <h2 id="features-heading" className="text-3xl font-bold text-center mb-12 text-gray-900">
-                Powerful AI Features
-              </h2>
-              <FeaturesGridSection />
-            </div>
-          </section>
+          <FeaturesGridSection />
+        </UserEngagementTracker>
+        
+        <UserEngagementTracker contentId="home-how-it-works" contentType="tutorial">
+          <HowItWorksDetailed />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-gallery" contentType="gallery">
-          <OptimizedGallerySection />
+          <ImageShowcaseGrid />
+        </UserEngagementTracker>
+        
+        <UserEngagementTracker contentId="home-styles" contentType="styles">
+          <StylePresetsGallery />
+        </UserEngagementTracker>
+        
+        <UserEngagementTracker contentId="home-prompts" contentType="prompts">
+          <SamplePromptsSection />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-testimonials" contentType="testimonials">
-          <section aria-labelledby="testimonials-heading" className="py-16 bg-white">
-            <div className="content-container">
-              <h2 id="testimonials-heading" className="text-3xl font-bold text-center mb-12 text-gray-900">
-                What Our Users Say
-              </h2>
-              <EnhancedTestimonials />
-            </div>
-          </section>
+          <EnhancedTestimonials />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-pricing" contentType="pricing">
-          <section aria-labelledby="pricing-heading" className="py-16 bg-gray-50">
-            <div className="content-container">
-              <h2 id="pricing-heading" className="text-3xl font-bold text-center mb-12 text-gray-900">
-                Choose Your Plan
-              </h2>
-              <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
-            </div>
-          </section>
+          <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
         </UserEngagementTracker>
         
         <UserEngagementTracker contentId="home-faq" contentType="faq">
-          <section aria-labelledby="faq-heading" className="py-16 bg-white">
-            <div className="content-container">
-              <h2 id="faq-heading" className="text-3xl font-bold text-center mb-12 text-gray-900">
-                Frequently Asked Questions
-              </h2>
-              <FAQSection />
-            </div>
-          </section>
+          <FAQSection />
         </UserEngagementTracker>
       </main>
       

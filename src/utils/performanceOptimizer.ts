@@ -1,9 +1,9 @@
+
 // Comprehensive performance optimization utilities
 export class PerformanceOptimizer {
   private static instance: PerformanceOptimizer;
   private criticalResources: Set<string> = new Set();
   private preloadedResources: Set<string> = new Set();
-  private webVitalsMetrics: Map<string, number> = new Map();
 
   static getInstance(): PerformanceOptimizer {
     if (!PerformanceOptimizer.instance) {
@@ -47,7 +47,7 @@ export class PerformanceOptimizer {
     document.head.appendChild(link);
   }
 
-  // Enhanced image optimization with multiple formats
+  // Optimize images for different viewports
   optimizeImageSrc(src: string, width: number, quality: number = 85): string {
     if (!src || src.startsWith('data:') || src.startsWith('blob:')) {
       return src;
@@ -57,15 +57,15 @@ export class PerformanceOptimizer {
     if (src.startsWith('http')) {
       try {
         const url = new URL(src);
-        // Add optimization parameters for supported CDNs
+        // Only add params if it looks like a CDN that supports them
         if (url.hostname.includes('unsplash') || url.hostname.includes('images')) {
           url.searchParams.set('w', width.toString());
           url.searchParams.set('q', quality.toString());
           url.searchParams.set('auto', 'format');
-          url.searchParams.set('fit', 'crop');
           return url.toString();
         }
       } catch {
+        // If URL parsing fails, return original
         return src;
       }
     }
@@ -124,42 +124,18 @@ export class PerformanceOptimizer {
     document.body.appendChild(script);
   }
 
-  // Enhanced Web Vitals monitoring with reporting
-  initWebVitalsMonitoring(onMetric?: (metric: { name: string; value: number }) => void): void {
+  // Monitor Core Web Vitals
+  initWebVitalsMonitoring(): void {
     if (typeof window === 'undefined') return;
-
-    const reportMetric = (name: string, value: number) => {
-      this.webVitalsMetrics.set(name, value);
-      console.log(`[Web Vitals] ${name}:`, Math.round(value), 'ms');
-      onMetric?.({ name, value });
-
-      // Performance thresholds and warnings
-      const thresholds = {
-        LCP: { good: 2500, poor: 4000 },
-        FID: { good: 100, poor: 300 },
-        CLS: { good: 0.1, poor: 0.25 },
-        FCP: { good: 1800, poor: 3000 },
-        TTFB: { good: 800, poor: 1800 }
-      };
-
-      const threshold = thresholds[name as keyof typeof thresholds];
-      if (threshold) {
-        if (value > threshold.poor) {
-          console.warn(`❌ ${name} is poor (${Math.round(value)}). Consider optimization.`);
-        } else if (value > threshold.good) {
-          console.warn(`⚠️ ${name} needs improvement (${Math.round(value)}).`);
-        } else {
-          console.log(`✅ ${name} is good (${Math.round(value)}).`);
-        }
-      }
-    };
 
     // LCP monitoring
     new PerformanceObserver((entryList) => {
       const entries = entryList.getEntries();
       const lastEntry = entries[entries.length - 1] as any;
-      if (lastEntry) {
-        reportMetric('LCP', Math.round(lastEntry.startTime));
+      console.log('LCP:', Math.round(lastEntry.startTime), 'ms');
+      
+      if (lastEntry.startTime > 2500) {
+        console.warn('LCP is slow, consider optimizing largest contentful element');
       }
     }).observe({ entryTypes: ['largest-contentful-paint'] });
 
@@ -167,7 +143,11 @@ export class PerformanceOptimizer {
     new PerformanceObserver((entryList) => {
       entryList.getEntries().forEach((entry: any) => {
         const fid = entry.processingStart - entry.startTime;
-        reportMetric('FID', Math.round(fid));
+        console.log('FID:', Math.round(fid), 'ms');
+        
+        if (fid > 100) {
+          console.warn('FID is slow, consider optimizing JavaScript execution');
+        }
       });
     }).observe({ entryTypes: ['first-input'] });
 
@@ -179,43 +159,14 @@ export class PerformanceOptimizer {
           clsValue += entry.value;
         }
       });
-      reportMetric('CLS', parseFloat(clsValue.toFixed(4)));
-    }).observe({ entryTypes: ['layout-shift'] });
-
-    // FCP (First Contentful Paint)
-    new PerformanceObserver((entryList) => {
-      const entries = entryList.getEntries();
-      entries.forEach((entry) => {
-        reportMetric('FCP', Math.round(entry.startTime));
-      });
-    }).observe({ entryTypes: ['paint'] });
-
-    // TTFB (Time to First Byte) using Navigation Timing
-    if ('performance' in window && 'timing' in performance) {
-      const navigation = performance.timing;
-      const ttfb = navigation.responseStart - navigation.navigationStart;
-      if (ttfb > 0) {
-        reportMetric('TTFB', ttfb);
-      }
-    }
-
-    // Memory monitoring
-    if ('memory' in performance) {
-      const checkMemory = () => {
-        const memory = (performance as any).memory;
-        const usedMB = Math.round(memory.usedJSHeapSize / 1024 / 1024);
-        const limitMB = Math.round(memory.jsHeapSizeLimit / 1024 / 1024);
-        
-        if (usedMB / limitMB > 0.8) {
-          console.warn(`High memory usage: ${usedMB}MB / ${limitMB}MB`);
-        }
-      };
       
-      setInterval(checkMemory, 30000); // Check every 30 seconds
-    }
+      if (clsValue > 0.1) {
+        console.warn('CLS is high, check for layout shifts. Current CLS:', clsValue.toFixed(4));
+      }
+    }).observe({ entryTypes: ['layout-shift'] });
   }
 
-  // Resource cleanup with enhanced memory management
+  // Clean up resources to prevent memory leaks
   cleanupResources(): void {
     // Clean up blob URLs
     document.querySelectorAll('img[src^="blob:"]').forEach((img) => {
@@ -223,48 +174,13 @@ export class PerformanceOptimizer {
       URL.revokeObjectURL(src);
     });
 
-    // Clear metrics cache
-    if (this.webVitalsMetrics.size > 50) {
-      const oldestEntries = Array.from(this.webVitalsMetrics.entries())
-        .slice(0, this.webVitalsMetrics.size - 25);
-      oldestEntries.forEach(([key]) => this.webVitalsMetrics.delete(key));
-    }
-
-    // Force garbage collection if available
-    if ('gc' in window && typeof (window as any).gc === 'function') {
-      try {
-        (window as any).gc();
-      } catch (e) {
-        // GC not available in this context
-      }
+    // Clear preloaded resources cache periodically
+    if (this.preloadedResources.size > 20) {
+      this.preloadedResources.clear();
     }
   }
 
-  // Performance budgets and monitoring
-  checkPerformanceBudget(): { passed: boolean; violations: string[] } {
-    const violations: string[] = [];
-    const budgets = {
-      LCP: 2500,
-      FID: 100,
-      CLS: 0.1,
-      FCP: 1800,
-      TTFB: 800
-    };
-
-    Object.entries(budgets).forEach(([metric, budget]) => {
-      const value = this.webVitalsMetrics.get(metric);
-      if (value && value > budget) {
-        violations.push(`${metric}: ${Math.round(value)} exceeds budget of ${budget}`);
-      }
-    });
-
-    return {
-      passed: violations.length === 0,
-      violations
-    };
-  }
-
-  // Initialize performance optimizations
+  // Set up performance optimizations
   init(): void {
     // Preload critical resources
     this.preloadCriticalResources();
@@ -278,19 +194,6 @@ export class PerformanceOptimizer {
     }, 300000); // Every 5 minutes
     
     console.log('✅ Performance optimizer initialized');
-  }
-
-  // Get performance report
-  getPerformanceReport(): Record<string, any> {
-    return {
-      webVitals: Object.fromEntries(this.webVitalsMetrics),
-      resourceCounts: {
-        preloaded: this.preloadedResources.size,
-        critical: this.criticalResources.size
-      },
-      budget: this.checkPerformanceBudget(),
-      timestamp: new Date().toISOString()
-    };
   }
 }
 
