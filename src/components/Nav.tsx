@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { ResponsiveMobileMenu } from './navigation/ResponsiveMobileMenu';
+import { OptimizedMobileMenu } from './navigation/OptimizedMobileMenu';
 import { BottomNavigation } from './navigation/BottomNavigation';
 import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
 
@@ -50,22 +50,25 @@ export const Nav = () => {
         style={isScrolled ? {
           background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%)'
         } : {}}
+        role="navigation"
+        aria-label="Main navigation"
+        id="navigation"
       >
         <div className="content-container">
           <div className={`flex items-center justify-between ${
             isMobile ? 'h-16' : isTablet ? 'h-18' : 'h-20'
           }`}>
-            {/* Enhanced AI Logo with new gradient */}
+            {/* Enhanced Logo with proper accessibility */}
             <Link 
               to="/" 
-              className="flex items-center space-x-2 group z-50"
-              aria-label="WordToImage Home"
+              className="flex items-center space-x-2 group z-50 focus-ring rounded-lg"
+              aria-label="WordToImage AI Image Generator - Go to homepage"
               onClick={() => setIsMenuOpen(false)}
             >
               <div className={`bg-ai-neon-gradient rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-ai-neon/50 ${
                 isMobile ? 'w-8 h-8' : 'w-9 h-9'
               }`}>
-                <Sparkles className={`text-white drop-shadow-sm ${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} />
+                <Sparkles className={`text-white drop-shadow-sm ${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} aria-hidden="true" />
               </div>
               <span className={`font-bold text-gradient-ai group-hover:scale-105 transition-transform duration-300 ${
                 isMobile ? 'text-lg' : 'text-xl sm:text-2xl'
@@ -74,17 +77,19 @@ export const Nav = () => {
               </span>
             </Link>
 
-            {/* Enhanced Desktop Navigation with AI colors */}
-            <div className="hidden md:flex items-center space-x-8">
+            {/* Enhanced Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8" role="menubar">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group rounded-lg ${
+                  role="menuitem"
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group rounded-lg focus-ring ${
                     isCurrentPage(item.path)
                       ? 'text-ai-primary bg-ai-accent/10 shadow-sm'
                       : 'text-gray-700 hover:text-ai-primary hover:bg-ai-accent/5'
                   }`}
+                  aria-current={isCurrentPage(item.path) ? 'page' : undefined}
                 >
                   {item.name}
                   {isCurrentPage(item.path) && (
@@ -94,37 +99,35 @@ export const Nav = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}
+                      aria-hidden="true"
                     />
                   )}
                   {!isCurrentPage(item.path) && (
-                    <div className="absolute inset-x-0 bottom-0 h-0.5 bg-ai-neon-gradient rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                    <div className="absolute inset-x-0 bottom-0 h-0.5 bg-ai-neon-gradient rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" aria-hidden="true" />
                   )}
-                  {/* Subtle glow effect on hover */}
-                  <div className="absolute inset-0 rounded-lg bg-ai-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 </Link>
               ))}
             </div>
 
-            {/* Enhanced Desktop CTA Buttons with AI styling */}
+            {/* Enhanced Desktop CTA Buttons */}
             <div className="hidden md:flex items-center space-x-4">
               <Link
                 to="/auth"
-                className="text-gray-600 hover:text-ai-primary transition-all duration-300 font-medium px-4 py-2 rounded-lg hover:bg-ai-accent/5 relative group"
+                className="text-gray-600 hover:text-ai-primary transition-all duration-300 font-medium px-4 py-2 rounded-lg hover:bg-ai-accent/5 relative group focus-ring"
               >
                 Sign In
-                <div className="absolute inset-0 rounded-lg bg-ai-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
               </Link>
               <Link
                 to="/text-to-image"
-                className="btn-ai-primary relative overflow-hidden group"
+                className="btn-ai-primary relative overflow-hidden group focus-ring"
               >
                 <span className="relative z-10">Try Free</span>
                 <div className="absolute inset-0 bg-ai-purple-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </div>
 
-            {/* Mobile menu - ensure it's properly working */}
-            <ResponsiveMobileMenu 
+            {/* Optimized Mobile Menu */}
+            <OptimizedMobileMenu 
               isOpen={isMenuOpen}
               onToggle={() => setIsMenuOpen(!isMenuOpen)}
               onClose={() => setIsMenuOpen(false)}
@@ -134,7 +137,7 @@ export const Nav = () => {
         
         {/* Subtle bottom glow when scrolled */}
         {isScrolled && (
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ai-accent/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ai-accent/30 to-transparent" aria-hidden="true" />
         )}
       </motion.nav>
 
@@ -143,7 +146,7 @@ export const Nav = () => {
       
       {/* Add bottom padding to main content when bottom nav is visible */}
       {isMobile && (
-        <div className="h-20" />
+        <div className="h-20" aria-hidden="true" />
       )}
     </>
   );
