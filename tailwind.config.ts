@@ -43,14 +43,18 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
-				// AI Theme Colors
-				'ai-dark': 'var(--ai-dark)',
-				'ai-surface': 'var(--ai-surface)',
-				'ai-muted': 'var(--ai-muted)',
-				'ai-primary': 'var(--ai-primary)',
-				'ai-secondary': 'var(--ai-secondary)',
-				'ai-accent': 'var(--ai-accent)',
-				'ai-neon': 'var(--ai-neon)',
+				// AI Theme Colors - properly integrated with Tailwind
+				'ai': {
+					dark: '#0a0a1a',
+					surface: '#1a1a2e',
+					muted: '#16213e',
+					primary: '#4338ca',
+					secondary: '#7c3aed',
+					accent: '#06d6a0',
+					neon: '#00f5ff',
+					coral: '#ff6b6b',
+					purple: '#9333ea',
+				},
 				// Professional color palette
 				brand: {
 					navy: '#1e3a8a',      // Deep navy blue (primary)
