@@ -3,47 +3,47 @@
 
 export const defaultFallbackImage = '/images/placeholder.jpg';
 
-// Local gallery images for showcase
+// Local gallery images for showcase - Updated with working AI-themed images
 export const localGalleryImages = [
   {
-    src: '/lovable-uploads/9baa5403-54fd-4d41-9dff-b6762b238e3e.png',
-    alt: 'Futuristic cityscape with neon lights',
+    src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop&crop=center',
+    alt: 'Futuristic cyberpunk cityscape with neon lights and digital interfaces',
     style: 'Cyberpunk'
   },
   {
-    src: '/lovable-uploads/c0cd939b-5fe6-4732-af93-ee61f070b689.png',
-    alt: 'Fantasy dragon in magical forest',
+    src: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop&crop=center',
+    alt: 'Mystical fantasy landscape with ethereal lighting and magical elements',
     style: 'Fantasy Art'
   },
   {
-    src: '/lovable-uploads/8398d1f3-db95-4f78-b05e-1fbba4750e81.png',
-    alt: 'Abstract geometric pattern',
-    style: 'Abstract'
+    src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=400&fit=crop&crop=center',
+    alt: 'Abstract geometric patterns with vibrant colors and digital art elements',
+    style: 'Abstract Digital'
   },
   {
-    src: '/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png',
-    alt: 'Beautiful landscape painting',
-    style: 'Landscape'
+    src: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=400&fit=crop&crop=center',
+    alt: 'Stunning landscape with dramatic lighting and cinematic composition',
+    style: 'Cinematic Landscape'
   },
   {
-    src: '/lovable-uploads/f0dea1ce-ca91-4c0b-9849-6b3649a98249.png',
-    alt: 'Portrait in renaissance style',
-    style: 'Renaissance'
+    src: 'https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=400&h=400&fit=crop&crop=center',
+    alt: 'Renaissance-style portrait with classical artistic techniques',
+    style: 'Classical Portrait'
   },
   {
-    src: '/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png',
-    alt: 'Modern architectural design',
-    style: 'Architecture'
+    src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop&crop=center&auto=format',
+    alt: 'Modern architectural design with sleek lines and futuristic elements',
+    style: 'Futuristic Architecture'
   },
   {
-    src: '/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png',
-    alt: 'Vintage poster design',
-    style: 'Vintage'
+    src: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop&crop=center&auto=format',
+    alt: 'Vintage poster design with retro aesthetic and bold typography',
+    style: 'Retro Vintage'
   },
   {
-    src: '/lovable-uploads/5cc3bb2f-158e-4a9d-8ff5-0efe1c96ab93.png',
-    alt: 'Digital art masterpiece',
-    style: 'Digital Art'
+    src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=400&fit=crop&crop=center&auto=format',
+    alt: 'Digital art masterpiece with innovative AI-generated techniques',
+    style: 'AI Digital Art'
   }
 ];
 

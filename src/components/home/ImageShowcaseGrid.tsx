@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Wand2 } from 'lucide-react';
+import { Wand2, TrendingUp } from 'lucide-react';
 import { localGalleryImages } from '@/utils/imageUtils';
 import { LazyImage } from '@/components/common/LazyImage';
 import { useLazyLoading } from '@/hooks/useLazyLoading';
@@ -12,6 +12,9 @@ export const ImageShowcaseGrid = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [containerRef, isInView] = useLazyLoading<HTMLDivElement>({ rootMargin: '100px' });
   const images = localGalleryImages.slice(0, 8);
+  
+  // Define trending styles (first 3 are trending)
+  const trendingStyles = ['Cyberpunk', 'Fantasy Art', 'Abstract Digital'];
   
   return (
     <div className="space-y-8 sm:space-y-12" ref={containerRef} role="region" aria-labelledby="image-gallery-heading">
@@ -53,6 +56,17 @@ export const ImageShowcaseGrid = () => {
                   sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                   aspectRatio={1}
                 />
+                
+                {/* Trending Badge */}
+                {image.style && trendingStyles.includes(image.style) && (
+                  <div className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10">
+                    <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                      <TrendingUp className="h-3 w-3" />
+                      Trending
+                    </div>
+                  </div>
+                )}
+                
                 <div 
                   className={`absolute inset-0 bg-gradient-to-t from-brand-slate-900/80 via-brand-slate-900/20 to-transparent flex flex-col justify-end p-3 sm:p-4 transition-opacity duration-300 ${
                     hoveredIndex === index ? 'opacity-100' : 'opacity-0'
