@@ -1,4 +1,7 @@
 
+/* Add font imports - must be at the top */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
+
 /* Critical CSS (only what's needed for first paint) */
 #root {
   width: 100%;
@@ -14,9 +17,6 @@ body {
   padding: 0;
   font-family: 'Open Sans', sans-serif;
 }
-
-/* Add font imports */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Poppins', sans-serif;

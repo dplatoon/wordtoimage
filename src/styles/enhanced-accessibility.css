@@ -1,9 +1,8 @@
-
 /* Enhanced accessibility styles for WCAG AA compliance */
 
 /* Focus ring utility for consistent focus indicators */
 .focus-ring {
-  @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ai-accent/50 focus-visible:ring-offset-2;
+  @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2;
 }
 
 /* Enhanced skip links */
