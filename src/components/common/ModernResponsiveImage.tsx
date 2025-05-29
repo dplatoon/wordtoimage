@@ -16,6 +16,8 @@ interface ModernResponsiveImageProps {
   aspectRatio?: string;
   sizes?: string;
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  'aria-hidden'?: boolean;
+  role?: string;
 }
 
 export const ModernResponsiveImage: React.FC<ModernResponsiveImageProps> = ({
@@ -31,6 +33,8 @@ export const ModernResponsiveImage: React.FC<ModernResponsiveImageProps> = ({
   aspectRatio = '16/9',
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   objectFit = 'cover',
+  'aria-hidden': ariaHidden,
+  role,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -105,8 +109,9 @@ export const ModernResponsiveImage: React.FC<ModernResponsiveImageProps> = ({
       ref={containerRef} 
       className={`relative overflow-hidden ${className}`}
       style={containerStyle}
-      role="img"
+      role={role || "img"}
       aria-label={alt}
+      aria-hidden={ariaHidden}
     >
       {isLoading && !hasError && (
         <Skeleton className="absolute inset-0 w-full h-full" />
@@ -154,6 +159,8 @@ export const ModernResponsiveImage: React.FC<ModernResponsiveImageProps> = ({
             height={height}
             sizes={sizes}
             srcSet={fallback}
+            aria-hidden={ariaHidden}
+            role={role}
           />
         </picture>
       ) : (
