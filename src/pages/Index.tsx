@@ -6,36 +6,34 @@ import { BetaBanner } from '@/components/BetaBanner';
 import { SeoHead } from '@/components/home/SeoHead';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { ModernAIHero } from '@/components/home/ModernAIHero';
+import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
+import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
+import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
 import { StylePresetsGallery } from '@/components/home/StylePresetsGallery';
 import { SamplePromptsSection } from '@/components/home/SamplePromptsSection';
 import { EnhancedTestimonials } from '@/components/home/EnhancedTestimonials';
-import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
 import { MinimalistPricing } from '@/components/home/MinimalistPricing';
-import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
-import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
-import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
 import { FAQSection } from '@/components/home/FAQSection';
+import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
 import { SocialMetaTags } from '@/components/social/SocialMetaTags';
-import { UserEngagementTracker } from '@/components/analytics/UserEngagementTracker';
 import { ReadingProgress } from '@/components/content/ReadingProgress';
-import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
 
 const Index = () => {
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-  const { trackInteraction } = usePerformanceMonitoring('HomePage');
 
   useEffect(() => {
     // Track page view
     if (typeof window !== 'undefined') {
       import('@/utils/analytics').then(({ trackPageView }) => {
         trackPageView('/', 'Home - AI Image Generator');
+      }).catch(error => {
+        console.warn('Analytics tracking failed:', error);
       });
     }
   }, []);
 
   const handleShowProFeatures = () => {
     setIsPricingModalOpen(true);
-    trackInteraction('pricing_modal', 'open');
   };
 
   return (
@@ -54,41 +52,15 @@ const Index = () => {
       <Nav />
       
       <main id="main-content" className="relative">
-        <UserEngagementTracker contentId="home-hero" contentType="hero">
-          <ModernAIHero onShowProFeatures={handleShowProFeatures} />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-features" contentType="features">
-          <FeaturesGridSection />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-how-it-works" contentType="tutorial">
-          <HowItWorksDetailed />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-gallery" contentType="gallery">
-          <ImageShowcaseGrid />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-styles" contentType="styles">
-          <StylePresetsGallery />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-prompts" contentType="prompts">
-          <SamplePromptsSection />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-testimonials" contentType="testimonials">
-          <EnhancedTestimonials />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-pricing" contentType="pricing">
-          <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-faq" contentType="faq">
-          <FAQSection />
-        </UserEngagementTracker>
+        <ModernAIHero onShowProFeatures={handleShowProFeatures} />
+        <FeaturesGridSection />
+        <HowItWorksDetailed />
+        <ImageShowcaseGrid />
+        <StylePresetsGallery />
+        <SamplePromptsSection />
+        <EnhancedTestimonials />
+        <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
+        <FAQSection />
       </main>
       
       <ModernFooter />
