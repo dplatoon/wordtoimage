@@ -11,7 +11,9 @@ export type ImageGenerationErrorType =
   | 'PROMPT_ERROR'
   | 'MODEL_ERROR'
   | 'PAYMENT_ERROR'
-  | 'UNKNOWN_ERROR';
+  | 'UNKNOWN_ERROR'
+  | 'IMAGE_UPLOAD_ERROR'
+  | 'SERVICE_UNAVAILABLE';
 
 export interface ImageGenerationError {
   type: ImageGenerationErrorType;
@@ -80,6 +82,28 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
       };
     }
 
+    // Image upload errors
+    if (message.includes('image format') || message.includes('upload') || message.includes('file')) {
+      return {
+        type: 'IMAGE_UPLOAD_ERROR',
+        message: 'Image upload failed',
+        details: error.message,
+        retryable: true,
+        severity: 'error'
+      };
+    }
+
+    // Service unavailable
+    if (message.includes('service') || message.includes('unavailable') || message.includes('503')) {
+      return {
+        type: 'SERVICE_UNAVAILABLE',
+        message: 'AI service temporarily unavailable',
+        details: error.message,
+        retryable: true,
+        severity: 'warning'
+      };
+    }
+
     // Model related errors
     if (message.includes('model')) {
       return {
@@ -96,7 +120,7 @@ export const getErrorMessage = (error: unknown): ImageGenerationError => {
       return {
         type: 'PAYMENT_ERROR',
         message: 'Payment required',
-        details: 'Please check your OpenAI account billing status',
+        details: 'Please check your account billing status',
         retryable: false,
         severity: 'error'
       };
@@ -129,7 +153,7 @@ export const getErrorDisplayDetails = (error: ImageGenerationError): {
     case 'INVALID_API_KEY':
       return {
         title: 'Authentication Failed',
-        description: 'Your OpenAI API key appears to be invalid or expired. Please check your API key and try again.',
+        description: 'Your API key appears to be invalid or expired. Please check your API key and try again.',
         action: 'Update API Key'
       };
     case 'RATE_LIMIT':
@@ -141,29 +165,41 @@ export const getErrorDisplayDetails = (error: ImageGenerationError): {
     case 'CONNECTION_ERROR':
       return {
         title: 'Connection Error',
-        description: 'Unable to connect to OpenAI servers. Please check your internet connection.',
+        description: 'Unable to connect to AI servers. Please check your internet connection.',
         action: 'Retry'
       };
     case 'NSFW_CONTENT':
       return {
         title: 'Content Warning',
-        description: 'Your prompt may generate inappropriate content. Please modify it to comply with OpenAI\'s content policy.'
+        description: 'Your prompt may generate inappropriate content. Please modify it to comply with content policy.'
       };
     case 'PROMPT_ERROR':
       return {
         title: 'Invalid Prompt',
         description: 'Please enter a description for the image you want to generate.'
       };
+    case 'IMAGE_UPLOAD_ERROR':
+      return {
+        title: 'Upload Failed',
+        description: 'Failed to process the uploaded image. Please try with a different image.',
+        action: 'Try Again'
+      };
+    case 'SERVICE_UNAVAILABLE':
+      return {
+        title: 'Service Unavailable',
+        description: 'AI service is temporarily unavailable. Please try again in a few moments.',
+        action: 'Retry'
+      };
     case 'MODEL_ERROR':
       return {
         title: 'AI Model Error',
-        description: 'The DALL-E 3 model encountered an issue processing your request. Please try with a different prompt.',
+        description: 'The AI model encountered an issue processing your request. Please try with a different prompt.',
         action: 'Retry'
       };
     case 'PAYMENT_ERROR':
       return {
         title: 'Payment Required',
-        description: 'There may be an issue with your OpenAI account billing. Please check your account status.',
+        description: 'There may be an issue with your account billing. Please check your account status.',
         action: 'Check Account'
       };
     default:

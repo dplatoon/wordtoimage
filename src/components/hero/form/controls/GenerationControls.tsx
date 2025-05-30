@@ -5,9 +5,10 @@ import { ResolutionSelect } from './ResolutionSelect';
 import { CountSelect } from './CountSelect';
 import { ImageUploader } from './ImageUploader';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp, Image } from 'lucide-react';
+import { ChevronDown, ChevronUp, Image, Sparkles } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Badge } from '@/components/ui/badge';
 
 interface GenerationControlsProps {
   style: string;
@@ -33,13 +34,12 @@ export const GenerationControls = memo(({
   const isMobile = useIsMobile();
 
   const handleImageSelected = (imageData: string) => {
-    setHasSourceImage(!!imageData);
+    const hasImage = !!imageData;
+    setHasSourceImage(hasImage);
     onSourceImageChange(imageData);
-    if (imageData) {
-      // Auto-collapse the section when image is uploaded on mobile
-      if (isMobile) {
-        setShowImageUpload(false);
-      }
+    
+    if (hasImage && isMobile) {
+      setShowImageUpload(false);
     }
   };
 
@@ -61,17 +61,30 @@ export const GenerationControls = memo(({
             className="w-full flex items-center justify-between p-4 h-auto bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200 hover:from-purple-100 hover:to-blue-100 transition-all duration-200"
           >
             <div className="flex items-center space-x-3">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                hasSourceImage ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-600'
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                hasSourceImage 
+                  ? 'bg-purple-600 text-white shadow-lg' 
+                  : 'bg-purple-100 text-purple-600'
               }`}>
                 <Image className="h-5 w-5" />
               </div>
               <div className="text-left">
-                <div className="font-semibold text-gray-800">
-                  {hasSourceImage ? 'Image uploaded!' : 'Image-to-Image Generation'}
+                <div className="flex items-center space-x-2">
+                  <span className="font-semibold text-gray-800">
+                    {hasSourceImage ? 'Image uploaded!' : 'Image-to-Image Generation'}
+                  </span>
+                  {hasSourceImage && (
+                    <Badge variant="secondary" className="bg-purple-100 text-purple-700">
+                      <Sparkles className="h-3 w-3 mr-1" />
+                      Ready
+                    </Badge>
+                  )}
                 </div>
                 <div className="text-sm text-gray-600">
-                  {hasSourceImage ? 'Click to change or remove image' : 'Transform an existing image with AI'}
+                  {hasSourceImage 
+                    ? 'Click to change or remove image' 
+                    : 'Transform an existing image with AI'
+                  }
                 </div>
               </div>
             </div>
@@ -84,7 +97,10 @@ export const GenerationControls = memo(({
         </CollapsibleTrigger>
         
         <CollapsibleContent className="mt-4">
-          <ImageUploader onImageSelected={handleImageSelected} />
+          <ImageUploader 
+            onImageSelected={handleImageSelected}
+            disabled={false}
+          />
         </CollapsibleContent>
       </Collapsible>
     </div>
