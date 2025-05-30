@@ -82,9 +82,9 @@ export const DetailedFeaturesSection = () => {
   };
 
   return (
-    <section id="detailed-features" className="py-24 bg-white" style={{ marginTop: '50px', marginBottom: '50px' }}>
+    <section id="detailed-features" className="py-24 bg-white" aria-labelledby="detailed-features-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16" style={{ marginBottom: '50px' }}>
+        <motion.header className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -92,13 +92,14 @@ export const DetailedFeaturesSection = () => {
             transition={{ duration: 0.5 }}
           >
             <Badge className="mb-4 bg-blue-100 text-blue-800 px-4 py-2">
-              <Wand2 className="h-4 w-4 mr-2" />
+              <Wand2 className="h-4 w-4 mr-2" aria-hidden="true" />
               Complete Feature Set
             </Badge>
           </motion.div>
           
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
+            id="detailed-features-heading"
+            className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-readable"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -108,7 +109,7 @@ export const DetailedFeaturesSection = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 max-w-2xl mx-auto text-readable line-height-reading"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -116,7 +117,7 @@ export const DetailedFeaturesSection = () => {
           >
             Comprehensive tools and features designed to transform your creative ideas into stunning visuals
           </motion.p>
-        </div>
+        </motion.header>
 
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -124,10 +125,9 @@ export const DetailedFeaturesSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          style={{ gap: '2rem' }}
         >
           {features.map((feature, index) => (
-            <motion.div 
+            <motion.article 
               key={index} 
               className="group"
               variants={itemVariants}
@@ -135,12 +135,12 @@ export const DetailedFeaturesSection = () => {
               onMouseLeave={() => setHoveredFeature(null)}
             >
               <Card className="h-full transition-all duration-300 hover:shadow-lg border border-gray-100 hover:border-blue-200">
-                <CardHeader style={{ paddingBottom: '1.5rem' }}>
+                <CardHeader className="pb-6">
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
                   </div>
-                  <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
-                  <CardDescription className="text-gray-600">{feature.description}</CardDescription>
+                  <CardTitle className="text-xl font-semibold text-readable">{feature.title}</CardTitle>
+                  <CardDescription className="text-gray-600 text-readable line-height-reading">{feature.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {hoveredFeature === index && (
@@ -151,11 +151,11 @@ export const DetailedFeaturesSection = () => {
                       transition={{ duration: 0.3 }}
                       className="space-y-3"
                     >
-                      <div className="text-sm text-gray-500 pt-2 border-t">
+                      <div className="text-sm text-gray-500 pt-2 border-t text-readable line-height-reading">
                         {feature.extendedDescription}
                       </div>
                       <div>
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">Examples:</h4>
+                        <h4 className="text-sm font-medium text-gray-700 mb-2 text-readable">Examples:</h4>
                         <div className="flex flex-wrap gap-1">
                           {feature.examples.map((example, idx) => (
                             <Badge key={idx} variant="secondary" className="text-xs">
@@ -168,7 +168,7 @@ export const DetailedFeaturesSection = () => {
                   )}
                 </CardContent>
               </Card>
-            </motion.div>
+            </motion.article>
           ))}
         </motion.div>
       </div>

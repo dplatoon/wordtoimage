@@ -84,15 +84,20 @@ const Features = () => {
         onSectionClick={scrollToSection}
       />
       
-      <main id="main-content" className="relative z-10">
+      {/* Main content with improved semantic structure and spacing */}
+      <main id="main-content" className="relative z-10" role="main">
         <FeaturesHeroSection />
-        <CoreFeaturesGrid />
-        <LiveDemoSection />
-        <DetailedFeaturesSection />
+        
+        {/* Content sections with consistent spacing */}
+        <div className="space-y-24 md:space-y-32">
+          <CoreFeaturesGrid />
+          <LiveDemoSection />
+          <DetailedFeaturesSection />
 
-        <section id="templates">
-          <TemplatesSection />
-        </section>
+          <section id="templates" className="py-16 md:py-24" aria-labelledby="templates-heading">
+            <TemplatesSection />
+          </section>
+        </div>
 
         <FeaturesCTASection />
       </main>
