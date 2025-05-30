@@ -24,18 +24,33 @@ const Pricing = () => {
       />
       
       <div className="min-h-screen bg-white">
-        <Nav />
+        <header>
+          <Nav />
+        </header>
         
         <SubscriptionProvider>
-          <main>
-            <EnhancedPricingHero />
-            <EnhancedPricingTable />
-            <EnhancedFAQ />
-            <PricingCTA />
+          <main className="relative">
+            <section className="pt-8 pb-4" aria-label="Pricing introduction">
+              <EnhancedPricingHero />
+            </section>
+            
+            <section className="py-8" aria-label="Pricing plans">
+              <EnhancedPricingTable />
+            </section>
+            
+            <section className="py-8" aria-label="Frequently asked questions">
+              <EnhancedFAQ />
+            </section>
+            
+            <section className="py-8 pb-16" aria-label="Call to action">
+              <PricingCTA />
+            </section>
           </main>
         </SubscriptionProvider>
 
-        <Footer />
+        <footer>
+          <Footer />
+        </footer>
       </div>
     </>
   );
