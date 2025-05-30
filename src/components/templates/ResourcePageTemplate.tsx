@@ -8,7 +8,6 @@ import { RelatedContent } from '@/components/seo/RelatedContent';
 import { PageSEO } from '@/components/seo/PageSEO';
 import { ReadingProgress } from '@/components/content/ReadingProgress';
 import { BetaBanner } from '@/components/BetaBanner';
-import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
 import { useState, useEffect } from 'react';
 
 interface ResourcePageTemplateProps {
@@ -43,7 +42,6 @@ export const ResourcePageTemplate: React.FC<ResourcePageTemplateProps> = ({
   badge
 }) => {
   const [showBetaBanner, setShowBetaBanner] = useState(true);
-  const { isMobile } = useResponsiveDesign();
 
   useEffect(() => {
     const isDismissed = localStorage.getItem('betaBannerDismissed') === 'true';
@@ -69,8 +67,8 @@ export const ResourcePageTemplate: React.FC<ResourcePageTemplateProps> = ({
         <Nav />
       </header>
       
-      {/* Add proper spacing for beta banner, navigation and mobile tabs */}
-      <div className={`${showBetaBanner ? 'pt-[6.5rem] md:pt-[7.5rem]' : 'pt-16 md:pt-20'} ${isMobile ? 'pt-[8.5rem]' : ''}`}>
+      {/* Simplified spacing logic to match Index page */}
+      <div className={showBetaBanner ? 'pt-[106px]' : 'pt-16'}>
         <main id="main-content" className="flex-grow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <ContentBreadcrumbs />

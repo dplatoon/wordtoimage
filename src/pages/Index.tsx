@@ -17,12 +17,10 @@ import { FAQSection } from '@/components/home/FAQSection';
 import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
 import { SocialMetaTags } from '@/components/social/SocialMetaTags';
 import { ReadingProgress } from '@/components/content/ReadingProgress';
-import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
 
 const Index = () => {
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
   const [showBetaBanner, setShowBetaBanner] = useState(true);
-  const { isMobile } = useResponsiveDesign();
 
   useEffect(() => {
     // Track page view
@@ -63,8 +61,8 @@ const Index = () => {
         <Nav />
       </header>
       
-      {/* Add proper spacing for beta banner, navigation and mobile tabs */}
-      <div className={`${showBetaBanner ? 'pt-[6.5rem] md:pt-[7.5rem]' : 'pt-16 md:pt-20'} ${isMobile ? 'pt-[8.5rem]' : ''}`}>
+      {/* Simplified spacing logic */}
+      <div className={showBetaBanner ? 'pt-[106px]' : 'pt-16'}>
         <main id="main-content" className="relative">
           <section aria-label="Hero section">
             <ModernAIHero onShowProFeatures={handleShowProFeatures} />
