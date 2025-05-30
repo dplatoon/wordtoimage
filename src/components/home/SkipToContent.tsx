@@ -1,42 +1,25 @@
 
-import { cn } from "@/lib/utils";
-
 export const SkipToContent = () => {
   return (
-    <div className="skip-links">
-      <a 
-        href="#main-content" 
-        className={cn(
-          "sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50",
-          "focus:p-4 focus:bg-blue-600 focus:text-white focus:shadow-lg focus:rounded-md",
-          "focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600",
-          "font-semibold text-sm transition-all duration-200"
-        )}
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md focus:shadow-lg"
       >
         Skip to main content
       </a>
-      <a 
-        href="#navigation" 
-        className={cn(
-          "sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-48 z-50",
-          "focus:p-4 focus:bg-blue-600 focus:text-white focus:shadow-lg focus:rounded-md",
-          "focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600",
-          "font-semibold text-sm transition-all duration-200"
-        )}
+      <a
+        href="#navigation"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md focus:shadow-lg"
       >
         Skip to navigation
       </a>
-      <a 
-        href="#footer" 
-        className={cn(
-          "sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-96 z-50",
-          "focus:p-4 focus:bg-blue-600 focus:text-white focus:shadow-lg focus:rounded-md",
-          "focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600",
-          "font-semibold text-sm transition-all duration-200"
-        )}
+      <a
+        href="#footer"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md focus:shadow-lg"
       >
         Skip to footer
       </a>
-    </div>
+    </>
   );
 };
