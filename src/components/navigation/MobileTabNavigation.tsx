@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Palette, CreditCard, Mail } from 'lucide-react';
+import { Home } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
 
@@ -18,10 +18,7 @@ export const MobileTabNavigation = () => {
   if (!isMobile) return null;
 
   const tabs: TabItem[] = [
-    { name: 'Home', path: '/', icon: Home },
-    { name: 'Features', path: '/features', icon: Palette },
-    { name: 'Pricing', path: '/pricing', icon: CreditCard },
-    { name: 'Contact', path: '/contact', icon: Mail }
+    { name: 'Home', path: '/', icon: Home }
   ];
 
   const isActive = (path: string) => location.pathname === path;

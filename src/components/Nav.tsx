@@ -29,15 +29,6 @@ export const Nav = () => {
     }
   }, []);
 
-  // Desktop navigation items
-  const navItems = [
-    { name: 'Features', path: '/features' },
-    { name: 'Pricing', path: '/pricing' },
-    { name: 'Contact', path: '/contact' }
-  ];
-
-  const isCurrentPage = (path: string) => location.pathname === path;
-
   return (
     <>
       <motion.nav
@@ -77,57 +68,25 @@ export const Nav = () => {
               </span>
             </Link>
 
-            {/* Desktop Navigation Only */}
+            {/* Desktop CTA Buttons - No navigation items */}
             {!isMobile && (
-              <>
-                <div className="hidden md:flex items-center space-x-2">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={`relative px-6 py-3 text-base font-medium transition-all duration-300 group rounded-lg min-h-[44px] flex items-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
-                        isCurrentPage(item.path)
-                          ? 'text-indigo-600 bg-indigo-50 shadow-sm'
-                          : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50'
-                      }`}
-                      aria-current={isCurrentPage(item.path) ? 'page' : undefined}
-                    >
-                      {item.name}
-                      {isCurrentPage(item.path) && (
-                        <motion.div
-                          layoutId="activeTab"
-                          className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                      )}
-                      {!isCurrentPage(item.path) && (
-                        <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                      )}
-                    </Link>
-                  ))}
-                </div>
-
-                {/* Desktop CTA Buttons */}
-                <div className="hidden md:flex items-center space-x-4">
-                  <Link
-                    to="/auth"
-                    className="text-gray-600 hover:text-indigo-600 transition-all duration-300 font-medium px-6 py-3 rounded-lg hover:bg-gray-50 relative group min-h-[44px] flex items-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    aria-label="Sign in to your account"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    to="/text-to-image"
-                    className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    aria-label="Try WordToImage for free - no registration required"
-                  >
-                    <span className="relative z-10">Try Free</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Link>
-                </div>
-              </>
+              <div className="hidden md:flex items-center space-x-4">
+                <Link
+                  to="/auth"
+                  className="text-gray-600 hover:text-indigo-600 transition-all duration-300 font-medium px-6 py-3 rounded-lg hover:bg-gray-50 relative group min-h-[44px] flex items-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  aria-label="Sign in to your account"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/text-to-image"
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  aria-label="Try WordToImage for free - no registration required"
+                >
+                  <span className="relative z-10">Try Free</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </Link>
+              </div>
             )}
 
             {/* Mobile: Only show CTA button */}
