@@ -30,14 +30,14 @@
     will-change: background-position;
   }
 
-  /* Enhanced button styles with better contrast and accessibility */
+  /* Enhanced button styles with proper brand colors and high contrast */
   .btn-primary {
-    @apply bg-brand-navy hover:bg-brand-purple text-white font-medium;
-    @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-brand transition-all duration-200;
-    @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
+    @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium;
+    @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg transition-all duration-200;
+    @apply hover:shadow-xl hover:-translate-y-0.5 transform;
     @apply text-sm sm:text-base font-semibold;
     @apply min-h-[44px] sm:min-h-[48px];
-    @apply focus:ring-2 focus:ring-brand-navy focus:ring-offset-2;
+    @apply focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
@@ -54,46 +54,55 @@
   }
   
   .btn-outline {
-    @apply border-2 border-brand-navy text-brand-navy bg-transparent;
-    @apply hover:bg-brand-navy hover:text-white transition-all duration-200;
+    @apply border-2 border-indigo-600 text-indigo-600 bg-transparent;
+    @apply hover:bg-indigo-600 hover:text-white transition-all duration-200;
     @apply px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium;
     @apply text-sm sm:text-base font-semibold;
     @apply min-h-[44px] sm:min-h-[48px];
-    @apply focus:ring-2 focus:ring-brand-navy focus:ring-offset-2;
+    @apply focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
     will-change: background-color, color;
   }
 
   .btn-secondary {
-    @apply bg-brand-slate-100 hover:bg-brand-slate-200 text-brand-slate-700;
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-700;
     @apply font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-200;
     @apply text-sm sm:text-base font-semibold;
     @apply min-h-[44px] sm:min-h-[48px];
-    @apply focus:ring-2 focus:ring-brand-slate-400 focus:ring-offset-2;
+    @apply focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
   }
 
   .card-modern {
-    @apply bg-white border border-brand-slate-200 rounded-2xl p-6 sm:p-8;
-    @apply shadow-modern hover:shadow-brand-lg transition-all duration-300;
-    @apply hover:border-brand-slate-300 hover:-translate-y-1;
-    @apply focus-within:ring-2 focus-within:ring-brand-teal focus-within:ring-offset-2;
+    @apply bg-white border border-gray-200 rounded-2xl p-6 sm:p-8;
+    @apply shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply hover:border-gray-300 hover:-translate-y-1;
+    @apply focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2;
     will-change: transform, border-color, box-shadow;
     transform: translateZ(0);
   }
   
   .card-feature {
-    @apply bg-white border border-brand-slate-100 rounded-xl p-4 sm:p-6;
-    @apply shadow-subtle hover:shadow-modern transition-all duration-200;
-    @apply hover:border-brand-slate-200;
-    @apply focus-within:ring-2 focus-within:ring-brand-teal focus-within:ring-offset-2;
+    @apply bg-white border border-gray-100 rounded-xl p-4 sm:p-6;
+    @apply shadow-md hover:shadow-lg transition-all duration-200;
+    @apply hover:border-gray-200;
+    @apply focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2;
     will-change: border-color, box-shadow;
   }
 
   .interactive-hover {
-    @apply transition-all duration-200 hover:scale-105 hover:shadow-modern;
+    @apply transition-all duration-200 hover:scale-105 hover:shadow-lg;
     @apply cursor-pointer transform;
-    @apply focus:outline-none focus:ring-2 focus:ring-brand-teal focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
     will-change: transform, box-shadow;
     transform: translateZ(0);
+  }
+
+  /* Improved spacing utilities */
+  .section-gap {
+    @apply mb-16 md:mb-20 lg:mb-24;
+  }
+
+  .content-gap {
+    @apply mb-8 md:mb-12;
   }
 
   /* Screen reader only utility */
