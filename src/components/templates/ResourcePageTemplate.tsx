@@ -67,13 +67,13 @@ export const ResourcePageTemplate: React.FC<ResourcePageTemplateProps> = ({
         <Nav />
       </header>
       
-      {/* Simplified spacing logic to match Index page */}
-      <div className={showBetaBanner ? 'pt-[106px]' : 'pt-16'}>
+      {/* Unified spacing logic across all pages */}
+      <div className={`transition-all duration-300 ${showBetaBanner ? 'pt-[106px]' : 'pt-16'}`}>
         <main id="main-content" className="flex-grow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <ContentBreadcrumbs />
             
-            {/* Hero Section */}
+            {/* Hero Section with improved mobile layout */}
             <div className="text-center mb-10">
               {badge && (
                 <div className="mb-4">
@@ -82,10 +82,10 @@ export const ResourcePageTemplate: React.FC<ResourcePageTemplateProps> = ({
                   </span>
                 </div>
               )}
-              <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-6">
+              <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl mb-6 leading-tight">
                 {title}
               </h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
                 {description}
               </p>
               {heroImage && (
@@ -93,7 +93,7 @@ export const ResourcePageTemplate: React.FC<ResourcePageTemplateProps> = ({
                   <img
                     src={heroImage}
                     alt={title}
-                    className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+                    className="w-full h-48 sm:h-64 md:h-96 object-cover rounded-lg shadow-lg"
                     loading="lazy"
                   />
                 </div>
@@ -102,7 +102,7 @@ export const ResourcePageTemplate: React.FC<ResourcePageTemplateProps> = ({
             
             {showContentNavigation && <ContentNavigation />}
             
-            {/* Main Content */}
+            {/* Main Content with improved spacing */}
             <div className="mb-12">
               {children}
             </div>

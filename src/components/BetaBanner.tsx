@@ -54,13 +54,14 @@ export const BetaBanner = () => {
         <div className="flex items-center space-x-2">
           <button 
             onClick={handleFeedbackClick}
-            className="bg-white text-blue-600 px-3 py-1 rounded-md text-xs font-medium hover:bg-blue-50 transition-colors"
+            className="bg-white text-blue-600 px-3 py-1 rounded-md text-xs font-medium hover:bg-blue-50 transition-colors min-h-[32px] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
+            aria-label="Share feedback about beta"
           >
             Share Feedback
           </button>
           <button 
             onClick={dismissBanner}
-            className="text-white hover:text-blue-200 transition-colors"
+            className="text-white hover:text-blue-200 transition-colors p-1 rounded min-h-[32px] min-w-[32px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
             aria-label="Dismiss beta banner"
           >
             <X className="h-4 w-4" />

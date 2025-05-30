@@ -57,7 +57,7 @@ export const Nav = () => {
             {/* Logo */}
             <Link 
               to="/" 
-              className="flex items-center space-x-3 group z-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg p-2"
+              className="flex items-center space-x-3 group z-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg p-2 min-h-[44px]"
               aria-label="WordToImage Home - Transform text into images with AI"
             >
               <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg w-10 h-10 flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
@@ -110,8 +110,9 @@ export const Nav = () => {
                 
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="p-2 text-gray-600 hover:text-indigo-600 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg"
+                  className="p-3 text-gray-600 hover:text-indigo-600 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Toggle mobile menu"
+                  aria-expanded={isMobileMenuOpen}
                 >
                   {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </button>
@@ -126,31 +127,31 @@ export const Nav = () => {
         )}
       </motion.nav>
 
-      {/* Mobile Menu - Updated to match desktop navigation */}
+      {/* Mobile Menu - Enhanced with better touch targets */}
       {isMobile && isMobileMenuOpen && (
         <div className={`fixed inset-0 z-40 ${showBetaBanner ? 'top-[106px]' : 'top-16'}`}>
           <div className="absolute inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)} />
-          <div className="relative bg-white border-t border-gray-200 px-4 py-6">
-            <div className="space-y-4">
+          <div className="relative bg-white border-t border-gray-200 px-4 py-6 max-h-screen overflow-y-auto">
+            <div className="space-y-2">
               
               <div className="border-t border-gray-200 pt-4 mt-4">
-                <div className="text-sm font-medium text-gray-900 mb-3">Resources</div>
-                <div className="space-y-2 pl-3">
-                  <Link to="/blog" className="block py-2 text-sm text-gray-600 hover:text-indigo-600">Blog</Link>
-                  <Link to="/tutorials" className="block py-2 text-sm text-gray-600 hover:text-indigo-600">Tutorials</Link>
-                  <Link to="/design-tips" className="block py-2 text-sm text-gray-600 hover:text-indigo-600">Design Tips</Link>
-                  <Link to="/help" className="block py-2 text-sm text-gray-600 hover:text-indigo-600">Help Center</Link>
-                  <Link to="/api" className="block py-2 text-sm text-gray-600 hover:text-indigo-600">API Docs</Link>
-                  <Link to="/updates" className="block py-2 text-sm text-gray-600 hover:text-indigo-600">Updates</Link>
-                  <Link to="/community" className="block py-2 text-sm text-gray-600 hover:text-indigo-600">Community</Link>
-                  <Link to="/careers" className="block py-2 text-sm text-gray-600 hover:text-indigo-600">Careers</Link>
+                <div className="text-sm font-medium text-gray-900 mb-3 px-3">Resources</div>
+                <div className="space-y-1">
+                  <Link to="/blog" className="block py-3 px-3 text-base text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors min-h-[44px] flex items-center">Blog</Link>
+                  <Link to="/tutorials" className="block py-3 px-3 text-base text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors min-h-[44px] flex items-center">Tutorials</Link>
+                  <Link to="/design-tips" className="block py-3 px-3 text-base text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors min-h-[44px] flex items-center">Design Tips</Link>
+                  <Link to="/help" className="block py-3 px-3 text-base text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors min-h-[44px] flex items-center">Help Center</Link>
+                  <Link to="/api" className="block py-3 px-3 text-base text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors min-h-[44px] flex items-center">API Docs</Link>
+                  <Link to="/updates" className="block py-3 px-3 text-base text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors min-h-[44px] flex items-center">Updates</Link>
+                  <Link to="/community" className="block py-3 px-3 text-base text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors min-h-[44px] flex items-center">Community</Link>
+                  <Link to="/careers" className="block py-3 px-3 text-base text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors min-h-[44px] flex items-center">Careers</Link>
                 </div>
               </div>
               
               <div className="border-t border-gray-200 pt-4">
                 <Link
                   to="/auth"
-                  className="block w-full text-center py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                  className="block w-full text-center py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors min-h-[44px] flex items-center justify-center"
                 >
                   Sign In
                 </Link>
