@@ -73,20 +73,20 @@ export const EnhancedPricingTable = () => {
   const { planName: currentPlan } = useSubscription();
 
   return (
-    <section className="py-24 relative overflow-hidden" aria-labelledby="pricing-heading">
+    <section className="py-16 relative overflow-hidden" aria-labelledby="pricing-heading">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-purple-50/20 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Section Header with improved typography */}
-        <header className="text-center mb-16">
-          <h2 id="pricing-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-readable">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 id="pricing-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Choose Your Perfect Plan
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8 text-readable line-height-reading">
-            Transparent pricing with no hidden fees. Start free, upgrade when you're ready, and cancel anytime with our flexible plans designed for every creator.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+            Transparent pricing with no hidden fees. Upgrade or cancel anytime.
           </p>
-        </header>
+        </div>
 
         <BillingToggle
           billingCycle={billingCycle}
@@ -94,13 +94,13 @@ export const EnhancedPricingTable = () => {
           discount={20}
         />
 
-        {/* Subscription Status Display with improved spacing */}
-        <div className="flex justify-center mb-16">
+        {/* Subscription Status Display */}
+        <div className="flex justify-center mb-12">
           <SubscriptionStatus />
         </div>
 
-        {/* Pricing Cards Grid with improved responsive design */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 mb-20">
+        {/* Pricing Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 mb-16">
           {pricingPlans.map((plan, index) => (
             <div 
               key={index} 
@@ -115,34 +115,28 @@ export const EnhancedPricingTable = () => {
           ))}
         </div>
 
-        {/* Enhanced Bottom Section with better organization */}
-        <div className="text-center space-y-8 mt-16 pt-12 border-t border-gray-200">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-5xl mx-auto shadow-sm border border-gray-100">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6 text-readable">Why Choose WordToImage?</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm text-gray-600">
+        {/* Bottom Section */}
+        <div className="text-center space-y-6 mt-12 pt-8">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-4xl mx-auto shadow-sm border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Need help choosing?</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600">
               <div className="text-left">
-                <p className="font-medium text-gray-900 mb-3 text-readable">✓ Easy Plan Changes</p>
-                <p className="text-readable line-height-reading">Switch plans anytime with prorated billing. Changes take effect immediately with no downtime.</p>
+                <p className="font-medium text-gray-900 mb-2">✓ Easy Plan Changes</p>
+                <p>Switch plans anytime with prorated billing. Changes take effect immediately.</p>
               </div>
               <div className="text-left">
-                <p className="font-medium text-gray-900 mb-3 text-readable">✓ Transparent Pricing</p>
-                <p className="text-readable line-height-reading">No setup fees, no hidden costs. Pay only for what you use with crystal-clear limits and features.</p>
-              </div>
-              <div className="text-left">
-                <p className="font-medium text-gray-900 mb-3 text-readable">✓ 99.9% Uptime SLA</p>
-                <p className="text-readable line-height-reading">Reliable service you can count on with enterprise-grade infrastructure and monitoring.</p>
+                <p className="font-medium text-gray-900 mb-2">✓ Transparent Pricing</p>
+                <p>No setup fees, no hidden costs. Pay only for what you use with clear limits.</p>
               </div>
             </div>
           </div>
           
-          <div className="space-y-4">
-            <p className="text-gray-600 text-lg text-readable line-height-reading">
-              All plans include access to our core AI technology with industry-leading performance
-            </p>
-            <p className="text-sm text-gray-500 text-readable">
-              Enterprise teams with 10+ users? <a href="/contact" className="text-blue-600 hover:text-blue-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded underline">Contact us for volume pricing and custom solutions</a>
-            </p>
-          </div>
+          <p className="text-gray-600 mb-4">
+            All plans include access to our core AI technology with 99.9% uptime SLA
+          </p>
+          <p className="text-sm text-gray-500">
+            Enterprise teams with 10+ users? <a href="/contact" className="text-blue-600 hover:text-blue-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">Contact us for volume pricing</a>
+          </p>
         </div>
       </div>
     </section>
