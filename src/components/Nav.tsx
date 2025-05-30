@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { BottomNavigation } from './navigation/BottomNavigation';
+import { MobileTabNavigation } from './navigation/MobileTabNavigation';
 import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
 
 export const Nav = () => {
@@ -29,7 +29,7 @@ export const Nav = () => {
     }
   }, []);
 
-  // Consistent navigation order across all pages
+  // Desktop navigation items
   const navItems = [
     { name: 'Features', path: '/features' },
     { name: 'Pricing', path: '/pricing' },
@@ -59,10 +59,10 @@ export const Nav = () => {
           <div className={`flex items-center justify-between ${
             isMobile ? 'h-16 py-3' : isTablet ? 'h-18 py-4' : 'h-20 py-5'
           }`}>
-            {/* Enhanced Logo with proper spacing */}
+            {/* Logo */}
             <Link 
               to="/" 
-              className="flex items-center space-x-3 group z-50 logo-container focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg p-2"
+              className="flex items-center space-x-3 group z-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg p-2"
               aria-label="WordToImage Home - Transform text into images with AI"
             >
               <div className={`bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl ${
@@ -130,7 +130,7 @@ export const Nav = () => {
               </>
             )}
 
-            {/* Mobile: Only show CTA button, no hamburger menu */}
+            {/* Mobile: Only show CTA button */}
             {isMobile && (
               <Link
                 to="/text-to-image"
@@ -150,13 +150,8 @@ export const Nav = () => {
         )}
       </motion.nav>
 
-      {/* Bottom Navigation for Mobile Only */}
-      <BottomNavigation />
-      
-      {/* Add bottom padding to main content when bottom nav is visible */}
-      {isMobile && (
-        <div className="h-20" />
-      )}
+      {/* Mobile Tab Navigation */}
+      <MobileTabNavigation />
     </>
   );
 };
