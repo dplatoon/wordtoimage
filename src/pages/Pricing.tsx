@@ -23,19 +23,40 @@ const Pricing = () => {
         ]}
       />
       
+      {/* Skip to main content link for accessibility */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      
       <div className="min-h-screen bg-white">
-        <Nav />
+        <header>
+          <Nav />
+        </header>
         
         <SubscriptionProvider>
-          <main>
-            <EnhancedPricingHero />
-            <EnhancedPricingTable />
-            <EnhancedFAQ />
-            <PricingCTA />
+          <main id="main-content" className="relative">
+            {/* Improved section spacing and semantic structure */}
+            <section aria-label="Pricing introduction">
+              <EnhancedPricingHero />
+            </section>
+            
+            <section aria-label="Pricing plans comparison" className="py-8">
+              <EnhancedPricingTable />
+            </section>
+            
+            <section aria-label="Frequently asked questions" className="py-16 bg-gray-50">
+              <EnhancedFAQ />
+            </section>
+            
+            <section aria-label="Get started call to action" className="py-16">
+              <PricingCTA />
+            </section>
           </main>
         </SubscriptionProvider>
 
-        <Footer />
+        <footer id="footer">
+          <Footer />
+        </footer>
       </div>
     </>
   );
