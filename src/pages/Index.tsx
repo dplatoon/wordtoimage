@@ -20,6 +20,7 @@ import { ReadingProgress } from '@/components/content/ReadingProgress';
 
 const Index = () => {
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  const [showBetaBanner, setShowBetaBanner] = useState(true);
 
   useEffect(() => {
     // Track page view
@@ -29,6 +30,12 @@ const Index = () => {
       }).catch(error => {
         console.warn('Analytics tracking failed:', error);
       });
+    }
+
+    // Check if beta banner is dismissed
+    const isDismissed = localStorage.getItem('betaBannerDismissed') === 'true';
+    if (isDismissed) {
+      setShowBetaBanner(false);
     }
   }, []);
 
@@ -54,43 +61,46 @@ const Index = () => {
         <Nav />
       </header>
       
-      <main id="main-content" className="relative">
-        <section aria-label="Hero section">
-          <ModernAIHero onShowProFeatures={handleShowProFeatures} />
-        </section>
-        
-        <section aria-label="Features overview">
-          <FeaturesGridSection />
-        </section>
-        
-        <section aria-label="How it works">
-          <HowItWorksDetailed />
-        </section>
-        
-        <section aria-label="Image showcase">
-          <ImageShowcaseGrid />
-        </section>
-        
-        <section aria-label="Style presets">
-          <StylePresetsGallery />
-        </section>
-        
-        <section aria-label="Sample prompts">
-          <SamplePromptsSection />
-        </section>
-        
-        <section aria-label="Customer testimonials">
-          <EnhancedTestimonials />
-        </section>
-        
-        <section aria-label="Pricing plans">
-          <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
-        </section>
-        
-        <section aria-label="Frequently asked questions">
-          <FAQSection />
-        </section>
-      </main>
+      {/* Add proper spacing for beta banner and navigation */}
+      <div className={`${showBetaBanner ? 'pt-[6.5rem] md:pt-[7.5rem]' : 'pt-16 md:pt-20'}`}>
+        <main id="main-content" className="relative">
+          <section aria-label="Hero section">
+            <ModernAIHero onShowProFeatures={handleShowProFeatures} />
+          </section>
+          
+          <section aria-label="Features overview">
+            <FeaturesGridSection />
+          </section>
+          
+          <section aria-label="How it works">
+            <HowItWorksDetailed />
+          </section>
+          
+          <section aria-label="Image showcase">
+            <ImageShowcaseGrid />
+          </section>
+          
+          <section aria-label="Style presets">
+            <StylePresetsGallery />
+          </section>
+          
+          <section aria-label="Sample prompts">
+            <SamplePromptsSection />
+          </section>
+          
+          <section aria-label="Customer testimonials">
+            <EnhancedTestimonials />
+          </section>
+          
+          <section aria-label="Pricing plans">
+            <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
+          </section>
+          
+          <section aria-label="Frequently asked questions">
+            <FAQSection />
+          </section>
+        </main>
+      </div>
       
       <footer id="footer">
         <ModernFooter />

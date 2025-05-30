@@ -45,7 +45,7 @@ export const BetaBanner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-blue-600 text-white px-4 py-2 text-sm fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center shadow-lg">
+    <div className="bg-blue-600 text-white px-4 py-2 text-sm fixed top-0 left-0 right-0 z-[60] flex items-center justify-center shadow-lg">
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
         <div className="flex items-center">
           <span className="font-semibold mr-2">Beta Release</span>

@@ -11,6 +11,7 @@ import { manageFocus, createFocusTrap } from '@/utils/accessibility';
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showBetaBanner, setShowBetaBanner] = useState(true);
   const location = useLocation();
   const { isMobile, isTablet } = useResponsiveDesign();
 
@@ -21,6 +22,14 @@ export const Nav = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Check if beta banner is dismissed
+  useEffect(() => {
+    const isDismissed = localStorage.getItem('betaBannerDismissed') === 'true';
+    if (isDismissed) {
+      setShowBetaBanner(false);
+    }
   }, []);
 
   // Close mobile menu when route changes
@@ -64,7 +73,9 @@ export const Nav = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+          showBetaBanner ? 'top-10' : 'top-0'
+        } ${
           isScrolled 
             ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200' 
             : 'bg-transparent'
