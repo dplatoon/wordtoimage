@@ -35,12 +35,6 @@ export const Nav = () => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
-  const mainNavItems = [
-    { label: 'Features', href: '/features' },
-    { label: 'Templates', href: '/templates' },
-    { label: 'Pricing', href: '/pricing' },
-  ];
-
   return (
     <>
       <motion.nav
@@ -74,25 +68,9 @@ export const Nav = () => {
               </span>
             </Link>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation - Only Resources Dropdown */}
             {!isMobile && (
               <div className="hidden md:flex items-center space-x-8">
-                {mainNavItems.map((item) => {
-                  const isActive = location.pathname === item.href;
-                  return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      className={`text-sm font-medium transition-colors px-3 py-2 rounded-lg ${
-                        isActive 
-                          ? 'text-indigo-600 bg-indigo-50' 
-                          : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                })}
                 <ResourcesDropdown />
               </div>
             )}
@@ -148,28 +126,12 @@ export const Nav = () => {
         )}
       </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Updated to match desktop navigation */}
       {isMobile && isMobileMenuOpen && (
         <div className={`fixed inset-0 z-40 ${showBetaBanner ? 'top-[106px]' : 'top-16'}`}>
           <div className="absolute inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)} />
           <div className="relative bg-white border-t border-gray-200 px-4 py-6">
             <div className="space-y-4">
-              {mainNavItems.map((item) => {
-                const isActive = location.pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
-                      isActive 
-                        ? 'text-indigo-600 bg-indigo-50' 
-                        : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
               
               <div className="border-t border-gray-200 pt-4 mt-4">
                 <div className="text-sm font-medium text-gray-900 mb-3">Resources</div>
