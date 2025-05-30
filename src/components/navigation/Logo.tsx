@@ -10,16 +10,21 @@ export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }
   const [logoError, setLogoError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Select the appropriate logo based on variant
+  const logoSrc = variant === 'footer' 
+    ? '/lovable-uploads/1dcd2e5a-52c3-42ee-b9c0-2c7c24dc9aae.png'
+    : '/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png';
+
   // Preload the logo image
   useEffect(() => {
     const img = new window.Image();
-    img.src = '/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png';
+    img.src = logoSrc;
     img.onload = () => setIsLoaded(true);
     img.onerror = () => {
       console.error('Failed to preload logo image');
       setLogoError(true);
     };
-  }, []);
+  }, [logoSrc]);
   
   const handleImageError = () => {
     console.error('Failed to load logo image');
@@ -78,7 +83,7 @@ export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }
         >
           <img 
             alt="WordToImage Logo" 
-            src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png"
+            src={logoSrc}
             onError={handleImageError}
             className={logoImageClasses}
             loading="eager"
