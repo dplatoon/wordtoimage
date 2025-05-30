@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { generateImage } from '@/services/runwareService';
+import { generateImageWithAI } from '@/services/imageGenerationService';
 import { toast } from '@/components/ui/sonner';
 import { getErrorMessage, getErrorDisplayDetails } from '@/utils/imageGenerationErrors';
 import { useAuth } from '@/contexts/AuthContext';
@@ -84,10 +84,11 @@ export const useImageGeneration = ({
         size: options.size,
         quality: options.quality,
         userId: options.userId ? "provided" : "not provided",
-        hasSourceImage: !!sourceImage
+        hasSourceImage: !!sourceImage,
+        hasApiKey: !!tempApiKey
       });
       
-      const result = await generateImage(options);
+      const result = await generateImageWithAI(options);
       
       if (result.error) {
         console.error("Generation error in result:", result.error);
@@ -107,7 +108,9 @@ export const useImageGeneration = ({
         
         if (!retry) {
           toast.success("Image Generated!", {
-            description: "Your custom graphic is ready to download.",
+            description: result.usingServerKey 
+              ? "Your custom graphic is ready to download."
+              : "Generated using your API key.",
             duration: 5000,
             action: {
               label: 'Generate Another',

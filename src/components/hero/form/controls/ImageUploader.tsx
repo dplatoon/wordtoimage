@@ -3,7 +3,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/sonner';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Upload, Image as ImageIcon, X, Wand2, Info } from 'lucide-react';
+import { Upload, Image as ImageIcon, X, Wand2, Info, AlertCircle } from 'lucide-react';
 import { trackEvent, events } from '@/utils/analytics';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
@@ -16,18 +16,26 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const validateAndProcessFile = useCallback((file: File) => {
+    setUploadError(null);
+    
     // Validate file type
-    if (!file.type.match('image.*')) {
-      toast.error('Please select an image file (PNG, JPG, WEBP)');
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/webp', 'image/jpg'];
+    if (!allowedTypes.includes(file.type)) {
+      const error = 'Please select a valid image file (PNG, JPG, JPEG, or WEBP)';
+      setUploadError(error);
+      toast.error('Invalid file type', { description: error });
       return false;
     }
 
     // Validate file size (max 10MB)
     if (file.size > 10 * 1024 * 1024) {
-      toast.error('Image must be smaller than 10MB');
+      const error = 'Image must be smaller than 10MB';
+      setUploadError(error);
+      toast.error('File too large', { description: error });
       return false;
     }
 
@@ -36,6 +44,16 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
     
     reader.onload = (event) => {
       const result = event.target?.result as string;
+      
+      // Validate that we got a proper data URL
+      if (!result || !result.startsWith('data:image/')) {
+        const error = 'Failed to process the image file';
+        setUploadError(error);
+        toast.error('Upload failed', { description: error });
+        setIsLoading(false);
+        return;
+      }
+      
       setPreviewUrl(result);
       onImageSelected(result);
       setIsLoading(false);
@@ -51,7 +69,9 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
     };
     
     reader.onerror = () => {
-      toast.error('Failed to read the image file');
+      const error = 'Failed to read the image file';
+      setUploadError(error);
+      toast.error('Upload failed', { description: error });
       setIsLoading(false);
     };
     
@@ -91,6 +111,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
 
   const handleRemoveImage = () => {
     setPreviewUrl(null);
+    setUploadError(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -108,16 +129,27 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
       <Alert className="bg-blue-50 border-blue-200">
         <Info className="h-4 w-4 text-blue-600" />
         <AlertDescription className="text-blue-800">
-          Upload an image and describe how you want to transform it. Our AI will use your image as a starting point.
+          Upload an image and describe how you want to transform it. Our AI will use your image as a starting point to create something new.
         </AlertDescription>
       </Alert>
       
-      <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 bg-white transition-all duration-200 hover:border-purple-400 hover:bg-purple-50/50">
+      {uploadError && (
+        <Alert className="bg-red-50 border-red-200">
+          <AlertCircle className="h-4 w-4 text-red-600" />
+          <AlertDescription className="text-red-800">
+            {uploadError}
+          </AlertDescription>
+        </Alert>
+      )}
+      
+      <div className={`border-2 border-dashed rounded-xl p-6 bg-white transition-all duration-200 hover:border-purple-400 hover:bg-purple-50/50 ${
+        isDragOver ? 'border-purple-500 bg-purple-100' : 'border-gray-300'
+      } ${uploadError ? 'border-red-300' : ''}`}>
         {!previewUrl ? (
           <div 
             className={`flex flex-col items-center justify-center py-8 cursor-pointer transition-all duration-200 ${
-              isDragOver ? 'bg-purple-100 border-purple-500' : ''
-            } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
             onClick={!disabled ? handleUploadClick : undefined}
             onDrop={!disabled ? handleDrop : undefined}
             onDragOver={!disabled ? handleDragOver : undefined}
@@ -127,7 +159,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
               type="file" 
               ref={fileInputRef}
               className="hidden" 
-              accept="image/*" 
+              accept="image/png,image/jpeg,image/webp,image/jpg" 
               onChange={handleFileChange}
               disabled={disabled}
             />
@@ -140,7 +172,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
               Drop your image here or click to upload
             </h4>
             <p className="text-sm text-gray-600 text-center max-w-xs">
-              Supports PNG, JPG, WEBP • Max 10MB
+              Supports PNG, JPG, JPEG, WEBP • Max 10MB
             </p>
             
             {isDragOver && (
@@ -194,9 +226,10 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
         <div>
           <p className="font-medium">Tips for best results:</p>
           <ul className="mt-1 space-y-1 text-xs">
-            <li>• Use clear, well-lit images</li>
-            <li>• Describe specific changes you want</li>
-            <li>• Try prompts like "make it more colorful" or "change to cartoon style"</li>
+            <li>• Use clear, well-lit images with good contrast</li>
+            <li>• Describe specific changes: "make it cartoon style" or "change to watercolor painting"</li>
+            <li>• Avoid overly complex or cluttered source images</li>
+            <li>• JPEG, PNG, and WEBP formats work best</li>
           </ul>
         </div>
       </div>
