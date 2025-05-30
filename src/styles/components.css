@@ -21,12 +21,12 @@
   }
 
   .text-gradient-brand {
-    @apply bg-gradient-to-r from-brand-navy via-brand-purple to-brand-teal bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-blue-900 via-purple-600 to-teal-600 bg-clip-text text-transparent;
     will-change: background-position;
   }
   
   .text-gradient-accent {
-    @apply bg-gradient-to-r from-brand-teal to-brand-coral bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-teal-500 to-pink-500 bg-clip-text text-transparent;
     will-change: background-position;
   }
 
@@ -43,12 +43,12 @@
   }
   
   .btn-accent {
-    @apply bg-brand-teal hover:bg-brand-coral text-white;
-    @apply font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-teal transition-all duration-200;
-    @apply hover:shadow-brand-lg hover:-translate-y-0.5 transform;
+    @apply bg-teal-500 hover:bg-pink-500 text-white;
+    @apply font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg transition-all duration-200;
+    @apply hover:shadow-xl hover:-translate-y-0.5 transform;
     @apply text-sm sm:text-base font-semibold;
     @apply min-h-[44px] sm:min-h-[48px];
-    @apply focus:ring-2 focus:ring-brand-teal focus:ring-offset-2;
+    @apply focus:ring-2 focus:ring-teal-500 focus:ring-offset-2;
     will-change: transform, box-shadow;
     transform: translateZ(0);
   }
@@ -127,5 +127,14 @@
     overflow: visible;
     clip: auto;
     white-space: normal;
+  }
+
+  /* Enhanced shadow utilities */
+  .shadow-brand {
+    box-shadow: 0 10px 25px -3px rgba(79, 70, 229, 0.1), 0 4px 6px -2px rgba(79, 70, 229, 0.05);
+  }
+
+  .shadow-brand-lg {
+    box-shadow: 0 20px 40px -4px rgba(79, 70, 229, 0.15), 0 8px 16px -4px rgba(79, 70, 229, 0.1);
   }
 }
