@@ -49,31 +49,31 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
             <Zap className="w-4 h-4 ml-2" />
           </motion.div>
           
-          {/* Main Headline */}
-          <h1 className="hero-title text-white leading-tight mb-6 sm:mb-8 px-4 sm:px-6 lg:px-0">
+          {/* Main H1 - Proper semantic structure */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight mb-6 sm:mb-8 px-4 sm:px-6 lg:px-0">
             <span className="block">
-              Transform Your
+              Transform Text into
             </span>
             <span className="block mt-2 text-gradient-neon">
-              Words Into Magic
+              Stunning Images
             </span>
-            <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-ai-accent">
-              Instantly with AI
+            <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-ai-accent">
+              with AI
             </span>
           </h1>
           
-          {/* Subtitle */}
-          <motion.p 
-            className="hero-subtitle text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-10 px-4 sm:px-6 lg:px-0"
+          {/* Subtitle - H2 for proper hierarchy */}
+          <motion.h2 
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-10 px-4 sm:px-6 lg:px-0 font-normal"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             Create stunning AI-generated visuals from simple text descriptions.
-            <span className="block mt-3 text-ai-accent font-medium">
+            <span className="block mt-3 text-ai-accent font-medium text-base sm:text-lg md:text-xl lg:text-2xl">
               No design skills required • Professional quality • Lightning fast
             </span>
-          </motion.p>
+          </motion.h2>
 
           {/* How it Works Flow */}
           <motion.div
@@ -102,31 +102,37 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
             </div>
           </motion.div>
           
-          {/* CTA Buttons */}
+          {/* Enhanced CTA Buttons with better contrast and visibility */}
           <motion.div 
             className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-10 sm:mb-12 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
+            {/* Primary CTA - Enhanced visibility and contrast */}
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold px-10 py-6 text-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto touch-target-large" 
+              className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto min-h-[56px] border-2 border-orange-400/50 hover:border-orange-300" 
               asChild
             >
               <Link to="/text-to-image">
-                Start Creating Now
-                <Wand2 className="ml-3 h-6 w-6 transition-transform group-hover:rotate-12" />
+                <span className="flex items-center justify-center gap-3">
+                  <Wand2 className="h-7 w-7 transition-transform group-hover:rotate-12" />
+                  <span className="font-extrabold text-shadow">Start Creating Now</span>
+                </span>
               </Link>
             </Button>
             
+            {/* Secondary CTA - Improved contrast */}
             <Button 
               size="lg" 
-              className="btn-ai-secondary group w-full sm:w-auto touch-target-large text-xl px-10 py-6 border-ai-neon text-ai-neon hover:bg-ai-neon hover:text-ai-dark"
+              className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white/20 hover:border-white/50 font-semibold px-10 py-8 text-xl rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto min-h-[56px]"
               onClick={onShowProFeatures}
             >
-              See Examples
-              <Play className="ml-3 h-5 w-5 fill-current transition-transform group-hover:translate-x-1" />
+              <span className="flex items-center justify-center gap-3">
+                <Play className="h-6 w-6 fill-current transition-transform group-hover:translate-x-1" />
+                <span>See Examples</span>
+              </span>
             </Button>
           </motion.div>
           
