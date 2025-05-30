@@ -1,53 +1,6 @@
 
 /* Enhanced WCAG AA Compliant Accessibility Styles */
 
-/* Screen reader only content with better positioning */
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-.sr-only:focus,
-.focus\:not-sr-only:focus {
-  position: static !important;
-  width: auto !important;
-  height: auto !important;
-  padding: inherit !important;
-  margin: inherit !important;
-  overflow: visible !important;
-  clip: auto !important;
-  white-space: normal !important;
-}
-
-/* Skip links with enhanced styling */
-.skip-links a {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: #000;
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  z-index: 9999;
-  transition: top 0.3s ease;
-}
-
-.skip-links a:focus {
-  top: 6px;
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-}
-
 /* High contrast mode support with better coverage */
 @media (prefers-contrast: high) {
   .border-slate-200,
@@ -109,6 +62,45 @@
   }
 }
 
+/* Dedicated Skip Links Styles - Non-conflicting with Tailwind */
+.skip-links {
+  position: relative;
+  z-index: 10000;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1e40af;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 2px solid #ffffff;
+  transition: top 0.3s ease;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.skip-link:focus {
+  top: 16px;
+  opacity: 1;
+  pointer-events: auto;
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+.skip-link:hover:focus {
+  background-color: #1d4ed8;
+  transform: translateX(-50%) scale(1.02);
+}
+
 /* Enhanced focus indicators with WCAG compliance */
 .focus-visible\:ring-2:focus-visible,
 button:focus-visible,
@@ -158,7 +150,8 @@ input[type="reset"],
 /* Exception for text links in paragraphs */
 p a, 
 li a,
-.text-link {
+.text-link,
+.skip-link {
   min-height: auto;
   min-width: auto;
   display: inline;
@@ -303,11 +296,7 @@ th, td {
     content: " (" attr(href) ")";
   }
   
-  .sr-only {
-    position: static !important;
-    width: auto !important;
-    height: auto !important;
-    clip: auto !important;
-    overflow: visible !important;
+  .skip-links {
+    display: none !important;
   }
 }
