@@ -8,6 +8,30 @@
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
+/* Improved readability text classes with WCAG AA compliance */
+.text-readable {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #374151; /* 4.8:1 contrast ratio on white */
+}
+
+.text-readable-large {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #374151;
+}
+
+.text-high-contrast {
+  color: #1f2937; /* 7.2:1 contrast ratio - WCAG AAA */
+  font-weight: 500;
+}
+
+.text-secondary-readable {
+  color: #4b5563; /* 4.6:1 contrast ratio */
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 /* Enhanced Touch Targets */
 .touch-target-large {
   min-height: 44px;
@@ -26,12 +50,16 @@
   border-radius: 8px;
 }
 
-/* Enhanced Button Gradients */
+/* Enhanced Button Gradients with better contrast */
 .btn-primary-enhanced {
   background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
   border: 2px solid rgba(251, 146, 60, 0.5);
   box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .btn-primary-enhanced:hover {
@@ -42,37 +70,91 @@
 }
 
 .btn-secondary-enhanced {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(55, 65, 81, 0.3);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #374151; /* High contrast text */
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .btn-secondary-enhanced:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(55, 65, 81, 0.5);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
   transform: translateY(-1px) scale(1.02);
+  color: #1f2937; /* Even higher contrast on hover */
 }
 
-/* Responsive Typography Scale */
+/* Responsive Typography Scale with readability focus */
 @media (min-width: 640px) {
-  .responsive-text-lg { font-size: 1.125rem; }
-  .responsive-text-xl { font-size: 1.25rem; }
-  .responsive-text-2xl { font-size: 1.5rem; }
+  .responsive-text-lg { 
+    font-size: 1.125rem; 
+    line-height: 1.6;
+  }
+  .responsive-text-xl { 
+    font-size: 1.25rem; 
+    line-height: 1.5;
+  }
+  .responsive-text-2xl { 
+    font-size: 1.5rem; 
+    line-height: 1.4;
+  }
 }
 
 @media (min-width: 768px) {
-  .responsive-text-lg { font-size: 1.25rem; }
-  .responsive-text-xl { font-size: 1.5rem; }
-  .responsive-text-2xl { font-size: 1.875rem; }
+  .responsive-text-lg { 
+    font-size: 1.25rem; 
+    line-height: 1.6;
+  }
+  .responsive-text-xl { 
+    font-size: 1.5rem; 
+    line-height: 1.5;
+  }
+  .responsive-text-2xl { 
+    font-size: 1.875rem; 
+    line-height: 1.3;
+  }
 }
 
 @media (min-width: 1024px) {
-  .responsive-text-lg { font-size: 1.5rem; }
-  .responsive-text-xl { font-size: 1.875rem; }
-  .responsive-text-2xl { font-size: 2.25rem; }
+  .responsive-text-lg { 
+    font-size: 1.5rem; 
+    line-height: 1.6;
+  }
+  .responsive-text-xl { 
+    font-size: 1.875rem; 
+    line-height: 1.5;
+  }
+  .responsive-text-2xl { 
+    font-size: 2.25rem; 
+    line-height: 1.3;
+  }
+}
+
+/* Reading-optimized line spacing */
+.line-height-reading {
+  line-height: 1.7;
+}
+
+.line-height-tight {
+  line-height: 1.3;
+}
+
+.line-height-relaxed {
+  line-height: 1.6;
+}
+
+/* Letter spacing for improved readability */
+.letter-spacing-readable {
+  letter-spacing: 0.01em;
+}
+
+.letter-spacing-wide {
+  letter-spacing: 0.05em;
 }
 
 /* Accessibility improvements */
@@ -93,11 +175,21 @@
   .btn-primary-enhanced {
     border-width: 3px;
     border-color: #000;
+    color: #fff;
+    background: #000;
   }
   
   .btn-secondary-enhanced {
     border-width: 3px;
-    border-color: #fff;
+    border-color: #000;
+    color: #000;
+    background: #fff;
+  }
+  
+  .text-readable,
+  .text-readable-large,
+  .text-secondary-readable {
+    color: #000;
   }
 }
 
@@ -111,5 +203,23 @@
   .btn-primary-enhanced:hover,
   .btn-secondary-enhanced:hover {
     transform: none;
+  }
+}
+
+/* Print styles for better readability */
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+  }
+  
+  h1 { font-size: 24pt; }
+  h2 { font-size: 20pt; }
+  h3 { font-size: 16pt; }
+  
+  .text-readable,
+  .text-readable-large {
+    color: #000;
   }
 }

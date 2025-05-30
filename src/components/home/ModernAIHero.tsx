@@ -45,32 +45,32 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
             className="inline-flex items-center px-4 py-2 rounded-full bg-ai-neon/20 border border-ai-neon/30 text-ai-neon text-sm font-medium mb-6 sm:mb-8 backdrop-blur-sm"
           >
             <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
-            AI-Powered Creative Studio
+            <span className="text-readable">AI-Powered Creative Studio</span>
             <Zap className="w-4 h-4 ml-2" />
           </motion.div>
           
-          {/* Main H1 - Proper semantic structure */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight mb-6 sm:mb-8 px-4 sm:px-6 lg:px-0">
-            <span className="block">
+          {/* Main H1 - Enhanced for better readability */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight mb-6 sm:mb-8 px-4 sm:px-6 lg:px-0 text-high-contrast">
+            <span className="block line-height-tight">
               Transform Text into
             </span>
-            <span className="block mt-2 text-gradient-neon">
+            <span className="block mt-2 text-gradient-neon line-height-tight">
               Stunning Images
             </span>
-            <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-ai-accent">
+            <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-ai-accent line-height-tight">
               with AI
             </span>
           </h1>
           
-          {/* Subtitle - H2 for proper hierarchy */}
+          {/* Subtitle - H2 with improved readability */}
           <motion.h2 
-            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-10 px-4 sm:px-6 lg:px-0 font-normal"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-100 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-10 px-4 sm:px-6 lg:px-0 font-normal text-readable-large line-height-reading"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             Create stunning AI-generated visuals from simple text descriptions.
-            <span className="block mt-3 text-ai-accent font-medium text-base sm:text-lg md:text-xl lg:text-2xl">
+            <span className="block mt-3 text-ai-accent font-medium text-base sm:text-lg md:text-xl lg:text-2xl text-readable">
               No design skills required • Professional quality • Lightning fast
             </span>
           </motion.h2>
@@ -86,57 +86,57 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-white">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-ai-neon rounded-full flex items-center justify-center text-ai-dark font-bold text-lg shadow-lg">1</div>
-                  <span className="font-semibold">Describe</span>
+                  <span className="font-semibold text-readable">Describe</span>
                 </div>
                 <ArrowRight className="h-5 w-5 text-ai-accent rotate-90 sm:rotate-0 animate-pulse" />
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-ai-purple rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">2</div>
-                  <span className="font-semibold">Generate</span>
+                  <span className="font-semibold text-readable">Generate</span>
                 </div>
                 <ArrowRight className="h-5 w-5 text-ai-accent rotate-90 sm:rotate-0 animate-pulse" />
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-ai-coral rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">3</div>
-                  <span className="font-semibold">Download</span>
+                  <span className="font-semibold text-readable">Download</span>
                 </div>
               </div>
             </div>
           </motion.div>
           
-          {/* Enhanced CTA Buttons with better contrast and visibility */}
+          {/* Enhanced CTA Buttons with improved readability */}
           <motion.div 
             className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-10 sm:mb-12 px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            {/* Primary CTA - Enhanced visibility and contrast */}
+            {/* Primary CTA - Enhanced for maximum contrast and readability */}
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto min-h-[56px] border-2 border-orange-400/50 hover:border-orange-300" 
+              className="btn-primary-enhanced touch-target-extra-large w-full sm:w-auto text-white font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105 min-h-[56px] border-2 border-orange-400/50 hover:border-orange-300 line-height-tight" 
               asChild
             >
               <Link to="/text-to-image">
                 <span className="flex items-center justify-center gap-3">
                   <Wand2 className="h-7 w-7 transition-transform group-hover:rotate-12" />
-                  <span className="font-extrabold text-shadow">Start Creating Now</span>
+                  <span className="font-extrabold text-shadow text-readable">Start Creating Now</span>
                 </span>
               </Link>
             </Button>
             
-            {/* Secondary CTA - Improved contrast */}
+            {/* Secondary CTA - Improved contrast and readability */}
             <Button 
               size="lg" 
-              className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white/20 hover:border-white/50 font-semibold px-10 py-8 text-xl rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto min-h-[56px]"
+              className="btn-secondary-enhanced touch-target-extra-large w-full sm:w-auto font-semibold px-10 py-8 text-xl rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[56px] line-height-tight"
               onClick={onShowProFeatures}
             >
               <span className="flex items-center justify-center gap-3">
                 <Play className="h-6 w-6 fill-current transition-transform group-hover:translate-x-1" />
-                <span>See Examples</span>
+                <span className="text-readable">See Examples</span>
               </span>
             </Button>
           </motion.div>
           
-          {/* Trust Indicators */}
+          {/* Trust Indicators with improved readability */}
           <motion.div
             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-ai-accent px-4 sm:px-6 lg:px-0"
             initial={{ opacity: 0 }}
@@ -145,19 +145,19 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-              Free to try
+              <span className="text-readable font-medium">Free to try</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-              No credit card required
+              <span className="text-readable font-medium">No credit card required</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-              4K quality images
+              <span className="text-readable font-medium">4K quality images</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-              50+ AI styles
+              <span className="text-readable font-medium">50+ AI styles</span>
             </div>
           </motion.div>
         </motion.div>
