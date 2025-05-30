@@ -19,7 +19,7 @@ export const BottomNavigation = () => {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-t border-ai-accent/20 safe-area-bottom"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-t border-gray-200 safe-area-bottom"
       style={{
         background: 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.95) 100%)',
         paddingBottom: 'env(safe-area-inset-bottom)',
@@ -28,7 +28,7 @@ export const BottomNavigation = () => {
       aria-label="Bottom navigation"
     >
       {/* Subtle top glow */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ai-accent/30 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent" />
       
       <div className="flex items-center justify-around px-4 py-2 relative">
         {/* Navigation Items */}
