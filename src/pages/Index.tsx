@@ -57,13 +57,13 @@ const Index = () => {
       <SkipToContent />
       <BetaBanner />
       
-      <header>
+      <header id="navigation">
         <Nav />
       </header>
       
       {/* Simplified spacing logic */}
       <div className={showBetaBanner ? 'pt-[106px]' : 'pt-16'}>
-        <main id="main-content" className="relative">
+        <main id="main-content" className="relative" tabIndex={-1}>
           <section aria-label="Hero section">
             <ModernAIHero onShowProFeatures={handleShowProFeatures} />
           </section>
@@ -102,7 +102,7 @@ const Index = () => {
         </main>
       </div>
       
-      <footer id="footer">
+      <footer id="footer" tabIndex={-1}>
         <ModernFooter />
       </footer>
       

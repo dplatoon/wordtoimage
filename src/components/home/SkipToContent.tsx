@@ -1,8 +1,21 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const SkipToContent = () => {
+  const [isKeyboardUser, setIsKeyboardUser] = useState(false);
+
   useEffect(() => {
+    // Detect keyboard usage
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Tab') {
+        setIsKeyboardUser(true);
+      }
+    };
+
+    const handleMouseDown = () => {
+      setIsKeyboardUser(false);
+    };
+
     // Ensure target elements have proper IDs
     const ensureTargetExists = (id: string, fallbackSelector?: string) => {
       if (!document.getElementById(id)) {
@@ -17,6 +30,14 @@ export const SkipToContent = () => {
     ensureTargetExists('main-content', 'main, [role="main"], .main-content');
     ensureTargetExists('navigation', 'nav, [role="navigation"], .navigation');
     ensureTargetExists('footer', 'footer, [role="contentinfo"], .footer');
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleMouseDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleMouseDown);
+    };
   }, []);
 
   const handleSkipClick = (targetId: string) => {
@@ -27,11 +48,16 @@ export const SkipToContent = () => {
     }
   };
 
+  // Only render when keyboard navigation is detected
+  if (!isKeyboardUser) {
+    return null;
+  }
+
   return (
-    <div className="skip-links">
+    <div className="accessibility-skip-links">
       <a
         href="#main-content"
-        className="skip-link"
+        className="accessibility-skip-link"
         onClick={(e) => {
           e.preventDefault();
           handleSkipClick('main-content');
@@ -47,7 +73,7 @@ export const SkipToContent = () => {
       </a>
       <a
         href="#navigation"
-        className="skip-link"
+        className="accessibility-skip-link"
         onClick={(e) => {
           e.preventDefault();
           handleSkipClick('navigation');
@@ -63,7 +89,7 @@ export const SkipToContent = () => {
       </a>
       <a
         href="#footer"
-        className="skip-link"
+        className="accessibility-skip-link"
         onClick={(e) => {
           e.preventDefault();
           handleSkipClick('footer');
