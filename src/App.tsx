@@ -30,6 +30,9 @@ const Help = lazy(() => import("./pages/Help"));
 const API = lazy(() => import("./pages/API"));
 const Updates = lazy(() => import("./pages/Updates"));
 const Careers = lazy(() => import("./pages/Careers"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Cookies = lazy(() => import("./pages/Cookies"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
@@ -95,6 +98,9 @@ function App() {
                   <Route path="/api" element={<API />} />
                   <Route path="/updates" element={<Updates />} />
                   <Route path="/careers" element={<Careers />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/cookies" element={<Cookies />} />
                   {/* 404 catch-all route - must be last */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
