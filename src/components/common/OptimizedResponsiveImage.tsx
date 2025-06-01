@@ -1,151 +1,176 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { ImageOff } from 'lucide-react';
-import { PerformanceOptimizer } from '@/utils/performanceOptimizer';
+import { useOptimizedLazyLoading } from '@/hooks/useOptimizedLazyLoading';
+import { usePerformanceOptimization } from '@/hooks/usePerformanceOptimization';
 
 interface OptimizedResponsiveImageProps {
   src: string;
   alt: string;
-  width?: number | string;
-  height?: number | string;
   className?: string;
   priority?: boolean;
-  quality?: number;
-  onLoad?: () => void;
-  onError?: () => void;
-  aspectRatio?: number;
+  aspectRatio?: string;
   sizes?: string;
+  onLoad?: () => void;
+  onError?: (error: Error) => void;
+  placeholder?: 'blur' | 'empty';
+  blurDataURL?: string;
 }
 
 export const OptimizedResponsiveImage: React.FC<OptimizedResponsiveImageProps> = ({
   src,
   alt,
-  width,
-  height,
   className = '',
   priority = false,
-  quality = 85,
+  aspectRatio = '16/9',
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   onLoad,
   onError,
-  aspectRatio,
-  sizes,
+  placeholder = 'blur',
+  blurDataURL
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [isInView, setIsInView] = useState(priority);
+  const [currentSrc, setCurrentSrc] = useState<string>('');
   const imgRef = useRef<HTMLImageElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   
-  const optimizer = PerformanceOptimizer.getInstance();
+  const { optimizeImageSrc, preloadImage } = usePerformanceOptimization();
+  const [containerRef, isIntersecting] = useOptimizedLazyLoading<HTMLDivElement>({
+    threshold: 0.1,
+    rootMargin: priority ? '0px' : '100px',
+    priority,
+    triggerOnce: true
+  });
 
-  // Intersection Observer for lazy loading
-  useEffect(() => {
-    if (priority) return;
+  // Generate optimized image sources
+  const generateSources = () => {
+    if (!src) return { sources: [], fallbackSrc: '' };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInView(true);
-            observer.unobserve(entry.target);
-          }
-        });
+    const fallbackSrc = optimizeImageSrc(src, 800, 85);
+    
+    // For production, you would generate different formats and sizes
+    const sources = [
+      {
+        srcSet: `${optimizeImageSrc(src, 320)} 320w, ${optimizeImageSrc(src, 640)} 640w, ${optimizeImageSrc(src, 768)} 768w, ${optimizeImageSrc(src, 1024)} 1024w, ${optimizeImageSrc(src, 1280)} 1280w`,
+        sizes,
+        type: 'image/webp'
       },
-      { 
-        rootMargin: priority ? '0px' : '100px',
-        threshold: 0.1
+      {
+        srcSet: `${optimizeImageSrc(src, 320)} 320w, ${optimizeImageSrc(src, 640)} 640w, ${optimizeImageSrc(src, 768)} 768w, ${optimizeImageSrc(src, 1024)} 1024w, ${optimizeImageSrc(src, 1280)} 1280w`,
+        sizes,
+        type: 'image/jpeg'
       }
-    );
+    ];
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    return { sources, fallbackSrc };
+  };
+
+  const { sources, fallbackSrc } = generateSources();
+
+  // Preload critical images
+  useEffect(() => {
+    if (priority && src) {
+      preloadImage(src);
     }
+  }, [priority, src, preloadImage]);
 
-    return () => observer.disconnect();
-  }, [priority]);
-
-  // Generate optimized sources using the correct method name
-  const responsiveSources = optimizer.generateResponsiveSources(src);
-  const optimizedSrc = optimizer.optimizeImageSrc(src, 
-    typeof width === 'number' ? width : 800, 
-    quality
-  );
+  // Load image when in viewport or if priority
+  useEffect(() => {
+    if ((isIntersecting || priority) && !currentSrc && !hasError) {
+      setCurrentSrc(fallbackSrc);
+    }
+  }, [isIntersecting, priority, fallbackSrc, currentSrc, hasError]);
 
   const handleLoad = () => {
-    setIsLoading(false);
-    setHasError(false);
+    setIsLoaded(true);
     onLoad?.();
   };
 
   const handleError = () => {
-    setIsLoading(false);
     setHasError(true);
-    onError?.();
+    const error = new Error(`Failed to load image: ${src}`);
+    onError?.(error);
+    console.warn('Image failed to load:', src);
   };
 
-  const containerStyle = aspectRatio 
-    ? { aspectRatio: aspectRatio.toString() }
-    : { width, height };
+  // Blur-up placeholder styles
+  const placeholderStyle = placeholder === 'blur' ? {
+    backgroundImage: blurDataURL ? `url(${blurDataURL})` : 'linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0)',
+    backgroundSize: blurDataURL ? 'cover' : '20px 20px',
+    backgroundPosition: blurDataURL ? 'center' : '0 0, 10px 10px',
+    filter: 'blur(10px)',
+    transform: 'scale(1.1)'
+  } : {};
+
+  if (hasError) {
+    return (
+      <div 
+        ref={containerRef}
+        className={`${className} bg-gray-200 flex items-center justify-center text-gray-500 text-sm`}
+        style={{ aspectRatio }}
+        role="img"
+        aria-label={`Failed to load: ${alt}`}
+      >
+        <span>Image failed to load</span>
+      </div>
+    );
+  }
 
   return (
     <div 
-      ref={containerRef} 
+      ref={containerRef}
       className={`relative overflow-hidden ${className}`}
-      style={containerStyle}
-      role="img"
-      aria-label={alt}
+      style={{ aspectRatio }}
     >
-      {isLoading && !hasError && (
-        <Skeleton className="absolute inset-0 w-full h-full" />
+      {/* Placeholder */}
+      {!isLoaded && (
+        <div 
+          className="absolute inset-0 animate-pulse bg-gray-200"
+          style={placeholderStyle}
+          aria-hidden="true"
+        />
       )}
-      
-      {hasError ? (
-        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-100 text-gray-400">
-          <ImageOff className="h-8 w-8 mb-2" aria-hidden="true" />
-          <p className="text-xs text-center">Image unavailable</p>
-          <span className="sr-only">{alt}</span>
-        </div>
-      ) : isInView ? (
+
+      {/* Main image */}
+      {currentSrc && (
         <picture>
-          {/* AVIF for maximum compression */}
-          <source 
-            srcSet={responsiveSources.avif} 
-            type="image/avif" 
-            sizes={sizes || responsiveSources.sizes} 
-          />
-          {/* WebP fallback */}
-          <source 
-            srcSet={responsiveSources.webp} 
-            type="image/webp" 
-            sizes={sizes || responsiveSources.sizes} 
-          />
-          {/* Original format fallback */}
+          {sources.map((source, index) => (
+            <source
+              key={index}
+              srcSet={source.srcSet}
+              sizes={source.sizes}
+              type={source.type}
+            />
+          ))}
           <img
             ref={imgRef}
-            src={optimizedSrc}
+            src={currentSrc}
             alt={alt}
             className={`w-full h-full object-cover transition-opacity duration-300 ${
-              isLoading ? 'opacity-0' : 'opacity-100'
+              isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             loading={priority ? 'eager' : 'lazy'}
             decoding="async"
             fetchPriority={priority ? 'high' : 'auto'}
             onLoad={handleLoad}
             onError={handleError}
-            width={width}
-            height={height}
-            sizes={sizes || responsiveSources.sizes}
-            // Prevent layout shift by setting dimensions
-            style={{ 
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
+            style={{
+              aspectRatio,
+              imageRendering: 'auto',
+              transform: isLoaded ? 'scale(1)' : 'scale(1.05)',
+              transition: 'transform 0.3s ease, opacity 0.3s ease'
             }}
           />
         </picture>
-      ) : (
-        <div className="w-full h-full bg-gray-100" aria-label="Loading..." />
+      )}
+
+      {/* Loading indicator */}
+      {!isLoaded && !hasError && currentSrc && (
+        <div 
+          className="absolute inset-0 flex items-center justify-center bg-gray-100"
+          aria-label="Image loading"
+        >
+          <div className="w-8 h-8 border-2 border-gray-300 border-t-indigo-600 rounded-full animate-spin"></div>
+        </div>
       )}
     </div>
   );

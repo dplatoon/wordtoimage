@@ -31,13 +31,17 @@ export const HeroHeader = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.7 }}
-          style={{ wordBreak: 'break-word' }}
+          style={{ 
+            wordBreak: 'break-word',
+            lineHeight: '1.1',
+            hyphens: 'auto'
+          }}
         >
           Transform Text into{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 block sm:inline">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 block sm:inline whitespace-nowrap sm:whitespace-normal">
             Stunning Images
           </span>{' '}
-          <span className="block">
+          <span className="block mt-2">
             with <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">AI</span>
           </span>
         </motion.h1>
@@ -56,9 +60,10 @@ export const HeroHeader = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.7 }}
+          style={{ lineHeight: '1.6' }}
         >
           Harness the power of AI to create beautiful visuals from any text description.
-          <span className="block mt-2 font-medium text-gray-700">
+          <span className="block mt-3 font-medium text-gray-700 text-lg md:text-xl">
             No design skills required. Start creating in seconds.
           </span>
         </motion.p>
@@ -73,18 +78,18 @@ export const HeroHeader = () => {
             <h3 className="text-lg font-semibold text-gray-800 mb-4">How it works:</h3>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 lg:gap-8 text-gray-700">
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">1</div>
-                <span className="font-medium text-sm sm:text-base">Describe your image</span>
+                <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">1</div>
+                <span className="font-medium text-sm sm:text-base text-center sm:text-left">Describe your image</span>
               </div>
               <ArrowRight className="h-5 w-5 text-gray-400 rotate-90 sm:rotate-0 flex-shrink-0" aria-hidden="true" />
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">2</div>
-                <span className="font-medium text-sm sm:text-base">Choose your style</span>
+                <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">2</div>
+                <span className="font-medium text-sm sm:text-base text-center sm:text-left">Choose your style</span>
               </div>
               <ArrowRight className="h-5 w-5 text-gray-400 rotate-90 sm:rotate-0 flex-shrink-0" aria-hidden="true" />
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">3</div>
-                <span className="font-medium text-sm sm:text-base">Download instantly</span>
+                <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">3</div>
+                <span className="font-medium text-sm sm:text-base text-center sm:text-left">Download instantly</span>
               </div>
             </div>
           </div>
@@ -98,7 +103,7 @@ export const HeroHeader = () => {
         >
           <Button 
             size="lg" 
-            className="min-h-[52px] min-w-[44px] bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-4 font-semibold active:scale-95"
+            className="min-h-[52px] min-w-[44px] bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-4 font-semibold active:scale-95 focus:ring-4 focus:ring-indigo-300 focus:outline-none"
             onClick={handleGenerateImageClick}
             aria-label="Start creating your AI image now - free and instant"
           >
@@ -108,7 +113,7 @@ export const HeroHeader = () => {
           
           <Button 
             size="lg" 
-            className="min-h-[52px] min-w-[44px] bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-indigo-600 hover:text-indigo-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-4 font-semibold active:scale-95"
+            className="min-h-[52px] min-w-[44px] bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-indigo-600 hover:text-indigo-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-4 font-semibold active:scale-95 focus:ring-4 focus:ring-gray-300 focus:outline-none"
             onClick={handleLearnHowClick}
             aria-label="View examples and learn how WordToImage works"
           >
@@ -145,7 +150,7 @@ export const HeroHeader = () => {
         >
           <Link
             to="/text-to-image"
-            className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium text-lg underline decoration-2 underline-offset-4 hover:decoration-indigo-700 transition-colors duration-200 min-h-[44px]"
+            className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium text-lg underline decoration-2 underline-offset-4 hover:decoration-indigo-700 transition-colors duration-200 min-h-[44px] focus:ring-4 focus:ring-indigo-300 focus:outline-none rounded px-2"
             aria-label="Go directly to the AI image generator tool"
           >
             Skip intro - Start generating images
