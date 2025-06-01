@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { Wand2, Play, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -32,17 +31,18 @@ export const HeroHeader = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.7 }}
           style={{ 
-            wordBreak: 'break-word',
+            wordSpacing: '0.1em',
             lineHeight: '1.1',
-            hyphens: 'auto'
+            wordBreak: 'normal',
+            overflowWrap: 'break-word'
           }}
         >
-          Transform Text into{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 block sm:inline whitespace-nowrap sm:whitespace-normal">
+          <span className="block sm:inline">Transform Text into </span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 block sm:inline">
             Stunning Images
-          </span>{' '}
-          <span className="block mt-2">
-            with <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">AI</span>
+          </span>
+          <span className="block mt-2 sm:mt-0">
+            {' '}with <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">AI</span>
           </span>
         </motion.h1>
         
@@ -56,11 +56,14 @@ export const HeroHeader = () => {
         </motion.h2>
         
         <motion.p 
-          className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 md:mb-10 max-w-4xl mx-auto leading-relaxed"
+          className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 md:mb-10 max-w-4xl mx-auto leading-relaxed px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          style={{ lineHeight: '1.6' }}
+          style={{ 
+            lineHeight: '1.6',
+            wordSpacing: '0.05em'
+          }}
         >
           Harness the power of AI to create beautiful visuals from any text description.
           <span className="block mt-3 font-medium text-gray-700 text-lg md:text-xl">
@@ -69,7 +72,7 @@ export const HeroHeader = () => {
         </motion.p>
         
         <motion.div
-          className="max-w-3xl mx-auto mb-8 md:mb-10"
+          className="max-w-3xl mx-auto mb-8 md:mb-10 px-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.7 }}
@@ -77,19 +80,19 @@ export const HeroHeader = () => {
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-gray-200 p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">How it works:</h3>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 lg:gap-8 text-gray-700">
-              <div className="flex items-center gap-3 min-w-0">
+              <div className="flex items-center gap-3 min-w-0 flex-shrink-0">
                 <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">1</div>
-                <span className="font-medium text-sm sm:text-base text-center sm:text-left">Describe your image</span>
+                <span className="font-medium text-sm sm:text-base text-center sm:text-left whitespace-nowrap sm:whitespace-normal">Describe your image</span>
               </div>
               <ArrowRight className="h-5 w-5 text-gray-400 rotate-90 sm:rotate-0 flex-shrink-0" aria-hidden="true" />
-              <div className="flex items-center gap-3 min-w-0">
+              <div className="flex items-center gap-3 min-w-0 flex-shrink-0">
                 <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">2</div>
-                <span className="font-medium text-sm sm:text-base text-center sm:text-left">Choose your style</span>
+                <span className="font-medium text-sm sm:text-base text-center sm:text-left whitespace-nowrap sm:whitespace-normal">Choose your style</span>
               </div>
               <ArrowRight className="h-5 w-5 text-gray-400 rotate-90 sm:rotate-0 flex-shrink-0" aria-hidden="true" />
-              <div className="flex items-center gap-3 min-w-0">
+              <div className="flex items-center gap-3 min-w-0 flex-shrink-0">
                 <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">3</div>
-                <span className="font-medium text-sm sm:text-base text-center sm:text-left">Download instantly</span>
+                <span className="font-medium text-sm sm:text-base text-center sm:text-left whitespace-nowrap sm:whitespace-normal">Download instantly</span>
               </div>
             </div>
           </div>
