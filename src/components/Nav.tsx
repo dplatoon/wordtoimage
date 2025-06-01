@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from '@/components/navigation/Logo';
@@ -87,24 +86,9 @@ export const Nav = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo - Using Logo component for consistency */}
           <div className="flex-shrink-0">
-            <Link 
-              to="/" 
-              className="flex items-center focus:outline-none focus:ring-4 focus:ring-blue-400/50 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-white/10"
-              aria-label="WordToImage - Home"
-            >
-              <img
-                className="h-8 w-auto brightness-110"
-                src="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png"
-                alt="WordToImage Logo"
-                loading="eager"
-                fetchPriority="high"
-              />
-              <span className="ml-2 text-xl font-bold text-white hidden sm:block tracking-tight">
-                WordToImage
-              </span>
-            </Link>
+            <Logo variant="default" />
           </div>
 
           {/* Desktop Navigation */}
