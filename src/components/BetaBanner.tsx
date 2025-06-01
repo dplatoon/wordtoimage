@@ -11,6 +11,9 @@ export const BetaBanner = () => {
     localStorage.setItem('betaBannerDismissed', 'true');
     setIsVisible(false);
     
+    // Dispatch a custom event to notify other components
+    window.dispatchEvent(new CustomEvent('betaBannerDismissed'));
+    
     // Track dismissal with Google Analytics
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'beta_banner_dismissed', {

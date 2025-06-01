@@ -7,12 +7,19 @@ import { Menu, X } from 'lucide-react';
 
 export const Nav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [betaBannerVisible, setBetaBannerVisible] = useState(true);
   const { user, signOut } = useAuth();
   const location = useLocation();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const isActive = (path: string) => location.pathname === path;
+
+  // Check beta banner visibility
+  useEffect(() => {
+    const isDismissed = localStorage.getItem('betaBannerDismissed') === 'true';
+    setBetaBannerVisible(!isDismissed);
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -71,7 +78,9 @@ export const Nav = () => {
 
   return (
     <nav 
-      className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 shadow-xl border-b border-slate-700/50 backdrop-blur-sm sticky top-0 z-50" 
+      className={`bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-xl border-b border-slate-700/50 backdrop-blur-sm sticky z-50 ${
+        betaBannerVisible ? 'top-[44px]' : 'top-0'
+      }`}
       role="navigation" 
       aria-label="Main navigation"
     >
@@ -106,8 +115,8 @@ export const Nav = () => {
                   to={item.path}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center focus:outline-none focus:ring-4 focus:ring-blue-400/50 ${
                     isActive(item.path)
-                      ? 'bg-blue-600 text-white shadow-lg border border-blue-500'
-                      : 'text-slate-200 hover:text-white hover:bg-white/10 border border-transparent hover:border-slate-600'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg border border-blue-500'
+                      : 'text-slate-200 hover:text-white hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 border border-transparent hover:border-slate-500'
                   }`}
                   aria-current={isActive(item.path) ? 'page' : undefined}
                 >
@@ -125,7 +134,7 @@ export const Nav = () => {
                 <Button
                   variant="outline"
                   onClick={signOut}
-                  className="min-h-[44px] focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-200"
+                  className="min-h-[44px] focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 hover:text-white hover:border-white transition-all duration-200"
                 >
                   Sign Out
                 </Button>
@@ -135,7 +144,7 @@ export const Nav = () => {
                 <Link to="/auth">
                   <Button 
                     variant="outline" 
-                    className="min-h-[44px] focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-200"
+                    className="min-h-[44px] focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 hover:text-white hover:border-white transition-all duration-200"
                   >
                     Sign In
                   </Button>
@@ -154,7 +163,7 @@ export const Nav = () => {
             <button
               ref={menuButtonRef}
               type="button"
-              className="inline-flex items-center justify-center p-3 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-blue-400/50 transition-all duration-200 min-h-[44px] min-w-[44px]"
+              className="inline-flex items-center justify-center p-3 rounded-lg text-slate-200 hover:text-white hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 focus:outline-none focus:ring-4 focus:ring-blue-400/50 transition-all duration-200 min-h-[44px] min-w-[44px]"
               aria-controls="mobile-menu"
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close main menu' : 'Open main menu'}
@@ -174,7 +183,7 @@ export const Nav = () => {
       {isMobileMenuOpen && (
         <div 
           ref={mobileMenuRef}
-          className="md:hidden bg-gradient-to-b from-slate-900 to-blue-900 border-t border-slate-700/50 shadow-2xl backdrop-blur-sm"
+          className="md:hidden bg-gradient-to-b from-slate-900 to-slate-800 border-t border-slate-700/50 shadow-2xl backdrop-blur-sm"
           id="mobile-menu"
           role="menu"
           aria-orientation="vertical"
@@ -190,8 +199,8 @@ export const Nav = () => {
                   onClick={closeMobileMenu}
                   className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 min-h-[48px] flex items-center focus:outline-none focus:ring-4 focus:ring-blue-400/50 ${
                     isActive(item.path)
-                      ? 'bg-blue-600 text-white shadow-lg border border-blue-500'
-                      : 'text-slate-200 hover:text-white hover:bg-white/10 border border-transparent hover:border-slate-600'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg border border-blue-500'
+                      : 'text-slate-200 hover:text-white hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 border border-transparent hover:border-slate-500'
                   }`}
                   role="menuitem"
                   aria-current={isActive(item.path) ? 'page' : undefined}
@@ -214,7 +223,7 @@ export const Nav = () => {
                       signOut();
                       closeMobileMenu();
                     }}
-                    className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-200"
+                    className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 hover:text-white hover:border-white transition-all duration-200"
                   >
                     Sign Out
                   </Button>
@@ -224,7 +233,7 @@ export const Nav = () => {
                   <Link to="/auth" onClick={closeMobileMenu}>
                     <Button 
                       variant="outline" 
-                      className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-200"
+                      className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 hover:text-white hover:border-white transition-all duration-200"
                     >
                       Sign In
                     </Button>
