@@ -32,7 +32,6 @@
     color: #000000 !important;
   }
   
-  /* Ensure sufficient contrast for interactive elements */
   button, .btn {
     border: 2px solid #000000 !important;
   }
@@ -54,106 +53,11 @@
     scroll-behavior: auto !important;
   }
   
-  /* Keep essential animations for feedback */
   .loading-spinner,
   .progress-bar,
   [role="progressbar"] {
     animation-duration: 0.5s !important;
   }
-}
-
-/* CRITICAL: Skip Links - Must be completely invisible by default */
-.accessibility-skip-links {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  z-index: 999999 !important;
-  pointer-events: none !important;
-}
-
-.accessibility-skip-link {
-  position: absolute !important;
-  top: -200vh !important;
-  left: 50% !important;
-  transform: translateX(-50%) translateY(-200vh) !important;
-  background-color: #1e40af !important;
-  color: #ffffff !important;
-  padding: 16px 32px !important;
-  border-radius: 8px !important;
-  text-decoration: none !important;
-  font-weight: 600 !important;
-  font-size: 16px !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
-  border: 3px solid #ffffff !important;
-  white-space: nowrap !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  transition: none !important;
-  animation: none !important;
-  display: block !important;
-  width: auto !important;
-  height: auto !important;
-  margin: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important;
-  -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important;
-  overflow: hidden !important;
-}
-
-/* Only show on focus - maximum specificity */
-.accessibility-skip-link:focus,
-.accessibility-skip-link:focus-visible {
-  top: 20px !important;
-  transform: translateX(-50%) translateY(0) !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  outline: 4px solid #fbbf24 !important;
-  outline-offset: 3px !important;
-  clip: auto !important;
-  -webkit-clip-path: none !important;
-  clip-path: none !important;
-  overflow: visible !important;
-  z-index: 999999 !important;
-}
-
-.accessibility-skip-link:hover:focus {
-  background-color: #1d4ed8 !important;
-  transform: translateX(-50%) translateY(0) scale(1.02) !important;
-}
-
-/* Override any potential Tailwind conflicts */
-.accessibility-skip-links * {
-  all: unset !important;
-}
-
-.accessibility-skip-links .accessibility-skip-link {
-  position: absolute !important;
-  top: -200vh !important;
-  left: 50% !important;
-  transform: translateX(-50%) translateY(-200vh) !important;
-  background-color: #1e40af !important;
-  color: #ffffff !important;
-  padding: 16px 32px !important;
-  border-radius: 8px !important;
-  text-decoration: none !important;
-  font-weight: 600 !important;
-  font-size: 16px !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
-  border: 3px solid #ffffff !important;
-  white-space: nowrap !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  display: block !important;
-  clip: rect(1px, 1px, 1px, 1px) !important;
-  -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important;
-  overflow: hidden !important;
 }
 
 /* Enhanced focus indicators with WCAG compliance */
@@ -205,8 +109,7 @@ input[type="reset"],
 /* Exception for text links in paragraphs */
 p a, 
 li a,
-.text-link,
-.accessibility-skip-link {
+.text-link {
   min-height: auto;
   min-width: auto;
   display: inline;
@@ -214,19 +117,19 @@ li a,
 
 /* Color contrast improvements for better readability */
 .text-slate-500 {
-  color: #475569 !important; /* Improved contrast */
+  color: #475569 !important;
 }
 
 .text-slate-600 {
-  color: #334155 !important; /* Improved contrast */
+  color: #334155 !important;
 }
 
 .text-gray-500 {
-  color: #475569 !important; /* Improved contrast */
+  color: #475569 !important;
 }
 
 .text-gray-600 {
-  color: #334155 !important; /* Improved contrast */
+  color: #334155 !important;
 }
 
 /* Error and success state styling with better contrast */
@@ -349,9 +252,5 @@ th, td {
   
   a::after {
     content: " (" attr(href) ")";
-  }
-  
-  .accessibility-skip-links {
-    display: none !important;
   }
 }
