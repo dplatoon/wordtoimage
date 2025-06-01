@@ -71,7 +71,7 @@ export const Nav = () => {
 
   return (
     <nav 
-      className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50" 
+      className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 shadow-xl border-b border-slate-700/50 backdrop-blur-sm sticky top-0 z-50" 
       role="navigation" 
       aria-label="Main navigation"
     >
@@ -81,17 +81,17 @@ export const Nav = () => {
           <div className="flex-shrink-0">
             <Link 
               to="/" 
-              className="flex items-center focus:outline-none focus:ring-4 focus:ring-indigo-300 rounded-lg px-2 py-1"
+              className="flex items-center focus:outline-none focus:ring-4 focus:ring-blue-400/50 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-white/10"
               aria-label="WordToImage - Home"
             >
               <img
-                className="h-8 w-auto"
+                className="h-8 w-auto brightness-110"
                 src="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png"
                 alt="WordToImage Logo"
                 loading="eager"
                 fetchPriority="high"
               />
-              <span className="ml-2 text-xl font-bold text-gray-900 hidden sm:block">
+              <span className="ml-2 text-xl font-bold text-white hidden sm:block tracking-tight">
                 WordToImage
               </span>
             </Link>
@@ -99,15 +99,15 @@ export const Nav = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-baseline space-x-2">
               {navigationItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center focus:outline-none focus:ring-4 focus:ring-indigo-300 ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center focus:outline-none focus:ring-4 focus:ring-blue-400/50 ${
                     isActive(item.path)
-                      ? 'bg-indigo-100 text-indigo-700 border-2 border-indigo-200'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 border-2 border-transparent'
+                      ? 'bg-blue-600 text-white shadow-lg border border-blue-500'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10 border border-transparent hover:border-slate-600'
                   }`}
                   aria-current={isActive(item.path) ? 'page' : undefined}
                 >
@@ -118,30 +118,30 @@ export const Nav = () => {
           </div>
 
           {/* Desktop Auth Section */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             {user ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-700">Welcome, {user.email}</span>
+              <div className="flex items-center space-x-3">
+                <span className="text-sm text-slate-200 font-medium">Welcome, {user.email}</span>
                 <Button
                   variant="outline"
                   onClick={signOut}
-                  className="min-h-[44px] focus:ring-4 focus:ring-gray-300"
+                  className="min-h-[44px] focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-200"
                 >
                   Sign Out
                 </Button>
               </div>
             ) : (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3">
                 <Link to="/auth">
                   <Button 
                     variant="outline" 
-                    className="min-h-[44px] focus:ring-4 focus:ring-gray-300"
+                    className="min-h-[44px] focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-200"
                   >
                     Sign In
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button className="min-h-[44px] focus:ring-4 focus:ring-indigo-300">
+                  <Button className="min-h-[44px] focus:ring-4 focus:ring-blue-400/50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200">
                     Get Started
                   </Button>
                 </Link>
@@ -154,7 +154,7 @@ export const Nav = () => {
             <button
               ref={menuButtonRef}
               type="button"
-              className="inline-flex items-center justify-center p-3 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-colors duration-200 min-h-[44px] min-w-[44px]"
+              className="inline-flex items-center justify-center p-3 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-blue-400/50 transition-all duration-200 min-h-[44px] min-w-[44px]"
               aria-controls="mobile-menu"
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close main menu' : 'Open main menu'}
@@ -174,7 +174,7 @@ export const Nav = () => {
       {isMobileMenuOpen && (
         <div 
           ref={mobileMenuRef}
-          className="md:hidden bg-white border-t border-gray-200 shadow-lg"
+          className="md:hidden bg-gradient-to-b from-slate-900 to-blue-900 border-t border-slate-700/50 shadow-2xl backdrop-blur-sm"
           id="mobile-menu"
           role="menu"
           aria-orientation="vertical"
@@ -182,16 +182,16 @@ export const Nav = () => {
         >
           <div className="px-4 pt-4 pb-6 space-y-2">
             {/* Mobile Navigation Links */}
-            <div className="space-y-1" role="none">
+            <div className="space-y-2" role="none">
               {navigationItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   onClick={closeMobileMenu}
-                  className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 min-h-[48px] flex items-center focus:outline-none focus:ring-4 focus:ring-indigo-300 ${
+                  className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 min-h-[48px] flex items-center focus:outline-none focus:ring-4 focus:ring-blue-400/50 ${
                     isActive(item.path)
-                      ? 'bg-indigo-100 text-indigo-700 border-2 border-indigo-200'
-                      : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50 border-2 border-transparent'
+                      ? 'bg-blue-600 text-white shadow-lg border border-blue-500'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10 border border-transparent hover:border-slate-600'
                   }`}
                   role="menuitem"
                   aria-current={isActive(item.path) ? 'page' : undefined}
@@ -202,10 +202,10 @@ export const Nav = () => {
             </div>
 
             {/* Mobile Auth Section */}
-            <div className="border-t border-gray-200 pt-4 mt-4">
+            <div className="border-t border-slate-700/50 pt-4 mt-4">
               {user ? (
                 <div className="space-y-3">
-                  <div className="px-4 py-2 text-sm text-gray-600">
+                  <div className="px-4 py-2 text-sm text-slate-300 font-medium">
                     Welcome, {user.email}
                   </div>
                   <Button
@@ -214,7 +214,7 @@ export const Nav = () => {
                       signOut();
                       closeMobileMenu();
                     }}
-                    className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-gray-300"
+                    className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-200"
                   >
                     Sign Out
                   </Button>
@@ -224,13 +224,13 @@ export const Nav = () => {
                   <Link to="/auth" onClick={closeMobileMenu}>
                     <Button 
                       variant="outline" 
-                      className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-gray-300"
+                      className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white transition-all duration-200"
                     >
                       Sign In
                     </Button>
                   </Link>
                   <Link to="/auth" onClick={closeMobileMenu}>
-                    <Button className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-indigo-300">
+                    <Button className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-blue-400/50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200">
                       Get Started
                     </Button>
                   </Link>
