@@ -37,83 +37,67 @@ export const SkipToContent = () => {
     }
   };
 
+  const skipLinkStyle: React.CSSProperties = {
+    position: 'fixed',
+    top: '-200vh',
+    left: '50%',
+    transform: 'translateX(-50%) translateY(-200vh)',
+    backgroundColor: '#1e40af',
+    color: '#ffffff',
+    padding: '16px 32px',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    fontWeight: '600',
+    fontSize: '16px',
+    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+    border: '3px solid #ffffff',
+    whiteSpace: 'nowrap',
+    opacity: 0,
+    visibility: 'hidden',
+    pointerEvents: 'none',
+    display: 'block',
+    zIndex: 99999,
+    transition: 'all 0.2s ease-in-out'
+  };
+
+  const skipLinkFocusStyle: React.CSSProperties = {
+    ...skipLinkStyle,
+    top: '20px',
+    transform: 'translateX(-50%) translateY(0)',
+    opacity: 1,
+    visibility: 'visible',
+    pointerEvents: 'auto',
+    outline: '4px solid #fbbf24',
+    outlineOffset: '3px'
+  };
+
   return (
-    <>
-      <style jsx>{`
-        .skip-to-content-links {
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 100% !important;
-          z-index: 99999 !important;
-          pointer-events: none !important;
-        }
-        
-        .skip-link {
-          position: absolute !important;
-          top: -200vh !important;
-          left: 50% !important;
-          transform: translateX(-50%) translateY(-200vh) !important;
-          background-color: #1e40af !important;
-          color: #ffffff !important;
-          padding: 16px 32px !important;
-          border-radius: 8px !important;
-          text-decoration: none !important;
-          font-weight: 600 !important;
-          font-size: 16px !important;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
-          border: 3px solid #ffffff !important;
-          white-space: nowrap !important;
-          opacity: 0 !important;
-          visibility: hidden !important;
-          pointer-events: none !important;
-          display: block !important;
-        }
-        
-        .skip-link:focus,
-        .skip-link:focus-visible {
-          top: 20px !important;
-          transform: translateX(-50%) translateY(0) !important;
-          opacity: 1 !important;
-          visibility: visible !important;
-          pointer-events: auto !important;
-          outline: 4px solid #fbbf24 !important;
-          outline-offset: 3px !important;
-        }
-      `}</style>
-      
-      <div className="skip-to-content-links">
-        <a
-          href="#main-content"
-          className="skip-link"
-          onClick={(e) => {
-            e.preventDefault();
-            handleSkipClick('main-content');
-          }}
-        >
-          Skip to main content
-        </a>
-        <a
-          href="#navigation"
-          className="skip-link"
-          onClick={(e) => {
-            e.preventDefault();
-            handleSkipClick('navigation');
-          }}
-        >
-          Skip to navigation
-        </a>
-        <a
-          href="#footer"
-          className="skip-link"
-          onClick={(e) => {
-            e.preventDefault();
-            handleSkipClick('footer');
-          }}
-        >
-          Skip to footer
-        </a>
-      </div>
-    </>
+    <div 
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        zIndex: 99999,
+        pointerEvents: 'none'
+      }}
+    >
+      <a
+        href="#main-content"
+        style={skipLinkStyle}
+        onFocus={(e) => {
+          Object.assign(e.target.style, skipLinkFocusStyle);
+        }}
+        onBlur={(e) => {
+          Object.assign(e.target.style, skipLinkStyle);
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          handleSkipClick('main-content');
+        }}
+      >
+        Skip to main content
+      </a>
+    </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { TextToImageForm } from '@/components/word-to-image/TextToImageForm';
 import { toast } from '@/components/ui/sonner';
@@ -12,7 +11,7 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Sparkles, Zap, Download, HelpCircle, Wand2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SkipToContent } from '@/components/home/SkipToContent';
+import { SkipToContent } from '@/components/accessibility/SkipToContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription } from '@/components/ui/alert';
