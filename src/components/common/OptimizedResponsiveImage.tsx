@@ -65,7 +65,7 @@ export const OptimizedResponsiveImage: React.FC<OptimizedResponsiveImageProps> =
     return () => observer.disconnect();
   }, [priority]);
 
-  // Generate optimized sources using the correct method name
+  // Generate optimized sources
   const responsiveSources = optimizer.generateResponsiveSources(src);
   const optimizedSrc = optimizer.optimizeImageSrc(src, 
     typeof width === 'number' ? width : 800, 

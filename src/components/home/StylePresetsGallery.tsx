@@ -72,7 +72,7 @@ const stylePresets: StylePreset[] = [
 export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps) => {
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="content-container">
         {/* Section Header */}
         <motion.div 
           className="text-center mb-12"
@@ -81,13 +81,13 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-600 text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-ai-accent/10 border border-ai-accent/20 text-ai-accent text-sm font-medium mb-4">
             <Palette className="w-4 h-4 mr-2" />
             AI Style Presets
           </div>
           
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Choose Your <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Creative Style</span>
+          <h2 className="section-title text-gray-900 mb-6">
+            Choose Your <span className="text-gradient-ai">Creative Style</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Select from our curated collection of AI art styles. Each preset applies professional 
@@ -105,7 +105,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Card className="bg-white border border-gray-200 rounded-2xl p-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group cursor-pointer h-full" onClick={() => onStyleSelect?.(preset)}>
+              <Card className="ai-card-modern group cursor-pointer h-full" onClick={() => onStyleSelect?.(preset)}>
                 <CardContent className="p-0">
                   {/* Image */}
                   <div className="relative overflow-hidden rounded-t-2xl">
@@ -124,7 +124,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                           <Eye className="h-4 w-4 mr-1" />
                           Preview
                         </Button>
-                        <Button size="sm" className="bg-indigo-600 text-white hover:bg-indigo-700">
+                        <Button size="sm" className="bg-ai-neon text-ai-dark hover:bg-ai-accent">
                           <Download className="h-4 w-4 mr-1" />
                           Use Style
                         </Button>
@@ -134,7 +134,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                   
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-ai-primary transition-colors">
                       {preset.name}
                     </h3>
                     <p className="text-gray-600 mb-4 leading-relaxed">
@@ -146,7 +146,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                       {preset.style.split(', ').map((tag, tagIndex) => (
                         <span 
                           key={tagIndex}
-                          className="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-medium rounded-full border border-indigo-200"
+                          className="px-3 py-1 bg-ai-accent/10 text-ai-accent text-xs font-medium rounded-full border border-ai-accent/20"
                         >
                           {tag}
                         </span>
@@ -167,7 +167,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+          <Button className="btn-ai-primary group">
             Explore All 50+ Styles
             <Palette className="ml-2 h-5 w-5 transition-transform group-hover:rotate-12" />
           </Button>

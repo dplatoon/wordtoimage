@@ -1,57 +1,93 @@
 
-import { Plus, Minus } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, HelpCircle } from 'lucide-react';
+
+const faqs = [
+  {
+    question: "How does AI image generation work?",
+    answer: "Our AI uses advanced machine learning models trained on millions of images to understand the relationship between text descriptions and visual elements. When you enter a prompt, the AI analyzes your words and generates unique images that match your description using neural networks and diffusion models.",
+    keywords: ["AI image generation", "machine learning", "neural networks", "diffusion models"]
+  },
+  {
+    question: "What is the best AI art generator in 2025?",
+    answer: "WordToImage is among the top AI art generators, offering high-quality image generation with 50+ styles, 4K resolution output, and instant results. We provide both free and pro plans with commercial usage rights included.",
+    keywords: ["best AI art generator", "AI art generator 2025", "high-quality AI images"]
+  },
+  {
+    question: "Can I use AI generated images commercially?",
+    answer: "Yes! All images generated with WordToImage come with full commercial usage rights. You can use them in business projects, marketing campaigns, products, and any commercial application without additional licensing fees or attribution requirements.",
+    keywords: ["commercial AI images", "AI images for business", "commercial usage rights"]
+  },
+  {
+    question: "How fast is AI image generation?",
+    answer: "Most images are generated in under 10 seconds. Generation time may vary slightly based on complexity and current server load, but we prioritize speed without compromising quality using optimized AI models.",
+    keywords: ["fast AI generation", "instant AI images", "AI generation speed"]
+  },
+  {
+    question: "What art styles are available with AI?",
+    answer: "We offer over 50 different AI art styles including photorealistic, digital art, watercolor, oil painting, sketch, anime, abstract, and many more. You can also mix styles or adjust intensity to create unique AI-generated looks.",
+    keywords: ["AI art styles", "AI artistic styles", "digital art AI", "photorealistic AI"]
+  },
+  {
+    question: "How to create AI images from text?",
+    answer: "Simply enter a descriptive text prompt into WordToImage, select your preferred AI style, and click generate. Our AI will create unique images based on your description in seconds. Be specific about details like style, lighting, and composition for best AI results.",
+    keywords: ["create AI images from text", "text to image AI", "AI image prompts"]
+  },
+  {
+    question: "What are the best AI art prompts for beginners?",
+    answer: "Start with clear, descriptive prompts like 'A serene mountain lake at sunset, watercolor style' or 'Modern city skyline, digital art, neon lights'. Include style, mood, lighting, and composition details. Our AI understands both simple and complex descriptions.",
+    keywords: ["AI art prompts", "AI prompts for beginners", "text prompts for AI"]
+  },
+  {
+    question: "Can AI generate images for social media marketing?",
+    answer: "Absolutely! WordToImage is perfect for creating AI-generated social media content, Instagram posts, Facebook ads, LinkedIn graphics, and marketing materials. All images come with commercial rights for business use.",
+    keywords: ["AI images for social media", "AI marketing images", "AI graphics for Instagram"]
+  }
+];
 
 export const FAQSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const faqs = [
-    {
-      question: "How does AI image generation work?",
-      answer: "Our AI uses advanced machine learning models trained on millions of images to understand and create visuals from text descriptions. Simply describe what you want to see, and our AI will generate a unique image based on your prompt."
-    },
-    {
-      question: "What image formats and sizes are available?",
-      answer: "We support multiple formats including PNG, JPG, and WebP. You can generate images in various resolutions from 512x512 up to 4K (4096x4096) depending on your plan. All images are high-quality and suitable for both digital and print use."
-    },
-    {
-      question: "Can I use the generated images commercially?",
-      answer: "Yes! With our Pro and Enterprise plans, you get full commercial rights to use the generated images for business purposes, marketing, products, and more. Free plan images are for personal use only."
-    },
-    {
-      question: "How long does it take to generate an image?",
-      answer: "Most images are generated in 3-10 seconds. Pro users get priority processing for even faster generation times. The exact time depends on image complexity and current server load."
-    },
-    {
-      question: "What makes WordToImage different from other AI generators?",
-      answer: "We focus on ease of use, quality, and variety. Our platform offers 50+ unique AI styles, intuitive prompting, and consistently high-quality results. Plus, we're constantly updating our models for better performance."
-    },
-    {
-      question: "Do you offer refunds?",
-      answer: "Yes, we offer a 30-day money-back guarantee for all paid plans. If you're not satisfied with the service, contact our support team for a full refund within 30 days of purchase."
-    }
-  ];
-
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+  // Enhanced structured data for FAQ
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 md:py-32 bg-gradient-to-br from-ai-muted/20 to-ai-surface/20">
+      {/* Enhanced SEO structured data */}
+      <script type="application/ld+json">
+        {JSON.stringify(faqStructuredData)}
+      </script>
+      
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Frequently Asked Questions
+          <div className="inline-flex items-center px-4 py-2 bg-ai-primary/20 rounded-full border border-ai-primary/30 mb-6">
+            <HelpCircle className="h-5 w-5 text-ai-neon mr-2" />
+            <span className="text-ai-neon font-medium">AI Image Generation FAQ</span>
+          </div>
+          
+          <h2 id="faq-heading" className="text-4xl md:text-5xl font-bold mb-6">
+            Got <span className="text-gradient-neon">Questions?</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Got questions? We've got answers. Here are the most common questions about our AI image generator.
+          <p className="text-xl text-gray-300">
+            Find answers to common questions about AI image generation and WordToImage features.
           </p>
         </motion.div>
 
@@ -61,24 +97,29 @@ export const FAQSection = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300"
+              transition={{ duration: 0.6, delay: index * 0.05 }}
+              className="ai-card"
+              itemScope
+              itemType="https://schema.org/Question"
             >
               <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full text-left flex items-center justify-between p-2 focus:outline-none focus:ring-2 focus:ring-ai-primary/50 rounded-lg"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-answer-${index}`}
               >
-                <span className="text-lg font-semibold text-gray-900 pr-4">
+                <h3 
+                  className="text-lg font-semibold text-white pr-4"
+                  itemProp="name"
+                >
                   {faq.question}
-                </span>
-                <div className="flex-shrink-0">
-                  {openIndex === index ? (
-                    <Minus className="h-5 w-5 text-indigo-600" />
-                  ) : (
-                    <Plus className="h-5 w-5 text-gray-400" />
-                  )}
-                </div>
+                </h3>
+                <ChevronDown 
+                  className={`h-5 w-5 text-ai-neon transition-transform duration-200 flex-shrink-0 ${
+                    openIndex === index ? 'transform rotate-180' : ''
+                  }`}
+                />
               </button>
               
               <AnimatePresence>
@@ -87,11 +128,23 @@ export const FAQSection = () => {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.3 }}
                     className="overflow-hidden"
+                    id={`faq-answer-${index}`}
+                    itemScope
+                    itemType="https://schema.org/Answer"
                   >
-                    <div className="px-6 pb-6 text-gray-600 leading-relaxed">
-                      {faq.answer}
+                    <div className="pt-4 pb-2">
+                      <p 
+                        className="text-gray-300 leading-relaxed"
+                        itemProp="text"
+                      >
+                        {faq.answer}
+                      </p>
+                      {/* Hidden keywords for SEO */}
+                      <div className="sr-only">
+                        {faq.keywords.join(', ')}
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -103,30 +156,14 @@ export const FAQSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="text-center mt-12 p-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-12"
         >
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">
-            Still have questions?
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Our support team is here to help you get the most out of WordToImage.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors duration-200"
-            >
-              Contact Support
-            </a>
-            <a
-              href="mailto:help@wordtoimage.com"
-              className="inline-flex items-center justify-center px-6 py-3 border border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition-colors duration-200"
-            >
-              Send Email
-            </a>
-          </div>
+          <p className="text-gray-400 mb-4">Still have questions about AI image generation?</p>
+          <button className="btn-ai-outline">
+            Contact AI Support
+          </button>
         </motion.div>
       </div>
     </section>

@@ -13,15 +13,14 @@ export const ShowcaseSection = () => {
   const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
-  // Generate showcase items from our local gallery images with proper alt text
+  // Generate showcase items from our local gallery images
   const showcaseItems = localGalleryImages.slice(0, 6).map((image, index) => ({
     id: index + 1,
     imageUrl: image.src,
     prompt: image.alt,
     style: image.style,
     author: ["Alex M.", "Sophia R.", "Noah T.", "Emma K.", "Michael J.", "Lila P."][index % 6],
-    likes: Math.floor(Math.random() * 300) + 100,
-    altText: `AI image generation example: ${image.alt} in ${image.style} style`
+    likes: Math.floor(Math.random() * 300) + 100
   }));
 
   return (

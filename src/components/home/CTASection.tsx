@@ -3,7 +3,6 @@ import { Wand2, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 export const CTASection = () => {
   const [email, setEmail] = useState('');
@@ -61,23 +60,17 @@ export const CTASection = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
                     size="lg" 
-                    className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" 
-                    asChild
+                    className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-blue-600 text-white text-lg px-8 py-6 shadow-lg transform hover:scale-105 transition-all duration-300"
+                    onClick={handleStartNow}
                   >
-                    <Link to="/text-to-image">
-                      Start Creating Now
-                    </Link>
+                    Start Creating Now
                   </Button>
-                  
                   <Button 
                     size="lg" 
-                    variant="outline" 
-                    className="border-2 border-indigo-300 text-gray-700 hover:bg-indigo-50 transition-colors transform hover:scale-105 px-8 py-6"
-                    asChild
+                    variant="outline"
+                    className="border-2 border-blue-300 text-gray-700 hover:bg-blue-50 transform hover:scale-105 transition-all duration-300"
                   >
-                    <Link to="/pricing">
-                      View Pricing Plans
-                    </Link>
+                    View Pricing Plans
                   </Button>
                 </div>
                 <p className="mt-6 text-sm text-gray-500">
@@ -119,7 +112,7 @@ export const CTASection = () => {
                     </div>
                     <Button 
                       type="submit" 
-                      className="w-full bg-indigo-600 hover:bg-indigo-700" 
+                      className="w-full bg-blue-600 hover:bg-blue-700" 
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? 'Subscribing...' : 'Subscribe'}

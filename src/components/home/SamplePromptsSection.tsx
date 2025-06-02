@@ -1,167 +1,207 @@
 
-import { Button } from '@/components/ui/button';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Wand2 } from 'lucide-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Lightbulb, Copy, Wand2, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { toast } from '@/components/ui/sonner';
 
-export const SamplePromptsSection = () => {
-  const navigate = useNavigate();
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+interface SamplePrompt {
+  id: string;
+  category: string;
+  title: string;
+  prompt: string;
+  tags: string[];
+}
 
-  const samplePrompts = [
-    {
-      category: "Art & Creativity",
-      title: "Digital Art Masterpiece",
-      prompt: "A majestic dragon soaring through a stormy sky, digital art, highly detailed, vibrant colors",
-      tags: ["Fantasy", "Digital Art", "Dramatic"]
-    },
-    {
-      category: "Photography",
-      title: "Professional Portrait",
-      prompt: "Professional headshot of a confident businesswoman, studio lighting, sharp focus, corporate style",
-      tags: ["Portrait", "Professional", "Studio"]
-    },
-    {
-      category: "Nature",
-      title: "Scenic Landscape",
-      prompt: "Peaceful mountain lake at sunrise, misty atmosphere, golden hour lighting, photorealistic",
-      tags: ["Landscape", "Nature", "Serene"]
-    },
-    {
-      category: "Architecture",
-      title: "Modern Building",
-      prompt: "Futuristic skyscraper with glass facade, urban cityscape, blue hour, architectural photography",
-      tags: ["Architecture", "Modern", "Urban"]
-    },
-    {
-      category: "Food",
-      title: "Gourmet Cuisine",
-      prompt: "Elegant plated gourmet dish, fine dining presentation, warm lighting, food photography",
-      tags: ["Food", "Gourmet", "Elegant"]
-    },
-    {
-      category: "Abstract",
-      title: "Geometric Design",
-      prompt: "Abstract geometric patterns, vibrant gradients, modern minimalist design, clean composition",
-      tags: ["Abstract", "Geometric", "Modern"]
-    }
-  ];
+interface SamplePromptsSectionProps {
+  onPromptSelect?: (prompt: string) => void;
+}
 
-  const handleCopyPrompt = async (prompt: string, index: number) => {
+const samplePrompts: SamplePrompt[] = [
+  {
+    id: 'nature-1',
+    category: 'Nature & Landscapes',
+    title: 'Mystical Forest',
+    prompt: 'A mystical forest with glowing mushrooms, ethereal mist, and ancient trees bathed in moonlight',
+    tags: ['fantasy', 'atmospheric', 'mystical']
+  },
+  {
+    id: 'portrait-1',
+    category: 'Characters & Portraits',
+    title: 'Cyberpunk Warrior',
+    prompt: 'A cyberpunk warrior with neon armor, glowing visor, standing in a rain-soaked neon city',
+    tags: ['cyberpunk', 'character', 'futuristic']
+  },
+  {
+    id: 'architecture-1',
+    category: 'Architecture & Cities',
+    title: 'Floating City',
+    prompt: 'A floating city in the clouds with crystalline towers, sky bridges, and flying vehicles',
+    tags: ['architecture', 'fantasy', 'aerial']
+  },
+  {
+    id: 'art-1',
+    category: 'Abstract & Artistic',
+    title: 'Color Symphony',
+    prompt: 'An abstract explosion of colors representing music, with flowing paint and dynamic brushstrokes',
+    tags: ['abstract', 'colorful', 'artistic']
+  },
+  {
+    id: 'animals-1',
+    category: 'Animals & Creatures',
+    title: 'Dragon Guardian',
+    prompt: 'A majestic dragon with iridescent scales guarding a crystal cave filled with treasures',
+    tags: ['fantasy', 'dragon', 'magical']
+  },
+  {
+    id: 'space-1',
+    category: 'Space & Sci-Fi',
+    title: 'Alien Landscape',
+    prompt: 'An alien planet with purple skies, floating crystals, and bioluminescent plants under twin moons',
+    tags: ['sci-fi', 'alien', 'otherworldly']
+  }
+];
+
+export const SamplePromptsSection = ({ onPromptSelect }: SamplePromptsSectionProps) => {
+  const [copiedPrompt, setCopiedPrompt] = useState<string | null>(null);
+
+  const handleCopyPrompt = async (prompt: string, id: string) => {
     try {
       await navigator.clipboard.writeText(prompt);
-      setCopiedIndex(index);
-      setTimeout(() => setCopiedIndex(null), 2000);
-    } catch (err) {
-      console.error('Failed to copy prompt:', err);
+      setCopiedPrompt(id);
+      toast.success('Prompt copied to clipboard!');
+      setTimeout(() => setCopiedPrompt(null), 2000);
+    } catch (error) {
+      toast.error('Failed to copy prompt');
     }
   };
 
   const handleUsePrompt = (prompt: string) => {
-    // Store the prompt in sessionStorage and navigate to text-to-image page
-    sessionStorage.setItem('selectedPrompt', prompt);
-    navigate('/text-to-image');
+    onPromptSelect?.(prompt);
+    toast.success('Prompt loaded! Ready to generate your image.');
   };
 
   return (
     <section className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+      <div className="content-container">
+        {/* Section Header */}
+        <motion.div 
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Get Inspired with Sample Prompts
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-ai-purple/10 border border-ai-purple/20 text-ai-purple text-sm font-medium mb-4">
+            <Lightbulb className="w-4 h-4 mr-2" />
+            Prompt Inspiration
+          </div>
+          
+          <h2 className="section-title text-gray-900 mb-6">
+            Get <span className="text-gradient-ai">Creative Inspiration</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore these creative prompts to see what's possible with AI image generation. 
-            Copy any prompt or use it directly to create your own stunning visuals.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Not sure where to start? Explore our collection of carefully crafted prompts 
+            designed to create stunning AI-generated images across various styles and themes.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {samplePrompts.map((item, index) => (
+        {/* Prompts Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {samplePrompts.map((sample, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+              key={sample.id}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
-                  {item.category}
-                </span>
-                <button
-                  onClick={() => handleCopyPrompt(item.prompt, index)}
-                  className="p-2 text-gray-400 hover:text-indigo-600 transition-colors"
-                  title="Copy prompt"
-                >
-                  <Copy className="h-4 w-4" />
-                </button>
-              </div>
-
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                {item.title}
-              </h3>
-
-              <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                {item.prompt}
-              </p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {item.tags.map((tag, tagIndex) => (
-                  <span
-                    key={tagIndex}
-                    className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleCopyPrompt(item.prompt, index)}
-                  className="flex-1 text-xs"
-                >
-                  {copiedIndex === index ? 'Copied!' : 'Copy'}
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => handleUsePrompt(item.prompt)}
-                  className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs"
-                >
-                  <Wand2 className="h-3 w-3 mr-1" />
-                  Use Prompt
-                </Button>
-              </div>
+              <Card className="ai-card-modern h-full">
+                <CardContent className="p-6">
+                  {/* Category */}
+                  <div className="mb-4">
+                    <span className="px-3 py-1 bg-ai-accent/10 text-ai-accent text-xs font-medium rounded-full border border-ai-accent/20">
+                      {sample.category}
+                    </span>
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    {sample.title}
+                  </h3>
+                  
+                  {/* Prompt */}
+                  <div className="bg-gray-50 rounded-lg p-4 mb-4 border-l-4 border-ai-primary">
+                    <p className="text-gray-700 leading-relaxed font-mono text-sm">
+                      "{sample.prompt}"
+                    </p>
+                  </div>
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {sample.tags.map((tag, tagIndex) => (
+                      <span 
+                        key={tagIndex}
+                        className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  {/* Actions */}
+                  <div className="flex gap-3">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 group border-ai-accent/30 text-ai-accent hover:bg-ai-accent hover:text-white touch-target"
+                      onClick={() => handleCopyPrompt(sample.prompt, sample.id)}
+                    >
+                      {copiedPrompt === sample.id ? (
+                        <>
+                          <Check className="h-4 w-4 mr-2" />
+                          Copied!
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                          Copy
+                        </>
+                      )}
+                    </Button>
+                    
+                    <Button
+                      className="flex-1 btn-ai-primary touch-target"
+                      size="sm"
+                      onClick={() => handleUsePrompt(sample.prompt)}
+                    >
+                      <Wand2 className="h-4 w-4 mr-2" />
+                      Use Prompt
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
 
+        {/* CTA */}
         <motion.div
+          className="text-center mt-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          transition={{ delay: 0.4, duration: 0.6 }}
         >
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4"
-            onClick={() => navigate('/text-to-image')}
-          >
-            <Wand2 className="h-5 w-5 mr-2" />
-            Start Creating Your Own
+          <Button className="btn-ai-secondary group">
+            Browse 100+ More Prompts
+            <Lightbulb className="ml-2 h-5 w-5 transition-transform group-hover:rotate-12" />
           </Button>
+          
+          <p className="mt-4 text-sm text-gray-500">
+            Join our community to share and discover new creative prompts
+          </p>
         </motion.div>
       </div>
     </section>

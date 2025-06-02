@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import { enhancedPerformanceOptimizer } from "./src/plugins/vite-enhanced-performance";
+import { performanceOptimizer } from "./src/plugins/vite-performance-optimizer";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
-    enhancedPerformanceOptimizer(),
+    performanceOptimizer(),
   ].filter(Boolean),
   resolve: {
     alias: {
@@ -27,56 +27,35 @@ export default defineConfig(({ mode }) => ({
     target: "es2020",
     minify: "esbuild",
     cssMinify: true,
-    cssCodeSplit: true,
     emptyOutDir: true,
-    chunkSizeWarningLimit: 400, // Stricter limit for better performance
+    chunkSizeWarningLimit: 500, // Warn for chunks > 500KB
     rollupOptions: {
       output: {
         manualChunks: {
-          // Core vendor chunks
-          'react-core': ['react', 'react-dom'],
+          // Vendor chunks for better caching
+          'react-vendor': ['react', 'react-dom'],
           'router': ['react-router-dom'],
-          
-          // UI library chunks
-          'ui-primitives': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
-          'ui-components': ['@radix-ui/react-accordion', '@radix-ui/react-tabs', '@radix-ui/react-select'],
-          
-          // Utility chunks
+          'ui-components': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
           'icons': ['lucide-react'],
           'animation': ['framer-motion'],
           'forms': ['react-hook-form', '@hookform/resolvers'],
-          'data': ['@tanstack/react-query'],
-          'utils': ['clsx', 'tailwind-merge', 'class-variance-authority'],
+          'query': ['@tanstack/react-query'],
         },
-        // Optimize chunk file names for caching
+        // Optimize chunk loading
         entryFileNames: (chunkInfo) => {
           return `assets/[name]-[hash].js`;
         },
         chunkFileNames: (chunkInfo) => {
-          return chunkInfo.name === 'vendor' 
-            ? `assets/vendor-[hash].js`
-            : `assets/[name]-[hash].js`;
+          return `assets/[name]-[hash].js`;
         },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name?.endsWith('.css')) {
-            return 'assets/styles-[hash].css';
-          }
-          if (assetInfo.name?.match(/\.(png|jpe?g|gif|svg|webp|avif)$/)) {
-            return 'assets/images/[name]-[hash][extname]';
+            return 'assets/[name]-[hash].css';
           }
           return 'assets/[name]-[hash][extname]';
         }
       }
-    },
-    // Enhanced build optimizations
-    reportCompressedSize: false, // Faster builds
-    terserOptions: {
-      compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production',
-        pure_funcs: mode === 'production' ? ['console.log'] : [],
-      },
-    },
+    }
   },
   optimizeDeps: {
     include: [
@@ -84,20 +63,8 @@ export default defineConfig(({ mode }) => ({
       'react-dom', 
       'react-router-dom', 
       'lucide-react',
-      '@tanstack/react-query',
-      'framer-motion',
-      'clsx',
-      'tailwind-merge'
+      '@tanstack/react-query'
     ],
     exclude: ['@vite/client', '@vite/env']
-  },
-  // CSS optimizations
-  css: {
-    devSourcemap: mode === 'development',
-    preprocessorOptions: {
-      scss: {
-        charset: false,
-      },
-    },
-  },
+  }
 }));

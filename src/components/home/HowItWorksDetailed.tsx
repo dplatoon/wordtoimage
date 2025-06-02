@@ -1,161 +1,94 @@
 
 import { motion } from 'framer-motion';
-import { Wand2, Palette, Download, Sparkles, Zap, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { Edit3, Zap, Download, Sparkles } from 'lucide-react';
+
+const steps = [
+  {
+    icon: Edit3,
+    title: "Enter Your Text Prompt",
+    description: "Describe the image you want to create in natural language. Be as detailed or simple as you like - our AI understands both 'sunset' and 'vibrant sunset over snow-capped mountains with purple clouds'.",
+    tip: "Pro tip: Include style descriptors like 'photorealistic', 'watercolor', or 'digital art' for better results."
+  },
+  {
+    icon: Sparkles,
+    title: "AI Magic Happens",
+    description: "Our advanced AI processes your text using state-of-the-art machine learning models. Within seconds, your words are transformed into stunning visual concepts.",
+    tip: "Our AI considers style, composition, lighting, and artistic elements automatically."
+  },
+  {
+    icon: Zap,
+    title: "Instant Generation",
+    description: "Watch as your image appears in high quality. Generate multiple variations, adjust styles, or refine your prompt to get exactly what you envision.",
+    tip: "Generate up to 4 variations at once to explore different interpretations."
+  },
+  {
+    icon: Download,
+    title: "Download & Use",
+    description: "Download your images in high resolution for any purpose. Use them for social media, presentations, marketing materials, or personal projects.",
+    tip: "All generated images are royalty-free for commercial and personal use."
+  }
+];
 
 export const HowItWorksDetailed = () => {
-  const navigate = useNavigate();
-
-  const steps = [
-    {
-      number: 1,
-      title: "Describe Your Vision",
-      description: "Simply type what you want to see. Be as creative and detailed as you like.",
-      details: "Use natural language to describe scenes, objects, styles, and moods. Our AI understands complex prompts.",
-      icon: Wand2,
-      color: "from-blue-500 to-cyan-500",
-      example: "A majestic dragon soaring over a medieval castle at sunset"
-    },
-    {
-      number: 2,
-      title: "Choose Your Style",
-      description: "Select from 50+ AI art styles or let our smart defaults create the perfect look.",
-      details: "From photorealistic to anime, watercolor to cyberpunk - find the perfect artistic style for your vision.",
-      icon: Palette,
-      color: "from-purple-500 to-pink-500",
-      example: "Photorealistic • Digital Art • Anime • Oil Painting"
-    },
-    {
-      number: 3,
-      title: "Generate & Download",
-      description: "Watch as AI creates your masterpiece in seconds. Download in high resolution.",
-      details: "Get professional-quality images up to 4K resolution. Perfect for social media, presentations, or printing.",
-      icon: Download,
-      color: "from-green-500 to-emerald-500",
-      example: "4K • HD • Standard • Mobile formats"
-    }
-  ];
-
-  const features = [
-    { icon: Sparkles, text: "Lightning fast generation" },
-    { icon: Star, text: "Professional quality results" },
-    { icon: Zap, text: "No design experience needed" }
-  ];
-
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-20 md:py-32 bg-gradient-to-br from-ai-surface/30 to-ai-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-600 text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4 mr-2" />
-            How It Works
-          </div>
-          
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Create Stunning Images in 
-            <span className="block mt-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Three Simple Steps
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            How <span className="text-gradient-neon">WordToImage</span> Works
           </h2>
-          
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Our AI transforms your ideas into professional-quality images faster than you can imagine.
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Transform your imagination into reality with our simple 4-step process. 
+            From concept to creation in seconds - no design skills required.
           </p>
         </motion.div>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <motion.div
-              key={step.number}
+              key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="relative"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="ai-card text-center group hover:scale-105 transition-transform duration-300"
             >
-              {/* Connection line for desktop */}
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-gray-300 to-transparent z-0"></div>
-              )}
+              <div className="relative mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-ai-primary to-ai-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <step.icon className="h-8 w-8 text-white" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-ai-neon rounded-full flex items-center justify-center text-ai-dark font-bold text-sm">
+                  {index + 1}
+                </div>
+              </div>
               
-              <div className="relative bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 z-10">
-                {/* Step number */}
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${step.color} text-white font-bold text-lg mb-6 shadow-lg`}>
-                  {step.number}
-                </div>
-                
-                {/* Icon */}
-                <div className="flex items-center mb-4">
-                  <div className={`p-3 rounded-lg bg-gradient-to-r ${step.color} bg-opacity-10 mr-4`}>
-                    <step.icon className="h-6 w-6 text-gray-700" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
-                </div>
-                
-                {/* Description */}
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  {step.description}
-                </p>
-                
-                <p className="text-sm text-gray-500 mb-4">
-                  {step.details}
-                </p>
-                
-                {/* Example */}
-                <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-indigo-500">
-                  <p className="text-sm text-gray-700 font-medium">
-                    {step.example}
-                  </p>
-                </div>
+              <h3 className="text-xl font-semibold text-white mb-4">{step.title}</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">{step.description}</p>
+              
+              <div className="mt-4 p-3 bg-ai-primary/20 rounded-lg border border-ai-primary/30">
+                <p className="text-sm text-ai-neon">{step.tip}</p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Features highlight */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8 md:p-12 text-center"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-16"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-            Why Choose Our AI Image Generator?
-          </h3>
-          
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
-            {features.map((feature, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <div className="p-2 bg-indigo-100 rounded-lg">
-                  <feature.icon className="h-5 w-5 text-indigo-600" />
-                </div>
-                <span className="text-gray-700 font-medium">{feature.text}</span>
-              </div>
-            ))}
+          <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-ai-neon/20 to-ai-accent/20 rounded-full border border-ai-neon/30">
+            <Sparkles className="h-5 w-5 text-ai-neon mr-2" />
+            <span className="text-ai-neon font-medium">Ready to create your first AI image?</span>
           </div>
-          
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate('/text-to-image')}
-          >
-            <Wand2 className="h-5 w-5 mr-2" />
-            Start Creating Now
-          </Button>
-          
-          <p className="mt-4 text-sm text-gray-500">
-            Free to try • No credit card required
-          </p>
         </motion.div>
       </div>
     </section>

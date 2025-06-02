@@ -74,103 +74,100 @@ export const CoreFeaturesGrid = () => {
   };
 
   return (
-    <section id="ai-features" className="py-24 bg-gray-50" aria-labelledby="core-features-heading">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.header
-          className="text-center mb-16"
+    <section id="ai-features" className="py-16 md:py-24 relative">
+      <div className="content-container">
+        <motion.div
+          className="text-center mb-12"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <Badge className="mb-4 bg-indigo-100 text-indigo-800 px-4 py-2">
-            <Hash className="h-4 w-4 mr-2" aria-hidden="true" />
+          <Badge className="mb-4 bg-ai-primary/20 text-ai-neon border-ai-primary/30 px-4 py-2">
+            <Hash className="h-4 w-4 mr-2" />
             Core Features
           </Badge>
-          <h2 id="core-features-heading" className="text-3xl md:text-4xl font-bold mb-6">
-            <span className="text-gray-900">Powered by Advanced AI,</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-gradient">Powered by Advanced AI,</span>
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Designed for Everyone</span>
+            <span className="text-white">Designed for Everyone</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto text-readable line-height-reading">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Professional-grade image generation tools that make creating stunning visuals effortless and powerful.
           </p>
-        </motion.header>
+        </motion.div>
 
-        {/* Primary Features - 2x2 Grid with improved spacing */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
           {primaryFeatures.map((feature, index) => (
-            <motion.article
+            <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group hover:scale-105 border border-gray-100"
+              className="ai-card group hover:scale-105 transition-all duration-300"
             >
-              <div className={`w-14 h-14 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`w-14 h-14 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                 <feature.icon className="h-7 w-7 text-white" aria-hidden="true" />
               </div>
               
-              <h3 className="text-xl font-bold mb-4 text-gray-900 text-readable">{feature.title}</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed text-readable line-height-reading">{feature.description}</p>
+              <h3 className="text-xl font-bold mb-3 text-white">{feature.title}</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">{feature.description}</p>
               
               <div className="flex items-center justify-between">
-                <span className="text-indigo-600 font-semibold text-sm text-readable" aria-label={`Feature metric: ${feature.stats}`}>
+                <span className="text-ai-neon font-semibold text-sm" aria-label={`Feature metric: ${feature.stats}`}>
                   {feature.stats}
                 </span>
-                <div className="w-7 h-7 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-200 transition-colors duration-300">
-                  <Check className="h-3 w-3 text-indigo-600" aria-hidden="true" />
+                <div className="w-7 h-7 bg-ai-primary/20 rounded-full flex items-center justify-center group-hover:bg-ai-primary/40 transition-colors duration-300">
+                  <Check className="h-3 w-3 text-ai-neon" aria-hidden="true" />
                 </div>
               </div>
-            </motion.article>
+            </motion.div>
           ))}
         </motion.div>
 
-        {/* Advanced Features Section with improved hierarchy */}
-        <motion.section
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="border-t border-gray-200 pt-16"
-          aria-labelledby="advanced-features-heading"
+          className="border-t border-ai-primary/20 pt-12"
         >
-          <header className="text-center mb-12">
-            <Badge className="mb-3 bg-purple-100 text-purple-800 px-3 py-1 text-sm">
+          <div className="text-center mb-8">
+            <Badge className="mb-3 bg-ai-accent/20 text-ai-accent border-ai-accent/30 px-3 py-1 text-sm">
               Professional Tools
             </Badge>
-            <h3 id="advanced-features-heading" className="text-2xl font-bold text-gray-900 mb-2 text-readable">Advanced Features for Power Users</h3>
-            <p className="text-gray-600 max-w-xl mx-auto text-readable line-height-reading">
+            <h3 className="text-2xl font-bold text-white mb-2">Advanced Features for Power Users</h3>
+            <p className="text-gray-400 max-w-xl mx-auto">
               Additional capabilities for professional creators, teams, and businesses who need more control.
             </p>
-          </header>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {advancedFeatures.map((feature, index) => (
-              <article
+              <div
                 key={index}
-                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 border border-purple-100 hover:border-purple-200"
+                className="ai-card group border border-ai-accent/20 hover:border-ai-accent/40"
               >
                 <div className="flex items-start space-x-4">
                   <div className={`w-10 h-10 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
                     <feature.icon className="h-5 w-5 text-white" aria-hidden="true" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2 text-readable">{feature.title}</h4>
-                    <p className="text-gray-600 text-sm mb-2 text-readable line-height-reading">{feature.description}</p>
-                    <span className="text-purple-600 font-medium text-xs text-readable" aria-label={`Feature metric: ${feature.stats}`}>
+                    <h4 className="text-lg font-semibold text-white mb-2">{feature.title}</h4>
+                    <p className="text-gray-300 text-sm mb-2">{feature.description}</p>
+                    <span className="text-ai-accent font-medium text-xs" aria-label={`Feature metric: ${feature.stats}`}>
                       {feature.stats}
                     </span>
                   </div>
                 </div>
-              </article>
+              </div>
             ))}
           </div>
-        </motion.section>
+        </motion.div>
       </div>
     </section>
   );

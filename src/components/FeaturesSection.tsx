@@ -61,9 +61,9 @@ export const FeaturesSection = () => {
   };
 
   return (
-    <section id="features" className="py-16 md:py-24 bg-white" aria-labelledby="features-heading">
+    <section id="features" className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.header className="text-center mb-16">
+        <div className="text-center mb-16">
           <motion.span 
             className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4"
             initial={{ opacity: 0, y: -10 }}
@@ -76,8 +76,7 @@ export const FeaturesSection = () => {
           </motion.span>
           
           <motion.h2 
-            id="features-heading"
-            className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4 text-readable"
+            className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -87,7 +86,7 @@ export const FeaturesSection = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-lg text-gray-600 max-w-2xl mx-auto text-readable line-height-reading"
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -95,7 +94,7 @@ export const FeaturesSection = () => {
           >
             Powerful features designed to transform your ideas into stunning visuals
           </motion.p>
-        </motion.header>
+        </div>
 
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -105,7 +104,7 @@ export const FeaturesSection = () => {
           viewport={{ once: true, amount: 0.1 }}
         >
           {features.map((feature, index) => (
-            <motion.article 
+            <motion.div 
               key={index} 
               className="group"
               variants={itemVariants}
@@ -117,8 +116,8 @@ export const FeaturesSection = () => {
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
                   </div>
-                  <CardTitle className="text-xl font-semibold text-readable">{feature.title}</CardTitle>
-                  <CardDescription className="text-gray-600 text-readable line-height-reading">{feature.description}</CardDescription>
+                  <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
+                  <CardDescription className="text-gray-600">{feature.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {hoveredFeature === index && (
@@ -127,14 +126,14 @@ export const FeaturesSection = () => {
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="text-sm text-gray-500 pt-2 border-t mt-2 text-readable line-height-reading"
+                      className="text-sm text-gray-500 pt-2 border-t mt-2"
                     >
                       {feature.extendedDescription}
                     </motion.div>
                   )}
                 </CardContent>
               </Card>
-            </motion.article>
+            </motion.div>
           ))}
         </motion.div>
       </div>

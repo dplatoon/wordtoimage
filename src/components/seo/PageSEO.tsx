@@ -26,6 +26,7 @@ export const PageSEO = ({
   aiKeywords = [],
   voiceSearchQueries = []
 }: PageSEOProps) => {
+  const fullTitle = title.includes('WordToImage') ? title : `${title} | WordToImage - AI Image Generator`;
   const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : '');
   
   // Enhanced AI-focused keywords
@@ -43,10 +44,15 @@ export const PageSEO = ({
     ...aiKeywords
   ].join(', ');
 
+  // Enhanced description with AI context
+  const enhancedDescription = description.includes('AI') 
+    ? description 
+    : `${description} Create with AI-powered image generation technology.`;
+
   return (
     <Helmet>
-      <title>{title}</title>
-      <meta name="description" content={description} />
+      <title>{fullTitle}</title>
+      <meta name="description" content={enhancedDescription} />
       {combinedKeywords && <meta name="keywords" content={combinedKeywords} />}
       
       {/* Voice search optimization */}
@@ -65,8 +71,8 @@ export const PageSEO = ({
       {canonical && <link rel="canonical" href={canonical} />}
       
       {/* Enhanced Open Graph */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
+      <meta property="og:title" content={fullTitle} />
+      <meta property="og:description" content={enhancedDescription} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={ogImage} />
@@ -74,8 +80,8 @@ export const PageSEO = ({
       <meta property="og:locale" content="en_US" />
       
       {/* Enhanced Twitter */}
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={enhancedDescription} />
       <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@wordtoimage" />

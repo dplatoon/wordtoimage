@@ -4,7 +4,6 @@ export class PerformanceOptimizer {
   private static instance: PerformanceOptimizer;
   private criticalResources: Set<string> = new Set();
   private preloadedResources: Set<string> = new Set();
-  private observedImages: WeakSet<Element> = new WeakSet();
 
   static getInstance(): PerformanceOptimizer {
     if (!PerformanceOptimizer.instance) {
@@ -13,7 +12,7 @@ export class PerformanceOptimizer {
     return PerformanceOptimizer.instance;
   }
 
-  // Enhanced preload critical resources with modern formats
+  // Preload critical resources
   preloadCriticalResources(): void {
     const criticalImages = [
       '/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png',
@@ -22,49 +21,13 @@ export class PerformanceOptimizer {
 
     criticalImages.forEach(src => {
       if (!this.preloadedResources.has(src)) {
-        this.preloadModernImage(src);
+        this.preloadResource(src, 'image', 'high');
         this.preloadedResources.add(src);
       }
     });
 
-    // Preload critical CSS with high priority
-    this.preloadResource('/fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap', 'style', 'high');
-  }
-
-  private preloadModernImage(src: string): void {
-    if (typeof document === 'undefined') return;
-
-    // Preload AVIF if supported
-    if (this.supportsImageFormat('avif')) {
-      const avifSrc = this.convertToModernFormat(src, 'avif');
-      this.preloadResource(avifSrc, 'image', 'high');
-    }
-    // Preload WebP if supported
-    else if (this.supportsImageFormat('webp')) {
-      const webpSrc = this.convertToModernFormat(src, 'webp');
-      this.preloadResource(webpSrc, 'image', 'high');
-    }
-    // Fallback to original
-    else {
-      this.preloadResource(src, 'image', 'high');
-    }
-  }
-
-  private supportsImageFormat(format: 'webp' | 'avif'): boolean {
-    const canvas = document.createElement('canvas');
-    canvas.width = 1;
-    canvas.height = 1;
-    return canvas.toDataURL(`image/${format}`).indexOf(`data:image/${format}`) === 0;
-  }
-
-  private convertToModernFormat(src: string, format: 'webp' | 'avif'): string {
-    if (src.startsWith('http') || src.startsWith('data:')) return src;
-    
-    const extension = src.split('.').pop()?.toLowerCase();
-    if (extension === 'svg') return src;
-    
-    const basePath = src.replace(/\.[^/.]+$/, '');
-    return `${basePath}.${format}`;
+    // Preload critical CSS
+    this.preloadResource('/fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap', 'style');
   }
 
   private preloadResource(href: string, as: string, fetchPriority: 'high' | 'low' | 'auto' = 'auto'): void {
@@ -78,219 +41,132 @@ export class PerformanceOptimizer {
       (link as any).fetchPriority = fetchPriority;
     }
     
+    // Add error handling
     link.onerror = () => console.warn(`Failed to preload: ${href}`);
+    
     document.head.appendChild(link);
   }
 
-  // Enhanced image optimization with responsive sizing
-  generateResponsiveSrcSet(baseSrc: string): {
-    srcSet: string;
+  // Optimize images for different viewports
+  optimizeImageSrc(src: string, width: number, quality: number = 85): string {
+    if (!src || src.startsWith('data:') || src.startsWith('blob:')) {
+      return src;
+    }
+
+    // For external URLs, add optimization parameters if possible
+    if (src.startsWith('http')) {
+      try {
+        const url = new URL(src);
+        // Only add params if it looks like a CDN that supports them
+        if (url.hostname.includes('unsplash') || url.hostname.includes('images')) {
+          url.searchParams.set('w', width.toString());
+          url.searchParams.set('q', quality.toString());
+          url.searchParams.set('auto', 'format');
+          return url.toString();
+        }
+      } catch {
+        // If URL parsing fails, return original
+        return src;
+      }
+    }
+
+    return src;
+  }
+
+  // Generate responsive image sources
+  generateResponsiveSources(baseSrc: string): { 
+    webp: string; 
+    avif: string; 
+    fallback: string;
     sizes: string;
-    avifSrcSet?: string;
-    webpSrcSet?: string;
   } {
     if (!baseSrc || baseSrc.startsWith('http') || baseSrc.startsWith('data:')) {
       return {
-        srcSet: baseSrc,
+        webp: baseSrc,
+        avif: baseSrc,
+        fallback: baseSrc,
         sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
       };
     }
 
+    const extension = baseSrc.split('.').pop()?.toLowerCase();
+    if (extension === 'svg') {
+      return {
+        webp: baseSrc,
+        avif: baseSrc,
+        fallback: baseSrc,
+        sizes: '100vw'
+      };
+    }
+
     const basePath = baseSrc.replace(/\.[^/.]+$/, '');
-    const widths = [320, 640, 768, 1024, 1280, 1536];
-    
-    const generateSrcSet = (format: string) => {
-      return widths.map(width => `${basePath}-${width}w.${format} ${width}w`).join(', ');
-    };
-
     return {
-      srcSet: generateSrcSet('jpg'),
-      avifSrcSet: generateSrcSet('avif'),
-      webpSrcSet: generateSrcSet('webp'),
-      sizes: '(max-width: 320px) 280px, (max-width: 640px) 600px, (max-width: 768px) 720px, (max-width: 1024px) 960px, (max-width: 1280px) 1200px, 1440px'
+      avif: `${basePath}.avif`,
+      webp: `${basePath}.webp`,
+      fallback: baseSrc,
+      sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
     };
   }
 
-  // Add the missing optimizeImageSrc method
-  optimizeImageSrc(src: string, width: number = 800, quality: number = 85): string {
-    if (!src || src.startsWith('blob:') || src.startsWith('data:') || src.includes('.svg')) {
-      return src;
-    }
+  // Defer non-critical scripts
+  deferScript(src: string, onLoad?: () => void): void {
+    if (typeof document === 'undefined') return;
 
-    // For external URLs, return as-is (can't optimize)
-    if (src.startsWith('http')) {
-      return src;
-    }
-
-    // For local images, we would typically add query parameters for optimization
-    // Since this is a static site, we'll return the original for now
-    return src;
-  }
-
-  // Add the missing generateResponsiveSources method (alias for generateResponsiveSrcSet)
-  generateResponsiveSources(baseSrc: string) {
-    const responsiveData = this.generateResponsiveSrcSet(baseSrc);
-    return {
-      avif: responsiveData.avifSrcSet || baseSrc,
-      webp: responsiveData.webpSrcSet || baseSrc,
-      fallback: responsiveData.srcSet,
-      sizes: responsiveData.sizes
-    };
-  }
-
-  // Enhanced lazy loading with Intersection Observer v2
-  setupAdvancedLazyLoading(): void {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
-
-    const imageObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !this.observedImages.has(entry.target)) {
-            const img = entry.target as HTMLImageElement;
-            this.loadImageWithModernFormats(img);
-            this.observedImages.add(img);
-            observer.unobserve(img);
-          }
-        });
-      },
-      {
-        rootMargin: '100px 0px',
-        threshold: 0.01
-      }
-    );
-
-    // Observe all images with data-src attribute
-    document.querySelectorAll('img[data-src]').forEach(img => {
-      imageObserver.observe(img);
-    });
-  }
-
-  private loadImageWithModernFormats(img: HTMLImageElement): void {
-    const dataSrc = img.dataset.src;
-    if (!dataSrc) return;
-
-    // Create picture element for modern format support
-    const picture = document.createElement('picture');
+    const script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    script.async = true;
     
-    // Add AVIF source
-    if (this.supportsImageFormat('avif')) {
-      const avifSource = document.createElement('source');
-      avifSource.srcset = this.convertToModernFormat(dataSrc, 'avif');
-      avifSource.type = 'image/avif';
-      picture.appendChild(avifSource);
+    if (onLoad) {
+      script.onload = onLoad;
     }
-
-    // Add WebP source
-    if (this.supportsImageFormat('webp')) {
-      const webpSource = document.createElement('source');
-      webpSource.srcset = this.convertToModernFormat(dataSrc, 'webp');
-      webpSource.type = 'image/webp';
-      picture.appendChild(webpSource);
-    }
-
-    // Set the final src
-    img.src = dataSrc;
-    img.removeAttribute('data-src');
+    
+    document.body.appendChild(script);
   }
 
-  // Enhanced Core Web Vitals monitoring with actionable insights
-  initEnhancedWebVitalsMonitoring(): void {
+  // Monitor Core Web Vitals
+  initWebVitalsMonitoring(): void {
     if (typeof window === 'undefined') return;
 
-    // LCP monitoring with recommendations
+    // LCP monitoring
     new PerformanceObserver((entryList) => {
       const entries = entryList.getEntries();
       const lastEntry = entries[entries.length - 1] as any;
-      const lcpTime = Math.round(lastEntry.startTime);
+      console.log('LCP:', Math.round(lastEntry.startTime), 'ms');
       
-      console.log('LCP:', lcpTime, 'ms');
-      
-      if (lcpTime > 2500) {
-        console.warn(`LCP is slow (${lcpTime}ms). Consider: preloading LCP image, optimizing server response, using CDN`);
-        this.suggestLCPOptimizations(lastEntry.element);
+      if (lastEntry.startTime > 2500) {
+        console.warn('LCP is slow, consider optimizing largest contentful element');
       }
     }).observe({ entryTypes: ['largest-contentful-paint'] });
 
-    // Enhanced CLS monitoring with layout shift prevention
+    // FID monitoring
+    new PerformanceObserver((entryList) => {
+      entryList.getEntries().forEach((entry: any) => {
+        const fid = entry.processingStart - entry.startTime;
+        console.log('FID:', Math.round(fid), 'ms');
+        
+        if (fid > 100) {
+          console.warn('FID is slow, consider optimizing JavaScript execution');
+        }
+      });
+    }).observe({ entryTypes: ['first-input'] });
+
+    // CLS monitoring
     let clsValue = 0;
-    let clsEntries: any[] = [];
-    
     new PerformanceObserver((entryList) => {
       entryList.getEntries().forEach((entry: any) => {
         if (!entry.hadRecentInput) {
           clsValue += entry.value;
-          clsEntries.push(entry);
         }
       });
       
       if (clsValue > 0.1) {
-        console.warn(`CLS is high (${clsValue.toFixed(4)}). Implementing fixes...`);
-        this.fixLayoutShifts(clsEntries);
+        console.warn('CLS is high, check for layout shifts. Current CLS:', clsValue.toFixed(4));
       }
     }).observe({ entryTypes: ['layout-shift'] });
-
-    // INP monitoring (replaces FID)
-    new PerformanceObserver((entryList) => {
-      entryList.getEntries().forEach((entry: any) => {
-        const inp = entry.processingStart - entry.startTime;
-        console.log('INP:', Math.round(inp), 'ms');
-        
-        if (inp > 200) {
-          console.warn(`INP is slow (${inp}ms). Consider: code splitting, reducing JS execution time, optimizing event handlers`);
-        }
-      });
-    }).observe({ entryTypes: ['first-input'] });
   }
 
-  private suggestLCPOptimizations(lcpElement: Element): void {
-    if (lcpElement?.tagName === 'IMG') {
-      const img = lcpElement as HTMLImageElement;
-      if (!img.hasAttribute('fetchpriority')) {
-        img.setAttribute('fetchpriority', 'high');
-        console.log('Applied fetchpriority="high" to LCP image');
-      }
-    }
-  }
-
-  private fixLayoutShifts(entries: any[]): void {
-    entries.forEach(entry => {
-      entry.sources?.forEach((source: any) => {
-        const element = source.node;
-        if (element && element.tagName === 'IMG') {
-          const img = element as HTMLImageElement;
-          if (!img.style.aspectRatio && !img.width && !img.height) {
-            // Set aspect ratio to prevent layout shift
-            img.style.aspectRatio = '16/9';
-            console.log('Applied aspect-ratio to prevent layout shift');
-          }
-        }
-      });
-    });
-  }
-
-  // Asset optimization - defer non-critical resources
-  deferNonCriticalAssets(): void {
-    if (typeof document === 'undefined') return;
-
-    // Defer non-critical CSS
-    const nonCriticalCSS = document.querySelectorAll('link[rel="stylesheet"]:not([data-critical])');
-    nonCriticalCSS.forEach(link => {
-      const linkElement = link as HTMLLinkElement;
-      linkElement.media = 'print';
-      linkElement.onload = () => { linkElement.media = 'all'; };
-    });
-
-    // Defer non-critical JavaScript
-    const nonCriticalJS = document.querySelectorAll('script:not([data-critical])');
-    nonCriticalJS.forEach(script => {
-      const scriptElement = script as HTMLScriptElement;
-      if (!scriptElement.defer && !scriptElement.async) {
-        scriptElement.defer = true;
-      }
-    });
-  }
-
-  // Resource cleanup to prevent memory leaks
+  // Clean up resources to prevent memory leaks
   cleanupResources(): void {
     // Clean up blob URLs
     document.querySelectorAll('img[src^="blob:"]').forEach((img) => {
@@ -298,32 +174,30 @@ export class PerformanceOptimizer {
       URL.revokeObjectURL(src);
     });
 
-    // Clear caches periodically
-    if (this.preloadedResources.size > 50) {
+    // Clear preloaded resources cache periodically
+    if (this.preloadedResources.size > 20) {
       this.preloadedResources.clear();
     }
   }
 
-  // Initialize all optimizations
+  // Set up performance optimizations
   init(): void {
-    console.log('🚀 Initializing enhanced performance optimizations...');
-    
-    // Core optimizations
+    // Preload critical resources
     this.preloadCriticalResources();
-    this.deferNonCriticalAssets();
-    this.setupAdvancedLazyLoading();
-    this.initEnhancedWebVitalsMonitoring();
     
-    // Periodic cleanup
+    // Start monitoring
+    this.initWebVitalsMonitoring();
+    
+    // Set up periodic cleanup
     setInterval(() => {
       this.cleanupResources();
     }, 300000); // Every 5 minutes
     
-    console.log('✅ Enhanced performance optimizer initialized');
+    console.log('✅ Performance optimizer initialized');
   }
 }
 
-// Initialize enhanced performance optimizations
+// Initialize performance optimizations
 export const initPerformanceOptimizations = () => {
   const optimizer = PerformanceOptimizer.getInstance();
   optimizer.init();

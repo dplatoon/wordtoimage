@@ -7,7 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { ModernResponsiveImage } from '@/components/common/ModernResponsiveImage';
 import { defaultFallbackImage } from '@/utils/imageUtils';
 
 interface ShowcaseMobileCarouselProps {
@@ -21,22 +20,28 @@ interface ShowcaseMobileCarouselProps {
 }
 
 export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) => {
+  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
+  
+  const handleImageError = (id: number) => {
+    console.log('Failed to load carousel image:', id);
+    setImageErrors(prev => ({ ...prev, [id]: true }));
+  };
+
   return (
     <Carousel className="w-full max-w-xs mx-auto">
       <CarouselContent>
-        {items.map((item, index) => (
+        {items.map((item) => (
           <CarouselItem key={item.id} className="pl-1">
             <div className="relative overflow-hidden rounded-xl aspect-square">
-              <ModernResponsiveImage
-                src={item.imageUrl}
-                alt={`AI image generation example: ${item.prompt} in ${item.style} style`}
-                className="w-full h-full transition-transform duration-700 hover:scale-110"
-                aspectRatio="1/1"
-                priority={index === 0} // Prioritize first image
-                sizes="(max-width: 768px) 320px, 400px"
-                objectFit="cover"
+              <img
+                src={imageErrors[item.id] ? defaultFallbackImage : item.imageUrl}
+                alt={item.prompt}
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                loading="lazy"
+                decoding="async"
+                fetchPriority={item.id === 1 ? "high" : "auto"}
+                onError={() => handleImageError(item.id)}
               />
-              
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-white">
                 <p className="font-medium text-sm">{item.prompt}</p>
                 <div className="flex justify-between items-center mt-2">
@@ -55,3 +60,4 @@ export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) =
     </Carousel>
   );
 };
+
