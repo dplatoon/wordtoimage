@@ -21,13 +21,6 @@
         font-display: swap;
       }
       
-      /* Remove loading spinner since we're using static content */
-      .hero-content {
-        display: block;
-        opacity: 1;
-        transform: none;
-      }
-      
       /* Ensure header has fixed space */
       .header-fixed {
         position: fixed;
@@ -62,7 +55,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Preload the new logo with high priority -->
+    <!-- Preload the logo with high priority -->
     <link rel="preload" href="/lovable-uploads/cd042a6d-b714-4ea7-928f-a2e5b6bbb855.png" as="image" type="image/png" fetchpriority="high">
     
     <!-- Preload critical font with high priority -->
@@ -75,37 +68,6 @@
     <!-- Load main CSS after critical styles -->
     <link rel="stylesheet" href="/src/index.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
-    
-    <!-- Open Graph / Social Meta Tags -->
-    <meta property="og:title" content="Transform Text into Stunning Images with AI | WordToImage" />
-    <meta property="og:description" content="Create beautiful AI-generated images from text descriptions instantly" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/wordtoimage-social.png" />
-    <meta property="og:url" content="https://wordtoimage.lovable.dev" />
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Transform Text into Stunning Images with AI" />
-    <meta name="twitter:description" content="Free AI Image Generator - Create stunning visuals instantly" />
-    <meta name="twitter:image" content="https://lovable.dev/wordtoimage-social.png" />
-    
-    <!-- Optimized structured data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "WordToImage",
-        "description": "AI-powered text to image generation tool",
-        "url": "https://wordtoimage.lovable.dev",
-        "applicationCategory": "DesignApplication",
-        "operatingSystem": "Any",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        }
-      }
-    </script>
     
     <!-- Favicon with new logo -->
     <link rel="icon" type="image/png" href="/lovable-uploads/cd042a6d-b714-4ea7-928f-a2e5b6bbb855.png">
@@ -131,9 +93,7 @@
   </head>
 
   <body>
-    <div id="root">
-      <!-- No loader since we're using static content -->
-    </div>
+    <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>

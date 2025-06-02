@@ -1,8 +1,14 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const OptimizedHeader = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <header className="bg-white fixed w-full z-50 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
@@ -43,12 +49,72 @@ export const OptimizedHeader = () => {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button className="md:hidden p-2 rounded text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <button 
+          className="md:hidden p-2 rounded text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+        >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            {isMobileMenuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
           </svg>
         </button>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-gray-200">
+          <nav className="px-4 py-2 space-y-1">
+            <Link 
+              to="/" 
+              className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link 
+              to="/features" 
+              className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Features
+            </Link>
+            <Link 
+              to="/pricing" 
+              className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Pricing
+            </Link>
+            <Link 
+              to="/contact" 
+              className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Contact
+            </Link>
+            <div className="border-t border-gray-200 pt-2">
+              <Link 
+                to="/auth" 
+                className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Sign In
+              </Link>
+              <Link 
+                to="/text-to-image" 
+                className="block mx-3 my-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg text-center font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Try AI Generator
+              </Link>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
