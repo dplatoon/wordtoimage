@@ -5,6 +5,7 @@
 @import './styles/utilities.css';
 @import './styles/animations.css';
 @import './styles/ai-theme.css';
+@import './styles/accessibility.css';
 @import './styles/mobile-responsive.css';
 @import './styles/mobile-first.css';
 @import './styles/mobile-optimizations.css';
@@ -12,9 +13,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import accessibility styles AFTER Tailwind to ensure proper cascade */
-@import './styles/accessibility.css';
 
 @layer base {
   * {

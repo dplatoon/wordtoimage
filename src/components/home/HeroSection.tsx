@@ -21,15 +21,15 @@ export const HeroSection = () => {
   };
   
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden" id="main-content">
+    <section className="py-16 md:py-24 relative overflow-hidden">
       {/* Decorative blobs */}
-      <div className="absolute top-20 left-0 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" aria-hidden="true"></div>
-      <div className="absolute top-40 right-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" aria-hidden="true"></div>
-      <div className="absolute bottom-40 left-1/3 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" aria-hidden="true"></div>
+      <div className="absolute top-20 left-0 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" aria-hidden="true"></div>
+      <div className="absolute top-40 right-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" aria-hidden="true"></div>
+      <div className="absolute bottom-40 left-1/3 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" aria-hidden="true"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <motion.h1 
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}

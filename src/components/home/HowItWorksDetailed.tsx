@@ -54,14 +54,14 @@ export const HowItWorksDetailed = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-sm font-medium mb-6">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-600 text-sm font-medium mb-6">
             <Sparkles className="w-4 h-4 mr-2" />
             How It Works
           </div>
           
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Create Stunning Images in 
-            <span className="block mt-2 bg-gradient-to-r from-blue-900 via-purple-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="block mt-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Three Simple Steps
             </span>
           </h2>
@@ -111,7 +111,7 @@ export const HowItWorksDetailed = () => {
                 </p>
                 
                 {/* Example */}
-                <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-teal-500">
+                <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-indigo-500">
                   <p className="text-sm text-gray-700 font-medium">
                     {step.example}
                   </p>
@@ -127,7 +127,7 @@ export const HowItWorksDetailed = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 md:p-12 text-center"
+          className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8 md:p-12 text-center"
         >
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
             Why Choose Our AI Image Generator?
@@ -136,8 +136,8 @@ export const HowItWorksDetailed = () => {
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
             {features.map((feature, index) => (
               <div key={index} className="flex items-center gap-3">
-                <div className="p-2 bg-teal-100 rounded-lg">
-                  <feature.icon className="h-5 w-5 text-teal-600" />
+                <div className="p-2 bg-indigo-100 rounded-lg">
+                  <feature.icon className="h-5 w-5 text-indigo-600" />
                 </div>
                 <span className="text-gray-700 font-medium">{feature.text}</span>
               </div>
@@ -146,7 +146,7 @@ export const HowItWorksDetailed = () => {
           
           <Button
             size="lg"
-            className="bg-teal-500 hover:bg-pink-500 text-white font-bold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             onClick={() => navigate('/text-to-image')}
           >
             <Wand2 className="h-5 w-5 mr-2" />

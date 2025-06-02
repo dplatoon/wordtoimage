@@ -1,36 +1,45 @@
 
 import { Link, useLocation } from 'react-router-dom';
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils';
 
 export const DesktopNavigation = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   
-  const isActive = (path: string) => location.pathname === path;
-
-  const navigationItems = [
-    { path: '/', label: 'Home' },
-    { path: '/text-to-image', label: 'Create Images' },
-    { path: '/features', label: 'Features' },
-    { path: '/pricing', label: 'Pricing' },
+  const navItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'Examples', href: '/text-to-image' },
+    { label: 'Contact', href: '/contact' }
   ];
 
   return (
-    <div className="hidden md:block">
-      <div className="ml-10 flex items-baseline space-x-2">
-        {navigationItems.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center focus:outline-none focus:ring-4 focus:ring-blue-400/50 ${
-              isActive(item.path)
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg border border-blue-500'
-                : 'text-slate-200 hover:text-white hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 border border-transparent hover:border-slate-500'
-            }`}
-            aria-current={isActive(item.path) ? 'page' : undefined}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </div>
-    </div>
+    <NavigationMenu className="px-0">
+      <NavigationMenuList>
+        {navItems.map((item, index) => {
+          const isActive = pathname === item.href;
+          
+          return (
+            <NavigationMenuItem key={index}>
+              <Link
+                to={item.href}
+                className={cn(
+                  "py-2 px-4 transition-colors duration-300",
+                  "relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5",
+                  "after:scale-x-0 after:bg-indigo-600 after:origin-bottom-right",
+                  "after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left",
+                  isActive 
+                    ? "text-indigo-600 after:scale-x-100" 
+                    : "text-gray-700 hover:text-indigo-600"
+                )}
+              >
+                {item.label}
+              </Link>
+            </NavigationMenuItem>
+          );
+        })}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };

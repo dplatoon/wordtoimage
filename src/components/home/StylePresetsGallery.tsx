@@ -81,13 +81,13 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-600 text-sm font-medium mb-4">
             <Palette className="w-4 h-4 mr-2" />
             AI Style Presets
           </div>
           
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Choose Your <span className="bg-gradient-to-r from-blue-900 via-purple-600 to-teal-600 bg-clip-text text-transparent">Creative Style</span>
+            Choose Your <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Creative Style</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Select from our curated collection of AI art styles. Each preset applies professional 
@@ -124,7 +124,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                           <Eye className="h-4 w-4 mr-1" />
                           Preview
                         </Button>
-                        <Button size="sm" className="bg-teal-500 hover:bg-pink-500 text-white">
+                        <Button size="sm" className="bg-indigo-600 text-white hover:bg-indigo-700">
                           <Download className="h-4 w-4 mr-1" />
                           Use Style
                         </Button>
@@ -134,7 +134,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                   
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
                       {preset.name}
                     </h3>
                     <p className="text-gray-600 mb-4 leading-relaxed">
@@ -146,7 +146,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                       {preset.style.split(', ').map((tag, tagIndex) => (
                         <span 
                           key={tagIndex}
-                          className="px-3 py-1 bg-teal-50 text-teal-600 text-xs font-medium rounded-full border border-teal-200"
+                          className="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-medium rounded-full border border-indigo-200"
                         >
                           {tag}
                         </span>
@@ -167,7 +167,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          <Button className="bg-teal-500 hover:bg-pink-500 text-white font-bold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
             Explore All 50+ Styles
             <Palette className="ml-2 h-5 w-5 transition-transform group-hover:rotate-12" />
           </Button>

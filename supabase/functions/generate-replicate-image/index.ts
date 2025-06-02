@@ -42,11 +42,10 @@ serve(async (req) => {
     // Get Replicate API key
     const replicateApiKey = Deno.env.get("REPLICATE_API_KEY");
     if (!replicateApiKey) {
-      console.error("REPLICATE_API_KEY not found in environment");
       return new Response(
         JSON.stringify({
           error: true,
-          errorMessage: "Replicate API key not configured. Please contact support.",
+          errorMessage: "Replicate API key not configured",
           errors: [{ code: "API_NOT_FOUND", message: "API key not found in environment" }]
         }),
         {
@@ -86,12 +85,6 @@ serve(async (req) => {
       if (sourceImage) {
         // Image-to-image generation using FLUX
         console.log("Using image-to-image generation with FLUX");
-        
-        // Validate image format
-        if (!sourceImage.startsWith('data:image/')) {
-          throw new Error("Invalid image format. Please provide a valid base64 image.");
-        }
-        
         output = await replicate.run(
           "black-forest-labs/flux-canny-pro",
           {
@@ -128,10 +121,9 @@ serve(async (req) => {
         );
       }
 
-      console.log("Replicate generation completed successfully");
+      console.log("Replicate generation completed");
 
       if (!output || !output[0]) {
-        console.error("No image URL received from Replicate:", output);
         throw new Error("No image URL received from Replicate");
       }
 
@@ -175,8 +167,6 @@ serve(async (req) => {
 
           if (!logResponse.ok) {
             console.error("Failed to log image generation:", await logResponse.text());
-          } else {
-            console.log("Successfully logged image generation to database");
           }
         } catch (logError) {
           console.error("Failed to log image generation:", logError);
@@ -203,15 +193,12 @@ serve(async (req) => {
       
       if (err.message) {
         errorMessage = err.message;
-        if (err.message.includes("NSFW") || err.message.includes("content policy")) {
+        if (err.message.includes("NSFW")) {
           errorCode = "CONTENT_POLICY";
           errorMessage = "Content policy violation detected. Please try a different prompt.";
         } else if (err.message.includes("rate limit")) {
           errorCode = "RATE_LIMIT";
           errorMessage = "Rate limit exceeded. Please try again later.";
-        } else if (err.message.includes("Invalid image format")) {
-          errorCode = "VALIDATION_ERROR";
-          errorMessage = "Invalid image format. Please upload a PNG, JPG, or WEBP image.";
         }
       }
 

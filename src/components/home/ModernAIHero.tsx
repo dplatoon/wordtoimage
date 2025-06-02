@@ -17,7 +17,7 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
   }, []);
   
   return (
-    <section className="relative py-16 sm:py-20 md:py-28 lg:py-36 overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 min-h-screen flex items-center">
+    <section className="relative py-16 sm:py-20 md:py-28 lg:py-36 overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl animate-pulse"></div>
@@ -31,7 +31,7 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
       </div>
       
       {/* Hero content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -112,7 +112,7 @@ export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
             {/* Primary CTA */}
             <Button 
               size="lg" 
-              className="bg-teal-500 hover:bg-pink-500 text-white font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[56px] w-full sm:w-auto" 
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[56px] w-full sm:w-auto" 
               asChild
             >
               <Link to="/text-to-image">

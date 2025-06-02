@@ -1,96 +1,138 @@
-
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Users, Settings, LogOut, X, ChevronRight, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Dispatch, SetStateAction } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
+import { supabase } from '@/lib/supabase';
+import { Logo } from './Logo';
+import { cn } from '@/lib/utils';
 
 interface MobileMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  menuRef: React.RefObject<HTMLDivElement>;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const MobileMenu = ({ isOpen, onClose, menuRef }: MobileMenuProps) => {
-  const { user, signOut } = useAuth();
-  const location = useLocation();
+export const MobileMenu = ({ open, setOpen }: MobileMenuProps) => {
+  const { user } = useAuth();
 
-  const isActive = (path: string) => location.pathname === path;
+  const handleSignOut = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      toast.success('Signed out successfully');
+      setOpen(false);
+    } catch (error) {
+      toast.error('Error signing out', {
+        description: error instanceof Error ? error.message : 'Please try again',
+      });
+    }
+  };
 
-  const navigationItems = [
-    { path: '/', label: 'Home' },
-    { path: '/text-to-image', label: 'Create Images' },
-    { path: '/features', label: 'Features' },
-    { path: '/pricing', label: 'Pricing' },
-  ];
+  if (!open) return null;
 
-  if (!isOpen) return null;
+  const MenuLink = ({ to, label, icon: Icon }: { to: string; label: string; icon?: any }) => (
+    <Link
+      to={to}
+      className="flex items-center justify-between py-3 px-4 hover:bg-gray-700/30 rounded-md"
+      onClick={() => setOpen(false)}
+    >
+      <div className="flex items-center">
+        {Icon && <Icon className="mr-3 h-5 w-5 text-gray-300" />}
+        <span className="text-gray-100 font-medium">{label}</span>
+      </div>
+      <ChevronRight className="h-4 w-4 text-gray-400" />
+    </Link>
+  );
+
+  const MenuSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+    <div className="py-2">
+      <h3 className="px-4 text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">
+        {title}
+      </h3>
+      {children}
+    </div>
+  );
 
   return (
-    <div 
-      ref={menuRef}
-      className="md:hidden bg-gradient-to-b from-slate-900 to-slate-800 border-t border-slate-700/50 shadow-2xl backdrop-blur-sm"
-      id="mobile-menu"
-      role="menu"
-      aria-orientation="vertical"
-      aria-labelledby="mobile-menu-button"
-    >
-      <div className="px-4 pt-4 pb-6 space-y-2">
-        {/* Mobile Navigation Links */}
-        <div className="space-y-2" role="none">
-          {navigationItems.map((item) => (
+    <div className="h-full flex flex-col bg-[#1A1F2C] text-white">
+      <div className="flex items-center justify-between py-4 px-4 border-b border-gray-700">
+        <Logo />
+        <Button variant="ghost" size="icon" className="h-9 w-9 text-gray-300 hover:bg-gray-700/50 hover:text-white" onClick={() => setOpen(false)}>
+          <X className="h-5 w-5" />
+        </Button>
+      </div>
+      
+      <div className="flex-1 overflow-y-auto py-2">
+        <MenuSection title="Product">
+          <MenuLink to="/features" label="Features" />
+          <MenuLink to="/pricing" label="Pricing" />
+          <MenuLink to="/templates" label="Templates Library" />
+          <MenuLink to="/text-to-image" label="AI Generator" />
+          <MenuLink to="/beta" label="Beta Program" />
+        </MenuSection>
+        
+        <Separator className="my-2 bg-gray-700" />
+        
+        <MenuSection title="Resources">
+          <MenuLink to="/blog" label="Blog" />
+          <MenuLink to="/tutorials" label="Tutorials" />
+          <MenuLink to="/design-tips" label="Design Tips" />
+          <MenuLink to="/help" label="Help Center" />
+          <MenuLink to="/api" label="API" />
+        </MenuSection>
+        
+        <Separator className="my-2 bg-gray-700" />
+        
+        <MenuSection title="Company">
+          <MenuLink to="/about" label="About" />
+          <MenuLink to="/careers" label="Careers" />
+          <MenuLink to="/contact" label="Contact" />
+        </MenuSection>
+        
+        <Separator className="my-2 bg-gray-700" />
+        
+        <MenuSection title="Community">
+          <MenuLink to="/community" label="Community" icon={Users} />
+        </MenuSection>
+      </div>
+      
+      <div className="border-t border-gray-700 p-4">
+        {user ? (
+          <div className="space-y-3">
             <Link
-              key={item.path}
-              to={item.path}
-              onClick={onClose}
-              className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 min-h-[48px] flex items-center focus:outline-none focus:ring-4 focus:ring-blue-400/50 ${
-                isActive(item.path)
-                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg border border-blue-500'
-                  : 'text-slate-200 hover:text-white hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 border border-transparent hover:border-slate-500'
-              }`}
-              role="menuitem"
-              aria-current={isActive(item.path) ? 'page' : undefined}
+              to="/dashboard"
+              className="flex items-center justify-between py-2 px-3 rounded-md bg-gray-800 hover:bg-gray-700"
+              onClick={() => setOpen(false)}
             >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Auth Section */}
-        <div className="border-t border-slate-700/50 pt-4 mt-4">
-          {user ? (
-            <div className="space-y-3">
-              <div className="px-4 py-2 text-sm text-slate-300 font-medium">
-                Welcome, {user.email}
+              <div className="flex items-center">
+                <Settings className="mr-3 h-5 w-5 text-indigo-400" />
+                <span className="font-medium text-gray-100">Profile Settings</span>
               </div>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  signOut();
-                  onClose();
-                }}
-                className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 hover:text-white hover:border-white transition-all duration-200"
-              >
-                Sign Out
-              </Button>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              <Link to="/auth" onClick={onClose}>
-                <Button 
-                  variant="outline" 
-                  className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-slate-400/50 bg-transparent border-slate-400 text-slate-200 hover:bg-gradient-to-r hover:from-slate-700 hover:to-slate-600 hover:text-white hover:border-white transition-all duration-200"
-                >
-                  Sign In
-                </Button>
-              </Link>
-              <Link to="/auth" onClick={onClose}>
-                <Button className="w-full min-h-[48px] text-base focus:ring-4 focus:ring-blue-400/50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
-          )}
-        </div>
+            </Link>
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-gray-300 hover:text-red-400 hover:bg-gray-800"
+              onClick={handleSignOut}
+            >
+              <LogOut className="mr-3 h-5 w-5" />
+              Sign Out
+            </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" className="w-full bg-transparent border-gray-600 text-gray-200 hover:bg-gray-700 hover:text-white" asChild>
+              <Link to="/auth" onClick={() => setOpen(false)}>Sign In</Link>
+            </Button>
+            <Button
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+              asChild
+            >
+              <Link to="/auth?tab=signup" onClick={() => setOpen(false)}>Get Started</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

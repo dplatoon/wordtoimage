@@ -1,62 +1,108 @@
 
-import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { OptimizedHeader } from '@/components/navigation/OptimizedHeader';
-import { OptimizedHero } from '@/components/hero/OptimizedHero';
-import { StaticFeaturesSection } from '@/components/features/StaticFeaturesSection';
-import { StaticTestimonialsSection } from '@/components/testimonials/StaticTestimonialsSection';
-import { StaticPricingSection } from '@/components/pricing/StaticPricingSection';
-import { StaticFAQSection } from '@/components/faq/StaticFAQSection';
+import { useState, useEffect } from 'react';
+import { Nav } from '@/components/Nav';
 import { ModernFooter } from '@/components/home/ModernFooter';
+import { BetaBanner } from '@/components/BetaBanner';
+import { SeoHead } from '@/components/home/SeoHead';
+import { SkipToContent } from '@/components/home/SkipToContent';
+import { ModernAIHero } from '@/components/home/ModernAIHero';
+import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
+import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
+import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
+import { StylePresetsGallery } from '@/components/home/StylePresetsGallery';
+import { SamplePromptsSection } from '@/components/home/SamplePromptsSection';
+import { EnhancedTestimonials } from '@/components/home/EnhancedTestimonials';
+import { MinimalistPricing } from '@/components/home/MinimalistPricing';
+import { FAQSection } from '@/components/home/FAQSection';
+import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
+import { SocialMetaTags } from '@/components/social/SocialMetaTags';
+import { ReadingProgress } from '@/components/content/ReadingProgress';
 
 const Index = () => {
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+
   useEffect(() => {
-    // Defer analytics to not block rendering
+    // Track page view
     if (typeof window !== 'undefined') {
-      const timeoutId = setTimeout(() => {
-        import('@/utils/analytics').then(({ trackPageView }) => {
-          trackPageView('/', 'Home - AI Image Generator');
-        }).catch(() => {
-          // Fail silently for analytics
-        });
-      }, 1000);
-      
-      return () => clearTimeout(timeoutId);
+      import('@/utils/analytics').then(({ trackPageView }) => {
+        trackPageView('/', 'Home - AI Image Generator');
+      }).catch(error => {
+        console.warn('Analytics tracking failed:', error);
+      });
     }
   }, []);
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "WordToImage – Create Stunning AI Images from Text",
-    "description": "Generate beautiful, AI-powered visuals from any text. No design skills required.",
-    "url": "https://wordtoimage.com"
+  const handleShowProFeatures = () => {
+    setIsPricingModalOpen(true);
   };
 
   return (
-    <>
-      <Helmet>
-        <title>WordToImage – Create Stunning AI Images from Text</title>
-        <meta name="description" content="Generate beautiful, AI-powered visuals from any text. No design skills required." />
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-      </Helmet>
-
-      <div className="min-h-screen bg-white">
-        <OptimizedHeader />
+    <div className="min-h-screen bg-white">
+      <SeoHead />
+      <SocialMetaTags
+        title="WordToImage – AI Text-to-Image Generator"
+        description="Create stunning AI-generated images from text descriptions. Fast, easy, and high-quality results."
+        type="website"
+        url="https://wordtoimage.com"
+      />
+      
+      <ReadingProgress target="main" />
+      <SkipToContent />
+      <BetaBanner />
+      
+      <header>
+        <Nav />
+      </header>
+      
+      <main id="main-content" className="relative">
+        <section aria-label="Hero section">
+          <ModernAIHero onShowProFeatures={handleShowProFeatures} />
+        </section>
         
-        <main id="main-content" role="main" className="pt-16">
-          <OptimizedHero />
-          <StaticFeaturesSection />
-          <StaticTestimonialsSection />
-          <StaticPricingSection />
-          <StaticFAQSection />
-        </main>
+        <section aria-label="Features overview">
+          <FeaturesGridSection />
+        </section>
         
+        <section aria-label="How it works">
+          <HowItWorksDetailed />
+        </section>
+        
+        <section aria-label="Image showcase">
+          <ImageShowcaseGrid />
+        </section>
+        
+        <section aria-label="Style presets">
+          <StylePresetsGallery />
+        </section>
+        
+        <section aria-label="Sample prompts">
+          <SamplePromptsSection />
+        </section>
+        
+        <section aria-label="Customer testimonials">
+          <EnhancedTestimonials />
+        </section>
+        
+        <section aria-label="Pricing plans">
+          <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
+        </section>
+        
+        <section aria-label="Frequently asked questions">
+          <FAQSection />
+        </section>
+      </main>
+      
+      <footer id="footer">
         <ModernFooter />
-      </div>
-    </>
+      </footer>
+      
+      {isPricingModalOpen && (
+        <ProFeaturesModal 
+          showModal={isPricingModalOpen}
+          onClose={() => setIsPricingModalOpen(false)}
+        />
+      )}
+    </div>
   );
 };
 

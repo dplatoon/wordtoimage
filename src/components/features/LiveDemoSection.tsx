@@ -1,15 +1,19 @@
+
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { ImageIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { ImageGenerationForm } from '@/components/hero/ImageGenerationForm';
 import { ImagePreview } from '@/components/hero/ImagePreview';
+
 export const LiveDemoSection = () => {
   const [generatedImageUrl, setGeneratedImageUrl] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  return <section id="demo" className="py-16 md:py-24 bg-gradient-to-r from-ai-surface/50 to-ai-muted/50 backdrop-blur-sm">
-      <div className="content-container bg-brand-purple">
+
+  return (
+    <section id="demo" className="py-16 md:py-24 bg-gradient-to-r from-ai-surface/50 to-ai-muted/50 backdrop-blur-sm">
+      <div className="content-container">
         <div className="text-center mb-12">
           <Badge className="mb-4 bg-ai-accent/20 text-ai-accent border-ai-accent/30 px-4 py-2">
             <ImageIcon className="h-4 w-4 mr-2" />
@@ -25,38 +29,35 @@ export const LiveDemoSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          <motion.div initial={{
-          opacity: 0,
-          x: -20
-        }} whileInView={{
-          opacity: 1,
-          x: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6
-        }}>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <h3 className="text-xl font-semibold text-white mb-4">Create Your Image</h3>
-              <ImageGenerationForm onImageGenerated={setGeneratedImageUrl} onGeneratingChange={setIsGenerating} onError={setError} />
+              <ImageGenerationForm 
+                onImageGenerated={setGeneratedImageUrl}
+                onGeneratingChange={setIsGenerating}
+                onError={setError}
+              />
             </div>
           </motion.div>
           
-          <motion.div initial={{
-          opacity: 0,
-          x: 20
-        }} whileInView={{
-          opacity: 1,
-          x: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6,
-          delay: 0.2
-        }}>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <h3 className="text-xl font-semibold text-white mb-4">Your Generated Image</h3>
-              <ImagePreview imageUrl={generatedImageUrl} isGenerating={isGenerating} error={error} />
+              <ImagePreview 
+                imageUrl={generatedImageUrl}
+                isGenerating={isGenerating}
+                error={error}
+              />
             </div>
           </motion.div>
         </div>
@@ -67,5 +68,6 @@ export const LiveDemoSection = () => {
           </p>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };

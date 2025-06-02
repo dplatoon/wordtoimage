@@ -11,9 +11,6 @@ export const BetaBanner = () => {
     localStorage.setItem('betaBannerDismissed', 'true');
     setIsVisible(false);
     
-    // Dispatch a custom event to notify other components
-    window.dispatchEvent(new CustomEvent('betaBannerDismissed'));
-    
     // Track dismissal with Google Analytics
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'beta_banner_dismissed', {
@@ -48,7 +45,7 @@ export const BetaBanner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-blue-600 text-white px-4 py-2 text-sm fixed top-0 left-0 right-0 z-[60] flex items-center justify-center shadow-lg">
+    <div className="bg-blue-600 text-white px-4 py-2 text-sm fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center shadow-lg">
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
         <div className="flex items-center">
           <span className="font-semibold mr-2">Beta Release</span>
@@ -57,14 +54,13 @@ export const BetaBanner = () => {
         <div className="flex items-center space-x-2">
           <button 
             onClick={handleFeedbackClick}
-            className="bg-white text-blue-600 px-3 py-1 rounded-md text-xs font-medium hover:bg-blue-50 transition-colors min-h-[32px] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
-            aria-label="Share feedback about beta"
+            className="bg-white text-blue-600 px-3 py-1 rounded-md text-xs font-medium hover:bg-blue-50 transition-colors"
           >
             Share Feedback
           </button>
           <button 
             onClick={dismissBanner}
-            className="text-white hover:text-blue-200 transition-colors p-1 rounded min-h-[32px] min-w-[32px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
+            className="text-white hover:text-blue-200 transition-colors"
             aria-label="Dismiss beta banner"
           >
             <X className="h-4 w-4" />

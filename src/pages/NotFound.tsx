@@ -2,7 +2,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Nav } from '@/components/Nav';
-import { ModernFooter } from '@/components/home/ModernFooter';
+import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
@@ -20,7 +20,7 @@ const NotFound = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Nav />
       
-      <div className="flex-grow flex items-center justify-center py-16 px-4 pt-32">
+      <div className="flex-grow flex items-center justify-center py-16 px-4">
         <div className="text-center max-w-md">
           <div className="text-6xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">404</div>
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Page Not Found</h1>
@@ -44,7 +44,7 @@ const NotFound = () => {
         </div>
       </div>
       
-      <ModernFooter />
+      <Footer />
     </div>
   );
 };
