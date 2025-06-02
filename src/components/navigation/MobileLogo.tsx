@@ -6,7 +6,7 @@ export const MobileLogo = () => {
   const [logoError, setLogoError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const logoSrc = '/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png';
+  const logoSrc = '/lovable-uploads/cd042a6d-b714-4ea7-928f-a2e5b6bbb855.png';
 
   useEffect(() => {
     console.log('📱 MobileLogo: Initializing mobile logo');
@@ -59,9 +59,6 @@ export const MobileLogo = () => {
           imageRendering: 'crisp-edges'
         }}
       />
-      <span className="ml-2 text-lg font-bold text-white tracking-tight">
-        WordToImage
-      </span>
     </div>
   );
 };

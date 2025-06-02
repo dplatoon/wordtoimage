@@ -22,8 +22,8 @@ export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Use the high-quality logo with mobile-specific handling
-  const logoSrc = '/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png';
+  // Use the new logo
+  const logoSrc = '/lovable-uploads/cd042a6d-b714-4ea7-928f-a2e5b6bbb855.png';
 
   // Preload the logo image with enhanced mobile support
   useEffect(() => {
@@ -78,25 +78,25 @@ export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }
       ? "brightness-110 drop-shadow-sm" 
       : "brightness-110 drop-shadow-sm",
     // Mobile-specific optimizations
-    isMobile && "max-w-[120px]"
+    isMobile && "max-w-[180px]"
   );
   
-  // Define text logo classes based on variant
+  // Define fallback text classes based on variant
   const textLogoClasses = cn(
     "text-lg sm:text-xl font-bold bg-clip-text text-transparent",
     isFooter 
       ? "bg-gradient-to-r from-white to-gray-200"
-      : "bg-gradient-to-r from-white to-gray-200"
+      : "bg-gradient-to-r from-gray-800 to-gray-600"
   );
   
   return (
     <Link 
       to="/" 
       aria-label="WordToImage - Homepage" 
-      className="flex items-center h-full focus:outline-none focus:ring-4 focus:ring-blue-400/50 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-white/10"
+      className="flex items-center h-full focus:outline-none focus:ring-4 focus:ring-blue-400/50 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-gray-50"
     >
       {!isLoaded && !logoError ? (
-        <Skeleton className={cn("rounded-md", isFooter ? "h-10 w-32" : "h-8 w-28")} />
+        <Skeleton className={cn("rounded-md", isFooter ? "h-12 w-40" : "h-8 w-36")} />
       ) : logoError ? (
         <motion.div 
           className="flex items-center"
@@ -104,7 +104,7 @@ export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <LucideImage className={cn("h-6 w-6 mr-2", isFooter ? "text-white" : "text-white")} />
+          <LucideImage className={cn("h-6 w-6 mr-2", isFooter ? "text-white" : "text-gray-700")} />
           <span className={textLogoClasses}>
             WordToImage
           </span>
@@ -127,19 +127,13 @@ export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }
               decoding="async"
               // Add mobile-specific attributes
               style={{
-                filter: 'brightness(1.1) contrast(1.1)',
+                filter: 'brightness(1.0) contrast(1.0)',
                 background: 'transparent',
                 // Force image rendering on mobile
                 imageRendering: isMobile ? 'crisp-edges' : 'auto'
               }}
             />
           </div>
-          <span className={cn(
-            "ml-2 font-bold text-white tracking-tight",
-            isFooter ? "text-lg" : "text-lg sm:text-xl hidden sm:block"
-          )}>
-            WordToImage
-          </span>
         </motion.div>
       )}
     </Link>
