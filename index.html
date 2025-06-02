@@ -38,6 +38,27 @@
         align-items: center;
       }
       
+      /* Prevent any unexpected shapes */
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Remove any potential conflicting animations */
+      .animate-pulse {
+        animation: none !important;
+      }
+      
+      /* Ensure content is visible */
+      main {
+        display: block;
+        width: 100%;
+      }
+      
+      section {
+        display: block;
+        width: 100%;
+      }
+      
       @media (min-width: 768px) {
         .logo-container {
           height: 40px;
@@ -64,10 +85,6 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     </noscript>
-    
-    <!-- Load main CSS after critical styles -->
-    <link rel="stylesheet" href="/src/index.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
     
     <!-- Favicon with new logo -->
     <link rel="icon" type="image/png" href="/lovable-uploads/cd042a6d-b714-4ea7-928f-a2e5b6bbb855.png">

@@ -13,13 +13,15 @@ const Index = () => {
   useEffect(() => {
     // Defer analytics to not block rendering
     if (typeof window !== 'undefined') {
-      requestIdleCallback(() => {
+      const timeoutId = setTimeout(() => {
         import('@/utils/analytics').then(({ trackPageView }) => {
           trackPageView('/', 'Home - AI Image Generator');
         }).catch(() => {
           // Fail silently for analytics
         });
-      });
+      }, 1000);
+      
+      return () => clearTimeout(timeoutId);
     }
   }, []);
 
@@ -44,15 +46,13 @@ const Index = () => {
       <div className="min-h-screen bg-white">
         <OptimizedHeader />
         
-        <div className="pt-16">
-          <main id="main-content" role="main">
-            <OptimizedHero />
-            <StaticFeaturesSection />
-            <StaticTestimonialsSection />
-            <StaticPricingSection />
-            <StaticFAQSection />
-          </main>
-        </div>
+        <main id="main-content" role="main" className="pt-16">
+          <OptimizedHero />
+          <StaticFeaturesSection />
+          <StaticTestimonialsSection />
+          <StaticPricingSection />
+          <StaticFAQSection />
+        </main>
         
         <ModernFooter />
       </div>
