@@ -1,18 +1,20 @@
-
 import { Button } from '@/components/ui/button';
 import { Sparkles, ArrowRight, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
-
 export const FeaturesCTASection = () => {
-  return (
-    <section className="py-16 md:py-24 relative border-t border-ai-primary/20">
+  return <section className="py-16 md:py-24 relative border-t border-ai-primary/20 bg-brand-purple">
       <div className="content-container text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.8
+      }}>
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Ready to <span className="text-gradient-neon">Transform Your Ideas</span>?
           </h2>
@@ -57,6 +59,5 @@ export const FeaturesCTASection = () => {
           </div>
         </motion.div>
       </div>
-    </section>
-  );
+    </section>;
 };
