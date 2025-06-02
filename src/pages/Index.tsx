@@ -1,11 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { Nav } from '@/components/Nav';
 import { ModernFooter } from '@/components/home/ModernFooter';
-import { BetaBanner } from '@/components/BetaBanner';
 import { SeoHead } from '@/components/home/SeoHead';
 import { SkipToContent } from '@/components/accessibility/SkipToContent';
-import { ModernAIHero } from '@/components/home/ModernAIHero';
+import { OptimizedHeader } from '@/components/navigation/OptimizedHeader';
+import { OptimizedHero } from '@/components/hero/OptimizedHero';
 import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
 import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
 import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
@@ -22,7 +21,6 @@ import { initAccessibility } from '@/utils/accessibility';
 
 const Index = () => {
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-  const [showBetaBanner, setShowBetaBanner] = useState(true);
 
   useEffect(() => {
     // Initialize accessibility features
@@ -34,11 +32,6 @@ const Index = () => {
       }).catch(error => {
         console.warn('Analytics tracking failed:', error);
       });
-    }
-
-    const isDismissed = localStorage.getItem('betaBannerDismissed') === 'true';
-    if (isDismissed) {
-      setShowBetaBanner(false);
     }
   }, []);
 
@@ -100,10 +93,11 @@ const Index = () => {
         <meta name="googlebot" content="index, follow" />
         <link rel="canonical" href="https://wordtoimage.com" />
         
-        {/* Performance and Resource Hints */}
+        {/* Performance and Resource Hints - Critical for LCP */}
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="dns-prefetch" href="//images.unsplash.com" />
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
+        <link rel="preload" href="/lovable-uploads/cd042a6d-b714-4ea7-928f-a2e5b6bbb855.png" as="image" fetchPriority="high" />
         
         {/* Structured Data */}
         <script type="application/ld+json">
@@ -122,17 +116,16 @@ const Index = () => {
         
         <ReadingProgress target="main" />
         <SkipToContent />
-        {showBetaBanner && <BetaBanner />}
         
-        <header id="navigation">
-          <Nav />
-        </header>
+        {/* Optimized Static Header */}
+        <OptimizedHeader />
         
-        <div className={`${showBetaBanner ? 'pt-[106px]' : 'pt-16'}`}>
+        {/* Add top padding to account for fixed header */}
+        <div className="pt-16">
           <main id="main-content" className="relative" tabIndex={-1} role="main">
             <section aria-labelledby="hero-heading">
               <h1 id="hero-heading" className="sr-only">WordToImage AI Image Generator</h1>
-              <ModernAIHero onShowProFeatures={handleShowProFeatures} />
+              <OptimizedHero />
             </section>
             
             <section aria-labelledby="features-heading">
