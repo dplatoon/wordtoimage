@@ -4,22 +4,22 @@ import { Wand2, Zap, Palette, Download } from 'lucide-react';
 export const StaticFeaturesSection = () => {
   const features = [
     {
-      icon: <Wand2 className="h-8 w-8 text-violet-600" />,
+      icon: <Wand2 className="h-8 w-8 text-blue-600" />,
       title: "AI-Powered Generation",
       description: "Advanced AI models create stunning images from your text descriptions in seconds."
     },
     {
-      icon: <Zap className="h-8 w-8 text-violet-600" />,
+      icon: <Zap className="h-8 w-8 text-blue-600" />,
       title: "Lightning Fast",
       description: "Generate high-quality images in under 10 seconds with our optimized AI pipeline."
     },
     {
-      icon: <Palette className="h-8 w-8 text-violet-600" />,
+      icon: <Palette className="h-8 w-8 text-blue-600" />,
       title: "50+ Art Styles",
       description: "Choose from a diverse collection of artistic styles and visual aesthetics."
     },
     {
-      icon: <Download className="h-8 w-8 text-violet-600" />,
+      icon: <Download className="h-8 w-8 text-blue-600" />,
       title: "4K Quality",
       description: "Download your creations in high resolution for professional use."
     }
@@ -39,7 +39,7 @@ export const StaticFeaturesSection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="text-center p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+            <div key={index} className="text-center p-6 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <div className="mb-4 flex justify-center">
                 {feature.icon}
               </div>
