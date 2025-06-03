@@ -28,6 +28,11 @@ const DesignTips = lazy(() => import("./pages/DesignTips"));
 const Tutorials = lazy(() => import("./pages/Tutorials"));
 const Help = lazy(() => import("./pages/Help"));
 const API = lazy(() => import("./pages/API"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Cookies = lazy(() => import("./pages/Cookies"));
+const Careers = lazy(() => import("./pages/Careers"));
+const Updates = lazy(() => import("./pages/Updates"));
 
 const queryClient = new QueryClient();
 
@@ -75,6 +80,11 @@ function App() {
                   <Route path="/tutorials" element={<Tutorials />} />
                   <Route path="/help" element={<Help />} />
                   <Route path="/api" element={<API />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/cookies" element={<Cookies />} />
+                  <Route path="/careers" element={<Careers />} />
+                  <Route path="/updates" element={<Updates />} />
                 </Routes>
               </Suspense>
             </BrowserRouter>

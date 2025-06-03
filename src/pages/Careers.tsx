@@ -3,6 +3,8 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { PageSEO } from '@/components/seo/PageSEO';
+import { ContentBreadcrumbs } from '@/components/seo/ContentBreadcrumbs';
 
 const Careers = () => {
   const openPositions = [
@@ -34,8 +36,19 @@ const Careers = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <PageSEO
+        title="Careers - Join WordToImage AI Team"
+        description="Join the WordToImage team and help build the future of AI image generation. Explore open positions in engineering, AI research, design, and marketing at our innovative company."
+        keywords="careers, jobs, AI company careers, machine learning jobs, engineering jobs, WordToImage jobs"
+        canonical="https://wordtoimage.com/careers"
+        aiKeywords={['AI company careers', 'machine learning engineer jobs', 'artificial intelligence startup jobs']}
+        voiceSearchQueries={['WordToImage careers', 'AI image generator jobs', 'machine learning company jobs']}
+      />
+      
       <Nav />
       <main>
+        <ContentBreadcrumbs />
+        
         {/* Hero section */}
         <div className="bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">

@@ -1,15 +1,28 @@
 
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
+import { PageSEO } from '@/components/seo/PageSEO';
+import { ContentBreadcrumbs } from '@/components/seo/ContentBreadcrumbs';
 
 const Privacy = () => {
-  const lastUpdated = "April 15, 2025";
+  const lastUpdated = "June 3, 2025";
   
   return (
     <div className="min-h-screen bg-white">
+      <PageSEO
+        title="Privacy Policy - WordToImage AI Generator"
+        description="Learn how WordToImage protects your privacy. Our privacy policy explains data collection, usage, and protection measures for our AI image generation service."
+        keywords="privacy policy, data protection, AI image generator privacy, WordToImage security"
+        canonical="https://wordtoimage.com/privacy"
+        aiKeywords={['AI image generator privacy', 'artificial intelligence data protection', 'text to image privacy policy']}
+        voiceSearchQueries={['WordToImage privacy policy', 'AI image generator data protection']}
+      />
+      
       <Nav />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-3xl mx-auto">
+          <ContentBreadcrumbs />
+          
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Privacy Policy</h1>
           <p className="text-gray-600 mb-8">Last Updated: {lastUpdated}</p>
           

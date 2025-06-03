@@ -4,8 +4,17 @@ import { Footer } from '@/components/Footer';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, FileText, Rocket, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { PageSEO } from '@/components/seo/PageSEO';
+import { ContentBreadcrumbs } from '@/components/seo/ContentBreadcrumbs';
 
 const updates = [
+  {
+    date: "June 3, 2025",
+    title: "Enhanced SEO and Performance Optimizations",
+    description: "We've implemented comprehensive SEO improvements, updated all meta tags, and optimized page loading speeds across the entire platform.",
+    tag: "Enhancement",
+    icon: Rocket
+  },
   {
     date: "April 15, 2025",
     title: "New Template Categories Released",
@@ -33,22 +42,26 @@ const updates = [
     description: "Introducing our new text effects library with 20+ stylized text options including gradients, shadows, and 3D effects.",
     tag: "Feature",
     icon: Tag
-  },
-  {
-    date: "March 20, 2025",
-    title: "API Documentation Update",
-    description: "We've completely revamped our API documentation with interactive examples, improved guides, and new SDKs.",
-    tag: "Documentation",
-    icon: FileText
   }
 ];
 
 const Updates = () => {
   return (
     <div className="min-h-screen bg-white">
+      <PageSEO
+        title="Product Updates - WordToImage AI Generator"
+        description="Stay updated with the latest WordToImage features, improvements, and releases. Get the newest AI image generation capabilities and platform enhancements."
+        keywords="product updates, new features, AI image generator updates, WordToImage releases, platform improvements"
+        canonical="https://wordtoimage.com/updates"
+        aiKeywords={['AI image generator updates', 'artificial intelligence platform updates', 'text to image new features']}
+        voiceSearchQueries={['WordToImage latest updates', 'AI image generator new features', 'what\'s new in WordToImage']}
+      />
+      
       <Nav />
       
       <main className="pt-8 pb-16">
+        <ContentBreadcrumbs />
+        
         {/* Hero Section */}
         <section className="py-12 md:py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

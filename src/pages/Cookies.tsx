@@ -1,15 +1,28 @@
 
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
+import { PageSEO } from '@/components/seo/PageSEO';
+import { ContentBreadcrumbs } from '@/components/seo/ContentBreadcrumbs';
 
 const Cookies = () => {
-  const lastUpdated = "April 15, 2025";
+  const lastUpdated = "June 3, 2025";
   
   return (
     <div className="min-h-screen bg-white">
+      <PageSEO
+        title="Cookie Policy - WordToImage AI Generator"
+        description="Learn about WordToImage's cookie usage. Our cookie policy explains how we use cookies and similar technologies to improve your experience with our AI image generator."
+        keywords="cookie policy, cookies usage, AI image generator cookies, WordToImage tracking"
+        canonical="https://wordtoimage.com/cookies"
+        aiKeywords={['AI image generator cookies', 'artificial intelligence website cookies', 'text to image cookie policy']}
+        voiceSearchQueries={['WordToImage cookie policy', 'AI image generator cookie usage']}
+      />
+      
       <Nav />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-3xl mx-auto">
+          <ContentBreadcrumbs />
+          
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Cookie Policy</h1>
           <p className="text-gray-600 mb-8">Last Updated: {lastUpdated}</p>
           
