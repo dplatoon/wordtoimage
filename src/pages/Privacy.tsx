@@ -1,4 +1,3 @@
-
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { PageSEO } from '@/components/seo/PageSEO';
@@ -26,7 +25,7 @@ const Privacy = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Privacy Policy</h1>
           <p className="text-gray-600 mb-8">Last Updated: {lastUpdated}</p>
           
-          <div className="prose prose-blue max-w-none">
+          <div className="prose prose-violet max-w-none">
             <p>
               Welcome to WordToImage. We respect your privacy and are committed to protecting your personal data.
               This privacy policy will inform you about how we look after your personal data when you visit our website

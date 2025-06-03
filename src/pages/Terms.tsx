@@ -1,4 +1,3 @@
-
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { PageSEO } from '@/components/seo/PageSEO';
@@ -26,7 +25,7 @@ const Terms = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Terms of Service</h1>
           <p className="text-gray-600 mb-8">Last Updated: {lastUpdated}</p>
           
-          <div className="prose prose-blue max-w-none">
+          <div className="prose prose-violet max-w-none">
             <p>
               Please read these Terms of Service ("Terms", "Terms of Service") carefully before using the WordToImage website
               ("Service") operated by WordToImage, Inc. ("us", "we", or "our").

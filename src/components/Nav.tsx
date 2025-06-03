@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { ResponsiveMobileMenu } from './navigation/ResponsiveMobileMenu';
 import { BottomNavigation } from './navigation/BottomNavigation';
 import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
@@ -38,43 +37,37 @@ export const Nav = () => {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
+      <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/90 backdrop-blur-md shadow-xl border-b border-ai-accent/20' 
+            ? 'bg-white/90 backdrop-blur-md shadow-lg border-b border-gray-200' 
             : 'bg-transparent'
         }`}
-        style={isScrolled ? {
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%)'
-        } : {}}
       >
-        <div className="content-container">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`flex items-center justify-between ${
             isMobile ? 'h-16' : isTablet ? 'h-18' : 'h-20'
           }`}>
-            {/* Enhanced AI Logo with new gradient */}
+            {/* Logo */}
             <Link 
               to="/" 
               className="flex items-center space-x-2 group z-50"
               aria-label="WordToImage Home"
               onClick={() => setIsMenuOpen(false)}
             >
-              <div className={`bg-ai-neon-gradient rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-ai-neon/50 ${
+              <div className={`bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg ${
                 isMobile ? 'w-8 h-8' : 'w-9 h-9'
               }`}>
                 <Sparkles className={`text-white drop-shadow-sm ${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} />
               </div>
-              <span className={`font-bold text-gradient-ai group-hover:scale-105 transition-transform duration-300 ${
+              <span className={`font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 ${
                 isMobile ? 'text-lg' : 'text-xl sm:text-2xl'
               }`}>
                 WordToImage
               </span>
             </Link>
 
-            {/* Enhanced Desktop Navigation with AI colors */}
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
                 <Link
@@ -82,48 +75,38 @@ export const Nav = () => {
                   to={item.path}
                   className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group rounded-lg ${
                     isCurrentPage(item.path)
-                      ? 'text-ai-primary bg-ai-accent/10 shadow-sm'
-                      : 'text-gray-700 hover:text-ai-primary hover:bg-ai-accent/5'
+                      ? 'text-violet-600 bg-violet-50 shadow-sm'
+                      : 'text-gray-700 hover:text-violet-600 hover:bg-violet-50'
                   }`}
                 >
                   {item.name}
                   {isCurrentPage(item.path) && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-x-0 bottom-0 h-0.5 bg-ai-neon-gradient rounded-full"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
+                    <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-full" />
                   )}
                   {!isCurrentPage(item.path) && (
-                    <div className="absolute inset-x-0 bottom-0 h-0.5 bg-ai-neon-gradient rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                    <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                   )}
-                  {/* Subtle glow effect on hover */}
-                  <div className="absolute inset-0 rounded-lg bg-ai-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 </Link>
               ))}
             </div>
 
-            {/* Enhanced Desktop CTA Buttons with AI styling */}
+            {/* Desktop CTA Buttons */}
             <div className="hidden md:flex items-center space-x-4">
               <Link
                 to="/auth"
-                className="text-gray-600 hover:text-ai-primary transition-all duration-300 font-medium px-4 py-2 rounded-lg hover:bg-ai-accent/5 relative group"
+                className="text-gray-600 hover:text-violet-600 transition-all duration-300 font-medium px-4 py-2 rounded-lg hover:bg-violet-50"
               >
                 Sign In
-                <div className="absolute inset-0 rounded-lg bg-ai-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
               </Link>
               <Link
                 to="/text-to-image"
-                className="btn-ai-primary relative overflow-hidden group"
+                className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:from-violet-700 hover:to-indigo-700"
               >
-                <span className="relative z-10">Try Free</span>
-                <div className="absolute inset-0 bg-ai-purple-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                Try Free
               </Link>
             </div>
 
-            {/* Mobile menu - only show when not using bottom navigation */}
+            {/* Mobile menu */}
             {isMobile && (
               <ResponsiveMobileMenu 
                 isOpen={isMenuOpen}
@@ -133,12 +116,7 @@ export const Nav = () => {
             )}
           </div>
         </div>
-        
-        {/* Subtle bottom glow when scrolled */}
-        {isScrolled && (
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ai-accent/30 to-transparent" />
-        )}
-      </motion.nav>
+      </nav>
 
       {/* Bottom Navigation for Mobile */}
       <BottomNavigation />

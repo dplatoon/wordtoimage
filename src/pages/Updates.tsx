@@ -63,14 +63,14 @@ const Updates = () => {
         <ContentBreadcrumbs />
         
         {/* Hero Section */}
-        <section className="py-12 md:py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <section className="py-12 md:py-16 bg-gradient-to-br from-violet-50 via-white to-indigo-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
-              <Badge className="mb-3 bg-blue-100 hover:bg-blue-100 text-blue-800 border-none">
+              <Badge className="mb-3 bg-violet-100 hover:bg-violet-100 text-violet-800 border-none">
                 Product Updates
               </Badge>
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 font-poppins mb-6">
-                Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Updates & Releases</span>
+              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+                Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Updates & Releases</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
                 Stay informed about the newest features, improvements, and fixes to WordToImage.
@@ -87,9 +87,9 @@ const Updates = () => {
                 <input 
                   type="email" 
                   placeholder="Enter your email" 
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                 />
-                <Button className="bg-blue-600 hover:bg-blue-700">
+                <Button className="bg-violet-600 hover:bg-violet-700">
                   Subscribe
                 </Button>
               </div>
@@ -107,7 +107,7 @@ const Updates = () => {
                 <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-start">
                     <div className="flex-shrink-0 mr-4">
-                      <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                      <div className="h-12 w-12 rounded-full bg-violet-100 flex items-center justify-center text-violet-600">
                         <update.icon className="h-6 w-6" />
                       </div>
                     </div>
@@ -123,7 +123,7 @@ const Updates = () => {
                       </div>
                       <h3 className="text-xl font-semibold mb-2">{update.title}</h3>
                       <p className="text-gray-600">{update.description}</p>
-                      <Button variant="link" className="p-0 h-auto mt-2 text-blue-600">
+                      <Button variant="link" className="p-0 h-auto mt-2 text-violet-600">
                         Read more
                       </Button>
                     </div>

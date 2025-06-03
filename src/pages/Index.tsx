@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { StaticNav } from '@/components/navigation/StaticNav';
+import { Nav } from '@/components/Nav';
 import { ModernFooter } from '@/components/home/ModernFooter';
 import { SeoHead } from '@/components/home/SeoHead';
 import { StaticHero } from '@/components/hero/StaticHero';
@@ -47,7 +47,7 @@ const Index = () => {
         url="https://wordtoimage.com"
       />
       
-      <StaticNav />
+      <Nav />
       
       <main id="main-content" className="relative">
         <StaticHero onShowProFeatures={handleShowProFeatures} />
