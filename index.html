@@ -6,36 +6,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>WordToImage - Transform Text Into Images with AI | WordToImage</title>
     <meta name="description" content="Transform text into stunning visuals with AI" />
-    <meta name="theme-color" content="#1EAEDB">
+    <meta name="theme-color" content="#8B5CF6">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Core CSS with minimal critical styles -->
+    <!-- Critical CSS inlined for immediate rendering -->
     <style>
-      body {background:#fff;font-family:system-ui,-apple-system,sans-serif;margin:0}
-      .critical-loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:#fff;z-index:9999}
-      .critical-loader::after{content:'';width:40px;height:40px;border:3px solid #f3f3f3;border-top:3px solid #8B5CF6;border-radius:50%;animation:spin 1s linear infinite}
-      @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+      /* Critical path styles */
+      body {
+        background: #fff;
+        font-family: system-ui, -apple-system, sans-serif;
+        margin: 0;
+        line-height: 1.7;
+        color: #1e293b;
+      }
+      
+      /* Logo optimization */
+      .logo-container {
+        height: 40px;
+        width: 120px;
+        display: flex;
+        align-items: center;
+      }
+      
+      .logo-container img {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
+      }
+      
+      /* Remove layout shift for navigation */
+      nav {
+        height: 64px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      
+      /* Hero section optimization */
+      .hero-section {
+        min-height: 80vh;
+        background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+      }
+      
+      /* Critical loader - simpler version */
+      .critical-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+        z-index: 9999;
+      }
+      
+      .critical-loader::after {
+        content: '';
+        width: 32px;
+        height: 32px;
+        border: 2px solid #f3f4f6;
+        border-top: 2px solid #8B5CF6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg) }
+        100% { transform: rotate(360deg) }
+      }
+      
+      /* Hide loader after content loads */
+      .content-loaded .critical-loader {
+        display: none;
+      }
     </style>
-    <link rel="stylesheet" href="/src/index.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
 
     <!-- Performance optimization: preconnect to essential domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://api.openai.com" crossorigin>
     
-    <!-- Preload critical assets -->
+    <!-- Preload critical assets with proper dimensions -->
     <link rel="preload" href="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" as="image" type="image/png" fetchpriority="high">
-    <link rel="preload" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" as="image" type="image/png">
     
-    <!-- Web fonts with display=swap to prevent render blocking -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <!-- Web fonts with display=swap and reduced weight variations -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
     </noscript>
     
+    <!-- Load main CSS after critical styles -->
+    <link rel="stylesheet" href="/src/index.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
+    
     <!-- Open Graph / Social Meta Tags -->
-    <meta property="og:title" content="WordToImage - Transform Text Into Images with AI | WordToImage" />
+    <meta property="og:title" content="WordToImage - Transform Text Into Images with AI" />
     <meta property="og:description" content="Transform text to images instantly with AI" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/wordtoimage-social.png" />
@@ -47,41 +112,57 @@
     <meta name="twitter:description" content="AI Text to Image Generator" />
     <meta name="twitter:image" content="https://lovable.dev/wordtoimage-social.png" />
     
-    <!-- Simplified structured data -->
+    <!-- Optimized structured data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "WordToImage",
-        "description": "AI-powered text to image generation"
+        "description": "AI-powered text to image generation",
+        "url": "https://wordtoimage.lovable.dev",
+        "applicationCategory": "DesignApplication"
       }
     </script>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png">
-    <link rel="apple-touch-icon" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png">
-    <link rel="manifest" href="/manifest.json">
+    <!-- Favicon with proper dimensions -->
+    <link rel="icon" type="image/png" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" sizes="180x180">
 
-    <!-- Defer analytics -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7"></script>
+    <!-- Defer analytics to after page load -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-KND5GPN1W7', { 
-        send_page_view: false,
-        anonymize_ip: true,
-        cookie_flags: 'SameSite=None;Secure'
+      
+      // Load analytics after page is interactive
+      window.addEventListener('load', function() {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7';
+        document.head.appendChild(script);
+        
+        script.onload = function() {
+          gtag('js', new Date());
+          gtag('config', 'G-KND5GPN1W7', { 
+            send_page_view: false,
+            anonymize_ip: true,
+            cookie_flags: 'SameSite=None;Secure'
+          });
+        };
       });
-      window.addEventListener('load', function() { gtag('event', 'page_view'); });
+      
+      // Mark content as loaded to hide loader
+      window.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('content-loaded');
+      });
     </script>
   </head>
 
   <body>
     <div id="root">
-      <!-- Critical path loader -->
+      <!-- Optimized critical path loader -->
       <div class="critical-loader"></div>
     </div>
+    
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>

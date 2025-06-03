@@ -1,41 +1,40 @@
 
 import { useState, useEffect } from 'react';
-import { Nav } from '@/components/Nav';
+import { StaticNav } from '@/components/navigation/StaticNav';
 import { ModernFooter } from '@/components/home/ModernFooter';
-import { BetaBanner } from '@/components/BetaBanner';
 import { SeoHead } from '@/components/home/SeoHead';
-import { SkipToContent } from '@/components/home/SkipToContent';
-import { ModernAIHero } from '@/components/home/ModernAIHero';
-import { StylePresetsGallery } from '@/components/home/StylePresetsGallery';
-import { SamplePromptsSection } from '@/components/home/SamplePromptsSection';
-import { EnhancedTestimonials } from '@/components/home/EnhancedTestimonials';
-import { ImageShowcaseGrid } from '@/components/home/ImageShowcaseGrid';
-import { MinimalistPricing } from '@/components/home/MinimalistPricing';
+import { StaticHero } from '@/components/hero/StaticHero';
+import { StaticFeaturesSection } from '@/components/features/StaticFeaturesSection';
+import { StaticTestimonialsSection } from '@/components/testimonials/StaticTestimonialsSection';
+import { StaticPricingSection } from '@/components/pricing/StaticPricingSection';
+import { StaticFAQSection } from '@/components/faq/StaticFAQSection';
 import { ProFeaturesModal } from '@/components/home/ProFeaturesModal';
-import { HowItWorksDetailed } from '@/components/home/HowItWorksDetailed';
-import { FeaturesGridSection } from '@/components/home/FeaturesGridSection';
-import { FAQSection } from '@/components/home/FAQSection';
 import { SocialMetaTags } from '@/components/social/SocialMetaTags';
-import { UserEngagementTracker } from '@/components/analytics/UserEngagementTracker';
-import { ReadingProgress } from '@/components/content/ReadingProgress';
-import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
 
 const Index = () => {
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-  const { trackInteraction } = usePerformanceMonitoring('HomePage');
 
   useEffect(() => {
-    // Track page view
-    if (typeof window !== 'undefined') {
-      import('@/utils/analytics').then(({ trackPageView }) => {
-        trackPageView('/', 'Home - AI Image Generator');
-      });
+    // Defer analytics loading
+    const loadAnalytics = () => {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'page_view', {
+          page_title: 'Home - AI Image Generator',
+          page_location: window.location.href
+        });
+      }
+    };
+
+    // Use requestIdleCallback if available, otherwise setTimeout
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadAnalytics);
+    } else {
+      setTimeout(loadAnalytics, 100);
     }
   }, []);
 
   const handleShowProFeatures = () => {
     setIsPricingModalOpen(true);
-    trackInteraction('pricing_modal', 'open');
   };
 
   return (
@@ -48,47 +47,14 @@ const Index = () => {
         url="https://wordtoimage.com"
       />
       
-      <ReadingProgress target="main" />
-      <SkipToContent />
-      <BetaBanner />
-      <Nav />
+      <StaticNav />
       
       <main id="main-content" className="relative">
-        <UserEngagementTracker contentId="home-hero" contentType="hero">
-          <ModernAIHero onShowProFeatures={handleShowProFeatures} />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-features" contentType="features">
-          <FeaturesGridSection />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-how-it-works" contentType="tutorial">
-          <HowItWorksDetailed />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-gallery" contentType="gallery">
-          <ImageShowcaseGrid />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-styles" contentType="styles">
-          <StylePresetsGallery />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-prompts" contentType="prompts">
-          <SamplePromptsSection />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-testimonials" contentType="testimonials">
-          <EnhancedTestimonials />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-pricing" contentType="pricing">
-          <MinimalistPricing onShowProFeatures={handleShowProFeatures} />
-        </UserEngagementTracker>
-        
-        <UserEngagementTracker contentId="home-faq" contentType="faq">
-          <FAQSection />
-        </UserEngagementTracker>
+        <StaticHero onShowProFeatures={handleShowProFeatures} />
+        <StaticFeaturesSection />
+        <StaticTestimonialsSection />
+        <StaticPricingSection />
+        <StaticFAQSection />
       </main>
       
       <ModernFooter />
