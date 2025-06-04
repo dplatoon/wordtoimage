@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { trackEvent } from '@/utils/analytics';
-import { motion } from 'framer-motion';
 
 export const HeroSection = () => {
   const { user } = useAuth();
@@ -28,30 +27,15 @@ export const HeroSection = () => {
       <div className="absolute bottom-40 left-1/3 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <motion.h1 
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6 animate-fade-in">
           Transform Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Words</span> Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Visual Magic</span>
-        </motion.h1>
+        </h1>
         
-        <motion.p 
-          className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-        >
+        <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.3s' }}>
           Create stunning images from text descriptions in seconds using our advanced AI technology
-        </motion.p>
+        </p>
         
-        <motion.div 
-          className="flex flex-col sm:flex-row justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7 }}
-        >
+        <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <Button 
             size="lg" 
             className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105" 
@@ -72,7 +56,7 @@ export const HeroSection = () => {
             Explore Pro Features
             <Star className="ml-2 h-5 w-5" />
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

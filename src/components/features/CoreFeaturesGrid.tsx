@@ -1,7 +1,6 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Check, Zap, Palette, Download, Shield, Clock, Users, Hash, Wand2, Layers } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const coreFeatures = [
   {
@@ -58,31 +57,10 @@ export const CoreFeaturesGrid = () => {
   const primaryFeatures = coreFeatures.filter(f => f.priority === "core");
   const advancedFeatures = coreFeatures.filter(f => f.priority === "advanced");
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
-
   return (
     <section id="ai-features" className="py-16 md:py-24 relative">
       <div className="content-container">
-        <motion.div
-          className="text-center mb-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="text-center mb-12 animate-fade-in">
           <Badge className="mb-4 bg-ai-primary/20 text-ai-neon border-ai-primary/30 px-4 py-2">
             <Hash className="h-4 w-4 mr-2" />
             Core Features
@@ -95,20 +73,14 @@ export const CoreFeaturesGrid = () => {
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Professional-grade image generation tools that make creating stunning visuals effortless and powerful.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {primaryFeatures.map((feature, index) => (
-            <motion.div
+            <div
               key={index}
-              variants={itemVariants}
-              className="ai-card group hover:scale-105 transition-all duration-300"
+              className="ai-card group hover:scale-105 transition-all duration-300 animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className={`w-14 h-14 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                 <feature.icon className="h-7 w-7 text-white" aria-hidden="true" />
@@ -125,17 +97,11 @@ export const CoreFeaturesGrid = () => {
                   <Check className="h-3 w-3 text-ai-neon" aria-hidden="true" />
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="border-t border-ai-primary/20 pt-12"
-        >
+        <div className="border-t border-ai-primary/20 pt-12 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <div className="text-center mb-8">
             <Badge className="mb-3 bg-ai-accent/20 text-ai-accent border-ai-accent/30 px-3 py-1 text-sm">
               Professional Tools
@@ -167,7 +133,7 @@ export const CoreFeaturesGrid = () => {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -4,7 +4,6 @@ import { Progress } from '@/components/ui/progress';
 import { Loader2, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 interface GenerateSectionProps {
   loading: boolean;
@@ -28,12 +27,7 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
   }, [progress, loading]);
 
   return (
-    <motion.div 
-      className="mb-6"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="mb-6 animate-fade-in">
       {loading && (
         <div className="mb-4 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-3 border border-indigo-100 shadow-sm">
           <div className="flex items-center justify-between mb-2">
@@ -62,17 +56,12 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
       
       <div className="relative">
         {showSuccessIndicator && (
-          <motion.div 
-            className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-100 to-emerald-100 border border-green-200 text-green-800 px-4 py-2 rounded-full text-sm font-medium shadow-md flex items-center"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-          >
+          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-100 to-emerald-100 border border-green-200 text-green-800 px-4 py-2 rounded-full text-sm font-medium shadow-md flex items-center animate-fade-in">
             <svg className="w-4 h-4 mr-1.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
             </svg>
             Image generated successfully!
-          </motion.div>
+          </div>
         )}
         
         <Button 
@@ -103,6 +92,6 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
           Our AI will create your image in seconds
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };

@@ -1,7 +1,6 @@
 
 import { Link, useLocation } from 'react-router-dom';
 import { LucideIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 interface BottomNavItemProps {
   name: string;
@@ -27,13 +26,7 @@ export const BottomNavItem = ({ name, path, icon: Icon, isActive }: BottomNavIte
         
         {/* Active indicator */}
         {active && (
-          <motion.div
-            layoutId="bottomNavActive"
-            className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-ai-accent rounded-full"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.2 }}
-          />
+          <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-ai-accent rounded-full animate-scale-in" />
         )}
         
         {/* Subtle glow effect when active */}
