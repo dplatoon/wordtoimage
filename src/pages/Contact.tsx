@@ -4,7 +4,6 @@ import { Footer } from '@/components/Footer';
 import { ContactHeader } from '@/components/contact/ContactHeader';
 import { ContactInfo } from '@/components/contact/ContactInfo';
 import { ContactForm } from '@/components/contact/ContactForm';
-import { motion } from 'framer-motion';
 
 const Contact = () => {
   return (
@@ -21,29 +20,17 @@ const Contact = () => {
       <main className="relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
           <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
+            <div className="animate-fade-in">
               <ContactHeader />
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
+            <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <ContactInfo />
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
+            <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <ContactForm />
-            </motion.div>
+            </div>
           </div>
         </div>
       </main>
