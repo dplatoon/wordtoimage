@@ -10,8 +10,7 @@ import { trackEvent } from '@/utils/analytics';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Zap, Download, HelpCircle, Wand2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Download, HelpCircle, Wand2 } from 'lucide-react';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -27,7 +26,6 @@ export default function TextToImage() {
     url: string;
   }[]>([]);
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [showFAQ, setShowFAQ] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
   const [focusOnResult, setFocusOnResult] = useState(false);
   const { user, isLoading } = useAuth();
@@ -48,13 +46,11 @@ export default function TextToImage() {
       });
       trackEvent('text_to_image_generated');
       
-      // Auto-scroll to results on mobile with better focus management
       if (isMobile) {
         setTimeout(() => {
           const resultsSection = document.getElementById('results-section');
           if (resultsSection) {
             resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            // Set focus to the result for screen readers
             const resultImage = resultsSection.querySelector('img[alt*="generated"]');
             if (resultImage) {
               (resultImage as HTMLElement).focus();
@@ -92,7 +88,6 @@ export default function TextToImage() {
       toast.error("Please enter a description", {
         description: "Tell us what you'd like to create!"
       });
-      // Focus back to input for better UX
       const textareaElement = document.querySelector('textarea[aria-label="Image description"]');
       if (textareaElement) {
         (textareaElement as HTMLElement).focus();
@@ -115,7 +110,6 @@ export default function TextToImage() {
     }
   };
 
-  // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -167,40 +161,23 @@ export default function TextToImage() {
   const generationTime = lastGenerationTime ? ((Date.now() - lastGenerationTime) / 1000).toFixed(1) : null;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-indigo-50 via-white to-purple-50 relative overflow-hidden">
-      {/* AI-themed background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-[5%] w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-        <div className="absolute top-40 left-[10%] w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
-        <div className="absolute bottom-20 right-[20%] w-60 h-60 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-4000"></div>
-        
-        {/* Neural network pattern */}
-        <div className="absolute top-1/4 left-[15%] w-24 h-24 border-2 border-blue-200 rounded-full opacity-30 animate-pulse"></div>
-        <div className="absolute bottom-1/3 right-[10%] w-32 h-32 border-2 border-purple-200 rounded-full opacity-30 animate-pulse animation-delay-1000"></div>
-        <div className="absolute top-1/2 left-[25%] w-16 h-16 bg-yellow-100 rounded opacity-30 animate-pulse animation-delay-3000"></div>
-      </div>
-
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50 via-white to-indigo-50">
       <SkipToContent />
       <Nav />
       
       <main className={cn(
-        "container mx-auto px-4 py-8 flex-grow relative z-10",
+        "container mx-auto px-4 py-8 flex-grow",
         isMobile ? "px-2" : "py-12"
       )} id="main-content" role="main">
-        {/* Page Header with AI branding */}
-        <motion.div 
-          className={cn(
-            "mx-auto text-center mb-8",
-            isMobile ? "max-w-full" : "max-w-4xl mb-12"
-          )}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
+        {/* Page Header */}
+        <div className={cn(
+          "mx-auto text-center mb-8",
+          isMobile ? "max-w-full" : "max-w-4xl mb-12"
+        )}>
           <div className="flex items-center justify-center mb-4">
-            <Wand2 className="text-blue-600 mr-3 h-8 w-8 animate-pulse" />
+            <Wand2 className="text-violet-600 mr-3 h-8 w-8" />
             <h1 className={cn(
-              "font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600",
+              "font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600",
               isMobile ? "text-2xl" : "text-3xl md:text-4xl"
             )}>
               AI Image Generator
@@ -215,17 +192,15 @@ export default function TextToImage() {
             a matching image in seconds. No design experience needed!
           </p>
           
-          {/* Usage Tips with enhanced styling */}
-          <Alert className="max-w-2xl mx-auto mb-6 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
-            <Sparkles className="h-4 w-4 text-blue-600 animate-pulse" />
-            <AlertDescription className="text-blue-800">
+          <Alert className="max-w-2xl mx-auto mb-6 bg-violet-50 border-violet-200">
+            <Sparkles className="h-4 w-4 text-violet-600" />
+            <AlertDescription className="text-violet-800">
               <strong>Pro tip:</strong> Be specific for best results! Include details about style, lighting, colors, and mood.
             </AlertDescription>
           </Alert>
 
-          {/* User Status Banner */}
           {!user && !isLoading && (
-            <Alert className="max-w-2xl mx-auto mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
+            <Alert className="max-w-2xl mx-auto mb-6 bg-amber-50 border-amber-200">
               <HelpCircle className="h-4 w-4 text-amber-600" />
               <AlertDescription className="text-amber-800">
                 Try it out – first 3 images free! <Button 
@@ -238,95 +213,56 @@ export default function TextToImage() {
               </AlertDescription>
             </Alert>
           )}
-        </motion.div>
+        </div>
         
-        {/* Main Generator Interface with enhanced visual appeal */}
-        <motion.div 
-          className={cn(
-            "mx-auto bg-white rounded-xl shadow-lg border border-gray-100 relative",
-            isMobile ? "p-4 max-w-full" : "p-8 max-w-4xl"
-          )}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-        >
-          {/* Subtle interactive area background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-purple-50/50 rounded-xl pointer-events-none"></div>
+        {/* Main Generator Interface */}
+        <div className={cn(
+          "mx-auto bg-white rounded-xl shadow-lg border border-gray-100",
+          isMobile ? "p-4 max-w-full" : "p-8 max-w-4xl"
+        )}>
+          <TextToImageForm onGenerate={handleGenerate} isGenerating={isGenerating} />
           
-          <div className="relative z-10">
-            <TextToImageForm onGenerate={handleGenerate} isGenerating={isGenerating} />
-            
-            {/* Example Prompts with better styling */}
-            {!isGenerating && generatedImages.length === 0 && (
-              <motion.div 
-                className="mt-6 p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-200"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
-                  <Sparkles className="h-4 w-4 mr-2 text-blue-500" />
-                  Need inspiration? Try these examples:
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {examplePrompts.map((example, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setPrompt(example)}
-                      className="text-left p-3 text-xs text-gray-600 hover:bg-white hover:text-blue-600 rounded border border-transparent hover:border-blue-200 transition-all hover:shadow-sm"
-                      aria-label={`Use example prompt: ${example}`}
-                    >
-                      "{example}"
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-            
-            {/* Enhanced Generation Feedback */}
-            <AnimatePresence>
-              {isGenerating && (
-                <motion.div 
-                  className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  role="status"
-                  aria-live="polite"
-                >
-                  <div className="flex items-center justify-center">
-                    <div className="relative">
-                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-3"></div>
-                      <Sparkles className="absolute top-0 left-0 h-6 w-6 text-blue-400 animate-pulse" />
-                    </div>
-                    <span className="text-blue-800 font-medium">Creating your image... This usually takes 3-5 seconds</span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          {!isGenerating && generatedImages.length === 0 && (
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <Sparkles className="h-4 w-4 mr-2 text-violet-500" />
+                Need inspiration? Try these examples:
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {examplePrompts.map((example, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setPrompt(example)}
+                    className="text-left p-3 text-xs text-gray-600 hover:bg-white hover:text-violet-600 rounded border border-transparent hover:border-violet-200 transition-all hover:shadow-sm"
+                    aria-label={`Use example prompt: ${example}`}
+                  >
+                    "{example}"
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {isGenerating && (
+            <div className="mt-6 p-4 bg-violet-50 rounded-lg border border-violet-200" role="status" aria-live="polite">
+              <div className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-violet-600 mr-3"></div>
+                <span className="text-violet-800 font-medium">Creating your image... This usually takes 3-5 seconds</span>
+              </div>
+            </div>
+          )}
 
-            {/* Enhanced Success Message */}
-            <AnimatePresence>
-              {generationTime && (
-                <motion.div 
-                  className="mt-4 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  role="status"
-                  aria-live="polite"
-                >
-                  <div className="flex items-center text-green-800">
-                    <Zap className="h-4 w-4 mr-2" />
-                    <span className="text-sm">Generated in {generationTime}s! Your image is ready.</span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
+          {generationTime && (
+            <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200" role="status" aria-live="polite">
+              <div className="flex items-center text-green-800">
+                <Sparkles className="h-4 w-4 mr-2" />
+                <span className="text-sm">Generated in {generationTime}s! Your image is ready.</span>
+              </div>
+            </div>
+          )}
+        </div>
         
-        {/* Results Section with improved accessibility */}
+        {/* Results Section */}
         <div id="results-section" className="mt-8" role="region" aria-label="Generated images">
           <ImageGallery 
             images={generatedImages} 
@@ -334,67 +270,53 @@ export default function TextToImage() {
             loading={isGenerating}
           />
           
-          {/* Enhanced Next Steps */}
-          <AnimatePresence>
-            {generatedImages.length > 0 && !isGenerating && (
-              <motion.div 
-                className="mt-8 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-              >
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 max-w-2xl mx-auto">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">What's next?</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Button 
-                      variant="outline" 
-                      onClick={() => window.open(generatedImages[generatedImages.length - 1]?.url, '_blank')}
-                      className="flex items-center hover:bg-blue-50 hover:border-blue-300 transition-colors"
-                      aria-label="Download the latest generated image"
-                    >
-                      <Download className="h-4 w-4 mr-2" />
-                      Download Image
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      onClick={() => {
-                        setPrompt('');
-                        const textareaElement = document.querySelector('textarea[aria-label="Image description"]');
-                        if (textareaElement) {
-                          (textareaElement as HTMLElement).focus();
-                        }
-                      }}
-                      className="hover:bg-purple-50 hover:border-purple-300 transition-colors"
-                    >
-                      Try New Prompt
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      onClick={() => handleGenerate(prompt)}
-                      disabled={!prompt.trim()}
-                      className="hover:bg-green-50 hover:border-green-300 transition-colors disabled:opacity-50"
-                      aria-label="Generate another image with the same prompt"
-                    >
-                      Generate Again
-                    </Button>
-                  </div>
+          {generatedImages.length > 0 && !isGenerating && (
+            <div className="mt-8 text-center">
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 max-w-2xl mx-auto">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">What's next?</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => window.open(generatedImages[generatedImages.length - 1]?.url, '_blank')}
+                    className="flex items-center hover:bg-violet-50 hover:border-violet-300 transition-colors"
+                    aria-label="Download the latest generated image"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Download Image
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      setPrompt('');
+                      const textareaElement = document.querySelector('textarea[aria-label="Image description"]');
+                      if (textareaElement) {
+                        (textareaElement as HTMLElement).focus();
+                      }
+                    }}
+                    className="hover:bg-violet-50 hover:border-violet-300 transition-colors"
+                  >
+                    Try New Prompt
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => handleGenerate(prompt)}
+                    disabled={!prompt.trim()}
+                    className="hover:bg-violet-50 hover:border-violet-300 transition-colors disabled:opacity-50"
+                    aria-label="Generate another image with the same prompt"
+                  >
+                    Generate Again
+                  </Button>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+            </div>
+          )}
         </div>
         
-        {/* Enhanced FAQ Section */}
-        <motion.div 
-          className={cn(
-            "mx-auto mt-16",
-            isMobile ? "max-w-full" : "max-w-4xl"
-          )}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7 }}
-        >
+        {/* FAQ Section */}
+        <div className={cn(
+          "mx-auto mt-16",
+          isMobile ? "max-w-full" : "max-w-4xl"
+        )}>
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
@@ -409,7 +331,7 @@ export default function TextToImage() {
               {faqItems.map((item, index) => (
                 <Collapsible key={index}>
                   <CollapsibleTrigger 
-                    className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
                     aria-expanded="false"
                   >
                     <span className="font-medium text-gray-800">{item.question}</span>
@@ -422,52 +344,39 @@ export default function TextToImage() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Enhanced Pro Features Teaser */}
+        {/* Pro Features Teaser */}
         {!user && !isLoading && (
-          <motion.div 
-            className="mt-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl shadow-lg p-6 md:p-8 text-white text-center relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.7 }}
-          >
-            {/* Animated background elements */}
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full animate-pulse"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full animate-pulse animation-delay-2000"></div>
-            </div>
-            
-            <div className="relative z-10">
-              <h3 className="text-xl md:text-2xl font-bold mb-4">
-                Ready to Create Without Limits?
-              </h3>
-              <p className="mb-6 opacity-90">
-                Join thousands of creators who use our Pro features for unlimited HD image generation
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-sm">
-                <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
-                  <strong>Unlimited Images</strong><br/>
-                  Generate as many as you need
-                </div>
-                <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
-                  <strong>HD Quality</strong><br/>
-                  2K+ resolution, no watermarks
-                </div>
-                <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
-                  <strong>Priority Speed</strong><br/>
-                  3× faster generation
-                </div>
+          <div className="mt-12 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl shadow-lg p-6 md:p-8 text-white text-center">
+            <h3 className="text-xl md:text-2xl font-bold mb-4">
+              Ready to Create Without Limits?
+            </h3>
+            <p className="mb-6 opacity-90">
+              Join thousands of creators who use our Pro features for unlimited HD image generation
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-sm">
+              <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
+                <strong>Unlimited Images</strong><br/>
+                Generate as many as you need
               </div>
-              <Button 
-                size="lg" 
-                className="bg-white text-purple-600 hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl"
-                onClick={() => setAuthModalOpen(true)}
-              >
-                Sign Up Free
-              </Button>
+              <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
+                <strong>HD Quality</strong><br/>
+                2K+ resolution, no watermarks
+              </div>
+              <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
+                <strong>Priority Speed</strong><br/>
+                3× faster generation
+              </div>
             </div>
-          </motion.div>
+            <Button 
+              size="lg" 
+              className="bg-white text-violet-600 hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl"
+              onClick={() => setAuthModalOpen(true)}
+            >
+              Sign Up Free
+            </Button>
+          </div>
         )}
       </main>
       
