@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Wand2, Home, Palette, CreditCard, Mail, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/navigation/Logo';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -94,92 +93,80 @@ export const MobileFirstNav = () => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
-              onClick={() => setIsMenuOpen(false)}
-            />
-            
-            {/* Menu Panel */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl z-50 md:hidden mobile-scroll"
-            >
-              <div className="flex flex-col h-full">
-                {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                  <div className="mobile-text-lg font-semibold text-gray-900">Menu</div>
-                  <button
-                    onClick={() => setIsMenuOpen(false)}
-                    className="touch-target rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors mobile-focus-visible"
-                    aria-label="Close menu"
+      {isMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden animate-fade-in"
+            onClick={() => setIsMenuOpen(false)}
+          />
+          
+          {/* Menu Panel */}
+          <div className="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl z-50 md:hidden mobile-scroll animate-slide-in-right">
+            <div className="flex flex-col h-full">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                <div className="mobile-text-lg font-semibold text-gray-900">Menu</div>
+                <button
+                  onClick={() => setIsMenuOpen(false)}
+                  className="touch-target rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors mobile-focus-visible"
+                  aria-label="Close menu"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Navigation Links */}
+              <div className="flex-1 px-4 py-6 space-y-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`mobile-nav-item rounded-xl transition-all duration-200 ${
+                      isCurrentPage(item.path)
+                        ? 'text-ai-accent bg-ai-accent/10 border-l-4 border-ai-accent'
+                        : 'text-gray-700 hover:text-ai-accent hover:bg-gray-50'
+                    }`}
                   >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-
-                {/* Navigation Links */}
-                <div className="flex-1 px-4 py-6 space-y-2">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={`mobile-nav-item rounded-xl transition-all duration-200 ${
-                        isCurrentPage(item.path)
-                          ? 'text-ai-accent bg-ai-accent/10 border-l-4 border-ai-accent'
-                          : 'text-gray-700 hover:text-ai-accent hover:bg-gray-50'
-                      }`}
-                    >
-                      <item.icon className="h-5 w-5 mr-3" />
-                      <div className="flex-1">
-                        <div className="font-medium">{item.name}</div>
-                        <div className="mobile-text-sm text-gray-500">{item.description}</div>
-                      </div>
-                      <ChevronRight className="h-4 w-4 text-gray-400" />
-                    </Link>
-                  ))}
-                </div>
-
-                {/* Mobile CTA Section */}
-                <div className="p-4 border-t border-gray-100 bg-gray-50/50">
-                  <div className="space-y-3">
-                    <Link
-                      to="/auth"
-                      className="mobile-button-secondary w-full justify-center"
-                    >
-                      Sign In
-                    </Link>
-                    <Link
-                      to="/text-to-image"
-                      className="mobile-button-primary w-full justify-center"
-                    >
-                      <Wand2 className="h-4 w-4 mr-2" />
-                      Try AI Generator
-                    </Link>
-                  </div>
-                  
-                  {/* Trust indicators */}
-                  <div className="mt-4 text-center">
-                    <div className="mobile-text-xs text-gray-500">
-                      Free to try • No credit card required
+                    <item.icon className="h-5 w-5 mr-3" />
+                    <div className="flex-1">
+                      <div className="font-medium">{item.name}</div>
+                      <div className="mobile-text-sm text-gray-500">{item.description}</div>
                     </div>
+                    <ChevronRight className="h-4 w-4 text-gray-400" />
+                  </Link>
+                ))}
+              </div>
+
+              {/* Mobile CTA Section */}
+              <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+                <div className="space-y-3">
+                  <Link
+                    to="/auth"
+                    className="mobile-button-secondary w-full justify-center"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/text-to-image"
+                    className="mobile-button-primary w-full justify-center"
+                  >
+                    <Wand2 className="h-4 w-4 mr-2" />
+                    Try AI Generator
+                  </Link>
+                </div>
+                
+                {/* Trust indicators */}
+                <div className="mt-4 text-center">
+                  <div className="mobile-text-xs text-gray-500">
+                    Free to try • No credit card required
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
+        </>
+      )}
     </nav>
   );
 };

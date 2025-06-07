@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Download, Heart, Edit, Maximize2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -62,12 +61,10 @@ export function GalleryGrid({
       isMobile ? "grid-cols-1" : "grid-cols-2 md:grid-cols-3"
     )} role="grid" aria-label="Generated images">
       {images.map((image, index) => (
-        <motion.div
+        <div
           key={`${image.url}-${index}`}
-          className="relative group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: index * 0.1, duration: 0.3 }}
+          className="relative group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 animate-fade-in"
+          style={{ animationDelay: `${index * 0.1}s` }}
           onMouseEnter={() => setHoveredImage(index)}
           onMouseLeave={() => setHoveredImage(null)}
           role="gridcell"
@@ -172,7 +169,7 @@ export function GalleryGrid({
               )}
             </div>
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

@@ -1,168 +1,171 @@
 
 import { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, HelpCircle, Check, X } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-const faqData = [
+const faqs = [
   {
-    category: 'Plans & Billing',
+    category: "Getting Started",
     questions: [
       {
-        q: 'Can I upgrade or downgrade my plan anytime?',
-        a: 'Yes! You can change plans instantly from your dashboard. When upgrading mid-cycle, you\'ll be charged the prorated difference immediately and get access to new features right away. When downgrading, the change takes effect at your next billing cycle, and you keep current features until then.'
+        question: "How do I start generating images?",
+        answer: "Simply describe what you want to see in the text box and click 'Generate'. Our AI will create a unique image based on your description in seconds."
       },
       {
-        q: 'What payment methods do you accept?',
-        a: 'We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, and Google Pay. Enterprise customers can also pay via bank transfer or purchase order with Net 30 terms.'
-      },
-      {
-        q: 'What\'s your refund policy?',
-        a: 'We offer a 14-day money-back guarantee for Pro plans and 30 days for Business plans. If you\'re not satisfied, contact support within the guarantee period for a full refund. Free plan users can always upgrade risk-free.'
-      },
-      {
-        q: 'What happens if I exceed my monthly limits?',
-        a: 'For Free users, generation stops until the next monthly reset. Pro and Business users can purchase additional generation packs ($5 for 100 images) or upgrade to a higher tier. We\'ll always notify you before you hit limits.'
+        question: "Do I need to create an account?",
+        answer: "You can try our free tier without an account, but creating one unlocks more features, saves your generation history, and provides access to higher resolution images."
       }
     ]
   },
   {
-    category: 'Features & Usage Rights',
+    category: "Pricing & Plans",
     questions: [
       {
-        q: 'What\'s the difference between resolution options?',
-        a: 'Standard (1024x1024) is perfect for social media and web use. HD (2048x2048) works great for presentations and print materials up to 8x10 inches. 4K (4096x4096) is ideal for large prints, billboards, or professional marketing materials.'
+        question: "What's included in the free plan?",
+        answer: "The free plan includes 10 image generations per month, basic resolution (1024x1024), and access to our core AI models. Perfect for trying out the service."
       },
       {
-        q: 'Can I use generated images for commercial purposes?',
-        a: 'Free plan images are for personal use only. Pro and Business plans include full commercial rights - you can use images in marketing, sell products with them, or include them in client work. Business plans also include resale rights for the images themselves.'
+        question: "Can I change my plan anytime?",
+        answer: "Yes! You can upgrade, downgrade, or cancel your subscription at any time. Changes take effect at the next billing cycle."
       },
       {
-        q: 'How does API access work and what are the limits?',
-        a: 'API access lets you integrate image generation into your own apps or workflows. Pro includes 1,000 API calls/month (roughly 1,000 images), Business includes 10,000 calls/month. Additional calls cost $0.02 each. Full API documentation and SDKs are provided.'
-      },
-      {
-        q: 'What does "fair use policy" mean for unlimited plans?',
-        a: 'Unlimited means no hard monthly limits for normal business use. Fair use means we don\'t allow bulk downloading for resale, server-to-server automation without API, or other abusive patterns. 99.9% of users never encounter any restrictions.'
+        question: "Do you offer refunds?",
+        answer: "We offer a 14-day money-back guarantee on all paid plans. If you're not satisfied, contact support for a full refund."
       }
     ]
   },
   {
-    category: 'Technical & Support',
+    category: "Technical",
     questions: [
       {
-        q: 'What kind of support do you provide?',
-        a: 'Free: Community forum with peer support. Pro: Priority email support with 24-hour response time on business days. Business: Phone and chat support with 4-hour response time, plus a dedicated account manager for onboarding and optimization.'
+        question: "What image formats do you support?",
+        answer: "We generate images in PNG format by default, with options for JPG and WebP. All formats support up to 4K resolution on premium plans."
       },
       {
-        q: 'How fast is image generation?',
-        a: 'Standard images generate in 10-30 seconds. HD images take 30-60 seconds. 4K images take 1-2 minutes. Business users get priority queue access for 2x faster processing during peak hours (evenings and weekends).'
+        question: "How long does image generation take?",
+        answer: "Most images are generated within 5-15 seconds. Complex prompts or higher resolutions may take slightly longer."
       },
       {
-        q: 'Do you offer integrations with design tools?',
-        a: 'Yes! We have plugins for Figma, Adobe Creative Suite, and Canva. Business plans include priority support for custom integrations. Our API also works with Zapier, Slack, and most workflow automation tools.'
-      },
-      {
-        q: 'Is there a mobile app?',
-        a: 'Our web app works perfectly on mobile browsers with full functionality. Native iOS and Android apps are launching in Q2 2024 with offline editing capabilities and will be included in all paid plans at no extra cost.'
+        question: "Can I use the images commercially?",
+        answer: "Yes! All generated images come with full commercial usage rights. You own the images you create and can use them for any purpose."
       }
     ]
   }
 ];
 
 export const EnhancedFAQ = () => {
-  const [openItems, setOpenItems] = useState<string[]>([]);
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
 
-  const toggleItem = (itemId: string) => {
-    setOpenItems(prev =>
-      prev.includes(itemId)
-        ? prev.filter(id => id !== itemId)
-        : [...prev, itemId]
-    );
+  const toggleItem = (categoryIndex: number, questionIndex: number) => {
+    const key = `${categoryIndex}-${questionIndex}`;
+    setOpenItems(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
+  const isOpen = (categoryIndex: number, questionIndex: number) => {
+    const key = `${categoryIndex}-${questionIndex}`;
+    return openItems[key] || false;
   };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <HelpCircle className="h-6 w-6 text-blue-600" />
-            <h2 className="text-3xl font-bold text-gray-900">Frequently Asked Questions</h2>
+        {/* Header */}
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4">
+            <HelpCircle className="h-4 w-4 mr-2" />
+            Frequently Asked Questions
           </div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Get clear answers about our plans, features, and policies. Still have questions? 
-            <a href="/contact" className="text-blue-600 hover:text-blue-700 font-medium ml-1">Contact our support team</a>.
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Everything You Need to Know
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Find answers to common questions about our AI image generation platform
           </p>
         </div>
 
+        {/* FAQ Categories */}
         <div className="space-y-8">
-          {faqData.map((category, categoryIndex) => (
-            <div key={categoryIndex}>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+          {faqs.map((category, categoryIndex) => (
+            <div 
+              key={categoryIndex} 
+              className="animate-fade-in"
+              style={{ animationDelay: `${categoryIndex * 0.1}s` }}
+            >
+              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                <div className="w-2 h-6 bg-blue-600 rounded-full mr-3"></div>
                 {category.category}
               </h3>
               
-              <div className="space-y-3">
-                {category.questions.map((item, itemIndex) => {
-                  const itemId = `${categoryIndex}-${itemIndex}`;
-                  const isOpen = openItems.includes(itemId);
-                  
-                  return (
-                    <div key={itemId} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                      <button
-                        onClick={() => toggleItem(itemId)}
-                        className="w-full p-6 text-left hover:bg-gray-50 transition-colors duration-200 flex items-center justify-between gap-4"
-                        aria-expanded={isOpen}
-                      >
-                        <span className="font-medium text-gray-900 pr-4">{item.q}</span>
+              <div className="space-y-4">
+                {category.questions.map((faq, questionIndex) => (
+                  <div
+                    key={questionIndex}
+                    className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden"
+                  >
+                    <button
+                      onClick={() => toggleItem(categoryIndex, questionIndex)}
+                      className="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 focus:bg-gray-50 focus:outline-none transition-colors"
+                      aria-expanded={isOpen(categoryIndex, questionIndex)}
+                    >
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-lg font-semibold text-gray-900 pr-4">
+                          {faq.question}
+                        </h4>
                         <ChevronDown
-                          className={`h-5 w-5 text-gray-500 flex-shrink-0 transition-transform duration-200 ${
-                            isOpen ? 'transform rotate-180' : ''
-                          }`}
+                          className={cn(
+                            "h-5 w-5 text-gray-500 transition-transform duration-200 flex-shrink-0",
+                            isOpen(categoryIndex, questionIndex) && "rotate-180"
+                          )}
                         />
-                      </button>
-                      
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="px-6 pb-6 text-gray-600 leading-relaxed">
-                              {item.a}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      </div>
+                    </button>
+                    
+                    <div
+                      className={cn(
+                        "overflow-hidden transition-all duration-300 ease-in-out",
+                        isOpen(categoryIndex, questionIndex) 
+                          ? "max-h-96 opacity-100" 
+                          : "max-h-0 opacity-0"
+                      )}
+                    >
+                      <div className="px-6 pb-4 text-gray-700 leading-relaxed border-t border-gray-100">
+                        <div className="pt-4">
+                          {faq.answer}
+                        </div>
+                      </div>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 text-center p-6 bg-blue-50 rounded-xl">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Need help choosing the right plan?</h3>
-          <p className="text-gray-600 mb-4">
-            Our team can help you find the perfect plan for your needs and budget. We'll even set up your account and provide training.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Schedule a Demo Call
-            </a>
-            <a
-              href="mailto:support@wordtoimage.com"
-              className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              Email Support Team
-            </a>
+        {/* Contact Support */}
+        <div className="mt-16 text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+            <div className="max-w-md mx-auto">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <HelpCircle className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                Still have questions?
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Our support team is here to help you get the most out of our platform.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                  Contact Support
+                </button>
+                <button className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                  View Documentation
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Palette, Download, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -74,13 +73,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
     <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="content-container">
         {/* Section Header */}
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="text-center mb-12 animate-fade-in">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-ai-accent/10 border border-ai-accent/20 text-ai-accent text-sm font-medium mb-4">
             <Palette className="w-4 h-4 mr-2" />
             AI Style Presets
@@ -93,17 +86,15 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
             Select from our curated collection of AI art styles. Each preset applies professional 
             styling to transform your text prompts into stunning visuals.
           </p>
-        </motion.div>
+        </div>
 
         {/* Style Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {stylePresets.map((preset, index) => (
-            <motion.div
+            <div
               key={preset.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="animate-fade-in"
+              style={{ animationDelay: `${0.1 * index}s` }}
             >
               <Card className="ai-card-modern group cursor-pointer h-full" onClick={() => onStyleSelect?.(preset)}>
                 <CardContent className="p-0">
@@ -155,18 +146,12 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-        >
+        <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <Button className="btn-ai-primary group">
             Explore All 50+ Styles
             <Palette className="ml-2 h-5 w-5 transition-transform group-hover:rotate-12" />
@@ -175,7 +160,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
           <p className="mt-4 text-sm text-gray-500">
             Mix and match styles to create unique AI-generated artwork
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

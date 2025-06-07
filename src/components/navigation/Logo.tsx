@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Image as LucideImage } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
-import { motion } from 'framer-motion';
 
 export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }) => {
   const [logoError, setLogoError] = useState(false);
@@ -57,25 +56,14 @@ export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }
       {!isLoaded && !logoError ? (
         <Skeleton className={cn("rounded-md", isFooter ? "h-12 w-40" : "h-10 w-32")} />
       ) : logoError ? (
-        <motion.div 
-          className="flex items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="flex items-center animate-fade-in">
           <LucideImage className={cn("h-8 w-8 mr-2", isFooter ? "text-white" : "text-indigo-500")} />
           <span className={textLogoClasses}>
             WordtoImage
           </span>
-        </motion.div>
+        </div>
       ) : (
-        <motion.div 
-          className={logoContainerClasses}
-          whileHover={!isFooter ? { scale: 1.05 } : undefined}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className={logoContainerClasses}>
           <img 
             alt="WordToImage Logo" 
             src="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png"
@@ -87,7 +75,7 @@ export const Logo = ({ variant = 'default' }: { variant?: 'default' | 'footer' }
           {isFooter && (
             <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white opacity-20 mix-blend-overlay" />
           )}
-        </motion.div>
+        </div>
       )}
     </Link>
   );

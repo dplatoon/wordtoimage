@@ -1,9 +1,9 @@
+
 import React, { useState } from 'react';
 import { GalleryHeader } from './gallery/GalleryHeader';
 import { GalleryGrid } from './gallery/GalleryGrid';
 import { GallerySkeleton } from './gallery/GallerySkeleton';
 import { EmptyState } from './gallery/EmptyState';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface Image {
   url: string;
@@ -40,61 +40,45 @@ export function ImageGallery({ images, onEdit, loading }: ImageGalleryProps) {
   
   if (loading) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+      <div
+        className="animate-fade-in"
         role="status"
         aria-label="Generating images"
       >
         <GallerySkeleton />
-      </motion.div>
+      </div>
     );
   }
 
   if (!images || images.length === 0) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className="animate-fade-in">
         <EmptyState onGenerateClick={handleGenerateClick} />
-      </motion.div>
+      </div>
     );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div
+      className="animate-fade-in"
       role="region"
       aria-label="Generated images gallery"
     >
       <GalleryHeader imageCount={images.length} />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={images.length}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.3 }}
-        >
-          <GalleryGrid
-            images={images.map((img, index) => ({
-              ...img,
-              // Add descriptive alt text using index for uniqueness
-              alt: `AI generated image ${index + 1}`
-            }))}
-            favorites={favorites}
-            hoveredImage={hoveredImage}
-            setHoveredImage={setHoveredImage}
-            toggleFavorite={toggleFavorite}
-            onEdit={onEdit}
-          />
-        </motion.div>
-      </AnimatePresence>
-    </motion.div>
+      <div className="animate-fade-in">
+        <GalleryGrid
+          images={images.map((img, index) => ({
+            ...img,
+            // Add descriptive alt text using index for uniqueness
+            alt: `AI generated image ${index + 1}`
+          }))}
+          favorites={favorites}
+          hoveredImage={hoveredImage}
+          setHoveredImage={setHoveredImage}
+          toggleFavorite={toggleFavorite}
+          onEdit={onEdit}
+        />
+      </div>
+    </div>
   );
 }

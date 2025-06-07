@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -26,12 +25,7 @@ export function ExamplePromptsSection({ onPromptSelect, isGenerating, generatedI
   }
 
   return (
-    <motion.div 
-      className="mt-6 p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-200"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5 }}
-    >
+    <div className="mt-6 p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-200 animate-fade-in" style={{ animationDelay: '0.5s' }}>
       <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
         <Sparkles className="h-4 w-4 mr-2 text-blue-500" />
         Need inspiration? Try these examples:
@@ -48,6 +42,6 @@ export function ExamplePromptsSection({ onPromptSelect, isGenerating, generatedI
           </button>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }

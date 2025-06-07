@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Lightbulb, Copy, Wand2 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { toast } from '@/components/ui/sonner';
 
 interface ExamplePrompt {
@@ -113,12 +112,10 @@ export function ExamplePrompts({ onSelectPrompt, onGenerateExample }: ExamplePro
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {EXAMPLE_PROMPTS.map((example, index) => (
-            <motion.div
+            <div
               key={example.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow"
+              className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="aspect-[4/3] relative overflow-hidden">
                 <img
@@ -173,7 +170,7 @@ export function ExamplePrompts({ onSelectPrompt, onGenerateExample }: ExamplePro
                   </Button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -181,9 +178,9 @@ export function ExamplePrompts({ onSelectPrompt, onGenerateExample }: ExamplePro
           <h4 className="font-medium text-blue-900 mb-2">💡 Prompt Writing Tips</h4>
           <ul className="text-sm text-blue-800 space-y-1">
             <li>• Be specific about style, lighting, and composition</li>
-            <li>• Include details about colors, mood, and atmosphere</li>
-            <li>• Mention camera angles or artistic techniques</li>
-            <li>• Use descriptive adjectives for better results</li>
+            <li>• Include descriptive adjectives (vibrant, ethereal, dramatic)</li>
+            <li>• Mention art techniques (watercolor, photography, digital art)</li>
+            <li>• Add mood and atmosphere descriptors</li>
           </ul>
         </div>
       </CardContent>

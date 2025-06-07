@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
 import { steps } from './how-it-works/stepsData';
 import { DesktopTimeline } from './how-it-works/DesktopTimeline';
 import { MobileTimeline } from './how-it-works/MobileTimeline';
@@ -32,13 +31,7 @@ export const HowItWorksSection = () => {
   return (
     <section id="how-it-works" className="py-16 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-poppins">
             Simple Steps to Create Your Image
           </h2>
@@ -65,7 +58,7 @@ export const HowItWorksSection = () => {
               )}
             </Button>
           </div>
-        </motion.div>
+        </div>
         
         {/* Desktop version - Timeline */}
         <DesktopTimeline 

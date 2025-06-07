@@ -1,228 +1,224 @@
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent } from '@/components/ui/card';
-import { Check, Palette, Camera, Sun, Brush } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Palette, Check, Wand2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
 
 interface Style {
   id: string;
   name: string;
-  category: string;
   description: string;
-  preview: string;
-  prompt: string;
+  imageUrl: string;
+  category: 'Artistic' | 'Photographic' | 'Digital' | 'Abstract';
+  premium?: boolean;
 }
 
-const STYLE_CATEGORIES = {
-  artistic: { label: 'Artistic', icon: Brush },
-  photography: { label: 'Photography', icon: Camera },
-  lighting: { label: 'Lighting', icon: Sun },
-  color: { label: 'Color Tone', icon: Palette }
-};
-
-const STYLES: Style[] = [
-  // Artistic styles
+const STYLE_PRESETS: Style[] = [
+  {
+    id: 'photorealistic',
+    name: 'Photorealistic',
+    description: 'Ultra-realistic photography style',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=200&fit=crop',
+    category: 'Photographic'
+  },
   {
     id: 'watercolor',
     name: 'Watercolor',
-    category: 'artistic',
-    description: 'Soft, flowing watercolor painting style',
-    preview: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=200&fit=crop',
-    prompt: 'watercolor painting style, soft brushstrokes, flowing colors'
-  },
-  {
-    id: 'oil-painting',
-    name: 'Oil Painting',
-    category: 'artistic',
-    description: 'Classic oil painting with rich textures',
-    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop',
-    prompt: 'oil painting style, thick paint strokes, classical art'
+    description: 'Soft, flowing watercolor painting',
+    imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=200&h=200&fit=crop',
+    category: 'Artistic'
   },
   {
     id: 'digital-art',
     name: 'Digital Art',
-    category: 'artistic',
-    description: 'Modern digital illustration style',
-    preview: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&h=200&fit=crop',
-    prompt: 'digital art style, clean lines, vibrant colors'
+    description: 'Modern digital illustration',
+    imageUrl: 'https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?w=200&h=200&fit=crop',
+    category: 'Digital'
   },
   {
-    id: 'anime',
-    name: 'Anime',
-    category: 'artistic',
-    description: 'Japanese anime/manga style',
-    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop',
-    prompt: 'anime style, manga art, Japanese animation'
-  },
-  // Photography styles
-  {
-    id: 'photorealistic',
-    name: 'Photorealistic',
-    category: 'photography',
-    description: 'Ultra-realistic photography style',
-    preview: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop',
-    prompt: 'photorealistic, high detail, professional photography'
+    id: 'oil-painting',
+    name: 'Oil Painting',
+    description: 'Classic oil painting technique',
+    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=200&fit=crop',
+    category: 'Artistic',
+    premium: true
   },
   {
-    id: 'portrait',
-    name: 'Portrait',
-    category: 'photography',
-    description: 'Professional portrait photography',
-    preview: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop',
-    prompt: 'portrait photography, professional lighting, shallow depth of field'
+    id: 'cyberpunk',
+    name: 'Cyberpunk',
+    description: 'Neon-lit futuristic aesthetic',
+    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=200&h=200&fit=crop',
+    category: 'Digital'
   },
   {
-    id: 'landscape',
-    name: 'Landscape',
-    category: 'photography',
-    description: 'Scenic landscape photography',
-    preview: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop',
-    prompt: 'landscape photography, wide angle, natural lighting'
-  },
-  // Lighting styles
-  {
-    id: 'golden-hour',
-    name: 'Golden Hour',
-    category: 'lighting',
-    description: 'Warm, golden sunset lighting',
-    preview: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop',
-    prompt: 'golden hour lighting, warm tones, soft shadows'
-  },
-  {
-    id: 'dramatic',
-    name: 'Dramatic',
-    category: 'lighting',
-    description: 'High contrast dramatic lighting',
-    preview: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=300&h=200&fit=crop',
-    prompt: 'dramatic lighting, high contrast, moody atmosphere'
-  },
-  // Color styles
-  {
-    id: 'vibrant',
-    name: 'Vibrant',
-    category: 'color',
-    description: 'Bright, saturated colors',
-    preview: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=200&fit=crop',
-    prompt: 'vibrant colors, high saturation, bright palette'
-  },
-  {
-    id: 'monochrome',
-    name: 'Monochrome',
-    category: 'color',
-    description: 'Black and white or single color',
-    preview: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop&auto=format&cs=monochrome',
-    prompt: 'monochrome, black and white, single color tone'
+    id: 'minimalist',
+    name: 'Minimalist',
+    description: 'Clean, simple compositions',
+    imageUrl: 'https://images.unsplash.com/photo-1497436072909-f5e4fd1d03a9?w=200&h=200&fit=crop',
+    category: 'Abstract'
   }
 ];
 
 interface StyleGalleryProps {
   selectedStyles: string[];
   onStyleToggle: (styleId: string) => void;
-  onApplyStyle: (prompt: string) => void;
+  onGenerateWithStyles: (styles: string[]) => void;
+  maxSelections?: number;
 }
 
-export function StyleGallery({ selectedStyles, onStyleToggle, onApplyStyle }: StyleGalleryProps) {
-  const [activeCategory, setActiveCategory] = useState('artistic');
+export function StyleGallery({ 
+  selectedStyles, 
+  onStyleToggle, 
+  onGenerateWithStyles, 
+  maxSelections = 3 
+}: StyleGalleryProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const filteredStyles = STYLES.filter(style => style.category === activeCategory);
+  const categories = ['All', ...Array.from(new Set(STYLE_PRESETS.map(s => s.category)))];
+  
+  const filteredStyles = selectedCategory === 'All' 
+    ? STYLE_PRESETS 
+    : STYLE_PRESETS.filter(s => s.category === selectedCategory);
+
+  const canSelectMore = selectedStyles.length < maxSelections;
+
+  const handleStyleClick = (styleId: string) => {
+    const isSelected = selectedStyles.includes(styleId);
+    
+    if (isSelected) {
+      onStyleToggle(styleId);
+    } else if (canSelectMore) {
+      onStyleToggle(styleId);
+    }
+  };
 
   return (
     <Card className="w-full">
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-800">Style Gallery</h3>
-          <Badge variant="secondary" className="text-xs">
-            {selectedStyles.length} selected
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Palette className="h-5 w-5" />
+          Style Gallery
+          <Badge variant="outline" className="ml-auto">
+            {selectedStyles.length}/{maxSelections} selected
           </Badge>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {/* Category filters */}
+        <div className="flex flex-wrap gap-2">
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant={selectedCategory === category ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSelectedCategory(category)}
+              className="text-sm"
+            >
+              {category}
+            </Button>
+          ))}
         </div>
 
-        <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-4">
-            {Object.entries(STYLE_CATEGORIES).map(([key, category]) => {
-              const Icon = category.icon;
-              return (
-                <TabsTrigger key={key} value={key} className="flex items-center gap-1">
-                  <Icon className="h-4 w-4" />
-                  <span className="hidden sm:inline">{category.label}</span>
-                </TabsTrigger>
-              );
-            })}
-          </TabsList>
-
-          {Object.keys(STYLE_CATEGORIES).map(category => (
-            <TabsContent key={category} value={category}>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                {filteredStyles.map((style, index) => (
-                  <motion.div
-                    key={style.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className={cn(
-                      "relative group cursor-pointer rounded-lg overflow-hidden border-2 transition-all",
-                      selectedStyles.includes(style.id)
-                        ? "border-blue-500 ring-2 ring-blue-200"
-                        : "border-gray-200 hover:border-gray-300"
-                    )}
-                    onClick={() => onStyleToggle(style.id)}
-                  >
-                    <div className="aspect-[4/3] relative overflow-hidden">
-                      <img
-                        src={style.preview}
-                        alt={style.name}
-                        className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onApplyStyle(style.prompt);
-                          }}
-                          className="bg-white/90 hover:bg-white text-gray-900"
-                        >
-                          Apply Style
-                        </Button>
-                      </div>
-                      {selectedStyles.includes(style.id) && (
-                        <div className="absolute top-2 right-2 bg-blue-500 text-white rounded-full p-1">
-                          <Check className="h-3 w-3" />
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-2">
-                      <h4 className="font-medium text-sm text-gray-800">{style.name}</h4>
-                      <p className="text-xs text-gray-500 mt-1">{style.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
-
-        {selectedStyles.length > 0 && (
-          <div className="mt-4 pt-4 border-t">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">
-                {selectedStyles.length} style{selectedStyles.length !== 1 ? 's' : ''} selected
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => selectedStyles.forEach(id => onStyleToggle(id))}
+        {/* Style grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {filteredStyles.map((style, index) => {
+            const isSelected = selectedStyles.includes(style.id);
+            const canSelect = canSelectMore || isSelected;
+            
+            return (
+              <div
+                key={style.id}
+                className={cn(
+                  "relative group cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-200 animate-fade-in",
+                  isSelected 
+                    ? "border-blue-500 ring-2 ring-blue-200" 
+                    : canSelect 
+                    ? "border-gray-200 hover:border-gray-300" 
+                    : "border-gray-100 opacity-50 cursor-not-allowed",
+                  style.premium && "ring-1 ring-yellow-300"
+                )}
+                style={{ animationDelay: `${index * 0.05}s` }}
+                onClick={() => handleStyleClick(style.id)}
               >
-                Clear All
-              </Button>
+                {/* Image */}
+                <div className="aspect-square relative overflow-hidden">
+                  <img
+                    src={style.imageUrl}
+                    alt={style.name}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  
+                  {/* Overlay */}
+                  <div className={cn(
+                    "absolute inset-0 transition-opacity duration-200",
+                    isSelected 
+                      ? "bg-blue-600/20" 
+                      : "bg-black/0 group-hover:bg-black/10"
+                  )} />
+                  
+                  {/* Selection indicator */}
+                  {isSelected && (
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                  )}
+                  
+                  {/* Premium badge */}
+                  {style.premium && (
+                    <div className="absolute top-2 left-2">
+                      <Badge className="bg-yellow-500 text-yellow-900 text-xs">
+                        Pro
+                      </Badge>
+                    </div>
+                  )}
+                </div>
+
+                {/* Info */}
+                <div className="p-3 bg-white">
+                  <h4 className="font-medium text-sm text-gray-900 mb-1">
+                    {style.name}
+                  </h4>
+                  <p className="text-xs text-gray-600 mb-2">
+                    {style.description}
+                  </p>
+                  <Badge variant="outline" className="text-xs">
+                    {style.category}
+                  </Badge>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Generate button */}
+        {selectedStyles.length > 0 && (
+          <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+            <div>
+              <p className="text-sm font-medium text-blue-900">
+                {selectedStyles.length} style{selectedStyles.length > 1 ? 's' : ''} selected
+              </p>
+              <p className="text-xs text-blue-700">
+                Generate variations with different artistic styles
+              </p>
             </div>
+            <Button 
+              onClick={() => onGenerateWithStyles(selectedStyles)}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              <Wand2 className="h-4 w-4 mr-2" />
+              Generate
+            </Button>
           </div>
         )}
+
+        {/* Help text */}
+        <div className="text-center p-3 bg-gray-50 rounded-lg">
+          <p className="text-sm text-gray-600">
+            💡 Select up to {maxSelections} styles to create variations of your image
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

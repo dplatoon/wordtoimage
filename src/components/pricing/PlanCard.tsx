@@ -1,6 +1,6 @@
+
 import React, { useState } from 'react';
 import { Check, X } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/components/ui/sonner';
@@ -93,12 +93,8 @@ export const PlanCard = ({
 
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-        className={`relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl ${
+      <div
+        className={`relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl animate-fade-in ${
           popular || isCurrentPlan 
             ? 'ring-2 ring-blue-500 shadow-lg scale-105' 
             : 'border border-gray-200 shadow-sm hover:border-blue-300'
@@ -197,7 +193,7 @@ export const PlanCard = ({
             {getCTAText()}
           </Button>
         </div>
-      </motion.div>
+      </div>
 
       <PaymentMethodModal 
         open={paymentModalOpen} 

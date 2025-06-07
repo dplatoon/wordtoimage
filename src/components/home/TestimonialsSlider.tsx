@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
 
 // Sample testimonial data
@@ -63,40 +62,34 @@ export const TestimonialsSlider = () => {
       </div>
       
       <div className="relative">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 md:p-12"
-          >
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-6 text-indigo-600">
-                <MessageSquare className="h-12 w-12" />
+        <div
+          key={currentIndex}
+          className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 md:p-12 animate-fade-in"
+        >
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-6 text-indigo-600">
+              <MessageSquare className="h-12 w-12" />
+            </div>
+            
+            <p className="text-lg md:text-xl text-gray-700 mb-8 italic">
+              "{testimonials[currentIndex].content}"
+            </p>
+            
+            <div className="flex items-center">
+              <div className="h-12 w-12 rounded-full overflow-hidden mr-4">
+                <img 
+                  src={testimonials[currentIndex].avatar} 
+                  alt={testimonials[currentIndex].author} 
+                  className="h-full w-full object-cover"
+                />
               </div>
-              
-              <p className="text-lg md:text-xl text-gray-700 mb-8 italic">
-                "{testimonials[currentIndex].content}"
-              </p>
-              
-              <div className="flex items-center">
-                <div className="h-12 w-12 rounded-full overflow-hidden mr-4">
-                  <img 
-                    src={testimonials[currentIndex].avatar} 
-                    alt={testimonials[currentIndex].author} 
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="text-left">
-                  <p className="font-semibold text-gray-900">{testimonials[currentIndex].author}</p>
-                  <p className="text-sm text-gray-600">{testimonials[currentIndex].role}</p>
-                </div>
+              <div className="text-left">
+                <p className="font-semibold text-gray-900">{testimonials[currentIndex].author}</p>
+                <p className="text-sm text-gray-600">{testimonials[currentIndex].role}</p>
               </div>
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        </div>
         
         {/* Navigation buttons */}
         <button 

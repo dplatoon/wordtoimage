@@ -1,160 +1,150 @@
 
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Wand2, Play, ArrowRight, Sparkles, Zap } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Wand2, Sparkles, Zap, Star, Play, ArrowRight } from 'lucide-react';
 
-interface ModernAIHeroProps {
-  onShowProFeatures: () => void;
-}
+export const ModernAIHero = () => {
+  const [prompt, setPrompt] = useState('');
 
-export const ModernAIHero = ({ onShowProFeatures }: ModernAIHeroProps) => {
-  const [isMounted, setIsMounted] = useState(false);
-  
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  
+  const handleGenerate = () => {
+    if (prompt.trim()) {
+      window.location.href = `/text-to-image?prompt=${encodeURIComponent(prompt)}`;
+    }
+  };
+
+  const examplePrompts = [
+    "A cyberpunk cityscape with neon lights",
+    "Watercolor painting of a serene lake",
+    "Modern minimalist logo design",
+    "Abstract geometric art in vibrant colors"
+  ];
+
   return (
-    <section className="relative py-16 sm:py-20 md:py-28 lg:py-36 overflow-hidden bg-ai-hero-gradient">
-      {/* AI-themed animated background */}
+    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-hidden">
+      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-ai-neon/10 rounded-full blur-3xl animate-float-slow"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-ai-purple/10 rounded-full blur-3xl animate-float-slow" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-ai-coral/5 rounded-full blur-3xl animate-pulse-glow"></div>
-        
-        {/* Floating AI particles */}
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-        <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-ai-coral rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-ai-purple rounded-full animate-pulse" style={{ animationDelay: '3s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
-      
-      {/* Hero content */}
-      <div className="content-container relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          {/* AI Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isMounted ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-ai-neon/20 border border-ai-neon/30 text-ai-neon text-sm font-medium mb-6 sm:mb-8 backdrop-blur-sm"
-          >
-            <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
-            AI-Powered Creative Studio
-            <Zap className="w-4 h-4 ml-2" />
-          </motion.div>
-          
-          {/* Main Headline */}
-          <h1 className="hero-title text-white leading-tight mb-6 sm:mb-8 px-4 sm:px-6 lg:px-0">
-            <span className="block">
-              Transform Your
-            </span>
-            <span className="block mt-2 text-gradient-neon">
-              Words Into Magic
-            </span>
-            <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-ai-accent">
-              Instantly with AI
-            </span>
-          </h1>
-          
-          {/* Subtitle */}
-          <motion.p 
-            className="hero-subtitle text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8 sm:mb-10 px-4 sm:px-6 lg:px-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            Create stunning AI-generated visuals from simple text descriptions.
-            <span className="block mt-3 text-ai-accent font-medium">
-              No design skills required • Professional quality • Lightning fast
-            </span>
-          </motion.p>
 
-          {/* How it Works Flow */}
-          <motion.div
-            className="max-w-4xl mx-auto mb-10 sm:mb-12 px-4 sm:px-6 lg:px-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          >
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 sm:p-8">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-white">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-ai-neon rounded-full flex items-center justify-center text-ai-dark font-bold text-lg shadow-lg">1</div>
-                  <span className="font-semibold">Describe</span>
-                </div>
-                <ArrowRight className="h-5 w-5 text-ai-accent rotate-90 sm:rotate-0 animate-pulse" />
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-ai-purple rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">2</div>
-                  <span className="font-semibold">Generate</span>
-                </div>
-                <ArrowRight className="h-5 w-5 text-ai-accent rotate-90 sm:rotate-0 animate-pulse" />
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-ai-coral rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">3</div>
-                  <span className="font-semibold">Download</span>
-                </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        {/* Hero header */}
+        <div className="text-center mb-12 animate-fade-in">
+          <Badge className="mb-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-none px-6 py-2 text-lg">
+            <Sparkles className="h-5 w-5 mr-2" />
+            Next-Gen AI Technology
+          </Badge>
+
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              AI-Powered
+            </span>
+            <br />
+            Image Creation
+          </h1>
+
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Transform your imagination into stunning visuals with our cutting-edge AI technology. 
+            Create professional-quality images from simple text descriptions in seconds.
+          </p>
+
+          {/* Trust indicators */}
+          <div className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-400">
+            <div className="flex items-center">
+              <Star className="h-4 w-4 text-yellow-400 mr-1" />
+              <span>4.9/5 Rating</span>
+            </div>
+            <div>100k+ Creators</div>
+            <div>1M+ Images Generated</div>
+          </div>
+        </div>
+
+        {/* Main CTA Section */}
+        <div className="max-w-4xl mx-auto">
+          {/* Input area */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 mb-8 border border-white/20 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <div className="flex flex-col lg:flex-row gap-4">
+              <div className="flex-1">
+                <Input
+                  type="text"
+                  placeholder="Describe your dream image... (e.g., 'A majestic dragon soaring over a fantasy castle')"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  className="h-14 text-lg bg-white/20 border-white/30 text-white placeholder:text-gray-300 focus:border-cyan-400 focus:ring-cyan-400"
+                  onKeyPress={(e) => e.key === 'Enter' && handleGenerate()}
+                />
               </div>
+              <Button
+                onClick={handleGenerate}
+                size="lg"
+                className="h-14 px-8 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold"
+                disabled={!prompt.trim()}
+              >
+                <Wand2 className="h-5 w-5 mr-2" />
+                Generate Now
+              </Button>
             </div>
-          </motion.div>
-          
-          {/* CTA Buttons */}
-          <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-10 sm:mb-12 px-4 sm:px-6 lg:px-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
+          </div>
+
+          {/* Action buttons */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold px-10 py-6 text-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto touch-target-large" 
-              asChild
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
             >
-              <Link to="/text-to-image">
-                Start Creating Now
-                <Wand2 className="ml-3 h-6 w-6 transition-transform group-hover:rotate-12" />
-              </Link>
+              <Play className="h-5 w-5 mr-2" />
+              Watch Demo
             </Button>
-            
             <Button 
               size="lg" 
-              className="btn-ai-secondary group w-full sm:w-auto touch-target-large text-xl px-10 py-6 border-ai-neon text-ai-neon hover:bg-ai-neon hover:text-ai-dark"
-              onClick={onShowProFeatures}
+              variant="outline" 
+              className="border-white/30 text-white hover:bg-white/10"
             >
-              See Examples
-              <Play className="ml-3 h-5 w-5 fill-current transition-transform group-hover:translate-x-1" />
+              View Gallery
+              <ArrowRight className="h-5 w-5 ml-2" />
             </Button>
-          </motion.div>
-          
-          {/* Trust Indicators */}
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-ai-accent px-4 sm:px-6 lg:px-0"
-            initial={{ opacity: 0 }}
-            animate={isMounted ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-              Free to try
+          </div>
+
+          {/* Example prompts */}
+          <div className="text-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <p className="text-gray-400 mb-4">🎨 Get inspired by these examples:</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {examplePrompts.map((example, index) => (
+                <button
+                  key={index}
+                  onClick={() => setPrompt(example)}
+                  className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-gray-300 hover:text-white transition-all duration-200 border border-white/20 hover:border-white/40"
+                >
+                  {example}
+                </button>
+              ))}
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-              No credit card required
+          </div>
+        </div>
+
+        {/* Features showcase */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16">
+          {[
+            { icon: Zap, title: "Lightning Fast", desc: "Generate in 5-10 seconds" },
+            { icon: Sparkles, title: "High Quality", desc: "Up to 4K resolution" },
+            { icon: Wand2, title: "Easy to Use", desc: "Just type and create" },
+            { icon: Star, title: "Commercial Use", desc: "Full rights included" }
+          ].map((feature, index) => (
+            <div 
+              key={index} 
+              className="text-center p-6 bg-white/5 backdrop-blur rounded-xl border border-white/10 animate-fade-in"
+              style={{ animationDelay: `${0.4 + index * 0.1}s` }}
+            >
+              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <feature.icon className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="font-semibold mb-2">{feature.title}</h3>
+              <p className="text-gray-400 text-sm">{feature.desc}</p>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-              4K quality images
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-ai-neon rounded-full animate-pulse"></div>
-              50+ AI styles
-            </div>
-          </motion.div>
-        </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

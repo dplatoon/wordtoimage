@@ -9,7 +9,6 @@ import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Plus, Minus, Grid3X3, Zap } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface BatchPrompt {
   id: string;
@@ -103,55 +102,50 @@ export function BatchGeneration({ onBatchGenerate, selectedStyles, isGenerating 
         )}
 
         <div className="space-y-4">
-          <AnimatePresence>
-            {prompts.map((prompt, index) => (
-              <motion.div
-                key={prompt.id}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="border rounded-lg p-4 space-y-3"
-              >
+          {prompts.map((prompt, index) => (
+            <div
+              key={prompt.id}
+              className="border rounded-lg p-4 space-y-3 animate-fade-in"
+            >
+              <div className="flex items-center justify-between">
+                <Label className="text-sm font-medium">
+                  Prompt {index + 1}
+                </Label>
+                {prompts.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removePrompt(prompt.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+
+              <Textarea
+                placeholder="Enter your image description..."
+                value={prompt.text}
+                onChange={(e) => updatePrompt(prompt.id, e.target.value)}
+                className="min-h-[80px]"
+              />
+
+              <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm font-medium">
-                    Prompt {index + 1}
-                  </Label>
-                  {prompts.length > 1 && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removePrompt(prompt.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <Minus className="h-4 w-4" />
-                    </Button>
-                  )}
+                  <Label className="text-sm">Variations per prompt</Label>
+                  <Badge variant="outline">{prompt.variations}</Badge>
                 </div>
-
-                <Textarea
-                  placeholder="Enter your image description..."
-                  value={prompt.text}
-                  onChange={(e) => updatePrompt(prompt.id, e.target.value)}
-                  className="min-h-[80px]"
+                <Slider
+                  value={[prompt.variations]}
+                  onValueChange={(value) => updateVariations(prompt.id, value)}
+                  max={8}
+                  min={1}
+                  step={1}
+                  className="w-full"
                 />
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label className="text-sm">Variations per prompt</Label>
-                    <Badge variant="outline">{prompt.variations}</Badge>
-                  </div>
-                  <Slider
-                    value={[prompt.variations]}
-                    onValueChange={(value) => updateVariations(prompt.id, value)}
-                    max={8}
-                    min={1}
-                    step={1}
-                    className="w-full"
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="flex items-center gap-2">
