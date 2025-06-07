@@ -20,11 +20,15 @@ export const ShowcaseGrid = ({ items, hoveredIndex, setHoveredIndex }: ShowcaseG
       {items.map((item, index) => (
         <ShowcaseCard
           key={item.id}
-          item={item}
-          index={index}
-          isHovered={hoveredIndex === index}
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
+          title={`AI Generated ${item.style}`}
+          prompt={item.prompt}
+          imageUrl={item.imageUrl}
+          style={item.style}
+          category={item.style}
+          likes={item.likes}
+          onLike={() => {}}
+          onUsePrompt={() => {}}
+          className={hoveredIndex === index ? "shadow-xl" : ""}
         />
       ))}
     </div>

@@ -90,13 +90,15 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
     );
   };
 
-  const handleApplyStyle = (stylePrompt: string) => {
+  const handleGenerateWithStyles = (styles: string[]) => {
     if (prompt) {
-      setPrompt(`${prompt}, ${stylePrompt}`);
+      let finalPrompt = prompt.trim();
+      const stylePrompts = styles.map(styleId => styleId.replace('-', ' ')).join(', ');
+      finalPrompt = `${finalPrompt}, ${stylePrompts}`;
+      onGenerate(finalPrompt);
     } else {
-      setPrompt(stylePrompt);
+      toast.error("Please enter a description for your image first");
     }
-    toast.success('Style applied to prompt!');
   };
 
   const handleSelectPrompt = (examplePrompt: string) => {
@@ -140,7 +142,7 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
               <StyleGallery
                 selectedStyles={selectedStyles}
                 onStyleToggle={handleStyleToggle}
-                onApplyStyle={handleApplyStyle}
+                onGenerateWithStyles={handleGenerateWithStyles}
               />
             </TabsContent>
 

@@ -6,5 +6,5 @@ interface AccessibleMinimalistHeroProps {
 }
 
 export const AccessibleMinimalistHero = ({ onShowProFeatures }: AccessibleMinimalistHeroProps) => {
-  return <MobileOptimizedHero onShowProFeatures={onShowProFeatures} />;
+  return <MobileOptimizedHero />;
 };

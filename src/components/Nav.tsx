@@ -110,7 +110,6 @@ export const Nav = () => {
             {isMobile && (
               <ResponsiveMobileMenu 
                 isOpen={isMenuOpen}
-                onToggle={() => setIsMenuOpen(!isMenuOpen)}
                 onClose={() => setIsMenuOpen(false)}
               />
             )}
