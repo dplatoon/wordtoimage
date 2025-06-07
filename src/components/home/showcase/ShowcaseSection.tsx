@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ImagePlus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ShowcaseHeader } from './ShowcaseHeader';
 import { ShowcaseGrid } from './ShowcaseGrid';
 import { ShowcaseMobileCarousel } from './ShowcaseMobileCarousel';
@@ -45,12 +44,7 @@ export const ShowcaseSection = () => {
         
         {/* Explore more button */}
         <div className="text-center mt-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
+          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <Button
               variant="outline"
               className="border-purple-400 text-purple-600 hover:bg-purple-50 transform hover:scale-105 transition-transform duration-300"
@@ -63,7 +57,7 @@ export const ShowcaseSection = () => {
             <p className="mt-4 text-sm text-gray-500">
               Submit your own creations to be featured in our gallery
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

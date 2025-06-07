@@ -2,18 +2,13 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sparkles, Zap, ImageIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export const FeaturesHeroSection = () => {
   return (
     <section id="hero" className="py-12 md:py-20 relative">
       <div className="content-container">
         <div className="text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="animate-fade-in">
             <Badge className="mb-6 bg-gradient-to-r from-ai-primary to-ai-secondary text-white border-none px-6 py-2 text-lg">
               <Sparkles className="h-5 w-5 mr-2" />
               ✨ Powerful AI Features
@@ -41,7 +36,7 @@ export const FeaturesHeroSection = () => {
                 <ImageIcon className="ml-2 h-5 w-5" />
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

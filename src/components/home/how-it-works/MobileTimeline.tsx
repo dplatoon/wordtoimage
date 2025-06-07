@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import type { Step } from './stepsData';
 
 interface MobileTimelineProps {
@@ -20,17 +19,14 @@ export const MobileTimeline: React.FC<MobileTimelineProps> = ({
     <div className="md:hidden">
       <div className="space-y-8">
         {steps.map((step, index) => (
-          <motion.div 
+          <div 
             key={index} 
-            className="flex"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.2, duration: 0.5 }}
+            className="flex animate-fade-in"
+            style={{ animationDelay: `${index * 0.2}s` }}
           >
             <div className="mr-4">
               <div 
-                className={`w-10 h-10 ${index === activeStep ? 'bg-blue-600 text-white' : step.color} rounded-full flex items-center justify-center cursor-pointer`}
+                className={`w-10 h-10 ${index === activeStep ? 'bg-blue-600 text-white' : step.color} rounded-full flex items-center justify-center cursor-pointer transition-colors`}
                 onClick={() => {
                   setActiveStep(index);
                   setIsPlaying(false);
@@ -41,7 +37,7 @@ export const MobileTimeline: React.FC<MobileTimelineProps> = ({
               {index < steps.length - 1 && <div className="w-0.5 bg-gray-200 h-full mx-auto mt-2"></div>}
             </div>
             <div 
-              className={`bg-white p-4 rounded-lg shadow-sm border flex-1 ${
+              className={`bg-white p-4 rounded-lg shadow-sm border flex-1 transition-all ${
                 index === activeStep ? 'border-blue-300 shadow-md' : 'border-gray-100'
               }`}
               onClick={() => {
@@ -56,17 +52,14 @@ export const MobileTimeline: React.FC<MobileTimelineProps> = ({
               <p className="text-gray-600 text-sm mb-2">{step.description}</p>
               
               {index === activeStep && (
-                <motion.div 
-                  className="mt-3 pt-3 border-t border-gray-100"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="mt-3 pt-3 border-t border-gray-100 animate-fade-in"
                 >
                   <p className="text-xs text-gray-500">{step.demoContent}</p>
-                </motion.div>
+                </div>
               )}
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { StepCard } from './StepCard';
 import type { Step } from './stepsData';
 
@@ -22,20 +21,18 @@ export const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
       <div className="flex items-center justify-center mb-16">
         <div className="w-full max-w-4xl bg-gray-200 h-1 relative">
           {steps.map((_, index) => (
-            <motion.div 
+            <div 
               key={index}
-              className={`absolute w-8 h-8 rounded-full flex items-center justify-center cursor-pointer
+              className={`absolute w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110
                ${index <= activeStep ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
               style={{ left: `calc(${(index / (steps.length - 1)) * 100}% - 1rem)` }}
               onClick={() => {
                 setActiveStep(index);
                 setIsPlaying(false);
               }}
-              whileHover={{ scale: 1.2 }}
-              transition={{ duration: 0.2 }}
             >
               {index + 1}
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

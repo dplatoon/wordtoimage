@@ -1,7 +1,6 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Star, Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export const EnhancedPricingHero = () => {
   return (
@@ -11,11 +10,7 @@ export const EnhancedPricingHero = () => {
       <div className="absolute bottom-20 right-1/4 w-40 h-40 bg-purple-200/15 rounded-full blur-2xl" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="animate-fade-in">
           <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-none px-6 py-2 text-lg shadow-lg">
             <Sparkles className="h-5 w-5 mr-2" />
             Simple, Transparent Pricing
@@ -34,7 +29,7 @@ export const EnhancedPricingHero = () => {
             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
             <span>Trusted by 100,000+ creators worldwide</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -14,12 +13,9 @@ export const ActionButton = () => {
   };
 
   return (
-    <motion.div 
-      className="text-center mt-12"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+    <div 
+      className="text-center mt-12 animate-fade-in"
+      style={{ animationDelay: '0.2s' }}
     >
       <Button 
         onClick={handleButtonClick}
@@ -32,6 +28,6 @@ export const ActionButton = () => {
       <p className="mt-4 text-sm text-gray-500">
         No credit card required • Free to try
       </p>
-    </motion.div>
+    </div>
   );
 };

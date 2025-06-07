@@ -1,6 +1,4 @@
 
-import { motion } from 'framer-motion';
-
 interface BillingToggleProps {
   billingCycle: 'monthly' | 'annual';
   onToggle: (cycle: 'monthly' | 'annual') => void;
@@ -15,14 +13,11 @@ export const BillingToggle = ({ billingCycle, onToggle, discount = 20 }: Billing
         role="group"
         aria-label="Billing cycle selection"
       >
-        <motion.div
-          className="absolute inset-1 bg-blue-600 rounded-lg shadow-sm"
-          initial={false}
-          animate={{
-            x: billingCycle === 'monthly' ? 0 : '100%',
-            width: billingCycle === 'monthly' ? '50%' : '50%'
-          }}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        <div
+          className={`absolute inset-1 bg-blue-600 rounded-lg shadow-sm transition-transform duration-300 ${
+            billingCycle === 'monthly' ? 'translate-x-0' : 'translate-x-full'
+          }`}
+          style={{ width: '50%' }}
           aria-hidden="true"
         />
         
