@@ -8,7 +8,7 @@ import { trackEvent } from '@/utils/analytics';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Download, HelpCircle, Wand2, ArrowRight } from 'lucide-react';
+import { Sparkles, Download, HelpCircle, Wand2, ArrowRight, History, BookOpen } from 'lucide-react';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { EnhancedPromptInput } from '@/components/word-to-image/EnhancedPromptInput';
 import { GenerationProgress } from '@/components/word-to-image/GenerationProgress';
 import { EnhancedImageGallery } from '@/components/word-to-image/EnhancedImageGallery';
+import { storageService } from '@/services/storageService';
 
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
@@ -30,18 +31,23 @@ export default function TextToImage() {
   }[]>([]);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
+  const [showTips, setShowTips] = useState(true);
   const { user, isLoading } = useAuth();
   const isMobile = useIsMobile();
   
   const { generateImageFromPrompt } = useImageGeneration({
     onImageGenerated: url => {
-      setGeneratedImages(prev => [...prev, { 
+      const newImage = { 
         url, 
         prompt: prompt.substring(0, 100) + (prompt.length > 100 ? '...' : ''),
         timestamp: Date.now()
-      }]);
+      };
+      
+      setGeneratedImages(prev => [...prev, newImage]);
       setLastGenerationTime(Date.now());
       setProgress(100);
+      
+      // Auto-save to persistent storage happens in EnhancedImageGallery
       
       toast.success("Image generated successfully!", {
         description: "Your custom graphic is ready to download.",
@@ -85,6 +91,14 @@ export default function TextToImage() {
       });
     }
   });
+
+  // Load user preferences on mount
+  useEffect(() => {
+    const preferences = storageService.getPreferences();
+    if (preferences.autoSave === false) {
+      setShowTips(false);
+    }
+  }, []);
   
   const handleGenerate = async () => {
     if (!user && !isLoading) {
@@ -102,6 +116,9 @@ export default function TextToImage() {
       return;
     }
     
+    // Save prompt to search history
+    storageService.addSearchTerm(prompt.trim());
+    
     try {
       trackEvent('text_to_image_generate_attempt', {
         promptLength: prompt.length
@@ -114,6 +131,12 @@ export default function TextToImage() {
         description: errorMessage
       });
     }
+  };
+
+  // Load prompt from search history
+  const handleSelectFromHistory = (historicalPrompt: string) => {
+    setPrompt(historicalPrompt);
+    toast.success("Prompt loaded from history");
   };
 
   // Keyboard shortcuts
@@ -141,16 +164,17 @@ export default function TextToImage() {
       answer: "Be specific and descriptive! Instead of 'forest', try 'a watercolor painting of a misty forest at sunrise with golden light filtering through the trees'. Include details about style, colors, mood, and composition."
     },
     {
-      question: "How fast is image generation?",
-      answer: "Most images are generated in just 3-5 seconds. Our AI works quickly to bring your ideas to life without the wait."
+      question: "How are my images stored?",
+      answer: "All your generated images are automatically saved to your personal gallery with search, filtering, and organization features. You can favorite images, search by prompt, and manage your entire collection."
     },
     {
-      question: "Are there any limitations?",
-      answer: "We don't allow inappropriate content. Free users get limited generations per day, while Pro users enjoy unlimited access and HD quality images."
+      question: "Can I download all my images at once?",
+      answer: "Yes! Use the Gallery Manager to select multiple images and download them in bulk. You can also export your entire gallery data for backup purposes."
     }
   ];
 
   const generationTime = lastGenerationTime ? ((Date.now() - lastGenerationTime) / 1000).toFixed(1) : null;
+  const searchHistory = storageService.getSearchHistory().slice(0, 5);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50 via-white to-indigo-50">
@@ -184,24 +208,59 @@ export default function TextToImage() {
             isMobile ? "text-lg px-2" : "text-xl"
           )}>
             Transform your imagination into stunning visuals with our advanced AI. 
-            Describe your vision and watch it come to life in seconds.
+            All your creations are automatically saved and organized for easy access.
           </p>
           
-          {/* Quick Stats */}
-          <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
+          {/* Enhanced Quick Stats */}
+          <div className="grid grid-cols-4 gap-4 max-w-md mx-auto mb-8">
             <div className="text-center">
               <div className="text-2xl font-bold text-violet-600">3-5s</div>
-              <div className="text-xs text-gray-500">Generation Time</div>
+              <div className="text-xs text-gray-500">Generation</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-violet-600">HD</div>
-              <div className="text-xs text-gray-500">Quality Output</div>
+              <div className="text-xs text-gray-500">Quality</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-violet-600">Auto</div>
+              <div className="text-xs text-gray-500">Save</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-violet-600">∞</div>
-              <div className="text-xs text-gray-500">Possibilities</div>
+              <div className="text-xs text-gray-500">Storage</div>
             </div>
           </div>
+
+          {/* Quick Access to Recent Prompts */}
+          {searchHistory.length > 0 && (
+            <div className="mb-6">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowTips(!showTips)}
+                className="mb-3"
+              >
+                <History className="h-4 w-4 mr-2" />
+                Recent Prompts ({searchHistory.length})
+              </Button>
+              
+              {showTips && (
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {searchHistory.map((term, index) => (
+                    <Button
+                      key={index}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleSelectFromHistory(term)}
+                      className="text-xs max-w-48 truncate hover:bg-violet-50"
+                    >
+                      "{term}"
+                    </Button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* User Status Alert */}
           {!user && !isLoading && (
@@ -209,7 +268,7 @@ export default function TextToImage() {
               <HelpCircle className="h-4 w-4 text-amber-600" />
               <AlertDescription className="text-amber-800">
                 <div className="flex items-center justify-between">
-                  <span>Try it free – first 3 images on us!</span>
+                  <span>Try it free – first 3 images on us! All images auto-saved.</span>
                   <Button 
                     variant="outline" 
                     size="sm"
@@ -259,7 +318,7 @@ export default function TextToImage() {
               <Alert className="bg-green-50 border-green-200">
                 <Sparkles className="h-4 w-4 text-green-600" />
                 <AlertDescription className="text-green-800">
-                  <strong>Success!</strong> Generated in {generationTime}s. Your image is ready below.
+                  <strong>Success!</strong> Generated in {generationTime}s and auto-saved to your gallery.
                 </AlertDescription>
               </Alert>
             </div>
@@ -281,7 +340,7 @@ export default function TextToImage() {
                   <Sparkles className="h-5 w-5 text-violet-600 mr-2" />
                   What's next?
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Button 
                     variant="outline" 
                     onClick={() => setPrompt('')}
@@ -298,6 +357,17 @@ export default function TextToImage() {
                   >
                     <Sparkles className="h-4 w-4 mr-2" />
                     Generate Variation
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      // This will be handled by the gallery component to show the manager
+                      toast.info("Use the Gallery Manager button above to explore all features!");
+                    }}
+                    className="hover:bg-violet-50 hover:border-violet-300 transition-colors"
+                  >
+                    <BookOpen className="h-4 w-4 mr-2" />
+                    Manage Gallery
                   </Button>
                 </div>
               </div>
@@ -316,7 +386,7 @@ export default function TextToImage() {
                 Frequently Asked Questions
               </h2>
               <p className="text-gray-600">
-                Everything you need to know about our AI image generator
+                Everything you need to know about our AI image generator and gallery features
               </p>
             </div>
             
@@ -350,10 +420,10 @@ export default function TextToImage() {
                 Ready to Create Without Limits?
               </h3>
               <p className="mb-8 opacity-90 text-lg">
-                Join thousands of creators using our Pro features for unlimited HD image generation
+                Join thousands of creators using our Pro features for unlimited HD image generation and advanced gallery management
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
                   <Sparkles className="h-8 w-8 mx-auto mb-2" />
                   <h4 className="font-semibold mb-2">Unlimited Images</h4>
@@ -368,6 +438,11 @@ export default function TextToImage() {
                   <Download className="h-8 w-8 mx-auto mb-2" />
                   <h4 className="font-semibold mb-2">Priority Speed</h4>
                   <p className="text-sm opacity-90">3× faster generation</p>
+                </div>
+                <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                  <BookOpen className="h-8 w-8 mx-auto mb-2" />
+                  <h4 className="font-semibold mb-2">Advanced Gallery</h4>
+                  <p className="text-sm opacity-90">Cloud sync & organization</p>
                 </div>
               </div>
               

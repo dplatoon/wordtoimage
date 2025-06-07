@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -12,11 +12,14 @@ import {
   Sparkles,
   Grid3X3,
   List,
-  Search
+  Search,
+  Settings
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { toast } from '@/components/ui/sonner';
+import { storageService, StoredImage } from '@/services/storageService';
+import { GalleryManager } from '@/components/gallery/GalleryManager';
 
 interface EnhancedImageGalleryProps {
   images: { url: string; prompt?: string; timestamp?: number }[];
@@ -24,28 +27,52 @@ interface EnhancedImageGalleryProps {
 }
 
 export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryProps) {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [favorites, setFavorites] = useState<Set<number>>(new Set());
-  const [hoveredImage, setHoveredImage] = useState<number | null>(null);
+  const [persistentImages, setPersistentImages] = useState<StoredImage[]>([]);
+  const [showManager, setShowManager] = useState(false);
   const isMobile = useIsMobile();
 
-  const toggleFavorite = (index: number) => {
-    const newFavorites = new Set(favorites);
-    if (newFavorites.has(index)) {
-      newFavorites.delete(index);
-      toast.success('Removed from favorites');
-    } else {
-      newFavorites.add(index);
-      toast.success('Added to favorites');
+  // Load persistent images on mount
+  useEffect(() => {
+    const stored = storageService.getImages();
+    setPersistentImages(stored);
+  }, []);
+
+  // Save new images to persistent storage
+  useEffect(() => {
+    if (images.length > 0) {
+      const newImages = images.filter(img => {
+        // Check if image is already in persistent storage
+        return !persistentImages.some(stored => stored.url === img.url);
+      });
+
+      newImages.forEach(img => {
+        const storedImage = storageService.saveImage({
+          url: img.url,
+          prompt: img.prompt || 'Generated image',
+          timestamp: img.timestamp || Date.now(),
+          favorite: false,
+          style: 'auto' // Default style, could be enhanced to detect from generation
+        });
+        
+        setPersistentImages(prev => [storedImage, ...prev]);
+      });
     }
-    setFavorites(newFavorites);
+  }, [images, persistentImages]);
+
+  const handleToggleFavorite = (imageId: string) => {
+    storageService.toggleFavorite(imageId);
+    setPersistentImages(prev => 
+      prev.map(img => 
+        img.id === imageId ? { ...img, favorite: !img.favorite } : img
+      )
+    );
   };
 
-  const handleDownload = (imageUrl: string, index: number) => {
+  const handleDownload = (imageUrl: string, imageName: string) => {
     try {
       const link = document.createElement('a');
       link.href = imageUrl;
-      link.download = `generated-image-${index + 1}.png`;
+      link.download = `${imageName}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -73,6 +100,27 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
     }
   };
 
+  // Show gallery manager if requested
+  if (showManager) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-gray-800">Gallery Manager</h2>
+          <Button
+            variant="outline"
+            onClick={() => setShowManager(false)}
+          >
+            Back to Gallery
+          </Button>
+        </div>
+        <GalleryManager
+          images={persistentImages}
+          onImagesChange={setPersistentImages}
+        />
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <Card className="border-gray-200">
@@ -86,7 +134,7 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
     );
   }
 
-  if (!images || images.length === 0) {
+  if (!persistentImages || persistentImages.length === 0) {
     return (
       <Card className="border-gray-200">
         <CardContent className="p-8 text-center">
@@ -99,7 +147,7 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
                 Your Gallery Awaits
               </h3>
               <p className="text-gray-600 max-w-md mx-auto">
-                Start creating amazing AI-generated images! Your creations will appear here.
+                Start creating amazing AI-generated images! Your creations will appear here and be automatically saved.
               </p>
             </div>
           </div>
@@ -107,6 +155,9 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
       </Card>
     );
   }
+
+  // Show recent images (last 6) in simple view, with option to open manager
+  const recentImages = persistentImages.slice(0, 6);
 
   return (
     <div className="space-y-6">
@@ -118,55 +169,49 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
             Your Gallery
           </h2>
           <Badge variant="secondary" className="bg-violet-100 text-violet-800">
-            {images.length} {images.length === 1 ? 'image' : 'images'}
+            {persistentImages.length} {persistentImages.length === 1 ? 'image' : 'images'}
           </Badge>
         </div>
         
         <div className="flex items-center space-x-2">
+          {persistentImages.length > 6 && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowManager(true)}
+              className="flex items-center gap-2"
+            >
+              <Search className="h-4 w-4" />
+              Manage All
+            </Button>
+          )}
           <Button
-            variant={viewMode === 'grid' ? 'default' : 'outline'}
+            variant="outline"
             size="sm"
-            onClick={() => setViewMode('grid')}
-            className="h-8 w-8 p-0"
+            onClick={() => setShowManager(true)}
+            className="flex items-center gap-2"
           >
-            <Grid3X3 className="h-4 w-4" />
-          </Button>
-          <Button
-            variant={viewMode === 'list' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewMode('list')}
-            className="h-8 w-8 p-0"
-          >
-            <List className="h-4 w-4" />
+            <Settings className="h-4 w-4" />
+            Settings
           </Button>
         </div>
       </div>
 
-      {/* Gallery Grid */}
+      {/* Recent Images Grid */}
       <div className={cn(
         "gap-4",
-        viewMode === 'grid' 
-          ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" 
-          : "space-y-4"
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
       )}>
-        {images.map((image, index) => (
+        {recentImages.map((image) => (
           <Card 
-            key={index}
-            className={cn(
-              "group overflow-hidden border-gray-200 hover:border-violet-300 transition-all duration-300 hover:shadow-lg",
-              viewMode === 'list' && "flex"
-            )}
-            onMouseEnter={() => setHoveredImage(index)}
-            onMouseLeave={() => setHoveredImage(null)}
+            key={image.id}
+            className="group overflow-hidden border-gray-200 hover:border-violet-300 transition-all duration-300 hover:shadow-lg"
           >
-            <div className={cn(
-              "relative",
-              viewMode === 'list' ? "w-32 flex-shrink-0" : "w-full"
-            )}>
+            <div className="relative w-full">
               <AspectRatio ratio={1} className="overflow-hidden">
                 <img
                   src={image.url}
-                  alt={`Generated image ${index + 1}`}
+                  alt={image.prompt}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
                 />
@@ -180,22 +225,22 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
                 <Button
                   size="sm"
                   variant="secondary"
-                  onClick={() => toggleFavorite(index)}
+                  onClick={() => handleToggleFavorite(image.id)}
                   className={cn(
                     "h-8 w-8 p-0",
-                    favorites.has(index) && "bg-red-500 hover:bg-red-600 text-white"
+                    image.favorite && "bg-red-500 hover:bg-red-600 text-white"
                   )}
                 >
                   <Heart className={cn(
                     "h-4 w-4",
-                    favorites.has(index) && "fill-current"
+                    image.favorite && "fill-current"
                   )} />
                 </Button>
                 
                 <Button
                   size="sm"
                   variant="secondary"
-                  onClick={() => handleDownload(image.url, index)}
+                  onClick={() => handleDownload(image.url, `generated-${image.id}`)}
                   className="h-8 w-8 p-0"
                 >
                   <Download className="h-4 w-4" />
@@ -212,7 +257,7 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
               </div>
 
               {/* Favorite Badge */}
-              {favorites.has(index) && (
+              {image.favorite && (
                 <div className="absolute top-2 right-2">
                   <div className="bg-red-500 text-white rounded-full p-1">
                     <Heart className="h-3 w-3 fill-current" />
@@ -222,32 +267,26 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
             </div>
 
             {/* Image Info */}
-            <CardContent className={cn(
-              "p-4",
-              viewMode === 'list' && "flex-1"
-            )}>
+            <CardContent className="p-4">
               <div className="space-y-2">
-                {image.prompt && (
-                  <p className={cn(
-                    "text-sm text-gray-600 line-clamp-2",
-                    viewMode === 'list' && "line-clamp-3"
-                  )}>
-                    "{image.prompt}"
-                  </p>
-                )}
+                <p className="text-sm text-gray-600 line-clamp-2">
+                  "{image.prompt}"
+                </p>
                 
                 <div className="flex items-center justify-between text-xs text-gray-500">
                   <span>
-                    {image.timestamp 
-                      ? new Date(image.timestamp).toLocaleDateString()
-                      : 'Just now'
-                    }
+                    {new Date(image.timestamp).toLocaleDateString()}
                   </span>
                   
                   <div className="flex items-center space-x-2">
-                    {favorites.has(index) && (
+                    {image.favorite && (
                       <Badge variant="secondary" className="text-xs bg-red-50 text-red-700">
                         Favorite
+                      </Badge>
+                    )}
+                    {image.style && (
+                      <Badge variant="secondary" className="text-xs">
+                        {image.style}
                       </Badge>
                     )}
                   </div>
@@ -259,19 +298,19 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => toggleFavorite(index)}
+                      onClick={() => handleToggleFavorite(image.id)}
                       className="flex-1 mr-1"
                     >
                       <Heart className={cn(
                         "h-3 w-3 mr-1",
-                        favorites.has(index) && "fill-current text-red-500"
+                        image.favorite && "fill-current text-red-500"
                       )} />
-                      {favorites.has(index) ? 'Favorited' : 'Favorite'}
+                      {image.favorite ? 'Favorited' : 'Favorite'}
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handleDownload(image.url, index)}
+                      onClick={() => handleDownload(image.url, `generated-${image.id}`)}
                       className="flex-1 ml-1"
                     >
                       <Download className="h-3 w-3 mr-1" />
@@ -285,17 +324,33 @@ export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryPr
         ))}
       </div>
 
-      {/* Gallery Stats */}
-      {images.length > 0 && (
-        <div className="flex items-center justify-center pt-4">
-          <div className="bg-gray-50 rounded-lg px-4 py-2">
-            <p className="text-sm text-gray-600 flex items-center">
-              <Sparkles className="h-4 w-4 mr-2 text-violet-500" />
-              You've created {images.length} amazing {images.length === 1 ? 'image' : 'images'}!
-            </p>
-          </div>
+      {/* Show More Button */}
+      {persistentImages.length > 6 && (
+        <div className="text-center">
+          <Button
+            variant="outline"
+            onClick={() => setShowManager(true)}
+            className="flex items-center gap-2"
+          >
+            View All {persistentImages.length} Images
+          </Button>
         </div>
       )}
+
+      {/* Gallery Stats */}
+      <div className="flex items-center justify-center pt-4">
+        <div className="bg-gray-50 rounded-lg px-4 py-2">
+          <p className="text-sm text-gray-600 flex items-center">
+            <Sparkles className="h-4 w-4 mr-2 text-violet-500" />
+            You've created {persistentImages.length} amazing {persistentImages.length === 1 ? 'image' : 'images'}!
+            {persistentImages.filter(img => img.favorite).length > 0 && (
+              <span className="ml-2 text-red-600">
+                ({persistentImages.filter(img => img.favorite).length} favorited)
+              </span>
+            )}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
