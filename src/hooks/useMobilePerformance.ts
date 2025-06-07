@@ -95,10 +95,11 @@ export const useMobilePerformance = (options: MobilePerformanceOptions = {}) => 
     `;
     document.head.appendChild(style);
 
-    // Optimize scroll performance
+    // Optimize scroll performance - using type assertion for vendor prefixes
     const optimizeScroll = () => {
-      document.body.style.webkitOverflowScrolling = 'touch';
-      document.body.style.overscrollBehavior = 'contain';
+      const bodyStyle = document.body.style as any;
+      bodyStyle.webkitOverflowScrolling = 'touch';
+      bodyStyle.overscrollBehavior = 'contain';
     };
     
     optimizeScroll();
