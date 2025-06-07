@@ -1,136 +1,160 @@
 
-import { Badge } from '@/components/ui/badge';
-import { Check, Zap, Palette, Download, Shield, Clock, Users, Hash, Wand2, Layers } from 'lucide-react';
+import React from 'react';
+import { 
+  Palette, 
+  Download, 
+  Zap, 
+  Shield, 
+  Users, 
+  Code, 
+  Sparkles, 
+  Image as ImageIcon,
+  Settings,
+  Star,
+  Globe,
+  Heart
+} from 'lucide-react';
 
-const coreFeatures = [
-  {
-    icon: Zap,
-    title: "Lightning-Fast AI Generation",
-    description: "Create stunning images in under 10 seconds with our optimized AI models. No more waiting hours for results.",
-    stats: "< 10 seconds",
-    color: "from-yellow-400 to-orange-500",
-    priority: "core"
-  },
+const features = [
   {
     icon: Palette,
-    title: "50+ Artistic Styles & Filters",
-    description: "Choose from photorealistic, abstract, watercolor, oil painting, and dozens more artistic styles with one click.",
-    stats: "50+ styles",
-    color: "from-purple-400 to-pink-500",
-    priority: "core"
+    title: "50+ Art Styles",
+    description: "From photorealistic to abstract, choose from our extensive collection of AI art styles.",
+    color: "violet"
   },
   {
     icon: Download,
-    title: "High-Resolution Downloads (Up to 4K)",
-    description: "Download your creations in crystal-clear 4K resolution without watermarks. Perfect for print and digital use.",
-    stats: "Up to 4K",
-    color: "from-blue-400 to-cyan-500",
-    priority: "core"
+    title: "HD Downloads",
+    description: "Download your creations in multiple formats including PNG, JPG, and WebP up to 4K resolution.",
+    color: "blue"
+  },
+  {
+    icon: Zap,
+    title: "Lightning Fast",
+    description: "Generate stunning images in seconds with our optimized AI infrastructure.",
+    color: "yellow"
   },
   {
     icon: Shield,
-    title: "Full Commercial License Included",
-    description: "Use your generated images for commercial projects, social media, and business materials with complete rights.",
-    stats: "100% yours",
-    color: "from-green-400 to-emerald-500",
-    priority: "core"
+    title: "Commercial License",
+    description: "Use your generated images for commercial purposes with our flexible licensing options.",
+    color: "green"
   },
   {
-    icon: Wand2,
-    title: "Smart Prompt Enhancement",
-    description: "Our AI automatically improves your prompts for better results, suggesting keywords and style modifications.",
-    stats: "Auto-enhanced",
-    color: "from-indigo-400 to-purple-500",
-    priority: "advanced"
+    icon: Users,
+    title: "Team Collaboration",
+    description: "Work together with your team using shared workspaces and project management tools.",
+    color: "purple"
   },
   {
-    icon: Layers,
-    title: "Batch Generation (5 at Once)",
-    description: "Generate multiple variations simultaneously to explore different creative directions and find the perfect image.",
-    stats: "Up to 5 at once",
-    color: "from-pink-400 to-rose-500",
-    priority: "advanced"
+    icon: Code,
+    title: "API Access",
+    description: "Integrate our AI generation capabilities into your applications with our robust API.",
+    color: "indigo"
+  },
+  {
+    icon: Sparkles,
+    title: "Advanced Prompting",
+    description: "Use our intelligent prompt suggestions and enhancement tools for better results.",
+    color: "pink"
+  },
+  {
+    icon: ImageIcon,
+    title: "Batch Generation",
+    description: "Generate multiple variations or completely different images in a single request.",
+    color: "cyan"
+  },
+  {
+    icon: Settings,
+    title: "Fine-tuning Controls",
+    description: "Adjust parameters like style strength, color palette, and composition for perfect results.",
+    color: "orange"
+  },
+  {
+    icon: Star,
+    title: "Priority Queue",
+    description: "Skip the line with priority processing for Pro and Business plan subscribers.",
+    color: "amber"
+  },
+  {
+    icon: Globe,
+    title: "Global CDN",
+    description: "Fast image delivery worldwide with our global content delivery network.",
+    color: "teal"
+  },
+  {
+    icon: Heart,
+    title: "Community Gallery",
+    description: "Share your creations and get inspired by thousands of community-generated images.",
+    color: "rose"
   }
 ];
 
-export const CoreFeaturesGrid = () => {
-  const primaryFeatures = coreFeatures.filter(f => f.priority === "core");
-  const advancedFeatures = coreFeatures.filter(f => f.priority === "advanced");
+const getColorClasses = (color: string) => {
+  const colorMap: Record<string, { bg: string; icon: string; hover: string }> = {
+    violet: { bg: 'bg-violet-50', icon: 'text-violet-600', hover: 'hover:bg-violet-100' },
+    blue: { bg: 'bg-blue-50', icon: 'text-blue-600', hover: 'hover:bg-blue-100' },
+    yellow: { bg: 'bg-yellow-50', icon: 'text-yellow-600', hover: 'hover:bg-yellow-100' },
+    green: { bg: 'bg-green-50', icon: 'text-green-600', hover: 'hover:bg-green-100' },
+    purple: { bg: 'bg-purple-50', icon: 'text-purple-600', hover: 'hover:bg-purple-100' },
+    indigo: { bg: 'bg-indigo-50', icon: 'text-indigo-600', hover: 'hover:bg-indigo-100' },
+    pink: { bg: 'bg-pink-50', icon: 'text-pink-600', hover: 'hover:bg-pink-100' },
+    cyan: { bg: 'bg-cyan-50', icon: 'text-cyan-600', hover: 'hover:bg-cyan-100' },
+    orange: { bg: 'bg-orange-50', icon: 'text-orange-600', hover: 'hover:bg-orange-100' },
+    amber: { bg: 'bg-amber-50', icon: 'text-amber-600', hover: 'hover:bg-amber-100' },
+    teal: { bg: 'bg-teal-50', icon: 'text-teal-600', hover: 'hover:bg-teal-100' },
+    rose: { bg: 'bg-rose-50', icon: 'text-rose-600', hover: 'hover:bg-rose-100' }
+  };
+  return colorMap[color] || colorMap.violet;
+};
 
+export const CoreFeaturesGrid = () => {
   return (
-    <section id="ai-features" className="py-16 md:py-24 relative">
-      <div className="content-container">
-        <div className="text-center mb-12 animate-fade-in">
-          <Badge className="mb-4 bg-ai-primary/20 text-ai-neon border-ai-primary/30 px-4 py-2">
-            <Hash className="h-4 w-4 mr-2" />
-            Core Features
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-gradient">Powered by Advanced AI,</span>
-            <br />
-            <span className="text-white">Designed for Everyone</span>
+    <section className="mobile-section bg-gray-50">
+      <div className="mobile-first-container">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="mobile-text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+            Everything You Need to Create
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Professional-grade image generation tools that make creating stunning visuals effortless and powerful.
+          <p className="mobile-text-lg text-gray-600 max-w-2xl mx-auto">
+            Comprehensive tools and features designed to bring your creative vision to life
+            with the power of artificial intelligence.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {primaryFeatures.map((feature, index) => (
-            <div
-              key={index}
-              className="ai-card group hover:scale-105 transition-all duration-300 animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className={`w-14 h-14 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <feature.icon className="h-7 w-7 text-white" aria-hidden="true" />
-              </div>
-              
-              <h3 className="text-xl font-bold mb-3 text-white">{feature.title}</h3>
-              <p className="text-gray-300 mb-4 leading-relaxed">{feature.description}</p>
-              
-              <div className="flex items-center justify-between">
-                <span className="text-ai-neon font-semibold text-sm" aria-label={`Feature metric: ${feature.stats}`}>
-                  {feature.stats}
-                </span>
-                <div className="w-7 h-7 bg-ai-primary/20 rounded-full flex items-center justify-center group-hover:bg-ai-primary/40 transition-colors duration-300">
-                  <Check className="h-3 w-3 text-ai-neon" aria-hidden="true" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="border-t border-ai-primary/20 pt-12 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-          <div className="text-center mb-8">
-            <Badge className="mb-3 bg-ai-accent/20 text-ai-accent border-ai-accent/30 px-3 py-1 text-sm">
-              Professional Tools
-            </Badge>
-            <h3 className="text-2xl font-bold text-white mb-2">Advanced Features for Power Users</h3>
-            <p className="text-gray-400 max-w-xl mx-auto">
-              Additional capabilities for professional creators, teams, and businesses who need more control.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {advancedFeatures.map((feature, index) => (
+        <div className="mobile-grid mobile-grid-sm-2 mobile-grid-lg-3 gap-4 md:gap-6">
+          {features.map((feature, index) => {
+            const IconComponent = feature.icon;
+            const colors = getColorClasses(feature.color);
+            
+            return (
               <div
                 key={index}
-                className="ai-card group border border-ai-accent/20 hover:border-ai-accent/40"
+                className={`mobile-card group transition-all duration-300 ${colors.hover} cursor-pointer`}
               >
-                <div className="flex items-start space-x-4">
-                  <div className={`w-10 h-10 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                    <feature.icon className="h-5 w-5 text-white" aria-hidden="true" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-white mb-2">{feature.title}</h4>
-                    <p className="text-gray-300 text-sm mb-2">{feature.description}</p>
-                    <span className="text-ai-accent font-medium text-xs" aria-label={`Feature metric: ${feature.stats}`}>
-                      {feature.stats}
-                    </span>
-                  </div>
+                <div className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <IconComponent className={`w-6 h-6 ${colors.icon}`} />
                 </div>
+                <h3 className="mobile-text-lg font-semibold text-gray-900 mb-2">
+                  {feature.title}
+                </h3>
+                <p className="mobile-text-sm text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
+            );
+          })}
+        </div>
+
+        <div className="text-center mt-8 md:mt-12">
+          <p className="mobile-text-sm text-gray-500 mb-4">
+            And many more features being added every month
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {['AI Enhancement', 'Upscaling', 'Style Transfer', 'Background Removal'].map((tag, index) => (
+              <span key={index} className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full mobile-text-xs font-medium">
+                {tag}
+              </span>
             ))}
           </div>
         </div>

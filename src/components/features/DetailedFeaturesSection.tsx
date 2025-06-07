@@ -1,136 +1,130 @@
 
-import { Wand2, Palette, Clock, ShieldCheck, Download, Layers, Zap, Users, Share2, History } from 'lucide-react';
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import React from 'react';
+import { Check, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+
+const detailedFeatures = [
+  {
+    category: "AI Generation",
+    title: "State-of-the-Art AI Models",
+    description: "Our platform uses the latest AI models including Stable Diffusion, DALL-E, and our proprietary enhancement algorithms to deliver stunning results.",
+    benefits: [
+      "Multiple AI model options for different use cases",
+      "Continuous model updates and improvements",
+      "Optimized for speed and quality",
+      "Advanced prompt understanding"
+    ],
+    image: "/lovable-uploads/60da266c-4810-4f41-9449-ae54c2026373.png"
+  },
+  {
+    category: "Professional Tools",
+    title: "Advanced Editing Suite",
+    description: "Go beyond basic generation with our comprehensive editing tools designed for professional creators and businesses.",
+    benefits: [
+      "Background replacement and removal",
+      "Style transfer and blending",
+      "Resolution upscaling up to 4K",
+      "Batch processing capabilities"
+    ],
+    image: "/lovable-uploads/8398d1f3-db95-4f78-b05e-1fbba4750e81.png"
+  },
+  {
+    category: "Business Features",
+    title: "Enterprise-Ready Platform",
+    description: "Built for businesses with features that scale from individual creators to large teams and organizations.",
+    benefits: [
+      "Team workspaces and user management",
+      "API access with extensive documentation",
+      "White-label options available",
+      "Priority support and custom integrations"
+    ],
+    image: "/lovable-uploads/fa9c9164-9cf5-482f-9a30-662c41b9b386.png"
+  }
+];
 
 export const DetailedFeaturesSection = () => {
-  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
-  
-  const features = [
-    {
-      icon: Wand2,
-      title: "Advanced AI Image Generation",
-      description: "Transform any text description into unique, high-quality images using state-of-the-art diffusion models.",
-      extendedDescription: "Our AI has been trained on millions of images to understand the relationships between words and visuals, enabling it to create truly unique artwork that matches your exact specifications with impressive accuracy and detail.",
-      examples: ["Portrait photography", "Abstract art", "Product mockups", "Landscape scenes"]
-    },
-    {
-      icon: Palette,
-      title: "50+ Artistic Styles & Customization",
-      description: "Choose from photorealistic, watercolor, oil painting, digital art, and many more artistic styles to match your vision.",
-      extendedDescription: "From classic art movements to modern digital aesthetics, our comprehensive style library includes everything from Renaissance paintings to cyberpunk illustrations, ensuring your creative vision comes to life exactly as imagined.",
-      examples: ["Photorealistic", "Watercolor", "Digital art", "Vintage poster"]
-    },
-    {
-      icon: Zap,
-      title: "Lightning-Fast Processing (Under 10 Seconds)",
-      description: "Generate high-quality images in under 10 seconds with our optimized AI infrastructure designed for speed.",
-      extendedDescription: "No more waiting hours for design work. Our cloud-based processing ensures consistent speed regardless of complexity, letting you iterate quickly on creative ideas and maintain your creative flow.",
-      examples: ["Simple designs: 3-5 seconds", "Complex scenes: 8-10 seconds", "Batch generation: 15-20 seconds"]
-    },
-    {
-      icon: Download,
-      title: "High-Resolution Downloads (Up to 4K)",
-      description: "Download your creations in multiple formats and resolutions up to 4K, perfect for any project size.",
-      extendedDescription: "Export in PNG, JPG, or SVG formats at various resolutions. Whether you need images for social media posts, print materials, website headers, or professional presentations, we've got the right format and quality.",
-      examples: ["Social media: 1080p", "Print quality: 300 DPI", "Web headers: 4K", "Mobile apps: Optimized"]
-    },
-    {
-      icon: ShieldCheck,
-      title: "Commercial License & Quality Guarantee",
-      description: "Use your generated images for commercial projects with full rights and consistent high-quality output.",
-      extendedDescription: "Every image comes with complete commercial usage rights. Our quality assurance algorithms ensure consistent results that meet professional standards for clarity, composition, and artistic integrity.",
-      examples: ["Marketing materials", "Product packaging", "Website design", "Social media content"]
-    },
-    {
-      icon: Layers,
-      title: "Advanced Customization Controls",
-      description: "Fine-tune your results with detailed style intensity, color palette, and composition controls.",
-      extendedDescription: "Take creative control with adjustable parameters for style strength, color saturation, lighting conditions, and compositional elements. Perfect for professionals who need precise control over their visual output.",
-      examples: ["Style intensity: 0-100%", "Color temperature", "Lighting direction", "Composition rules"]
-    },
-    {
-      icon: Users,
-      title: "Team Collaboration & Sharing",
-      description: "Share your generations with team members, create collaborative galleries, and manage projects together.",
-      extendedDescription: "Built-in collaboration tools allow teams to share prompts, build collective galleries, provide feedback, and maintain brand consistency across all generated content.",
-      examples: ["Team galleries", "Shared prompts", "Project folders", "Brand guidelines"]
-    },
-    {
-      icon: History,
-      title: "Generation History & Management",
-      description: "Keep track of all your creations with automatic history saving and easy organization tools.",
-      extendedDescription: "Never lose a great creation again. Our comprehensive history system saves every generation with its original prompt, allowing you to recreate, modify, or share your work at any time.",
-      examples: ["Auto-save all generations", "Search by prompt", "Organize by project", "Export collections"]
-    }
-  ];
-
   return (
-    <section id="detailed-features" className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="animate-fade-in">
-            <Badge className="mb-4 bg-blue-100 text-blue-800 px-4 py-2">
-              <Wand2 className="h-4 w-4 mr-2" />
-              Complete Feature Set
-            </Badge>
-          </div>
-          
-          <h2 
-            className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4 animate-fade-in"
-            style={{ animationDelay: '0.2s' }}
-          >
-            Everything You Need for Professional Image Creation
+    <section className="mobile-section">
+      <div className="mobile-first-container">
+        <div className="text-center mb-8 md:mb-16">
+          <h2 className="mobile-text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+            Detailed Feature Breakdown
           </h2>
-          
-          <p 
-            className="text-lg text-gray-600 max-w-2xl mx-auto animate-fade-in"
-            style={{ animationDelay: '0.3s' }}
-          >
-            Comprehensive tools and features designed to transform your creative ideas into stunning visuals
+          <p className="mobile-text-lg text-gray-600 max-w-3xl mx-auto">
+            Dive deeper into the capabilities that make WordToImage the preferred choice 
+            for creators, marketers, and developers worldwide.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+        <div className="space-y-12 md:space-y-20">
+          {detailedFeatures.map((feature, index) => (
             <div 
               key={index} 
-              className="group animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-              onMouseEnter={() => setHoveredFeature(index)}
-              onMouseLeave={() => setHoveredFeature(null)}
+              className={`mobile-grid mobile-grid-lg-2 gap-8 md:gap-12 items-center ${
+                index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
+              }`}
             >
-              <Card className="h-full transition-all duration-300 hover:shadow-lg border border-gray-100 hover:border-blue-200">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                    <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
-                  </div>
-                  <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
-                  <CardDescription className="text-gray-600">{feature.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {hoveredFeature === index && (
-                    <div className="space-y-3 animate-fade-in">
-                      <div className="text-sm text-gray-500 pt-2 border-t">
-                        {feature.extendedDescription}
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">Examples:</h4>
-                        <div className="flex flex-wrap gap-1">
-                          {feature.examples.map((example, idx) => (
-                            <Badge key={idx} variant="secondary" className="text-xs">
-                              {example}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
+              <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
+                <div className="mb-4">
+                  <span className="inline-block px-3 py-1 bg-violet-100 text-violet-700 rounded-full mobile-text-sm font-medium mb-4">
+                    {feature.category}
+                  </span>
+                  <h3 className="mobile-text-xl md:text-3xl font-bold text-gray-900 mb-4">
+                    {feature.title}
+                  </h3>
+                  <p className="mobile-text-base md:text-lg text-gray-600 mb-6">
+                    {feature.description}
+                  </p>
+                </div>
+
+                <ul className="space-y-3 mb-6 md:mb-8">
+                  {feature.benefits.map((benefit, benefitIndex) => (
+                    <li key={benefitIndex} className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="mobile-text-sm md:text-base text-gray-700">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Button asChild className="mobile-button-primary">
+                  <Link to="/text-to-image">
+                    Try This Feature
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+
+              <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''} mobile-center`}>
+                <div className="relative">
+                  <img
+                    src={feature.image}
+                    alt={`${feature.title} demonstration`}
+                    className="mobile-image rounded-lg shadow-xl"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-indigo-500/10 rounded-lg"></div>
+                </div>
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="mobile-card mt-12 md:mt-20 text-center">
+          <h3 className="mobile-text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            Ready to Experience These Features?
+          </h3>
+          <p className="mobile-text-base text-gray-600 mb-6">
+            Start creating amazing AI-generated images today with our free plan.
+          </p>
+          <div className="mobile-stack md:flex md:items-center md:justify-center md:gap-4">
+            <Button asChild className="mobile-button-primary">
+              <Link to="/text-to-image">Start Creating Free</Link>
+            </Button>
+            <Button variant="outline" asChild className="mobile-button-secondary">
+              <Link to="/pricing">View All Plans</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
