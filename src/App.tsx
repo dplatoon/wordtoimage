@@ -1,4 +1,3 @@
-
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +14,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Auth = lazy(() => import("./pages/Auth"));
 const TextToImage = lazy(() => import("./pages/TextToImage"));
 const PerformanceTest = lazy(() => import("./pages/PerformanceTest"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -94,6 +94,14 @@ function App() {
                   element={
                     <Suspense fallback={<PageLoader />}>
                       <PerformanceTest />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <Dashboard />
                     </Suspense>
                   } 
                 />
