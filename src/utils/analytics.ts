@@ -66,7 +66,7 @@ class AnalyticsManager {
       window.dataLayer.push(arguments);
     };
 
-    window.gtag('js', new Date());
+    window.gtag('js', new Date().toISOString());
     window.gtag('config', measurementId, {
       page_title: document.title,
       page_location: window.location.href,
