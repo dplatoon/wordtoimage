@@ -37,7 +37,6 @@ export default defineConfig(({ mode }) => ({
           'router': ['react-router-dom'],
           'ui-components': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
           'icons': ['lucide-react'],
-          'animation': ['framer-motion'],
           'forms': ['react-hook-form', '@hookform/resolvers'],
           'query': ['@tanstack/react-query'],
         },
