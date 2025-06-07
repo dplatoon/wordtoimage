@@ -1,23 +1,11 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { 
-  Download, 
-  Trash2, 
-  CheckSquare, 
-  Grid3X3, 
-  List, 
-  SortAsc, 
-  SortDesc,
-  FileDown,
-  Share2
-} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from '@/components/ui/sonner';
 import { storageService, StoredImage } from '@/services/storageService';
-import { GallerySearch } from './GallerySearch';
+import { GalleryToolbar } from './GalleryToolbar';
+import { GalleryImageGrid } from './GalleryImageGrid';
+import { GalleryFilters } from './GalleryFilters';
 
 interface GalleryManagerProps {
   images: StoredImage[];
@@ -175,220 +163,44 @@ export function GalleryManager({ images, onImagesChange, className }: GalleryMan
 
   return (
     <div className={cn("space-y-6", className)}>
-      {/* Search and Filters */}
-      <GallerySearch
+      {/* Filters */}
+      <GalleryFilters
+        searchQuery={searchQuery}
+        activeFilters={activeFilters}
+        filteredCount={filteredImages.length}
+        totalCount={images.length}
         onSearch={setSearchQuery}
         onFilter={setActiveFilters}
-        onClearFilters={() => setActiveFilters({})}
-        activeFilters={activeFilters}
+        onClearFilters={() => {
+          setSearchQuery('');
+          setActiveFilters({});
+        }}
       />
 
       {/* Toolbar */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <div className="flex items-center gap-2 flex-wrap">
-          {/* Selection Controls */}
-          {filteredImages.length > 0 && (
-            <>
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  checked={selectedImages.size === filteredImages.length && filteredImages.length > 0}
-                  onCheckedChange={handleSelectAll}
-                />
-                <Button variant="outline" size="sm" onClick={handleSelectAll}>
-                  <CheckSquare className="h-4 w-4 mr-1" />
-                  {selectedImages.size === filteredImages.length ? 'Deselect' : 'Select'} All
-                </Button>
-              </div>
+      <GalleryToolbar
+        selectedImages={selectedImages}
+        filteredImages={filteredImages}
+        viewMode={viewMode}
+        sortBy={sortBy}
+        onSelectAll={handleSelectAll}
+        onDownloadSelected={handleDownloadSelected}
+        onDeleteSelected={handleDeleteSelected}
+        onViewModeChange={setViewMode}
+        onSortChange={setSortBy}
+        onExportData={handleExportData}
+      />
 
-              {selectedImages.size > 0 && (
-                <div className="flex items-center gap-2">
-                  <Badge variant="secondary">
-                    {selectedImages.size} selected
-                  </Badge>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleDownloadSelected}
-                  >
-                    <Download className="h-4 w-4 mr-1" />
-                    Download
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleDeleteSelected}
-                    className="text-red-600 hover:text-red-700"
-                  >
-                    <Trash2 className="h-4 w-4 mr-1" />
-                    Delete
-                  </Button>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-
-        <div className="flex items-center gap-2">
-          {/* Sort */}
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as any)}
-            className="px-3 py-1 border border-gray-300 rounded-md text-sm"
-          >
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-            <option value="favorites">Favorites First</option>
-          </select>
-
-          {/* View Mode */}
-          <div className="flex items-center border border-gray-300 rounded-md">
-            <Button
-              variant={viewMode === 'grid' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setViewMode('grid')}
-              className="rounded-r-none border-r border-gray-300"
-            >
-              <Grid3X3 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={viewMode === 'list' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setViewMode('list')}
-              className="rounded-l-none"
-            >
-              <List className="h-4 w-4" />
-            </Button>
-          </div>
-
-          {/* Export */}
-          <Button variant="outline" size="sm" onClick={handleExportData}>
-            <FileDown className="h-4 w-4 mr-1" />
-            Export
-          </Button>
-        </div>
-      </div>
-
-      {/* Results Info */}
-      {filteredImages.length !== images.length && (
-        <Alert>
-          <AlertDescription>
-            Showing {filteredImages.length} of {images.length} images
-            {searchQuery && ` matching "${searchQuery}"`}
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {/* Gallery Grid/List */}
-      <div className={cn(
-        viewMode === 'grid' 
-          ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-          : "space-y-4"
-      )}>
-        {filteredImages.map((image) => (
-          <div
-            key={image.id}
-            className={cn(
-              "relative group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow",
-              viewMode === 'list' && "flex"
-            )}
-          >
-            {/* Selection Checkbox */}
-            <div className="absolute top-2 left-2 z-10">
-              <Checkbox
-                checked={selectedImages.has(image.id)}
-                onCheckedChange={() => handleSelectImage(image.id)}
-                className="bg-white/80 border-white"
-              />
-            </div>
-
-            {/* Image */}
-            <div className={cn(
-              "relative overflow-hidden",
-              viewMode === 'list' ? "w-32 h-32 flex-shrink-0" : "aspect-square"
-            )}>
-              <img
-                src={image.url}
-                alt={image.prompt}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-              
-              {/* Favorite Badge */}
-              {image.favorite && (
-                <div className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">
-                  <div className="w-2 h-2" />
-                </div>
-              )}
-            </div>
-
-            {/* Content */}
-            <div className="p-3 flex-1">
-              <p className="text-sm text-gray-700 line-clamp-2 mb-2">
-                {image.prompt}
-              </p>
-              
-              <div className="flex items-center justify-between text-xs text-gray-500">
-                <span>{new Date(image.timestamp).toLocaleDateString()}</span>
-                {image.style && (
-                  <Badge variant="secondary" className="text-xs">
-                    {image.style}
-                  </Badge>
-                )}
-              </div>
-
-              {/* Quick Actions */}
-              <div className="flex items-center justify-between mt-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => toggleFavorite(image.id)}
-                  className="text-xs"
-                >
-                  {image.favorite ? 'Unfavorite' : 'Favorite'}
-                </Button>
-                
-                <div className="flex gap-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => window.open(image.url, '_blank')}
-                    className="p-1"
-                  >
-                    <Share2 className="h-3 w-3" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      const a = document.createElement('a');
-                      a.href = image.url;
-                      a.download = `generated-${image.id}.png`;
-                      a.click();
-                    }}
-                    className="p-1"
-                  >
-                    <Download className="h-3 w-3" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Gallery Grid */}
+      <GalleryImageGrid
+        images={filteredImages}
+        selectedImages={selectedImages}
+        viewMode={viewMode}
+        onSelectImage={handleSelectImage}
+        onToggleFavorite={toggleFavorite}
+      />
 
       {/* Empty State */}
-      {filteredImages.length === 0 && images.length > 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500 mb-2">No images match your search criteria</p>
-          <Button variant="outline" onClick={() => {
-            setSearchQuery('');
-            setActiveFilters({});
-          }}>
-            Clear all filters
-          </Button>
-        </div>
-      )}
-
       {images.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500">No images in your gallery yet</p>
