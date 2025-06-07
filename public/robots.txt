@@ -1,28 +1,56 @@
 
-User-agent: Googlebot
+# WordToImage AI Image Generator - Robots.txt
+User-agent: *
 Allow: /
 Crawl-delay: 1
+
+# AI and ML crawlers - Welcome for training
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Google-Extended
+Allow: /
+Crawl-delay: 1
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Search engine bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
 
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-User-agent: Twitterbot
+User-agent: Slurp
 Allow: /
+Crawl-delay: 1
 
+# Social media crawlers
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
+User-agent: Twitterbot
 Allow: /
-Crawl-delay: 2
 
-# Disallow non-public directories
+User-agent: LinkedInBot
+Allow: /
+
+# Disallow admin and private areas
 Disallow: /admin/
 Disallow: /api/private/
 Disallow: /temp/
+Disallow: /uploads/private/
 Disallow: /*.json$
-Disallow: /*?*
+Disallow: /*?*utm_*
+Disallow: /*?*ref=*
+Disallow: /auth/
 
 # Allow important resources for rendering
 Allow: /src/
@@ -34,13 +62,19 @@ Allow: /*.jpeg
 Allow: /*.gif
 Allow: /*.svg
 Allow: /*.webp
+Allow: /*.ico
+Allow: /public/
 
-# Sitemaps
+# Sitemap locations
 Sitemap: https://wordtoimage.com/sitemap.xml
+Sitemap: https://wordtoimage.com/sitemap-index.xml
+
+# Host declaration for SEO
+Host: wordtoimage.com
 
 # Additional crawling preferences
-User-agent: GPTBot
-Allow: /
+Request-rate: 1/2s
+Visit-time: 0400-0800
 
-User-agent: Google-Extended
-Allow: /
+# Image sitemap
+Sitemap: https://wordtoimage.com/sitemap-images.xml
