@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Menu } from 'lucide-react';
 import { ResponsiveMobileMenu } from './navigation/ResponsiveMobileMenu';
 import { BottomNavigation } from './navigation/BottomNavigation';
 import { useResponsiveDesign } from '@/hooks/useResponsiveDesign';
@@ -40,8 +40,8 @@ export const Nav = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/90 backdrop-blur-md shadow-lg border-b border-gray-200' 
-            : 'bg-transparent'
+            ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200' 
+            : 'bg-white/90 backdrop-blur-sm border-b border-gray-100'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,16 +106,24 @@ export const Nav = () => {
               </Link>
             </div>
 
-            {/* Mobile menu */}
-            {isMobile && (
-              <ResponsiveMobileMenu 
-                isOpen={isMenuOpen}
-                onClose={() => setIsMenuOpen(false)}
-              />
-            )}
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden p-2 rounded-lg text-gray-700 hover:text-violet-600 hover:bg-violet-50 transition-all duration-300 z-50"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+            >
+              <Menu className="h-6 w-6" />
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Mobile menu */}
+      <ResponsiveMobileMenu 
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+      />
 
       {/* Bottom Navigation for Mobile */}
       <BottomNavigation />
