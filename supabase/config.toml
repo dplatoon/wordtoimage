@@ -7,6 +7,12 @@ verify_jwt = false
 [functions.generate-replicate-image]
 verify_jwt = false
 
+[functions.secure-image-generation]
+verify_jwt = false
+
+[functions.check-prediction-status]
+verify_jwt = false
+
 [functions.create-checkout]
 verify_jwt = false
 
