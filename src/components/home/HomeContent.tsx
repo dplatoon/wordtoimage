@@ -1,3 +1,4 @@
+
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { HeroSection } from '@/components/HeroSection';
 import { FAQSection } from '@/components/home/FAQSection';
@@ -61,7 +62,7 @@ export const HomeContent = () => {
   }, []);
 
   return (
-    <main id="main-content" className="relative">
+    <main id="main-content" className="relative w-full">
       {/* Hero section with gradient background */}
       <div className="bg-gradient-to-b from-blue-50 to-white">
         <HeroSection />
@@ -73,12 +74,12 @@ export const HomeContent = () => {
       </div>
       
       {/* Showcase section (similar to Gallery) moved up */}
-      <div className="bg-white py-16">
+      <div className="bg-white py-8 md:py-16">
         <ShowcaseSection />
       </div>
       
       {/* How it works section */}
-      <div id="how-it-works" className="bg-gray-50 py-16">
+      <div id="how-it-works" className="bg-gray-50 py-8 md:py-16">
         <HowItWorksSection />
       </div>
       

@@ -44,14 +44,14 @@ export const Nav = () => {
             : 'bg-white/90 backdrop-blur-sm border-b border-gray-100'
         }`}
       >
-        <div className="mobile-first-container">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`flex items-center justify-between ${
             isMobile ? 'h-16' : isTablet ? 'h-18' : 'h-20'
           }`}>
             {/* Logo */}
             <Link 
               to="/" 
-              className="flex items-center space-x-2 group z-50 touch-target"
+              className="flex items-center space-x-2 group z-50"
               aria-label="WordToImage Home"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -73,7 +73,7 @@ export const Nav = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group rounded-lg touch-target ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group rounded-lg ${
                     isCurrentPage(item.path)
                       ? 'text-violet-600 bg-violet-50 shadow-sm'
                       : 'text-gray-700 hover:text-violet-600 hover:bg-violet-50'
@@ -94,13 +94,13 @@ export const Nav = () => {
             <div className="hidden md:flex items-center space-x-4">
               <Link
                 to="/auth"
-                className="text-gray-600 hover:text-violet-600 transition-all duration-300 font-medium px-4 py-2 rounded-lg hover:bg-violet-50 touch-target"
+                className="text-gray-600 hover:text-violet-600 transition-all duration-300 font-medium px-4 py-2 rounded-lg hover:bg-violet-50"
               >
                 Sign In
               </Link>
               <Link
                 to="/text-to-image"
-                className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:from-violet-700 hover:to-indigo-700 touch-target"
+                className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:from-violet-700 hover:to-indigo-700"
               >
                 Try Free
               </Link>
@@ -108,7 +108,7 @@ export const Nav = () => {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden touch-target rounded-lg text-gray-700 hover:text-violet-600 hover:bg-violet-50 transition-all duration-300 z-50"
+              className="md:hidden min-h-[48px] min-w-[48px] rounded-lg text-gray-700 hover:text-violet-600 hover:bg-violet-50 transition-all duration-300 z-50 flex items-center justify-center"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}

@@ -3,6 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Design System Color Tokens */
+:root {
+  --ai-primary: #4f46e5;
+  --ai-accent: #7c3aed;
+  --ai-neon: #06d6a0;
+  --ai-dark: #1e1b4b;
+  --ai-light: #f8fafc;
+}
+
 /* Critical mobile-first styles - inline above the fold */
 @layer base {
   /* Reset and base styles optimized for mobile */
@@ -235,6 +244,15 @@
     .desktop-hidden { display: none; }
   }
 
+  /* Design system color utilities */
+  .text-ai-primary { color: var(--ai-primary); }
+  .text-ai-accent { color: var(--ai-accent); }
+  .text-ai-neon { color: var(--ai-neon); }
+  .bg-ai-primary { background-color: var(--ai-primary); }
+  .bg-ai-accent { background-color: var(--ai-accent); }
+  .bg-ai-neon { background-color: var(--ai-neon); }
+  .border-ai-accent { border-color: var(--ai-accent); }
+
   /* Reduce motion for accessibility and performance */
   @media (prefers-reduced-motion: reduce) {
     * {
@@ -244,6 +262,11 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* Add proper spacing for mobile content to avoid navigation overlap */
+.main-content {
+  padding-bottom: calc(76px + env(safe-area-inset-bottom));
 }
 
 /* Critical path optimization - inline critical CSS */

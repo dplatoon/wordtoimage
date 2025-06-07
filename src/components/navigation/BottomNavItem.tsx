@@ -16,8 +16,8 @@ export const BottomNavItem = ({ name, path, icon: Icon, isActive }: BottomNavIte
   return (
     <Link
       to={path}
-      className={`flex flex-col items-center justify-center relative min-h-[56px] px-2 py-1 transition-all duration-300 touch-manipulation ${
-        active ? 'text-ai-accent' : 'text-gray-500 hover:text-ai-primary'
+      className={`flex flex-col items-center justify-center relative min-h-[56px] px-2 py-1 transition-all duration-300 touch-manipulation flex-1 ${
+        active ? 'text-violet-600' : 'text-gray-500 hover:text-violet-600'
       }`}
       aria-label={name}
     >
@@ -26,23 +26,15 @@ export const BottomNavItem = ({ name, path, icon: Icon, isActive }: BottomNavIte
         
         {/* Active indicator */}
         {active && (
-          <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-ai-accent rounded-full animate-scale-in" />
-        )}
-        
-        {/* Subtle glow effect when active */}
-        {active && (
-          <div className="absolute inset-0 bg-ai-accent/10 rounded-lg scale-150 opacity-50 blur-sm" />
+          <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-violet-600 rounded-full" />
         )}
       </div>
       
       <span className={`text-xs mt-1 font-medium transition-all duration-300 ${
-        active ? 'text-ai-accent opacity-100' : 'opacity-75'
+        active ? 'text-violet-600 opacity-100' : 'opacity-75'
       }`}>
         {name}
       </span>
-      
-      {/* Touch ripple effect */}
-      <div className="absolute inset-0 rounded-lg bg-ai-accent/5 opacity-0 active:opacity-100 transition-opacity duration-150" />
     </Link>
   );
 };
