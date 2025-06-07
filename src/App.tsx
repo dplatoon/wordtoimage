@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MobileOptimizedApp } from "@/components/layout/MobileOptimizedApp";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -35,69 +36,71 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <MobileOptimizedApp>
-          <Toaster />
-          <BrowserRouter>
-            <Routes>
-              <Route 
-                path="/" 
-                element={
-                  <Suspense fallback={<PageLoader />}>
-                    <Index />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="/features" 
-                element={
-                  <Suspense fallback={<PageLoader />}>
-                    <Features />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="/pricing" 
-                element={
-                  <Suspense fallback={<PageLoader />}>
-                    <Pricing />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="/contact" 
-                element={
-                  <Suspense fallback={<PageLoader />}>
-                    <Contact />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="/auth" 
-                element={
-                  <Suspense fallback={<PageLoader />}>
-                    <Auth />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="/text-to-image" 
-                element={
-                  <Suspense fallback={<PageLoader />}>
-                    <TextToImage />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="/performance-test" 
-                element={
-                  <Suspense fallback={<PageLoader />}>
-                    <PerformanceTest />
-                  </Suspense>
-                } 
-              />
-            </Routes>
-          </BrowserRouter>
-        </MobileOptimizedApp>
+        <AuthProvider>
+          <MobileOptimizedApp>
+            <Toaster />
+            <BrowserRouter>
+              <Routes>
+                <Route 
+                  path="/" 
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <Index />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/features" 
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <Features />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/pricing" 
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <Pricing />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/contact" 
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <Contact />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/auth" 
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <Auth />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/text-to-image" 
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <TextToImage />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/performance-test" 
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <PerformanceTest />
+                    </Suspense>
+                  } 
+                />
+              </Routes>
+            </BrowserRouter>
+          </MobileOptimizedApp>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
