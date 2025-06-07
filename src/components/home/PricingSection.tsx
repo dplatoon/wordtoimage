@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Check, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export const PricingSection = () => {
@@ -63,25 +62,6 @@ export const PricingSection = () => {
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 100, damping: 15 }
-    }
-  };
-
   const discount = 20; // 20% discount for annual billing
 
   return (
@@ -122,22 +102,16 @@ export const PricingSection = () => {
           </div>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
           {plans.map((plan, index) => (
-            <motion.div
+            <div
               key={index}
-              variants={itemVariants}
-              className={`relative rounded-2xl overflow-hidden ${
+              className={`relative rounded-2xl overflow-hidden animate-fade-in ${
                 plan.popular
                   ? 'ring-2 ring-blue-500 shadow-xl'
                   : 'border border-gray-200 shadow-sm'
               }`}
+              style={{ animationDelay: `${index * 0.2}s` }}
             >
               {plan.popular && (
                 <div className="absolute top-0 right-0 mt-4 mr-4">
@@ -187,9 +161,9 @@ export const PricingSection = () => {
                   {plan.ctaText}
                 </Button>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,4 @@
 
-import { motion } from 'framer-motion';
-
 // Note: These are imaginary components for now, but you'd replace them with actual lucide-react icons
 import { Speed, Quality, EaseOfUse } from '@/components/icons/MinimalistIcons';
 
@@ -32,20 +30,17 @@ export const MinimalistFeatures = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         {features.map((feature, index) => (
-          <motion.div 
+          <div 
             key={index}
-            className="text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.2, duration: 0.5 }}
+            className="text-center animate-fade-in"
+            style={{ animationDelay: `${index * 0.2}s` }}
           >
             <div className="flex justify-center mb-4">
               {feature.icon}
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
             <p className="text-gray-600">{feature.description}</p>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

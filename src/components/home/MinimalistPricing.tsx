@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Check, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -105,15 +104,12 @@ export const MinimalistPricing = ({ onShowProFeatures }: MinimalistPricingProps)
       {/* Pricing cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {plans.map((plan, index) => (
-          <motion.div
+          <div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.2, duration: 0.5 }}
-            className={`rounded-2xl overflow-hidden border ${
+            className={`rounded-2xl overflow-hidden border animate-fade-in ${
               plan.highlighted ? 'border-indigo-500 shadow-xl' : 'border-gray-200 shadow-sm'
             }`}
+            style={{ animationDelay: `${index * 0.2}s` }}
           >
             {plan.highlighted && (
               <div className="bg-indigo-500 py-1 px-4 text-center">
@@ -163,7 +159,7 @@ export const MinimalistPricing = ({ onShowProFeatures }: MinimalistPricingProps)
                 )}
               </Button>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
       

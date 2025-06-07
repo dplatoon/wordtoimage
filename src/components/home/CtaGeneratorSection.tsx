@@ -2,17 +2,10 @@
 import { Link } from 'react-router-dom';
 import { Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
 
 export const CtaGeneratorSection = () => {
   return (
-    <motion.section 
-      className="py-16 bg-white"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
-    >
+    <section className="py-16 bg-white animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-2xl p-8 md:p-12 text-white shadow-xl">
           {/* Gradient background */}
@@ -39,6 +32,6 @@ export const CtaGeneratorSection = () => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };

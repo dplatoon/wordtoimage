@@ -1,7 +1,6 @@
 
 import { Wand2, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 export const CTASection = () => {
@@ -38,13 +37,7 @@ export const CTASection = () => {
       <div className="absolute bottom-8 left-1/3 w-56 h-56 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
-          className="bg-white rounded-2xl shadow-xl overflow-hidden"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true, amount: 0.3 }}
-        >
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden animate-fade-in">
           <div className="px-6 py-12 md:p-12">
             <div className="flex flex-col md:flex-row gap-8">
               <div className="w-full md:w-3/5">
@@ -88,14 +81,10 @@ export const CTASection = () => {
                 </div>
                 
                 {isSubscribed ? (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-green-50 text-green-700 p-4 rounded-lg text-center"
-                  >
+                  <div className="bg-green-50 text-green-700 p-4 rounded-lg text-center animate-fade-in">
                     <p className="font-medium">Thanks for subscribing!</p>
                     <p className="text-sm mt-1">We'll keep you updated with the latest news.</p>
-                  </motion.div>
+                  </div>
                 ) : (
                   <form onSubmit={handleSubscribe}>
                     <div className="mb-3">
@@ -125,7 +114,7 @@ export const CTASection = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
         
         <div className="mt-10 text-center">
           <div className="flex items-center justify-center space-x-4">

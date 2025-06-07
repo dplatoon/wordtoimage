@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Wand2, TrendingUp } from 'lucide-react';
 import { localGalleryImages } from '@/utils/imageUtils';
@@ -26,15 +25,12 @@ export const ImageShowcaseGrid = () => {
         aria-label="Gallery of AI-generated images"
       >
         {images.map((image, index) => (
-          <motion.div
+          <div
             key={index}
-            className="aspect-square relative overflow-hidden rounded-xl sm:rounded-2xl shadow-subtle hover:shadow-modern transition-all duration-300 group bg-white border border-brand-slate-100"
+            className="aspect-square relative overflow-hidden rounded-xl sm:rounded-2xl shadow-subtle hover:shadow-modern transition-all duration-300 group bg-white border border-brand-slate-100 animate-fade-in"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
+            style={{ animationDelay: `${index * 0.1}s` }}
             role="gridcell"
             tabIndex={0}
             onKeyDown={(e) => {
@@ -88,17 +84,14 @@ export const ImageShowcaseGrid = () => {
                 ></div>
               </>
             )}
-          </motion.div>
+          </div>
         ))}
       </div>
       
       {/* Enhanced CTA section with accessibility */}
-      <motion.div 
-        className="text-center pt-6 sm:pt-8"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.6 }}
+      <div 
+        className="text-center pt-6 sm:pt-8 animate-fade-in"
+        style={{ animationDelay: '0.2s' }}
         role="region"
         aria-labelledby="cta-heading"
       >
@@ -126,7 +119,7 @@ export const ImageShowcaseGrid = () => {
             Free to try • No credit card required • Instant results
           </p>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
