@@ -1,63 +1,63 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Textarea } from '@/components/ui/textarea';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, Wand2, Lightbulb, Copy } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { 
+  Wand2, 
+  Sparkles, 
+  ChevronDown, 
+  ChevronUp, 
+  Lightbulb,
+  Palette,
+  Type,
+  ImageIcon
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { toast } from '@/components/ui/sonner';
+import { PromptSuggestions } from './PromptSuggestions';
+import { StylePreview } from './StylePreview';
 
 interface EnhancedPromptInputProps {
   prompt: string;
-  onPromptChange: (value: string) => void;
+  onPromptChange: (prompt: string) => void;
   onGenerate: () => void;
   isGenerating: boolean;
+  className?: string;
 }
 
-const promptEnhancers = [
-  { label: 'Artistic Style', suggestions: ['watercolor', 'oil painting', 'digital art', 'photorealistic', 'minimalist'] },
-  { label: 'Lighting', suggestions: ['golden hour', 'dramatic lighting', 'soft light', 'neon glow', 'natural daylight'] },
-  { label: 'Mood', suggestions: ['serene', 'dramatic', 'mysterious', 'vibrant', 'peaceful'] },
-  { label: 'Perspective', suggestions: ['close-up', 'wide angle', 'bird\'s eye view', 'low angle', 'macro'] }
-];
-
-const examplePrompts = [
-  "A majestic mountain landscape at sunrise with mist rolling through the valleys",
-  "A cozy reading nook with warm lighting, books, and a steaming cup of coffee",
-  "A futuristic cityscape with flying cars and neon lights reflecting on wet streets",
-  "A magical forest with glowing mushrooms and ethereal light filtering through trees"
-];
-
-export function EnhancedPromptInput({ prompt, onPromptChange, onGenerate, isGenerating }: EnhancedPromptInputProps) {
-  const [showEnhancers, setShowEnhancers] = useState(false);
-  const [showExamples, setShowExamples] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const isMobile = useIsMobile();
-  const MAX_LENGTH = 1000;
+export function EnhancedPromptInput({
+  prompt,
+  onPromptChange,
+  onGenerate,
+  isGenerating,
+  className
+}: EnhancedPromptInputProps) {
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showStyles, setShowStyles] = useState(false);
+  const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
+  const [wordCount, setWordCount] = useState(0);
 
   useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
+    setWordCount(prompt.trim().split(/\s+/).filter(word => word.length > 0).length);
   }, [prompt]);
 
-  const addToPrompt = (text: string) => {
-    const separator = prompt.trim() ? ', ' : '';
-    onPromptChange(prompt + separator + text);
-    if (textareaRef.current) {
-      textareaRef.current.focus();
-    }
+  const handleStyleToggle = (styleId: string) => {
+    setSelectedStyles(prev =>
+      prev.includes(styleId)
+        ? prev.filter(id => id !== styleId)
+        : [...prev, styleId]
+    );
   };
 
-  const copyExample = (example: string) => {
-    onPromptChange(example);
-    setShowExamples(false);
-    toast.success('Example loaded!');
+  const handleStyleCombine = (styles: string[]) => {
+    const stylePrompts = styles.map(styleId => styleId.replace('-', ' ')).join(', ');
+    const newPrompt = prompt ? `${prompt}, ${stylePrompts}` : stylePrompts;
+    onPromptChange(newPrompt);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: React.KeyboardEvent) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
       if (prompt.trim() && !isGenerating) {
@@ -66,167 +66,139 @@ export function EnhancedPromptInput({ prompt, onPromptChange, onGenerate, isGene
     }
   };
 
+  const getPromptQuality = () => {
+    if (wordCount < 3) return { level: 'poor', color: 'text-red-600', message: 'Too short - add more details' };
+    if (wordCount < 8) return { level: 'fair', color: 'text-yellow-600', message: 'Good start - consider adding style details' };
+    if (wordCount < 15) return { level: 'good', color: 'text-blue-600', message: 'Great detail level' };
+    return { level: 'excellent', color: 'text-green-600', message: 'Excellent detail level' };
+  };
+
+  const quality = getPromptQuality();
+
   return (
-    <div className="space-y-6">
+    <div className={cn("space-y-4", className)}>
       {/* Main Prompt Input */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <label htmlFor="enhanced-prompt" className="text-lg font-semibold text-gray-900 flex items-center">
-            <Wand2 className="h-5 w-5 text-violet-600 mr-2" />
-            Describe Your Vision
-          </label>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowEnhancers(!showEnhancers)}
-              className="text-xs"
-            >
-              <Lightbulb className="h-3 w-3 mr-1" />
-              {showEnhancers ? 'Hide' : 'Enhance'}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowExamples(!showExamples)}
-              className="text-xs"
-            >
-              <Sparkles className="h-3 w-3 mr-1" />
-              Examples
-            </Button>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="bg-gradient-to-r from-violet-50 via-blue-50 to-violet-50 p-1 rounded-xl border border-violet-200">
-            <Textarea
-              ref={textareaRef}
-              id="enhanced-prompt"
-              value={prompt}
-              onChange={(e) => onPromptChange(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="A watercolor painting of a sunset over mountains with dramatic clouds and golden light reflecting on a crystal-clear lake..."
-              className={cn(
-                "border-0 bg-white rounded-lg resize-none transition-all duration-200 focus:ring-2 focus:ring-violet-400 shadow-sm",
-                isMobile ? "min-h-[120px] text-base px-4 py-3" : "min-h-[140px] px-4 py-3"
-              )}
-              maxLength={MAX_LENGTH}
-            />
-          </div>
-          
-          {/* Character Counter */}
-          <div className="flex justify-between items-center mt-2 text-sm">
-            <div className="text-gray-500 flex items-center">
-              <Sparkles className="h-3 w-3 mr-1 text-violet-500" />
-              {isMobile ? "Tip: " : "Pro tip: "}Be specific about style, colors, lighting, and mood
-            </div>
-            <span className={cn(
-              "font-medium tabular-nums",
-              prompt.length > MAX_LENGTH * 0.9 ? "text-amber-600" : "text-violet-600"
-            )}>
-              {prompt.length}/{MAX_LENGTH}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Prompt Enhancers */}
-      {showEnhancers && (
-        <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 animate-fade-in">
-          <h3 className="text-sm font-medium text-gray-700 mb-3">Quick Enhancements</h3>
-          <div className="space-y-3">
-            {promptEnhancers.map((category) => (
-              <div key={category.label}>
-                <h4 className="text-xs text-gray-600 mb-1">{category.label}</h4>
-                <div className="flex flex-wrap gap-1">
-                  {category.suggestions.map((suggestion) => (
-                    <Button
-                      key={suggestion}
-                      variant="outline"
-                      size="sm"
-                      onClick={() => addToPrompt(suggestion)}
-                      className="text-xs h-7 px-2 hover:bg-violet-50 hover:border-violet-300"
-                    >
-                      {suggestion}
-                    </Button>
-                  ))}
-                </div>
+      <Card className="shadow-sm border-gray-200">
+        <CardContent className="p-6">
+          <div className="space-y-4">
+            {/* Input Header */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <Type className="h-5 w-5 text-violet-600" />
+                <h3 className="text-lg font-semibold text-gray-800">Describe Your Vision</h3>
               </div>
-            ))}
-          </div>
-        </div>
-      )}
+              <div className="flex items-center space-x-2 text-sm">
+                <span className={cn("font-medium", quality.color)}>
+                  {wordCount} words • {quality.message}
+                </span>
+              </div>
+            </div>
 
-      {/* Example Prompts */}
-      {showExamples && (
-        <div className="bg-violet-50 rounded-xl p-4 border border-violet-200 animate-fade-in">
-          <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
-            <Sparkles className="h-4 w-4 mr-1 text-violet-600" />
-            Example Prompts
-          </h3>
-          <div className="space-y-2">
-            {examplePrompts.map((example, index) => (
-              <div 
-                key={index}
-                className="bg-white p-3 rounded-lg border border-violet-200 hover:border-violet-300 transition-colors cursor-pointer group"
-                onClick={() => copyExample(example)}
+            {/* Textarea */}
+            <div className="relative">
+              <Textarea
+                value={prompt}
+                onChange={(e) => onPromptChange(e.target.value)}
+                onKeyDown={handleKeyPress}
+                placeholder="Describe what you want to create... Be specific about style, colors, mood, and composition for best results."
+                className="min-h-24 text-base resize-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+                disabled={isGenerating}
+              />
+              
+              {/* Character limit indicator */}
+              <div className="absolute bottom-2 right-2 text-xs text-gray-400">
+                {prompt.length}/1000
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowSuggestions(!showSuggestions)}
+                  className="flex items-center gap-2"
+                >
+                  <Lightbulb className="h-4 w-4" />
+                  Suggestions
+                  {showSuggestions ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowStyles(!showStyles)}
+                  className="flex items-center gap-2"
+                >
+                  <Palette className="h-4 w-4" />
+                  Styles
+                  {selectedStyles.length > 0 && (
+                    <Badge variant="secondary" className="ml-1 h-5 min-w-5 text-xs">
+                      {selectedStyles.length}
+                    </Badge>
+                  )}
+                  {showStyles ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                </Button>
+              </div>
+
+              <Button
+                onClick={onGenerate}
+                disabled={!prompt.trim() || isGenerating}
+                size="lg"
+                className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                <div className="flex items-start justify-between">
-                  <p className="text-sm text-gray-700 leading-relaxed flex-1">{example}</p>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity h-6 w-6 p-0"
-                  >
-                    <Copy className="h-3 w-3" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+                {isGenerating ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="h-4 w-4 mr-2" />
+                    Generate Image
+                  </>
+                )}
+              </Button>
+            </div>
 
-      {/* Generate Button */}
-      <Button
-        onClick={onGenerate}
-        disabled={!prompt.trim() || isGenerating || prompt.trim().length < 10}
-        className={cn(
-          "w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-semibold shadow-lg transition-all duration-300",
-          isMobile ? "py-4 text-base h-14" : "py-6 text-lg h-16"
-        )}
-      >
-        {isGenerating ? (
-          <div className="flex items-center justify-center">
-            <div className="animate-spin mr-3 h-5 w-5 border-b-2 border-white rounded-full" />
-            Creating Your Vision...
-          </div>
-        ) : (
-          <div className="flex items-center justify-center">
-            <Sparkles className="mr-3 h-5 w-5" />
-            Generate Amazing Art
-            <Wand2 className="ml-3 h-5 w-5" />
-          </div>
-        )}
-      </Button>
-
-      {/* Quick Tips */}
-      {!prompt && (
-        <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-          <div className="flex items-start">
-            <Lightbulb className="h-5 w-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
-            <div className="space-y-2">
-              <h4 className="font-medium text-blue-900">Writing Great Prompts</h4>
-              <ul className="text-sm text-blue-800 space-y-1">
-                <li>• Start with the main subject or scene</li>
-                <li>• Add artistic style (watercolor, photorealistic, etc.)</li>
-                <li>• Include lighting details (golden hour, dramatic, soft)</li>
-                <li>• Describe colors, mood, and composition</li>
-              </ul>
+            {/* Keyboard Shortcut Hint */}
+            <div className="text-xs text-gray-500 text-center">
+              Press <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">Ctrl+Enter</kbd> to generate quickly
             </div>
           </div>
-        </div>
-      )}
+        </CardContent>
+      </Card>
+
+      {/* Suggestions Panel */}
+      <Collapsible open={showSuggestions} onOpenChange={setShowSuggestions}>
+        <CollapsibleContent className="space-y-0">
+          <Card className="border-violet-200">
+            <CardContent className="p-4">
+              <PromptSuggestions
+                currentPrompt={prompt}
+                onSuggestionSelect={onPromptChange}
+                onPromptImprove={onPromptChange}
+              />
+            </CardContent>
+          </Card>
+        </CollapsibleContent>
+      </Collapsible>
+
+      {/* Styles Panel */}
+      <Collapsible open={showStyles} onOpenChange={setShowStyles}>
+        <CollapsibleContent className="space-y-0">
+          <Card className="border-indigo-200">
+            <CardContent className="p-4">
+              <StylePreview
+                selectedStyles={selectedStyles}
+                onStyleToggle={handleStyleToggle}
+                onStyleCombine={handleStyleCombine}
+              />
+            </CardContent>
+          </Card>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   );
 }

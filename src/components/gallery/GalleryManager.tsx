@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -7,7 +6,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { 
   Download, 
   Trash2, 
-  SelectAll, 
+  CheckSquare, 
   Grid3X3, 
   List, 
   SortAsc, 
@@ -196,7 +195,7 @@ export function GalleryManager({ images, onImagesChange, className }: GalleryMan
                   onCheckedChange={handleSelectAll}
                 />
                 <Button variant="outline" size="sm" onClick={handleSelectAll}>
-                  <SelectAll className="h-4 w-4 mr-1" />
+                  <CheckSquare className="h-4 w-4 mr-1" />
                   {selectedImages.size === filteredImages.length ? 'Deselect' : 'Select'} All
                 </Button>
               </div>
