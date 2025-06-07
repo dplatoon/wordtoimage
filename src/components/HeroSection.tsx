@@ -4,7 +4,6 @@ import { ImageGenerationForm } from './hero/ImageGenerationForm';
 import { ImagePreview } from './hero/ImagePreview';
 import { HeroHeader } from './hero/HeroHeader';
 import { DecorativeBackground } from './DecorativeBackground';
-import { events } from '@/utils/analytics';
 
 export const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -38,13 +37,14 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="py-8 md:py-20 lg:py-24 relative overflow-hidden image-generation-section">
+    <section className="py-8 md:py-16 lg:py-20 relative overflow-hidden image-generation-section bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <DecorativeBackground />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <HeroHeader />
         
-        <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-6 md:mb-8">
+        {/* Enhanced main container */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 md:p-8 mb-8">
           <div className="max-w-4xl mx-auto">
             <ImageGenerationForm 
               onImageGenerated={setGeneratedImageUrl} 
@@ -54,19 +54,28 @@ export const HeroSection = () => {
             />
           </div>
           
-          <div className="max-w-4xl mx-auto mt-6">
+          <div className="max-w-4xl mx-auto mt-8">
             <ImagePreview 
               imageUrl={generatedImageUrl} 
               isGenerating={isGenerating} 
-              error={generationError} 
+              error={generationError}
+              gallery={galleryImages}
             />
           </div>
         </div>
         
-        <div className="mt-4 text-center">
-          <p className="text-xs text-gray-500">
-            Free to try • No credit card required
-          </p>
+        {/* Enhanced footer text */}
+        <div className="text-center">
+          <div className="inline-flex items-center px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-white/50 shadow-sm">
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="font-medium">Free to try</span>
+              <span className="text-gray-400">•</span>
+              <span>No credit card required</span>
+              <span className="text-gray-400">•</span>
+              <span>Instant results</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
