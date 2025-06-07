@@ -1,8 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { TextToImageForm } from '@/components/word-to-image/TextToImageForm';
 import { toast } from '@/components/ui/sonner';
-import { ImageGallery } from '@/components/word-to-image/ImageGallery';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
 import { AuthModalDialog } from '@/components/hero/AuthModalDialog';
@@ -10,32 +8,40 @@ import { trackEvent } from '@/utils/analytics';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Download, HelpCircle, Wand2 } from 'lucide-react';
+import { Sparkles, Download, HelpCircle, Wand2, ArrowRight } from 'lucide-react';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { EnhancedPromptInput } from '@/components/word-to-image/EnhancedPromptInput';
+import { GenerationProgress } from '@/components/word-to-image/GenerationProgress';
+import { EnhancedImageGallery } from '@/components/word-to-image/EnhancedImageGallery';
 
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [sourceImage, setSourceImage] = useState<string>('');
   const [generatedImages, setGeneratedImages] = useState<{
     url: string;
+    prompt?: string;
+    timestamp?: number;
   }[]>([]);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
-  const [focusOnResult, setFocusOnResult] = useState(false);
   const { user, isLoading } = useAuth();
   const isMobile = useIsMobile();
   
   const { generateImageFromPrompt } = useImageGeneration({
     onImageGenerated: url => {
-      setGeneratedImages(prev => [...prev, { url }]);
+      setGeneratedImages(prev => [...prev, { 
+        url, 
+        prompt: prompt.substring(0, 100) + (prompt.length > 100 ? '...' : ''),
+        timestamp: Date.now()
+      }]);
       setLastGenerationTime(Date.now());
-      setFocusOnResult(true);
+      setProgress(100);
       
       toast.success("Image generated successfully!", {
         description: "Your custom graphic is ready to download.",
@@ -45,28 +51,33 @@ export default function TextToImage() {
         }
       });
       trackEvent('text_to_image_generated');
-      
-      if (isMobile) {
-        setTimeout(() => {
-          const resultsSection = document.getElementById('results-section');
-          if (resultsSection) {
-            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            const resultImage = resultsSection.querySelector('img[alt*="generated"]');
-            if (resultImage) {
-              (resultImage as HTMLElement).focus();
+    },
+    onGeneratingChange: (generating) => {
+      setIsGenerating(generating);
+      if (generating) {
+        setProgress(0);
+        setError(null);
+        // Simulate progress
+        const interval = setInterval(() => {
+          setProgress(prev => {
+            const newProgress = prev + Math.random() * 15;
+            if (newProgress >= 95) {
+              clearInterval(interval);
+              return 95;
             }
-          }
-        }, 500);
+            return newProgress;
+          });
+        }, 200);
       }
     },
-    onGeneratingChange: setIsGenerating,
     onError: errorMsg => {
       setError(errorMsg);
+      setProgress(0);
       toast.error("Failed to generate image", {
         description: errorMsg || "An unexpected error occurred",
         action: {
           label: "Try Again",
-          onClick: () => handleGenerate(prompt)
+          onClick: () => handleGenerate()
         }
       });
       trackEvent('text_to_image_error', {
@@ -75,7 +86,7 @@ export default function TextToImage() {
     }
   });
   
-  const handleGenerate = async (promptText: string) => {
+  const handleGenerate = async () => {
     if (!user && !isLoading) {
       setAuthModalOpen(true);
       trackEvent('auth_modal_opened', {
@@ -84,23 +95,18 @@ export default function TextToImage() {
       return;
     }
     
-    if (!promptText.trim()) {
+    if (!prompt.trim()) {
       toast.error("Please enter a description", {
         description: "Tell us what you'd like to create!"
       });
-      const textareaElement = document.querySelector('textarea[aria-label="Image description"]');
-      if (textareaElement) {
-        (textareaElement as HTMLElement).focus();
-      }
       return;
     }
     
     try {
       trackEvent('text_to_image_generate_attempt', {
-        promptLength: promptText.length,
-        hasSourceImage: !!sourceImage
+        promptLength: prompt.length
       });
-      await generateImageFromPrompt(promptText, '', false, sourceImage);
+      await generateImageFromPrompt(prompt, '', false, '');
     } catch (error) {
       console.error('Failed to generate image:', error);
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
@@ -110,19 +116,20 @@ export default function TextToImage() {
     }
   };
 
+  // Keyboard shortcuts
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         e.preventDefault();
-        if (prompt.trim()) {
-          handleGenerate(prompt);
+        if (prompt.trim() && !isGenerating) {
+          handleGenerate();
         }
       }
     };
 
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [prompt]);
+  }, [prompt, isGenerating]);
 
   const faqItems = [
     {
@@ -130,32 +137,17 @@ export default function TextToImage() {
       answer: "Our AI uses advanced machine learning models to turn your text descriptions into unique images. Simply describe what you want to see, and our AI will create it in seconds!"
     },
     {
-      question: "Do I need design experience to use this?",
-      answer: "Not at all! Our tool is designed for everyone. No design skills or technical knowledge required – just describe your idea in plain English."
-    },
-    {
-      question: "What kind of images can I create?",
-      answer: "You can create almost anything you can imagine: artwork, logos, illustrations, product mockups, social media graphics, and more. The possibilities are endless!"
+      question: "What makes a good prompt?",
+      answer: "Be specific and descriptive! Instead of 'forest', try 'a watercolor painting of a misty forest at sunrise with golden light filtering through the trees'. Include details about style, colors, mood, and composition."
     },
     {
       question: "How fast is image generation?",
       answer: "Most images are generated in just 3-5 seconds. Our AI works quickly to bring your ideas to life without the wait."
     },
     {
-      question: "What makes a good prompt?",
-      answer: "Be specific and descriptive! Instead of 'forest', try 'a watercolor painting of a misty forest at sunrise with golden light filtering through the trees'. Include details about style, colors, mood, and composition."
-    },
-    {
       question: "Are there any limitations?",
       answer: "We don't allow inappropriate content. Free users get limited generations per day, while Pro users enjoy unlimited access and HD quality images."
     }
-  ];
-
-  const examplePrompts = [
-    "A watercolor painting of a sunset over mountains with dramatic clouds",
-    "Modern minimalist logo design for a tech startup, clean and professional",
-    "Cozy coffee shop interior with warm lighting and wooden furniture",
-    "Futuristic cityscape at night with neon lights and flying cars"
   ];
 
   const generationTime = lastGenerationTime ? ((Date.now() - lastGenerationTime) / 1000).toFixed(1) : null;
@@ -169,142 +161,143 @@ export default function TextToImage() {
         "container mx-auto px-4 py-8 flex-grow",
         isMobile ? "px-2" : "py-12"
       )} id="main-content" role="main">
-        {/* Page Header */}
+        {/* Enhanced Page Header */}
         <div className={cn(
           "mx-auto text-center mb-8",
           isMobile ? "max-w-full" : "max-w-4xl mb-12"
         )}>
-          <div className="flex items-center justify-center mb-4">
-            <Wand2 className="text-violet-600 mr-3 h-8 w-8" />
+          <div className="flex items-center justify-center mb-6">
+            <div className="relative">
+              <Wand2 className="text-violet-600 mr-3 h-10 w-10" />
+              <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-yellow-500 animate-bounce" />
+            </div>
             <h1 className={cn(
               "font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600",
-              isMobile ? "text-2xl" : "text-3xl md:text-4xl"
+              isMobile ? "text-3xl" : "text-4xl md:text-5xl"
             )}>
               AI Image Generator
             </h1>
           </div>
           
           <p className={cn(
-            "text-gray-600 mb-6",
-            isMobile ? "text-base px-2" : "text-lg"
+            "text-gray-600 mb-8 leading-relaxed",
+            isMobile ? "text-lg px-2" : "text-xl"
           )}>
-            Transform your ideas into stunning visuals. Enter a description below and watch our AI create 
-            a matching image in seconds. No design experience needed!
+            Transform your imagination into stunning visuals with our advanced AI. 
+            Describe your vision and watch it come to life in seconds.
           </p>
           
-          <Alert className="max-w-2xl mx-auto mb-6 bg-violet-50 border-violet-200">
-            <Sparkles className="h-4 w-4 text-violet-600" />
-            <AlertDescription className="text-violet-800">
-              <strong>Pro tip:</strong> Be specific for best results! Include details about style, lighting, colors, and mood.
-            </AlertDescription>
-          </Alert>
+          {/* Quick Stats */}
+          <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-violet-600">3-5s</div>
+              <div className="text-xs text-gray-500">Generation Time</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-violet-600">HD</div>
+              <div className="text-xs text-gray-500">Quality Output</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-violet-600">∞</div>
+              <div className="text-xs text-gray-500">Possibilities</div>
+            </div>
+          </div>
 
+          {/* User Status Alert */}
           {!user && !isLoading && (
-            <Alert className="max-w-2xl mx-auto mb-6 bg-amber-50 border-amber-200">
+            <Alert className="max-w-2xl mx-auto mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
               <HelpCircle className="h-4 w-4 text-amber-600" />
               <AlertDescription className="text-amber-800">
-                Try it out – first 3 images free! <Button 
-                  variant="link" 
-                  className="text-amber-800 underline p-0 h-auto font-semibold hover:text-amber-900"
-                  onClick={() => setAuthModalOpen(true)}
-                >
-                  Sign up
-                </Button> for unlimited access and HD quality.
+                <div className="flex items-center justify-between">
+                  <span>Try it free – first 3 images on us!</span>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="ml-4 border-amber-300 text-amber-700 hover:bg-amber-100"
+                    onClick={() => setAuthModalOpen(true)}
+                  >
+                    Sign up <ArrowRight className="h-3 w-3 ml-1" />
+                  </Button>
+                </div>
               </AlertDescription>
             </Alert>
           )}
         </div>
         
-        {/* Main Generator Interface */}
+        {/* Enhanced Main Generator Interface */}
         <div className={cn(
-          "mx-auto bg-white rounded-xl shadow-lg border border-gray-100",
-          isMobile ? "p-4 max-w-full" : "p-8 max-w-4xl"
+          "mx-auto bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden",
+          isMobile ? "max-w-full" : "max-w-4xl"
         )}>
-          <TextToImageForm onGenerate={handleGenerate} isGenerating={isGenerating} />
+          <div className={cn(
+            "p-6 bg-gradient-to-r from-violet-50 to-blue-50",
+            !isMobile && "p-8"
+          )}>
+            <EnhancedPromptInput
+              prompt={prompt}
+              onPromptChange={setPrompt}
+              onGenerate={handleGenerate}
+              isGenerating={isGenerating}
+            />
+          </div>
           
-          {!isGenerating && generatedImages.length === 0 && (
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
-                <Sparkles className="h-4 w-4 mr-2 text-violet-500" />
-                Need inspiration? Try these examples:
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {examplePrompts.map((example, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setPrompt(example)}
-                    className="text-left p-3 text-xs text-gray-600 hover:bg-white hover:text-violet-600 rounded border border-transparent hover:border-violet-200 transition-all hover:shadow-sm"
-                    aria-label={`Use example prompt: ${example}`}
-                  >
-                    "{example}"
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-          
+          {/* Generation Progress */}
           {isGenerating && (
-            <div className="mt-6 p-4 bg-violet-50 rounded-lg border border-violet-200" role="status" aria-live="polite">
-              <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-violet-600 mr-3"></div>
-                <span className="text-violet-800 font-medium">Creating your image... This usually takes 3-5 seconds</span>
-              </div>
+            <div className="px-6 pb-6">
+              <GenerationProgress
+                isGenerating={isGenerating}
+                progress={progress}
+                currentPrompt={prompt}
+                estimatedTime={5}
+              />
             </div>
           )}
 
-          {generationTime && (
-            <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200" role="status" aria-live="polite">
-              <div className="flex items-center text-green-800">
-                <Sparkles className="h-4 w-4 mr-2" />
-                <span className="text-sm">Generated in {generationTime}s! Your image is ready.</span>
-              </div>
+          {/* Success Feedback */}
+          {generationTime && !isGenerating && (
+            <div className="px-6 pb-4">
+              <Alert className="bg-green-50 border-green-200">
+                <Sparkles className="h-4 w-4 text-green-600" />
+                <AlertDescription className="text-green-800">
+                  <strong>Success!</strong> Generated in {generationTime}s. Your image is ready below.
+                </AlertDescription>
+              </Alert>
             </div>
           )}
         </div>
         
-        {/* Results Section */}
-        <div id="results-section" className="mt-8" role="region" aria-label="Generated images">
-          <ImageGallery 
+        {/* Enhanced Results Section */}
+        <div className="mt-8" role="region" aria-label="Generated images">
+          <EnhancedImageGallery 
             images={generatedImages} 
-            onEdit={() => {}} 
             loading={isGenerating}
           />
           
+          {/* Next Steps CTA */}
           {generatedImages.length > 0 && !isGenerating && (
             <div className="mt-8 text-center">
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 max-w-2xl mx-auto">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">What's next?</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center justify-center">
+                  <Sparkles className="h-5 w-5 text-violet-600 mr-2" />
+                  What's next?
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Button 
                     variant="outline" 
-                    onClick={() => window.open(generatedImages[generatedImages.length - 1]?.url, '_blank')}
-                    className="flex items-center hover:bg-violet-50 hover:border-violet-300 transition-colors"
-                    aria-label="Download the latest generated image"
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download Image
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    onClick={() => {
-                      setPrompt('');
-                      const textareaElement = document.querySelector('textarea[aria-label="Image description"]');
-                      if (textareaElement) {
-                        (textareaElement as HTMLElement).focus();
-                      }
-                    }}
+                    onClick={() => setPrompt('')}
                     className="hover:bg-violet-50 hover:border-violet-300 transition-colors"
                   >
-                    Try New Prompt
+                    <Wand2 className="h-4 w-4 mr-2" />
+                    Create Another
                   </Button>
                   <Button 
                     variant="outline"
-                    onClick={() => handleGenerate(prompt)}
+                    onClick={() => handleGenerate()}
                     disabled={!prompt.trim()}
                     className="hover:bg-violet-50 hover:border-violet-300 transition-colors disabled:opacity-50"
-                    aria-label="Generate another image with the same prompt"
                   >
-                    Generate Again
+                    <Sparkles className="h-4 w-4 mr-2" />
+                    Generate Variation
                   </Button>
                 </div>
               </div>
@@ -312,7 +305,7 @@ export default function TextToImage() {
           )}
         </div>
         
-        {/* FAQ Section */}
+        {/* Enhanced FAQ Section */}
         <div className={cn(
           "mx-auto mt-16",
           isMobile ? "max-w-full" : "max-w-4xl"
@@ -327,15 +320,12 @@ export default function TextToImage() {
               </p>
             </div>
             
-            <div className="space-y-4" role="region" aria-label="Frequently asked questions">
+            <div className="space-y-4">
               {faqItems.map((item, index) => (
                 <Collapsible key={index}>
-                  <CollapsibleTrigger 
-                    className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
-                    aria-expanded="false"
-                  >
+                  <CollapsibleTrigger className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2">
                     <span className="font-medium text-gray-800">{item.question}</span>
-                    <HelpCircle className="h-5 w-5 text-gray-500" aria-hidden="true" />
+                    <HelpCircle className="h-5 w-5 text-gray-500" />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="px-4 pt-3 pb-4 text-gray-600 leading-relaxed">
                     {item.answer}
@@ -346,36 +336,50 @@ export default function TextToImage() {
           </div>
         </div>
 
-        {/* Pro Features Teaser */}
+        {/* Enhanced Pro Features Teaser */}
         {!user && !isLoading && (
-          <div className="mt-12 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl shadow-lg p-6 md:p-8 text-white text-center">
-            <h3 className="text-xl md:text-2xl font-bold mb-4">
-              Ready to Create Without Limits?
-            </h3>
-            <p className="mb-6 opacity-90">
-              Join thousands of creators who use our Pro features for unlimited HD image generation
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-sm">
-              <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
-                <strong>Unlimited Images</strong><br/>
-                Generate as many as you need
-              </div>
-              <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
-                <strong>HD Quality</strong><br/>
-                2K+ resolution, no watermarks
-              </div>
-              <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
-                <strong>Priority Speed</strong><br/>
-                3× faster generation
-              </div>
+          <div className="mt-12 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl shadow-xl p-8 text-white text-center overflow-hidden relative">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-white rounded-full -translate-x-16 -translate-y-16"></div>
+              <div className="absolute bottom-0 right-0 w-48 h-48 bg-white rounded-full translate-x-24 translate-y-24"></div>
             </div>
-            <Button 
-              size="lg" 
-              className="bg-white text-violet-600 hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl"
-              onClick={() => setAuthModalOpen(true)}
-            >
-              Sign Up Free
-            </Button>
+            
+            <div className="relative z-10">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                Ready to Create Without Limits?
+              </h3>
+              <p className="mb-8 opacity-90 text-lg">
+                Join thousands of creators using our Pro features for unlimited HD image generation
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                  <Sparkles className="h-8 w-8 mx-auto mb-2" />
+                  <h4 className="font-semibold mb-2">Unlimited Images</h4>
+                  <p className="text-sm opacity-90">Generate as many as you need</p>
+                </div>
+                <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                  <Wand2 className="h-8 w-8 mx-auto mb-2" />
+                  <h4 className="font-semibold mb-2">HD Quality</h4>
+                  <p className="text-sm opacity-90">2K+ resolution, no watermarks</p>
+                </div>
+                <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                  <Download className="h-8 w-8 mx-auto mb-2" />
+                  <h4 className="font-semibold mb-2">Priority Speed</h4>
+                  <p className="text-sm opacity-90">3× faster generation</p>
+                </div>
+              </div>
+              
+              <Button 
+                size="lg" 
+                className="bg-white text-violet-600 hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-200"
+                onClick={() => setAuthModalOpen(true)}
+              >
+                <Sparkles className="h-5 w-5 mr-2" />
+                Start Creating Free
+              </Button>
+            </div>
           </div>
         )}
       </main>

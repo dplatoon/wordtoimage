@@ -1,86 +1,120 @@
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Sparkles, Zap, Clock } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Sparkles, Wand2, Clock, CheckCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface GenerationProgressProps {
   isGenerating: boolean;
   progress?: number;
+  currentPrompt?: string;
   estimatedTime?: number;
-  currentStep?: string;
-  queuePosition?: number;
 }
+
+const generationSteps = [
+  { label: 'Processing prompt', icon: Wand2 },
+  { label: 'AI analysis', icon: Sparkles },
+  { label: 'Creating image', icon: Clock },
+  { label: 'Finalizing', icon: CheckCircle }
+];
 
 export function GenerationProgress({ 
   isGenerating, 
   progress = 0, 
-  estimatedTime = 10, 
-  currentStep = "Initializing...", 
-  queuePosition 
+  currentPrompt = '',
+  estimatedTime = 5 
 }: GenerationProgressProps) {
   if (!isGenerating) return null;
 
+  const currentStep = Math.floor((progress / 100) * generationSteps.length);
+  
   return (
-    <div className="w-full max-w-2xl mx-auto animate-fade-in">
-      <Card className="border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <CardContent className="p-6">
-          <div className="text-center mb-6">
-            <div className="relative inline-flex items-center justify-center w-16 h-16 mb-4">
-              <div className="absolute inset-0 rounded-full border-4 border-blue-200"></div>
-              <div className="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
-              <Sparkles className="h-6 w-6 text-blue-600 animate-pulse" />
-            </div>
-            
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Creating Your Image
+    <Card className="border-violet-200 bg-gradient-to-r from-violet-50 to-blue-50">
+      <CardContent className="p-6">
+        <div className="space-y-4">
+          {/* Header */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              Creating Your Masterpiece
             </h3>
-            <p className="text-gray-600 text-sm">
-              {currentStep}
+            <p className="text-sm text-gray-600 line-clamp-2">
+              "{currentPrompt}"
             </p>
           </div>
 
           {/* Progress Bar */}
-          <div className="mb-4">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-medium text-gray-700">Progress</span>
-              <span className="text-sm text-gray-500">{Math.round(progress)}%</span>
-            </div>
-            <Progress value={progress} className="h-2" />
-          </div>
-
-          {/* Time and Queue Info */}
-          <div className="flex items-center justify-between text-sm text-gray-500">
-            <div className="flex items-center">
-              <Clock className="h-4 w-4 mr-1" />
-              <span>~{estimatedTime}s remaining</span>
-            </div>
-            
-            {queuePosition && queuePosition > 1 && (
-              <div className="flex items-center">
-                <span>Queue position: {queuePosition}</span>
-              </div>
-            )}
-            
-            <div className="flex items-center">
-              <Zap className="h-4 w-4 mr-1 text-yellow-500" />
-              <span>AI Processing</span>
+          <div className="space-y-2">
+            <Progress 
+              value={progress} 
+              className="h-3 bg-white shadow-inner"
+            />
+            <div className="flex justify-between text-xs text-gray-500">
+              <span>Processing...</span>
+              <span>{Math.round(progress)}%</span>
             </div>
           </div>
 
-          {/* Steps indicator */}
-          <div className="mt-6 flex justify-center space-x-2">
-            {['Processing', 'Generating', 'Finalizing'].map((step, index) => (
-              <div
-                key={step}
-                className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                  progress > (index * 33) ? 'bg-blue-600' : 'bg-gray-300'
-                }`}
-              />
-            ))}
+          {/* Steps */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {generationSteps.map((step, index) => {
+              const Icon = step.icon;
+              const isActive = index === currentStep;
+              const isCompleted = index < currentStep;
+              
+              return (
+                <div 
+                  key={step.label}
+                  className={cn(
+                    "flex flex-col items-center p-3 rounded-lg transition-all duration-300",
+                    isActive ? "bg-violet-100 border border-violet-300" : 
+                    isCompleted ? "bg-green-50 border border-green-200" : 
+                    "bg-white border border-gray-200"
+                  )}
+                >
+                  <Icon className={cn(
+                    "h-5 w-5 mb-1",
+                    isActive ? "text-violet-600 animate-pulse" :
+                    isCompleted ? "text-green-600" :
+                    "text-gray-400"
+                  )} />
+                  <span className={cn(
+                    "text-xs font-medium text-center",
+                    isActive ? "text-violet-800" :
+                    isCompleted ? "text-green-800" :
+                    "text-gray-500"
+                  )}>
+                    {step.label}
+                  </span>
+                </div>
+              );
+            })}
           </div>
-        </CardContent>
-      </Card>
-    </div>
+
+          {/* Estimated Time */}
+          <div className="text-center">
+            <div className="inline-flex items-center px-3 py-1 bg-white rounded-full border border-violet-200">
+              <Clock className="h-3 w-3 mr-1 text-violet-600" />
+              <span className="text-xs text-gray-600">
+                Usually takes {estimatedTime} seconds
+              </span>
+            </div>
+          </div>
+
+          {/* Animation Elements */}
+          <div className="flex justify-center">
+            <div className="flex space-x-1">
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 bg-violet-400 rounded-full animate-bounce"
+                  style={{ animationDelay: `${i * 0.2}s` }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
