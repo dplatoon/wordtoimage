@@ -1,71 +1,64 @@
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useAuthState } from '@/hooks/useAuthState';
-import { toast } from '@/components/ui/sonner';
+import { supabase } from '@/integrations/supabase/client';
 
-interface SubscriptionState {
-  subscribed: boolean;
-  planName: string;
-  currentPeriodEnd: string | null;
-  isLoading: boolean;
-  checkSubscription: () => Promise<void>;
+interface SubscriptionContextType {
+  planName: string | null;
+  loading: boolean;
+  error: string | null;
   openCustomerPortal: () => Promise<void>;
 }
 
-const SubscriptionContext = createContext<SubscriptionState | undefined>(undefined);
+const SubscriptionContext = createContext<SubscriptionContextType | null>(null);
 
-export const useSubscription = () => {
-  const context = useContext(SubscriptionContext);
-  if (context === undefined) {
-    throw new Error('useSubscription must be used within a SubscriptionProvider');
-  }
-  return context;
-};
+interface SubscriptionProviderProps {
+  children: ReactNode;
+}
 
-export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [subscribed, setSubscribed] = useState(false);
-  const [planName, setPlanName] = useState('Free');
-  const [currentPeriodEnd, setCurrentPeriodEnd] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+export const SubscriptionProvider = ({ children }: SubscriptionProviderProps) => {
+  const [planName, setPlanName] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { session } = useAuthState();
 
-  const checkSubscription = async () => {
-    if (!session?.access_token) {
-      setSubscribed(false);
-      setPlanName('Free');
-      setCurrentPeriodEnd(null);
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const { data, error } = await supabase.functions.invoke('check-subscription', {
-        headers: {
-          Authorization: `Bearer ${session.access_token}`,
-        },
-      });
-
-      if (error) {
-        console.error('Error checking subscription:', error);
-        toast.error('Failed to check subscription status');
+  useEffect(() => {
+    const checkSubscription = async () => {
+      if (!session?.user?.id) {
+        setPlanName('Free');
+        setLoading(false);
         return;
       }
 
-      setSubscribed(data.subscribed || false);
-      setPlanName(data.plan_name || 'Free');
-      setCurrentPeriodEnd(data.current_period_end || null);
-    } catch (error) {
-      console.error('Error checking subscription:', error);
-      toast.error('Failed to check subscription status');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      try {
+        const { data, error } = await supabase.functions.invoke('check-subscription', {
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
+        });
+
+        if (error) {
+          console.error('Error checking subscription:', error);
+          setPlanName('Free');
+          setError('Failed to check subscription status');
+        } else {
+          setPlanName(data?.plan_name || 'Free');
+        }
+      } catch (err) {
+        console.error('Error checking subscription:', err);
+        setPlanName('Free');
+        setError('Failed to check subscription status');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkSubscription();
+  }, [session]);
 
   const openCustomerPortal = async () => {
-    if (!session?.access_token) {
-      toast.error('Please log in to manage your subscription');
+    if (!session?.user?.id) {
+      console.error('User not logged in');
       return;
     }
 
@@ -78,29 +71,21 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
       if (error) {
         console.error('Error opening customer portal:', error);
-        toast.error('Failed to open customer portal');
         return;
       }
 
-      if (data.url) {
+      if (data?.url) {
         window.open(data.url, '_blank');
       }
-    } catch (error) {
-      console.error('Error opening customer portal:', error);
-      toast.error('Failed to open customer portal');
+    } catch (err) {
+      console.error('Error opening customer portal:', err);
     }
   };
 
-  useEffect(() => {
-    checkSubscription();
-  }, [session]);
-
-  const value: SubscriptionState = {
-    subscribed,
+  const value: SubscriptionContextType = {
     planName,
-    currentPeriodEnd,
-    isLoading,
-    checkSubscription,
+    loading,
+    error,
     openCustomerPortal,
   };
 
@@ -109,4 +94,21 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       {children}
     </SubscriptionContext.Provider>
   );
+};
+
+export const useSubscription = (): SubscriptionContextType => {
+  const context = useContext(SubscriptionContext);
+  if (!context) {
+    // Instead of throwing an error, return default values
+    console.warn('useSubscription used outside of SubscriptionProvider, returning default values');
+    return {
+      planName: 'Free',
+      loading: false,
+      error: null,
+      openCustomerPortal: async () => {
+        console.warn('openCustomerPortal called outside of SubscriptionProvider');
+      }
+    };
+  }
+  return context;
 };
