@@ -180,18 +180,11 @@ export class SecureImageGenerationService {
     return errorMessage;
   }
 
-  // Performance: Cancel generation
+  // Performance: Cancel generation (handled server-side)
   async cancelGeneration(predictionId: string): Promise<void> {
     try {
-      const replicateApiKey = Deno.env.get("REPLICATE_API_KEY");
-      if (!replicateApiKey) return;
-
-      await fetch(`https://api.replicate.com/v1/predictions/${predictionId}/cancel`, {
-        method: 'POST',
-        headers: {
-          "Authorization": `Token ${replicateApiKey}`,
-          "Content-Type": "application/json"
-        }
+      await supabase.functions.invoke('cancel-generation', {
+        body: { predictionId }
       });
     } catch (error) {
       console.error('Failed to cancel generation:', error);
