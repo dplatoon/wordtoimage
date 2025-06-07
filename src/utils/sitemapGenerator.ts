@@ -14,8 +14,8 @@ interface SitemapUrl {
 }
 
 export class SitemapGenerator {
-  private baseUrl: string;
-  private urls: SitemapUrl[] = [];
+  protected baseUrl: string;
+  protected urls: SitemapUrl[] = [];
 
   constructor(baseUrl: string = 'https://wordtoimage.com') {
     this.baseUrl = baseUrl.replace(/\/$/, '');

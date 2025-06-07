@@ -9,6 +9,12 @@ interface SEOMetrics {
   firstInputDelay: number;
 }
 
+// Proper types for Performance API entries
+interface LayoutShiftEntry extends PerformanceEntry {
+  hadRecentInput: boolean;
+  value: number;
+}
+
 export const SEOPerformanceMonitor = () => {
   useEffect(() => {
     // Monitor Core Web Vitals for SEO
@@ -53,8 +59,9 @@ export const SEOPerformanceMonitor = () => {
         let clsValue = 0;
         const clsObserver = new PerformanceObserver((list) => {
           for (const entry of list.getEntries()) {
-            if (!entry.hadRecentInput) {
-              clsValue += entry.value;
+            const layoutShiftEntry = entry as LayoutShiftEntry;
+            if (!layoutShiftEntry.hadRecentInput) {
+              clsValue += layoutShiftEntry.value;
             }
           }
           console.log('CLS:', clsValue);
@@ -131,10 +138,3 @@ export const SEOPerformanceMonitor = () => {
 
   return null; // This component doesn't render anything
 };
-
-// Global type extensions for analytics
-declare global {
-  interface Window {
-    gtag?: (command: string, eventName: string, params?: any) => void;
-  }
-}
