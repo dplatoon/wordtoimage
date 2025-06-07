@@ -1,5 +1,4 @@
 
-import { motion } from 'framer-motion';
 import { Zap, Palette, Download, Shield, Users, Sparkles, Image, Clock } from 'lucide-react';
 
 const features = [
@@ -45,30 +44,21 @@ export const FeaturesDetailed = () => {
   return (
     <section className="py-20 md:py-32 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Powerful Features for <span className="text-gradient-neon">Every Creator</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Professional-grade AI image generation with all the features you need to bring your creative vision to life.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="ai-card group"
+              className="ai-card group animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-14 h-14 bg-gradient-to-r from-ai-primary to-ai-secondary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <feature.icon className="h-7 w-7 text-white" />
@@ -85,17 +75,11 @@ export const FeaturesDetailed = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-16"
-        >
+        <div className="text-center mt-16 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <div className="bg-gradient-to-r from-ai-primary/20 to-ai-secondary/20 rounded-2xl p-8 border border-ai-primary/30">
             <h3 className="text-2xl font-bold text-white mb-4">Ready to explore all features?</h3>
             <p className="text-gray-300 mb-6">Start with our free plan and upgrade when you need more power.</p>
@@ -104,7 +88,7 @@ export const FeaturesDetailed = () => {
               Start Creating Free
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

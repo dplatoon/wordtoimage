@@ -1,6 +1,4 @@
 
-import { motion } from 'framer-motion';
-
 export const AIThemeBackground = () => {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -21,51 +19,20 @@ export const AIThemeBackground = () => {
         </svg>
       </div>
 
-      {/* Animated Gradient Orbs */}
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-brand-navy/10 to-brand-purple/10 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-gradient-to-r from-brand-teal/10 to-brand-coral/10 rounded-full blur-3xl"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-      />
+      {/* Animated Gradient Orbs - Using CSS animations */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-brand-navy/10 to-brand-purple/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-gradient-to-r from-brand-teal/10 to-brand-coral/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-      {/* Floating AI Particles */}
+      {/* Floating AI Particles - Using CSS animations */}
       {[...Array(6)].map((_, i) => (
-        <motion.div
+        <div
           key={i}
-          className="absolute w-1 h-1 bg-brand-teal rounded-full opacity-40"
+          className="absolute w-1 h-1 bg-brand-teal rounded-full opacity-40 animate-pulse"
           style={{
             left: `${20 + (i * 15)}%`,
             top: `${30 + (i * 10)}%`,
-          }}
-          animate={{
-            y: [-10, 10, -10],
-            opacity: [0.2, 0.6, 0.2],
-          }}
-          transition={{
-            duration: 4 + i,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: i * 0.5,
+            animationDelay: `${i * 0.5}s`,
+            animationDuration: `${4 + i}s`
           }}
         />
       ))}

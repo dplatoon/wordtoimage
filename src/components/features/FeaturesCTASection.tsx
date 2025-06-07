@@ -1,18 +1,12 @@
 
 import { Button } from '@/components/ui/button';
 import { Sparkles, ArrowRight, Zap } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export const FeaturesCTASection = () => {
   return (
     <section className="py-16 md:py-24 relative border-t border-ai-primary/20">
       <div className="content-container text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="animate-fade-in">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Ready to <span className="text-gradient-neon">Transform Your Ideas</span>?
           </h2>
@@ -33,21 +27,21 @@ export const FeaturesCTASection = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-4xl mx-auto">
-            <div className="text-center">
+            <div className="text-center animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <div className="w-12 h-12 bg-ai-primary/20 rounded-full flex items-center justify-center mx-auto mb-3">
                 <Zap className="h-6 w-6 text-ai-neon" />
               </div>
               <h3 className="font-semibold text-white mb-2">Instant Results</h3>
               <p className="text-gray-400 text-sm">Generate images in under 10 seconds</p>
             </div>
-            <div className="text-center">
+            <div className="text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="w-12 h-12 bg-ai-primary/20 rounded-full flex items-center justify-center mx-auto mb-3">
                 <Sparkles className="h-6 w-6 text-ai-neon" />
               </div>
               <h3 className="font-semibold text-white mb-2">No Credit Card</h3>
               <p className="text-gray-400 text-sm">Start with free generations today</p>
             </div>
-            <div className="text-center">
+            <div className="text-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="w-12 h-12 bg-ai-primary/20 rounded-full flex items-center justify-center mx-auto mb-3">
                 <ArrowRight className="h-6 w-6 text-ai-neon" />
               </div>
@@ -55,7 +49,7 @@ export const FeaturesCTASection = () => {
               <p className="text-gray-400 text-sm">Use images for any project</p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

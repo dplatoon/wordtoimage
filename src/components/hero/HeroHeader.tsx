@@ -1,7 +1,6 @@
 
 import { Button } from '@/components/ui/button';
 import { Wand2, Play } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export const HeroHeader = () => {
   const handleGenerateImageClick = () => {
@@ -21,37 +20,26 @@ export const HeroHeader = () => {
   };
 
   return (
-    <motion.div 
-      className="text-center mb-8"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
-    >
-      <motion.h1 
-        className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.7 }}
+    <div className="text-center mb-8 animate-fade-in">
+      <h1 
+        className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6 animate-fade-in"
+        style={{ animationDelay: '0.2s' }}
       >
         Turn Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Words</span> into <br className="hidden md:block" />
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Stunning Visuals</span> Instantly!
-      </motion.h1>
+      </h1>
       
-      <motion.p 
-        className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.7 }}
+      <p 
+        className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in"
+        style={{ animationDelay: '0.4s' }}
       >
         Harness the power of AI to create beautiful visuals from any text.
         No design skills required.
-      </motion.p>
+      </p>
       
-      <motion.div 
-        className="flex flex-col sm:flex-row justify-center gap-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.7 }}
+      <div 
+        className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in"
+        style={{ animationDelay: '0.6s' }}
       >
         <Button 
           size="lg" 
@@ -71,7 +59,7 @@ export const HeroHeader = () => {
           See Examples
           <Play className="ml-2 h-4 w-4 fill-current" />
         </Button>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 };

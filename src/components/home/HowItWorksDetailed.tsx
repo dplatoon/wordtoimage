@@ -1,5 +1,4 @@
 
-import { motion } from 'framer-motion';
 import { Edit3, Zap, Download, Sparkles } from 'lucide-react';
 
 const steps = [
@@ -33,13 +32,7 @@ export const HowItWorksDetailed = () => {
   return (
     <section className="py-20 md:py-32 bg-gradient-to-br from-ai-surface/30 to-ai-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             How <span className="text-gradient-neon">WordToImage</span> Works
           </h2>
@@ -47,17 +40,14 @@ export const HowItWorksDetailed = () => {
             Transform your imagination into reality with our simple 4-step process. 
             From concept to creation in seconds - no design skills required.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="ai-card text-center group hover:scale-105 transition-transform duration-300"
+              className="ai-card text-center group hover:scale-105 transition-transform duration-300 animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="relative mb-6">
                 <div className="w-16 h-16 bg-gradient-to-r from-ai-primary to-ai-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -74,22 +64,16 @@ export const HowItWorksDetailed = () => {
               <div className="mt-4 p-3 bg-ai-primary/20 rounded-lg border border-ai-primary/30">
                 <p className="text-sm text-ai-neon">{step.tip}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
-        >
+        <div className="text-center mt-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-ai-neon/20 to-ai-accent/20 rounded-full border border-ai-neon/30">
             <Sparkles className="h-5 w-5 text-ai-neon mr-2" />
             <span className="text-ai-neon font-medium">Ready to create your first AI image?</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

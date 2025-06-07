@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { Star, MessageSquare } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const testimonials = [
   {
@@ -63,16 +62,12 @@ export const TestimonialsSection = () => {
     <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <motion.span 
-            className="inline-flex items-center px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-4"
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <span 
+            className="inline-flex items-center px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-4 animate-fade-in"
           >
             <MessageSquare className="h-4 w-4 mr-2" aria-hidden="true" />
             <span>Testimonials</span>
-          </motion.span>
+          </span>
           
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
             Loved by Creators Everywhere
@@ -85,13 +80,10 @@ export const TestimonialsSection = () => {
         {/* Desktop Testimonials Grid */}
         <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.slice(0, 3).map((testimonial, index) => (
-            <motion.div
+            <div
               key={index}
-              className="bg-white p-8 rounded-xl shadow-sm border border-gray-100"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              viewport={{ once: true, amount: 0.3 }}
+              className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -108,20 +100,17 @@ export const TestimonialsSection = () => {
                   <p className="text-gray-500 text-sm">{testimonial.role}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Second row of testimonials for desktop only */}
         <div className="hidden lg:grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
           {testimonials.slice(3, 6).map((testimonial, index) => (
-            <motion.div
+            <div
               key={index}
-              className="bg-white p-8 rounded-xl shadow-sm border border-gray-100"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-              viewport={{ once: true, amount: 0.3 }}
+              className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 animate-fade-in"
+              style={{ animationDelay: `${(index + 3) * 0.1}s` }}
             >
               <div className="flex mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -138,7 +127,7 @@ export const TestimonialsSection = () => {
                   <p className="text-gray-500 text-sm">{testimonial.role}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

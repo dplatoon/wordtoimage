@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { ImageIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { ImageGenerationForm } from '@/components/hero/ImageGenerationForm';
 import { ImagePreview } from '@/components/hero/ImagePreview';
 
@@ -29,12 +28,7 @@ export const LiveDemoSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div className="animate-fade-in">
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <h3 className="text-xl font-semibold text-white mb-4">Create Your Image</h3>
               <ImageGenerationForm 
@@ -43,14 +37,9 @@ export const LiveDemoSection = () => {
                 onError={setError}
               />
             </div>
-          </motion.div>
+          </div>
           
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <h3 className="text-xl font-semibold text-white mb-4">Your Generated Image</h3>
               <ImagePreview 
@@ -59,7 +48,7 @@ export const LiveDemoSection = () => {
                 error={error}
               />
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <div className="mt-12 text-center">

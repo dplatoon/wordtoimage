@@ -1,6 +1,5 @@
 
 import { Wand2, Palette, Clock, ShieldCheck, Download, Layers, Zap, Users, Share2, History } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -67,69 +66,38 @@ export const DetailedFeaturesSection = () => {
     }
   ];
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
-
   return (
     <section id="detailed-features" className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="animate-fade-in">
             <Badge className="mb-4 bg-blue-100 text-blue-800 px-4 py-2">
               <Wand2 className="h-4 w-4 mr-2" />
               Complete Feature Set
             </Badge>
-          </motion.div>
+          </div>
           
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.5 }}
+          <h2 
+            className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4 animate-fade-in"
+            style={{ animationDelay: '0.2s' }}
           >
             Everything You Need for Professional Image Creation
-          </motion.h2>
+          </h2>
           
-          <motion.p 
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.5 }}
+          <p 
+            className="text-lg text-gray-600 max-w-2xl mx-auto animate-fade-in"
+            style={{ animationDelay: '0.3s' }}
           >
             Comprehensive tools and features designed to transform your creative ideas into stunning visuals
-          </motion.p>
+          </p>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <motion.div 
+            <div 
               key={index} 
-              className="group"
-              variants={itemVariants}
+              className="group animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
               onMouseEnter={() => setHoveredFeature(index)}
               onMouseLeave={() => setHoveredFeature(null)}
             >
@@ -143,13 +111,7 @@ export const DetailedFeaturesSection = () => {
                 </CardHeader>
                 <CardContent>
                   {hoveredFeature === index && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="space-y-3"
-                    >
+                    <div className="space-y-3 animate-fade-in">
                       <div className="text-sm text-gray-500 pt-2 border-t">
                         {feature.extendedDescription}
                       </div>
@@ -163,13 +125,13 @@ export const DetailedFeaturesSection = () => {
                           ))}
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   )}
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
