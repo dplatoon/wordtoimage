@@ -13,6 +13,7 @@ const Pricing = lazy(() => import("./pages/Pricing"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Auth = lazy(() => import("./pages/Auth"));
 const TextToImage = lazy(() => import("./pages/TextToImage"));
+const PerformanceTest = lazy(() => import("./pages/PerformanceTest"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -83,6 +84,14 @@ function App() {
                 element={
                   <Suspense fallback={<PageLoader />}>
                     <TextToImage />
+                  </Suspense>
+                } 
+              />
+              <Route 
+                path="/performance-test" 
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <PerformanceTest />
                   </Suspense>
                 } 
               />
