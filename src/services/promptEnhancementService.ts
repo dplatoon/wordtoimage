@@ -46,6 +46,7 @@ const STYLE_ENHANCEMENTS = {
     keywords: ['cinematic', 'movie scene', 'film photography'],
     lighting: ['cinematic lighting', 'dramatic shadows', 'moody lighting'],
     composition: ['wide shot', 'establishing shot', 'depth of field'],
+    quality: ['cinematic quality', 'professional cinematography', 'film-like'],
     negatives: [...NEGATIVE_PROMPT_CATEGORIES.quality, ...NEGATIVE_PROMPT_CATEGORIES.composition]
   }
 };
