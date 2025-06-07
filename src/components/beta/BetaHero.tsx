@@ -2,7 +2,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export const BetaHero = () => {
   return (
@@ -15,11 +14,7 @@ export const BetaHero = () => {
       <div className="absolute bottom-20 left-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
+        <div className="animate-fade-in">
           <Badge className="mb-3 bg-indigo-100 hover:bg-indigo-100 text-indigo-800 border-none">
             Beta Program
           </Badge>
@@ -36,7 +31,7 @@ export const BetaHero = () => {
             Apply Now
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
