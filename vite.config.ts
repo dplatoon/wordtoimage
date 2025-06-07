@@ -28,19 +28,20 @@ export default defineConfig(({ mode }) => ({
     minify: "esbuild",
     cssMinify: true,
     emptyOutDir: true,
-    chunkSizeWarningLimit: 500, // Warn for chunks > 500KB
+    chunkSizeWarningLimit: 300, // Smaller chunks for mobile
     rollupOptions: {
       output: {
         manualChunks: {
-          // Vendor chunks for better caching
-          'react-vendor': ['react', 'react-dom'],
+          // Optimized vendor chunks for mobile
+          'react-core': ['react', 'react-dom'],
           'router': ['react-router-dom'],
-          'ui-components': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
+          'ui-core': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+          'ui-extended': ['@radix-ui/react-toast', '@radix-ui/react-tooltip'],
           'icons': ['lucide-react'],
           'forms': ['react-hook-form', '@hookform/resolvers'],
           'query': ['@tanstack/react-query'],
         },
-        // Optimize chunk loading
+        // Optimize for mobile loading
         entryFileNames: (chunkInfo) => {
           return `assets/[name]-[hash].js`;
         },
@@ -65,5 +66,10 @@ export default defineConfig(({ mode }) => ({
       '@tanstack/react-query'
     ],
     exclude: ['@vite/client', '@vite/env']
+  },
+  // Mobile-specific optimizations
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(mode),
+    '__MOBILE_OPTIMIZED__': true
   }
 }));
