@@ -8,6 +8,11 @@ interface SubscriptionContextType {
   loading: boolean;
   error: string | null;
   openCustomerPortal: () => Promise<void>;
+  // Additional properties needed by components
+  subscribed: boolean;
+  currentPeriodEnd: string | null;
+  isLoading: boolean;
+  checkSubscription: () => Promise<void>;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | null>(null);
@@ -20,39 +25,51 @@ export const SubscriptionProvider = ({ children }: SubscriptionProviderProps) =>
   const [planName, setPlanName] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [subscribed, setSubscribed] = useState(false);
+  const [currentPeriodEnd, setCurrentPeriodEnd] = useState<string | null>(null);
   const { session } = useAuthState();
 
-  useEffect(() => {
-    const checkSubscription = async () => {
-      if (!session?.user?.id) {
-        setPlanName('Free');
-        setLoading(false);
-        return;
-      }
+  const checkSubscription = async () => {
+    if (!session?.user?.id) {
+      setPlanName('Free');
+      setSubscribed(false);
+      setCurrentPeriodEnd(null);
+      setLoading(false);
+      return;
+    }
 
-      try {
-        const { data, error } = await supabase.functions.invoke('check-subscription', {
-          headers: {
-            Authorization: `Bearer ${session.access_token}`,
-          },
-        });
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('check-subscription', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
 
-        if (error) {
-          console.error('Error checking subscription:', error);
-          setPlanName('Free');
-          setError('Failed to check subscription status');
-        } else {
-          setPlanName(data?.plan_name || 'Free');
-        }
-      } catch (err) {
-        console.error('Error checking subscription:', err);
+      if (error) {
+        console.error('Error checking subscription:', error);
         setPlanName('Free');
+        setSubscribed(false);
+        setCurrentPeriodEnd(null);
         setError('Failed to check subscription status');
-      } finally {
-        setLoading(false);
+      } else {
+        setPlanName(data?.plan_name || 'Free');
+        setSubscribed(data?.subscribed || false);
+        setCurrentPeriodEnd(data?.subscription_end || null);
+        setError(null);
       }
-    };
+    } catch (err) {
+      console.error('Error checking subscription:', err);
+      setPlanName('Free');
+      setSubscribed(false);
+      setCurrentPeriodEnd(null);
+      setError('Failed to check subscription status');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     checkSubscription();
   }, [session]);
 
@@ -87,6 +104,10 @@ export const SubscriptionProvider = ({ children }: SubscriptionProviderProps) =>
     loading,
     error,
     openCustomerPortal,
+    subscribed,
+    currentPeriodEnd,
+    isLoading: loading,
+    checkSubscription,
   };
 
   return (
@@ -105,8 +126,14 @@ export const useSubscription = (): SubscriptionContextType => {
       planName: 'Free',
       loading: false,
       error: null,
+      subscribed: false,
+      currentPeriodEnd: null,
+      isLoading: false,
       openCustomerPortal: async () => {
         console.warn('openCustomerPortal called outside of SubscriptionProvider');
+      },
+      checkSubscription: async () => {
+        console.warn('checkSubscription called outside of SubscriptionProvider');
       }
     };
   }
