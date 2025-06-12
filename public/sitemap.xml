@@ -1,15 +1,14 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
   <!-- Main Application Pages -->
   <url>
     <loc>https://wordtoimage.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
     <image:image>
       <image:loc>https://wordtoimage.com/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png</image:loc>
       <image:title>WordToImage AI Image Generator Interface</image:title>
@@ -21,19 +20,14 @@
     <loc>https://wordtoimage.com/text-to-image</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2025-06-07</lastmod>
-    <image:image>
-      <image:loc>https://wordtoimage.com/lovable-uploads/5cc3bb2f-158e-4a9d-8ff5-0efe1c96ab93.png</image:loc>
-      <image:title>AI Text to Image Generator</image:title>
-      <image:caption>Advanced AI image generation interface</image:caption>
-    </image:image>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/dashboard</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <!-- Product & Feature Pages -->
@@ -41,31 +35,21 @@
     <loc>https://wordtoimage.com/features</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2025-06-07</lastmod>
-    <image:image>
-      <image:loc>https://wordtoimage.com/lovable-uploads/9baa5403-54fd-4d41-9dff-b6762b238e3e.png</image:loc>
-      <image:title>WordToImage AI Features</image:title>
-      <image:caption>Comprehensive AI image generation features overview</image:caption>
-    </image:image>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/templates</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-06-07</lastmod>
-    <image:image>
-      <image:loc>https://wordtoimage.com/lovable-uploads/c258fc93-b285-4676-9418-c690eaa9fa60.png</image:loc>
-      <image:title>AI Image Templates Gallery</image:title>
-      <image:caption>Professional AI-generated image templates</image:caption>
-    </image:image>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <!-- Content & Learning Pages -->
@@ -73,81 +57,21 @@
     <loc>https://wordtoimage.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-06-07</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/blog/ai-art-trends-2025</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2024-12-15</lastmod>
-    <image:image>
-      <image:loc>https://wordtoimage.com/blog/ai-trends-hero.jpg</image:loc>
-      <image:title>AI Art Trends 2025</image:title>
-      <image:caption>Latest trends in AI-generated artwork for 2025</image:caption>
-    </image:image>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/blog/mastering-ai-prompts</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2024-12-10</lastmod>
-    <image:image>
-      <image:loc>https://wordtoimage.com/blog/prompts-guide.jpg</image:loc>
-      <image:title>Mastering AI Prompts Guide</image:title>
-      <image:caption>Complete guide to writing effective AI image prompts</image:caption>
-    </image:image>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/tutorials</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-06-07</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/tutorials/getting-started-ai-art</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2024-12-12</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/tutorials/advanced-prompting-techniques</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2024-12-05</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/design-tips</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-06-07</lastmod>
-  </url>
-  
-  <!-- API & Developer Resources -->
-  <url>
-    <loc>https://wordtoimage.com/api</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2025-06-07</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/api/getting-started</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2025-06-07</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/api/authentication</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <!-- Support & Help -->
@@ -155,14 +79,14 @@
     <loc>https://wordtoimage.com/help</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/updates</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <!-- Company & Info Pages -->
@@ -170,28 +94,28 @@
     <loc>https://wordtoimage.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/community</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/careers</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <!-- Beta & Special Features -->
@@ -199,14 +123,22 @@
     <loc>https://wordtoimage.com/beta</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/beta-landing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
+  </url>
+  
+  <!-- API & Developer Resources -->
+  <url>
+    <loc>https://wordtoimage.com/api</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <!-- Legal Pages -->
@@ -214,43 +146,21 @@
     <loc>https://wordtoimage.com/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/cookies</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
-    <lastmod>2025-06-07</lastmod>
-  </url>
-  
-  <!-- Template Categories -->
-  <url>
-    <loc>https://wordtoimage.com/templates/category/social-media</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2025-06-07</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/templates/category/marketing</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2025-06-07</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/templates/category/art</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2025-06-07</lastmod>
+    <lastmod>2025-06-12</lastmod>
   </url>
   
 </urlset>
