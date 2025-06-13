@@ -10,9 +10,10 @@ interface OptimizedImageProps {
   height?: number | string;
   className?: string;
   priority?: boolean;
-  sizes?: string;
+  quality?: number;
   onLoad?: () => void;
   onError?: () => void;
+  sizes?: string;
 }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -22,9 +23,10 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   height,
   className = '',
   priority = false,
-  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+  quality = 80,
   onLoad,
   onError,
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -34,7 +36,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (priority) return; // Skip lazy loading for priority images
+    if (priority) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -45,7 +47,10 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           }
         });
       },
-      { rootMargin: '50px' }
+      { 
+        rootMargin: '50px',
+        threshold: 0.1
+      }
     );
 
     if (containerRef.current) {
@@ -55,25 +60,33 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     return () => observer.disconnect();
   }, [priority]);
 
-  // Generate WebP and fallback sources
-  const generateSources = (baseSrc: string) => {
-    if (baseSrc.startsWith('http') || baseSrc.startsWith('data:')) {
-      return { webp: baseSrc, fallback: baseSrc };
+  // Generate optimized sources for different formats
+  const generateSources = () => {
+    if (!src) return { webp: src, avif: src, fallback: src };
+    
+    // For external URLs, try to add optimization parameters
+    try {
+      const url = new URL(src);
+      if (url.hostname.includes('unsplash') || url.hostname.includes('images')) {
+        url.searchParams.set('auto', 'format');
+        url.searchParams.set('q', quality.toString());
+        url.searchParams.set('w', typeof width === 'number' ? width.toString() : '800');
+        
+        const baseUrl = url.toString();
+        return {
+          avif: baseUrl + '&fm=avif',
+          webp: baseUrl + '&fm=webp',
+          fallback: baseUrl
+        };
+      }
+    } catch {
+      // If URL parsing fails, return original
     }
     
-    const extension = baseSrc.split('.').pop()?.toLowerCase();
-    if (extension === 'svg') {
-      return { webp: baseSrc, fallback: baseSrc };
-    }
-    
-    const basePath = baseSrc.replace(/\.[^/.]+$/, '');
-    return {
-      webp: `${basePath}.webp`,
-      fallback: baseSrc,
-    };
+    return { webp: src, avif: src, fallback: src };
   };
 
-  const { webp, fallback } = generateSources(src);
+  const sources = generateSources();
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -88,24 +101,37 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   };
 
   return (
-    <div ref={containerRef} className={`relative ${className}`} style={{ width, height }}>
+    <div 
+      ref={containerRef} 
+      className={`relative overflow-hidden ${className}`}
+      style={{ width, height }}
+    >
       {isLoading && !hasError && (
         <Skeleton className="absolute inset-0 w-full h-full" />
       )}
       
       {hasError ? (
-        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-100">
-          <ImageOff className="h-8 w-8 text-gray-300 mb-2" />
-          <p className="text-xs text-gray-400 text-center">Image unavailable</p>
+        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-100 text-gray-400">
+          <ImageOff className="h-8 w-8 mb-2" />
+          <p className="text-xs text-center">Image unavailable</p>
         </div>
       ) : isInView ? (
         <picture>
-          <source srcSet={webp} type="image/webp" sizes={sizes} />
+          <source 
+            srcSet={sources.avif} 
+            type="image/avif" 
+            sizes={sizes}
+          />
+          <source 
+            srcSet={sources.webp} 
+            type="image/webp" 
+            sizes={sizes}
+          />
           <img
             ref={imgRef}
-            src={fallback}
+            src={sources.fallback}
             alt={alt}
-            className={`w-full h-full transition-opacity duration-300 ${
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
               isLoading ? 'opacity-0' : 'opacity-100'
             }`}
             loading={priority ? 'eager' : 'lazy'}
@@ -115,6 +141,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             onError={handleError}
             width={width}
             height={height}
+            sizes={sizes}
           />
         </picture>
       ) : (
