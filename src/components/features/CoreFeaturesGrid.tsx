@@ -1,161 +1,95 @@
 
 import React from 'react';
-import { 
-  Palette, 
-  Download, 
-  Zap, 
-  Shield, 
-  Users, 
-  Code, 
-  Sparkles, 
-  Image as ImageIcon,
-  Settings,
-  Star,
-  Globe,
-  Heart
-} from 'lucide-react';
+import { Wand2, Zap, Palette, Download, Shield, Users } from 'lucide-react';
+import { OptimizedImage } from '@/components/common/OptimizedImage';
 
-const features = [
+const coreFeatures = [
   {
-    icon: Palette,
-    title: "50+ Art Styles",
-    description: "From photorealistic to abstract, choose from our extensive collection of AI art styles.",
-    color: "violet"
-  },
-  {
-    icon: Download,
-    title: "HD Downloads",
-    description: "Download your creations in multiple formats including PNG, JPG, and WebP up to 4K resolution.",
-    color: "blue"
+    icon: Wand2,
+    title: "AI-Powered Generation",
+    description: "Transform any text into stunning visuals using advanced AI models",
+    benefit: "Create professional images without design skills",
+    color: "text-blue-600 bg-blue-100"
   },
   {
     icon: Zap,
-    title: "Lightning Fast",
-    description: "Generate stunning images in seconds with our optimized AI infrastructure.",
-    color: "yellow"
+    title: "Lightning Fast Results",
+    description: "Generate high-quality images in under 10 seconds",
+    benefit: "Save hours of design work with instant results",
+    color: "text-yellow-600 bg-yellow-100"
+  },
+  {
+    icon: Palette,
+    title: "50+ Art Styles",
+    description: "Choose from diverse artistic styles and visual aesthetics",
+    benefit: "Match any brand or creative vision perfectly",
+    color: "text-purple-600 bg-purple-100"
+  },
+  {
+    icon: Download,
+    title: "4K Quality Downloads",
+    description: "Export images in high resolution for professional use",
+    benefit: "Print-ready quality for all your projects",
+    color: "text-green-600 bg-green-100"
   },
   {
     icon: Shield,
-    title: "Commercial License",
-    description: "Use your generated images for commercial purposes with our flexible licensing options.",
-    color: "green"
+    title: "Commercial Rights",
+    description: "Full ownership and commercial usage rights included",
+    benefit: "Use in business projects without licensing worries",
+    color: "text-red-600 bg-red-100"
   },
   {
     icon: Users,
     title: "Team Collaboration",
-    description: "Work together with your team using shared workspaces and project management tools.",
-    color: "purple"
-  },
-  {
-    icon: Code,
-    title: "API Access",
-    description: "Integrate our AI generation capabilities into your applications with our robust API.",
-    color: "indigo"
-  },
-  {
-    icon: Sparkles,
-    title: "Advanced Prompting",
-    description: "Use our intelligent prompt suggestions and enhancement tools for better results.",
-    color: "pink"
-  },
-  {
-    icon: ImageIcon,
-    title: "Batch Generation",
-    description: "Generate multiple variations or completely different images in a single request.",
-    color: "cyan"
-  },
-  {
-    icon: Settings,
-    title: "Fine-tuning Controls",
-    description: "Adjust parameters like style strength, color palette, and composition for perfect results.",
-    color: "orange"
-  },
-  {
-    icon: Star,
-    title: "Priority Queue",
-    description: "Skip the line with priority processing for Pro and Business plan subscribers.",
-    color: "amber"
-  },
-  {
-    icon: Globe,
-    title: "Global CDN",
-    description: "Fast image delivery worldwide with our global content delivery network.",
-    color: "teal"
-  },
-  {
-    icon: Heart,
-    title: "Community Gallery",
-    description: "Share your creations and get inspired by thousands of community-generated images.",
-    color: "rose"
+    description: "Share projects and collaborate with team members",
+    benefit: "Streamline creative workflows across teams",
+    color: "text-indigo-600 bg-indigo-100"
   }
 ];
 
-const getColorClasses = (color: string) => {
-  const colorMap: Record<string, { bg: string; icon: string; hover: string }> = {
-    violet: { bg: 'bg-violet-50', icon: 'text-violet-600', hover: 'hover:bg-violet-100' },
-    blue: { bg: 'bg-blue-50', icon: 'text-blue-600', hover: 'hover:bg-blue-100' },
-    yellow: { bg: 'bg-yellow-50', icon: 'text-yellow-600', hover: 'hover:bg-yellow-100' },
-    green: { bg: 'bg-green-50', icon: 'text-green-600', hover: 'hover:bg-green-100' },
-    purple: { bg: 'bg-purple-50', icon: 'text-purple-600', hover: 'hover:bg-purple-100' },
-    indigo: { bg: 'bg-indigo-50', icon: 'text-indigo-600', hover: 'hover:bg-indigo-100' },
-    pink: { bg: 'bg-pink-50', icon: 'text-pink-600', hover: 'hover:bg-pink-100' },
-    cyan: { bg: 'bg-cyan-50', icon: 'text-cyan-600', hover: 'hover:bg-cyan-100' },
-    orange: { bg: 'bg-orange-50', icon: 'text-orange-600', hover: 'hover:bg-orange-100' },
-    amber: { bg: 'bg-amber-50', icon: 'text-amber-600', hover: 'hover:bg-amber-100' },
-    teal: { bg: 'bg-teal-50', icon: 'text-teal-600', hover: 'hover:bg-teal-100' },
-    rose: { bg: 'bg-rose-50', icon: 'text-rose-600', hover: 'hover:bg-rose-100' }
-  };
-  return colorMap[color] || colorMap.violet;
-};
-
 export const CoreFeaturesGrid = () => {
   return (
-    <section className="mobile-section bg-gray-50">
-      <div className="mobile-first-container">
-        <div className="text-center mb-8 md:mb-12">
-          <h2 className="mobile-text-2xl md:text-4xl font-bold text-gray-900 mb-4">
-            Everything You Need to Create
+    <section className="py-16 md:py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Core Features That Drive Results
           </h2>
-          <p className="mobile-text-lg text-gray-600 max-w-2xl mx-auto">
-            Comprehensive tools and features designed to bring your creative vision to life
-            with the power of artificial intelligence.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Everything you need to create stunning AI-generated images for any purpose
           </p>
         </div>
 
-        <div className="mobile-grid mobile-grid-sm-2 mobile-grid-lg-3 gap-4 md:gap-6">
-          {features.map((feature, index) => {
-            const IconComponent = feature.icon;
-            const colors = getColorClasses(feature.color);
-            
-            return (
-              <div
-                key={index}
-                className={`mobile-card group transition-all duration-300 ${colors.hover} cursor-pointer`}
-              >
-                <div className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <IconComponent className={`w-6 h-6 ${colors.icon}`} />
-                </div>
-                <h3 className="mobile-text-lg font-semibold text-gray-900 mb-2">
-                  {feature.title}
-                </h3>
-                <p className="mobile-text-sm text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {coreFeatures.map((feature, index) => (
+            <div 
+              key={index}
+              className="group p-6 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 bg-white"
+            >
+              <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <feature.icon className="h-6 w-6" />
               </div>
-            );
-          })}
+              
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                {feature.title}
+              </h3>
+              
+              <p className="text-gray-600 mb-3 leading-relaxed">
+                {feature.description}
+              </p>
+              
+              <p className="text-sm font-medium text-violet-600">
+                ✓ {feature.benefit}
+              </p>
+            </div>
+          ))}
         </div>
 
-        <div className="text-center mt-8 md:mt-12">
-          <p className="mobile-text-sm text-gray-500 mb-4">
-            And many more features being added every month
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {['AI Enhancement', 'Upscaling', 'Style Transfer', 'Background Removal'].map((tag, index) => (
-              <span key={index} className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full mobile-text-xs font-medium">
-                {tag}
-              </span>
-            ))}
+        <div className="text-center mt-12">
+          <div className="inline-flex items-center px-4 py-2 bg-gray-50 rounded-full text-sm text-gray-600">
+            <Users className="w-4 h-4 mr-2" />
+            Trusted by 50,000+ creators worldwide
           </div>
         </div>
       </div>

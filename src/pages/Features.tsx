@@ -9,10 +9,14 @@ import { FeaturesCTASection } from "@/components/features/FeaturesCTASection";
 import { SEOManager } from "@/components/seo/SEOManager";
 import { FAQStructuredData, FEATURES_FAQS } from "@/components/seo/FAQStructuredData";
 import { ContentBreadcrumbs } from "@/components/seo/ContentBreadcrumbs";
+import { CriticalCSS } from "@/components/performance/CriticalCSS";
+import { ResourcePreloader } from "@/components/performance/ResourcePreloader";
 
 const Features = () => {
   return (
     <div className="min-h-screen">
+      <CriticalCSS />
+      <ResourcePreloader />
       <SEOManager />
       <FAQStructuredData 
         faqs={FEATURES_FAQS} 
