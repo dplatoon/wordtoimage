@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { imageOptimizer } from "./src/plugins/vite-image-optimizer";
 
-export default defineConfig(({ command }) => ({
+export default defineConfig(({ command, mode }) => ({
   server: {
     host: "::",
     port: 8080,
@@ -26,19 +26,24 @@ export default defineConfig(({ command }) => ({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          ui: ['@/components/ui'],
+          ui: ['@radix-ui/react-slot', '@radix-ui/react-toast'],
         },
       },
     },
     cssCodeSplit: true,
-    sourcemap: false,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
+    sourcemap: mode === 'development',
+    minify: mode === 'production' ? 'terser' : false,
+    ...(mode === 'production' && {
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+        mangle: {
+          safari10: true,
+        },
       },
-    },
+    }),
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],
