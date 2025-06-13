@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { BillingToggle } from './BillingToggle';
-import { PlanCard } from './PlanCard';
+import { OptimizedPlanCard } from './OptimizedPlanCard';
 import { SubscriptionStatus } from '@/components/SubscriptionStatus';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 
@@ -92,13 +92,13 @@ export const EnhancedPricingTable = () => {
   const { planName: currentPlan } = useSubscription();
 
   return (
-    <section className="py-8 md:py-16 relative overflow-hidden mobile-section" aria-labelledby="pricing-heading">
+    <section className="py-8 md:py-16 relative overflow-hidden" aria-labelledby="pricing-heading">
       {/* Subtle background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-purple-50/20 pointer-events-none" />
       <div className="absolute top-20 left-10 w-64 h-64 bg-blue-100/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-100/15 rounded-full blur-3xl pointer-events-none" />
       
-      <div className="mobile-first-container relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <BillingToggle
           billingCycle={billingCycle}
           onToggle={setBillingCycle}
@@ -110,9 +110,9 @@ export const EnhancedPricingTable = () => {
           <SubscriptionStatus />
         </div>
 
-        <div className="mobile-grid mobile-grid-sm-2 mobile-grid-lg-4 gap-4 md:gap-6 lg:gap-6" role="list" aria-label="Pricing plans">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" role="list" aria-label="Pricing plans">
           {pricingPlans.map((plan, index) => (
-            <PlanCard
+            <OptimizedPlanCard
               key={index}
               {...plan}
               billingCycle={billingCycle}
@@ -122,9 +122,9 @@ export const EnhancedPricingTable = () => {
         </div>
 
         <div className="mt-8 md:mt-12 text-center space-y-4">
-          <div className="mobile-card max-w-4xl mx-auto">
-            <h3 className="mobile-text-lg font-semibold text-gray-900 mb-4" id="help-choosing">Need help choosing the right plan?</h3>
-            <div className="mobile-grid mobile-grid-sm-2 gap-4 mobile-text-sm text-gray-600">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 max-w-4xl mx-auto">
+            <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4" id="help-choosing">Need help choosing the right plan?</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
               <div>
                 <p className="font-medium text-gray-900 mb-2">✓ Easy upgrades & downgrades</p>
                 <p>Switch plans anytime with prorated billing. Changes take effect immediately with no setup fees.</p>
@@ -136,10 +136,10 @@ export const EnhancedPricingTable = () => {
             </div>
           </div>
           
-          <p className="text-gray-600 mb-4 mobile-text-sm md:text-base">
+          <p className="text-gray-600 mb-4 text-sm md:text-base">
             All plans include access to our core AI image generation technology with 99.9% uptime SLA
           </p>
-          <p className="mobile-text-xs md:text-sm text-gray-500">
+          <p className="text-xs md:text-sm text-gray-500">
             Enterprise teams with 10+ users? <a href="/contact" className="text-blue-600 hover:text-blue-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">Contact us for volume pricing, custom integrations, and dedicated infrastructure</a>
           </p>
         </div>
