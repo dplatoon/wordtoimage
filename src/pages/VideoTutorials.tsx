@@ -151,7 +151,8 @@ const VideoTutorials = () => {
                   </div>
                 </div>
               </div>
-            )}})}
+            );
+            })}
           </div>
 
           {/* Featured Playlist */}
