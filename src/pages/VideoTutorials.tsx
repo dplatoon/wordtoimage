@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { Play, Clock, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SEOManager } from '@/components/seo/SEOManager';
+import { Link } from 'react-router-dom';
 
 const VideoTutorials = () => {
   const tutorials = [
@@ -65,13 +66,25 @@ const VideoTutorials = () => {
       default: return 'bg-gray-100 text-gray-800';
     }
   };
+  
+  const getRelatedLink = (id: number): { href: string; text: string } | null => {
+    switch (id) {
+      case 1: return { href: '/text-to-image', text: 'Try Generator' };
+      case 2: return { href: '/prompt-guide', text: 'Read Guide' };
+      case 3: return { href: '/style-gallery', text: 'See Styles' };
+      case 4: return { href: '/batch-generator', text: 'Use Batch Tool' };
+      case 5: return { href: '/ai-upscaler', text: 'Try Upscaler' };
+      case 6: return { href: '/pricing', text: 'View Plans' };
+      default: return null;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
       <SEOManager customConfig={{
         title: "AI Image Generation Video Tutorials | WordToImage",
         description: "Learn AI image generation with our comprehensive video tutorials. From beginner basics to advanced techniques. Master text-to-image AI.",
-        keywords: ["AI image tutorials", "text to image videos", "AI art tutorials", "image generation guide", "AI tutorial videos"]
+        keywords: ["AI image tutorials", "text to image videos", "AI art tutorials", "image generation guide", "AI tutorial videos", "learn prompt engineering", "AI upscaling tutorial", "how to use text to image"]
       }} />
       
       <Nav />
@@ -88,9 +101,18 @@ const VideoTutorials = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tutorials.map((tutorial) => (
-              <div key={tutorial.id} className="bg-white rounded-lg shadow-md border overflow-hidden group hover:shadow-lg transition-shadow">
-                <div className="aspect-video bg-gradient-to-br from-violet-100 to-indigo-100 relative group-hover:scale-105 transition-transform">
+            {tutorials.map((tutorial) => {
+              const relatedLink = getRelatedLink(tutorial.id);
+              return (
+              <div key={tutorial.id} className="bg-white rounded-lg shadow-md border overflow-hidden group hover:shadow-lg transition-shadow flex flex-col">
+                <div className="aspect-video bg-gray-200 relative group-hover:scale-105 transition-transform">
+                   <img
+                    src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500"
+                    alt={`Video tutorial thumbnail for: ${tutorial.title}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <Button size="lg" className="bg-white/90 text-violet-600 hover:bg-white shadow-lg">
                       <Play className="h-6 w-6 mr-2 fill-current" />
@@ -104,7 +126,7 @@ const VideoTutorials = () => {
                   </div>
                 </div>
                 
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                     {tutorial.title}
                   </h3>
@@ -112,7 +134,7 @@ const VideoTutorials = () => {
                     {tutorial.description}
                   </p>
                   
-                  <div className="flex items-center justify-between text-sm text-gray-500">
+                  <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
                     <div className="flex items-center gap-1">
                       <Clock className="h-4 w-4" />
                       <span>{tutorial.duration}</span>
@@ -121,10 +143,15 @@ const VideoTutorials = () => {
                       <Users className="h-4 w-4" />
                       <span>{tutorial.views} views</span>
                     </div>
+                    {relatedLink && (
+                       <Link to={relatedLink.href} className="font-semibold text-violet-600 hover:text-violet-700">
+                        {relatedLink.text} &rarr;
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
-            ))}
+            )}})}
           </div>
 
           {/* Featured Playlist */}

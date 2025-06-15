@@ -1,4 +1,3 @@
-
 import { SitemapGenerator } from './sitemapGenerator';
 
 interface BlogPost {
@@ -91,6 +90,31 @@ export class EnhancedSitemapGenerator extends SitemapGenerator {
         changefreq: 'weekly',
         priority: 0.6,
         lastmod: new Date().toISOString().split('T')[0]
+      });
+    });
+  }
+
+  // Add core product and feature pages
+  addCoreProductPages(): void {
+    const pages = [
+      { path: '/product', priority: 0.9, lastmod: '2025-06-15' },
+      { path: '/ai-templates', priority: 0.8, lastmod: '2025-06-15' },
+      { path: '/style-gallery', priority: 0.8, lastmod: '2025-06-15' },
+      { path: '/batch-generator', priority: 0.8, lastmod: '2025-06-15' },
+      { path: '/ai-upscaler', priority: 0.8, lastmod: '2025-06-15' },
+      { path: '/prompt-guide', priority: 0.7, lastmod: '2025-06-15' },
+      { path: '/video-tutorials', priority: 0.7, lastmod: '2025-06-15' },
+      { path: '/whats-new', priority: 0.7, lastmod: '2025-06-15' },
+      { path: '/join-our-team', priority: 0.5, lastmod: '2025-06-15' },
+      { path: '/contact-support', priority: 0.6, lastmod: '2025-06-15' },
+    ];
+
+    pages.forEach(page => {
+      this.urls.push({
+        loc: page.path,
+        changefreq: 'monthly',
+        priority: page.priority,
+        lastmod: page.lastmod
       });
     });
   }
@@ -236,6 +260,7 @@ Sitemap: ${this.baseUrl}/sitemap-images.xml`;
 export const generateEnhancedSitemap = (): string => {
   const generator = new EnhancedSitemapGenerator();
   generator.addStaticPages();
+  generator.addCoreProductPages();
   
   // Sample blog posts (replace with real data from your CMS/database)
   generator.addEnhancedBlogPosts([

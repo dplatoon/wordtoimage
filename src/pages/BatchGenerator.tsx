@@ -13,7 +13,7 @@ const BatchGenerator = () => {
       <SEOManager customConfig={{
         title: "Batch AI Image Generator - Create Multiple Images | WordToImage",
         description: "Generate multiple AI images at once with our batch processing tool. Perfect for creating variations, bulk content, and large-scale projects.",
-        keywords: ["batch image generation", "bulk AI images", "multiple image creation", "AI batch processing", "mass image generation"]
+        keywords: ["batch image generation", "bulk AI images", "multiple image creation", "AI batch processing", "mass image generation", "generate image sets with AI", "AI image variations generator"]
       }} />
       
       <Nav />

@@ -5,6 +5,7 @@ import { Search, Filter, Star, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SEOManager } from '@/components/seo/SEOManager';
+import { Link } from 'react-router-dom';
 
 const AITemplates = () => {
   const templateCategories = [
@@ -23,7 +24,7 @@ const AITemplates = () => {
       <SEOManager customConfig={{
         title: "AI Image Templates - Ready-to-Use Prompts | WordToImage",
         description: "Browse thousands of AI image templates and prompts. Professional designs for social media, marketing, art, and more. Start creating instantly.",
-        keywords: ["AI image templates", "prompt templates", "social media templates", "marketing graphics", "AI art prompts"]
+        keywords: ["AI image templates", "prompt templates", "social media templates", "marketing graphics", "AI art prompts", "free AI templates", "AI poster ideas", "AI art prompts for beginners"]
       }} />
       
       <Nav />
@@ -63,15 +64,19 @@ const AITemplates = () => {
           {/* Templates Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {templates.map((template) => (
-              <div key={template.id} className="bg-white rounded-lg shadow-md overflow-hidden border">
+              <div key={template.id} className="bg-white rounded-lg shadow-md overflow-hidden border flex flex-col">
                 <div className="aspect-square bg-gradient-to-br from-violet-100 to-indigo-100 p-8 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-violet-200 rounded-lg mx-auto mb-2"></div>
-                    <p className="text-sm text-gray-600">Preview</p>
+                    <img
+                      src="https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=150&h=150&fit=crop"
+                      alt={`Preview for ${template.title} AI template in the ${template.category} category`}
+                      className="w-20 h-20 rounded-lg mx-auto mb-2 object-cover shadow-md"
+                      loading="lazy"
+                    />
+                    <p className="text-sm text-gray-600 font-semibold">{template.title}</p>
                   </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 mb-1">{template.title}</h3>
+                <div className="p-4 flex flex-col flex-grow">
                   <p className="text-sm text-gray-600 mb-2">{template.category}</p>
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-1">
@@ -82,6 +87,11 @@ const AITemplates = () => {
                       <Download className="h-4 w-4 text-gray-400" />
                       <span>{template.downloads}</span>
                     </div>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-100">
+                     <Button size="sm" variant="outline" className="w-full" asChild>
+                      <Link to="/text-to-image">Use Template</Link>
+                    </Button>
                   </div>
                 </div>
               </div>

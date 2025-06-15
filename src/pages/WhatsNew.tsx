@@ -81,7 +81,7 @@ const WhatsNew = () => {
       <SEOManager customConfig={{
         title: "What's New - Latest Updates & Features | WordToImage",
         description: "Stay updated with the latest WordToImage features, improvements, and updates. Discover new AI capabilities and platform enhancements.",
-        keywords: ["WordToImage updates", "new features", "AI improvements", "platform updates", "release notes"]
+        keywords: ["WordToImage updates", "new features", "AI improvements", "platform updates", "release notes", "latest AI technology", "AI image generator changelog", "text to image feature updates"]
       }} />
       
       <Nav />

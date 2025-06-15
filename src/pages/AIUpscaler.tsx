@@ -11,7 +11,7 @@ const AIUpscaler = () => {
       <SEOManager customConfig={{
         title: "AI Image Upscaler - Enhance Image Quality | WordToImage",
         description: "Enhance your images with AI-powered upscaling. Increase resolution up to 4x while maintaining quality. Perfect for improving low-resolution images.",
-        keywords: ["AI upscaler", "image enhancement", "image quality improvement", "AI image enlargement", "photo upscaling"]
+        keywords: ["AI upscaler", "image enhancement", "image quality improvement", "AI image enlargement", "photo upscaling", "free AI image upscaler online", "4x image resolution increase", "enhance low resolution photo with AI"]
       }} />
       
       <Nav />

@@ -12,7 +12,7 @@ const Product = () => {
       <SEOManager customConfig={{
         title: "AI Image Generation Product - WordToImage Platform Features",
         description: "Discover WordToImage's complete AI image generation platform. Advanced text-to-image technology, batch processing, upscaling, and professional tools for creators.",
-        keywords: ["AI image generation platform", "text to image product", "AI art tools", "batch image generation", "AI upscaler"]
+        keywords: ["AI image generation platform", "text to image product", "AI art tools", "batch image generation", "AI upscaler", "best AI art platform 2025", "professional AI image tools for artists"]
       }} />
       
       <Nav />

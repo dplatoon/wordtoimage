@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { Eye, Heart, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SEOManager } from '@/components/seo/SEOManager';
+import { Link } from 'react-router-dom';
 
 const StyleGallery = () => {
   const styles = [
@@ -20,7 +21,7 @@ const StyleGallery = () => {
       <SEOManager customConfig={{
         title: "AI Art Style Gallery - 50+ Artistic Styles | WordToImage",
         description: "Explore our collection of AI art styles. From photorealistic to anime, watercolor to cyberpunk. Find the perfect style for your AI image generation.",
-        keywords: ["AI art styles", "image generation styles", "artistic styles", "AI art gallery", "digital art styles"]
+        keywords: ["AI art styles", "image generation styles", "artistic styles", "AI art gallery", "digital art styles", "photorealistic style AI", "anime style generator", "cyberpunk art creator"]
       }} />
       
       <Nav />
@@ -42,8 +43,13 @@ const StyleGallery = () => {
                 <div className="aspect-video bg-gradient-to-br from-violet-100 to-indigo-100 relative">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="w-20 h-20 bg-violet-200 rounded-xl mx-auto mb-2"></div>
-                      <p className="text-sm text-gray-600">{style.name} Style</p>
+                       <img
+                        src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&h=200&fit=crop"
+                        alt={`Visual representation of ${style.name} AI art style`}
+                        className="w-24 h-24 rounded-xl mx-auto mb-2 object-cover shadow-lg"
+                        loading="lazy"
+                      />
+                      <p className="text-sm text-gray-600 font-semibold">{style.name} Style</p>
                     </div>
                   </div>
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -60,9 +66,11 @@ const StyleGallery = () => {
                       <Heart className="h-4 w-4" />
                       <span>{style.likes.toLocaleString()}</span>
                     </div>
-                    <Button size="sm" variant="outline">
-                      <Copy className="h-4 w-4 mr-2" />
-                      Use Style
+                    <Button size="sm" variant="outline" asChild>
+                      <Link to="/text-to-image">
+                        <Copy className="h-4 w-4 mr-2" />
+                        Use Style
+                      </Link>
                     </Button>
                   </div>
                 </div>
