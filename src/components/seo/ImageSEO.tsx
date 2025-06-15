@@ -124,9 +124,6 @@ export const ImageSEO: React.FC<ImageSEOProps> = ({
         onLoad={handleImageLoad}
         onError={handleImageError}
         trackEvent="seo_optimized_image"
-        loading={loading}
-        decoding="async"
-        fetchpriority={priority ? "high" : "auto"}
       />
       
       {/* Preload critical images for better LCP */}
@@ -167,15 +164,16 @@ export const withImageSEO = <P extends object>(
         // Add structured data for images with data attributes
         const imageElements = document.querySelectorAll('img[data-seo-structured]');
         imageElements.forEach(img => {
-          const structuredData = JSON.parse(img.getAttribute('data-seo-structured') || '{}');
+          const imgElement = img as HTMLImageElement;
+          const structuredData = JSON.parse(imgElement.getAttribute('data-seo-structured') || '{}');
           if (Object.keys(structuredData).length > 0) {
             const script = document.createElement('script');
             script.type = 'application/ld+json';
             script.textContent = JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ImageObject",
-              "url": img.src,
-              "description": img.alt,
+              "url": imgElement.src,
+              "description": imgElement.alt,
               ...structuredData
             });
             document.head.appendChild(script);
