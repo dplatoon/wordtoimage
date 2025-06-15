@@ -18,6 +18,11 @@ interface ImageSEOProps {
     creator?: string;
     dateCreated?: string;
     keywords?: string[];
+    contentUrl?: string;
+    thumbnailUrl?: string;
+    license?: string;
+    acquireLicensePage?: string;
+    creditText?: string;
   };
 }
 
@@ -36,7 +41,7 @@ export const ImageSEO: React.FC<ImageSEOProps> = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Generate structured data for the image
+  // Generate comprehensive structured data for the image
   const generateImageStructuredData = () => {
     if (!structuredData) return null;
 
@@ -44,21 +49,33 @@ export const ImageSEO: React.FC<ImageSEOProps> = ({
       "@context": "https://schema.org",
       "@type": "ImageObject",
       "url": src,
+      "contentUrl": structuredData.contentUrl || src,
       "caption": structuredData.caption || alt,
       "description": alt,
-      ...(structuredData.creator && { "creator": { "@type": "Person", "name": structuredData.creator } }),
+      "name": title || alt,
+      ...(structuredData.creator && { 
+        "creator": { 
+          "@type": "Person", 
+          "name": structuredData.creator 
+        } 
+      }),
       ...(structuredData.dateCreated && { "dateCreated": structuredData.dateCreated }),
       ...(structuredData.keywords && { "keywords": structuredData.keywords.join(", ") }),
+      ...(structuredData.license && { "license": structuredData.license }),
+      ...(structuredData.acquireLicensePage && { "acquireLicensePage": structuredData.acquireLicensePage }),
+      ...(structuredData.creditText && { "creditText": structuredData.creditText }),
       ...(width && height && { 
         "width": width,
         "height": height,
         "thumbnail": {
           "@type": "ImageObject",
-          "url": src.replace(/\.(jpg|jpeg|png|webp)$/i, '_thumb.$1'),
+          "url": structuredData.thumbnailUrl || src.replace(/\.(jpg|jpeg|png|webp)$/i, '_thumb.$1'),
           "width": Math.min(width, 300),
           "height": Math.min(height, 300)
         }
-      })
+      }),
+      "encodingFormat": src.split('.').pop()?.toLowerCase() || "jpeg",
+      "uploadDate": structuredData.dateCreated || new Date().toISOString()
     };
 
     return (
@@ -74,21 +91,23 @@ export const ImageSEO: React.FC<ImageSEOProps> = ({
     // Track image load for SEO performance
     if (window.gtag) {
       window.gtag('event', 'image_loaded', {
-        event_category: 'Performance',
+        event_category: 'SEO_Performance',
         event_label: src,
-        custom_parameter: priority ? 'priority' : 'normal'
+        custom_parameter: priority ? 'priority' : 'normal',
+        value: performance.now()
       });
     }
   };
 
   const handleImageError = () => {
-    console.error('Failed to load image:', src);
+    console.error('Failed to load SEO optimized image:', src);
     
     // Track image errors for SEO monitoring
     if (window.gtag) {
       window.gtag('event', 'image_error', {
-        event_category: 'Performance',
-        event_label: src
+        event_category: 'SEO_Performance',
+        event_label: src,
+        error_type: 'load_failure'
       });
     }
   };
@@ -105,6 +124,9 @@ export const ImageSEO: React.FC<ImageSEOProps> = ({
         onLoad={handleImageLoad}
         onError={handleImageError}
         trackEvent="seo_optimized_image"
+        loading={loading}
+        decoding="async"
+        fetchpriority={priority ? "high" : "auto"}
       />
       
       {/* Preload critical images for better LCP */}
@@ -139,8 +161,26 @@ export const withImageSEO = <P extends object>(
         // Add alt text validation
         const imagesWithoutAlt = document.querySelectorAll('img:not([alt])');
         if (imagesWithoutAlt.length > 0) {
-          console.warn(`Found ${imagesWithoutAlt.length} images without alt text - this affects SEO`);
+          console.warn(`Found ${imagesWithoutAlt.length} images without alt text - this affects SEO and accessibility`);
         }
+
+        // Add structured data for images with data attributes
+        const imageElements = document.querySelectorAll('img[data-seo-structured]');
+        imageElements.forEach(img => {
+          const structuredData = JSON.parse(img.getAttribute('data-seo-structured') || '{}');
+          if (Object.keys(structuredData).length > 0) {
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ImageObject",
+              "url": img.src,
+              "description": img.alt,
+              ...structuredData
+            });
+            document.head.appendChild(script);
+          }
+        });
       }
     }, [seoOptimization]);
 

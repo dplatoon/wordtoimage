@@ -9,12 +9,31 @@ interface ImageDisplayProps {
   index: number;
   onLoad: () => void;
   onError: () => void;
+  prompt?: string;
+  style?: string;
 }
 
-export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayProps) {
+export function ImageDisplay({ imageUrl, index, onLoad, onError, prompt, style }: ImageDisplayProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [imageSrc, setImageSrc] = useState(imageUrl);
+  
+  // Generate descriptive alt text based on available information
+  const generateAltText = () => {
+    let altText = `AI-generated image ${index + 1}`;
+    
+    if (style) {
+      altText += ` in ${style} style`;
+    }
+    
+    if (prompt) {
+      // Extract key descriptive words from prompt (first 50 characters)
+      const promptPreview = prompt.length > 50 ? prompt.substring(0, 50) + '...' : prompt;
+      altText += `: ${promptPreview}`;
+    }
+    
+    return altText;
+  };
   
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -73,12 +92,18 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError }: ImageDisplayP
       <AspectRatio ratio={1}>
         <img
           src={imageSrc}
-          alt={`Generated image ${index + 1}`}
+          alt={generateAltText()}
           className="w-full h-full object-cover transition-all duration-300 hover:scale-105"
           onLoad={handleImageLoad}
           onError={handleImageError}
           loading="lazy"
           decoding="async"
+          data-seo-structured={JSON.stringify({
+            contentUrl: imageUrl,
+            caption: prompt,
+            keywords: style ? [style, 'AI art', 'generated image'] : ['AI art', 'generated image'],
+            encodingFormat: imageUrl.split('.').pop()?.toLowerCase() || 'jpeg'
+          })}
         />
       </AspectRatio>
     </div>
