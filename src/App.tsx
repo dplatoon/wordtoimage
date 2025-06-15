@@ -1,4 +1,3 @@
-
 import { Suspense, lazy } from 'react';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -37,6 +36,18 @@ const PerformanceTest = lazy(() => import('./pages/PerformanceTest'));
 const WordToImageImprovementsUI = lazy(() => import('./pages/WordToImageImprovementsUI'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
+// New pages
+const Product = lazy(() => import('./pages/Product'));
+const AITemplates = lazy(() => import('./pages/AITemplates'));
+const StyleGallery = lazy(() => import('./pages/StyleGallery'));
+const BatchGenerator = lazy(() => import('./pages/BatchGenerator'));
+const AIUpscaler = lazy(() => import('./pages/AIUpscaler'));
+const PromptGuide = lazy(() => import('./pages/PromptGuide'));
+const VideoTutorials = lazy(() => import('./pages/VideoTutorials'));
+const WhatsNew = lazy(() => import('./pages/WhatsNew'));
+const JoinOurTeam = lazy(() => import('./pages/JoinOurTeam'));
+const ContactSupport = lazy(() => import('./pages/ContactSupport'));
+
 // Create a stable query client instance
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,30 +70,57 @@ function App() {
                   <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
                     <Routes>
                       <Route path="/" element={<Index />} />
+                      
+                      {/* Product Routes */}
+                      <Route path="/product" element={<Product />} />
                       <Route path="/text-to-image" element={<TextToImage />} />
+                      <Route path="/ai-templates" element={<AITemplates />} />
+                      <Route path="/style-gallery" element={<StyleGallery />} />
+                      <Route path="/batch-generator" element={<BatchGenerator />} />
+                      <Route path="/ai-upscaler" element={<AIUpscaler />} />
+                      
+                      {/* Existing Routes */}
                       <Route path="/features" element={<Features />} />
                       <Route path="/pricing" element={<Pricing />} />
+                      <Route path="/beta" element={<Beta />} />
+                      <Route path="/beta-landing" element={<BetaLanding />} />
+                      
+                      {/* Resource Routes */}
+                      <Route path="/blog" element={<Blog />} />
+                      <Route path="/prompt-guide" element={<PromptGuide />} />
+                      <Route path="/video-tutorials" element={<VideoTutorials />} />
+                      <Route path="/tutorials" element={<Tutorials />} />
+                      <Route path="/design-tips" element={<DesignTips />} />
+                      <Route path="/help" element={<Help />} />
+                      <Route path="/api" element={<API />} />
+                      <Route path="/whats-new" element={<WhatsNew />} />
+                      <Route path="/updates" element={<Updates />} />
+                      
+                      {/* Community & Support */}
+                      <Route path="/community" element={<Community />} />
+                      <Route path="/contact-support" element={<ContactSupport />} />
+                      
+                      {/* Company Routes */}
                       <Route path="/about" element={<About />} />
+                      <Route path="/join-our-team" element={<JoinOurTeam />} />
+                      <Route path="/careers" element={<Careers />} />
                       <Route path="/contact" element={<Contact />} />
+                      
+                      {/* User Routes */}
                       <Route path="/auth" element={<Auth />} />
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route path="/templates" element={<Templates />} />
-                      <Route path="/blog" element={<Blog />} />
-                      <Route path="/tutorials" element={<Tutorials />} />
-                      <Route path="/design-tips" element={<DesignTips />} />
-                      <Route path="/community" element={<Community />} />
-                      <Route path="/help" element={<Help />} />
-                      <Route path="/api" element={<API />} />
-                      <Route path="/updates" element={<Updates />} />
+                      <Route path="/payment-success" element={<PaymentSuccess />} />
+                      
+                      {/* Legal Routes */}
                       <Route path="/terms" element={<Terms />} />
                       <Route path="/privacy" element={<Privacy />} />
                       <Route path="/cookies" element={<Cookies />} />
-                      <Route path="/careers" element={<Careers />} />
-                      <Route path="/payment-success" element={<PaymentSuccess />} />
-                      <Route path="/beta" element={<Beta />} />
-                      <Route path="/beta-landing" element={<BetaLanding />} />
+                      
+                      {/* Development Routes */}
                       <Route path="/performance-test" element={<PerformanceTest />} />
                       <Route path="/word-to-image-improvements" element={<WordToImageImprovementsUI />} />
+                      
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </Suspense>
