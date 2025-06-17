@@ -1,356 +1,245 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { 
-  Download, 
-  Heart, 
-  Share2, 
-  MoreHorizontal, 
-  Sparkles,
-  Grid3X3,
-  List,
-  Search,
-  Settings
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { toast } from '@/components/ui/sonner';
+import { ImageGallery } from './ImageGallery';
+import { GalleryManager } from '../gallery/GalleryManager';
+import { Button } from '../ui/button';
 import { storageService, StoredImage } from '@/services/storageService';
-import { GalleryManager } from '@/components/gallery/GalleryManager';
+import { Download, Settings, Grid3X3, List, Search } from 'lucide-react';
+import { toast } from '../ui/sonner';
+import { cn } from '@/lib/utils';
 
 interface EnhancedImageGalleryProps {
-  images: { url: string; prompt?: string; timestamp?: number }[];
+  images: Array<{
+    url: string;
+    prompt?: string;
+    timestamp?: number;
+  }>;
   loading?: boolean;
+  showGalleryManager?: boolean;
+  onToggleGalleryManager?: (show: boolean) => void;
 }
 
-export function EnhancedImageGallery({ images, loading }: EnhancedImageGalleryProps) {
-  const [persistentImages, setPersistentImages] = useState<StoredImage[]>([]);
-  const [showManager, setShowManager] = useState(false);
-  const isMobile = useIsMobile();
+export function EnhancedImageGallery({ 
+  images, 
+  loading = false, 
+  showGalleryManager = false,
+  onToggleGalleryManager 
+}: EnhancedImageGalleryProps) {
+  const [storedImages, setStoredImages] = useState<StoredImage[]>([]);
+  const [viewMode, setViewMode] = useState<'gallery' | 'manager'>('gallery');
 
-  // Load persistent images on mount
+  // Load stored images from localStorage
   useEffect(() => {
-    const stored = storageService.getImages();
-    setPersistentImages(stored);
+    const loadStoredImages = () => {
+      const stored = storageService.getAllImages();
+      setStoredImages(stored);
+    };
+
+    loadStoredImages();
+    
+    // Set up periodic refresh to catch changes from other tabs
+    const interval = setInterval(loadStoredImages, 2000);
+    return () => clearInterval(interval);
   }, []);
 
-  // Save new images to persistent storage
+  // Auto-save new images to storage
   useEffect(() => {
-    if (images.length > 0) {
-      const newImages = images.filter(img => {
-        // Check if image is already in persistent storage
-        return !persistentImages.some(stored => stored.url === img.url);
-      });
-
-      newImages.forEach(img => {
-        const storedImage = storageService.saveImage({
-          url: img.url,
-          prompt: img.prompt || 'Generated image',
-          timestamp: img.timestamp || Date.now(),
-          favorite: false,
-          style: 'auto' // Default style, could be enhanced to detect from generation
-        });
-        
-        setPersistentImages(prev => [storedImage, ...prev]);
-      });
-    }
-  }, [images, persistentImages]);
-
-  const handleToggleFavorite = (imageId: string) => {
-    storageService.toggleFavorite(imageId);
-    setPersistentImages(prev => 
-      prev.map(img => 
-        img.id === imageId ? { ...img, favorite: !img.favorite } : img
-      )
-    );
-  };
-
-  const handleDownload = (imageUrl: string, imageName: string) => {
-    try {
-      const link = document.createElement('a');
-      link.href = imageUrl;
-      link.download = `${imageName}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      toast.success('Download started');
-    } catch (error) {
-      window.open(imageUrl, '_blank');
-      toast.success('Image opened in new tab');
-    }
-  };
-
-  const handleShare = async (imageUrl: string) => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'AI Generated Image',
-          url: imageUrl
-        });
-      } catch (error) {
-        navigator.clipboard.writeText(imageUrl);
-        toast.success('Image URL copied to clipboard');
+    images.forEach(image => {
+      if (image.url && image.timestamp) {
+        const existingImage = storedImages.find(stored => stored.url === image.url);
+        if (!existingImage) {
+          const storedImage: StoredImage = {
+            id: `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            url: image.url,
+            prompt: image.prompt || 'Generated image',
+            timestamp: image.timestamp,
+            favorite: false,
+            tags: [],
+            style: 'auto',
+            resolution: '1024x1024'
+          };
+          
+          storageService.saveImage(storedImage);
+          setStoredImages(prev => [...prev, storedImage]);
+          
+          console.log('Auto-saved image to gallery:', storedImage.id);
+        }
       }
+    });
+  }, [images, storedImages]);
+
+  // Handle gallery manager toggle
+  useEffect(() => {
+    if (showGalleryManager) {
+      setViewMode('manager');
     } else {
-      navigator.clipboard.writeText(imageUrl);
-      toast.success('Image URL copied to clipboard');
+      setViewMode('gallery');
+    }
+  }, [showGalleryManager]);
+
+  const handleToggleManager = () => {
+    const newMode = viewMode === 'gallery' ? 'manager' : 'gallery';
+    setViewMode(newMode);
+    onToggleGalleryManager?.(newMode === 'manager');
+  };
+
+  const handleImagesChange = (updatedImages: StoredImage[]) => {
+    setStoredImages(updatedImages);
+  };
+
+  const handleDownloadAll = async () => {
+    if (images.length === 0) {
+      toast.error("No images to download");
+      return;
+    }
+
+    let successCount = 0;
+    let errorCount = 0;
+
+    for (const image of images) {
+      try {
+        // Open each image in a new tab for download
+        window.open(image.url, '_blank');
+        successCount++;
+        
+        // Add delay between downloads to prevent browser blocking
+        await new Promise(resolve => setTimeout(resolve, 500));
+      } catch (error) {
+        console.error('Failed to download image:', error);
+        errorCount++;
+      }
+    }
+
+    if (successCount > 0) {
+      toast.success(`Opened ${successCount} image${successCount > 1 ? 's' : ''} for download`);
+    }
+    
+    if (errorCount > 0) {
+      toast.error(`Failed to open ${errorCount} image${errorCount > 1 ? 's' : ''}`);
     }
   };
 
-  // Show gallery manager if requested
-  if (showManager) {
+  const handleEdit = (url: string) => {
+    // For now, just copy the image URL to clipboard
+    navigator.clipboard.writeText(url).then(() => {
+      toast.success("Image URL copied to clipboard", {
+        description: "You can paste this into other applications"
+      });
+    }).catch(() => {
+      toast.error("Failed to copy URL");
+    });
+  };
+
+  // Show loading state
+  if (loading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-800">Gallery Manager</h2>
-          <Button
-            variant="outline"
-            onClick={() => setShowManager(false)}
-          >
-            Back to Gallery
-          </Button>
+          <h2 className="text-xl font-semibold text-gray-800">Generated Images</h2>
+          <div className="flex gap-2">
+            <div className="h-9 w-24 bg-gray-200 rounded animate-pulse"></div>
+            <div className="h-9 w-32 bg-gray-200 rounded animate-pulse"></div>
+          </div>
         </div>
-        <GalleryManager
-          images={persistentImages}
-          onImagesChange={setPersistentImages}
-        />
+        <ImageGallery images={[]} onEdit={handleEdit} loading={true} />
       </div>
     );
   }
 
-  if (loading) {
+  // Empty state for no images
+  if (images.length === 0 && storedImages.length === 0) {
     return (
-      <Card className="border-gray-200">
-        <CardContent className="p-6">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-violet-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Generating your image...</p>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="text-center py-12">
+        <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+          <Grid3X3 className="h-8 w-8 text-gray-400" />
+        </div>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">No images yet</h3>
+        <p className="text-gray-500">Generate your first AI image to get started!</p>
+      </div>
     );
   }
-
-  if (!persistentImages || persistentImages.length === 0) {
-    return (
-      <Card className="border-gray-200">
-        <CardContent className="p-8 text-center">
-          <div className="space-y-4">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
-              <Sparkles className="h-8 w-8 text-gray-400" />
-            </div>
-            <div>
-              <h3 className="text-lg font-medium text-gray-800 mb-2">
-                Your Gallery Awaits
-              </h3>
-              <p className="text-gray-600 max-w-md mx-auto">
-                Start creating amazing AI-generated images! Your creations will appear here and be automatically saved.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  // Show recent images (last 6) in simple view, with option to open manager
-  const recentImages = persistentImages.slice(0, 6);
 
   return (
     <div className="space-y-6">
-      {/* Gallery Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <h2 className="text-xl font-semibold text-gray-800 flex items-center">
-            <Sparkles className="h-5 w-5 text-violet-600 mr-2" />
-            Your Gallery
+      {/* Header with controls */}
+      <div className="flex items-center justify-between flex-wrap gap-4">
+        <div className="flex items-center gap-3">
+          <h2 className="text-xl font-semibold text-gray-800">
+            {viewMode === 'gallery' ? 'Generated Images' : 'Gallery Manager'}
           </h2>
-          <Badge variant="secondary" className="bg-violet-100 text-violet-800">
-            {persistentImages.length} {persistentImages.length === 1 ? 'image' : 'images'}
-          </Badge>
+          <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            {viewMode === 'gallery' ? images.length : storedImages.length} image{(viewMode === 'gallery' ? images.length : storedImages.length) !== 1 ? 's' : ''}
+          </span>
         </div>
-        
-        <div className="flex items-center space-x-2">
-          {persistentImages.length > 6 && (
+
+        <div className="flex items-center gap-2">
+          {images.length > 0 && viewMode === 'gallery' && (
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setShowManager(true)}
-              className="flex items-center gap-2"
+              onClick={handleDownloadAll}
+              className="hover:bg-blue-50 hover:border-blue-300"
             >
-              <Search className="h-4 w-4" />
-              Manage All
+              <Download className="h-4 w-4 mr-2" />
+              Download All
             </Button>
           )}
+          
           <Button
-            variant="outline"
+            variant={viewMode === 'manager' ? 'default' : 'outline'}
             size="sm"
-            onClick={() => setShowManager(true)}
-            className="flex items-center gap-2"
+            onClick={handleToggleManager}
+            className={cn(
+              "transition-colors",
+              viewMode === 'manager' 
+                ? "bg-violet-600 hover:bg-violet-700 text-white" 
+                : "hover:bg-violet-50 hover:border-violet-300"
+            )}
           >
-            <Settings className="h-4 w-4" />
-            Settings
+            {viewMode === 'manager' ? (
+              <>
+                <Grid3X3 className="h-4 w-4 mr-2" />
+                Gallery View
+              </>
+            ) : (
+              <>
+                <Settings className="h-4 w-4 mr-2" />
+                Gallery Manager
+              </>
+            )}
           </Button>
         </div>
       </div>
 
-      {/* Recent Images Grid */}
-      <div className={cn(
-        "gap-4",
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-      )}>
-        {recentImages.map((image) => (
-          <Card 
-            key={image.id}
-            className="group overflow-hidden border-gray-200 hover:border-violet-300 transition-all duration-300 hover:shadow-lg"
-          >
-            <div className="relative w-full">
-              <AspectRatio ratio={1} className="overflow-hidden">
-                <img
-                  src={image.url}
-                  alt={image.prompt}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </AspectRatio>
-              
-              {/* Overlay Actions */}
-              <div className={cn(
-                "absolute inset-0 bg-black/50 flex items-center justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300",
-                isMobile && "opacity-100 bg-black/30"
-              )}>
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => handleToggleFavorite(image.id)}
-                  className={cn(
-                    "h-8 w-8 p-0",
-                    image.favorite && "bg-red-500 hover:bg-red-600 text-white"
-                  )}
-                >
-                  <Heart className={cn(
-                    "h-4 w-4",
-                    image.favorite && "fill-current"
-                  )} />
-                </Button>
-                
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => handleDownload(image.url, `generated-${image.id}`)}
-                  className="h-8 w-8 p-0"
-                >
-                  <Download className="h-4 w-4" />
-                </Button>
-                
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => handleShare(image.url)}
-                  className="h-8 w-8 p-0"
-                >
-                  <Share2 className="h-4 w-4" />
-                </Button>
-              </div>
-
-              {/* Favorite Badge */}
-              {image.favorite && (
-                <div className="absolute top-2 right-2">
-                  <div className="bg-red-500 text-white rounded-full p-1">
-                    <Heart className="h-3 w-3 fill-current" />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Image Info */}
-            <CardContent className="p-4">
-              <div className="space-y-2">
-                <p className="text-sm text-gray-600 line-clamp-2">
-                  "{image.prompt}"
-                </p>
-                
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span>
-                    {new Date(image.timestamp).toLocaleDateString()}
-                  </span>
-                  
-                  <div className="flex items-center space-x-2">
-                    {image.favorite && (
-                      <Badge variant="secondary" className="text-xs bg-red-50 text-red-700">
-                        Favorite
-                      </Badge>
-                    )}
-                    {image.style && (
-                      <Badge variant="secondary" className="text-xs">
-                        {image.style}
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-
-                {/* Mobile Actions */}
-                {isMobile && (
-                  <div className="flex justify-between pt-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleToggleFavorite(image.id)}
-                      className="flex-1 mr-1"
-                    >
-                      <Heart className={cn(
-                        "h-3 w-3 mr-1",
-                        image.favorite && "fill-current text-red-500"
-                      )} />
-                      {image.favorite ? 'Favorited' : 'Favorite'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDownload(image.url, `generated-${image.id}`)}
-                      className="flex-1 ml-1"
-                    >
-                      <Download className="h-3 w-3 mr-1" />
-                      Download
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Show More Button */}
-      {persistentImages.length > 6 && (
-        <div className="text-center">
-          <Button
-            variant="outline"
-            onClick={() => setShowManager(true)}
-            className="flex items-center gap-2"
-          >
-            View All {persistentImages.length} Images
-          </Button>
-        </div>
+      {/* Content based on view mode */}
+      {viewMode === 'gallery' ? (
+        <ImageGallery 
+          images={images.map(img => ({ url: img.url }))} 
+          onEdit={handleEdit} 
+          loading={loading}
+        />
+      ) : (
+        <GalleryManager
+          images={storedImages}
+          onImagesChange={handleImagesChange}
+          className="bg-white rounded-xl border border-gray-200 p-6"
+        />
       )}
 
-      {/* Gallery Stats */}
-      <div className="flex items-center justify-center pt-4">
-        <div className="bg-gray-50 rounded-lg px-4 py-2">
-          <p className="text-sm text-gray-600 flex items-center">
-            <Sparkles className="h-4 w-4 mr-2 text-violet-500" />
-            You've created {persistentImages.length} amazing {persistentImages.length === 1 ? 'image' : 'images'}!
-            {persistentImages.filter(img => img.favorite).length > 0 && (
-              <span className="ml-2 text-red-600">
-                ({persistentImages.filter(img => img.favorite).length} favorited)
-              </span>
-            )}
-          </p>
+      {/* Gallery tips for new users */}
+      {storedImages.length > 0 && storedImages.length < 5 && viewMode === 'gallery' && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-start gap-3">
+            <Search className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <div>
+              <h3 className="font-medium text-blue-900 mb-1">Gallery Tip</h3>
+              <p className="text-blue-800 text-sm">
+                All your images are automatically saved! Use the Gallery Manager to organize, search, and manage your collection as it grows.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

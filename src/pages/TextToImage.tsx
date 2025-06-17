@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { toast } from '@/components/ui/sonner';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
@@ -32,6 +31,7 @@ export default function TextToImage() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
   const [showTips, setShowTips] = useState(true);
+  const [showGalleryManager, setShowGalleryManager] = useState(false);
   const { user, isLoading } = useAuth();
   const isMobile = useIsMobile();
   
@@ -47,8 +47,6 @@ export default function TextToImage() {
       setLastGenerationTime(Date.now());
       setProgress(100);
       
-      // Auto-save to persistent storage happens in EnhancedImageGallery
-      
       toast.success("Image generated successfully!", {
         description: "Your custom graphic is ready to download.",
         action: {
@@ -63,7 +61,6 @@ export default function TextToImage() {
       if (generating) {
         setProgress(0);
         setError(null);
-        // Simulate progress
         const interval = setInterval(() => {
           setProgress(prev => {
             const newProgress = prev + Math.random() * 15;
@@ -116,7 +113,6 @@ export default function TextToImage() {
       return;
     }
     
-    // Save prompt to search history
     storageService.addSearchTerm(prompt.trim());
     
     try {
@@ -133,10 +129,60 @@ export default function TextToImage() {
     }
   };
 
-  // Load prompt from search history
   const handleSelectFromHistory = (historicalPrompt: string) => {
     setPrompt(historicalPrompt);
     toast.success("Prompt loaded from history");
+  };
+
+  // Fix the Create Another functionality
+  const handleCreateAnother = () => {
+    // Clear the prompt and focus on input
+    setPrompt('');
+    setError(null);
+    setProgress(0);
+    
+    // Focus on the prompt input
+    setTimeout(() => {
+      const promptInput = document.querySelector('textarea[placeholder*="Describe"]') as HTMLTextAreaElement;
+      if (promptInput) {
+        promptInput.focus();
+        promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+    
+    toast.success("Ready for your next creation!", {
+      description: "Enter a new prompt to generate another image"
+    });
+  };
+
+  // Fix the Generate Variation functionality  
+  const handleGenerateVariation = async () => {
+    if (!prompt.trim()) {
+      toast.error("No prompt available for variation", {
+        description: "Please enter a description first"
+      });
+      return;
+    }
+    
+    // Add variation keywords to the existing prompt
+    const variationPrompt = `${prompt}, different style, alternate version, creative variation`;
+    
+    try {
+      await generateImageFromPrompt(variationPrompt, '', false, '');
+      toast.info("Generating variation...", {
+        description: "Creating a different version of your image"
+      });
+    } catch (error) {
+      console.error('Failed to generate variation:', error);
+    }
+  };
+
+  // Fix the Manage Gallery functionality
+  const handleManageGallery = () => {
+    setShowGalleryManager(true);
+    toast.success("Gallery Manager opened", {
+      description: "Manage your generated images below"
+    });
   };
 
   // Keyboard shortcuts
@@ -231,7 +277,6 @@ export default function TextToImage() {
             </div>
           </div>
 
-          {/* Quick Access to Recent Prompts */}
           {searchHistory.length > 0 && (
             <div className="mb-6">
               <Button
@@ -262,7 +307,6 @@ export default function TextToImage() {
             </div>
           )}
 
-          {/* User Status Alert */}
           {!user && !isLoading && (
             <Alert className="max-w-2xl mx-auto mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
               <HelpCircle className="h-4 w-4 text-amber-600" />
@@ -330,9 +374,11 @@ export default function TextToImage() {
           <EnhancedImageGallery 
             images={generatedImages} 
             loading={isGenerating}
+            showGalleryManager={showGalleryManager}
+            onToggleGalleryManager={setShowGalleryManager}
           />
           
-          {/* Next Steps CTA */}
+          {/* Fixed Next Steps CTA */}
           {generatedImages.length > 0 && !isGenerating && (
             <div className="mt-8 text-center">
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 max-w-2xl mx-auto">
@@ -343,7 +389,7 @@ export default function TextToImage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Button 
                     variant="outline" 
-                    onClick={() => setPrompt('')}
+                    onClick={handleCreateAnother}
                     className="hover:bg-violet-50 hover:border-violet-300 transition-colors"
                   >
                     <Wand2 className="h-4 w-4 mr-2" />
@@ -351,7 +397,7 @@ export default function TextToImage() {
                   </Button>
                   <Button 
                     variant="outline"
-                    onClick={() => handleGenerate()}
+                    onClick={handleGenerateVariation}
                     disabled={!prompt.trim()}
                     className="hover:bg-violet-50 hover:border-violet-300 transition-colors disabled:opacity-50"
                   >
@@ -360,10 +406,7 @@ export default function TextToImage() {
                   </Button>
                   <Button 
                     variant="outline"
-                    onClick={() => {
-                      // This will be handled by the gallery component to show the manager
-                      toast.info("Use the Gallery Manager button above to explore all features!");
-                    }}
+                    onClick={handleManageGallery}
                     className="hover:bg-violet-50 hover:border-violet-300 transition-colors"
                   >
                     <BookOpen className="h-4 w-4 mr-2" />
