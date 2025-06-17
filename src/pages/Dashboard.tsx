@@ -29,29 +29,64 @@ export default function Dashboard() {
   }, [user]);
 
   const fetchProfile = async () => {
+    if (!user?.id) {
+      console.log('No user ID available');
+      setLoading(false);
+      return;
+    }
+
     try {
+      console.log('Fetching profile for user:', user.id);
+      
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', user?.id)
-        .single();
+        .eq('user_id', user.id)
+        .maybeSingle();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Profile fetch error:', error);
+        throw error;
+      }
       
       if (data) {
+        console.log('Profile data found:', data);
         const profileData: Profile = {
           id: data.id,
-          username: data.username || '',
-          full_name: data.full_name || data.username || '',
+          username: data.username || user.email?.split('@')[0] || '',
+          full_name: data.full_name || data.username || user.email?.split('@')[0] || '',
           bio: data.bio || '',
           avatar_url: data.avatar_url || '',
         };
         
         setProfile(profileData);
+      } else {
+        console.log('No profile found, creating default profile');
+        // Create a default profile if none exists
+        const defaultProfile: Profile = {
+          id: 0, // Will be set by database
+          username: user.email?.split('@')[0] || 'User',
+          full_name: user.email?.split('@')[0] || 'User',
+          bio: '',
+          avatar_url: '',
+        };
+        setProfile(defaultProfile);
       }
     } catch (error) {
-      toast.error('Error loading profile');
-      console.error('Error:', error);
+      console.error('Error fetching profile:', error);
+      // Create a fallback profile so users can still use the app
+      const fallbackProfile: Profile = {
+        id: 0,
+        username: user.email?.split('@')[0] || 'User',
+        full_name: user.email?.split('@')[0] || 'User',
+        bio: '',
+        avatar_url: '',
+      };
+      setProfile(fallbackProfile);
+      
+      toast.error('Profile data unavailable', {
+        description: 'Using default profile. You can update your information below.'
+      });
     } finally {
       setLoading(false);
     }
@@ -67,7 +102,21 @@ export default function Dashboard() {
           </h1>
           
           <div className="bg-white rounded-xl shadow-md p-6">
-            {loading ? <ProfileSkeleton /> : profile && <ProfileCard profile={profile} />}
+            {loading ? (
+              <ProfileSkeleton />
+            ) : profile ? (
+              <ProfileCard profile={profile} />
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-gray-500 mb-4">Unable to load profile</p>
+                <button 
+                  onClick={fetchProfile}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Try Again
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <Footer />

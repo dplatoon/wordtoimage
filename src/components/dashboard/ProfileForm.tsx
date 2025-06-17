@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -20,29 +21,62 @@ interface ProfileFormProps {
 }
 
 export function ProfileForm({ initialProfile }: ProfileFormProps) {
+  const { user } = useAuth();
   const [profile, setProfile] = useState<Profile>(initialProfile);
   const [updating, setUpdating] = useState(false);
 
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
+    if (!user?.id) {
+      toast.error('User not authenticated');
+      return;
+    }
+
     setUpdating(true);
     try {
-      const { error } = await supabase
+      console.log('Updating profile for user:', user.id);
+      
+      // Check if profile exists first
+      const { data: existingProfile } = await supabase
         .from('profiles')
-        .update({
-          username: profile.username,
-          full_name: profile.full_name,
-          bio: profile.bio,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', profile.id);
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle();
 
-      if (error) throw error;
+      if (existingProfile) {
+        // Update existing profile
+        const { error } = await supabase
+          .from('profiles')
+          .update({
+            username: profile.username,
+            full_name: profile.full_name,
+            bio: profile.bio,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('user_id', user.id);
+
+        if (error) throw error;
+      } else {
+        // Create new profile
+        const { error } = await supabase
+          .from('profiles')
+          .insert([{
+            user_id: user.id,
+            username: profile.username,
+            full_name: profile.full_name,
+            bio: profile.bio,
+          }]);
+
+        if (error) throw error;
+      }
+
       toast.success('Profile updated successfully');
     } catch (error) {
-      toast.error('Error updating profile');
-      console.error('Error:', error);
+      console.error('Error updating profile:', error);
+      toast.error('Error updating profile', {
+        description: error instanceof Error ? error.message : 'Please try again'
+      });
     } finally {
       setUpdating(false);
     }
