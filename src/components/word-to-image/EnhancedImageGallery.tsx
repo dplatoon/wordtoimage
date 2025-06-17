@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ImageGallery } from './ImageGallery';
 import { GalleryManager } from '../gallery/GalleryManager';
@@ -31,7 +30,7 @@ export function EnhancedImageGallery({
   // Load stored images from localStorage
   useEffect(() => {
     const loadStoredImages = () => {
-      const stored = storageService.getAllImages();
+      const stored = storageService.getImages();
       setStoredImages(stored);
     };
 
