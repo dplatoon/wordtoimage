@@ -121,3 +121,25 @@ export async function signOut(): Promise<void> {
     throw error;
   }
 }
+
+export async function resetPassword(email: string): Promise<void> {
+  try {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth?tab=reset-password`
+    });
+    
+    if (error) {
+      throw error;
+    }
+    
+    toast.success("Password reset email sent", {
+      description: "Please check your email for password reset instructions."
+    });
+  } catch (error) {
+    console.error("Error sending password reset email:", error);
+    toast.error("Password reset failed", {
+      description: error instanceof Error ? error.message : "Please try again"
+    });
+    throw error;
+  }
+}

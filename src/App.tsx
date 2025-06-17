@@ -13,6 +13,7 @@ import Index from "./pages/Index";
 import TextToImage from "./pages/TextToImage";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -40,6 +41,7 @@ function App() {
                   <Route path="/text-to-image" element={<TextToImage />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/about" element={<About />} />
+                  <Route path="/auth" element={<Auth />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Toaster 

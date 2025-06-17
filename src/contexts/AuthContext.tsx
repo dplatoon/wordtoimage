@@ -43,6 +43,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     signOut: async () => {
       await authService.signOut();
     },
+    resetPassword: async (email: string) => {
+      await authService.resetPassword(email);
+    },
   };
 
   return (

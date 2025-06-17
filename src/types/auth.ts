@@ -12,6 +12,7 @@ export interface AuthContextType {
   signInWithGoogle: () => Promise<void>;
   signUp: (email: string, password: string, username?: string) => Promise<void>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
 }
 
 export interface UserMetadata {
