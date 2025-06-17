@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { toast } from '@/components/ui/sonner';
@@ -138,19 +137,23 @@ export function GalleryManager({ images, onImagesChange, className }: GalleryMan
   };
 
   const handleExportData = () => {
-    const data = storageService.exportData();
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = window.URL.createObjectURL(blob);
-    
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `wordtoimage-backup-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-    
-    toast.success('Gallery data exported successfully');
+    try {
+      const data = storageService.exportData();
+      const dataStr = JSON.stringify(data, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `wordtoimage-gallery-${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      toast.success("Gallery data exported successfully");
+    } catch (error) {
+      console.error('Failed to export data:', error);
+      toast.error("Failed to export gallery data");
+    }
   };
 
   const toggleFavorite = (id: string) => {

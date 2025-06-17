@@ -14,6 +14,7 @@ export interface ResponsiveImageProps {
   priority?: boolean;
   sizes?: string;
   srcSet?: string;
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 }
 
 export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
@@ -28,6 +29,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   priority = false,
   sizes,
   srcSet,
+  objectFit = 'cover',
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -73,6 +75,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
       onError={handleError}
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
+      style={{ objectFit }}
       {...(sizes && { sizes })}
       {...(srcSet && { srcSet })}
     />

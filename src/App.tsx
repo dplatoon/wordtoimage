@@ -7,10 +7,11 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import { SEOPerformanceMonitor } from "@/components/seo/SEOPerformanceMonitor";
+import { CriticalCSS } from "@/components/performance/CriticalCSS";
+import { ResourcePreloader } from "@/components/performance/ResourcePreloader";
 import Index from "./pages/Index";
 import TextToImage from "./pages/TextToImage";
 import Dashboard from "./pages/Dashboard";
-import AuthCallback from "./pages/AuthCallback";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,12 +30,13 @@ function App() {
           <TooltipProvider>
             <AuthProvider>
               <BrowserRouter>
+                <CriticalCSS />
+                <ResourcePreloader />
                 <SEOPerformanceMonitor />
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/text-to-image" element={<TextToImage />} />
                   <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/auth/callback" element={<AuthCallback />} />
                 </Routes>
                 <Toaster 
                   position="bottom-right"

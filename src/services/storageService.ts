@@ -15,6 +15,8 @@ interface UserPreferences {
   defaultStyle: string;
   defaultResolution: string;
   showTips: boolean;
+  viewMode: 'grid' | 'list';
+  sortBy: 'newest' | 'oldest' | 'favorites';
 }
 
 class StorageService {
@@ -59,6 +61,15 @@ class StorageService {
     }
   }
 
+  deleteImages(imageIds: string[]): void {
+    try {
+      const images = this.getImages().filter(img => !imageIds.includes(img.id));
+      localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
+    } catch (error) {
+      console.error('Failed to delete images from storage:', error);
+    }
+  }
+
   updateImage(imageId: string, updates: Partial<StoredImage>): void {
     try {
       const images = this.getImages();
@@ -70,6 +81,37 @@ class StorageService {
       }
     } catch (error) {
       console.error('Failed to update image in storage:', error);
+    }
+  }
+
+  toggleFavorite(imageId: string): void {
+    try {
+      const images = this.getImages();
+      const index = images.findIndex(img => img.id === imageId);
+      
+      if (index >= 0) {
+        images[index].favorite = !images[index].favorite;
+        localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
+      }
+    } catch (error) {
+      console.error('Failed to toggle favorite:', error);
+    }
+  }
+
+  searchImages(query: string): StoredImage[] {
+    try {
+      const images = this.getImages();
+      if (!query.trim()) return images;
+      
+      const searchTerm = query.toLowerCase();
+      return images.filter(image => 
+        image.prompt.toLowerCase().includes(searchTerm) ||
+        image.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+        (image.style && image.style.toLowerCase().includes(searchTerm))
+      );
+    } catch (error) {
+      console.error('Failed to search images:', error);
+      return [];
     }
   }
 
@@ -112,7 +154,9 @@ class StorageService {
         autoSave: true,
         defaultStyle: 'photographic',
         defaultResolution: '1024x1024',
-        showTips: true
+        showTips: true,
+        viewMode: 'grid',
+        sortBy: 'newest'
       };
       
       return stored ? { ...defaults, ...JSON.parse(stored) } : defaults;
@@ -122,7 +166,9 @@ class StorageService {
         autoSave: true,
         defaultStyle: 'photographic',
         defaultResolution: '1024x1024',
-        showTips: true
+        showTips: true,
+        viewMode: 'grid',
+        sortBy: 'newest'
       };
     }
   }
