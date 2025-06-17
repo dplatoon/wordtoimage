@@ -11,7 +11,7 @@ interface GenerationControlsProps {
   count: number;
   onStyleChange: React.Dispatch<React.SetStateAction<string>>;
   onResolutionChange: React.Dispatch<React.SetStateAction<string>>;
-  onCountChange: (value: string) => void;
+  onCountChange: (value: number) => void; // Fixed: now accepts number
 }
 
 export const GenerationControls = memo(({

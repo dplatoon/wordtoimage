@@ -126,11 +126,6 @@ export const useImageGenerationForm = ({
     }
   };
 
-  // Create a wrapper function to handle string to number conversion
-  const handleCountChange = (value: string) => {
-    setCount(Number(value));
-  };
-
   return {
     // Form state
     prompt,
@@ -149,7 +144,7 @@ export const useImageGenerationForm = ({
     resolution: state.resolution,
     setResolution,
     count: state.count,
-    setCount: handleCountChange,
+    setCount, // This now directly accepts numbers
     sourceImage: state.sourceImage,
     setSourceImage,
     
