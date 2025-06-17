@@ -1,4 +1,3 @@
-
 import { useImageGenerationForm } from '@/hooks/useImageGenerationForm';
 import { AuthModalDialog } from './AuthModalDialog';
 import { FormLayout } from './form/FormLayout';
@@ -56,10 +55,8 @@ export const ImageGenerationForm = ({
 
   const MAX_FREE_ANONYMOUS_GENERATIONS = 1; // Anonymous users can generate 1 image for free
 
-  // Create a wrapper function to handle string to number conversion
-  const handleCountChange = (value: string) => {
-    setCount(Number(value));
-  };
+  // Remove the wrapper function since setCount already handles numbers
+  // and the control component should pass numbers directly
 
   if (authLoading || isCheckingServerKey) {
     return (
@@ -88,7 +85,7 @@ export const ImageGenerationForm = ({
           count={count}
           onStyleChange={setStyle}
           onResolutionChange={setResolution}
-          onCountChange={handleCountChange}
+          onCountChange={setCount}
           onSourceImageChange={setSourceImage}
         />
 

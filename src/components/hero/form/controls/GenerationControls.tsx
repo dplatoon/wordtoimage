@@ -1,4 +1,3 @@
-
 import { memo, useState } from 'react';
 import { StyleSelect } from './StyleSelect';
 import { ResolutionSelect } from './ResolutionSelect';
@@ -15,7 +14,7 @@ interface GenerationControlsProps {
   count: number;
   onStyleChange: (style: string) => void;
   onResolutionChange: (resolution: string) => void;
-  onCountChange: (count: string) => void;
+  onCountChange: (count: number) => void;
   onSourceImageChange?: (imageData: string) => void;
 }
 

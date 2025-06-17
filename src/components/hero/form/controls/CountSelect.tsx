@@ -1,28 +1,33 @@
 
-import { IMAGE_COUNTS } from '../../constants';
-import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Images } from 'lucide-react';
 
 interface CountSelectProps {
   value: number;
-  onChange: (value: string) => void;
+  onChange: (value: number) => void;
 }
 
 export const CountSelect = ({ value, onChange }: CountSelectProps) => {
-  const labelClass = "block text-xs font-medium text-gray-600 mb-1 ml-1";
-  const dropdownClass = "rounded-lg border border-gray-300 py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm text-sm w-full";
+  const counts = [1, 2, 3, 4];
 
   return (
-    <div>
-      <Label htmlFor="count-select" className={labelClass}>Images</Label>
-      <select 
-        id="count-select"
-        value={value} 
-        onChange={(e) => onChange(e.target.value)} 
-        className={dropdownClass} 
-        aria-label="Number of Images"
-      >
-        {IMAGE_COUNTS.map(n => <option key={n} value={n}>{n} image{n > 1 ? 's' : ''}</option>)}
-      </select>
+    <div className="space-y-2">
+      <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+        <Images className="h-4 w-4" />
+        Images
+      </label>
+      <Select value={value.toString()} onValueChange={(val) => onChange(Number(val))}>
+        <SelectTrigger className="w-full">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {counts.map((count) => (
+            <SelectItem key={count} value={count.toString()}>
+              {count} image{count > 1 ? 's' : ''}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 
-import { generateImageFromPrompt } from '@/services/runwareService';
+import { generateImageWithAI } from '@/services/imageGenerationService';
 
 export class ApiKeyService {
   static async checkServerKeyAvailability(): Promise<boolean> {
@@ -16,7 +16,7 @@ export class ApiKeyService {
         userId: null
       };
       
-      await generateImageFromPrompt(testOptions);
+      await generateImageWithAI(testOptions);
       console.log('Server API key is available and working');
       return true;
     } catch (error) {
