@@ -1,3 +1,4 @@
+
 interface StoredImage {
   id: string;
   url: string;
@@ -6,38 +7,22 @@ interface StoredImage {
   resolution?: string;
   timestamp: number;
   favorite: boolean;
-  tags?: string[];
+  tags: string[];
 }
 
 interface UserPreferences {
-  viewMode: 'grid' | 'list';
-  sortBy: 'newest' | 'oldest' | 'favorites';
-  theme: 'light' | 'dark';
   autoSave: boolean;
+  defaultStyle: string;
+  defaultResolution: string;
+  showTips: boolean;
 }
 
 class StorageService {
-  private readonly IMAGES_KEY = 'wordtoimage_gallery';
-  private readonly PREFERENCES_KEY = 'wordtoimage_preferences';
+  private readonly IMAGES_KEY = 'wordtoimage_stored_images';
   private readonly SEARCH_HISTORY_KEY = 'wordtoimage_search_history';
+  private readonly PREFERENCES_KEY = 'wordtoimage_preferences';
 
   // Image management
-  saveImage(image: Omit<StoredImage, 'id'>): StoredImage {
-    const images = this.getImages();
-    const newImage: StoredImage = {
-      ...image,
-      id: `img_${Date.now()}_${Math.random().toString(36).substring(2)}`,
-    };
-    
-    images.unshift(newImage); // Add to beginning for newest first
-    
-    // Keep only last 100 images to prevent storage bloat
-    const trimmedImages = images.slice(0, 100);
-    
-    localStorage.setItem(this.IMAGES_KEY, JSON.stringify(trimmedImages));
-    return newImage;
-  }
-
   getImages(): StoredImage[] {
     try {
       const stored = localStorage.getItem(this.IMAGES_KEY);
@@ -48,113 +33,47 @@ class StorageService {
     }
   }
 
-  updateImage(id: string, updates: Partial<StoredImage>): void {
-    const images = this.getImages();
-    const index = images.findIndex(img => img.id === id);
-    
-    if (index !== -1) {
-      images[index] = { ...images[index], ...updates };
-      localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
-    }
-  }
-
-  deleteImage(id: string): void {
-    const images = this.getImages().filter(img => img.id !== id);
-    localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
-  }
-
-  deleteImages(ids: string[]): void {
-    const images = this.getImages().filter(img => !ids.includes(img.id));
-    localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
-  }
-
-  toggleFavorite(id: string): void {
-    const images = this.getImages();
-    const image = images.find(img => img.id === id);
-    
-    if (image) {
-      image.favorite = !image.favorite;
-      localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
-    }
-  }
-
-  // Search and filter
-  searchImages(query: string): StoredImage[] {
-    const images = this.getImages();
-    const lowercaseQuery = query.toLowerCase();
-    
-    return images.filter(image => 
-      image.prompt.toLowerCase().includes(lowercaseQuery) ||
-      image.style?.toLowerCase().includes(lowercaseQuery) ||
-      image.tags?.some(tag => tag.toLowerCase().includes(lowercaseQuery))
-    );
-  }
-
-  filterImages(filters: {
-    favorites?: boolean;
-    style?: string;
-    dateRange?: { start: Date; end: Date };
-  }): StoredImage[] {
-    let images = this.getImages();
-
-    if (filters.favorites) {
-      images = images.filter(img => img.favorite);
-    }
-
-    if (filters.style) {
-      images = images.filter(img => img.style === filters.style);
-    }
-
-    if (filters.dateRange) {
-      images = images.filter(img => {
-        const imgDate = new Date(img.timestamp);
-        return imgDate >= filters.dateRange!.start && imgDate <= filters.dateRange!.end;
-      });
-    }
-
-    return images;
-  }
-
-  // User preferences
-  savePreferences(preferences: Partial<UserPreferences>): void {
-    const current = this.getPreferences();
-    const updated = { ...current, ...preferences };
-    localStorage.setItem(this.PREFERENCES_KEY, JSON.stringify(updated));
-  }
-
-  getPreferences(): UserPreferences {
+  saveImage(image: StoredImage): void {
     try {
-      const stored = localStorage.getItem(this.PREFERENCES_KEY);
-      return stored ? JSON.parse(stored) : {
-        viewMode: 'grid',
-        sortBy: 'newest',
-        theme: 'light',
-        autoSave: true
-      };
+      const images = this.getImages();
+      const existingIndex = images.findIndex(img => img.id === image.id);
+      
+      if (existingIndex >= 0) {
+        images[existingIndex] = image;
+      } else {
+        images.unshift(image);
+      }
+      
+      localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
     } catch (error) {
-      console.error('Failed to load preferences:', error);
-      return {
-        viewMode: 'grid',
-        sortBy: 'newest',
-        theme: 'light',
-        autoSave: true
-      };
+      console.error('Failed to save image to storage:', error);
     }
   }
 
-  // Search history
-  addSearchTerm(term: string): void {
-    if (!term.trim()) return;
-    
-    const history = this.getSearchHistory();
-    const filtered = history.filter(h => h !== term);
-    filtered.unshift(term);
-    
-    // Keep only last 20 search terms
-    const trimmed = filtered.slice(0, 20);
-    localStorage.setItem(this.SEARCH_HISTORY_KEY, JSON.stringify(trimmed));
+  deleteImage(imageId: string): void {
+    try {
+      const images = this.getImages().filter(img => img.id !== imageId);
+      localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
+    } catch (error) {
+      console.error('Failed to delete image from storage:', error);
+    }
   }
 
+  updateImage(imageId: string, updates: Partial<StoredImage>): void {
+    try {
+      const images = this.getImages();
+      const index = images.findIndex(img => img.id === imageId);
+      
+      if (index >= 0) {
+        images[index] = { ...images[index], ...updates };
+        localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
+      }
+    } catch (error) {
+      console.error('Failed to update image in storage:', error);
+    }
+  }
+
+  // Search history management
   getSearchHistory(): string[] {
     try {
       const stored = localStorage.getItem(this.SEARCH_HISTORY_KEY);
@@ -165,44 +84,93 @@ class StorageService {
     }
   }
 
-  // Export/Import
-  exportData(): string {
-    return JSON.stringify({
-      images: this.getImages(),
-      preferences: this.getPreferences(),
-      searchHistory: this.getSearchHistory(),
-      exportDate: new Date().toISOString()
-    });
+  addSearchTerm(term: string): void {
+    try {
+      const history = this.getSearchHistory();
+      const filteredHistory = history.filter(item => item !== term);
+      const newHistory = [term, ...filteredHistory].slice(0, 20); // Keep last 20 searches
+      
+      localStorage.setItem(this.SEARCH_HISTORY_KEY, JSON.stringify(newHistory));
+    } catch (error) {
+      console.error('Failed to save search term:', error);
+    }
   }
 
-  importData(data: string): boolean {
+  clearSearchHistory(): void {
     try {
-      const parsed = JSON.parse(data);
+      localStorage.removeItem(this.SEARCH_HISTORY_KEY);
+    } catch (error) {
+      console.error('Failed to clear search history:', error);
+    }
+  }
+
+  // User preferences
+  getPreferences(): UserPreferences {
+    try {
+      const stored = localStorage.getItem(this.PREFERENCES_KEY);
+      const defaults: UserPreferences = {
+        autoSave: true,
+        defaultStyle: 'photographic',
+        defaultResolution: '1024x1024',
+        showTips: true
+      };
       
-      if (parsed.images) {
-        localStorage.setItem(this.IMAGES_KEY, JSON.stringify(parsed.images));
+      return stored ? { ...defaults, ...JSON.parse(stored) } : defaults;
+    } catch (error) {
+      console.error('Failed to load preferences:', error);
+      return {
+        autoSave: true,
+        defaultStyle: 'photographic',
+        defaultResolution: '1024x1024',
+        showTips: true
+      };
+    }
+  }
+
+  savePreferences(preferences: Partial<UserPreferences>): void {
+    try {
+      const current = this.getPreferences();
+      const updated = { ...current, ...preferences };
+      localStorage.setItem(this.PREFERENCES_KEY, JSON.stringify(updated));
+    } catch (error) {
+      console.error('Failed to save preferences:', error);
+    }
+  }
+
+  // Data export/import
+  exportData(): { images: StoredImage[]; searchHistory: string[]; preferences: UserPreferences } {
+    return {
+      images: this.getImages(),
+      searchHistory: this.getSearchHistory(),
+      preferences: this.getPreferences()
+    };
+  }
+
+  importData(data: { images?: StoredImage[]; searchHistory?: string[]; preferences?: UserPreferences }): void {
+    try {
+      if (data.images) {
+        localStorage.setItem(this.IMAGES_KEY, JSON.stringify(data.images));
       }
-      
-      if (parsed.preferences) {
-        localStorage.setItem(this.PREFERENCES_KEY, JSON.stringify(parsed.preferences));
+      if (data.searchHistory) {
+        localStorage.setItem(this.SEARCH_HISTORY_KEY, JSON.stringify(data.searchHistory));
       }
-      
-      if (parsed.searchHistory) {
-        localStorage.setItem(this.SEARCH_HISTORY_KEY, JSON.stringify(parsed.searchHistory));
+      if (data.preferences) {
+        localStorage.setItem(this.PREFERENCES_KEY, JSON.stringify(data.preferences));
       }
-      
-      return true;
     } catch (error) {
       console.error('Failed to import data:', error);
-      return false;
     }
   }
 
   // Clear all data
   clearAllData(): void {
-    localStorage.removeItem(this.IMAGES_KEY);
-    localStorage.removeItem(this.PREFERENCES_KEY);
-    localStorage.removeItem(this.SEARCH_HISTORY_KEY);
+    try {
+      localStorage.removeItem(this.IMAGES_KEY);
+      localStorage.removeItem(this.SEARCH_HISTORY_KEY);
+      localStorage.removeItem(this.PREFERENCES_KEY);
+    } catch (error) {
+      console.error('Failed to clear all data:', error);
+    }
   }
 }
 

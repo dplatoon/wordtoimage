@@ -1,109 +1,80 @@
 
 import React, { useState } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { ImageOff } from 'lucide-react';
-import { trackEvent } from '@/utils/analytics';
-import { defaultFallbackImage, isExternalUrl } from '@/utils/imageUtils';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { cn } from '@/lib/utils';
 
-interface ResponsiveImageProps {
+export interface ResponsiveImageProps {
   src: string;
   alt: string;
-  fallbackSrc?: string;
   className?: string;
-  width?: number | string;
-  height?: number | string;
-  aspectRatio?: number;
-  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  width?: number;
+  height?: number;
   onLoad?: () => void;
   onError?: () => void;
   trackEvent?: string;
+  priority?: boolean;
+  sizes?: string;
+  srcSet?: string;
 }
 
 export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   src,
   alt,
-  fallbackSrc = defaultFallbackImage,
-  className = '',
+  className,
   width,
   height,
-  aspectRatio,
-  objectFit = 'cover',
   onLoad,
   onError,
-  trackEvent: trackEventName,
+  trackEvent,
+  priority = false,
+  sizes,
+  srcSet,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [imageSrc, setImageSrc] = useState(src);
-  const [usedFallback, setUsedFallback] = useState(false);
-
-  // Handle local vs external URLs differently
-  const isExternal = isExternalUrl(src);
 
   const handleLoad = () => {
-    setIsLoading(false);
+    setIsLoaded(true);
     setHasError(false);
-    
-    if (onLoad) onLoad();
-    
-    // Track successful image load if tracking is enabled
-    if (trackEventName) {
-      trackEvent(trackEventName + '_loaded', { src: imageSrc, isExternal });
+    onLoad?.();
+
+    // Track image load for analytics
+    if (trackEvent && window.gtag) {
+      window.gtag('event', trackEvent + '_loaded', {
+        event_category: 'interaction',
+        custom_parameters: {
+          src: src,
+          isExternal: !src.startsWith('/') && !src.startsWith(window.location.origin)
+        }
+      });
     }
   };
 
   const handleError = () => {
-    console.error('Image failed to load:', imageSrc);
-    
-    if (!usedFallback && fallbackSrc) {
-      // Try loading the fallback image
-      setImageSrc(fallbackSrc);
-      setUsedFallback(true);
-    } else {
-      // If fallback also fails or no fallback provided
-      setIsLoading(false);
-      setHasError(true);
-      if (onError) onError();
-      
-      // Track error if tracking is enabled
-      if (trackEventName) {
-        trackEvent(trackEventName + '_error', { src: imageSrc, isExternal });
-      }
-    }
+    setHasError(true);
+    setIsLoaded(false);
+    onError?.();
+
+    console.error('Failed to load image:', src);
   };
 
-  const ImageComponent = () => (
+  return (
     <img
-      src={imageSrc}
+      src={src}
       alt={alt}
-      className={`w-full h-full transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-      style={{ objectFit }}
+      className={cn(
+        'transition-opacity duration-300',
+        isLoaded ? 'opacity-100' : 'opacity-0',
+        hasError && 'hidden',
+        className
+      )}
+      width={width}
+      height={height}
       onLoad={handleLoad}
       onError={handleError}
-      loading="lazy"
+      loading={priority ? 'eager' : 'lazy'}
       decoding="async"
+      {...(sizes && { sizes })}
+      {...(srcSet && { srcSet })}
     />
-  );
-
-  return (
-    <div className={`relative ${className}`} style={{ width, height }}>
-      {isLoading && (
-        <Skeleton className="absolute inset-0 w-full h-full" />
-      )}
-      
-      {hasError ? (
-        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-100">
-          <ImageOff className="h-8 w-8 text-gray-300 mb-2" />
-          <p className="text-xs text-gray-400 text-center">Image unavailable</p>
-        </div>
-      ) : aspectRatio ? (
-        <AspectRatio ratio={aspectRatio}>
-          <ImageComponent />
-        </AspectRatio>
-      ) : (
-        <ImageComponent />
-      )}
-    </div>
   );
 };
