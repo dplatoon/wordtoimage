@@ -1,4 +1,6 @@
 
+import { logger } from '@/utils/logger';
+
 interface StoredImage {
   id: string;
   url: string;
@@ -30,7 +32,7 @@ class StorageService {
       const stored = localStorage.getItem(this.IMAGES_KEY);
       return stored ? JSON.parse(stored) : [];
     } catch (error) {
-      console.error('Failed to load images from storage:', error);
+      logger.error('Failed to load images from storage:', error);
       return [];
     }
   }
@@ -48,7 +50,7 @@ class StorageService {
       
       localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
     } catch (error) {
-      console.error('Failed to save image to storage:', error);
+      logger.error('Failed to save image to storage:', error);
     }
   }
 
@@ -57,7 +59,7 @@ class StorageService {
       const images = this.getImages().filter(img => img.id !== imageId);
       localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
     } catch (error) {
-      console.error('Failed to delete image from storage:', error);
+      logger.error('Failed to delete image from storage:', error);
     }
   }
 
@@ -66,7 +68,7 @@ class StorageService {
       const images = this.getImages().filter(img => !imageIds.includes(img.id));
       localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
     } catch (error) {
-      console.error('Failed to delete images from storage:', error);
+      logger.error('Failed to delete images from storage:', error);
     }
   }
 
@@ -80,7 +82,7 @@ class StorageService {
         localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
       }
     } catch (error) {
-      console.error('Failed to update image in storage:', error);
+      logger.error('Failed to update image in storage:', error);
     }
   }
 
@@ -94,7 +96,7 @@ class StorageService {
         localStorage.setItem(this.IMAGES_KEY, JSON.stringify(images));
       }
     } catch (error) {
-      console.error('Failed to toggle favorite:', error);
+      logger.error('Failed to toggle favorite:', error);
     }
   }
 
@@ -110,7 +112,7 @@ class StorageService {
         (image.style && image.style.toLowerCase().includes(searchTerm))
       );
     } catch (error) {
-      console.error('Failed to search images:', error);
+      logger.error('Failed to search images:', error);
       return [];
     }
   }
@@ -121,7 +123,7 @@ class StorageService {
       const stored = localStorage.getItem(this.SEARCH_HISTORY_KEY);
       return stored ? JSON.parse(stored) : [];
     } catch (error) {
-      console.error('Failed to load search history:', error);
+      logger.error('Failed to load search history:', error);
       return [];
     }
   }
@@ -134,7 +136,7 @@ class StorageService {
       
       localStorage.setItem(this.SEARCH_HISTORY_KEY, JSON.stringify(newHistory));
     } catch (error) {
-      console.error('Failed to save search term:', error);
+      logger.error('Failed to save search term:', error);
     }
   }
 
@@ -142,7 +144,7 @@ class StorageService {
     try {
       localStorage.removeItem(this.SEARCH_HISTORY_KEY);
     } catch (error) {
-      console.error('Failed to clear search history:', error);
+      logger.error('Failed to clear search history:', error);
     }
   }
 
@@ -161,7 +163,7 @@ class StorageService {
       
       return stored ? { ...defaults, ...JSON.parse(stored) } : defaults;
     } catch (error) {
-      console.error('Failed to load preferences:', error);
+      logger.error('Failed to load preferences:', error);
       return {
         autoSave: true,
         defaultStyle: 'photographic',
@@ -179,7 +181,7 @@ class StorageService {
       const updated = { ...current, ...preferences };
       localStorage.setItem(this.PREFERENCES_KEY, JSON.stringify(updated));
     } catch (error) {
-      console.error('Failed to save preferences:', error);
+      logger.error('Failed to save preferences:', error);
     }
   }
 
@@ -204,7 +206,7 @@ class StorageService {
         localStorage.setItem(this.PREFERENCES_KEY, JSON.stringify(data.preferences));
       }
     } catch (error) {
-      console.error('Failed to import data:', error);
+      logger.error('Failed to import data:', error);
     }
   }
 
@@ -215,7 +217,7 @@ class StorageService {
       localStorage.removeItem(this.SEARCH_HISTORY_KEY);
       localStorage.removeItem(this.PREFERENCES_KEY);
     } catch (error) {
-      console.error('Failed to clear all data:', error);
+      logger.error('Failed to clear all data:', error);
     }
   }
 }

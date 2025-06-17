@@ -5,6 +5,7 @@ import { storageService, StoredImage } from '@/services/storageService';
 import { GalleryToolbar } from './GalleryToolbar';
 import { GalleryImageGrid } from './GalleryImageGrid';
 import { GalleryFilters } from './GalleryFilters';
+import { logger } from '@/utils/logger';
 
 interface GalleryManagerProps {
   images: StoredImage[];
@@ -128,7 +129,7 @@ export function GalleryManager({ images, onImagesChange, className }: GalleryMan
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
       } catch (error) {
-        console.error('Failed to download image:', error);
+        logger.error('Failed to download image:', error);
         toast.error(`Failed to download image ${image.id}`);
       }
     }
@@ -151,7 +152,7 @@ export function GalleryManager({ images, onImagesChange, className }: GalleryMan
       
       toast.success("Gallery data exported successfully");
     } catch (error) {
-      console.error('Failed to export data:', error);
+      logger.error('Failed to export data:', error);
       toast.error("Failed to export gallery data");
     }
   };

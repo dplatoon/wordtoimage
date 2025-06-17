@@ -12,6 +12,8 @@ import { ResourcePreloader } from "@/components/performance/ResourcePreloader";
 import Index from "./pages/Index";
 import TextToImage from "./pages/TextToImage";
 import Dashboard from "./pages/Dashboard";
+import About from "./pages/About";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +39,8 @@ function App() {
                   <Route path="/" element={<Index />} />
                   <Route path="/text-to-image" element={<TextToImage />} />
                   <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Toaster 
                   position="bottom-right"

@@ -2,6 +2,7 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { AlertCircle, RefreshCw } from 'lucide-react';
+import { logger } from '@/utils/logger';
 
 interface ErrorStateProps {
   error: string;
@@ -10,6 +11,9 @@ interface ErrorStateProps {
 
 export const ErrorState = ({ error, onRetry }: ErrorStateProps) => {
   const isApiNotFoundError = error?.includes('not configured') || error?.includes('not available');
+  
+  // Log error for debugging in development
+  logger.error('Image generation error:', error);
   
   return (
     <div className="w-full h-full flex items-center justify-center p-4">
