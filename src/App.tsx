@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -9,6 +8,7 @@ import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import { SEOPerformanceMonitor } from "@/components/seo/SEOPerformanceMonitor";
 import { CriticalCSS } from "@/components/performance/CriticalCSS";
 import { ResourcePreloader } from "@/components/performance/ResourcePreloader";
+import { CriticalCSSOptimizer } from "@/components/performance/CriticalCSSOptimizer";
 import Index from "./pages/Index";
 import TextToImage from "./pages/TextToImage";
 import Dashboard from "./pages/Dashboard";
@@ -64,6 +64,7 @@ function App() {
             <AuthProvider>
               <BrowserRouter>
                 <CriticalCSS />
+                <CriticalCSSOptimizer />
                 <ResourcePreloader />
                 <SEOPerformanceMonitor />
                 <Routes>
