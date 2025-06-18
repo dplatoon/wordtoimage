@@ -12,6 +12,7 @@ import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
 import Community from '@/pages/Community';
 import Pricing from '@/pages/Pricing';
+import StyleGallery from '@/pages/StyleGallery';
 import NotFound from '@/pages/NotFound';
 import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
 
@@ -42,6 +43,7 @@ function App() {
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route path="/community" element={<Community />} />
                       <Route path="/pricing" element={<Pricing />} />
+                      <Route path="/style-gallery" element={<StyleGallery />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>
