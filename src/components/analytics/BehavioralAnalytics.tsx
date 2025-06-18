@@ -1,6 +1,11 @@
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { trackEvent } from '@/utils/analytics';
+import { useBehaviorTracking } from '@/hooks/useBehaviorTracking';
+import { useScrollTracking } from '@/hooks/useScrollTracking';
+import { useTimeTracking } from '@/hooks/useTimeTracking';
+import { useClickTracking } from '@/hooks/useClickTracking';
+import { useExitIntentTracking } from '@/hooks/useExitIntentTracking';
 
 interface BehavioralAnalyticsProps {
   children: React.ReactNode;
@@ -14,198 +19,117 @@ interface ConversionTrigger {
   timestamp: number;
 }
 
-interface UserBehavior {
-  timeOnPage: number;
-  scrollDepth: number;
-  clickCount: number;
-  generationAttempts: number;
-  featureInteractions: string[];
-  engagementScore: number;
-}
-
 export const BehavioralAnalytics = ({ 
   children, 
   pageId, 
   onConversionTrigger 
 }: BehavioralAnalyticsProps) => {
-  const behaviorRef = useRef<UserBehavior>({
-    timeOnPage: 0,
-    scrollDepth: 0,
-    clickCount: 0,
-    generationAttempts: 0,
-    featureInteractions: [],
-    engagementScore: 0
-  });
-  
-  const startTimeRef = useRef<number>(Date.now());
-  const scrollThresholdsRef = useRef<Set<number>>(new Set());
-  const timeThresholdsRef = useRef<Set<number>>(new Set());
+  const {
+    behaviorRef,
+    startTimeRef,
+    calculateEngagementScore,
+    updateBehavior,
+    trackBehaviorEvent
+  } = useBehaviorTracking(pageId, onConversionTrigger);
 
-  // Calculate engagement score
-  const calculateEngagementScore = useCallback(() => {
-    const behavior = behaviorRef.current;
-    let score = 0;
-    
-    // Time on page (max 40 points)
-    score += Math.min(behavior.timeOnPage / 1000 / 60 * 10, 40); // 10 points per minute, max 4 minutes
-    
-    // Scroll depth (max 20 points)
-    score += behavior.scrollDepth * 0.2;
-    
-    // Click interactions (max 20 points)
-    score += Math.min(behavior.clickCount * 2, 20);
-    
-    // Generation attempts (max 20 points)
-    score += Math.min(behavior.generationAttempts * 10, 20);
-    
-    return Math.round(score);
-  }, []);
+  // Scroll tracking
+  const handleScrollMilestone = (milestone: number, _: number) => {
+    trackBehaviorEvent('scroll_milestone', 'engagement', `${milestone}%`);
 
-  // Track scroll depth
-  const handleScroll = useCallback(() => {
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollTop = window.pageYOffset;
-    const scrollPercent = Math.round((scrollTop / scrollHeight) * 100);
-    
-    behaviorRef.current.scrollDepth = Math.max(behaviorRef.current.scrollDepth, scrollPercent);
-    
-    // Track scroll milestones
-    const milestones = [25, 50, 75, 90];
-    milestones.forEach(milestone => {
-      if (scrollPercent >= milestone && !scrollThresholdsRef.current.has(milestone)) {
-        scrollThresholdsRef.current.add(milestone);
+    if (milestone >= 75 && onConversionTrigger) {
+      onConversionTrigger({
+        type: 'scroll_depth',
+        data: { depth: milestone, engagement_score: calculateEngagementScore() },
+        timestamp: Date.now()
+      });
+    }
+  };
+
+  const updateScrollDepth = (depth: number) => {
+    behaviorRef.current.scrollDepth = Math.max(behaviorRef.current.scrollDepth, depth);
+  };
+
+  const { handleScroll } = useScrollTracking(pageId, handleScrollMilestone, updateScrollDepth);
+
+  // Time tracking
+  const handleTimeThreshold = (threshold: number, timeSpent: number, _: number) => {
+    const minutes = threshold / 60000;
+    trackBehaviorEvent('time_threshold', 'engagement', `${minutes}m`, {
+      engagement_score: calculateEngagementScore()
+    });
+
+    if (onConversionTrigger && threshold === 60000) {
+      onConversionTrigger({
+        type: 'time_threshold',
+        data: { 
+          minutes, 
+          engagement_score: calculateEngagementScore(),
+          behavior: behaviorRef.current 
+        },
+        timestamp: Date.now()
+      });
+    }
+  };
+
+  const updateTimeOnPage = (time: number) => {
+    behaviorRef.current.timeOnPage = time;
+  };
+
+  const { checkTimeThresholds } = useTimeTracking(pageId, startTimeRef, handleTimeThreshold, updateTimeOnPage);
+
+  // Click tracking
+  const handleFeatureInteraction = (featureId: string, isGeneration: boolean) => {
+    if (!behaviorRef.current.featureInteractions.includes(featureId)) {
+      behaviorRef.current.featureInteractions.push(featureId);
+      
+      trackBehaviorEvent('feature_interaction', 'engagement', featureId);
+
+      if (isGeneration) {
+        behaviorRef.current.generationAttempts++;
         
-        trackEvent({
-          action: 'scroll_milestone',
-          category: 'engagement',
-          label: `${milestone}%`,
-          custom_parameters: { page_id: pageId }
-        });
-
-        // Trigger conversion opportunity at high scroll depth
-        if (milestone >= 75 && onConversionTrigger) {
+        if (onConversionTrigger) {
           onConversionTrigger({
-            type: 'scroll_depth',
-            data: { depth: milestone, engagement_score: calculateEngagementScore() },
+            type: 'feature_interest',
+            data: { 
+              feature: featureId,
+              attempts: behaviorRef.current.generationAttempts,
+              engagement_score: calculateEngagementScore()
+            },
             timestamp: Date.now()
           });
         }
       }
-    });
-  }, [pageId, onConversionTrigger, calculateEngagementScore]);
+    }
+  };
 
-  // Track time thresholds
-  const checkTimeThresholds = useCallback(() => {
-    const timeSpent = Date.now() - startTimeRef.current;
-    behaviorRef.current.timeOnPage = timeSpent;
-    
-    const thresholds = [30000, 60000, 120000, 300000]; // 30s, 1m, 2m, 5m
-    thresholds.forEach(threshold => {
-      if (timeSpent >= threshold && !timeThresholdsRef.current.has(threshold)) {
-        timeThresholdsRef.current.add(threshold);
-        
-        const minutes = threshold / 60000;
-        trackEvent({
-          action: 'time_threshold',
-          category: 'engagement',
-          label: `${minutes}m`,
-          custom_parameters: { 
-            page_id: pageId,
-            engagement_score: calculateEngagementScore()
-          }
-        });
-
-        // Trigger conversion opportunities based on time spent
-        if (onConversionTrigger) {
-          if (threshold === 60000) { // 1 minute
-            onConversionTrigger({
-              type: 'time_threshold',
-              data: { 
-                minutes, 
-                engagement_score: calculateEngagementScore(),
-                behavior: behaviorRef.current 
-              },
-              timestamp: Date.now()
-            });
-          }
-        }
-      }
-    });
-  }, [pageId, onConversionTrigger, calculateEngagementScore]);
-
-  // Track clicks and interactions
-  const handleClick = useCallback((event: MouseEvent) => {
+  const incrementClickCount = () => {
     behaviorRef.current.clickCount++;
+  };
+
+  const { handleClick } = useClickTracking(pageId, handleFeatureInteraction, incrementClickCount);
+
+  // Exit intent tracking
+  const handleExitIntent = (engagementScore: number, behavior: any) => {
+    const score = calculateEngagementScore();
     
-    const target = event.target as HTMLElement;
-    const elementType = target.tagName.toLowerCase();
-    const elementClass = target.className;
-    const elementText = target.textContent?.slice(0, 50) || '';
-    
-    // Track feature interactions
-    const featureElements = ['button', 'input', 'select', 'textarea'];
-    if (featureElements.includes(elementType)) {
-      const featureId = `${elementType}_${elementClass}_${elementText}`.slice(0, 100);
-      if (!behaviorRef.current.featureInteractions.includes(featureId)) {
-        behaviorRef.current.featureInteractions.push(featureId);
-        
-        trackEvent({
-          action: 'feature_interaction',
-          category: 'engagement',
-          label: featureId,
-          custom_parameters: { page_id: pageId }
-        });
+    if (score >= 30 && onConversionTrigger) {
+      trackBehaviorEvent('exit_intent', 'engagement', undefined, {
+        engagement_score: score,
+        time_on_page: behaviorRef.current.timeOnPage
+      });
 
-        // Trigger conversion on high-value feature interactions
-        if (elementText.toLowerCase().includes('generate') || 
-            elementText.toLowerCase().includes('create') ||
-            elementClass.includes('generate')) {
-          behaviorRef.current.generationAttempts++;
-          
-          if (onConversionTrigger) {
-            onConversionTrigger({
-              type: 'feature_interest',
-              data: { 
-                feature: featureId,
-                attempts: behaviorRef.current.generationAttempts,
-                engagement_score: calculateEngagementScore()
-              },
-              timestamp: Date.now()
-            });
-          }
-        }
-      }
+      onConversionTrigger({
+        type: 'exit_intent',
+        data: { 
+          engagement_score: score,
+          behavior: behaviorRef.current 
+        },
+        timestamp: Date.now()
+      });
     }
-  }, [pageId, onConversionTrigger, calculateEngagementScore]);
+  };
 
-  // Track exit intent
-  const handleMouseLeave = useCallback((event: MouseEvent) => {
-    if (event.clientY <= 0 && onConversionTrigger) {
-      const engagementScore = calculateEngagementScore();
-      
-      // Only trigger exit intent for engaged users
-      if (engagementScore >= 30) {
-        trackEvent({
-          action: 'exit_intent',
-          category: 'engagement',
-          custom_parameters: { 
-            page_id: pageId,
-            engagement_score: engagementScore,
-            time_on_page: behaviorRef.current.timeOnPage
-          }
-        });
-
-        onConversionTrigger({
-          type: 'exit_intent',
-          data: { 
-            engagement_score: engagementScore,
-            behavior: behaviorRef.current 
-          },
-          timestamp: Date.now()
-        });
-      }
-    }
-  }, [pageId, onConversionTrigger, calculateEngagementScore]);
+  const { handleMouseLeave } = useExitIntentTracking(pageId, handleExitIntent);
 
   useEffect(() => {
     // Set up event listeners
@@ -214,7 +138,7 @@ export const BehavioralAnalytics = ({
     document.addEventListener('mouseleave', handleMouseLeave);
     
     // Set up timer for time threshold checks
-    const timeInterval = setInterval(checkTimeThresholds, 10000); // Check every 10 seconds
+    const timeInterval = setInterval(checkTimeThresholds, 10000);
     
     // Track page load
     trackEvent({

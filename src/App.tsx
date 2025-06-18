@@ -16,7 +16,7 @@ import NotFound from '@/pages/NotFound';
 import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
 
 function App() {
-  usePerformanceMonitoring();
+  usePerformanceMonitoring('app');
 
   const queryClient = new QueryClient({
     defaultOptions: {
