@@ -29,6 +29,11 @@ import DesignTips from "./pages/DesignTips";
 import Updates from "./pages/Updates";
 import Careers from "./pages/Careers";
 import NotFound from "./pages/NotFound";
+import AIUpscaler from "./pages/AIUpscaler";
+import VideoTutorials from "./pages/VideoTutorials";
+import WhatsNew from "./pages/WhatsNew";
+import PromptGuide from "./pages/PromptGuide";
+import AITemplates from "./pages/AITemplates";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -65,6 +70,11 @@ function App() {
                 <Route path="/design-tips" element={<DesignTips />} />
                 <Route path="/updates" element={<Updates />} />
                 <Route path="/careers" element={<Careers />} />
+                <Route path="/ai-upscaler" element={<AIUpscaler />} />
+                <Route path="/video-tutorials" element={<VideoTutorials />} />
+                <Route path="/whats-new" element={<WhatsNew />} />
+                <Route path="/prompt-guide" element={<PromptGuide />} />
+                <Route path="/ai-templates" element={<AITemplates />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
