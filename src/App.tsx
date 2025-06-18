@@ -13,6 +13,10 @@ import Dashboard from '@/pages/Dashboard';
 import Community from '@/pages/Community';
 import Pricing from '@/pages/Pricing';
 import StyleGallery from '@/pages/StyleGallery';
+import TextToImage from '@/pages/TextToImage';
+import AITemplates from '@/pages/AITemplates';
+import BatchGenerator from '@/pages/BatchGenerator';
+import AIUpscaler from '@/pages/AIUpscaler';
 import NotFound from '@/pages/NotFound';
 import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
 
@@ -44,6 +48,10 @@ function App() {
                       <Route path="/community" element={<Community />} />
                       <Route path="/pricing" element={<Pricing />} />
                       <Route path="/style-gallery" element={<StyleGallery />} />
+                      <Route path="/text-to-image" element={<TextToImage />} />
+                      <Route path="/ai-templates" element={<AITemplates />} />
+                      <Route path="/batch-generator" element={<BatchGenerator />} />
+                      <Route path="/ai-upscaler" element={<AIUpscaler />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>

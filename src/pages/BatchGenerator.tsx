@@ -1,150 +1,236 @@
 
+import React, { useState } from 'react';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
-import { Upload, Settings, Download, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { SEOManager } from '@/components/seo/SEOManager';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Zap, Settings, Download, Grid3X3, Clock, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { toast } from '@/components/ui/sonner';
 
-const BatchGenerator = () => {
+export default function BatchGenerator() {
+  const [prompts, setPrompts] = useState('');
+  const [batchSize, setBatchSize] = useState(4);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleBatchGenerate = () => {
+    const promptList = prompts.split('\n').filter(p => p.trim());
+    
+    if (promptList.length === 0) {
+      toast.error('Please enter at least one prompt');
+      return;
+    }
+
+    if (promptList.length > 10) {
+      toast.error('Maximum 10 prompts allowed per batch');
+      return;
+    }
+
+    setIsGenerating(true);
+    toast.success(`Starting batch generation for ${promptList.length} prompts...`);
+    
+    // Simulate batch generation
+    setTimeout(() => {
+      setIsGenerating(false);
+      toast.success('Batch generation completed!');
+    }, 3000);
+  };
+
+  const examplePrompts = [
+    'a serene mountain landscape at sunrise',
+    'a futuristic city with flying cars',
+    'a magical forest with glowing mushrooms',
+    'an underwater scene with colorful coral'
+  ].join('\n');
+
   return (
-    <div className="min-h-screen bg-white">
-      <SEOManager customConfig={{
-        title: "Batch AI Image Generator - Create Multiple Images | WordToImage",
-        description: "Generate multiple AI images at once with our batch processing tool. Perfect for creating variations, bulk content, and large-scale projects.",
-        keywords: ["batch image generation", "bulk AI images", "multiple image creation", "AI batch processing", "mass image generation", "generate image sets with AI", "AI image variations generator"]
-      }} />
-      
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 via-white to-purple-50">
       <Nav />
       
-      <main className="pt-8 pb-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <main className="container mx-auto px-4 py-12 flex-grow">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center mb-6">
+            <Grid3X3 className="text-blue-600 mr-3 h-10 w-10" />
+            <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
               Batch Generator
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Generate multiple AI images simultaneously for maximum efficiency
-            </p>
           </div>
+          
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Generate multiple AI images at once. Perfect for creating variations, testing different prompts, or building image collections efficiently.
+          </p>
 
-          <div className="bg-white rounded-xl shadow-lg border p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Input Section */}
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Base Prompt
-                  </label>
-                  <Textarea 
-                    placeholder="Enter your base prompt that will be used for all generations..."
-                    className="min-h-[100px]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Variations (one per line)
-                  </label>
-                  <Textarea 
-                    placeholder={`red background\nblue background\ngreen background\nsunset lighting\nstudio lighting`}
-                    className="min-h-[150px]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Batch Size
-                  </label>
-                  <Input type="number" defaultValue={5} min={1} max={50} />
-                </div>
-
-                <div className="flex gap-4">
-                  <Button className="flex-1 bg-violet-600 hover:bg-violet-700">
-                    <Zap className="h-4 w-4 mr-2" />
-                    Generate Batch
-                  </Button>
-                  <Button variant="outline">
-                    <Settings className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* Preview Section */}
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Preview Queue</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="aspect-square bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
-                        <div className="text-center">
-                          <Upload className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                          <p className="text-sm text-gray-500">Image {i}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Batch Status</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>Total Images:</span>
-                      <span>0/5</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Progress:</span>
-                      <span>0%</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Estimated Time:</span>
-                      <span>--</span>
-                    </div>
-                  </div>
-                </div>
-
-                <Button variant="outline" className="w-full" disabled>
-                  <Download className="h-4 w-4 mr-2" />
-                  Download All
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Features */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="h-8 w-8 text-violet-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Fast Processing</h3>
-              <p className="text-gray-600">Generate multiple images in parallel for maximum speed</p>
+              <div className="text-2xl font-bold text-blue-600">10x</div>
+              <div className="text-sm text-gray-600">Faster than single generation</div>
             </div>
-            
             <div className="text-center">
-              <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Settings className="h-8 w-8 text-indigo-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Flexible Settings</h3>
-              <p className="text-gray-600">Customize each variation with different parameters</p>
+              <div className="text-2xl font-bold text-blue-600">1-10</div>
+              <div className="text-sm text-gray-600">Images per batch</div>
             </div>
-            
             <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Download className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Bulk Download</h3>
-              <p className="text-gray-600">Download all generated images as a convenient ZIP file</p>
+              <div className="text-2xl font-bold text-blue-600">Auto</div>
+              <div className="text-sm text-gray-600">Organization & download</div>
             </div>
           </div>
         </div>
-      </main>
 
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Batch Configuration */}
+          <div className="lg:col-span-2">
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="h-5 w-5" />
+                  Batch Configuration
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div>
+                  <Label htmlFor="prompts" className="text-base font-medium">
+                    Prompts (one per line)
+                  </Label>
+                  <Textarea
+                    id="prompts"
+                    placeholder={`Enter your prompts here, one per line:\n\n${examplePrompts}`}
+                    value={prompts}
+                    onChange={(e) => setPrompts(e.target.value)}
+                    className="mt-2 min-h-[200px]"
+                  />
+                  <div className="flex justify-between items-center mt-2 text-sm text-gray-500">
+                    <span>{prompts.split('\n').filter(p => p.trim()).length} prompts entered</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setPrompts(examplePrompts)}
+                    >
+                      Use Examples
+                    </Button>
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="batch-size" className="text-base font-medium">
+                    Images per prompt
+                  </Label>
+                  <Input
+                    id="batch-size"
+                    type="number"
+                    min="1"
+                    max="4"
+                    value={batchSize}
+                    onChange={(e) => setBatchSize(parseInt(e.target.value) || 1)}
+                    className="mt-2 w-24"
+                  />
+                  <p className="text-sm text-gray-500 mt-1">
+                    Generate 1-4 variations per prompt
+                  </p>
+                </div>
+
+                <Button
+                  onClick={handleBatchGenerate}
+                  disabled={isGenerating || !prompts.trim()}
+                  size="lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600"
+                >
+                  {isGenerating ? (
+                    <>
+                      <Clock className="h-5 w-5 mr-2 animate-spin" />
+                      Generating Batch...
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="h-5 w-5 mr-2" />
+                      Generate Batch
+                    </>
+                  )}
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Features & Tips */}
+          <div>
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>Batch Features</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <Grid3X3 className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium">Multiple Variations</h4>
+                      <p className="text-sm text-gray-600">Create 1-4 images per prompt automatically</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <Download className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium">Bulk Download</h4>
+                      <p className="text-sm text-gray-600">Download all generated images as a ZIP file</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <Zap className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium">Queue Processing</h4>
+                      <p className="text-sm text-gray-600">Efficient processing with progress tracking</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Pro Tips</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 text-sm">
+                  <p>• Use similar themes for better batch coherence</p>
+                  <p>• Start with 2-3 prompts to test quality</p>
+                  <p>• Include style keywords for consistency</p>
+                  <p>• Keep prompts under 100 characters each</p>
+                </div>
+                
+                <Button variant="outline" size="sm" className="w-full mt-4" asChild>
+                  <Link to="/ai-templates">
+                    <ArrowRight className="h-4 w-4 mr-2" />
+                    Browse Prompt Templates
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Results Section Placeholder */}
+        {isGenerating && (
+          <Card className="mt-8">
+            <CardContent className="p-8">
+              <div className="text-center">
+                <Clock className="h-12 w-12 text-blue-600 mx-auto mb-4 animate-spin" />
+                <h3 className="text-xl font-semibold mb-2">Processing Your Batch</h3>
+                <p className="text-gray-600">Generating {prompts.split('\n').filter(p => p.trim()).length * batchSize} images...</p>
+                <div className="w-full bg-gray-200 rounded-full h-2 mt-4">
+                  <div className="bg-blue-600 h-2 rounded-full w-1/3"></div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </main>
+      
       <Footer />
     </div>
   );
-};
-
-export default BatchGenerator;
+}
