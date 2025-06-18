@@ -19,6 +19,12 @@ import { EnhancedImageGallery } from '@/components/word-to-image/EnhancedImageGa
 import { storageService } from '@/services/storageService';
 import { useStyleParams } from '@/hooks/useStyleParams';
 import { Link } from 'react-router-dom';
+import { useStyleRecommendations } from '@/hooks/useStyleRecommendations';
+import { useRecentStyles } from '@/hooks/useRecentStyles';
+import { useGenerationHistory } from '@/hooks/useGenerationHistory';
+import { StyleRecommendations } from '@/components/word-to-image/StyleRecommendations';
+import { RecentStyles } from '@/components/word-to-image/RecentStyles';
+import { GenerationHistory } from '@/components/word-to-image/GenerationHistory';
 
 // Style mapping for URL parameters
 const STYLE_MAPPINGS: Record<string, string> = {
@@ -48,9 +54,12 @@ export default function TextToImage() {
   const { user, isLoading } = useAuth();
   const isMobile = useIsMobile();
   const { selectedStyle, hasStyleParam, clearStyleParam } = useStyleParams();
+  const recommendations = useStyleRecommendations(prompt);
+  const { recentStyles, addRecentStyle, clearRecentStyles } = useRecentStyles();
+  const { history, addToHistory, regenerateFromHistory, clearHistory } = useGenerationHistory();
   
   const { generateImageFromPrompt } = useImageGeneration({
-    onImageGenerated: url => {
+    onImageGenerated: (url) => {
       const newImage = { 
         url, 
         prompt: prompt.substring(0, 100) + (prompt.length > 100 ? '...' : ''),
@@ -61,6 +70,18 @@ export default function TextToImage() {
       setGeneratedImages(prev => [...prev, newImage]);
       setLastGenerationTime(Date.now());
       setProgress(100);
+      
+      // Add to generation history
+      addToHistory({
+        prompt: prompt,
+        style: selectedStyle || undefined,
+        imageUrl: url
+      });
+      
+      // Track recent style usage
+      if (selectedStyle) {
+        addRecentStyle(selectedStyle);
+      }
       
       toast.success("Image generated successfully!", {
         description: selectedStyle ? `Your custom graphic with ${selectedStyle} style is ready to download.` : "Your custom graphic is ready to download.",
@@ -165,6 +186,38 @@ export default function TextToImage() {
         description: errorMessage
       });
     }
+  };
+
+  const handleSelectRecommendedStyle = (styleId: string) => {
+    clearStyleParam();
+    // Update URL to show selected style
+    const url = new URL(window.location.href);
+    url.searchParams.set('style', styleId);
+    window.history.pushState({}, '', url.toString());
+    
+    toast.success(`${styleId.replace('-', ' ')} style selected!`, {
+      description: "Your images will be generated with this artistic style."
+    });
+  };
+
+  const handleRegenerateFromHistory = (historyPrompt: string, historyStyle?: string) => {
+    setPrompt(historyPrompt);
+    if (historyStyle) {
+      handleSelectRecommendedStyle(historyStyle);
+    }
+    
+    toast.success("Prompt and style loaded from history!", {
+      description: "Ready to regenerate with previous settings"
+    });
+    
+    // Focus on the prompt input
+    setTimeout(() => {
+      const promptInput = document.querySelector('textarea[placeholder*="Describe"]') as HTMLTextAreaElement;
+      if (promptInput) {
+        promptInput.focus();
+        promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   };
 
   const handleSelectFromHistory = (historicalPrompt: string) => {
@@ -414,6 +467,29 @@ export default function TextToImage() {
             />
           </div>
           
+          {/* New: Style Recommendations */}
+          {recommendations.length > 0 && (
+            <div className="px-6">
+              <StyleRecommendations
+                recommendations={recommendations}
+                onSelectStyle={handleSelectRecommendedStyle}
+                className="mb-4"
+              />
+            </div>
+          )}
+          
+          {/* New: Recent Styles */}
+          {recentStyles.length > 0 && (
+            <div className="px-6">
+              <RecentStyles
+                recentStyles={recentStyles}
+                onSelectStyle={handleSelectRecommendedStyle}
+                onClearRecent={clearRecentStyles}
+                className="mb-4"
+              />
+            </div>
+          )}
+          
           {/* Generation Progress */}
           {isGenerating && (
             <div className="px-6 pb-6">
@@ -438,6 +514,17 @@ export default function TextToImage() {
             </div>
           )}
         </div>
+        
+        {/* New: Generation History */}
+        {history.length > 0 && (
+          <div className="mt-6 max-w-4xl mx-auto">
+            <GenerationHistory
+              history={history}
+              onRegenerate={handleRegenerateFromHistory}
+              onClearHistory={clearHistory}
+            />
+          </div>
+        )}
         
         {/* Enhanced Results Section */}
         <div className="mt-8" role="region" aria-label="Generated images">
