@@ -1,3 +1,4 @@
+
 import { useImageGenerationForm } from '@/hooks/useImageGenerationForm';
 import { AuthModalDialog } from './AuthModalDialog';
 import { FormLayout } from './form/FormLayout';
@@ -61,12 +62,17 @@ export const ImageGenerationForm = ({
   const [showDemoMode, setShowDemoMode] = useState(true);
   const [showCameraUpload, setShowCameraUpload] = useState(false);
   const [showFreeVsPro, setShowFreeVsPro] = useState(!user);
+  const isMobile = useIsMobile();
 
   const handleDemoGenerate = (demoPrompt: string, demoStyle: string) => {
     setPrompt(demoPrompt);
     setStyle(demoStyle);
     setShowDemoMode(false);
-    handleProtectedGenerate({} as React.FormEvent);
+    // Create a synthetic event for handleProtectedGenerate
+    const syntheticEvent = {
+      preventDefault: () => {}
+    } as React.FormEvent<HTMLFormElement>;
+    handleProtectedGenerate(syntheticEvent);
   };
 
   const handleCameraCapture = (imageData: string) => {
