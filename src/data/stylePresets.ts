@@ -18,10 +18,10 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Photorealistic',
     description: 'Ultra-realistic photography with perfect lighting and detail',
     category: 'realistic',
-    preview: '/lovable-uploads/4034377e-d4f1-439d-b479-367253c12770.png',
+    preview: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format',
     popular: true,
     trending: true,
-    keywords: ['photorealistic', 'detailed', 'professional photography', 'realistic'],
+    keywords: ['photorealistic', 'detailed', 'professional', 'photography', 'realistic', 'photo', 'portrait', 'real'],
     examplePrompt: 'professional portrait photo of a person, photorealistic, detailed, studio lighting'
   },
   {
@@ -29,9 +29,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Cinematic',
     description: 'Movie-like dramatic scenes with cinematic lighting and composition',
     category: 'realistic',
-    preview: '/lovable-uploads/99f5c8dc-6b8d-4daf-81a1-ff186d0ee10a.png',
+    preview: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&h=300&fit=crop&auto=format',
     popular: true,
-    keywords: ['cinematic', 'dramatic', 'movie scene', 'professional lighting'],
+    keywords: ['cinematic', 'dramatic', 'movie', 'film', 'scene', 'professional', 'lighting', 'epic'],
     examplePrompt: 'cinematic scene, dramatic lighting, movie style, wide shot'
   },
   {
@@ -39,9 +39,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Portrait',
     description: 'Professional portrait photography with natural expressions',
     category: 'realistic',
-    preview: '/lovable-uploads/53e8165c-d2db-4f0c-9509-f0e76e5c179f.png',
+    preview: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format',
     popular: false,
-    keywords: ['portrait', 'headshot', 'natural', 'professional'],
+    keywords: ['portrait', 'headshot', 'natural', 'professional', 'face', 'person', 'human'],
     examplePrompt: 'professional portrait, natural lighting, clean background'
   },
   
@@ -51,9 +51,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Watercolor',
     description: 'Soft watercolor painting with flowing colors and artistic brushstrokes',
     category: 'artistic',
-    preview: '/lovable-uploads/60da266c-4810-4f41-9449-ae54c2026373.png',
+    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
     popular: true,
-    keywords: ['watercolor', 'painting', 'soft', 'artistic', 'flowing'],
+    keywords: ['watercolor', 'painting', 'soft', 'artistic', 'flowing', 'brushstrokes', 'traditional', 'art'],
     examplePrompt: 'watercolor painting style, soft brushstrokes, flowing colors'
   },
   {
@@ -61,9 +61,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Oil Painting',
     description: 'Classical oil painting with visible brushstrokes and rich textures',
     category: 'artistic',
-    preview: '/lovable-uploads/610669b3-849e-4ee2-a163-df90a0e6704e.png',
+    preview: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop&auto=format',
     popular: false,
-    keywords: ['oil painting', 'classical', 'brushstrokes', 'textured'],
+    keywords: ['oil', 'painting', 'classical', 'brushstrokes', 'textured', 'traditional', 'canvas', 'fine art'],
     examplePrompt: 'oil painting style, classical art, visible brushstrokes, rich colors'
   },
   {
@@ -71,9 +71,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Impressionist',
     description: 'Monet-style impressionist art with light and color emphasis',
     category: 'artistic',
-    preview: '/lovable-uploads/7f38eaf1-216c-4148-b05c-9a2f87de6ffc.png',
+    preview: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=300&fit=crop&auto=format',
     popular: false,
-    keywords: ['impressionist', 'monet style', 'light', 'color'],
+    keywords: ['impressionist', 'monet', 'style', 'light', 'color', 'brush', 'texture', 'french'],
     examplePrompt: 'impressionist painting, monet style, soft light, colorful'
   },
   
@@ -83,9 +83,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Digital Art',
     description: 'Modern digital illustration with vibrant colors and clean lines',
     category: 'digital',
-    preview: '/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png',
+    preview: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=300&fit=crop&auto=format',
     popular: true,
-    keywords: ['digital art', 'illustration', 'vibrant', 'modern'],
+    keywords: ['digital', 'art', 'illustration', 'vibrant', 'modern', 'colorful', 'vector', 'graphic'],
     examplePrompt: 'digital art illustration, vibrant colors, modern style, clean lines'
   },
   {
@@ -93,10 +93,10 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Cyberpunk',
     description: 'Neon-lit futuristic aesthetic with dark atmosphere and bright colors',
     category: 'digital',
-    preview: '/lovable-uploads/8398d1f3-db95-4f78-b05e-1fbba4750e81.png',
+    preview: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&auto=format',
     popular: true,
     trending: true,
-    keywords: ['cyberpunk', 'neon', 'futuristic', 'dark', 'glowing'],
+    keywords: ['cyberpunk', 'neon', 'futuristic', 'dark', 'glowing', 'sci-fi', 'technology', 'urban', 'cyber'],
     examplePrompt: 'cyberpunk style, neon lights, futuristic city, dark atmosphere'
   },
   {
@@ -104,9 +104,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Pixel Art',
     description: '8-bit retro pixel style with nostalgic video game aesthetics',
     category: 'digital',
-    preview: '/lovable-uploads/8916d6c1-4854-473f-b0fb-0c6d9833633e.png',
+    preview: 'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400&h=300&fit=crop&auto=format',
     popular: false,
-    keywords: ['pixel art', '8-bit', 'retro', 'video game'],
+    keywords: ['pixel', 'art', '8-bit', 'retro', 'video', 'game', 'nostalgic', 'arcade'],
     examplePrompt: 'pixel art style, 8-bit, retro video game aesthetic'
   },
   
@@ -116,9 +116,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Japanese Anime',
     description: 'Traditional anime/manga style with expressive characters',
     category: 'anime',
-    preview: '/lovable-uploads/9baa5403-54fd-4d41-9dff-b6762b238e3e.png',
+    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
     popular: true,
-    keywords: ['anime', 'manga', 'japanese', 'expressive'],
+    keywords: ['anime', 'manga', 'japanese', 'expressive', 'character', 'cartoon', 'animation'],
     examplePrompt: 'anime style character, manga art, japanese animation style'
   },
   {
@@ -126,9 +126,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: '3D Anime',
     description: 'Modern 3D anime rendering with smooth surfaces and cel-shading',
     category: 'anime',
-    preview: '/lovable-uploads/b8bd59bc-46c8-4f5f-9ad8-8eacbf6c7c20.png',
+    preview: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=400&h=300&fit=crop&auto=format',
     popular: false,
-    keywords: ['3d anime', 'cel shading', 'modern', 'smooth'],
+    keywords: ['3d', 'anime', 'cel', 'shading', 'modern', 'smooth', 'rendering'],
     examplePrompt: '3d anime style, cel shaded, modern anime rendering'
   },
   {
@@ -136,9 +136,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Chibi Style',
     description: 'Cute chibi character art with oversized heads and kawaii aesthetics',
     category: 'anime',
-    preview: '/lovable-uploads/c0cd939b-5fe6-4732-af93-ee61f070b689.png',
+    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
     popular: false,
-    keywords: ['chibi', 'cute', 'kawaii', 'small'],
+    keywords: ['chibi', 'cute', 'kawaii', 'small', 'character', 'oversized', 'head'],
     examplePrompt: 'chibi style character, cute, kawaii, oversized head'
   },
 
@@ -148,10 +148,10 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Fantasy Art',
     description: 'Epic fantasy artwork with magical elements and mythical creatures',
     category: 'artistic',
-    preview: '/lovable-uploads/c258fc93-b285-4676-9418-c690eaa9fa60.png',
+    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
     popular: true,
     trending: true,
-    keywords: ['fantasy', 'magical', 'epic', 'mythical'],
+    keywords: ['fantasy', 'magical', 'epic', 'mythical', 'dragon', 'wizard', 'magic', 'medieval'],
     examplePrompt: 'fantasy art, magical scene, epic composition, mythical elements'
   },
   {
@@ -159,9 +159,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Sci-Fi',
     description: 'Science fiction scenes with advanced technology and space themes',
     category: 'digital',
-    preview: '/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png',
+    preview: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=300&fit=crop&auto=format',
     popular: true,
-    keywords: ['sci-fi', 'futuristic', 'space', 'technology'],
+    keywords: ['sci-fi', 'futuristic', 'space', 'technology', 'robot', 'alien', 'spaceship', 'advanced'],
     examplePrompt: 'sci-fi scene, futuristic technology, space setting, advanced'
   },
   {
@@ -169,9 +169,9 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Minimalist',
     description: 'Clean, simple compositions with focus on essential elements',
     category: 'artistic',
-    preview: '/lovable-uploads/db49271b-8575-4763-9439-0e4d86479b29.png',
+    preview: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=300&fit=crop&auto=format',
     popular: false,
-    keywords: ['minimalist', 'clean', 'simple', 'essential'],
+    keywords: ['minimalist', 'clean', 'simple', 'essential', 'minimal', 'white', 'space'],
     examplePrompt: 'minimalist design, clean composition, simple shapes, essential elements'
   }
 ];
