@@ -34,17 +34,18 @@ function App() {
           <AuthProvider>
             <SubscriptionProvider>
               <ConversionManager pageId="app" userActivity={{}}>
-                <UserEngagementTracker />
-                <div className="min-h-screen bg-background font-sans antialiased">
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/auth" element={<Auth />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/community" element={<Community />} />
-                    <Route path="/pricing" element={<Pricing />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </div>
+                <UserEngagementTracker>
+                  <div className="min-h-screen bg-background font-sans antialiased">
+                    <Routes>
+                      <Route path="/" element={<Index />} />
+                      <Route path="/auth" element={<Auth />} />
+                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/community" element={<Community />} />
+                      <Route path="/pricing" element={<Pricing />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </div>
+                </UserEngagementTracker>
               </ConversionManager>
             </SubscriptionProvider>
           </AuthProvider>
