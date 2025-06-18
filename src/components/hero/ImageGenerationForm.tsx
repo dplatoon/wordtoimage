@@ -7,6 +7,11 @@ import { GenerateButton } from './form/GenerateButton';
 import { ExamplePrompts } from './form/ExamplePrompts';
 import { FreeGenerationCounter } from './form/FreeGenerationCounter';
 import { ApiKeySection } from './form/ApiKeySection';
+import { DemoMode } from './DemoMode';
+import { CameraUpload } from './CameraUpload';
+import { FreeVsProComparison } from './FreeVsProComparison';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useState } from 'react';
 
 interface ImageGenerationFormProps {
   onImageGenerated: (url: string) => void;
@@ -53,6 +58,26 @@ export const ImageGenerationForm = ({
     onNewGalleryRow
   });
 
+  const [showDemoMode, setShowDemoMode] = useState(true);
+  const [showCameraUpload, setShowCameraUpload] = useState(false);
+  const [showFreeVsPro, setShowFreeVsPro] = useState(!user);
+
+  const handleDemoGenerate = (demoPrompt: string, demoStyle: string) => {
+    setPrompt(demoPrompt);
+    setStyle(demoStyle);
+    setShowDemoMode(false);
+    handleProtectedGenerate({} as React.FormEvent);
+  };
+
+  const handleCameraCapture = (imageData: string) => {
+    setSourceImage(imageData);
+    setShowCameraUpload(false);
+  };
+
+  const handleUpgradeClick = () => {
+    setAuthModalOpen(true);
+  };
+
   const MAX_FREE_ANONYMOUS_GENERATIONS = 1; // Anonymous users can generate 1 image for free
 
   // Remove the wrapper function since setCount already handles numbers
@@ -74,6 +99,33 @@ export const ImageGenerationForm = ({
   return (
     <>
       <FormLayout onSubmit={handleProtectedGenerate}>
+        {/* Demo Mode - Show at top for immediate engagement */}
+        {showDemoMode && generationCount === 0 && (
+          <DemoMode 
+            onDemoGenerate={handleDemoGenerate}
+            isGenerating={state.isGenerating}
+          />
+        )}
+
+        {/* Free vs Pro Comparison - Show after first generation or for returning users */}
+        {showFreeVsPro && (generationCount > 0 || !showDemoMode) && (
+          <FreeVsProComparison 
+            onUpgradeClick={handleUpgradeClick}
+            className="mb-4"
+          />
+        )}
+
+        {/* Camera Upload for Mobile - Show when source image needed */}
+        {isMobile && !sourceImage && (
+          <div className="mb-4">
+            <CameraUpload 
+              onImageCapture={handleCameraCapture}
+              disabled={state.isGenerating}
+            />
+          </div>
+        )}
+
+        {/* Regular form components */}
         <ApiKeySection 
           showApiKeyForm={showApiKeyForm}
           onApiKeySubmit={setTempApiKey}
@@ -94,9 +146,12 @@ export const ImageGenerationForm = ({
           onChange={setPrompt}
         />
 
-        <ExamplePrompts 
-          onSelect={setPrompt}
-        />
+        {/* Show example prompts only if demo mode is hidden */}
+        {!showDemoMode && (
+          <ExamplePrompts 
+            onSelect={setPrompt}
+          />
+        )}
 
         <GenerateButton 
           isGenerating={state.isGenerating}
