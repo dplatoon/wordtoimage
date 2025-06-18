@@ -1,4 +1,5 @@
 
+
 import { useImageGenerationForm } from '@/hooks/useImageGenerationForm';
 import { AuthModalDialog } from './AuthModalDialog';
 import { FormLayout } from './form/FormLayout';
@@ -11,6 +12,8 @@ import { ApiKeySection } from './form/ApiKeySection';
 import { DemoMode } from './DemoMode';
 import { CameraUpload } from './CameraUpload';
 import { FreeVsProComparison } from './FreeVsProComparison';
+import { StyleDNAQuiz } from '../engagement/StyleDNAQuiz';
+import { AIAssistantAura } from '../engagement/AIAssistantAura';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useState } from 'react';
 
@@ -62,6 +65,7 @@ export const ImageGenerationForm = ({
   const [showDemoMode, setShowDemoMode] = useState(true);
   const [showCameraUpload, setShowCameraUpload] = useState(false);
   const [showFreeVsPro, setShowFreeVsPro] = useState(!user);
+  const [showStyleQuiz, setShowStyleQuiz] = useState(false);
   const isMobile = useIsMobile();
 
   const handleDemoGenerate = (demoPrompt: string, demoStyle: string) => {
@@ -84,10 +88,28 @@ export const ImageGenerationForm = ({
     setAuthModalOpen(true);
   };
 
-  const MAX_FREE_ANONYMOUS_GENERATIONS = 1; // Anonymous users can generate 1 image for free
+  const handleStyleQuizComplete = (profile: any) => {
+    // Use the profile to enhance the prompt and style
+    setStyle(profile.primaryStyle);
+    const stylePrompt = `A ${profile.primaryStyle} ${profile.roomType} room with ${profile.colorPreference} colors`;
+    setPrompt(stylePrompt);
+    setShowStyleQuiz(false);
+    setShowDemoMode(false);
+  };
 
-  // Remove the wrapper function since setCount already handles numbers
-  // and the control component should pass numbers directly
+  const handleQuizStart = () => {
+    setShowStyleQuiz(true);
+  };
+
+  const handleGenerateClick = () => {
+    // Scroll to the generation form if not visible
+    const formElement = document.querySelector('.image-generation-section');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  const MAX_FREE_ANONYMOUS_GENERATIONS = 1; // Anonymous users can generate 1 image for free
 
   if (authLoading || isCheckingServerKey) {
     return (
@@ -104,6 +126,23 @@ export const ImageGenerationForm = ({
 
   return (
     <>
+      {/* Style DNA Quiz Modal */}
+      {showStyleQuiz && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <StyleDNAQuiz 
+            onComplete={handleStyleQuizComplete}
+            onClose={() => setShowStyleQuiz(false)}
+          />
+        </div>
+      )}
+
+      {/* AI Assistant Aura */}
+      <AIAssistantAura 
+        onQuizStart={handleQuizStart}
+        onGenerateClick={handleGenerateClick}
+        currentPage={generationCount > 0 ? "afterGeneration" : "homepage"}
+      />
+
       <FormLayout onSubmit={handleProtectedGenerate}>
         {/* Demo Mode - Show at top for immediate engagement */}
         {showDemoMode && generationCount === 0 && (

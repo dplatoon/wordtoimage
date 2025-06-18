@@ -1,210 +1,109 @@
 
-/* Mobile-first responsive enhancements */
-@layer utilities {
-  /* Enhanced mobile typography with better hierarchy */
-  @media (max-width: 640px) {
-    .hero-title {
-      font-size: 2rem;
-      line-height: 1.1;
-      letter-spacing: -0.025em;
-    }
-    
-    .hero-subtitle {
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-    
-    .section-title {
-      font-size: 1.75rem;
-      line-height: 1.2;
-    }
-    
-    .card-title {
-      font-size: 1.125rem;
-      line-height: 1.3;
-    }
-    
-    /* Mobile-optimized text sizes */
-    .mobile-text-sm {
-      font-size: 0.875rem;
-      line-height: 1.5;
-    }
-    
-    .mobile-text-base {
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-  }
+/* Enhanced Touch Targets */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  position: relative;
+}
 
-  /* Tablet adjustments with better scaling */
-  @media (min-width: 641px) and (max-width: 1024px) {
-    .hero-title {
-      font-size: 2.5rem;
-      line-height: 1.1;
-    }
-    
-    .hero-subtitle {
-      font-size: 1.125rem;
-      line-height: 1.6;
-    }
-    
-    .tablet-grid-2 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .tablet-grid-3 {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+/* Improve tap responsiveness */
+.touch-target:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease-out;
+}
 
-  /* Enhanced touch targets for all interactive elements */
-  @media (max-width: 768px) {
-    button, .btn-primary, .btn-accent, .btn-outline, .btn-secondary {
-      min-height: 48px;
-      min-width: 48px;
-      padding: 0.875rem 1.5rem;
-      font-size: 1rem;
-    }
-    
-    .nav-link {
-      min-height: 48px;
-      padding: 0.875rem 1rem;
-      font-size: 1rem;
-    }
-    
-    .form-input, input, textarea, select {
-      min-height: 48px;
-      padding: 0.875rem 1rem;
-      font-size: 1rem;
-    }
-    
-    /* Enhanced gallery touch targets */
-    .gallery-item {
-      min-height: 48px;
-      touch-action: manipulation;
-    }
-    
-    /* Better spacing for touch interactions */
-    .touch-spacing {
-      margin: 0.5rem 0;
-    }
-    
-    /* Mobile-specific interactive elements */
-    .mobile-card {
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 0.75rem;
-    }
-    
-    .mobile-section {
-      padding: 2rem 1rem;
-    }
+/* Mobile-first button improvements */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 48px;
+    font-size: 16px; /* Prevents zoom on iOS */
   }
+  
+  /* Larger touch areas for small elements */
+  .touch-target-small::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
+  }
+}
 
-  /* Mobile-optimized spacing system */
-  @media (max-width: 640px) {
-    .section-spacing {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-    }
-    
-    .content-container {
-      padding-left: 1rem;
-      padding-right: 1rem;
-      max-width: 100%;
-    }
-    
-    .card-modern, .card-feature {
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-    }
-    
-    /* Mobile grid optimizations */
-    .mobile-grid-1 {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    
-    .mobile-grid-2 {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-    }
-    
-    /* Mobile-specific layouts */
-    .mobile-stack {
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .mobile-center {
-      text-align: center;
-      align-items: center;
-    }
+/* Mobile swipe gestures */
+.swipeable {
+  touch-action: pan-y;
+  user-select: none;
+}
+
+/* Haptic feedback simulation */
+.haptic-light {
+  animation: haptic-pulse 0.1s ease-out;
+}
+
+@keyframes haptic-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Mobile-optimized spacing */
+.mobile-padding {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-padding {
+    padding: 1.5rem;
   }
-  
-  /* Large mobile devices (landscape) */
-  @media (max-width: 896px) and (orientation: landscape) {
-    .landscape-adjust {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
-    
-    .hero-title {
-      font-size: 2.25rem;
-    }
-    
-    .hero-subtitle {
-      font-size: 1.125rem;
-    }
+}
+
+@media (min-width: 1024px) {
+  .mobile-padding {
+    padding: 2rem;
   }
-  
-  /* Performance optimizations */
-  .gpu-accelerated {
-    will-change: transform;
-    transform: translateZ(0);
-  }
-  
-  .optimize-scrolling {
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-  
-  /* Enhanced accessibility for mobile */
-  @media (max-width: 768px) {
-    .focus-visible {
-      outline: 2px solid #3b82f6;
-      outline-offset: 2px;
-    }
-    
-    .sr-only-mobile {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-  }
-  
-  /* High DPI display optimizations */
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .high-dpi-image {
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-    }
-  }
-  
-  /* Dark mode mobile optimizations */
-  @media (prefers-color-scheme: dark) and (max-width: 768px) {
-    .mobile-dark-bg {
-      background-color: #1f2937;
-    }
-    
-    .mobile-dark-text {
-      color: #f9fafb;
-    }
+}
+
+/* Improved focus states for accessibility */
+.touch-target:focus-visible {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Card hover states */
+.interactive-card {
+  transition: all 0.2s ease-out;
+}
+
+.interactive-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.interactive-card:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Safe area insets for mobile devices */
+@supports (padding: max(0px)) {
+  .safe-area-padding {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 }
