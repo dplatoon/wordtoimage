@@ -34,6 +34,9 @@ import VideoTutorials from "./pages/VideoTutorials";
 import WhatsNew from "./pages/WhatsNew";
 import PromptGuide from "./pages/PromptGuide";
 import AITemplates from "./pages/AITemplates";
+import StyleGallery from "./pages/StyleGallery";
+import BatchGenerator from "./pages/BatchGenerator";
+import ContactSupport from "./pages/ContactSupport";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -75,6 +78,9 @@ function App() {
                 <Route path="/whats-new" element={<WhatsNew />} />
                 <Route path="/prompt-guide" element={<PromptGuide />} />
                 <Route path="/ai-templates" element={<AITemplates />} />
+                <Route path="/style-gallery" element={<StyleGallery />} />
+                <Route path="/batch-generator" element={<BatchGenerator />} />
+                <Route path="/contact-support" element={<ContactSupport />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

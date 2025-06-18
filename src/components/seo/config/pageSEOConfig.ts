@@ -56,6 +56,24 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     keywords: ['AI image templates', 'AI art templates', 'social media templates', 'marketing templates'],
     ogImage: 'https://wordtoimage.com/og-templates.jpg'
   },
+  '/style-gallery': {
+    title: 'AI Art Style Gallery - 50+ Artistic Styles | WordToImage',
+    description: 'Explore our collection of AI art styles. From photorealistic to anime, watercolor to cyberpunk. Find the perfect style for your AI image generation.',
+    keywords: ['AI art styles', 'image generation styles', 'artistic styles', 'AI art gallery', 'digital art styles', 'photorealistic style AI', 'anime style generator', 'cyberpunk art creator'],
+    ogImage: 'https://wordtoimage.com/og-style-gallery.jpg'
+  },
+  '/batch-generator': {
+    title: 'Batch AI Image Generator - Generate Multiple Images at Once | WordToImage',
+    description: 'Generate multiple AI images simultaneously with our batch generator. Perfect for creating image collections, testing prompts, and bulk image creation.',
+    keywords: ['batch AI image generator', 'bulk image generation', 'multiple AI images', 'batch text to image', 'bulk AI art creation'],
+    ogImage: 'https://wordtoimage.com/og-batch-generator.jpg'
+  },
+  '/contact-support': {
+    title: 'Contact Support - Get Help with WordToImage',
+    description: 'Get support for WordToImage. Contact our team for technical help, billing questions, or general inquiries. Fast response times guaranteed.',
+    keywords: ['WordToImage support', 'customer service', 'technical help', 'billing support', 'contact us'],
+    ogImage: 'https://wordtoimage.com/og-contact-support.jpg'
+  },
   '/blog': {
     title: 'AI Art Blog - Latest Tips, Tutorials & News | WordToImage',
     description: 'Learn AI art techniques, discover prompting tips, and stay updated with the latest AI image generation trends and tutorials.',

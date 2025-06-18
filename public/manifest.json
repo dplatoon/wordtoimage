@@ -1,17 +1,59 @@
 
 {
-  "name": "WordToImage",
+  "name": "WordToImage - AI Image Generator",
   "short_name": "WordToImage",
-  "description": "AI-powered text to image generation",
+  "description": "Transform text into stunning AI-generated images instantly",
   "start_url": "/",
   "display": "standalone",
+  "theme_color": "#8B5CF6",
   "background_color": "#ffffff",
-  "theme_color": "#1EAEDB",
+  "orientation": "portrait-primary",
+  "scope": "/",
   "icons": [
     {
-      "src": "/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png",
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/placeholder.svg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/placeholder.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "photo", "graphics"],
+  "shortcuts": [
+    {
+      "name": "Generate Image",
+      "short_name": "Generate",
+      "description": "Quick access to AI image generation",
+      "url": "/text-to-image",
+      "icons": [
+        {
+          "src": "/placeholder.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Style Gallery",
+      "short_name": "Styles",
+      "description": "Browse AI art styles",
+      "url": "/style-gallery",
+      "icons": [
+        {
+          "src": "/placeholder.svg",
+          "sizes": "96x96"
+        }
+      ]
     }
   ]
 }
