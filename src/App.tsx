@@ -1,13 +1,10 @@
+
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { SubscriptionProvider } from '@/contexts/SubscriptionContext';
-import { ConversionManager } from '@/components/analytics/ConversionManager';
-import { BehavioralAnalytics } from '@/components/analytics/BehavioralAnalytics';
-import { UserEngagementTracker } from '@/components/analytics/UserEngagementTracker';
 import Index from '@/pages/Index';
 import Auth from '@/pages/Auth';
 import Dashboard from '@/pages/Dashboard';
@@ -34,9 +31,6 @@ function App() {
         <BrowserRouter>
           <AuthProvider>
             <SubscriptionProvider>
-              <ConversionManager />
-              <BehavioralAnalytics />
-              <UserEngagementTracker />
               <div className="min-h-screen bg-background font-sans antialiased">
                 <Routes>
                   <Route path="/" element={<Index />} />
