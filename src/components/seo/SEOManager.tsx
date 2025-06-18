@@ -1,4 +1,3 @@
-
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
@@ -45,61 +44,13 @@ const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     title: 'AI Image Generator Features - Advanced Text to Image Technology | WordToImage',
     description: 'Explore powerful AI image generation features: 50+ styles, 4K resolution, batch generation, commercial rights, and more. See what makes WordToImage the best AI art tool.',
     keywords: ['AI image features', 'text to image capabilities', 'AI art tools', 'image generation technology'],
-    ogImage: 'https://wordtoimage.com/og-features.jpg',
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "WordToImage Features",
-      "description": "AI Image Generation Features",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "50+ Art Styles",
-          "description": "Wide variety of artistic styles for image generation"
-        },
-        {
-          "@type": "ListItem", 
-          "position": 2,
-          "name": "4K Resolution",
-          "description": "High-quality image output up to 4K resolution"
-        }
-      ]
-    }
+    ogImage: 'https://wordtoimage.com/og-features.jpg'
   },
   '/pricing': {
     title: 'AI Image Generator Pricing - Free & Pro Plans | WordToImage',
     description: 'Affordable AI image generation pricing. Start free with daily credits or upgrade to Pro for unlimited generations. Commercial use included.',
     keywords: ['AI image generator pricing', 'text to image cost', 'AI art subscription', 'image generation plans'],
-    ogImage: 'https://wordtoimage.com/og-pricing.jpg',
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "WordToImage Pro",
-      "description": "Professional AI image generation service",
-      "offers": [
-        {
-          "@type": "Offer",
-          "name": "Free Plan",
-          "price": "0",
-          "priceCurrency": "USD",
-          "description": "Free daily AI image generations"
-        },
-        {
-          "@type": "Offer",
-          "name": "Pro Plan", 
-          "price": "9.99",
-          "priceCurrency": "USD",
-          "priceSpecification": {
-            "@type": "UnitPriceSpecification",
-            "price": "9.99",
-            "priceCurrency": "USD",
-            "billingDuration": "P1M"
-          },
-          "description": "Unlimited AI image generations with advanced features"
-        }
-      ]
-    }
+    ogImage: 'https://wordtoimage.com/og-pricing.jpg'
   },
   '/templates': {
     title: 'AI Image Templates - Professional Designs & Styles | WordToImage',
@@ -112,18 +63,6 @@ const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     description: 'Learn AI art techniques, discover prompting tips, and stay updated with the latest AI image generation trends and tutorials.',
     keywords: ['AI art blog', 'AI image tutorials', 'text to image tips', 'AI art news', 'prompting techniques'],
     ogImage: 'https://wordtoimage.com/og-blog.jpg'
-  },
-  '/tutorials': {
-    title: 'AI Image Generation Tutorials - Step-by-Step Guides | WordToImage',
-    description: 'Master AI image generation with our comprehensive tutorials. Learn prompting techniques, style selection, and advanced AI art creation methods.',
-    keywords: ['AI image tutorials', 'text to image guide', 'AI art tutorials', 'prompting guide', 'AI image how-to'],
-    ogImage: 'https://wordtoimage.com/og-tutorials.jpg'
-  },
-  '/design-tips': {
-    title: 'AI Art Design Tips - Professional Visual Creation Guide | WordToImage',
-    description: 'Professional design tips for AI-generated images. Learn composition, color theory, and visual principles for stunning AI artwork.',
-    keywords: ['AI art design tips', 'AI image composition', 'visual design AI', 'AI art principles', 'design with AI'],
-    ogImage: 'https://wordtoimage.com/og-design-tips.jpg'
   },
   '/help': {
     title: 'Help & Support - AI Image Generator Guide | WordToImage',
@@ -143,42 +82,6 @@ const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     keywords: ['contact WordToImage', 'AI image support', 'customer service', 'partnerships'],
     ogImage: 'https://wordtoimage.com/og-contact.jpg'
   },
-  '/community': {
-    title: 'AI Art Community - Share & Discover Amazing Creations | WordToImage',
-    description: 'Join the WordToImage community to share AI art, get inspiration, and connect with other AI artists and creators.',
-    keywords: ['AI art community', 'AI art gallery', 'share AI images', 'AI artist community'],
-    ogImage: 'https://wordtoimage.com/og-community.jpg'
-  },
-  '/api': {
-    title: 'AI Image API Documentation - Developer Resources | WordToImage',
-    description: 'Integrate AI image generation into your applications with WordToImage API. Complete documentation, examples, and SDKs.',
-    keywords: ['AI image API', 'text to image API', 'developer tools', 'API documentation'],
-    ogImage: 'https://wordtoimage.com/og-api.jpg'
-  },
-  '/updates': {
-    title: 'Latest Updates - New AI Features & Improvements | WordToImage',
-    description: 'Stay updated with the latest AI image generation features, improvements, and announcements from WordToImage.',
-    keywords: ['AI updates', 'new features', 'product updates', 'AI improvements'],
-    ogImage: 'https://wordtoimage.com/og-updates.jpg'
-  },
-  '/careers': {
-    title: 'Careers - Join the AI Revolution | WordToImage',
-    description: 'Join WordToImage and help build the future of AI image generation. Explore career opportunities in AI, engineering, and design.',
-    keywords: ['AI careers', 'jobs', 'AI engineer jobs', 'machine learning careers'],
-    ogImage: 'https://wordtoimage.com/og-careers.jpg'
-  },
-  '/beta': {
-    title: 'Beta Features - Early Access to AI Tools | WordToImage',
-    description: 'Get early access to cutting-edge AI image generation features. Join our beta program and help shape the future of AI art.',
-    keywords: ['AI beta', 'early access', 'beta features', 'AI testing'],
-    ogImage: 'https://wordtoimage.com/og-beta.jpg'
-  },
-  '/beta-landing': {
-    title: 'Beta Program - Join Early Access | WordToImage',
-    description: 'Sign up for WordToImage beta program and get exclusive access to new AI features before they launch.',
-    keywords: ['beta signup', 'early access program', 'AI beta testing', 'exclusive features'],
-    ogImage: 'https://wordtoimage.com/og-beta-landing.jpg'
-  },
   '/privacy': {
     title: 'Privacy Policy - Data Protection & Privacy | WordToImage',
     description: 'Read WordToImage privacy policy to understand how we protect your data and respect your privacy while using our AI services.',
@@ -196,6 +99,60 @@ const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     description: 'Learn about how WordToImage uses cookies to improve your experience on our AI image generation platform.',
     keywords: ['cookie policy', 'cookies', 'tracking', 'website cookies'],
     ogImage: 'https://wordtoimage.com/og-cookies.jpg'
+  },
+  '/product': {
+    title: 'AI Image Generation Product - WordToImage Platform Features',
+    description: 'Discover WordToImage\'s complete AI image generation platform. Advanced text-to-image technology, batch processing, upscaling, and professional tools.',
+    keywords: ['AI image generation platform', 'text to image product', 'AI art tools', 'batch image generation'],
+    ogImage: 'https://wordtoimage.com/og-product.jpg'
+  },
+  '/beta': {
+    title: 'Beta Features - Early Access to AI Tools | WordToImage',
+    description: 'Get early access to cutting-edge AI image generation features. Join our beta program and help shape the future of AI art.',
+    keywords: ['AI beta', 'early access', 'beta features', 'AI testing'],
+    ogImage: 'https://wordtoimage.com/og-beta.jpg'
+  },
+  '/beta-landing': {
+    title: 'Beta Program - Join Early Access | WordToImage',
+    description: 'Sign up for WordToImage beta program and get exclusive access to new AI features before they launch.',
+    keywords: ['beta signup', 'early access program', 'AI beta testing', 'exclusive features'],
+    ogImage: 'https://wordtoimage.com/og-beta-landing.jpg'
+  },
+  '/api': {
+    title: 'AI Image API Documentation - Developer Resources | WordToImage',
+    description: 'Integrate AI image generation into your applications with WordToImage API. Complete documentation, examples, and SDKs.',
+    keywords: ['AI image API', 'text to image API', 'developer tools', 'API documentation'],
+    ogImage: 'https://wordtoimage.com/og-api.jpg'
+  },
+  '/community': {
+    title: 'AI Art Community - Share & Discover Amazing Creations | WordToImage',
+    description: 'Join the WordToImage community to share AI art, get inspiration, and connect with other AI artists and creators.',
+    keywords: ['AI art community', 'AI art gallery', 'share AI images', 'AI artist community'],
+    ogImage: 'https://wordtoimage.com/og-community.jpg'
+  },
+  '/tutorials': {
+    title: 'AI Image Generation Tutorials - Step-by-Step Guides | WordToImage',
+    description: 'Master AI image generation with our comprehensive tutorials. Learn prompting techniques, style selection, and advanced AI art creation methods.',
+    keywords: ['AI image tutorials', 'text to image guide', 'AI art tutorials', 'prompting guide'],
+    ogImage: 'https://wordtoimage.com/og-tutorials.jpg'
+  },
+  '/design-tips': {
+    title: 'AI Art Design Tips - Professional Visual Creation Guide | WordToImage',
+    description: 'Professional design tips for AI-generated images. Learn composition, color theory, and visual principles for stunning AI artwork.',
+    keywords: ['AI art design tips', 'AI image composition', 'visual design AI', 'AI art principles'],
+    ogImage: 'https://wordtoimage.com/og-design-tips.jpg'
+  },
+  '/updates': {
+    title: 'Latest Updates - New AI Features & Improvements | WordToImage',
+    description: 'Stay updated with the latest AI image generation features, improvements, and announcements from WordToImage.',
+    keywords: ['AI updates', 'new features', 'product updates', 'AI improvements'],
+    ogImage: 'https://wordtoimage.com/og-updates.jpg'
+  },
+  '/careers': {
+    title: 'Careers - Join the AI Revolution | WordToImage',
+    description: 'Join WordToImage and help build the future of AI image generation. Explore career opportunities in AI, engineering, and design.',
+    keywords: ['AI careers', 'jobs', 'AI engineer jobs', 'machine learning careers'],
+    ogImage: 'https://wordtoimage.com/og-careers.jpg'
   }
 };
 
