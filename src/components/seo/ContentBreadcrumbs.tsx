@@ -1,85 +1,75 @@
 
-import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-interface BreadcrumbItem {
-  label: string;
-  path: string;
-}
+import { Link, useLocation } from 'react-router-dom';
 
 export const ContentBreadcrumbs = () => {
   const location = useLocation();
-  
-  const getBreadcrumbs = (pathname: string): BreadcrumbItem[] => {
-    const paths = pathname.split('/').filter(Boolean);
-    const breadcrumbs: BreadcrumbItem[] = [
-      { label: 'Home', path: '/' }
-    ];
-    
-    const pathMap: Record<string, string> = {
-      'blog': 'Blog',
-      'design-tips': 'Design Tips',
-      'tutorials': 'Tutorials',
-      'help': 'Help Center',
-      'api': 'API Documentation',
-      'features': 'Features',
-      'pricing': 'Pricing',
-      'about': 'About',
-      'contact': 'Contact',
-      'community': 'Community',
-      'templates': 'Templates',
-      'text-to-image': 'AI Generator'
-    };
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+
+  const generateBreadcrumbs = () => {
+    const breadcrumbs = [{ name: 'Home', href: '/' }];
     
     let currentPath = '';
-    paths.forEach(path => {
-      currentPath += `/${path}`;
-      if (pathMap[path]) {
-        breadcrumbs.push({
-          label: pathMap[path],
-          path: currentPath
-        });
-      }
+    pathSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`;
+      const isLast = index === pathSegments.length - 1;
+      
+      // Convert path segments to readable names
+      const name = segment
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+      
+      breadcrumbs.push({
+        name,
+        href: isLast ? undefined : currentPath
+      });
     });
     
     return breadcrumbs;
   };
-  
-  const breadcrumbs = getBreadcrumbs(location.pathname);
-  
-  if (breadcrumbs.length <= 1) return null;
-  
+
+  const breadcrumbs = generateBreadcrumbs();
+
+  // Generate breadcrumb structured data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbs.map((breadcrumb, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": breadcrumb.name,
+      ...(breadcrumb.href && { "item": `https://wordtoimage.com${breadcrumb.href}` })
+    }))
+  };
+
   return (
-    <nav 
-      aria-label="Breadcrumb" 
-      className="flex items-center space-x-2 text-sm text-gray-600 mb-6"
-    >
-      <ol className="flex items-center space-x-2">
-        {breadcrumbs.map((item, index) => (
-          <li key={item.path} className="flex items-center">
-            {index > 0 && (
-              <ChevronRight className="h-4 w-4 text-gray-400 mx-2" />
-            )}
-            {index === 0 && <Home className="h-4 w-4 mr-1" />}
-            {index === breadcrumbs.length - 1 ? (
-              <span className="font-medium text-gray-900" aria-current="page">
-                {item.label}
-              </span>
-            ) : (
-              <Link
-                to={item.path}
-                className={cn(
-                  "hover:text-ai-primary transition-colors duration-200",
-                  index === 0 && "flex items-center"
-                )}
-              >
-                {item.label}
-              </Link>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
+    <>
+      <script type="application/ld+json">
+        {JSON.stringify(structuredData)}
+      </script>
+      <nav aria-label="Breadcrumb" className="mb-6">
+        <ol className="flex items-center space-x-2 text-sm text-gray-500">
+          {breadcrumbs.map((breadcrumb, index) => (
+            <li key={breadcrumb.name} className="flex items-center">
+              {index > 0 && <ChevronRight className="h-4 w-4 mx-2" />}
+              {breadcrumb.href ? (
+                <Link 
+                  to={breadcrumb.href} 
+                  className="hover:text-ai-primary transition-colors"
+                >
+                  {index === 0 && <Home className="h-4 w-4 mr-1" />}
+                  {breadcrumb.name}
+                </Link>
+              ) : (
+                <span className="text-gray-900 font-medium">
+                  {breadcrumb.name}
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </>
   );
 };

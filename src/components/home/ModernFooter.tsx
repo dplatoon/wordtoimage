@@ -147,21 +147,21 @@ export const ModernFooter = () => {
                 <h5 className="font-medium text-white mb-3">Follow Us</h5>
                 <div className="flex gap-3">
                   <a 
-                    href="#" 
+                    href="https://twitter.com/wordtoimage" 
                     className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-gray-300 hover:text-ai-neon hover:bg-white/20 transition-all touch-target"
                     aria-label="Twitter"
                   >
                     <Twitter className="h-4 w-4" />
                   </a>
                   <a 
-                    href="#" 
+                    href="https://linkedin.com/company/wordtoimage" 
                     className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-gray-300 hover:text-ai-neon hover:bg-white/20 transition-all touch-target"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="h-4 w-4" />
                   </a>
                   <a 
-                    href="#" 
+                    href="https://github.com/wordtoimage" 
                     className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-gray-300 hover:text-ai-neon hover:bg-white/20 transition-all touch-target"
                     aria-label="GitHub"
                   >

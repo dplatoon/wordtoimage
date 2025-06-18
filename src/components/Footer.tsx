@@ -47,16 +47,32 @@ export const Footer = () => {
               Transform text into stunning AI-generated images. Create, enhance, and explore the possibilities of artificial intelligence.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://twitter.com/wordtoimage" 
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="Follow us on Twitter"
+              >
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://github.com/wordtoimage" 
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="View our GitHub"
+              >
                 <Github className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://linkedin.com/company/wordtoimage" 
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="Connect on LinkedIn"
+              >
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="mailto:support@wordtoimage.com" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="mailto:support@wordtoimage.com" 
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="Email support"
+              >
                 <Mail className="h-5 w-5" />
               </a>
             </div>
