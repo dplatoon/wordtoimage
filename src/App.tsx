@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import TextToImage from "./pages/TextToImage";
 import Dashboard from "./pages/Dashboard";
@@ -36,37 +37,39 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
-        <TooltipProvider>
-          <Toaster />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/text-to-image" element={<TextToImage />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/features" element={<Features />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/templates" element={<Templates />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/help" element={<Help />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/cookies" element={<Cookies />} />
-              <Route path="/product" element={<Product />} />
-              <Route path="/beta" element={<Beta />} />
-              <Route path="/beta-landing" element={<BetaLanding />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/api" element={<API />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/tutorials" element={<Tutorials />} />
-              <Route path="/design-tips" element={<DesignTips />} />
-              <Route path="/updates" element={<Updates />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/text-to-image" element={<TextToImage />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/features" element={<Features />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/templates" element={<Templates />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/help" element={<Help />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/cookies" element={<Cookies />} />
+                <Route path="/product" element={<Product />} />
+                <Route path="/beta" element={<Beta />} />
+                <Route path="/beta-landing" element={<BetaLanding />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/api" element={<API />} />
+                <Route path="/community" element={<Community />} />
+                <Route path="/tutorials" element={<Tutorials />} />
+                <Route path="/design-tips" element={<DesignTips />} />
+                <Route path="/updates" element={<Updates />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </AuthProvider>
       </HelmetProvider>
     </QueryClientProvider>
   );
