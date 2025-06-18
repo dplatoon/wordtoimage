@@ -6,7 +6,7 @@ import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { TabNavigation } from './TabNavigation';
 import { SingleImageTab } from './SingleImageTab';
 import { ExamplePromptsSection } from './ExamplePromptsSection';
-import { StyleGallery } from './StyleGallery';
+import { ProfessionalStyleGallery } from './ProfessionalStyleGallery';
 import { BatchGeneration } from './BatchGeneration';
 import { ExamplePrompts } from './ExamplePrompts';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -35,12 +35,16 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
     e.preventDefault();
     
     if (!prompt.trim()) {
-      toast.error("Please enter a description for your image");
+      toast.error("Please enter a description for your image", {
+        description: "Describe what you'd like to create in detail"
+      });
       return;
     }
     
-    if (prompt.trim().length < 10) {
-      toast.error("Please provide a more detailed description (at least 10 characters)");
+    if (prompt.trim().length < 15) {
+      toast.error("Please provide more details", {
+        description: "Add more descriptive elements for better results (at least 15 characters)"
+      });
       return;
     }
     
@@ -54,6 +58,13 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
     
     setGeneratedImagesCount(prev => prev + 1);
     onGenerate(finalPrompt);
+    
+    // Professional success feedback
+    toast.success("Generation started!", {
+      description: selectedStyles.length > 0 
+        ? `Creating with ${selectedStyles.length} style${selectedStyles.length > 1 ? 's' : ''}`
+        : "Your professional image is being created",
+    });
   };
 
   const handleBatchGenerate = (prompts: BatchPrompt[], applyStyles: boolean) => {
@@ -80,6 +91,10 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
         }
       }
     });
+    
+    toast.success("Batch generation started!", {
+      description: "Multiple images are being created with your settings"
+    });
   };
 
   const handleStyleToggle = (styleId: string) => {
@@ -96,25 +111,35 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
       const stylePrompts = styles.map(styleId => styleId.replace('-', ' ')).join(', ');
       finalPrompt = `${finalPrompt}, ${stylePrompts}`;
       onGenerate(finalPrompt);
+      toast.success("Generating with selected styles!", {
+        description: `Applied ${styles.length} professional art style${styles.length > 1 ? 's' : ''}`
+      });
     } else {
-      toast.error("Please enter a description for your image first");
+      toast.error("Please enter a description first", {
+        description: "Add your image description before applying styles"
+      });
     }
   };
 
   const handleSelectPrompt = (examplePrompt: string) => {
     setPrompt(examplePrompt);
     setActiveTab('single');
-    toast.success('Example prompt loaded!');
+    toast.success('Professional prompt loaded!', {
+      description: "Example prompt has been added to your description"
+    });
   };
 
   const handleGenerateExample = (examplePrompt: string) => {
     setPrompt(examplePrompt);
     onGenerate(examplePrompt);
+    toast.success("Generating example!", {
+      description: "Creating image from professional prompt"
+    });
   };
 
   return (
     <div className="w-full space-y-6">
-      <Card className="shadow-sm border-gray-200">
+      <Card className="shadow-xl border-gray-200 bg-gradient-to-br from-white to-gray-50/50 backdrop-blur-sm">
         <CardContent className={cn(
           "pt-6",
           isMobile ? "px-3 py-4" : "px-6 py-6"
@@ -139,7 +164,7 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
             </TabsContent>
 
             <TabsContent value="styles">
-              <StyleGallery
+              <ProfessionalStyleGallery
                 selectedStyles={selectedStyles}
                 onStyleToggle={handleStyleToggle}
                 onGenerateWithStyles={handleGenerateWithStyles}
