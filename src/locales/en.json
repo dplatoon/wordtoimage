@@ -1,21 +1,187 @@
 
 {
-  "welcome": "Welcome",
-  "community": "Community",
-  "blog": "Blog",
-  "design_tips": "Design Tips",
-  "tutorials": "Tutorials",
-  "help": "Help",
-  "api": "API",
-  "about": "About",
-  "careers": "Careers",
-  "contact": "Contact",
-  "privacy": "Privacy",
-  "terms": "Terms",
-  "cookies": "Cookies",
-  "sign_in": "Sign In",
-  "get_started": "Get Started",
-  
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "help": "Help",
+    "dashboard": "Dashboard",
+    "community": "Community",
+    "login": "Log In",
+    "sign_up": "Sign Up",
+    "logout": "Log Out"
+  },
+  "home_page": {
+    "hero": {
+      "title": "Transform Words into Stunning Images",
+      "subtitle": "Create beautiful, professional images from simple text descriptions using advanced AI technology. Perfect for marketers, designers, and creative professionals.",
+      "cta_button": "Start Creating",
+      "demo_button": "Watch Demo"
+    },
+    "features": {
+      "title": "Powerful Features for Every Creator",
+      "text_to_image": {
+        "title": "Text to Image",
+        "description": "Convert your ideas into visual masterpieces with simple text prompts"
+      },
+      "multiple_styles": {
+        "title": "Multiple Styles",
+        "description": "Choose from dozens of artistic styles to match your vision"
+      },
+      "high_quality": {
+        "title": "High Quality",
+        "description": "Get professional-grade images suitable for any project"
+      },
+      "fast_generation": {
+        "title": "Fast Generation",
+        "description": "Generate images in seconds, not hours"
+      }
+    },
+    "how_it_works": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Describe Your Vision",
+        "description": "Type what you want to see in simple, natural language"
+      },
+      "step2": {
+        "title": "Choose Your Style",
+        "description": "Select from our collection of artistic styles and settings"
+      },
+      "step3": {
+        "title": "Generate & Download",
+        "description": "Watch your vision come to life and download your creation"
+      }
+    },
+    "testimonials": {
+      "title": "Loved by Creators Worldwide",
+      "testimonial1": {
+        "quote": "This tool has revolutionized my creative workflow. I can visualize concepts instantly!",
+        "author": "Sarah Johnson, Graphic Designer"
+      },
+      "testimonial2": {
+        "quote": "The quality of images is outstanding. Perfect for my marketing campaigns.",
+        "author": "Mark Chen, Marketing Director"
+      },
+      "testimonial3": {
+        "quote": "Easy to use and incredibly powerful. Highly recommend for any creative professional.",
+        "author": "Lisa Williams, Content Creator"
+      }
+    }
+  },
+  "image_generation": {
+    "form": {
+      "prompt_label": "Describe your image",
+      "prompt_placeholder": "A majestic mountain landscape at sunset with golden light...",
+      "style_label": "Choose style",
+      "resolution_label": "Resolution",
+      "count_label": "Number of images",
+      "generate_button": "Generate Images",
+      "generating": "Generating...",
+      "upload_image": "Upload Reference Image",
+      "remove_image": "Remove Image"
+    },
+    "gallery": {
+      "title": "Your Creations",
+      "empty_state": "No images generated yet. Start by describing what you'd like to create!",
+      "download": "Download",
+      "share": "Share",
+      "favorite": "Favorite"
+    },
+    "errors": {
+      "generation_failed": "Failed to generate image. Please try again.",
+      "api_key_required": "API key is required. Please add your OpenAI API key in settings.",
+      "invalid_prompt": "Please provide a valid prompt.",
+      "network_error": "Network error. Please check your connection and try again."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account to continue creating",
+      "email_label": "Email",
+      "password_label": "Password",
+      "submit_button": "Sign In",
+      "forgot_password": "Forgot your password?",
+      "no_account": "Don't have an account?",
+      "sign_up_link": "Sign up here"
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Join thousands of creators using AI to bring their ideas to life",
+      "email_label": "Email",
+      "password_label": "Password",
+      "confirm_password_label": "Confirm Password",
+      "username_label": "Username",
+      "submit_button": "Create Account",
+      "have_account": "Already have an account?",
+      "sign_in_link": "Sign in here"
+    },
+    "errors": {
+      "invalid_credentials": "Invalid email or password",
+      "email_taken": "This email is already registered",
+      "weak_password": "Password should be at least 6 characters",
+      "passwords_dont_match": "Passwords don't match",
+      "network_error": "Network error. Please try again."
+    }
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Start free and upgrade as you grow",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "save_percentage": "Save 20%",
+    "free_plan": {
+      "name": "Free",
+      "price": "0",
+      "description": "Perfect for trying out AI image generation",
+      "features": [
+        "50 images per month",
+        "Standard quality",
+        "Basic styles",
+        "Community support"
+      ],
+      "cta": "Get Started"
+    },
+    "pro_plan": {
+      "name": "Pro",
+      "price_monthly": "19",
+      "price_annual": "15",
+      "description": "For serious creators and professionals",
+      "features": [
+        "500 images per month",
+        "High quality (HD)",
+        "All styles & effects",
+        "Priority support",
+        "Commercial license",
+        "Batch generation"
+      ],
+      "cta": "Upgrade to Pro"
+    },
+    "business_plan": {
+      "name": "Business",
+      "price_monthly": "49",
+      "price_annual": "39",
+      "description": "For teams and enterprises",
+      "features": [
+        "Unlimited images",
+        "Ultra high quality (4K)",
+        "Custom styles",
+        "Team collaboration",
+        "API access",
+        "Dedicated support"
+      ],
+      "cta": "Contact Sales"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back!",
+    "usage": {
+      "title": "Usage This Month",
+      "images_generated": "Images Generated",
+      "remaining": "Remaining"
+    }
+  },
   "community_page": {
     "title": "Community",
     "create_post": "Create Post",
@@ -23,18 +189,16 @@
     "recent": "Recent",
     "following": "Following",
     "categories": {
-      "all": "All Posts",
+      "all": "All",
       "showcase": "Showcase",
-      "question": "Questions",
-      "tutorial": "Tutorials",
+      "question": "Question", 
+      "tutorial": "Tutorial",
       "feedback": "Feedback"
     },
     "post": {
-      "likes": "likes",
-      "comments": "comments",
       "share": "Share",
-      "report": "Report post",
-      "hide": "Hide post"
+      "report": "Report Post",
+      "hide": "Hide Post"
     },
     "sidebar": {
       "trending_topics": "Trending Topics",
@@ -47,27 +211,24 @@
       "online": "Online",
       "posts": "Posts",
       "active_today": "Active Today"
-    },
-    "create_modal": {
-      "title": "Create a New Post",
-      "content_label": "Post Content",
-      "content_placeholder": "What do you want to share with the community?",
-      "category_label": "Category",
-      "category_placeholder": "Select a category",
-      "image_label": "Add Image (optional)",
-      "image_upload": "Click to upload an image",
-      "cancel": "Cancel",
-      "post": "Post",
-      "error": {
-        "content_required": "Post content is required",
-        "content_description": "Please add some text to your post.",
-        "category_required": "Category is required",
-        "category_description": "Please select a category for your post."
-      },
-      "success": {
-        "title": "Post created!",
-        "description": "Your post has been published to the community."
-      }
     }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "view_more": "View More",
+    "show_less": "Show Less"
   }
 }
