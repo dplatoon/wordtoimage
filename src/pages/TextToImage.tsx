@@ -7,7 +7,7 @@ import { trackEvent } from '@/utils/analytics';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Download, HelpCircle, Wand2, ArrowRight, History, BookOpen } from 'lucide-react';
+import { Sparkles, Download, HelpCircle, Wand2, ArrowRight, History, BookOpen, Palette } from 'lucide-react';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,18 @@ import { EnhancedPromptInput } from '@/components/word-to-image/EnhancedPromptIn
 import { GenerationProgress } from '@/components/word-to-image/GenerationProgress';
 import { EnhancedImageGallery } from '@/components/word-to-image/EnhancedImageGallery';
 import { storageService } from '@/services/storageService';
+import { useStyleParams } from '@/hooks/useStyleParams';
+import { Link } from 'react-router-dom';
+
+// Style mapping for URL parameters
+const STYLE_MAPPINGS: Record<string, string> = {
+  'photorealistic': 'photorealistic, ultra detailed, professional photography',
+  'digital-art': 'digital art illustration, vibrant colors, modern style',
+  'oil-painting': 'oil painting style, classical art, visible brushstrokes',
+  'watercolor': 'watercolor painting style, soft brushstrokes, flowing colors',
+  'cyberpunk': 'cyberpunk style, neon lights, futuristic, sci-fi',
+  'anime': 'anime style illustration, manga art, Japanese animation'
+};
 
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
@@ -27,6 +39,7 @@ export default function TextToImage() {
     url: string;
     prompt?: string;
     timestamp?: number;
+    style?: string;
   }[]>([]);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
@@ -34,13 +47,15 @@ export default function TextToImage() {
   const [showGalleryManager, setShowGalleryManager] = useState(false);
   const { user, isLoading } = useAuth();
   const isMobile = useIsMobile();
+  const { selectedStyle, hasStyleParam, clearStyleParam } = useStyleParams();
   
   const { generateImageFromPrompt } = useImageGeneration({
     onImageGenerated: url => {
       const newImage = { 
         url, 
         prompt: prompt.substring(0, 100) + (prompt.length > 100 ? '...' : ''),
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        style: selectedStyle || undefined
       };
       
       setGeneratedImages(prev => [...prev, newImage]);
@@ -48,13 +63,15 @@ export default function TextToImage() {
       setProgress(100);
       
       toast.success("Image generated successfully!", {
-        description: "Your custom graphic is ready to download.",
+        description: selectedStyle ? `Your custom graphic with ${selectedStyle} style is ready to download.` : "Your custom graphic is ready to download.",
         action: {
           label: "Download",
           onClick: () => window.open(url, '_blank')
         }
       });
-      trackEvent('text_to_image_generated');
+      trackEvent('text_to_image_generated', {
+        style: selectedStyle || 'none'
+      });
     },
     onGeneratingChange: (generating) => {
       setIsGenerating(generating);
@@ -84,7 +101,8 @@ export default function TextToImage() {
         }
       });
       trackEvent('text_to_image_error', {
-        errorMessage: errorMsg
+        errorMessage: errorMsg,
+        style: selectedStyle || 'none'
       });
     }
   });
@@ -96,6 +114,19 @@ export default function TextToImage() {
       setShowTips(false);
     }
   }, []);
+
+  // Show style notification when coming from gallery
+  useEffect(() => {
+    if (hasStyleParam && selectedStyle) {
+      toast.success(`${selectedStyle.replace('-', ' ')}` + ' style selected!', {
+        description: "Your images will be generated with this artistic style.",
+        action: {
+          label: "Clear Style",
+          onClick: () => clearStyleParam()
+        }
+      });
+    }
+  }, [hasStyleParam, selectedStyle, clearStyleParam]);
   
   const handleGenerate = async () => {
     if (!user && !isLoading) {
@@ -113,13 +144,20 @@ export default function TextToImage() {
       return;
     }
     
+    // Enhance prompt with selected style
+    let enhancedPrompt = prompt.trim();
+    if (selectedStyle && STYLE_MAPPINGS[selectedStyle]) {
+      enhancedPrompt = `${enhancedPrompt}, ${STYLE_MAPPINGS[selectedStyle]}`;
+    }
+    
     storageService.addSearchTerm(prompt.trim());
     
     try {
       trackEvent('text_to_image_generate_attempt', {
-        promptLength: prompt.length
+        promptLength: prompt.length,
+        style: selectedStyle || 'none'
       });
-      await generateImageFromPrompt(prompt, '', false, '');
+      await generateImageFromPrompt(enhancedPrompt, '', false, '');
     } catch (error) {
       console.error('Failed to generate image:', error);
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
@@ -256,6 +294,28 @@ export default function TextToImage() {
             Transform your imagination into stunning visuals with our advanced AI. 
             All your creations are automatically saved and organized for easy access.
           </p>
+
+          {/* Style Selection Indicator */}
+          {selectedStyle && (
+            <div className="mb-6">
+              <Alert className="max-w-md mx-auto bg-gradient-to-r from-violet-50 to-purple-50 border-violet-200">
+                <Palette className="h-4 w-4 text-violet-600" />
+                <AlertDescription className="text-violet-800">
+                  <div className="flex items-center justify-between">
+                    <span>Style: <strong>{selectedStyle.replace('-', ' ')}</strong></span>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={clearStyleParam}
+                      className="text-violet-600 hover:bg-violet-100"
+                    >
+                      Clear
+                    </Button>
+                  </div>
+                </AlertDescription>
+              </Alert>
+            </div>
+          )}
           
           {/* Enhanced Quick Stats */}
           <div className="grid grid-cols-4 gap-4 max-w-md mx-auto mb-8">
@@ -275,6 +335,16 @@ export default function TextToImage() {
               <div className="text-2xl font-bold text-violet-600">∞</div>
               <div className="text-xs text-gray-500">Storage</div>
             </div>
+          </div>
+
+          {/* Browse Styles Link */}
+          <div className="mb-6">
+            <Button variant="outline" asChild className="hover:bg-violet-50">
+              <Link to="/style-gallery">
+                <Palette className="h-4 w-4 mr-2" />
+                Browse 50+ Art Styles
+              </Link>
+            </Button>
           </div>
 
           {searchHistory.length > 0 && (
@@ -362,7 +432,7 @@ export default function TextToImage() {
               <Alert className="bg-green-50 border-green-200">
                 <Sparkles className="h-4 w-4 text-green-600" />
                 <AlertDescription className="text-green-800">
-                  <strong>Success!</strong> Generated in {generationTime}s and auto-saved to your gallery.
+                  <strong>Success!</strong> Generated in {generationTime}s{selectedStyle ? ` with ${selectedStyle.replace('-', ' ')} style` : ''} and auto-saved to your gallery.
                 </AlertDescription>
               </Alert>
             </div>

@@ -4,17 +4,23 @@ import { Footer } from '@/components/Footer';
 import { Eye, Heart, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SEOManager } from '@/components/seo/SEOManager';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const StyleGallery = () => {
+  const navigate = useNavigate();
+  
   const styles = [
-    { id: 1, name: "Photorealistic", description: "Ultra-realistic photography style", likes: 2341 },
-    { id: 2, name: "Digital Art", description: "Modern digital artwork style", likes: 1876 },
-    { id: 3, name: "Oil Painting", description: "Classic oil painting technique", likes: 1532 },
-    { id: 4, name: "Watercolor", description: "Soft watercolor painting style", likes: 1234 },
-    { id: 5, name: "Cyberpunk", description: "Futuristic cyberpunk aesthetic", likes: 2987 },
-    { id: 6, name: "Anime", description: "Japanese anime illustration style", likes: 3421 },
+    { id: 1, name: "Photorealistic", description: "Ultra-realistic photography style", likes: 2341, styleId: "photorealistic" },
+    { id: 2, name: "Digital Art", description: "Modern digital artwork style", likes: 1876, styleId: "digital-art" },
+    { id: 3, name: "Oil Painting", description: "Classic oil painting technique", likes: 1532, styleId: "oil-painting" },
+    { id: 4, name: "Watercolor", description: "Soft watercolor painting style", likes: 1234, styleId: "watercolor" },
+    { id: 5, name: "Cyberpunk", description: "Futuristic cyberpunk aesthetic", likes: 2987, styleId: "cyberpunk" },
+    { id: 6, name: "Anime", description: "Japanese anime illustration style", likes: 3421, styleId: "anime" },
   ];
+
+  const handleUseStyle = (styleId: string) => {
+    navigate(`/text-to-image?style=${styleId}`);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -66,11 +72,13 @@ const StyleGallery = () => {
                       <Heart className="h-4 w-4" />
                       <span>{style.likes.toLocaleString()}</span>
                     </div>
-                    <Button size="sm" variant="outline" asChild>
-                      <Link to="/text-to-image">
-                        <Copy className="h-4 w-4 mr-2" />
-                        Use Style
-                      </Link>
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      onClick={() => handleUseStyle(style.styleId)}
+                    >
+                      <Copy className="h-4 w-4 mr-2" />
+                      Use Style
                     </Button>
                   </div>
                 </div>
