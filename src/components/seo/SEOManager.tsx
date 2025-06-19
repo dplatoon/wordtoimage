@@ -11,11 +11,15 @@ interface SEOManagerProps {
 
 export const SEOManager = ({ customConfig }: SEOManagerProps) => {
   const location = useLocation();
-  const pageConfig = PAGE_SEO_CONFIG[location.pathname] || PAGE_SEO_CONFIG['/'];
+  
+  // Normalize pathname to handle trailing slashes
+  const normalizedPath = location.pathname === '/' ? '/' : location.pathname.replace(/\/$/, '');
+  
+  const pageConfig = PAGE_SEO_CONFIG[normalizedPath] || PAGE_SEO_CONFIG['/'];
   const finalConfig = { ...pageConfig, ...customConfig };
 
-  // Ensure canonical URL is always set and properly formatted
-  const canonicalUrl = finalConfig.canonical || `https://wordtoimage.com${location.pathname}`;
+  // Ensure canonical URL is always set and properly formatted without trailing slash
+  const canonicalUrl = finalConfig.canonical || `https://wordtoimage.com${normalizedPath}`;
 
   return (
     <>

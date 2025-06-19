@@ -42,6 +42,9 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
+User-agent: PinterestBot
+Allow: /
+
 # Disallow admin and private areas
 Disallow: /admin/
 Disallow: /api/private/
@@ -50,6 +53,10 @@ Disallow: /uploads/private/
 Disallow: /*.json$
 Disallow: /*?*utm_*
 Disallow: /*?*ref=*
+Disallow: /auth/
+Disallow: /*?*
+Disallow: /404
+Disallow: /error
 
 # Allow important resources for rendering
 Allow: /src/
@@ -63,6 +70,26 @@ Allow: /*.svg
 Allow: /*.webp
 Allow: /*.ico
 Allow: /public/
+Allow: /lovable-uploads/
+
+# Important: Allow specific pages to prevent soft 404s
+Allow: /
+Allow: /text-to-image
+Allow: /dashboard
+Allow: /community
+Allow: /features
+Allow: /pricing
+Allow: /templates
+Allow: /style-gallery
+Allow: /batch-generator
+Allow: /blog
+Allow: /tutorials
+Allow: /help
+Allow: /about
+Allow: /contact
+Allow: /api
+Allow: /privacy
+Allow: /terms
 
 # Sitemap locations
 Sitemap: https://wordtoimage.com/sitemap.xml
