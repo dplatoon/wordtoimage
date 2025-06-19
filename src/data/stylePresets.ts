@@ -18,7 +18,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Photorealistic',
     description: 'Ultra-realistic photography with perfect lighting and detail',
     category: 'realistic',
-    preview: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=400&h=300&fit=crop&auto=format',
     popular: true,
     trending: true,
     keywords: ['photorealistic', 'detailed', 'professional', 'photography', 'realistic', 'photo', 'portrait', 'real'],
@@ -29,7 +29,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Cinematic',
     description: 'Movie-like dramatic scenes with cinematic lighting and composition',
     category: 'realistic',
-    preview: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1489599904795-b6d042c223b8?w=400&h=300&fit=crop&auto=format',
     popular: true,
     keywords: ['cinematic', 'dramatic', 'movie', 'film', 'scene', 'professional', 'lighting', 'epic'],
     examplePrompt: 'cinematic scene, dramatic lighting, movie style, wide shot'
@@ -39,7 +39,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Portrait',
     description: 'Professional portrait photography with natural expressions',
     category: 'realistic',
-    preview: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=300&fit=crop&auto=format',
     popular: false,
     keywords: ['portrait', 'headshot', 'natural', 'professional', 'face', 'person', 'human'],
     examplePrompt: 'professional portrait, natural lighting, clean background'
@@ -51,7 +51,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Watercolor',
     description: 'Soft watercolor painting with flowing colors and artistic brushstrokes',
     category: 'artistic',
-    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop&auto=format',
     popular: true,
     keywords: ['watercolor', 'painting', 'soft', 'artistic', 'flowing', 'brushstrokes', 'traditional', 'art'],
     examplePrompt: 'watercolor painting style, soft brushstrokes, flowing colors'
@@ -61,7 +61,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Oil Painting',
     description: 'Classical oil painting with visible brushstrokes and rich textures',
     category: 'artistic',
-    preview: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
     popular: false,
     keywords: ['oil', 'painting', 'classical', 'brushstrokes', 'textured', 'traditional', 'canvas', 'fine art'],
     examplePrompt: 'oil painting style, classical art, visible brushstrokes, rich colors'
@@ -71,7 +71,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Impressionist',
     description: 'Monet-style impressionist art with light and color emphasis',
     category: 'artistic',
-    preview: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop&auto=format',
     popular: false,
     keywords: ['impressionist', 'monet', 'style', 'light', 'color', 'brush', 'texture', 'french'],
     examplePrompt: 'impressionist painting, monet style, soft light, colorful'
@@ -83,7 +83,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Digital Art',
     description: 'Modern digital illustration with vibrant colors and clean lines',
     category: 'digital',
-    preview: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop&auto=format',
     popular: true,
     keywords: ['digital', 'art', 'illustration', 'vibrant', 'modern', 'colorful', 'vector', 'graphic'],
     examplePrompt: 'digital art illustration, vibrant colors, modern style, clean lines'
@@ -104,7 +104,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Pixel Art',
     description: '8-bit retro pixel style with nostalgic video game aesthetics',
     category: 'digital',
-    preview: 'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop&auto=format',
     popular: false,
     keywords: ['pixel', 'art', '8-bit', 'retro', 'video', 'game', 'nostalgic', 'arcade'],
     examplePrompt: 'pixel art style, 8-bit, retro video game aesthetic'
@@ -136,7 +136,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Chibi Style',
     description: 'Cute chibi character art with oversized heads and kawaii aesthetics',
     category: 'anime',
-    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=400&h=300&fit=crop&auto=format',
     popular: false,
     keywords: ['chibi', 'cute', 'kawaii', 'small', 'character', 'oversized', 'head'],
     examplePrompt: 'chibi style character, cute, kawaii, oversized head'
@@ -148,7 +148,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     name: 'Fantasy Art',
     description: 'Epic fantasy artwork with magical elements and mythical creatures',
     category: 'artistic',
-    preview: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
+    preview: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&auto=format',
     popular: true,
     trending: true,
     keywords: ['fantasy', 'magical', 'epic', 'mythical', 'dragon', 'wizard', 'magic', 'medieval'],

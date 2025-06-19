@@ -22,7 +22,7 @@ const stylePresets: StylePreset[] = [
     id: 'cyberpunk',
     name: 'Cyberpunk City',
     description: 'Neon-lit futuristic cityscape',
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=300&h=300&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=300&h=300&fit=crop&auto=format',
     prompt: 'cyberpunk city with neon lights, futuristic architecture, rain-soaked streets',
     style: 'cyberpunk, neon, futuristic'
   },
@@ -30,7 +30,7 @@ const stylePresets: StylePreset[] = [
     id: 'watercolor',
     name: 'Watercolor Portrait',
     description: 'Soft, artistic watercolor style',
-    imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=300&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=300&fit=crop&auto=format',
     prompt: 'watercolor painting of a portrait, soft brushstrokes, artistic',
     style: 'watercolor, artistic, soft'
   },
@@ -38,7 +38,7 @@ const stylePresets: StylePreset[] = [
     id: 'digital-art',
     name: 'Digital Art',
     description: 'Modern digital illustration',
-    imageUrl: 'https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?w=300&h=300&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=300&fit=crop&auto=format',
     prompt: 'digital art illustration, vibrant colors, modern style',
     style: 'digital art, illustration, vibrant'
   },
@@ -46,7 +46,7 @@ const stylePresets: StylePreset[] = [
     id: 'photorealistic',
     name: 'Photorealistic',
     description: 'Ultra-realistic photography style',
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=300&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=300&h=300&fit=crop&auto=format',
     prompt: 'photorealistic, ultra detailed, professional photography',
     style: 'photorealistic, detailed, professional'
   },
@@ -54,7 +54,7 @@ const stylePresets: StylePreset[] = [
     id: 'anime',
     name: 'Anime Style',
     description: 'Japanese anime and manga art',
-    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop&auto=format',
     prompt: 'anime style illustration, manga art, Japanese animation',
     style: 'anime, manga, japanese'
   },
@@ -62,7 +62,7 @@ const stylePresets: StylePreset[] = [
     id: 'minimalist',
     name: 'Minimalist Design',
     description: 'Clean, simple compositions',
-    imageUrl: 'https://images.unsplash.com/photo-1497436072909-f5e4fd1d03a9?w=300&h=300&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&h=300&fit=crop&auto=format',
     prompt: 'minimalist design, clean composition, simple shapes',
     style: 'minimalist, clean, simple'
   }
@@ -102,7 +102,7 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                   <div className="relative overflow-hidden rounded-t-2xl">
                     <img 
                       src={preset.imageUrl} 
-                      alt={preset.name}
+                      alt={`${preset.name} AI art style example`}
                       className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
                     />
