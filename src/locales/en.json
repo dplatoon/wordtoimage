@@ -183,22 +183,30 @@
     }
   },
   "community_page": {
-    "title": "Community",
+    "title": "AI Art Community",
+    "subtitle": "Connect with fellow creators, share your art, and get inspired",
     "create_post": "Create Post",
     "trending": "Trending",
     "recent": "Recent",
     "following": "Following",
+    "feed": "Feed",
+    "gallery": "Gallery",
+    "challenges": "Challenges",
+    "featured": "Featured",
     "categories": {
-      "all": "All",
+      "all": "All Posts",
       "showcase": "Showcase",
-      "question": "Question", 
-      "tutorial": "Tutorial",
+      "question": "Questions", 
+      "tutorial": "Tutorials",
       "feedback": "Feedback"
     },
     "post": {
       "share": "Share",
       "report": "Report Post",
-      "hide": "Hide Post"
+      "hide": "Hide Post",
+      "like": "Like",
+      "comment": "Comment",
+      "save": "Save"
     },
     "sidebar": {
       "trending_topics": "Trending Topics",
@@ -208,9 +216,28 @@
       "view_all": "View All Events",
       "community_stats": "Community Stats",
       "members": "Members",
-      "online": "Online",
-      "posts": "Posts",
+      "online": "Online Now",
+      "posts": "Posts Today",
       "active_today": "Active Today"
+    },
+    "challenges": {
+      "title": "Community Challenges",
+      "subtitle": "Participate in weekly challenges to improve your skills and win prizes",
+      "join": "Join Challenge",
+      "view_entries": "View Entries",
+      "participants": "participants",
+      "days_left": "days left"
+    },
+    "featured": {
+      "artist_of_week": "Featured Artist of the Week",
+      "trending_creations": "Trending Creations",
+      "most_liked": "Most Liked Creation",
+      "rising_star": "Rising Star"
+    },
+    "empty_states": {
+      "no_posts": "No posts yet. Be the first to share something amazing!",
+      "follow_users": "Follow users to see their posts here.",
+      "no_challenges": "No active challenges right now. Check back soon!"
     }
   },
   "common": {
