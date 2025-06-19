@@ -1,4 +1,3 @@
-
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { Search, HelpCircle, FileText, MessageCircle, Mail, BookOpen, Palette, Code, Users, ChevronDown, ChevronUp } from "lucide-react";
@@ -356,7 +355,7 @@ const Help = () => {
           </>
         )}
 
-        <RelatedContent />
+        <RelatedContent currentPath="/help" />
       </main>
       <Footer />
     </div>
