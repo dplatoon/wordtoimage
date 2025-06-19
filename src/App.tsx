@@ -28,6 +28,7 @@ import Tutorials from "./pages/Tutorials";
 import DesignTips from "./pages/DesignTips";
 import Updates from "./pages/Updates";
 import Careers from "./pages/Careers";
+import JoinOurTeam from "./pages/JoinOurTeam";
 import NotFound from "./pages/NotFound";
 import AIUpscaler from "./pages/AIUpscaler";
 import VideoTutorials from "./pages/VideoTutorials";
@@ -73,6 +74,7 @@ function App() {
                 <Route path="/design-tips" element={<DesignTips />} />
                 <Route path="/updates" element={<Updates />} />
                 <Route path="/careers" element={<Careers />} />
+                <Route path="/join-our-team" element={<JoinOurTeam />} />
                 <Route path="/ai-upscaler" element={<AIUpscaler />} />
                 <Route path="/video-tutorials" element={<VideoTutorials />} />
                 <Route path="/whats-new" element={<WhatsNew />} />
