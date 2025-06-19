@@ -1,4 +1,3 @@
-
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { FastHero } from "@/components/home/FastHero";
@@ -12,8 +11,15 @@ import { EnhancedSchemaMarkup } from "@/components/seo/EnhancedSchemaMarkup";
 import { MobileOptimizedNav } from "@/components/navigation/MobileOptimizedNav";
 import { CoreWebVitalsMonitor } from "@/components/performance/CoreWebVitalsMonitor";
 import { ConversionManager } from "@/components/conversion/ConversionManager";
+import { LiveActivityCounter } from "@/components/social-proof/LiveActivityCounter";
+import { ExitIntentModal } from "@/components/conversion/ExitIntentModal";
+import { useExitIntent } from "@/hooks/useExitIntent";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Index = () => {
+  const { user } = useAuth();
+  const { showExitIntent, closeExitIntent } = useExitIntent(!user); // Only show for non-logged-in users
+
   return (
     <ConversionManager pageId="homepage" userActivity={{}}>
       <div className="min-h-screen">
@@ -49,6 +55,13 @@ const Index = () => {
         <FastFeatures />
         <ShowcaseSection />
         <Footer />
+
+        {/* Social Proof & Conversion Elements */}
+        <LiveActivityCounter />
+        <ExitIntentModal 
+          isOpen={showExitIntent} 
+          onClose={closeExitIntent} 
+        />
       </div>
     </ConversionManager>
   );

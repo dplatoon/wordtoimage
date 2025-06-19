@@ -1,8 +1,8 @@
-
 import { Wand2, ImagePlus, PenTool, Sparkles } from 'lucide-react';
 import { PrimaryButton } from './ui/primary-button';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
+import { UrgencyBadge } from './ui/urgency-badge';
 
 export const CTASection = () => {
   const navigate = useNavigate();
@@ -49,6 +49,15 @@ export const CTASection = () => {
           </div>
           
           <div className="relative z-10 flex flex-col items-center text-center">
+            {/* Urgency Badge */}
+            <div className="mb-4">
+              <UrgencyBadge 
+                type="limited_offer" 
+                message="🔥 LIMITED: 50% OFF Pro Plans Today!" 
+                className="text-base px-6 py-2"
+              />
+            </div>
+
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white font-poppins">
               Create Beautiful Graphics <span className="block md:inline">in Seconds, Not Hours</span>
             </h2>
@@ -61,8 +70,8 @@ export const CTASection = () => {
             
             <div className="flex flex-wrap justify-center gap-4 mt-10">
               <div className="text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 w-full md:w-auto">
-                <div className="text-4xl font-bold text-white mb-1">10,000+</div>
-                <div className="text-white/80 text-sm">Images Generated</div>
+                <div className="text-4xl font-bold text-white mb-1">15,247</div>
+                <div className="text-white/80 text-sm">Images Generated Today</div>
               </div>
               
               <div className="text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 w-full md:w-auto">
@@ -110,7 +119,7 @@ export const CTASection = () => {
                   <div key={i} className="w-8 h-8 rounded-full border-2 border-white/30 bg-gradient-to-br from-blue-300 to-purple-300"></div>
                 ))}
               </div>
-              <span className="text-white/90 text-sm">Join <span className="font-bold">2,500+</span> satisfied users today</span>
+              <span className="text-white/90 text-sm">Join <span className="font-bold">3,500+</span> satisfied users today</span>
             </div>
             
             {/* Soft Launch Feedback Button */}

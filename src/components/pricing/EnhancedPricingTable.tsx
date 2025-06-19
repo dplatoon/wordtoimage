@@ -1,9 +1,10 @@
-
 import { useState } from 'react';
 import { BillingToggle } from './BillingToggle';
 import { OptimizedPlanCard } from './OptimizedPlanCard';
 import { SubscriptionStatus } from '@/components/SubscriptionStatus';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import { UrgentProCTA } from './UrgentProCTA';
+import { TrustElements } from '@/components/trust/TrustElements';
 
 const pricingPlans = [
   {
@@ -99,6 +100,11 @@ export const EnhancedPricingTable = () => {
       <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-100/15 rounded-full blur-3xl pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Urgent Pro CTA */}
+        <div className="mb-8">
+          <UrgentProCTA />
+        </div>
+
         <BillingToggle
           billingCycle={billingCycle}
           onToggle={setBillingCycle}
@@ -119,6 +125,11 @@ export const EnhancedPricingTable = () => {
               isCurrentPlan={plan.name === currentPlan}
             />
           ))}
+        </div>
+
+        {/* Trust Elements */}
+        <div className="mt-8 max-w-md mx-auto">
+          <TrustElements />
         </div>
 
         <div className="mt-8 md:mt-12 text-center space-y-4">
