@@ -18,7 +18,7 @@ const Blog = () => {
       date: "2025-01-20",
       readTime: "8 min read",
       category: "Tutorial",
-      image: "/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png",
+      image: "/lovable-uploads/ba65fc79-7bc8-40f0-81b9-d5ea5bc8d35a.png",
       featured: true,
       slug: "ai-art-styles"
     },
@@ -30,7 +30,7 @@ const Blog = () => {
       date: "2025-01-18",
       readTime: "10 min read",
       category: "Tutorial",
-      image: "/lovable-uploads/f0dea1ce-ca91-4c0b-9849-6b3649a98249.png",
+      image: "/lovable-uploads/19295794-7457-41ec-9272-41faed11b055.png",
       slug: "prompt-writing-guide"
     },
     {
@@ -41,7 +41,7 @@ const Blog = () => {
       date: "2025-01-15",
       readTime: "12 min read",
       category: "Business",
-      image: "/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png",
+      image: "/lovable-uploads/269b93d2-3c01-438b-b2bb-e7b1fbc3b233.png",
       slug: "ai-marketing-success"
     },
     {
@@ -52,7 +52,7 @@ const Blog = () => {
       date: "2025-01-15",
       readTime: "8 min read",
       category: "Tutorial",
-      image: "/lovable-uploads/c258fc93-b285-4676-9418-c690eaa9fa60.png",
+      image: "/lovable-uploads/317dfa28-3425-4dac-a167-343034ee797b.png",
       featured: true
     },
     {
@@ -63,7 +63,7 @@ const Blog = () => {
       date: "2025-01-12",
       readTime: "6 min read",
       category: "Industry",
-      image: "/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png"
+      image: "/lovable-uploads/5780c58f-29ec-4462-a0eb-3ba9829bf938.png"
     },
     {
       id: 3,
@@ -73,7 +73,7 @@ const Blog = () => {
       date: "2025-01-10",
       readTime: "5 min read",
       category: "Business",
-      image: "/lovable-uploads/f0dea1ce-ca91-4c0b-9849-6b3649a98249.png"
+      image: "/lovable-uploads/2eae8e86-b21c-42da-a038-310ef938fe38.png"
     }
   ];
 
