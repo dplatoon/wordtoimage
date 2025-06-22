@@ -1,9 +1,10 @@
+
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { FastHero } from "@/components/home/FastHero";
 import { FastFeatures } from "@/components/home/FastFeatures";
 import { ShowcaseSection } from "@/components/home/showcase/ShowcaseSection";
-import { SEOManager } from "@/components/seo/SEOManager";
+import { EnhancedSEOManager } from "@/components/seo/EnhancedSEOManager";
 import { FAQStructuredData, AI_IMAGE_GENERATION_FAQS } from "@/components/seo/FAQStructuredData";
 import { CriticalCSS } from "@/components/performance/CriticalCSS";
 import { ResourcePreloader } from "@/components/performance/ResourcePreloader";
@@ -27,8 +28,18 @@ const Index = () => {
         <ResourcePreloader />
         <CoreWebVitalsMonitor />
         
-        {/* Enhanced SEO and Schema Markup */}
-        <SEOManager />
+        {/* Enhanced SEO with proper heading structure */}
+        <EnhancedSEOManager 
+          pageContent={{
+            h1: "Create Stunning Images from Any Text in Seconds",
+            h2Headings: [
+              "How AI Image Generation Works",
+              "Why Choose WordToImage", 
+              "Featured AI Art Styles",
+              "Start Creating Today"
+            ]
+          }}
+        />
         <EnhancedSchemaMarkup 
           type="homepage" 
           pageData={{
@@ -50,7 +61,7 @@ const Index = () => {
         </div>
         <MobileOptimizedNav />
         
-        {/* Main Content */}
+        {/* Main Content with proper heading structure */}
         <FastHero />
         <FastFeatures />
         <ShowcaseSection />

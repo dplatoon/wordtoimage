@@ -1,4 +1,3 @@
-
 interface SEOPageConfig {
   title: string;
   description: string;
@@ -8,15 +7,19 @@ interface SEOPageConfig {
   canonical?: string;
   noindex?: boolean;
   hreflang?: { [key: string]: string };
+  h1?: string;
+  h2Headings?: string[];
 }
 
 export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
   '/': {
-    title: 'WordToImage - Best AI Image Generator | Create Stunning AI Art from Text in 2025',
-    description: 'Transform text into stunning AI-generated images instantly. Best AI art generator for social media, marketing, and creative projects. Free AI image maker with 50+ styles.',
-    keywords: ['AI image generator', 'text to image AI', 'AI art generator', 'artificial intelligence image creation', 'machine learning art', 'free AI image maker'],
+    title: 'AI Image Generator – Transform Words into Stunning Images | WordToImage',
+    description: 'Instantly create beautiful AI-generated images from your text prompts. Easy, powerful, and free to try. Join 50,000+ creators using AI to transform ideas into professional visuals.',
+    keywords: ['AI image generator', 'text to image AI', 'AI art generator', 'create AI images from text', 'free AI image maker', 'AI graphics generator', 'text-to-image converter'],
     ogImage: 'https://wordtoimage.com/og-ai-generator.jpg',
     canonical: 'https://wordtoimage.com/',
+    h1: 'Create Stunning Images from Any Text in Seconds',
+    h2Headings: ['How AI Image Generation Works', 'Why Choose WordToImage', 'Start Creating Today'],
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -29,10 +32,12 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
   },
   '/text-to-image': {
     title: 'AI Text to Image Generator - Create Images from Text | WordToImage',
-    description: 'Generate high-quality images from text descriptions using advanced AI. Create artwork, social media content, and marketing visuals instantly.',
-    keywords: ['text to image generator', 'AI image creation', 'text to art', 'prompt to image', 'AI visual generator'],
+    description: 'Generate high-quality images from text descriptions using advanced AI. Create artwork, social media content, and marketing visuals instantly with our powerful text-to-image generator.',
+    keywords: ['text to image generator', 'AI image creation', 'text to art', 'prompt to image', 'AI visual generator', 'create images from text'],
     ogImage: 'https://wordtoimage.com/og-text-to-image.jpg',
-    canonical: 'https://wordtoimage.com/text-to-image'
+    canonical: 'https://wordtoimage.com/text-to-image',
+    h1: 'AI Text to Image Generator',
+    h2Headings: ['How to Create AI Images', 'Choose Your Style', 'Generate & Download']
   },
   '/dashboard': {
     title: 'AI Image Dashboard - Manage Your Generated Images | WordToImage',
@@ -50,24 +55,30 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
   },
   '/pricing': {
     title: 'AI Image Generator Pricing - Free & Pro Plans | WordToImage',
-    description: 'Affordable AI image generation pricing. Start free with daily credits or upgrade to Pro for unlimited generations. Commercial use included.',
-    keywords: ['AI image generator pricing', 'text to image cost', 'AI art subscription', 'image generation plans'],
+    description: 'Affordable AI image generation pricing. Start free with daily credits or upgrade to Pro for unlimited generations. Commercial use included in all plans.',
+    keywords: ['AI image generator pricing', 'text to image cost', 'AI art subscription', 'image generation plans', 'free AI image maker'],
     ogImage: 'https://wordtoimage.com/og-pricing.jpg',
-    canonical: 'https://wordtoimage.com/pricing'
+    canonical: 'https://wordtoimage.com/pricing',
+    h1: 'Simple, Transparent Pricing',
+    h2Headings: ['Choose Your Plan', 'Free vs Pro Features', 'Frequently Asked Questions']
   },
   '/templates': {
-    title: 'AI Image Templates - Professional Designs & Styles | WordToImage',
-    description: 'Browse professional AI image templates for social media, marketing, and creative projects. Ready-to-use AI art templates with commercial rights.',
-    keywords: ['AI image templates', 'AI art templates', 'social media templates', 'marketing templates'],
+    title: 'AI Image Templates – Professional Designs & Styles | WordToImage',
+    description: 'Browse professional AI image templates for social media, marketing, and creative projects. Ready-to-use AI art templates with commercial rights included.',
+    keywords: ['AI image templates', 'AI art templates', 'social media templates', 'marketing templates', 'professional AI designs'],
     ogImage: 'https://wordtoimage.com/og-templates.jpg',
-    canonical: 'https://wordtoimage.com/templates'
+    canonical: 'https://wordtoimage.com/templates',
+    h1: 'Professional AI Image Templates',
+    h2Headings: ['Social Media Templates', 'Marketing Templates', 'Creative Templates', 'How to Use Templates']
   },
   '/style-gallery': {
-    title: 'AI Art Style Gallery - 50+ Artistic Styles | WordToImage',
-    description: 'Explore our collection of AI art styles. From photorealistic to anime, watercolor to cyberpunk. Find the perfect style for your AI image generation.',
-    keywords: ['AI art styles', 'image generation styles', 'artistic styles', 'AI art gallery', 'digital art styles', 'photorealistic style AI', 'anime style generator', 'cyberpunk art creator'],
+    title: 'AI Art Styles Gallery – Inspiring AI-Generated Art Examples | WordToImage',
+    description: 'Discover popular AI-generated art styles and create your own images effortlessly. Browse 50+ artistic styles from photorealistic to anime, watercolor to cyberpunk.',
+    keywords: ['AI art styles', 'AI art gallery', 'image generation styles', 'artistic styles', 'digital art styles', 'AI art examples', 'photorealistic style AI', 'anime style generator'],
     ogImage: 'https://wordtoimage.com/og-styles.jpg',
-    canonical: 'https://wordtoimage.com/style-gallery'
+    canonical: 'https://wordtoimage.com/style-gallery',
+    h1: 'AI Art Styles Gallery – 50+ Inspiring Styles',
+    h2Headings: ['Popular Art Styles', 'Photorealistic Styles', 'Artistic & Creative Styles', 'How to Use Styles']
   },
   '/batch-generator': {
     title: 'Batch AI Image Generator - Generate Multiple Images at Once | WordToImage',
@@ -84,11 +95,13 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     canonical: 'https://wordtoimage.com/contact-support'
   },
   '/blog': {
-    title: 'AI Art Blog - Latest Tips, Tutorials & News | WordToImage',
-    description: 'Learn AI art techniques, discover prompting tips, and stay updated with the latest AI image generation trends and tutorials.',
-    keywords: ['AI art blog', 'AI image tutorials', 'text to image tips', 'AI art news', 'prompting techniques'],
+    title: 'AI Art Blog – Latest Tips, Tutorials & News | WordToImage',
+    description: 'Learn AI art techniques, discover prompting tips, and stay updated with the latest AI image generation trends, tutorials, and industry news.',
+    keywords: ['AI art blog', 'AI image tutorials', 'text to image tips', 'AI art news', 'prompting techniques', 'AI art trends'],
     ogImage: 'https://wordtoimage.com/og-blog.jpg',
-    canonical: 'https://wordtoimage.com/blog'
+    canonical: 'https://wordtoimage.com/blog',
+    h1: 'AI Art Blog & Resources',
+    h2Headings: ['Latest Articles', 'Tutorial Guides', 'Industry News', 'Tips & Techniques']
   },
   '/help': {
     title: 'Help & Support - AI Image Generator Guide | WordToImage',
@@ -161,35 +174,39 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     canonical: 'https://wordtoimage.com/api'
   },
   '/community': {
-    title: 'AI Art Community - Share & Discover Amazing Creations | WordToImage',
-    description: 'Join the WordToImage community to share AI art, get inspiration, and connect with other AI artists and creators.',
-    keywords: ['AI art community', 'AI art gallery', 'share AI images', 'AI artist community'],
+    title: 'AI Art Community – Share & Discover Amazing Creations | WordToImage',
+    description: 'Join the WordToImage community to share AI art, get inspiration, and connect with other AI artists and creators. Discover amazing AI-generated artwork.',
+    keywords: ['AI art community', 'AI art gallery', 'share AI images', 'AI artist community', 'AI art inspiration'],
     ogImage: 'https://wordtoimage.com/og-community.jpg',
-    canonical: 'https://wordtoimage.com/community'
+    canonical: 'https://wordtoimage.com/community',
+    h1: 'AI Art Community',
+    h2Headings: ['Featured Creations', 'Community Gallery', 'Artist Spotlights', 'Join the Community']
   },
   '/tutorials': {
-    title: 'AI Image Generation Tutorials - Step-by-Step Guides | WordToImage',
+    title: 'AI Image Generation Tutorials – Step-by-Step Guides | WordToImage',
     description: 'Master AI image generation with our comprehensive tutorials. Learn prompting techniques, style selection, and advanced AI art creation methods.',
-    keywords: ['AI image tutorials', 'text to image guide', 'AI art tutorials', 'prompting guide'],
+    keywords: ['AI image tutorials', 'text to image guide', 'AI art tutorials', 'prompting guide', 'AI art techniques'],
     ogImage: 'https://wordtoimage.com/og-tutorials.jpg',
-    canonical: 'https://wordtoimage.com/tutorials'
+    canonical: 'https://wordtoimage.com/tutorials',
+    h1: 'AI Image Generation Tutorials',
+    h2Headings: ['Getting Started', 'Advanced Prompting Techniques', 'Style Selection Guide', 'Pro Tips & Tricks']
   },
   '/design-tips': {
-    title: 'AI Art Design Tips - Professional Visual Creation Guide | WordToImage',
+    title: 'AI Art Design Tips – Professional Visual Creation Guide | WordToImage',
     description: 'Professional design tips for AI-generated images. Learn composition, color theory, and visual principles for stunning AI artwork.',
     keywords: ['AI art design tips', 'AI image composition', 'visual design AI', 'AI art principles'],
     ogImage: 'https://wordtoimage.com/og-design-tips.jpg',
     canonical: 'https://wordtoimage.com/design-tips'
   },
   '/updates': {
-    title: 'Latest Updates - New AI Features & Improvements | WordToImage',
+    title: 'Latest Updates – New AI Features & Improvements | WordToImage',
     description: 'Stay updated with the latest AI image generation features, improvements, and announcements from WordToImage.',
     keywords: ['AI updates', 'new features', 'product updates', 'AI improvements'],
     ogImage: 'https://wordtoimage.com/og-updates.jpg',
     canonical: 'https://wordtoimage.com/updates'
   },
   '/careers': {
-    title: 'Careers - Join the AI Revolution | WordToImage',
+    title: 'Careers – Join the AI Revolution | WordToImage',
     description: 'Join WordToImage and help build the future of AI image generation. Explore career opportunities in AI, engineering, and design.',
     keywords: ['AI careers', 'jobs', 'AI engineer jobs', 'machine learning careers'],
     ogImage: 'https://wordtoimage.com/og-careers.jpg',
