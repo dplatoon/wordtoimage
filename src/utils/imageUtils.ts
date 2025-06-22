@@ -1,4 +1,3 @@
-
 // Enhanced image utilities for better performance and SEO
 
 export const defaultFallbackImage = '/images/placeholder.jpg';
@@ -6,44 +5,44 @@ export const defaultFallbackImage = '/images/placeholder.jpg';
 // Local gallery images for showcase - Updated with working AI-themed images
 export const localGalleryImages = [
   {
-    src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop&crop=center',
-    alt: 'Futuristic cyberpunk cityscape with neon lights and digital interfaces',
-    style: 'Cyberpunk'
+    src: "/lovable-uploads/ac5f5c36-57ec-4d3a-bc16-9417429df2f5.png",
+    alt: "Futuristic cyberpunk city street with neon signs and holographic displays",
+    style: "Cyberpunk"
   },
   {
-    src: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop&crop=center',
-    alt: 'Mystical fantasy landscape with ethereal lighting and magical elements',
-    style: 'Fantasy Art'
+    src: "/lovable-uploads/de5bb020-5171-43d5-ad88-09fdcbfeb83c.png", 
+    alt: "Mystical fantasy forest with ancient trees and magical moonlight",
+    style: "Fantasy Art"
   },
   {
-    src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=400&fit=crop&crop=center',
-    alt: 'Abstract geometric patterns with vibrant colors and digital art elements',
-    style: 'Abstract Digital'
+    src: "/lovable-uploads/f2c75793-3403-43ad-8f94-917cc71fde95.png",
+    alt: "Abstract geometric composition with vibrant overlapping shapes",
+    style: "Abstract Digital"
   },
   {
-    src: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=400&fit=crop&crop=center',
-    alt: 'Stunning landscape with dramatic lighting and cinematic composition',
-    style: 'Cinematic Landscape'
+    src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=800&q=75",
+    alt: "Realistic portrait with dramatic lighting and detailed features",
+    style: "Photorealistic"
   },
   {
-    src: 'https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=400&h=400&fit=crop&crop=center',
-    alt: 'Renaissance-style portrait with classical artistic techniques',
-    style: 'Classical Portrait'
+    src: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=75",
+    alt: "Minimalist design with clean lines and subtle gradients",
+    style: "Minimalist"
   },
   {
-    src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop&crop=center&auto=format',
-    alt: 'Modern architectural design with sleek lines and futuristic elements',
-    style: 'Futuristic Architecture'
+    src: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=75",
+    alt: "Vintage-style artwork with warm tones and classic composition",
+    style: "Vintage"
   },
   {
-    src: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop&crop=center&auto=format',
-    alt: 'Vintage poster design with retro aesthetic and bold typography',
-    style: 'Retro Vintage'
+    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=75",
+    alt: "Surreal artistic composition with dreamlike elements",
+    style: "Surreal"
   },
   {
-    src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=400&fit=crop&crop=center&auto=format',
-    alt: 'Digital art masterpiece with innovative AI-generated techniques',
-    style: 'AI Digital Art'
+    src: "https://images.unsplash.com/photo-1533134486753-c833f0ed4866?auto=format&fit=crop&w=800&q=75",
+    alt: "Anime-style character illustration with vibrant colors",
+    style: "Anime"
   }
 ];
 
