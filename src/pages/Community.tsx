@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
@@ -8,11 +7,14 @@ import { CommunityGallery } from '@/components/community/CommunityGallery';
 import { CreatePostModal } from '@/components/community/CreatePostModal';
 import { FeaturedSection } from '@/components/community/FeaturedSection';
 import { ChallengeCard } from '@/components/community/ChallengeCard';
+import { WeeklyTopCreations } from '@/components/community/WeeklyTopCreations';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlusCircle, Users, Camera, Award, TrendingUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { StructuredData } from '@/components/seo/components/StructuredData';
+import { InternalLink } from '@/components/seo/InternalLink';
 
 // Mock data for featured content
 const FEATURED_ARTIST = {
@@ -109,8 +111,39 @@ const Community = () => {
     console.log('View challenge entries:', challengeId);
   };
 
+  const communityStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "WordToImage Community - AI Art Gallery",
+    "description": "Join thousands of AI artists sharing their creations, participating in challenges, and learning together",
+    "url": "https://wordtoimage.com/community",
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Weekly Top AI Art Creations",
+      "numberOfItems": 10,
+      "itemListElement": TRENDING_POSTS.map((post, index) => ({
+        "@type": "CreativeWork",
+        "position": index + 1,
+        "name": post.title,
+        "creator": post.author,
+        "image": post.image,
+        "interactionStatistic": {
+          "@type": "InteractionCounter",
+          "interactionType": "https://schema.org/LikeAction",
+          "userInteractionCount": post.likes
+        }
+      }))
+    },
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "AI Artists and Creators"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
+      <StructuredData data={communityStructuredData} />
+      
       <Nav />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -122,10 +155,12 @@ const Community = () => {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            {t('community_page.title')}
+            AI Art Community
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            {t('community_page.subtitle')}
+            Join thousands of creators sharing stunning AI art, learning techniques, and participating in weekly challenges. 
+            Discover inspiration in our <InternalLink to="/prompt-guide">comprehensive prompt guide</InternalLink> and 
+            explore <InternalLink to="/templates">professional templates</InternalLink>.
           </p>
           
           <Button 
@@ -136,6 +171,9 @@ const Community = () => {
             {t('community_page.create_post')}
           </Button>
         </div>
+
+        {/* Weekly Top Creations - Public Section */}
+        <WeeklyTopCreations />
 
         {/* Community Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
