@@ -1,4 +1,3 @@
-
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { PageSEO } from '@/components/seo/PageSEO';
@@ -11,6 +10,40 @@ import { Link } from 'react-router-dom';
 
 const Blog = () => {
   const blogPosts = [
+    {
+      id: 'ai-art-styles',
+      title: "7 Stunning AI Art Styles and How to Generate Them",
+      excerpt: "Discover 7 popular AI-generated art styles, from anime to impressionism, with easy step-by-step prompts you can use instantly at WordToImage.com.",
+      author: "WordToImage Team",
+      date: "2025-01-20",
+      readTime: "8 min read",
+      category: "Tutorial",
+      image: "/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png",
+      featured: true,
+      slug: "ai-art-styles"
+    },
+    {
+      id: 'prompt-writing-guide',
+      title: "Ultimate Guide: Writing Powerful Prompts for AI Image Generation",
+      excerpt: "Learn how to write powerful, effective prompts for stunning AI-generated images with our ultimate prompt writing guide at WordToImage.com.",
+      author: "WordToImage Team",
+      date: "2025-01-18",
+      readTime: "10 min read",
+      category: "Tutorial",
+      image: "/lovable-uploads/f0dea1ce-ca91-4c0b-9849-6b3649a98249.png",
+      slug: "prompt-writing-guide"
+    },
+    {
+      id: 'ai-marketing-success',
+      title: "How Businesses Are Leveraging AI-Generated Images for Marketing Success",
+      excerpt: "Explore real-world examples and strategies of businesses successfully using AI-generated images to boost marketing results with WordToImage.com.",
+      author: "WordToImage Team",
+      date: "2025-01-15",
+      readTime: "12 min read",
+      category: "Business",
+      image: "/lovable-uploads/806c4eee-2b54-4f82-8d75-7bd3e7137f5c.png",
+      slug: "ai-marketing-success"
+    },
     {
       id: 1,
       title: "Mastering AI Art Prompts: A Complete Guide for 2025",
@@ -44,7 +77,7 @@ const Blog = () => {
     }
   ];
 
-  const categories = ["All", "Tutorial", "Industry", "Business", "Tips", "Case Studies"];
+  const categories = ["All", "Tutorial", "Business", "Industry", "Tips", "Case Studies"];
 
   return (
     <div className="min-h-screen bg-white">
@@ -117,7 +150,7 @@ const Blog = () => {
                   <span>{post.readTime}</span>
                 </div>
                 <Button asChild className="w-fit">
-                  <Link to={`/blog/${post.id}`}>
+                  <Link to={`/blog/${post.slug}`}>
                     Read Article
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
@@ -156,7 +189,7 @@ const Blog = () => {
                   <span>{new Date(post.date).toLocaleDateString()}</span>
                 </div>
                 <Button variant="outline" asChild className="w-full">
-                  <Link to={`/blog/${post.id}`}>
+                  <Link to={post.slug ? `/blog/${post.slug}` : `/blog/${post.id}`}>
                     Read More
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
