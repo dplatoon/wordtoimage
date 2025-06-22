@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import {
   Carousel,
@@ -16,13 +17,10 @@ interface ShowcaseMobileCarouselProps {
     prompt: string;
     style: string;
     author: string;
-    likes: number;
   }>;
-  hoveredIndex: number | null;
-  setHoveredIndex: (index: number | null) => void;
 }
 
-export const ShowcaseMobileCarousel = ({ items, hoveredIndex, setHoveredIndex }: ShowcaseMobileCarouselProps) => {
+export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) => {
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   
   const handleImageError = (id: number) => {
@@ -30,8 +28,8 @@ export const ShowcaseMobileCarousel = ({ items, hoveredIndex, setHoveredIndex }:
     setImageErrors(prev => ({ ...prev, [id]: true }));
   };
 
-  // Generate carousel structured data function
-  function generateCarouselStructuredData() {
+  // Generate carousel structured data
+  const generateCarouselStructuredData = () => {
     const carouselData = {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -84,7 +82,6 @@ export const ShowcaseMobileCarousel = ({ items, hoveredIndex, setHoveredIndex }:
                       creditText: `Created by ${item.author}`,
                       dateCreated: new Date().toISOString()
                     }}
-                    onError={() => handleImageError(item.id)}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-white">
                     <p className="font-medium text-sm">{item.prompt}</p>
