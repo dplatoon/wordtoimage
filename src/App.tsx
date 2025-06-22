@@ -44,6 +44,8 @@ import "./App.css";
 
 const queryClient = new QueryClient();
 
+import { ComprehensiveDashboard } from "./components/testing/ComprehensiveDashboard";
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -88,6 +90,7 @@ function App() {
                 <Route path="/blog/ai-art-styles" element={<AIArtStylesBlogPost />} />
                 <Route path="/blog/prompt-writing-guide" element={<PromptWritingGuideBlogPost />} />
                 <Route path="/blog/ai-marketing-success" element={<AIMarketingSuccessBlogPost />} />
+                <Route path="/dev-dashboard" element={<ComprehensiveDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
