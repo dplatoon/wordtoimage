@@ -1,0 +1,102 @@
+
+@layer components {
+  /* Enhanced Visual Hierarchy */
+  .text-primary-strong {
+    color: #1a202c; /* Improved contrast for WCAG AA */
+  }
+  
+  .text-secondary-strong {
+    color: #2d3748; /* Better contrast than default gray-600 */
+  }
+  
+  .text-muted-strong {
+    color: #4a5568; /* Improved contrast for muted text */
+  }
+
+  /* Responsive Grid Layouts */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .gallery-grid {
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .gallery-grid {
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+  }
+
+  .template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .template-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Enhanced Button Hierarchy */
+  .btn-hierarchy-primary {
+    @apply bg-gradient-to-r from-blue-600 to-teal-500 text-white font-semibold;
+    @apply shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-teal-600;
+    @apply transform hover:scale-105 transition-all duration-200;
+    @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+
+  .btn-hierarchy-secondary {  
+    @apply border-2 border-gray-300 text-gray-700 bg-white;
+    @apply hover:bg-gray-50 hover:border-gray-400 hover:text-gray-800;
+    @apply shadow-sm hover:shadow-md font-medium;
+    @apply focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
+    @apply transition-all duration-200;
+  }
+
+  /* Improved Card Components */
+  .card-enhanced {
+    @apply bg-white border border-gray-200 rounded-xl shadow-sm;
+    @apply hover:shadow-lg hover:border-gray-300 transition-all duration-300;
+    @apply focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2;
+  }
+
+  /* Navigation Enhancements */
+  .nav-item-enhanced {
+    @apply px-4 py-2 rounded-lg font-medium text-gray-700;
+    @apply hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+
+  .nav-item-active {
+    @apply bg-blue-50 text-blue-700 border border-blue-200;
+  }
+}

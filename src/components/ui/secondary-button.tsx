@@ -6,9 +6,8 @@ import { VariantProps } from "class-variance-authority"
 import { buttonVariants } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 
-export interface PrimaryButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+export interface SecondaryButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof buttonVariants> {
-  gradient?: boolean
   children?: React.ReactNode
   className?: string
   size?: "default" | "sm" | "lg" | "icon"
@@ -16,17 +15,17 @@ export interface PrimaryButtonProps extends React.ButtonHTMLAttributes<HTMLButto
   loadingText?: string
 }
 
-export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
-  ({ className, gradient, children, isLoading, loadingText, ...props }, ref) => {
+export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProps>(
+  ({ className, children, isLoading, loadingText, ...props }, ref) => {
     return (
       <Button
         ref={ref}
+        variant="outline"
         className={cn(
-          "font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105",
-          gradient
-            ? "bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 focus:ring-blue-500"
-            : "bg-blue-600 hover:bg-blue-700 focus:ring-blue-500",
-          "focus:ring-2 focus:ring-offset-2",
+          "font-medium border-2 border-gray-300 text-gray-700 bg-white hover:bg-gray-50",
+          "hover:border-gray-400 hover:text-gray-800 transition-all duration-200",
+          "focus:ring-2 focus:ring-gray-400 focus:ring-offset-2",
+          "shadow-sm hover:shadow-md",
           className
         )}
         disabled={isLoading || props.disabled}
@@ -44,4 +43,4 @@ export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
     )
   }
 )
-PrimaryButton.displayName = "PrimaryButton"
+SecondaryButton.displayName = "SecondaryButton"
