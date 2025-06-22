@@ -13,6 +13,7 @@ interface ImageSEOProps {
   sizes?: string;
   srcSet?: string;
   priority?: boolean;
+  onError?: () => void;
   structuredData?: {
     caption?: string;
     creator?: string;
@@ -37,6 +38,7 @@ export const ImageSEO: React.FC<ImageSEOProps> = ({
   sizes,
   srcSet,
   priority = false,
+  onError,
   structuredData
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -109,6 +111,11 @@ export const ImageSEO: React.FC<ImageSEOProps> = ({
         event_label: src,
         error_type: 'load_failure'
       });
+    }
+
+    // Call the external onError handler if provided
+    if (onError) {
+      onError();
     }
   };
 
