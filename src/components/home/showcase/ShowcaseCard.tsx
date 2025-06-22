@@ -3,6 +3,8 @@ import React from 'react';
 import { Download, Heart, ExternalLink, Wand2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
+import { toast } from '@/components/ui/sonner';
 
 interface ShowcaseCardProps {
   title: string;
@@ -27,6 +29,31 @@ export const ShowcaseCard = ({
   onUsePrompt,
   className = ""
 }: ShowcaseCardProps) => {
+  const navigate = useNavigate();
+
+  const handleUsePrompt = () => {
+    // Navigate to text-to-image page and pre-fill the prompt
+    navigate('/text-to-image', { 
+      state: { 
+        prompt: prompt,
+        style: style 
+      } 
+    });
+    toast.success("Prompt loaded! Ready to generate your image.");
+  };
+
+  const handleGenerateSimilar = () => {
+    // Navigate to text-to-image with a modified prompt for similar generation
+    const similarPrompt = `${prompt}, ${style} style, similar composition`;
+    navigate('/text-to-image', { 
+      state: { 
+        prompt: similarPrompt,
+        style: style 
+      } 
+    });
+    toast.success("Similar prompt loaded! Generate your variation.");
+  };
+
   return (
     <div className={`group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in ${className}`}>
       {/* Image */}
@@ -45,7 +72,7 @@ export const ShowcaseCard = ({
               <ExternalLink className="h-4 w-4 mr-1" />
               View
             </Button>
-            <Button size="sm" variant="secondary" onClick={onUsePrompt} className="bg-white/90 text-gray-900">
+            <Button size="sm" variant="secondary" onClick={handleUsePrompt} className="bg-white/90 text-gray-900">
               <Wand2 className="h-4 w-4 mr-1" />
               Try
             </Button>
@@ -93,10 +120,10 @@ export const ShowcaseCard = ({
 
         {/* Action buttons */}
         <div className="flex gap-2 mt-3">
-          <Button variant="outline" size="sm" onClick={onUsePrompt} className="flex-1 text-xs">
+          <Button variant="outline" size="sm" onClick={handleUsePrompt} className="flex-1 text-xs">
             Use Prompt
           </Button>
-          <Button size="sm" className="flex-1 text-xs">
+          <Button size="sm" onClick={handleGenerateSimilar} className="flex-1 text-xs">
             Generate Similar
           </Button>
         </div>

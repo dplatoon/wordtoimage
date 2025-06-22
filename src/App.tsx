@@ -40,6 +40,7 @@ import ContactSupport from "./pages/ContactSupport";
 import AIArtStylesBlogPost from "@/pages/blog/ai-art-styles";
 import PromptWritingGuideBlogPost from "@/pages/blog/prompt-writing-guide";
 import AIMarketingSuccessBlogPost from "@/pages/blog/ai-marketing-success";
+import Gallery from "./pages/Gallery";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -87,6 +88,7 @@ function App() {
                 <Route path="/style-gallery" element={<StyleGallery />} />
                 <Route path="/batch-generator" element={<BatchGenerator />} />
                 <Route path="/contact-support" element={<ContactSupport />} />
+                <Route path="/gallery" element={<Gallery />} />
                 <Route path="/blog/ai-art-styles" element={<AIArtStylesBlogPost />} />
                 <Route path="/blog/prompt-writing-guide" element={<PromptWritingGuideBlogPost />} />
                 <Route path="/blog/ai-marketing-success" element={<AIMarketingSuccessBlogPost />} />
