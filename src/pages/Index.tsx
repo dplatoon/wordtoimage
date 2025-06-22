@@ -16,10 +16,18 @@ import { LiveActivityCounter } from "@/components/social-proof/LiveActivityCount
 import { ExitIntentModal } from "@/components/conversion/ExitIntentModal";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { useAuth } from "@/contexts/AuthContext";
+import { BrokenLinkChecker } from "@/components/common/BrokenLinkChecker";
+import { useEffect } from "react";
+import { initPerformanceMonitoring } from "@/utils/performance";
 
 const Index = () => {
   const { user } = useAuth();
   const { showExitIntent, closeExitIntent } = useExitIntent(!user); // Only show for non-logged-in users
+
+  // Initialize performance monitoring
+  useEffect(() => {
+    initPerformanceMonitoring();
+  }, []);
 
   return (
     <ConversionManager pageId="homepage" userActivity={{}}>
@@ -72,6 +80,12 @@ const Index = () => {
         <ExitIntentModal 
           isOpen={showExitIntent} 
           onClose={closeExitIntent} 
+        />
+
+        {/* Performance & Quality Monitoring */}
+        <BrokenLinkChecker 
+          enabled={process.env.NODE_ENV === 'development'} 
+          checkInterval={60000} 
         />
       </div>
     </ConversionManager>
