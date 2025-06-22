@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
@@ -20,7 +19,7 @@ const AIArtStylesBlogPost = () => {
     readTime: "8 min read",
     category: "Tutorial",
     tags: ["AI Art Styles", "AI Image Generator", "Prompts", "Tutorial"],
-    image: "/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png",
+    image: "/lovable-uploads/ab9f37de-777a-4051-8bcd-0030fc08112b.png",
     slug: "ai-art-styles"
   };
 
