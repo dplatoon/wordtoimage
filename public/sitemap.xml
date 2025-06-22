@@ -10,186 +10,216 @@
   <!-- Homepage -->
   <url>
     <loc>https://wordtoimage.com/</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <mobile:mobile/>
+    <image:image>
+      <image:loc>https://wordtoimage.com/hero-ai-generator.jpg</image:loc>
+      <image:title>WordToImage AI Image Generator Interface</image:title>
+      <image:caption>AI-powered text-to-image generation tool</image:caption>
+    </image:image>
   </url>
   
   <!-- Main AI Image Generator -->
   <url>
     <loc>https://wordtoimage.com/text-to-image</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <mobile:mobile/>
   </url>
   
   <!-- Dashboard -->
   <url>
     <loc>https://wordtoimage.com/dashboard</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <mobile:mobile/>
   </url>
 
   <!-- Community -->
   <url>
     <loc>https://wordtoimage.com/community</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <mobile:mobile/>
   </url>
   
   <!-- Core Product Pages -->
   <url>
     <loc>https://wordtoimage.com/features</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <mobile:mobile/>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/pricing</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/templates</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/style-gallery</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/batch-generator</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <mobile:mobile/>
   </url>
 
   <!-- Content & Help Pages -->
   <url>
     <loc>https://wordtoimage.com/blog</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/tutorials</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/help</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/design-tips</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
   </url>
 
   <!-- Company Pages -->
   <url>
     <loc>https://wordtoimage.com/about</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/contact</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/contact-support</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/careers</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <mobile:mobile/>
   </url>
 
   <!-- Developer & API -->
   <url>
     <loc>https://wordtoimage.com/api</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
   </url>
 
   <!-- Product Variations -->
   <url>
     <loc>https://wordtoimage.com/product</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/beta</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/beta-landing</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/updates</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
   </url>
   
   <!-- Legal Pages -->
   <url>
     <loc>https://wordtoimage.com/privacy</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <mobile:mobile/>
   </url>
   
   <url>
     <loc>https://wordtoimage.com/terms</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <mobile:mobile/>
   </url>
 
   <url>
     <loc>https://wordtoimage.com/cookies</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2025-06-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <mobile:mobile/>
   </url>
 
 </urlset>
