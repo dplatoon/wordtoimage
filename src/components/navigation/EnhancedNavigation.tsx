@@ -2,7 +2,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { Gallery, FileImage, BookOpen, Lightbulb, Users, Wand2 } from 'lucide-react';
+import { Images, FileImage, BookOpen, Lightbulb, Users, Wand2 } from 'lucide-react';
 
 interface NavItem {
   to: string;
@@ -22,7 +22,7 @@ const navigationItems: NavItem[] = [
     to: '/style-gallery',
     label: 'Gallery',
     tooltip: 'Browse AI-generated art examples and styles',
-    icon: Gallery
+    icon: Images
   },
   {
     to: '/templates',
