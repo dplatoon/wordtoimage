@@ -3,36 +3,36 @@
 
 export const defaultFallbackImage = '/images/placeholder.jpg';
 
-// Local gallery images for showcase - Updated with working AI-themed images
+// Local gallery images for showcase - Updated with user-uploaded images
 export const localGalleryImages = [
   {
-    src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop&crop=center',
-    alt: 'Futuristic cyberpunk cityscape with neon lights and digital interfaces',
+    src: '/lovable-uploads/ba65fc79-7bc8-40f0-81b9-d5ea5bc8d35a.png',
+    alt: 'Futuristic cyberpunk cityscape with neon lights and digital interfaces in a rainy street scene',
     style: 'Cyberpunk'
   },
   {
-    src: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop&crop=center',
-    alt: 'Mystical fantasy landscape with ethereal lighting and magical elements',
+    src: '/lovable-uploads/19295794-7457-41ec-9272-41faed11b055.png',
+    alt: 'Mystical fantasy landscape with ethereal blue lighting, ancient trees and magical atmosphere',
     style: 'Fantasy Art'
   },
   {
-    src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=400&fit=crop&crop=center',
-    alt: 'Abstract geometric patterns with vibrant colors and digital art elements',
+    src: '/lovable-uploads/317dfa28-3425-4dac-a167-343034ee797b.png',
+    alt: 'Abstract geometric patterns with vibrant colors, overlapping shapes and digital art elements',
     style: 'Abstract Digital'
   },
   {
-    src: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=400&fit=crop&crop=center',
-    alt: 'Stunning landscape with dramatic lighting and cinematic composition',
+    src: '/lovable-uploads/5780c58f-29ec-4462-a0eb-3ba9829bf938.png',
+    alt: 'Dramatic mountain landscape with cinematic lighting and atmospheric mood',
     style: 'Cinematic Landscape'
   },
   {
-    src: 'https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=400&h=400&fit=crop&crop=center',
-    alt: 'Renaissance-style portrait with classical artistic techniques',
+    src: '/lovable-uploads/2eae8e86-b21c-42da-a038-310ef938fe38.png',
+    alt: 'Renaissance-style portrait with classical artistic techniques and traditional composition',
     style: 'Classical Portrait'
   },
   {
-    src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop&crop=center&auto=format',
-    alt: 'Modern architectural design with sleek lines and futuristic elements',
+    src: '/lovable-uploads/269b93d2-3c01-438b-b2bb-e7b1fbc3b233.png',
+    alt: 'Modern futuristic architectural design with sleek curved lines and glass surfaces',
     style: 'Futuristic Architecture'
   },
   {

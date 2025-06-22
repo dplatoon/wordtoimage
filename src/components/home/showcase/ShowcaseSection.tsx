@@ -12,7 +12,7 @@ export const ShowcaseSection = () => {
   const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
-  // Generate showcase items from our local gallery images
+  // Generate showcase items from our updated local gallery images
   const showcaseItems = localGalleryImages.slice(0, 6).map((image, index) => ({
     id: index + 1,
     imageUrl: image.src,
@@ -30,7 +30,11 @@ export const ShowcaseSection = () => {
         
         {/* Mobile Carousel */}
         <div className="md:hidden">
-          <ShowcaseMobileCarousel items={showcaseItems} />
+          <ShowcaseMobileCarousel 
+            items={showcaseItems}
+            hoveredIndex={hoveredIndex}
+            setHoveredIndex={setHoveredIndex}
+          />
         </div>
         
         {/* Desktop Grid */}

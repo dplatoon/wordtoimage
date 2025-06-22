@@ -18,9 +18,11 @@ interface ShowcaseMobileCarouselProps {
     style: string;
     author: string;
   }>;
+  hoveredIndex: number | null;
+  setHoveredIndex: (index: number | null) => void;
 }
 
-export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) => {
+export const ShowcaseMobileCarousel = ({ items, hoveredIndex, setHoveredIndex }: ShowcaseMobileCarouselProps) => {
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   
   const handleImageError = (id: number) => {
@@ -82,6 +84,7 @@ export const ShowcaseMobileCarousel = ({ items }: ShowcaseMobileCarouselProps) =
                       creditText: `Created by ${item.author}`,
                       dateCreated: new Date().toISOString()
                     }}
+                    onError={() => handleImageError(item.id)}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-white">
                     <p className="font-medium text-sm">{item.prompt}</p>
