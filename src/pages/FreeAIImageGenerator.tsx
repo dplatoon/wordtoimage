@@ -2,13 +2,18 @@
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { EnhancedSEOManager } from '@/components/seo/EnhancedSEOManager';
-import { FreeGeneratorHero } from '@/components/free-generator/FreeGeneratorHero';
+import { OptimizedFreeGeneratorHero } from '@/components/free-generator/OptimizedFreeGeneratorHero';
 import { FreeGeneratorTool } from '@/components/free-generator/FreeGeneratorTool';
-import { CompetitorComparison } from '@/components/free-generator/CompetitorComparison';
-import { PromptEngineeringGuide } from '@/components/free-generator/PromptEngineeringGuide';
-import { UserGalleryShowcase } from '@/components/free-generator/UserGalleryShowcase';
-import { EmailCaptureModule } from '@/components/free-generator/EmailCaptureModule';
-import { useState } from 'react';
+import { OptimizedUserGalleryShowcase } from '@/components/free-generator/OptimizedUserGalleryShowcase';
+import { ResourcePreloader } from '@/components/performance/ResourcePreloader';
+import { WebVitalsMonitor } from '@/components/performance/WebVitalsMonitor';
+import { useState, lazy, Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+
+// Lazy load non-critical components for better performance
+const LazyCompetitorComparison = lazy(() => import('@/components/free-generator/CompetitorComparison').then(m => ({ default: m.CompetitorComparison })));
+const LazyPromptEngineeringGuide = lazy(() => import('@/components/free-generator/PromptEngineeringGuide').then(m => ({ default: m.PromptEngineeringGuide })));
+const LazyEmailCaptureModule = lazy(() => import('@/components/free-generator/EmailCaptureModule').then(m => ({ default: m.EmailCaptureModule })));
 
 const FreeAIImageGenerator = () => {
   const [generatedImages, setGeneratedImages] = useState<Array<{
@@ -50,8 +55,15 @@ const FreeAIImageGenerator = () => {
     ]
   };
 
+  const LoadingSkeleton = () => (
+    <div className="w-full h-64 bg-gray-100 animate-pulse rounded-lg mx-auto max-w-4xl" />
+  );
+
   return (
     <div className="min-h-screen bg-white">
+      <ResourcePreloader />
+      <WebVitalsMonitor />
+      
       <EnhancedSEOManager
         customConfig={{
           title: "Free AI Image Generator Online - No Signup Needed | WordToImage",
@@ -64,23 +76,27 @@ const FreeAIImageGenerator = () => {
       <Nav />
       
       <main>
-        {/* Hero Section */}
-        <FreeGeneratorHero />
+        {/* Hero Section - Critical, load immediately with optimized images */}
+        <OptimizedFreeGeneratorHero />
         
-        {/* Real-Time Tool Section */}
+        {/* Real-Time Tool Section - Critical, load immediately */}
         <FreeGeneratorTool onImageGenerated={handleImageGenerated} />
         
-        {/* Competitor Comparison Matrix */}
-        <CompetitorComparison />
+        {/* User Gallery - Optimized version loads immediately */}
+        <OptimizedUserGalleryShowcase userImages={generatedImages} />
         
-        {/* Prompt Engineering Tips */}
-        <PromptEngineeringGuide />
+        {/* Non-critical sections - Load lazily for better performance */}
+        <Suspense fallback={<LoadingSkeleton />}>
+          <LazyCompetitorComparison />
+        </Suspense>
         
-        {/* User Gallery Showcase */}
-        <UserGalleryShowcase userImages={generatedImages} />
+        <Suspense fallback={<LoadingSkeleton />}>
+          <LazyPromptEngineeringGuide />
+        </Suspense>
         
-        {/* Email Capture Module */}
-        <EmailCaptureModule />
+        <Suspense fallback={<LoadingSkeleton />}>
+          <LazyEmailCaptureModule />
+        </Suspense>
       </main>
       
       <Footer />
