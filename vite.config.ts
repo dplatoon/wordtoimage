@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -41,7 +40,6 @@ export default defineConfig(({ command, mode }) => ({
             '@radix-ui/react-aspect-ratio',
             '@radix-ui/react-avatar',
             '@radix-ui/react-checkbox',
-            '@radix-ui/react-input',
             '@radix-ui/react-label',
             '@radix-ui/react-textarea',
             '@radix-ui/react-tooltip'
