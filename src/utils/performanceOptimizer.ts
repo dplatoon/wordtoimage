@@ -229,7 +229,12 @@ export class PerformanceOptimizer {
   }
 
   // Generate performance report
-  generatePerformanceReport(): void {
+  generatePerformanceReport(): {
+    timestamp: string;
+    metrics: { [key: string]: number };
+    recommendations: string[];
+    overallScore: number;
+  } {
     const report = {
       timestamp: new Date().toISOString(),
       metrics: Object.fromEntries(this.performanceMetrics),
