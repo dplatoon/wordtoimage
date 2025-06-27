@@ -72,7 +72,7 @@ export class PerformanceOptimizer {
   }
 }
 
-// Export everything for backward compatibility
+// Export individual modules
 export { WebVitalsMonitor } from './webVitalsMonitor';
 export { ResourceOptimizer } from './resourceOptimizer';
 export { PerformanceReporter } from './performanceReporter';
