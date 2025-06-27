@@ -1,1 +1,26 @@
+
 project_id = "itkfghwxbodjlmpgydsq"
+
+[functions.generate-runware-image]
+verify_jwt = false
+
+[functions.generate-replicate-image]
+verify_jwt = false
+
+[functions.secure-image-generation]
+verify_jwt = false
+
+[functions.check-prediction-status]
+verify_jwt = false
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.check-subscription]
+verify_jwt = false
+
+[functions.customer-portal]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false
