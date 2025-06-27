@@ -7,6 +7,7 @@ import { FreeGeneratorTool } from '@/components/free-generator/FreeGeneratorTool
 import { OptimizedUserGalleryShowcase } from '@/components/free-generator/OptimizedUserGalleryShowcase';
 import { ResourcePreloader } from '@/components/performance/ResourcePreloader';
 import { WebVitalsMonitor } from '@/components/performance/WebVitalsMonitor';
+import { CriticalCSS } from '@/components/performance/CriticalCSS';
 import { useState, lazy, Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -52,7 +53,7 @@ const FreeAIImageGenerator = () => {
       "Multiple art styles",
       "Instant download",
       "Commercial usage rights"
-    ] as string[]
+    ]
   };
 
   const LoadingSkeleton = () => (
@@ -61,6 +62,7 @@ const FreeAIImageGenerator = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <CriticalCSS />
       <ResourcePreloader />
       <WebVitalsMonitor />
       
