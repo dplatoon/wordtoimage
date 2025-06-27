@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -48,6 +47,9 @@ const queryClient = new QueryClient();
 
 import { ComprehensiveDashboard } from "./components/testing/ComprehensiveDashboard";
 
+import { OptimizedFontLoader } from "./components/performance/OptimizedFontLoader";
+import { CoreWebVitalsMonitor } from "./components/performance/CoreWebVitalsMonitor";
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -55,6 +57,8 @@ function App() {
         <AuthProvider>
           <TooltipProvider>
             <Toaster />
+            <OptimizedFontLoader />
+            <CoreWebVitalsMonitor />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
