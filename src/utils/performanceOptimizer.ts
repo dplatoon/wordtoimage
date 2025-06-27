@@ -6,4 +6,4 @@ export {
   ResourceOptimizer,
   PerformanceReporter,
   initPerformanceOptimizations
-} from './performance';
+} from './performance/index';
