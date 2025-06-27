@@ -52,9 +52,20 @@ export function JPGToPDFConverter() {
     setProgress(0);
     
     try {
-      // Import jsPDF with proper handling for different export patterns
+      // Import jsPDF with robust handling for different export patterns
       const jsPDFModule = await import('jspdf');
-      const jsPDF = jsPDFModule.jsPDF || jsPDFModule.default;
+      
+      // Handle different export patterns - try multiple approaches
+      let jsPDFClass;
+      if (jsPDFModule.jsPDF) {
+        jsPDFClass = jsPDFModule.jsPDF;
+      } else if (jsPDFModule.default && jsPDFModule.default.jsPDF) {
+        jsPDFClass = jsPDFModule.default.jsPDF;
+      } else if (jsPDFModule.default) {
+        jsPDFClass = jsPDFModule.default;
+      } else {
+        throw new Error('Could not find jsPDF constructor');
+      }
       
       // Page dimensions based on size and orientation
       const pageSizes: Record<string, [number, number]> = {
@@ -68,7 +79,7 @@ export function JPGToPDFConverter() {
       const pageWidth = orientation === 'landscape' ? height : width;
       const pageHeight = orientation === 'landscape' ? width : height;
       
-      const doc = new jsPDF({
+      const doc = new jsPDFClass({
         orientation: orientation as 'portrait' | 'landscape',
         unit: 'mm',
         format: [pageWidth, pageHeight]
