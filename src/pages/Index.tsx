@@ -1,4 +1,3 @@
-
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { FastHero } from "@/components/home/FastHero";
@@ -19,10 +18,15 @@ import { useAuth } from "@/contexts/AuthContext";
 import { BrokenLinkChecker } from "@/components/common/BrokenLinkChecker";
 import { useEffect } from "react";
 import { initPerformanceMonitoring } from "@/utils/performance";
+import { CriticalPathOptimizer } from "@/components/performance/CriticalPathOptimizer";
+import { LCPOptimizer } from "@/components/performance/LCPOptimizer";
+import { AccessibilityOptimizer } from "@/components/performance/AccessibilityOptimizer";
+import { JSOptimizer } from "@/components/performance/JSOptimizer";
+import { PerformanceMonitor } from "@/components/performance/PerformanceMonitor";
 
 const Index = () => {
   const { user } = useAuth();
-  const { showExitIntent, closeExitIntent } = useExitIntent(!user); // Only show for non-logged-in users
+  const { showExitIntent, closeExitIntent } = useExitIntent(!user);
 
   // Initialize performance monitoring
   useEffect(() => {
@@ -32,6 +36,14 @@ const Index = () => {
   return (
     <ConversionManager pageId="homepage" userActivity={{}}>
       <div className="min-h-screen">
+        {/* Critical performance optimizations - loaded first */}
+        <CriticalPathOptimizer />
+        <LCPOptimizer />
+        <AccessibilityOptimizer />
+        <JSOptimizer />
+        <PerformanceMonitor />
+        
+        {/* Existing performance components */}
         <CriticalCSS />
         <ResourcePreloader />
         <CoreWebVitalsMonitor />
@@ -39,20 +51,20 @@ const Index = () => {
         {/* Enhanced SEO with proper heading structure */}
         <EnhancedSEOManager 
           pageContent={{
-            h1: "Create Stunning Images from Any Text in Seconds",
+            h1: "AI Image Generator: Transform Text Into Art",
             h2Headings: [
-              "How AI Image Generation Works",
-              "Why Choose WordToImage", 
-              "Featured AI Art Styles",
-              "Start Creating Today"
+              "How Our AI Image Generator Works",
+              "Why Choose WordToImage AI Generator", 
+              "Everything You Need to Create Amazing AI Art",
+              "Perfect for Every Creative Project"
             ]
           }}
         />
         <EnhancedSchemaMarkup 
           type="homepage" 
           pageData={{
-            title: "WordToImage - AI Image Generator",
-            description: "Transform text into stunning AI-generated images instantly",
+            title: "WordToImage - AI Image Generator: Transform Text Into Art",
+            description: "Generate professional-quality images from simple text descriptions using advanced artificial intelligence. Create stunning visual artwork in seconds with our AI image generator.",
             url: "https://wordtoimage.com",
             datePublished: "2024-01-01",
             dateModified: new Date().toISOString()
@@ -69,10 +81,13 @@ const Index = () => {
         </div>
         <MobileOptimizedNav />
         
-        {/* Main Content with proper heading structure */}
-        <FastHero />
-        <FastFeatures />
-        <ShowcaseSection />
+        {/* Main Content with proper heading structure and accessibility */}
+        <main id="main-content" role="main">
+          <FastHero />
+          <FastFeatures />
+          <ShowcaseSection />
+        </main>
+        
         <Footer />
 
         {/* Social Proof & Conversion Elements */}

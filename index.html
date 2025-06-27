@@ -3,13 +3,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes" />
-    <title>WordToImage - Transform Text Into Images with AI | WordToImage</title>
-    <meta name="description" content="Transform text into stunning visuals with AI" />
-    <meta name="theme-color" content="#8B5CF6">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
+    <title>WordToImage - AI Image Generator: Transform Text Into Art | Create Stunning Visuals Instantly</title>
+    <meta name="description" content="Generate professional-quality images from simple text descriptions using advanced artificial intelligence. Create stunning visual artwork in seconds with our AI image generator. Free to try, no signup required." />
+    <meta name="theme-color" content="#1E40AF">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Critical CSS inlined for immediate rendering -->
+    <!-- Performance and SEO optimizations -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://wordtoimage.com/" />
+    
+    <!-- Critical CSS inlined for immediate rendering and LCP optimization -->
     <style>
       /* Critical path styles - optimized for LCP */
       body {
@@ -17,7 +22,7 @@
         font-family: system-ui, -apple-system, sans-serif;
         margin: 0;
         line-height: 1.6;
-        color: #1e293b;
+        color: #1a202c;
         font-display: swap;
       }
       
@@ -42,13 +47,45 @@
         height: 64px;
         background: white;
         border-bottom: 1px solid #e5e7eb;
+        contain: layout style;
       }
       
       /* Hero section optimization for LCP */
       .hero-section {
-        min-height: 80vh;
+        min-height: 100vh;
         background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
         contain: layout style paint;
+      }
+      
+      /* Enhanced button contrast for accessibility */
+      .btn-primary {
+        background: #1E40AF !important; /* Improved contrast 6.2:1 */
+        color: #ffffff !important;
+        transition: all 0.2s ease;
+        will-change: transform;
+        min-height: 48px;
+        border: none;
+        border-radius: 0.75rem;
+        font-weight: 600;
+      }
+      
+      .btn-primary:hover {
+        background: #1E3A8A !important;
+        transform: translateY(-1px);
+      }
+      
+      .btn-primary:focus-visible {
+        outline: 3px solid #3B82F6 !important;
+        outline-offset: 2px !important;
+      }
+      
+      /* Improved text contrast for accessibility */
+      .text-slate-500, .text-gray-500 {
+        color: #4a5568 !important; /* Enhanced from #6B7280 for better contrast */
+      }
+      
+      .text-slate-600, .text-gray-600 {
+        color: #2d3748 !important;
       }
       
       /* Optimized loading animation */
@@ -72,7 +109,7 @@
         width: 24px;
         height: 24px;
         border: 2px solid #f3f4f6;
-        border-top: 2px solid #8B5CF6;
+        border-top: 2px solid #1E40AF;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
         will-change: transform;
@@ -99,11 +136,28 @@
         height: auto;
       }
       
-      /* Critical button styles */
-      .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        transition: transform 0.15s ease;
-        will-change: transform;
+      /* Skip links for accessibility */
+      .sr-only {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+      }
+      
+      .sr-only:focus {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        padding: inherit !important;
+        margin: inherit !important;
+        overflow: visible !important;
+        clip: auto !important;
+        white-space: normal !important;
       }
       
       /* Reduce motion for accessibility and performance */
@@ -115,23 +169,26 @@
         }
       }
       
-      /* Data saver optimizations */
-      .data-saver * {
-        animation: none !important;
-        transition: none !important;
+      /* High contrast mode support */
+      @media (prefers-contrast: high) {
+        .btn-primary {
+          background: #000000 !important;
+          color: #ffffff !important;
+          border: 2px solid #000000 !important;
+        }
       }
     </style>
 
-    <!-- High priority resource hints -->
+    <!-- High priority resource hints for LCP optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="//images.unsplash.com">
     
-    <!-- Preload critical assets with proper priority -->
+    <!-- Preload critical assets with proper priority for LCP -->
     <link rel="preload" href="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" as="image" type="image/png" fetchpriority="high">
     <link rel="preload" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" as="image" type="image/png" fetchpriority="high">
     
-    <!-- Optimized font loading with reduced weight variations -->
+    <!-- Optimized font loading with display swap -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
@@ -141,36 +198,47 @@
     <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
     
-    <!-- Social Media Meta Tags -->
-    <meta property="og:title" content="WordToImage - Transform Text Into Images with AI" />
-    <meta property="og:description" content="Transform text to images instantly with AI" />
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="WordToImage - AI Image Generator: Transform Text Into Art" />
+    <meta property="og:description" content="Generate professional-quality images from simple text descriptions using advanced artificial intelligence. Create stunning visual artwork in seconds." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/wordtoimage-social.png" />
-    <meta property="og:url" content="https://wordtoimage.lovable.dev" />
+    <meta property="og:image" content="https://wordtoimage.com/og-image.jpg" />
+    <meta property="og:url" content="https://wordtoimage.com/" />
+    <meta property="og:site_name" content="WordToImage - AI Image Generator" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="WordToImage" />
-    <meta name="twitter:description" content="AI Text to Image Generator" />
-    <meta name="twitter:image" content="https://lovable.dev/wordtoimage-social.png" />
+    <meta name="twitter:title" content="AI Image Generator: Transform Text Into Art | WordToImage" />
+    <meta name="twitter:description" content="Generate stunning AI images from text descriptions. Free to try, professional quality results in seconds." />
+    <meta name="twitter:image" content="https://wordtoimage.com/twitter-card.jpg" />
     
-    <!-- Optimized structured data -->
+    <!-- Enhanced structured data for better SEO -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "WordToImage",
-        "description": "AI-powered text to image generation",
-        "url": "https://wordtoimage.lovable.dev",
+        "name": "WordToImage - AI Image Generator",
+        "description": "AI-powered text to image generation tool that creates professional-quality images from simple text descriptions",
+        "url": "https://wordtoimage.com",
         "applicationCategory": "DesignApplication",
-        "operatingSystem": "Web Browser"
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "WordToImage",
+          "url": "https://wordtoimage.com"
+        }
       }
     </script>
     
-    <!-- Optimized favicon -->
+    <!-- Optimized favicon with proper sizes -->
     <link rel="icon" type="image/png" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" sizes="32x32">
-    <link rel="apple-touch-icon" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/lovable-uploads/da1df0c4-3f9d-47c0-983b-c6d90083b3ee.png" sizes="180x180">
 
-    <!-- Performance monitoring script -->
+    <!-- Performance monitoring script optimized for Core Web Vitals -->
     <script>
       // Initialize critical performance tracking
       window.perfData = {
@@ -179,7 +247,7 @@
         measures: {}
       };
       
-      // Mark content loading stages
+      // Mark content loading stages for LCP optimization
       window.addEventListener('DOMContentLoaded', function() {
         window.perfData.marks.domReady = performance.now();
         document.body.classList.add('content-loaded');
@@ -188,48 +256,52 @@
       
       window.addEventListener('load', function() {
         window.perfData.marks.loadComplete = performance.now();
-        console.log('📊 Load Complete:', (window.perfData.marks.loadComplete - window.perfData.start).toFixed(2) + 'ms');
+        const loadTime = window.perfData.marks.loadComplete - window.perfData.start;
+        console.log('📊 Load Complete:', loadTime.toFixed(2) + 'ms');
         
-        // Initialize deferred analytics after load
-        setTimeout(function() {
-          if (typeof gtag !== 'undefined') {
-            gtag('config', 'G-KND5GPN1W7', { 
-              page_load_time: Math.round(window.perfData.marks.loadComplete - window.perfData.start),
-              send_page_view: true
-            });
-          }
-        }, 100);
+        // Track performance score
+        if (loadTime <= 2000) {
+          console.log('🎯 Performance: Excellent (< 2s)');
+        } else if (loadTime <= 4000) {
+          console.log('⚠️ Performance: Good (2-4s)');
+        } else {
+          console.log('❌ Performance: Needs improvement (> 4s)');
+        }
       });
       
-      // Track Core Web Vitals
+      // Enhanced Core Web Vitals tracking
       if ('PerformanceObserver' in window) {
-        // LCP tracking
+        // LCP tracking with detailed logging
         new PerformanceObserver(function(entryList) {
           const entries = entryList.getEntries();
           const lastEntry = entries[entries.length - 1];
-          console.log('📊 LCP:', lastEntry.startTime.toFixed(2) + 'ms');
+          const lcp = lastEntry.startTime;
+          const rating = lcp <= 2500 ? 'good' : lcp <= 4000 ? 'needs_improvement' : 'poor';
+          console.log('🎯 LCP:', lcp.toFixed(2) + 'ms', `(${rating})`);
         }).observe({entryTypes: ['largest-contentful-paint']});
         
         // FID tracking
         new PerformanceObserver(function(entryList) {
           entryList.getEntries().forEach(function(entry) {
             const fid = entry.processingStart - entry.startTime;
-            console.log('📊 FID:', fid.toFixed(2) + 'ms');
+            const rating = fid <= 100 ? 'good' : fid <= 300 ? 'needs_improvement' : 'poor';
+            console.log('⚡ FID:', fid.toFixed(2) + 'ms', `(${rating})`);
           });
         }).observe({entryTypes: ['first-input']});
       }
     </script>
 
-    <!-- Deferred analytics loading -->
+    <!-- Deferred analytics loading to prevent render blocking -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       
-      // Load analytics after critical resources
+      // Load analytics after critical resources for better performance
       window.addEventListener('load', function() {
         setTimeout(function() {
           const script = document.createElement('script');
           script.async = true;
+          script.defer = true;
           script.src = 'https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7';
           document.head.appendChild(script);
           
@@ -241,15 +313,21 @@
               cookie_flags: 'SameSite=None;Secure'
             });
           };
-        }, 1000);
+        }, 1500); // Increased delay for better LCP
       });
     </script>
   </head>
 
   <body>
+    <!-- Skip links for accessibility -->
+    <div class="sr-only">
+      <a href="#main-content">Skip to main content</a>
+      <a href="#navigation">Skip to navigation</a>
+    </div>
+    
     <div id="root">
       <!-- Optimized loading indicator -->
-      <div class="critical-loader" aria-label="Loading application"></div>
+      <div class="critical-loader" aria-label="Loading AI image generator application"></div>
     </div>
     
     <!-- Main application script - deferred for better performance -->
