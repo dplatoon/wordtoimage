@@ -23,6 +23,13 @@ export const Footer = () => {
     { name: "What's New", href: '/whats-new' },
   ];
 
+  const converterLinks = [
+    { name: 'PDF to JPG', href: '/pdf-to-jpg' },
+    { name: 'Word to JPG', href: '/word-to-jpg' },
+    { name: 'JPG to Word', href: '/jpg-to-word' },
+    { name: 'JPG to PDF', href: '/jpg-to-pdf' },
+  ];
+
   const companyLinks = [
     { name: 'About Us', href: '/about' },
     { name: 'Join Our Team', href: '/join-our-team' },
@@ -39,7 +46,7 @@ export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Logo variant="footer" className="mb-4" />
@@ -100,6 +107,23 @@ export const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Resources</h3>
             <ul className="space-y-2">
               {resourceLinks.map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    to={link.href} 
+                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Converter Tools */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Converter Tools</h3>
+            <ul className="space-y-2">
+              {converterLinks.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
