@@ -53,7 +53,7 @@ export function JPGToPDFConverter() {
     setProgress(0);
     
     try {
-      const { jsPDF } = await import('jspdf');
+      const jsPDF = (await import('jspdf')).default;
       
       // Page dimensions based on size and orientation
       const pageSizes: Record<string, [number, number]> = {
