@@ -75,7 +75,7 @@ export function JPGToWordConverter() {
         setConvertedFiles([url]);
       } else {
         // Create PDF with extracted text
-        const jsPDF = (await import('jspdf')).default;
+        const { jsPDF } = await import('jspdf');
         const doc = new jsPDF();
         
         results.forEach((text, index) => {
@@ -118,7 +118,7 @@ export function JPGToWordConverter() {
     link.href = convertedFiles[0];
     link.download = outputType === 'word' ? 'extracted-text.txt' : 'extracted-text.pdf';
     document.body.appendChild(link);
-    link.click();
+    (link as HTMLAnchorElement).click();
     document.body.removeChild(link);
     
     toast.success('Download started!');
@@ -147,7 +147,7 @@ export function JPGToWordConverter() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => document.querySelector('input[type="file"]')?.click()}
+                    onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
                   >
                     Add More Images
                   </Button>

@@ -125,10 +125,16 @@ export function WordToJPGConverter() {
       ? `converted-document.zip` 
       : `converted-document.${outputFormat}`;
     document.body.appendChild(link);
-    link.click();
+    (link as HTMLAnchorElement).click();
     document.body.removeChild(link);
     
     toast.success('Download started!');
+  };
+
+  const handlePreserveFormattingChange = (checked: boolean | 'indeterminate') => {
+    if (typeof checked === 'boolean') {
+      setPreserveFormatting(checked);
+    }
   };
 
   return (
@@ -211,7 +217,7 @@ export function WordToJPGConverter() {
                     <Checkbox
                       id="preserve-formatting"
                       checked={preserveFormatting}
-                      onCheckedChange={setPreserveFormatting}
+                      onCheckedChange={handlePreserveFormattingChange}
                     />
                     <label
                       htmlFor="preserve-formatting"

@@ -53,7 +53,7 @@ export function JPGToPDFConverter() {
     setProgress(0);
     
     try {
-      const jsPDF = (await import('jspdf')).default;
+      const { jsPDF } = await import('jspdf');
       
       // Page dimensions based on size and orientation
       const pageSizes: Record<string, [number, number]> = {
@@ -193,7 +193,7 @@ export function JPGToPDFConverter() {
     link.href = convertedPdf;
     link.download = 'images-combined.pdf';
     document.body.appendChild(link);
-    link.click();
+    (link as HTMLAnchorElement).click();
     document.body.removeChild(link);
     
     toast.success('Download started!');
@@ -223,7 +223,7 @@ export function JPGToPDFConverter() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => document.querySelector('input[type="file"]')?.click()}
+                      onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
                       disabled={files.length >= 20}
                     >
                       Add More Images
