@@ -48,11 +48,11 @@ const FreeAIImageGenerator = () => {
     },
     "featureList": [
       "No signup required",
-      "Unlimited free generations",
+      "Unlimited free generations", 
       "Multiple art styles",
       "Instant download",
       "Commercial usage rights"
-    ]
+    ] as string[]
   };
 
   const LoadingSkeleton = () => (
