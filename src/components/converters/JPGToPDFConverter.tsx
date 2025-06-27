@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -53,7 +52,9 @@ export function JPGToPDFConverter() {
     setProgress(0);
     
     try {
-      const { jsPDF } = await import('jspdf');
+      // Import jsPDF with proper handling for different export patterns
+      const jsPDFModule = await import('jspdf');
+      const jsPDF = jsPDFModule.jsPDF || jsPDFModule.default;
       
       // Page dimensions based on size and orientation
       const pageSizes: Record<string, [number, number]> = {
