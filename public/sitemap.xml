@@ -7,7 +7,6 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   
-  <!-- Homepage -->
   <url>
     <loc>https://wordtoimage.com/</loc>
     <lastmod>2025-06-27</lastmod>
@@ -21,7 +20,6 @@
     </image:image>
   </url>
   
-  <!-- Main AI Image Generator -->
   <url>
     <loc>https://wordtoimage.com/text-to-image</loc>
     <lastmod>2025-06-27</lastmod>
@@ -30,7 +28,6 @@
     <mobile:mobile/>
   </url>
   
-  <!-- Dashboard -->
   <url>
     <loc>https://wordtoimage.com/dashboard</loc>
     <lastmod>2025-06-27</lastmod>
@@ -39,7 +36,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Community -->
   <url>
     <loc>https://wordtoimage.com/community</loc>
     <lastmod>2025-06-27</lastmod>
@@ -48,7 +44,6 @@
     <mobile:mobile/>
   </url>
   
-  <!-- Core Product Pages -->
   <url>
     <loc>https://wordtoimage.com/features</loc>
     <lastmod>2025-06-27</lastmod>
@@ -105,7 +100,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Content & Help Pages -->
   <url>
     <loc>https://wordtoimage.com/blog</loc>
     <lastmod>2025-06-27</lastmod>
@@ -154,7 +148,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Company Pages -->
   <url>
     <loc>https://wordtoimage.com/about</loc>
     <lastmod>2025-06-27</lastmod>
@@ -195,7 +188,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Developer & API -->
   <url>
     <loc>https://wordtoimage.com/api</loc>
     <lastmod>2025-06-27</lastmod>
@@ -204,7 +196,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Product Variations -->
   <url>
     <loc>https://wordtoimage.com/product</loc>
     <lastmod>2025-06-27</lastmod>
@@ -245,7 +236,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Conversion Tools -->
   <url>
     <loc>https://wordtoimage.com/word-to-jpg</loc>
     <lastmod>2025-06-27</lastmod>
@@ -278,7 +268,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Gallery -->
   <url>
     <loc>https://wordtoimage.com/gallery</loc>
     <lastmod>2025-06-27</lastmod>
@@ -287,7 +276,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Blog Posts -->
   <url>
     <loc>https://wordtoimage.com/blog/ai-art-styles</loc>
     <lastmod>2025-06-27</lastmod>
@@ -312,7 +300,6 @@
     <mobile:mobile/>
   </url>
 
-  <!-- Legal Pages -->
   <url>
     <loc>https://wordtoimage.com/privacy</loc>
     <lastmod>2025-06-27</lastmod>
