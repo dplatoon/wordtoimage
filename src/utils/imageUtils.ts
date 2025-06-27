@@ -1,47 +1,47 @@
 
 // Enhanced image utilities for better performance and SEO
 
-export const defaultFallbackImage = '/images/placeholder.jpg';
+export const defaultFallbackImage = 'https://images.unsplash.com/photo-1686002359940-6a51b0d8184b?auto=format&fit=crop&w=400&q=75';
 
-// Local gallery images for showcase - Updated with user-uploaded images
+// Local gallery images for showcase - Updated with reliable working images
 export const localGalleryImages = [
   {
-    src: '/lovable-uploads/ba65fc79-7bc8-40f0-81b9-d5ea5bc8d35a.png',
+    src: 'https://images.unsplash.com/photo-1676299081847-824916de030a?auto=format&fit=crop&w=400&q=75',
     alt: 'Futuristic cyberpunk cityscape with neon lights and digital interfaces in a rainy street scene',
     style: 'Cyberpunk'
   },
   {
-    src: '/lovable-uploads/19295794-7457-41ec-9272-41faed11b055.png',
+    src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=75',
     alt: 'Mystical fantasy landscape with ethereal blue lighting, ancient trees and magical atmosphere',
     style: 'Fantasy Art'
   },
   {
-    src: '/lovable-uploads/317dfa28-3425-4dac-a167-343034ee797b.png',
+    src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=75',
     alt: 'Abstract geometric patterns with vibrant colors, overlapping shapes and digital art elements',
     style: 'Abstract Digital'
   },
   {
-    src: '/lovable-uploads/5780c58f-29ec-4462-a0eb-3ba9829bf938.png',
+    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=75',
     alt: 'Dramatic mountain landscape with cinematic lighting and atmospheric mood',
     style: 'Cinematic Landscape'
   },
   {
-    src: '/lovable-uploads/2eae8e86-b21c-42da-a038-310ef938fe38.png',
+    src: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=400&q=75',
     alt: 'Renaissance-style portrait with classical artistic techniques and traditional composition',
     style: 'Classical Portrait'
   },
   {
-    src: '/lovable-uploads/269b93d2-3c01-438b-b2bb-e7b1fbc3b233.png',
+    src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=400&q=75',
     alt: 'Modern futuristic architectural design with sleek curved lines and glass surfaces',
     style: 'Futuristic Architecture'
   },
   {
-    src: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=400&fit=crop&crop=center&auto=format',
+    src: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?auto=format&fit=crop&w=400&q=75',
     alt: 'Vintage poster design with retro aesthetic and bold typography',
     style: 'Retro Vintage'
   },
   {
-    src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=400&fit=crop&crop=center&auto=format',
+    src: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=400&q=75',
     alt: 'Digital art masterpiece with innovative AI-generated techniques',
     style: 'AI Digital Art'
   }

@@ -3,17 +3,28 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Wand2, TrendingUp } from 'lucide-react';
-import { localGalleryImages } from '@/utils/imageUtils';
+import { localGalleryImages, defaultFallbackImage } from '@/utils/imageUtils';
 import { LazyImage } from '@/components/common/LazyImage';
 import { useLazyLoading } from '@/hooks/useLazyLoading';
 
 export const ImageShowcaseGrid = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [containerRef, isInView] = useLazyLoading<HTMLDivElement>({ rootMargin: '100px' });
+  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   const images = localGalleryImages.slice(0, 8);
   
   // Define trending styles (first 3 are trending)
   const trendingStyles = ['Cyberpunk', 'Fantasy Art', 'Abstract Digital'];
+  
+  const handleImageError = (index: number) => {
+    console.log('Image failed to load at index:', index);
+    setImageErrors(prev => ({ ...prev, [index]: true }));
+  };
+
+  const handleImageLoad = (index: number) => {
+    console.log('Image loaded successfully at index:', index);
+    setImageErrors(prev => ({ ...prev, [index]: false }));
+  };
   
   return (
     <div className="space-y-8 sm:space-y-12" ref={containerRef} role="region" aria-labelledby="image-gallery-heading">
@@ -42,15 +53,15 @@ export const ImageShowcaseGrid = () => {
           >
             {isInView && (
               <>
-                <LazyImage
-                  src={image.src}
+                <img
+                  src={imageErrors[index] ? defaultFallbackImage : image.src}
                   alt={`AI generated artwork: ${image.alt}`}
-                  priority={index < 2}
                   className={`w-full h-full object-cover transition-all duration-500 ${
                     hoveredIndex === index ? 'scale-110' : 'scale-100'
                   }`}
-                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
-                  aspectRatio={1}
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                  onLoad={() => handleImageLoad(index)}
+                  onError={() => handleImageError(index)}
                 />
                 
                 {/* Trending Badge */}
