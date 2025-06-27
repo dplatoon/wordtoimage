@@ -66,13 +66,23 @@ export class ServiceWorkerManager {
 
   // Background sync for offline functionality
   async scheduleBackgroundSync(tag: string): Promise<void> {
+    if (!this.registration) {
+      console.warn('Service Worker not registered');
+      return;
+    }
+
+    // Check if Background Sync is supported
     if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
       try {
-        await this.registration?.sync.register(tag);
+        // Type assertion to access sync property
+        const syncRegistration = this.registration as any;
+        await syncRegistration.sync.register(tag);
         console.log('Background sync scheduled:', tag);
       } catch (error) {
         console.error('Background sync registration failed:', error);
       }
+    } else {
+      console.log('Background sync not supported');
     }
   }
 
