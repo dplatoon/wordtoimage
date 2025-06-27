@@ -40,8 +40,6 @@ export default defineConfig(({ command, mode }) => ({
             '@radix-ui/react-accordion',
             '@radix-ui/react-aspect-ratio',
             '@radix-ui/react-avatar',
-            '@radix-ui/react-button',
-            '@radix-ui/react-card',
             '@radix-ui/react-checkbox',
             '@radix-ui/react-input',
             '@radix-ui/react-label',
