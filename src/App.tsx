@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -37,6 +38,10 @@ import AITemplates from "./pages/AITemplates";
 import StyleGallery from "./pages/StyleGallery";
 import BatchGenerator from "./pages/BatchGenerator";
 import ContactSupport from "./pages/ContactSupport";
+import PDFToJPG from "./pages/PDFToJPG";
+import WordToJPG from "./pages/WordToJPG";
+import JPGToWord from "./pages/JPGToWord";
+import JPGToPDF from "./pages/JPGToPDF";
 import AIArtStylesBlogPost from "@/pages/blog/ai-art-styles";
 import PromptWritingGuideBlogPost from "@/pages/blog/prompt-writing-guide";
 import AIMarketingSuccessBlogPost from "@/pages/blog/ai-marketing-success";
@@ -94,6 +99,10 @@ function App() {
                 <Route path="/batch-generator" element={<BatchGenerator />} />
                 <Route path="/contact-support" element={<ContactSupport />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/pdf-to-jpg" element={<PDFToJPG />} />
+                <Route path="/word-to-jpg" element={<WordToJPG />} />
+                <Route path="/jpg-to-word" element={<JPGToWord />} />
+                <Route path="/jpg-to-pdf" element={<JPGToPDF />} />
                 <Route path="/blog/ai-art-styles" element={<AIArtStylesBlogPost />} />
                 <Route path="/blog/prompt-writing-guide" element={<PromptWritingGuideBlogPost />} />
                 <Route path="/blog/ai-marketing-success" element={<AIMarketingSuccessBlogPost />} />
