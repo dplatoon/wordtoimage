@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes" />
     <title>WordToImage - Transform Text Into Images with AI | WordToImage</title>
     <meta name="description" content="Transform text into stunning visuals with AI" />
     <meta name="theme-color" content="#8B5CF6">
@@ -11,16 +11,17 @@
     
     <!-- Critical CSS inlined for immediate rendering -->
     <style>
-      /* Critical path styles */
+      /* Critical path styles - optimized for LCP */
       body {
         background: #fff;
         font-family: system-ui, -apple-system, sans-serif;
         margin: 0;
-        line-height: 1.7;
+        line-height: 1.6;
         color: #1e293b;
+        font-display: swap;
       }
       
-      /* Logo optimization */
+      /* Logo optimization to prevent layout shift */
       .logo-container {
         height: 40px;
         width: 120px;
@@ -32,22 +33,25 @@
         height: 100%;
         width: auto;
         object-fit: contain;
+        font-style: italic;
+        background-color: #f3f4f6;
       }
       
-      /* Remove layout shift for navigation */
+      /* Navigation height to prevent layout shift */
       nav {
         height: 64px;
         background: white;
         border-bottom: 1px solid #e5e7eb;
       }
       
-      /* Hero section optimization */
+      /* Hero section optimization for LCP */
       .hero-section {
         min-height: 80vh;
         background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+        contain: layout style paint;
       }
       
-      /* Critical loader - simpler version */
+      /* Optimized loading animation */
       .critical-loader {
         position: fixed;
         top: 0;
@@ -59,16 +63,19 @@
         align-items: center;
         background: #fff;
         z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.3s ease;
       }
       
       .critical-loader::after {
         content: '';
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         border: 2px solid #f3f4f6;
         border-top: 2px solid #8B5CF6;
         border-radius: 50%;
-        animation: spin 1s linear infinite;
+        animation: spin 0.8s linear infinite;
+        will-change: transform;
       }
       
       @keyframes spin {
@@ -76,37 +83,71 @@
         100% { transform: rotate(360deg) }
       }
       
-      /* Hide loader after content loads */
+      /* Hide loader when content loads */
       .content-loaded .critical-loader {
-        display: none;
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      /* Optimize images for faster loading */
+      img {
+        font-style: italic;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #f3f4f6;
+        max-width: 100%;
+        height: auto;
+      }
+      
+      /* Critical button styles */
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: transform 0.15s ease;
+        will-change: transform;
+      }
+      
+      /* Reduce motion for accessibility and performance */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+      
+      /* Data saver optimizations */
+      .data-saver * {
+        animation: none !important;
+        transition: none !important;
       }
     </style>
 
-    <!-- Performance optimization: preconnect to essential domains -->
+    <!-- High priority resource hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="//images.unsplash.com">
     
-    <!-- Preload critical assets with proper dimensions -->
+    <!-- Preload critical assets with proper priority -->
     <link rel="preload" href="/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png" as="image" type="image/png" fetchpriority="high">
+    <link rel="preload" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" as="image" type="image/png" fetchpriority="high">
     
-    <!-- Web fonts with display=swap and reduced weight variations -->
+    <!-- Optimized font loading with reduced weight variations -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
     </noscript>
     
-    <!-- Load main CSS after critical styles -->
-    <link rel="stylesheet" href="/src/index.css" media="print" onload="this.media='all'">
+    <!-- Defer main CSS to prevent render blocking -->
+    <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
     
-    <!-- Open Graph / Social Meta Tags -->
+    <!-- Social Media Meta Tags -->
     <meta property="og:title" content="WordToImage - Transform Text Into Images with AI" />
     <meta property="og:description" content="Transform text to images instantly with AI" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/wordtoimage-social.png" />
     <meta property="og:url" content="https://wordtoimage.lovable.dev" />
 
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="WordToImage" />
     <meta name="twitter:description" content="AI Text to Image Generator" />
@@ -120,51 +161,101 @@
         "name": "WordToImage",
         "description": "AI-powered text to image generation",
         "url": "https://wordtoimage.lovable.dev",
-        "applicationCategory": "DesignApplication"
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web Browser"
       }
     </script>
     
-    <!-- Favicon with proper dimensions -->
+    <!-- Optimized favicon -->
     <link rel="icon" type="image/png" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" sizes="32x32">
     <link rel="apple-touch-icon" href="/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png" sizes="180x180">
 
-    <!-- Defer analytics to after page load -->
+    <!-- Performance monitoring script -->
+    <script>
+      // Initialize critical performance tracking
+      window.perfData = {
+        start: performance.now(),
+        marks: {},
+        measures: {}
+      };
+      
+      // Mark content loading stages
+      window.addEventListener('DOMContentLoaded', function() {
+        window.perfData.marks.domReady = performance.now();
+        document.body.classList.add('content-loaded');
+        console.log('📊 DOM Ready:', (window.perfData.marks.domReady - window.perfData.start).toFixed(2) + 'ms');
+      });
+      
+      window.addEventListener('load', function() {
+        window.perfData.marks.loadComplete = performance.now();
+        console.log('📊 Load Complete:', (window.perfData.marks.loadComplete - window.perfData.start).toFixed(2) + 'ms');
+        
+        // Initialize deferred analytics after load
+        setTimeout(function() {
+          if (typeof gtag !== 'undefined') {
+            gtag('config', 'G-KND5GPN1W7', { 
+              page_load_time: Math.round(window.perfData.marks.loadComplete - window.perfData.start),
+              send_page_view: true
+            });
+          }
+        }, 100);
+      });
+      
+      // Track Core Web Vitals
+      if ('PerformanceObserver' in window) {
+        // LCP tracking
+        new PerformanceObserver(function(entryList) {
+          const entries = entryList.getEntries();
+          const lastEntry = entries[entries.length - 1];
+          console.log('📊 LCP:', lastEntry.startTime.toFixed(2) + 'ms');
+        }).observe({entryTypes: ['largest-contentful-paint']});
+        
+        // FID tracking
+        new PerformanceObserver(function(entryList) {
+          entryList.getEntries().forEach(function(entry) {
+            const fid = entry.processingStart - entry.startTime;
+            console.log('📊 FID:', fid.toFixed(2) + 'ms');
+          });
+        }).observe({entryTypes: ['first-input']});
+      }
+    </script>
+
+    <!-- Deferred analytics loading -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       
-      // Load analytics after page is interactive
+      // Load analytics after critical resources
       window.addEventListener('load', function() {
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7';
-        document.head.appendChild(script);
-        
-        script.onload = function() {
-          gtag('js', new Date());
-          gtag('config', 'G-KND5GPN1W7', { 
-            send_page_view: false,
-            anonymize_ip: true,
-            cookie_flags: 'SameSite=None;Secure'
-          });
-        };
-      });
-      
-      // Mark content as loaded to hide loader
-      window.addEventListener('DOMContentLoaded', function() {
-        document.body.classList.add('content-loaded');
+        setTimeout(function() {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-KND5GPN1W7';
+          document.head.appendChild(script);
+          
+          script.onload = function() {
+            gtag('js', new Date());
+            gtag('config', 'G-KND5GPN1W7', { 
+              send_page_view: false,
+              anonymize_ip: true,
+              cookie_flags: 'SameSite=None;Secure'
+            });
+          };
+        }, 1000);
       });
     </script>
   </head>
 
   <body>
     <div id="root">
-      <!-- Optimized critical path loader -->
-      <div class="critical-loader"></div>
+      <!-- Optimized loading indicator -->
+      <div class="critical-loader" aria-label="Loading application"></div>
     </div>
     
+    <!-- Main application script - deferred for better performance -->
+    <script type="module" src="/src/main.tsx" defer></script>
+    
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module" defer></script>
   </body>
 </html>

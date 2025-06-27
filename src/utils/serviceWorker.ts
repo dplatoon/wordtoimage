@@ -1,131 +1,125 @@
 
-// Service Worker registration and management
-export class ServiceWorkerManager {
-  private static instance: ServiceWorkerManager;
-  private registration: ServiceWorkerRegistration | null = null;
+// Service Worker for caching and performance optimization
+const CACHE_NAME = 'wordtoimage-v1.2';
+const CRITICAL_CACHE = 'wordtoimage-critical-v1.2';
 
-  static getInstance(): ServiceWorkerManager {
-    if (!ServiceWorkerManager.instance) {
-      ServiceWorkerManager.instance = new ServiceWorkerManager();
-    }
-    return ServiceWorkerManager.instance;
-  }
+const CRITICAL_RESOURCES = [
+  '/',
+  '/src/main.tsx',
+  '/src/index.css',
+  '/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png',
+  '/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png'
+];
 
-  async register(): Promise<void> {
-    if (!('serviceWorker' in navigator)) {
-      console.log('Service Worker not supported');
-      return;
-    }
+const STATIC_RESOURCES = [
+  '/manifest.json',
+  'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'
+];
 
-    try {
-      this.registration = await navigator.serviceWorker.register('/sw.js', {
-        scope: '/'
-      });
-
-      console.log('Service Worker registered successfully:', this.registration);
-
-      // Handle updates
-      this.registration.addEventListener('updatefound', () => {
-        const newWorker = this.registration?.installing;
-        if (newWorker) {
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // New version available
-              this.showUpdateNotification();
-            }
-          });
-        }
-      });
-
-      // Handle controller change
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        window.location.reload();
-      });
-
-    } catch (error) {
-      console.error('Service Worker registration failed:', error);
-    }
-  }
-
-  private showUpdateNotification(): void {
-    // Show user-friendly update notification
-    if (Notification.permission === 'granted') {
-      new Notification('App Update Available', {
-        body: 'A new version of the app is available. Refresh to update.',
-        icon: '/lovable-uploads/ba65fc79-7bc8-40f0-81b9-d5ea5bc8d35a.png'
-      });
-    }
-  }
-
-  async unregister(): Promise<void> {
-    if (this.registration) {
-      await this.registration.unregister();
-      console.log('Service Worker unregistered');
-    }
-  }
-
-  // Background sync for offline functionality
-  async scheduleBackgroundSync(tag: string): Promise<void> {
-    if (!this.registration) {
-      console.warn('Service Worker not registered');
-      return;
-    }
-
-    // Check if Background Sync is supported
-    if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
-      try {
-        // Type assertion to access sync property
-        const syncRegistration = this.registration as any;
-        await syncRegistration.sync.register(tag);
-        console.log('Background sync scheduled:', tag);
-      } catch (error) {
-        console.error('Background sync registration failed:', error);
-      }
-    } else {
-      console.log('Background sync not supported');
-    }
-  }
-
-  // Check if app is running in offline mode
-  isOffline(): boolean {
-    return !navigator.onLine;
-  }
-
-  // Get cache usage information
-  async getCacheUsage(): Promise<{ quota: number; usage: number }> {
-    if ('storage' in navigator && 'estimate' in navigator.storage) {
-      const estimate = await navigator.storage.estimate();
-      return {
-        quota: estimate.quota || 0,
-        usage: estimate.usage || 0
-      };
-    }
-    return { quota: 0, usage: 0 };
-  }
-}
-
-// Initialize service worker
 export const initServiceWorker = async (): Promise<void> => {
-  const swManager = ServiceWorkerManager.getInstance();
-  await swManager.register();
+  if ('serviceWorker' in navigator && import.meta.env.PROD) {
+    try {
+      const registration = await navigator.serviceWorker.register('/sw.js');
+      console.log('✅ Service Worker registered successfully');
+      
+      registration.addEventListener('updatefound', () => {
+        console.log('🔄 Service Worker update found');
+      });
+    } catch (error) {
+      console.warn('❌ Service Worker registration failed:', error);
+    }
+  }
 };
 
-// Preload critical resources
 export const preloadCriticalResources = (): void => {
-  const criticalResources = [
-    '/lovable-uploads/ba65fc79-7bc8-40f0-81b9-d5ea5bc8d35a.png',
-    '/lovable-uploads/19295794-7457-41ec-9272-41faed11b055.png',
-    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
-  ];
-
-  criticalResources.forEach(resource => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.href = resource;
-    link.as = resource.includes('.png') ? 'image' : 'style';
-    if (resource.includes('fonts')) {
-      link.crossOrigin = 'anonymous';
+  // Preload critical images
+  CRITICAL_RESOURCES.forEach(resource => {
+    if (resource.includes('.png') || resource.includes('.jpg')) {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = resource;
+      link.setAttribute('fetchpriority', 'high');
+      document.head.appendChild(link);
     }
-    document.head.appendChild(link);
   });
+
+  // Preload critical fonts
+  const fontLink = document.createElement('link');
+  fontLink.rel = 'preload';
+  fontLink.as = 'style';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap';
+  fontLink.onload = function() {
+    (this as HTMLLinkElement).rel = 'stylesheet';
+  };
+  document.head.appendChild(fontLink);
+};
+
+// Create service worker file content
+export const createServiceWorkerFile = (): string => {
+  return `
+const CACHE_NAME = '${CACHE_NAME}';
+const CRITICAL_CACHE = '${CRITICAL_CACHE}';
+
+const CRITICAL_RESOURCES = ${JSON.stringify(CRITICAL_RESOURCES)};
+const STATIC_RESOURCES = ${JSON.stringify(STATIC_RESOURCES)};
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    Promise.all([
+      caches.open(CRITICAL_CACHE).then(cache => cache.addAll(CRITICAL_RESOURCES)),
+      caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_RESOURCES))
+    ])
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME && cacheName !== CRITICAL_CACHE) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+  
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      if (response) {
+        // Serve from cache
+        return response;
+      }
+      
+      // Fetch from network with fallback
+      return fetch(event.request).then(response => {
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+        
+        // Cache successful responses
+        const responseToCache = response.clone();
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, responseToCache);
+        });
+        
+        return response;
+      }).catch(() => {
+        // Return offline fallback for HTML requests
+        if (event.request.headers.get('accept').includes('text/html')) {
+          return caches.match('/');
+        }
+      });
+    })
+  );
+});
+`;
 };
