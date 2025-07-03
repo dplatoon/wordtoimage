@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 const Blog = () => {
   const blogPosts = [
     {
-      id: 'ai-art-styles',
       title: "7 Stunning AI Art Styles and How to Generate Them",
       excerpt: "Discover 7 popular AI-generated art styles, from anime to impressionism, with easy step-by-step prompts you can use instantly at WordToImage.com.",
       author: "WordToImage Team",
@@ -23,7 +22,17 @@ const Blog = () => {
       slug: "ai-art-styles"
     },
     {
-      id: 'prompt-writing-guide',
+      title: "Best Free AI Image Generators to Bring Your Ideas to Life",
+      excerpt: "In today's digital age, AI-driven image generation tools have transformed the creative landscape. These tools enable anyone to produce stunning visuals effortlessly.",
+      author: "WordToImage Team",
+      date: "2025-01-22",
+      readTime: "7 min read",
+      category: "Tools",
+      image: "/lovable-uploads/c0cd939b-5fe6-4732-af93-ee61f070b689.png",
+      featured: false,
+      slug: "best-free-ai-image-generators"
+    },
+    {
       title: "Ultimate Guide: Writing Powerful Prompts for AI Image Generation",
       excerpt: "Learn how to write powerful, effective prompts for stunning AI-generated images with our ultimate prompt writing guide at WordToImage.com.",
       author: "WordToImage Team",
@@ -34,7 +43,16 @@ const Blog = () => {
       slug: "prompt-writing-guide"
     },
     {
-      id: 'ai-marketing-success',
+      title: "How to Use an AI Image Generator Online for Free",
+      excerpt: "AI image generators online allow creatives to turn words into vivid images instantly. Learn how to use these powerful tools effectively.",
+      author: "WordToImage Team",
+      date: "2025-01-17",
+      readTime: "6 min read",
+      category: "Tutorial",
+      image: "/lovable-uploads/8398d1f3-db95-4f78-b05e-1fbba4750e81.png",
+      slug: "ai-image-generator-online-free"
+    },
+    {
       title: "How Businesses Are Leveraging AI-Generated Images for Marketing Success",
       excerpt: "Explore real-world examples and strategies of businesses successfully using AI-generated images to boost marketing results with WordToImage.com.",
       author: "WordToImage Team",
@@ -45,35 +63,64 @@ const Blog = () => {
       slug: "ai-marketing-success"
     },
     {
-      id: 1,
+      title: "The Ultimate Guide to Image Generator Codes: Create Visuals Programmatically",
+      excerpt: "Image generator codes allow developers and tech-savvy creatives to automate image creation through programming languages.",
+      author: "WordToImage Team",
+      date: "2025-01-14",
+      readTime: "9 min read",
+      category: "Development",
+      image: "/lovable-uploads/8916d6c1-4854-473f-b0fb-0c6d9833633e.png",
+      slug: "image-generator-codes-guide"
+    },
+    {
       title: "Mastering AI Art Prompts: A Complete Guide for 2025",
       excerpt: "Learn the secrets of writing effective prompts that generate stunning AI artwork. From basic techniques to advanced strategies.",
       author: "Sarah Chen",
-      date: "2025-01-15",
+      date: "2025-01-13",
       readTime: "8 min read",
       category: "Tutorial",
       image: "/lovable-uploads/317dfa28-3425-4dac-a167-343034ee797b.png",
-      featured: true
+      slug: "mastering-ai-art-prompts"
     },
     {
-      id: 2,
+      title: "Image Generator AI: Revolutionizing Digital Creativity",
+      excerpt: "AI-driven image generators have profoundly impacted digital art, making it accessible and innovative for creators worldwide.",
+      author: "WordToImage Team",
+      date: "2025-01-12",
+      readTime: "8 min read",
+      category: "Industry",
+      image: "/lovable-uploads/5780c58f-29ec-4462-a0eb-3ba9829bf938.png",
+      slug: "ai-image-generator-revolution"
+    },
+    {
       title: "The Future of AI Image Generation: Trends to Watch",
       excerpt: "Explore the latest developments in AI image generation technology and what they mean for creators and businesses.",
       author: "Michael Rodriguez",
-      date: "2025-01-12",
+      date: "2025-01-11",
       readTime: "6 min read",
       category: "Industry",
-      image: "/lovable-uploads/5780c58f-29ec-4462-a0eb-3ba9829bf938.png"
+      image: "/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png",
+      slug: "future-ai-image-generation"
     },
     {
-      id: 3,
       title: "Creating Professional Marketing Visuals with AI",
       excerpt: "Discover how businesses are using AI-generated images to create compelling marketing materials and boost engagement.",
       author: "Emma Thompson",
       date: "2025-01-10",
       readTime: "5 min read",
       category: "Business",
-      image: "/lovable-uploads/2eae8e86-b21c-42da-a038-310ef938fe38.png"
+      image: "/lovable-uploads/2eae8e86-b21c-42da-a038-310ef938fe38.png",
+      slug: "professional-marketing-visuals"
+    },
+    {
+      title: "Exploring Bing's Image Generator: Is it Worth Trying?",
+      excerpt: "Bing has introduced its AI image generator, aiming to compete with existing tools. But does it deliver quality results?",
+      author: "WordToImage Team",
+      date: "2025-01-09",
+      readTime: "6 min read",
+      category: "Review",
+      image: "/lovable-uploads/e3ece80c-0df0-4887-a227-c06cf52b3c6e.png",
+      slug: "bing-image-generator-review"
     }
   ];
 
@@ -122,7 +169,7 @@ const Blog = () => {
 
         {/* Featured Post */}
         {blogPosts.filter(post => post.featured).map((post) => (
-          <Card key={post.id} className="mb-16 overflow-hidden shadow-xl">
+          <Card key={post.slug} className="mb-16 overflow-hidden shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
               <div className="aspect-video lg:aspect-auto">
                 <img
@@ -163,7 +210,7 @@ const Blog = () => {
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.filter(post => !post.featured).map((post) => (
-            <Card key={post.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card key={post.slug} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="aspect-video overflow-hidden">
                 <img
                   src={post.image}
@@ -189,7 +236,7 @@ const Blog = () => {
                   <span>{new Date(post.date).toLocaleDateString()}</span>
                 </div>
                 <Button variant="outline" asChild className="w-full">
-                  <Link to={post.slug ? `/blog/${post.slug}` : `/blog/${post.id}`}>
+                  <Link to={`/blog/${post.slug}`}>
                     Read More
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>

@@ -45,6 +45,14 @@ import JPGToPDF from "./pages/JPGToPDF";
 import AIArtStylesBlogPost from "@/pages/blog/ai-art-styles";
 import PromptWritingGuideBlogPost from "@/pages/blog/prompt-writing-guide";
 import AIMarketingSuccessBlogPost from "@/pages/blog/ai-marketing-success";
+import BestFreeAIImageGenerators from "@/pages/blog/best-free-ai-image-generators";
+import AIImageGeneratorOnlineFree from "@/pages/blog/ai-image-generator-online-free";
+import ImageGeneratorCodesGuide from "@/pages/blog/image-generator-codes-guide";
+import AIImageGeneratorRevolution from "@/pages/blog/ai-image-generator-revolution";
+import BingImageGeneratorReview from "@/pages/blog/bing-image-generator-review";
+import MasteringAIArtPrompts from "@/pages/blog/mastering-ai-art-prompts";
+import FutureAIImageGeneration from "@/pages/blog/future-ai-image-generation";
+import ProfessionalMarketingVisuals from "@/pages/blog/professional-marketing-visuals";
 import Gallery from "./pages/Gallery";
 import "./App.css";
 
@@ -106,6 +114,14 @@ function App() {
                 <Route path="/blog/ai-art-styles" element={<AIArtStylesBlogPost />} />
                 <Route path="/blog/prompt-writing-guide" element={<PromptWritingGuideBlogPost />} />
                 <Route path="/blog/ai-marketing-success" element={<AIMarketingSuccessBlogPost />} />
+                <Route path="/blog/best-free-ai-image-generators" element={<BestFreeAIImageGenerators />} />
+                <Route path="/blog/ai-image-generator-online-free" element={<AIImageGeneratorOnlineFree />} />
+                <Route path="/blog/image-generator-codes-guide" element={<ImageGeneratorCodesGuide />} />
+                <Route path="/blog/ai-image-generator-revolution" element={<AIImageGeneratorRevolution />} />
+                <Route path="/blog/bing-image-generator-review" element={<BingImageGeneratorReview />} />
+                <Route path="/blog/mastering-ai-art-prompts" element={<MasteringAIArtPrompts />} />
+                <Route path="/blog/future-ai-image-generation" element={<FutureAIImageGeneration />} />
+                <Route path="/blog/professional-marketing-visuals" element={<ProfessionalMarketingVisuals />} />
                 <Route path="/dev-dashboard" element={<ComprehensiveDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
