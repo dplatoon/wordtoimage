@@ -42,6 +42,7 @@ import PDFToJPG from "./pages/PDFToJPG";
 import WordToJPG from "./pages/WordToJPG";
 import JPGToWord from "./pages/JPGToWord";
 import JPGToPDF from "./pages/JPGToPDF";
+import RemoveBackground from "./pages/RemoveBackground";
 import AIArtStylesBlogPost from "@/pages/blog/ai-art-styles";
 import PromptWritingGuideBlogPost from "@/pages/blog/prompt-writing-guide";
 import AIMarketingSuccessBlogPost from "@/pages/blog/ai-marketing-success";
@@ -111,6 +112,7 @@ function App() {
                 <Route path="/word-to-jpg" element={<WordToJPG />} />
                 <Route path="/jpg-to-word" element={<JPGToWord />} />
                 <Route path="/jpg-to-pdf" element={<JPGToPDF />} />
+                <Route path="/remove-background" element={<RemoveBackground />} />
                 <Route path="/blog/ai-art-styles" element={<AIArtStylesBlogPost />} />
                 <Route path="/blog/prompt-writing-guide" element={<PromptWritingGuideBlogPost />} />
                 <Route path="/blog/ai-marketing-success" element={<AIMarketingSuccessBlogPost />} />
