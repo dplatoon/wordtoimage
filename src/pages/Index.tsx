@@ -23,6 +23,9 @@ import { LCPOptimizer } from "@/components/performance/LCPOptimizer";
 import { AccessibilityOptimizer } from "@/components/performance/AccessibilityOptimizer";
 import { JSOptimizer } from "@/components/performance/JSOptimizer";
 import { PerformanceMonitor } from "@/components/performance/PerformanceMonitor";
+import { TestimonialsSocial } from "@/components/home/TestimonialsSocial";
+import { InternalLinking } from "@/components/home/InternalLinking";
+import { SeoHead } from "@/components/home/SeoHead";
 
 const Index = () => {
   const { user } = useAuth();
@@ -49,14 +52,16 @@ const Index = () => {
         <CoreWebVitalsMonitor />
         
         {/* Enhanced SEO with proper heading structure */}
+        <SeoHead />
         <EnhancedSEOManager 
           pageContent={{
-            h1: "AI Image Generator: Transform Text Into Art",
+            h1: "AI Image Generator: Free Text-to-Art Converter",
             h2Headings: [
               "How Our AI Image Generator Works",
               "Why Choose WordToImage AI Generator", 
               "Everything You Need to Create Amazing AI Art",
-              "Perfect for Every Creative Project"
+              "Perfect for Every Creative Project",
+              "Trusted by Creators Worldwide"
             ]
           }}
         />
@@ -86,6 +91,8 @@ const Index = () => {
           <FastHero />
           <FastFeatures />
           <ShowcaseSection />
+          <TestimonialsSocial />
+          <InternalLinking />
         </main>
         
         <Footer />

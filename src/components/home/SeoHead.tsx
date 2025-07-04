@@ -140,15 +140,15 @@ export const SeoHead = () => {
 
   return (
     <Helmet>
-      {/* Enhanced Primary Meta Tags with AI Keywords */}
-      <title>WordToImage - AI Image Generator | Create Stunning AI Art from Text in 2025</title>
+      {/* Optimized Primary Meta Tags */}
+      <title>AI Image Generator: Free Text-to-Art Converter | WordToImage AI</title>
       <meta 
         name="description" 
-        content="Transform text into stunning AI-generated images instantly. Best AI art generator for social media, marketing, and creative projects. Free AI image maker with 50+ styles. Create AI art from text prompts in seconds." 
+        content="Create stunning AI art in seconds! Free text-to-image generator with 100+ styles. Perfect for designers, marketers & creators. No skills required - try now!" 
       />
       <meta 
         name="keywords" 
-        content="AI image generator, text to image AI, AI art generator, artificial intelligence image creation, machine learning art, create AI images from text, best AI art generator 2025, free AI image maker, AI graphics generator, text-to-image converter, AI illustration generator, generate AI images for Instagram, AI images for marketing campaigns, AI art prompts for designers, create ad images with AI, AI product image generator, AI visuals for digital marketing, AI graphic design tool, AI logo creation tool, AI images for blog posts, how to create images with AI, what are the best AI art prompts, how can I generate AI images, AI art creation tool online" 
+        content="AI image generator, free text to image AI, AI art generator, text-to-picture converter, AI art creator, prompt-based art generator, free AI image maker, text to image generator, AI graphics generator, artificial intelligence image creation, machine learning art, create AI images from text, best AI art generator 2025, AI illustration generator, generate AI images for Instagram, AI images for marketing campaigns, AI art prompts for designers, create ad images with AI, AI product image generator, AI visuals for digital marketing, AI graphic design tool, AI logo creation tool, AI images for blog posts, how to create images with AI, what are the best AI art prompts, how can I generate AI images, AI art creation tool online" 
       />
       
       {/* Enhanced SEO Meta Tags */}
@@ -167,8 +167,8 @@ export const SeoHead = () => {
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="WordToImage - AI Image Generator" />
       <meta property="og:url" content="https://wordtoimage.com/" />
-      <meta property="og:title" content="WordToImage - Best AI Image Generator | Create AI Art from Text" />
-      <meta property="og:description" content="Transform text into stunning AI-generated images instantly. The best AI art generator for creators, marketers, and designers. Free to try with 50+ artistic styles!" />
+      <meta property="og:title" content="AI Image Generator: Free Text-to-Art Converter | WordToImage AI" />
+      <meta property="og:description" content="Create stunning AI art in seconds! Free text-to-image generator with 100+ styles. Perfect for designers, marketers & creators. No skills required - try now!" />
       <meta property="og:image" content="https://wordtoimage.com/og-image-ai-generator.jpg" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -181,8 +181,8 @@ export const SeoHead = () => {
       <meta name="twitter:site" content="@wordtoimage" />
       <meta name="twitter:creator" content="@wordtoimage" />
       <meta name="twitter:url" content="https://wordtoimage.com/" />
-      <meta name="twitter:title" content="WordToImage - AI Image Generator | Create AI Art from Text" />
-      <meta name="twitter:description" content="Best AI image generator for 2025. Transform text prompts into stunning AI art instantly. Free AI image maker with commercial rights included." />
+      <meta name="twitter:title" content="AI Image Generator: Free Text-to-Art Converter | WordToImage AI" />
+      <meta name="twitter:description" content="Create stunning AI art in seconds! Free text-to-image generator with 100+ styles. Perfect for designers, marketers & creators. No skills required - try now!" />
       <meta name="twitter:image" content="https://wordtoimage.com/twitter-ai-generator.jpg" />
       <meta name="twitter:image:alt" content="AI-powered text-to-image generator creating beautiful artwork from simple text descriptions" />
 
