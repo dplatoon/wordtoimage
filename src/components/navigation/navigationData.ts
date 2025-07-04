@@ -24,4 +24,5 @@ export const companyItems = [
   { title: 'Contact Support', href: '/contact-support', description: 'Get help and support' },
   { title: "What's New", href: '/whats-new', description: 'Latest updates and features' },
   { title: 'Analytics Dashboard', href: '/analytics-dashboard', description: 'Advanced insights and metrics' },
+  { title: 'Onboarding Demo', href: '/onboarding-demo', description: 'Experience our onboarding system' },
 ];

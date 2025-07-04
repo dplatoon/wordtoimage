@@ -59,6 +59,7 @@ import CommunityGallery from "./pages/CommunityGallery";
 import AnalyticsDashboard from "./pages/AnalyticsDashboard";
 import ContentHub from "./pages/ContentHub";
 import BlogPostDetail from "./pages/BlogPostDetail";
+import OnboardingDemo from "./pages/OnboardingDemo";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -139,6 +140,7 @@ function App() {
                 <Route path="/blog/future-ai-image-generation" element={<FutureAIImageGeneration />} />
                 <Route path="/blog/professional-marketing-visuals" element={<ProfessionalMarketingVisuals />} />
                 <Route path="/dev-dashboard" element={<ComprehensiveDashboard />} />
+                <Route path="/onboarding-demo" element={<OnboardingDemo />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

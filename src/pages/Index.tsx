@@ -11,6 +11,7 @@ import { EnhancedSchemaMarkup } from "@/components/seo/EnhancedSchemaMarkup";
 import { MobileOptimizedNav } from "@/components/navigation/MobileOptimizedNav";
 import { CoreWebVitalsMonitor } from "@/components/performance/CoreWebVitalsMonitor";
 import { ConversionManager } from "@/components/conversion/ConversionManager";
+import { OnboardingManager } from "@/components/onboarding/OnboardingManager";
 import { LiveActivityCounter } from "@/components/social-proof/LiveActivityCounter";
 import { ExitIntentModal } from "@/components/conversion/ExitIntentModal";
 import { useExitIntent } from "@/hooks/useExitIntent";
@@ -37,8 +38,16 @@ const Index = () => {
   }, []);
 
   return (
-    <ConversionManager pageId="homepage" userActivity={{}}>
-      <div className="min-h-screen">
+    <OnboardingManager 
+      pageId="homepage" 
+      triggerTutorial="first_generation"
+      userActivity={{ 
+        isFirstVisit: !user,
+        generationCount: 0 
+      }}
+    >
+      <ConversionManager pageId="homepage" userActivity={{}}>
+        <div className="min-h-screen">
         {/* Critical performance optimizations - loaded first */}
         <CriticalPathOptimizer />
         <LCPOptimizer />
@@ -109,8 +118,9 @@ const Index = () => {
           enabled={process.env.NODE_ENV === 'development'} 
           checkInterval={60000} 
         />
-      </div>
-    </ConversionManager>
+        </div>
+      </ConversionManager>
+    </OnboardingManager>
   );
 };
 
