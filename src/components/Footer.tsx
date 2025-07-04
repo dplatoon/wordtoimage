@@ -28,6 +28,7 @@ export const Footer = () => {
     { name: 'Word to JPG', href: '/word-to-jpg' },
     { name: 'JPG to Word', href: '/jpg-to-word' },
     { name: 'JPG to PDF', href: '/jpg-to-pdf' },
+    { name: 'Background Remover', href: '/remove-background' },
   ];
 
   const companyLinks = [
