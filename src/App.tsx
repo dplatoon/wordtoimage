@@ -63,6 +63,8 @@ import { ComprehensiveDashboard } from "./components/testing/ComprehensiveDashbo
 
 import { OptimizedFontLoader } from "./components/performance/OptimizedFontLoader";
 import { CoreWebVitalsMonitor } from "./components/performance/CoreWebVitalsMonitor";
+import { EnhancedLighthouseOptimizer } from "./components/performance/EnhancedLighthouseOptimizer";
+import { MobileLighthouseOptimizer } from "./components/performance/MobileLighthouseOptimizer";
 
 function App() {
   return (
@@ -73,6 +75,8 @@ function App() {
             <Toaster />
             <OptimizedFontLoader />
             <CoreWebVitalsMonitor />
+            <EnhancedLighthouseOptimizer />
+            <MobileLighthouseOptimizer />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
