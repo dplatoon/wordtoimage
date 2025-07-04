@@ -9,7 +9,8 @@ export const InternalLinking = () => {
       links: [
         { to: "/prompt-guide", text: "AI Prompt Writing Guide", icon: Book },
         { to: "/ai-templates", text: "Ready-to-Use Templates", icon: Sparkles },
-        { to: "/style-gallery", text: "Browse 100+ Art Styles", icon: Palette }
+        { to: "/style-gallery", text: "Browse 100+ Art Styles", icon: Palette },
+        { to: "/community-gallery", text: "Community Gallery", icon: Sparkles }
       ]
     },
     {

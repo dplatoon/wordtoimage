@@ -12,8 +12,11 @@ export type Database = {
       image_generations: {
         Row: {
           created_at: string
+          featured: boolean | null
           id: string
           image_url: string
+          is_public: boolean | null
+          likes_count: number | null
           model: string
           plan: string
           prompt: string
@@ -21,11 +24,15 @@ export type Database = {
           quality: string
           size: string
           user_id: string | null
+          views_count: number | null
         }
         Insert: {
           created_at?: string
+          featured?: boolean | null
           id?: string
           image_url: string
+          is_public?: boolean | null
+          likes_count?: number | null
           model?: string
           plan?: string
           prompt: string
@@ -33,11 +40,15 @@ export type Database = {
           quality?: string
           size?: string
           user_id?: string | null
+          views_count?: number | null
         }
         Update: {
           created_at?: string
+          featured?: boolean | null
           id?: string
           image_url?: string
+          is_public?: boolean | null
+          likes_count?: number | null
           model?: string
           plan?: string
           prompt?: string
@@ -45,8 +56,38 @@ export type Database = {
           quality?: string
           size?: string
           user_id?: string | null
+          views_count?: number | null
         }
         Relationships: []
+      }
+      image_likes: {
+        Row: {
+          created_at: string
+          id: string
+          image_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "image_likes_image_id_fkey"
+            columns: ["image_id"]
+            isOneToOne: false
+            referencedRelation: "image_generations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       policy: {
         Row: {
@@ -154,6 +195,10 @@ export type Database = {
           current_period_end: string
           cancel_at_period_end: boolean
         }[]
+      }
+      increment_image_views: {
+        Args: { image_uuid: string }
+        Returns: undefined
       }
       update_subscription_status: {
         Args: {

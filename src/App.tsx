@@ -55,6 +55,7 @@ import MasteringAIArtPrompts from "@/pages/blog/mastering-ai-art-prompts";
 import FutureAIImageGeneration from "@/pages/blog/future-ai-image-generation";
 import ProfessionalMarketingVisuals from "@/pages/blog/professional-marketing-visuals";
 import Gallery from "./pages/Gallery";
+import CommunityGallery from "./pages/CommunityGallery";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -112,6 +113,7 @@ function App() {
                 <Route path="/batch-generator" element={<BatchGenerator />} />
                 <Route path="/contact-support" element={<ContactSupport />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/community-gallery" element={<CommunityGallery />} />
                 <Route path="/pdf-to-jpg" element={<PDFToJPG />} />
                 <Route path="/word-to-jpg" element={<WordToJPG />} />
                 <Route path="/jpg-to-word" element={<JPGToWord />} />

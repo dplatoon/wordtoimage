@@ -9,6 +9,7 @@ export const productItems = [
 ];
 
 export const resourceItems = [
+  { title: 'Community Gallery', href: '/community-gallery', description: 'Discover amazing AI art from our community' },
   { title: 'AI Art Blog', href: '/blog', description: 'Latest insights and tips' },
   { title: 'Prompt Guide', href: '/prompt-guide', description: 'Master prompt writing' },
   { title: 'Video Tutorials', href: '/video-tutorials', description: 'Step-by-step guides' },
