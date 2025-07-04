@@ -1,4 +1,3 @@
-
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
@@ -11,14 +10,10 @@ const config: CapacitorConfig = {
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 2000,
-      backgroundColor: '#ffffff',
-      androidSplashResourceName: 'splash',
-      androidScaleType: 'CENTER_CROP'
+      launchShowDuration: 0
     },
     StatusBar: {
-      style: 'DEFAULT',
-      backgroundColor: '#ffffff'
+      style: 'light'
     }
   }
 };

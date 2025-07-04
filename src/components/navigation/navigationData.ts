@@ -25,4 +25,5 @@ export const companyItems = [
   { title: "What's New", href: '/whats-new', description: 'Latest updates and features' },
   { title: 'Analytics Dashboard', href: '/analytics-dashboard', description: 'Advanced insights and metrics' },
   { title: 'Onboarding Demo', href: '/onboarding-demo', description: 'Experience our onboarding system' },
+  { title: 'Technical Enhancements', href: '/technical-enhancements', description: 'Advanced image editing and optimization tools' },
 ];
