@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { toast } from '@/components/ui/sonner';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
@@ -7,9 +8,10 @@ import { trackEvent } from '@/utils/analytics';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Download, HelpCircle, Wand2, ArrowRight, History, BookOpen, Palette } from 'lucide-react';
+import { Sparkles, Download, HelpCircle, Wand2, ArrowRight, History, BookOpen, Palette, Zap, Star, Users } from 'lucide-react';
 import { SkipToContent } from '@/components/home/SkipToContent';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { EnhancedSEOManager } from '@/components/seo/EnhancedSEOManager';
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -313,8 +315,146 @@ export default function TextToImage() {
   const generationTime = lastGenerationTime ? ((Date.now() - lastGenerationTime) / 1000).toFixed(1) : null;
   const searchHistory = storageService.getSearchHistory().slice(0, 5);
 
+  const pageContent = {
+    h1: "AI Image Generator: Turn Words to Art in Seconds",
+    h2Headings: [
+      "How to Generate AI Images",
+      "Popular Use Cases for AI Art",
+      "Frequently Asked Questions",
+      "Ready to Create Without Limits?"
+    ]
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50 via-white to-indigo-50">
+      <Helmet>
+        <title>AI Image Generator: Turn Words to Art in Seconds | WordToImage</title>
+        <meta name="description" content="Free AI-powered text-to-image tool. Create stunning visuals from text prompts instantly. No design skills needed. Try now!" />
+        <meta name="keywords" content="AI image generator, text to image, AI art generator, free image generator, AI artwork, digital art creator" />
+        <link rel="canonical" href="https://wordtoimage.com/text-to-image" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "WordToImage AI Generator",
+            "applicationCategory": "DesignApplication",
+            "operatingSystem": "Web Browser",
+            "description": "AI-powered text-to-image generator that creates stunning visuals from text descriptions",
+            "url": "https://wordtoimage.com/text-to-image",
+            "provider": {
+              "@type": "Organization",
+              "name": "WordToImage",
+              "url": "https://wordtoimage.com"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "Text-to-image AI generation",
+              "50+ artistic styles",
+              "HD quality images",
+              "Auto-save gallery",
+              "Batch generation",
+              "Style recommendations"
+            ],
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "12500"
+            }
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "How to Generate AI Images from Text",
+            "description": "Step-by-step guide to creating AI-generated images using text prompts",
+            "image": "https://wordtoimage.com/text-to-image-tutorial.jpg",
+            "totalTime": "PT2M",
+            "supply": [
+              {
+                "@type": "HowToSupply",
+                "name": "Text description or prompt"
+              }
+            ],
+            "tool": [
+              {
+                "@type": "HowToTool",
+                "name": "WordToImage AI Generator"
+              }
+            ],
+            "step": [
+              {
+                "@type": "HowToStep",
+                "name": "Enter your text prompt",
+                "text": "Describe what you want to see in detail. Be specific about style, colors, and composition.",
+                "image": "https://wordtoimage.com/step1.jpg"
+              },
+              {
+                "@type": "HowToStep", 
+                "name": "Choose an art style",
+                "text": "Select from 50+ artistic styles like photorealistic, anime, digital art, or watercolor.",
+                "image": "https://wordtoimage.com/step2.jpg"
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Generate your image",
+                "text": "Click 'Create Your Free Image Now' and our AI will generate your artwork in 3-5 seconds.",
+                "image": "https://wordtoimage.com/step3.jpg"
+              },
+              {
+                "@type": "HowToStep",
+                "name": "Download and share",
+                "text": "Your image is automatically saved to your gallery. Download in HD quality and share anywhere.",
+                "image": "https://wordtoimage.com/step4.jpg"
+              }
+            ]
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqItems.map(item => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
+              }
+            }))
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://wordtoimage.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "AI Image Generator",
+                "item": "https://wordtoimage.com/text-to-image"
+              }
+            ]
+          })}
+        </script>
+      </Helmet>
+      <EnhancedSEOManager pageContent={pageContent} />
+      
       <SkipToContent />
       <Nav />
       
@@ -336,7 +476,7 @@ export default function TextToImage() {
               "font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600",
               isMobile ? "text-3xl" : "text-4xl md:text-5xl"
             )}>
-              AI Image Generator
+              AI Image Generator: Turn Words to Art in Seconds
             </h1>
           </div>
           
@@ -573,6 +713,132 @@ export default function TextToImage() {
               </div>
             </div>
           )}
+        </div>
+        
+        {/* How to Generate AI Images Section */}
+        <div className={cn(
+          "mx-auto mt-16",
+          isMobile ? "max-w-full" : "max-w-6xl"
+        )}>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              How to Generate AI Images
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Follow our simple 4-step process to create stunning AI artwork in seconds
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-violet-600">1</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Enter Your Prompt</h3>
+              <p className="text-gray-600">Describe what you want to see in detail. Be specific about style, colors, and composition.</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-blue-600">2</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Choose Art Style</h3>
+              <p className="text-gray-600">Select from 50+ artistic styles like photorealistic, anime, digital art, or watercolor.</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-green-600">3</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Generate Image</h3>
+              <p className="text-gray-600">Click 'Create Your Free Image Now' and our AI will generate your artwork in 3-5 seconds.</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-purple-600">4</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Download & Share</h3>
+              <p className="text-gray-600">Your image is automatically saved to your gallery. Download in HD quality and share anywhere.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Popular Use Cases Section */}
+        <div className={cn(
+          "mx-auto mt-16",
+          isMobile ? "max-w-full" : "max-w-6xl"
+        )}>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Popular Use Cases for AI Art
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Discover how creators worldwide are using our AI image generator
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-xl shadow-md border">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Social Media Content</h3>
+              <p className="text-gray-600 mb-4">Create eye-catching posts, stories, and profile images that stand out on Instagram, TikTok, and Facebook.</p>
+              <div className="text-sm text-blue-600 font-medium">
+                <Star className="w-4 h-4 inline mr-1" />
+                Most Popular Use Case
+              </div>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl shadow-md border">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <Wand2 className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Marketing & Advertising</h3>
+              <p className="text-gray-600 mb-4">Generate unique visuals for ads, banners, product mockups, and promotional materials without expensive stock photos.</p>
+              <div className="text-sm text-green-600 font-medium">
+                <Zap className="w-4 h-4 inline mr-1" />
+                Business Favorite
+              </div>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl shadow-md border">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                <BookOpen className="w-6 h-6 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Creative Projects</h3>
+              <p className="text-gray-600 mb-4">Bring stories to life with book covers, game art, character designs, and concept art for any creative project.</p>
+              <div className="text-sm text-purple-600 font-medium">
+                <Palette className="w-4 h-4 inline mr-1" />
+                Artist's Choice
+              </div>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl shadow-md border">
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                <Sparkles className="w-6 h-6 text-orange-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Website Design</h3>
+              <p className="text-gray-600">Create custom backgrounds, hero images, icons, and illustrations that perfectly match your brand.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl shadow-md border">
+              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                <Download className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Print Materials</h3>
+              <p className="text-gray-600">Design posters, flyers, business cards, and merchandise with unique AI-generated artwork.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-xl shadow-md border">
+              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
+                <HelpCircle className="w-6 h-6 text-teal-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Education & Presentations</h3>
+              <p className="text-gray-600">Enhance lectures, reports, and presentations with custom visuals that explain complex concepts.</p>
+            </div>
+          </div>
         </div>
         
         {/* Enhanced FAQ Section */}

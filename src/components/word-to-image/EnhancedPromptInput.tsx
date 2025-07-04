@@ -59,7 +59,7 @@ export function EnhancedPromptInput({
             ) : (
               <>
                 <Wand2 className="w-5 h-5 mr-3" />
-                Generate Professional Image
+                Create Your Free Image Now
                 <Sparkles className="w-5 h-5 ml-3 animate-pulse" />
               </>
             )}
