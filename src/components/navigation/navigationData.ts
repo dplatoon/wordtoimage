@@ -22,4 +22,5 @@ export const companyItems = [
   { title: 'Join Our Team', href: '/join-our-team', description: 'Career opportunities' },
   { title: 'Contact Support', href: '/contact-support', description: 'Get help and support' },
   { title: "What's New", href: '/whats-new', description: 'Latest updates and features' },
+  { title: 'Analytics Dashboard', href: '/analytics-dashboard', description: 'Advanced insights and metrics' },
 ];

@@ -56,6 +56,7 @@ import FutureAIImageGeneration from "@/pages/blog/future-ai-image-generation";
 import ProfessionalMarketingVisuals from "@/pages/blog/professional-marketing-visuals";
 import Gallery from "./pages/Gallery";
 import CommunityGallery from "./pages/CommunityGallery";
+import AnalyticsDashboard from "./pages/AnalyticsDashboard";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -66,6 +67,7 @@ import { OptimizedFontLoader } from "./components/performance/OptimizedFontLoade
 import { CoreWebVitalsMonitor } from "./components/performance/CoreWebVitalsMonitor";
 import { EnhancedLighthouseOptimizer } from "./components/performance/EnhancedLighthouseOptimizer";
 import { MobileLighthouseOptimizer } from "./components/performance/MobileLighthouseOptimizer";
+import { BehaviorTracker } from "./components/analytics/BehaviorTracker";
 
 function App() {
   return (
@@ -74,6 +76,7 @@ function App() {
         <AuthProvider>
           <TooltipProvider>
             <Toaster />
+            <BehaviorTracker />
             <OptimizedFontLoader />
             <CoreWebVitalsMonitor />
             <EnhancedLighthouseOptimizer />
@@ -114,6 +117,7 @@ function App() {
                 <Route path="/contact-support" element={<ContactSupport />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/community-gallery" element={<CommunityGallery />} />
+                <Route path="/analytics-dashboard" element={<AnalyticsDashboard />} />
                 <Route path="/pdf-to-jpg" element={<PDFToJPG />} />
                 <Route path="/word-to-jpg" element={<WordToJPG />} />
                 <Route path="/jpg-to-word" element={<JPGToWord />} />

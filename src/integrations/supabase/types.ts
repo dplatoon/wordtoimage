@@ -9,6 +9,104 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      ab_test_assignments: {
+        Row: {
+          assigned_at: string
+          id: string
+          session_id: string
+          test_id: string
+          user_id: string | null
+          variant: string
+        }
+        Insert: {
+          assigned_at?: string
+          id?: string
+          session_id: string
+          test_id: string
+          user_id?: string | null
+          variant: string
+        }
+        Update: {
+          assigned_at?: string
+          id?: string
+          session_id?: string
+          test_id?: string
+          user_id?: string | null
+          variant?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ab_test_assignments_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "ab_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ab_tests: {
+        Row: {
+          active: boolean | null
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          start_date: string
+          test_name: string
+          variants: Json
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          start_date?: string
+          test_name: string
+          variants?: Json
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          start_date?: string
+          test_name?: string
+          variants?: Json
+        }
+        Relationships: []
+      }
+      conversion_events: {
+        Row: {
+          created_at: string
+          event_data: Json | null
+          funnel_stage: number
+          funnel_step: string
+          id: string
+          session_id: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_data?: Json | null
+          funnel_stage: number
+          funnel_step: string
+          id?: string
+          session_id: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_data?: Json | null
+          funnel_stage?: number
+          funnel_step?: string
+          id?: string
+          session_id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       image_generations: {
         Row: {
           created_at: string
@@ -179,6 +277,75 @@ export type Database = {
           stripe_subscription_id?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      user_analytics: {
+        Row: {
+          created_at: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          page_url: string | null
+          session_id: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          page_url?: string | null
+          session_id: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          page_url?: string | null
+          session_id?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_behavior: {
+        Row: {
+          created_at: string
+          exit_page: boolean | null
+          id: string
+          interactions: Json | null
+          page_path: string
+          scroll_depth: number | null
+          session_id: string
+          time_on_page: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          exit_page?: boolean | null
+          id?: string
+          interactions?: Json | null
+          page_path: string
+          scroll_depth?: number | null
+          session_id: string
+          time_on_page?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          exit_page?: boolean | null
+          id?: string
+          interactions?: Json | null
+          page_path?: string
+          scroll_depth?: number | null
+          session_id?: string
+          time_on_page?: number | null
+          user_id?: string | null
         }
         Relationships: []
       }
