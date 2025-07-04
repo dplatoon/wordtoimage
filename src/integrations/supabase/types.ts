@@ -367,6 +367,10 @@ export type Database = {
         Args: { image_uuid: string }
         Returns: undefined
       }
+      process_image: {
+        Args: { img_id: string }
+        Returns: undefined
+      }
       update_subscription_status: {
         Args: {
           subscription_id_param: string
