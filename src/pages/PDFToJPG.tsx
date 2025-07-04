@@ -1,14 +1,17 @@
 
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { EnhancedSEOManager } from '@/components/seo/EnhancedSEOManager';
 import { PDFToJPGConverter } from '@/components/converters/PDFToJPGConverter';
-import { FileText, Download, Zap, Shield } from 'lucide-react';
+import { FileText, Download, Zap, Shield, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function PDFToJPG() {
   const pageContent = {
-    h1: "Convert PDF to JPG in 1 Click (No Watermarks)",
+    h1: "Convert PDF to JPG – Free & Fast",
     h2Headings: [
       "How to Convert PDF to JPG",
       "Why Choose Our PDF to JPG Converter",
@@ -54,6 +57,41 @@ export default function PDFToJPG() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 via-white to-purple-50">
+      <Helmet>
+        <title>Convert PDF to JPG – Free & Fast | WordToImage</title>
+        <meta name="description" content="Transform your PDF documents into high-quality JPG images instantly. Free, secure, and works in your browser. No watermarks!" />
+        <meta name="keywords" content="convert PDF to JPG online, PDF to image converter, PDF to JPG free, extract images from PDF, PDF converter" />
+        <link rel="canonical" href="https://wordtoimage.com/pdf-to-jpg" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "PDF to JPG Converter",
+            "applicationCategory": "ConverterApplication",
+            "operatingSystem": "Web Browser",
+            "description": "Convert PDF documents to high-quality JPG images with customizable DPI settings",
+            "url": "https://wordtoimage.com/pdf-to-jpg",
+            "provider": {
+              "@type": "Organization",
+              "name": "WordToImage",
+              "url": "https://wordtoimage.com"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "Convert PDF to JPG",
+              "Customizable DPI quality",
+              "No watermarks",
+              "Multi-page support",
+              "Browser-based conversion"
+            ]
+          })}
+        </script>
+      </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />
       
@@ -61,10 +99,10 @@ export default function PDFToJPG() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Convert PDF to JPG in 1 Click <span className="text-blue-600">(No Watermarks)</span>
+            Convert PDF to JPG – <span className="text-blue-600">Free & Fast</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Transform your PDF documents into high-quality JPG images instantly. Free, secure, and works in your browser.
+            Transform your PDF documents into high-quality JPG images instantly. Free, secure, and works in your browser. No watermarks!
           </p>
           
           <div className="flex flex-wrap justify-center gap-6 mb-8">
@@ -153,13 +191,60 @@ export default function PDFToJPG() {
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
             Frequently Asked Questions
           </h2>
-          <div className="max-w-4xl mx-auto space-y-6">
-            {faqData.map((faq, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqData.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-md">
+                  <AccordionTrigger className="px-6 py-4 text-left">
+                    <span className="text-lg font-semibold">{faq.question}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4">
+                    <p className="text-gray-600">{faq.answer}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+
+        {/* Internal Links */}
+        <section className="bg-gray-50 rounded-lg p-8 mb-12">
+          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
+            Explore More Converter Tools
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link to="/jpg-to-pdf" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+              <FileText className="w-8 h-8 text-orange-500" />
+              <div>
+                <h3 className="font-semibold">JPG to PDF</h3>
+                <p className="text-sm text-gray-600">Combine images into PDF</p>
               </div>
-            ))}
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
+            <Link to="/word-to-jpg" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+              <FileText className="w-8 h-8 text-green-500" />
+              <div>
+                <h3 className="font-semibold">Word to JPG</h3>
+                <p className="text-sm text-gray-600">Convert documents to images</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
+            <Link to="/jpg-to-word" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+              <FileText className="w-8 h-8 text-purple-500" />
+              <div>
+                <h3 className="font-semibold">JPG to Word</h3>
+                <p className="text-sm text-gray-600">Extract text from images</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
+            <Link to="/remove-background" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+              <Shield className="w-8 h-8 text-blue-500" />
+              <div>
+                <h3 className="font-semibold">Remove Background</h3>
+                <p className="text-sm text-gray-600">AI background removal</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
           </div>
         </section>
       </main>

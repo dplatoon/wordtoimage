@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { PageSEO } from '@/components/seo/PageSEO';
@@ -128,14 +129,31 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <PageSEO
-        title="AI Art Blog - Latest Tips, Tutorials & Industry News | WordToImage"
-        description="Stay updated with the latest AI art techniques, tutorials, and industry trends. Learn from experts and discover new ways to create stunning AI-generated images."
-        keywords="AI art blog, AI image tutorials, text to image tips, AI art news, AI generator guides"
-        canonical="https://wordtoimage.com/blog"
-        aiKeywords={['AI art blog', 'AI image generation tutorials', 'text to image tips', 'AI art techniques']}
-        voiceSearchQueries={['AI art tutorials', 'how to create AI images', 'AI image generation tips']}
-      />
+      <Helmet>
+        <title>WordToImage Blog – Image Conversion & AI Tools Tips</title>
+        <meta name="description" content="Explore tutorials, case studies, and tips on using image converters, background removers, and AI tools. Stay updated with the latest trends." />
+        <meta name="keywords" content="AI art blog, image conversion tutorials, background removal tips, AI image generator guides, converter tools" />
+        <link rel="canonical" href="https://wordtoimage.com/blog" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "WordToImage Blog",
+            "description": "Tutorials and insights on AI image generation, background removal, and image conversion tools",
+            "url": "https://wordtoimage.com/blog",
+            "publisher": {
+              "@type": "Organization",
+              "name": "WordToImage",
+              "url": "https://wordtoimage.com"
+            },
+            "mainEntity": {
+              "@type": "CollectionPage",
+              "name": "AI Art & Conversion Tools Blog Posts"
+            }
+          })}
+        </script>
+      </Helmet>
       
       <Nav />
       
@@ -145,11 +163,11 @@ const Blog = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            AI Art <span className="text-violet-600">Blog</span>
+            WordToImage <span className="text-violet-600">Blog</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Discover the latest trends, tutorials, and insights in AI image generation. 
-            Learn from experts and master the art of creating stunning visuals with AI.
+            Explore tutorials, case studies, and tips on using image converters, background removers, and AI tools. 
+            Learn from experts and discover new ways to enhance your creative workflow.
           </p>
           
           {/* Category Filter */}

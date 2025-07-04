@@ -1,19 +1,22 @@
 
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { EnhancedSEOManager } from '@/components/seo/EnhancedSEOManager';
 import { WordToJPGConverter } from '@/components/converters/WordToJPGConverter';
-import { FileText, Image, Zap, Shield } from 'lucide-react';
+import { FileText, Image, Zap, Shield, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function WordToJPG() {
   const pageContent = {
-    h1: "Word to JPG Converter | Save DOCX as Images Online",
+    h1: "Convert Word to JPG – Free Online Tool",
     h2Headings: [
-      "3-Step Solution: Upload → Convert → Download",
+      "How to Convert Word to JPG",
       "Why Convert Word Documents to Images",
       "Professional Features",
-      "Common Questions"
+      "Frequently Asked Questions"
     ]
   };
 
@@ -46,6 +49,41 @@ export default function WordToJPG() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-green-50 via-white to-blue-50">
+      <Helmet>
+        <title>Convert Word to JPG – Free Online Tool | WordToImage</title>
+        <meta name="description" content="Convert Word documents (.doc, .docx) to high-quality JPG images while preserving formatting, fonts, and layout. Free and secure." />
+        <meta name="keywords" content="convert Word to JPG, Word to image converter, DOCX to JPG, document to image, Word to picture" />
+        <link rel="canonical" href="https://wordtoimage.com/word-to-jpg" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Word to JPG Converter",
+            "applicationCategory": "ConverterApplication",
+            "operatingSystem": "Web Browser",
+            "description": "Convert Word documents to JPG images online while preserving formatting and layout",
+            "url": "https://wordtoimage.com/word-to-jpg",
+            "provider": {
+              "@type": "Organization",
+              "name": "WordToImage",
+              "url": "https://wordtoimage.com"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "Convert DOC and DOCX files",
+              "Preserve formatting and layout",
+              "High-quality image output",
+              "Multiple output formats",
+              "Browser-based conversion"
+            ]
+          })}
+        </script>
+      </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />
       
@@ -53,10 +91,10 @@ export default function WordToJPG() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Word to JPG Converter | <span className="text-green-600">Save DOCX as Images</span>
+            Convert Word to JPG – <span className="text-green-600">Free Online Tool</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Convert Word documents (.doc, .docx) to high-quality JPG images while preserving formatting, fonts, and layout.
+            Convert Word documents (.doc, .docx) to high-quality JPG images while preserving formatting, fonts, and layout. Free and secure.
           </p>
           
           <div className="flex flex-wrap justify-center gap-6 mb-8">
@@ -82,10 +120,10 @@ export default function WordToJPG() {
         {/* Converter Component */}
         <WordToJPGConverter />
 
-        {/* 3-Step Process */}
+        {/* How-to Section */}
         <section className="mt-16 mb-12">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            3-Step Solution: Upload → Convert → Download
+            How to Convert Word to JPG
           </h2>
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8">
@@ -136,15 +174,62 @@ export default function WordToJPG() {
         {/* FAQ Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Common Questions
+            Frequently Asked Questions
           </h2>
-          <div className="max-w-4xl mx-auto space-y-6">
-            {faqData.map((faq, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqData.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-md">
+                  <AccordionTrigger className="px-6 py-4 text-left">
+                    <span className="text-lg font-semibold">{faq.question}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4">
+                    <p className="text-gray-600">{faq.answer}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+
+        {/* Internal Links */}
+        <section className="bg-gray-50 rounded-lg p-8 mb-12">
+          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
+            Try Our Other Converter Tools
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link to="/jpg-to-word" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+              <FileText className="w-8 h-8 text-purple-500" />
+              <div>
+                <h3 className="font-semibold">JPG to Word</h3>
+                <p className="text-sm text-gray-600">Extract text from images</p>
               </div>
-            ))}
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
+            <Link to="/pdf-to-jpg" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+              <Image className="w-8 h-8 text-blue-500" />
+              <div>
+                <h3 className="font-semibold">PDF to JPG</h3>
+                <p className="text-sm text-gray-600">Extract images from PDF</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
+            <Link to="/jpg-to-pdf" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+              <FileText className="w-8 h-8 text-orange-500" />
+              <div>
+                <h3 className="font-semibold">JPG to PDF</h3>
+                <p className="text-sm text-gray-600">Combine images into PDF</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
+            <Link to="/remove-background" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+              <Image className="w-8 h-8 text-green-500" />
+              <div>
+                <h3 className="font-semibold">Remove Background</h3>
+                <p className="text-sm text-gray-600">AI background removal</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
           </div>
         </section>
       </main>
