@@ -57,6 +57,8 @@ import ProfessionalMarketingVisuals from "@/pages/blog/professional-marketing-vi
 import Gallery from "./pages/Gallery";
 import CommunityGallery from "./pages/CommunityGallery";
 import AnalyticsDashboard from "./pages/AnalyticsDashboard";
+import ContentHub from "./pages/ContentHub";
+import BlogPostDetail from "./pages/BlogPostDetail";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -118,6 +120,8 @@ function App() {
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/community-gallery" element={<CommunityGallery />} />
                 <Route path="/analytics-dashboard" element={<AnalyticsDashboard />} />
+                <Route path="/content-hub" element={<ContentHub />} />
+                <Route path="/blog/:slug" element={<BlogPostDetail />} />
                 <Route path="/pdf-to-jpg" element={<PDFToJPG />} />
                 <Route path="/word-to-jpg" element={<WordToJPG />} />
                 <Route path="/jpg-to-word" element={<JPGToWord />} />
