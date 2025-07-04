@@ -96,7 +96,14 @@ export const AdvancedImageEditor = ({ imageUrl, onSave, onClose }: ImageEditorPr
         const scale = Math.min(scaleX, scaleY);
         
         fabricImg.scale(scale);
-        fabricImg.center();
+        
+        // Manually center the image
+        const scaledWidth = img.width * scale;
+        const scaledHeight = img.height * scale;
+        fabricImg.set({
+          left: (canvas.width! - scaledWidth) / 2,
+          top: (canvas.height! - scaledHeight) / 2
+        });
         
         canvas.add(fabricImg);
         canvas.sendObjectToBack(fabricImg);
