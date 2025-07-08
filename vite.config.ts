@@ -56,45 +56,13 @@ export default defineConfig(({ command, mode }) => ({
           
           // Supabase and auth
           'supabase': ['@supabase/supabase-js'],
-          
-          // Large pages - split for mobile
-          'pages-main': [
-            './src/pages/Index.tsx',
-            './src/pages/TextToImage.tsx'
-          ],
-          'pages-secondary': [
-            './src/pages/Dashboard.tsx',
-            './src/pages/Gallery.tsx',
-            './src/pages/Features.tsx',
-            './src/pages/Pricing.tsx'
-          ],
-          'pages-content': [
-            './src/pages/Blog.tsx',
-            './src/pages/About.tsx',
-            './src/pages/Contact.tsx',
-            './src/pages/Help.tsx'
-          ]
         },
-      },
-      onwarn(warning, warn) {
-        // Suppress warnings from deprecated packages
-        if (warning.code === 'DEPRECATED_FEATURE' || 
-            warning.message.includes('deprecated') ||
-            warning.message.includes('request') ||
-            warning.message.includes('har-validator') ||
-            warning.message.includes('uuid') ||
-            warning.message.includes('inflight') ||
-            warning.message.includes('glob') ||
-            warning.message.includes('rimraf')) {
-          return;
-        }
-        warn(warning);
       },
     },
     cssCodeSplit: true,
     sourcemap: mode === 'development',
     minify: mode === 'production' ? 'terser' : false,
-    chunkSizeWarningLimit: 500, // Warn for chunks larger than 500kb
+    chunkSizeWarningLimit: 1000, // Increase to reduce warnings
     ...(mode === 'production' && {
       terserOptions: {
         compress: {
