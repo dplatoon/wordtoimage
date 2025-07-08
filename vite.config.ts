@@ -76,6 +76,20 @@ export default defineConfig(({ command, mode }) => ({
           ]
         },
       },
+      onwarn(warning, warn) {
+        // Suppress warnings from deprecated packages
+        if (warning.code === 'DEPRECATED_FEATURE' || 
+            warning.message.includes('deprecated') ||
+            warning.message.includes('request') ||
+            warning.message.includes('har-validator') ||
+            warning.message.includes('uuid') ||
+            warning.message.includes('inflight') ||
+            warning.message.includes('glob') ||
+            warning.message.includes('rimraf')) {
+          return;
+        }
+        warn(warning);
+      },
     },
     cssCodeSplit: true,
     sourcemap: mode === 'development',
