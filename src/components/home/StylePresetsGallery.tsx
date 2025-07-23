@@ -110,12 +110,18 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                     
                     {/* Overlay Actions */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="flex gap-2">
-                        <Button size="sm" className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30">
+                      <div className="flex flex-col sm:flex-row gap-2 p-2">
+                        <Button 
+                          size="sm" 
+                          className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30 focus:ring-2 focus:ring-white/50 min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
+                        >
                           <Eye className="h-4 w-4 mr-1" />
                           Preview
                         </Button>
-                        <Button size="sm" className="bg-ai-neon text-ai-dark hover:bg-ai-accent">
+                        <Button 
+                          size="sm" 
+                          className="bg-ai-neon text-ai-dark hover:bg-ai-accent focus:ring-2 focus:ring-ai-neon/50 min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
+                        >
                           <Download className="h-4 w-4 mr-1" />
                           Use Style
                         </Button>

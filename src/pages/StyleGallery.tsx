@@ -262,10 +262,11 @@ const StyleGallery = () => {
                     <Button 
                       size="sm" 
                       variant="outline" 
+                      className="min-h-[44px] text-xs sm:text-sm px-2 sm:px-4 focus:ring-2 focus:ring-violet-500/50 whitespace-nowrap"
                       onClick={() => handleUseStyle(style.styleId)}
                     >
-                      <Copy className="h-4 w-4 mr-2" />
-                      Use Style
+                      <Copy className="h-4 w-4 mr-1 sm:mr-2" />
+                      <span className="truncate">Use Style</span>
                     </Button>
                   </div>
                 </div>

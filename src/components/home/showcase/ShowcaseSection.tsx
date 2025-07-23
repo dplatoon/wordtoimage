@@ -51,7 +51,7 @@ export const ShowcaseSection = () => {
           <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <Button
               variant="outline"
-              className="border-purple-400 text-purple-600 hover:bg-purple-50 transform hover:scale-105 transition-transform duration-300"
+              className="border-purple-400 text-purple-600 hover:bg-purple-50 focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transform hover:scale-105 transition-all duration-300 min-h-[48px] px-6"
               onClick={() => navigate('/gallery')}
             >
               Explore More Creations
