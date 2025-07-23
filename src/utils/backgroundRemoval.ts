@@ -6,6 +6,25 @@ env.useBrowserCache = false;
 
 const MAX_IMAGE_DIMENSION = 1024;
 
+// Check WebGPU support
+export const checkWebGPUSupport = async (): Promise<boolean> => {
+  if (!(navigator as any).gpu) {
+    return false;
+  }
+  
+  try {
+    const adapter = await (navigator as any).gpu.requestAdapter();
+    return !!adapter;
+  } catch {
+    return false;
+  }
+};
+
+// Check if device is mobile/low-memory
+export const isMobileDevice = (): boolean => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
 function resizeImageIfNeeded(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, image: HTMLImageElement) {
   let width = image.naturalWidth;
   let height = image.naturalHeight;
@@ -34,6 +53,19 @@ function resizeImageIfNeeded(canvas: HTMLCanvasElement, ctx: CanvasRenderingCont
 export const removeBackground = async (imageElement: HTMLImageElement): Promise<Blob> => {
   try {
     console.log('Starting background removal process...');
+    
+    // Check WebGPU support and device capabilities
+    const hasWebGPU = await checkWebGPUSupport();
+    const isMobile = isMobileDevice();
+    
+    if (!hasWebGPU) {
+      throw new Error('WebGPU not supported on this browser. Please use Chrome or Edge with WebGPU enabled.');
+    }
+    
+    if (isMobile) {
+      throw new Error('Background removal is not available on mobile devices due to memory limitations.');
+    }
+    
     const segmenter = await pipeline('image-segmentation', 'Xenova/segformer-b0-finetuned-ade-512-512', {
       device: 'webgpu',
     });

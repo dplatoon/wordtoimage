@@ -40,6 +40,14 @@ export default function AnalyticsDashboard() {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState('7d');
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check if user is admin - simplified to always show admin warning for now
+  useEffect(() => {
+    // For now, restrict access to admin-only preview
+    // TODO: Implement proper admin role checking when user_roles table is available
+    setIsAdmin(false);
+  }, []);
 
   useEffect(() => {
     fetchAnalyticsData();
@@ -152,6 +160,30 @@ export default function AnalyticsDashboard() {
       console.error('Failed to create AB test:', error);
     }
   };
+
+  // Show admin-only message for non-admin users
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="max-w-4xl mx-auto">
+          <Card className="border-2 border-warning/50 bg-warning/5">
+            <CardContent className="p-8 text-center">
+              <div className="space-y-4">
+                <div className="text-warning text-6xl">🔒</div>
+                <h3 className="text-xl font-semibold">Admin Access Required</h3>
+                <p className="text-muted-foreground">
+                  This analytics dashboard is only available to administrators.
+                </p>
+                <Badge variant="outline" className="text-sm">
+                  Admin-Only Preview
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

@@ -3,7 +3,7 @@ import { Upload, Download, RotateCcw, Loader } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { FileUploader } from './shared/FileUploader';
-import { removeBackground, loadImage } from '@/utils/backgroundRemoval';
+import { removeBackground, loadImage, checkWebGPUSupport, isMobileDevice } from '@/utils/backgroundRemoval';
 import { toast } from 'sonner';
 
 export function BackgroundRemoverConverter() {
@@ -11,6 +11,17 @@ export function BackgroundRemoverConverter() {
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [fileName, setFileName] = useState<string>('');
+  const [browserSupported, setBrowserSupported] = useState<boolean | null>(null);
+
+  // Check browser compatibility on mount
+  React.useEffect(() => {
+    const checkSupport = async () => {
+      const webGPUSupported = await checkWebGPUSupport();
+      const mobile = isMobileDevice();
+      setBrowserSupported(webGPUSupported && !mobile);
+    };
+    checkSupport();
+  }, []);
 
   const handleFileSelect = useCallback(async (file: File) => {
     try {
@@ -70,6 +81,29 @@ export function BackgroundRemoverConverter() {
       });
     }
   }, [processedImage, fileName]);
+
+  // Show compatibility warning if not supported
+  if (browserSupported === false) {
+    return (
+      <div className="w-full max-w-4xl mx-auto">
+        <Card className="border-2 border-destructive/50 bg-destructive/5">
+          <CardContent className="p-8 text-center">
+            <div className="space-y-4">
+              <div className="text-destructive text-6xl">⚠️</div>
+              <h3 className="text-xl font-semibold text-destructive">Feature Not Available</h3>
+              <p className="text-muted-foreground">
+                Background removal requires WebGPU support and is not available on your current browser or device.
+              </p>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <p><strong>Supported browsers:</strong> Chrome 113+, Edge 113+ (with WebGPU enabled)</p>
+                <p><strong>Note:</strong> Not available on mobile devices due to memory limitations</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto">
