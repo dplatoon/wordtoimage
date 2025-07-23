@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
+import { LazyImage } from '@/components/common/LazyImage';
 import { Download, Share2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { StoredImage } from '@/services/storageService';
@@ -57,11 +58,11 @@ export function GalleryImageGrid({
             "relative overflow-hidden",
             viewMode === 'list' ? "w-32 h-32 flex-shrink-0" : "aspect-square"
           )}>
-            <img
+            <LazyImage
               src={image.url}
               alt={image.prompt}
               className="w-full h-full object-cover"
-              loading="lazy"
+              aspectRatio={viewMode === 'list' ? 1 : 1}
             />
             
             {/* Favorite Badge */}

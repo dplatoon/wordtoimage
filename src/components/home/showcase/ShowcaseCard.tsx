@@ -3,6 +3,7 @@ import React from 'react';
 import { Download, Heart, ExternalLink, Wand2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { LazyImage } from '@/components/common/LazyImage';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/sonner';
 
@@ -58,11 +59,11 @@ export const ShowcaseCard = ({
     <div className={`group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in ${className}`}>
       {/* Image */}
       <div className="relative aspect-square overflow-hidden">
-        <img
+        <LazyImage
           src={imageUrl}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          loading="lazy"
+          aspectRatio={1}
         />
         
         {/* Overlay with actions */}

@@ -3,6 +3,7 @@ import React from 'react';
 import { Palette, Download, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { LazyImage } from '@/components/common/LazyImage';
 
 interface StylePreset {
   id: string;
@@ -100,11 +101,11 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
                 <CardContent className="p-0">
                   {/* Image */}
                   <div className="relative overflow-hidden rounded-t-2xl">
-                    <img 
+                    <LazyImage 
                       src={preset.imageUrl} 
                       alt={`${preset.name} AI art style example`}
                       className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
+                      aspectRatio={1}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     

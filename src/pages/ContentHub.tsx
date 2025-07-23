@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { LazyImage } from '@/components/common/LazyImage';
 import { 
   Calendar, 
   Clock, 
@@ -249,10 +250,11 @@ export default function ContentHub() {
               {filteredPosts.map((post) => (
                 <Card key={post.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   <div className="aspect-video overflow-hidden">
-                    <img
+                    <LazyImage
                       src={post.featured_image}
                       alt={post.title}
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      aspectRatio={16/9}
                     />
                   </div>
                   <CardContent className="p-6">
