@@ -44,14 +44,16 @@ export default function AIUpscaler() {
     setIsUpscaling(true);
     setProgress(0);
 
-    // Simulate upscaling process
+    // Demo simulation - this is not real upscaling
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsUpscaling(false);
-          setUpscaledImage('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'); // Placeholder
-          toast.success('Image upscaled successfully!');
+          setUpscaledImage('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'); // Demo placeholder
+          toast.success('Demo completed! This is a sample result.', {
+            description: 'Real upscaling functionality coming soon.'
+          });
           return 100;
         }
         return prev + 10;
@@ -83,12 +85,23 @@ export default function AIUpscaler() {
             <Zap className="text-green-600 mr-3 h-10 w-10" />
             <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600">
               AI Image Upscaler
+              <Badge className="ml-4 bg-orange-100 text-orange-800 text-sm">DEMO ONLY</Badge>
             </h1>
           </div>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto">
             Enhance your images with AI-powered upscaling. Increase resolution up to 4x while preserving details and improving quality.
           </p>
+          
+          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 max-w-2xl mx-auto mb-8">
+            <div className="flex items-center gap-2 text-orange-800 mb-2">
+              <Badge className="bg-orange-100 text-orange-800">DEMO ONLY</Badge>
+              <span className="font-medium">Preview Interface</span>
+            </div>
+            <p className="text-orange-700 text-sm">
+              This is a demonstration of the upscaling interface. Real AI upscaling functionality is in development. Results shown are sample images only.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-8">
             <div className="text-center">

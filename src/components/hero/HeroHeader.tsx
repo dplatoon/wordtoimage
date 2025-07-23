@@ -30,11 +30,18 @@ export const HeroHeader = () => {
       </h1>
       
       <p 
-        className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in"
+        className="text-lg md:text-xl text-gray-600 mb-4 max-w-2xl mx-auto animate-fade-in"
         style={{ animationDelay: '0.4s' }}
       >
         Harness the power of AI to create beautiful visuals from any text.
         No design skills required.
+      </p>
+      
+      <p 
+        className="text-sm text-gray-500 mb-8 max-w-xl mx-auto animate-fade-in"
+        style={{ animationDelay: '0.5s' }}
+      >
+        Try it free - no signup required! Create your first AI image instantly.
       </p>
       
       <div 

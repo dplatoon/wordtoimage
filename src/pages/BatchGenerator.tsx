@@ -34,13 +34,14 @@ export default function BatchGenerator() {
     }
 
     setIsGenerating(true);
-    toast.success(`Starting batch generation for ${promptList.length} prompts...`);
+    toast.error('Batch generation is currently in beta development. This feature is not yet functional and will be available in a future update.', {
+      description: 'For now, please use the single image generator on our homepage.'
+    });
     
-    // Simulate batch generation
+    // Reset the generating state immediately since this is a beta notice
     setTimeout(() => {
       setIsGenerating(false);
-      toast.success('Batch generation completed!');
-    }, 3000);
+    }, 100);
   };
 
   const examplePrompts = [
@@ -177,12 +178,23 @@ export default function BatchGenerator() {
             <Grid3X3 className="text-blue-600 mr-3 h-10 w-10" />
             <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
               AI Batch Image Generator – Create Multiple Images at Once
+              <Badge className="ml-4 bg-orange-100 text-orange-800 text-sm">BETA</Badge>
             </h1>
           </div>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto">
             Generate up to 40 AI images simultaneously with our batch generator. 10x faster than single generation. Perfect for content creators and businesses.
           </p>
+          
+          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 max-w-2xl mx-auto mb-8">
+            <div className="flex items-center gap-2 text-orange-800 mb-2">
+              <Badge className="bg-orange-100 text-orange-800">BETA</Badge>
+              <span className="font-medium">Feature in Development</span>
+            </div>
+            <p className="text-orange-700 text-sm">
+              Batch generation is currently being developed and is not yet functional. Use our <Link to="/" className="underline font-medium">single image generator</Link> for immediate image creation.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-8">
             <div className="text-center">
