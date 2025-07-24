@@ -30,6 +30,7 @@ import { GenerationHistory } from '@/components/word-to-image/GenerationHistory'
 import { FloatingActionPanel, defaultActions } from '@/components/ui/floating-action-panel';
 import { ProgressRing, PulseAnimation } from '@/components/ui/micro-interactions';
 import { QuickTooltip } from '@/components/ui/enhanced-tooltip';
+import { BrowserCompatibilityWrapper } from '@/components/compatibility/BrowserCompatibilityWrapper';
 
 // Style mapping for URL parameters
 const STYLE_MAPPINGS: Record<string, string> = {
@@ -329,6 +330,7 @@ export default function TextToImage() {
   };
 
   return (
+    <BrowserCompatibilityWrapper>
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50 via-white to-indigo-50">
       <Helmet>
         <title>AI Image Generator: Turn Words to Art in Seconds | WordToImage</title>
@@ -975,5 +977,6 @@ export default function TextToImage() {
         autoHide={true}
       />
     </div>
+    </BrowserCompatibilityWrapper>
   );
 }

@@ -4,18 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design System Color Tokens */
+/* Design System Color Tokens - All HSL values for proper theme support */
 :root {
-  --ai-primary: #2563eb; /* Blue-600 for better contrast */
-  --ai-accent: #0d9488; /* Teal-600 for better contrast */
-  --ai-neon: #06d6a0;
-  --ai-dark: #1e1b4b;
-  --ai-light: #f8fafc;
+  --ai-primary: 219 85% 48%; /* Blue-600 HSL */
+  --ai-accent: 167 85% 39%; /* Teal-600 HSL */
+  --ai-neon: 166 73% 42%; /* Neon green HSL */
+  --ai-dark: 243 75% 19%; /* Dark indigo HSL */
+  --ai-light: 210 40% 98%; /* Light gray HSL */
   
-  /* Enhanced contrast colors for WCAG AA compliance */
-  --text-primary: #1a202c;
-  --text-secondary: #2d3748;
-  --text-muted: #4a5568;
+  /* Enhanced contrast colors for WCAG AA compliance - HSL values */
+  --text-primary: 210 15% 16%; /* Dark gray HSL */
+  --text-secondary: 213 15% 22%; /* Medium gray HSL */
+  --text-muted: 215 10% 34%; /* Light gray HSL */
+  
+  /* CSS custom properties for cross-browser compatibility */
+  --border-radius: 0.5rem;
+  --font-family-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* Critical mobile-first styles - inline above the fold */
@@ -125,21 +129,21 @@
 
   /* Enhanced accessibility improvements */
   a {
-    color: var(--ai-primary);
+    color: hsl(var(--ai-primary));
     text-decoration: none;
     transition: color 0.2s ease;
   }
   
   a:hover {
-    color: var(--ai-accent);
+    color: hsl(var(--ai-accent));
     text-decoration: underline;
   }
 
   /* Enhanced focus styles for keyboard navigation */
   :focus-visible {
-    outline: 2px solid var(--ai-primary);
+    outline: 2px solid hsl(var(--ai-primary));
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
   }
 
   /* Remove focus outline for mouse users */
