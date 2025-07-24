@@ -53,9 +53,8 @@ export async function signInWithGoogle(): Promise<void> {
   try {
     // Get the current origin for proper redirect handling
     const origin = window.location.origin;
-    // Use the exact redirect URL that's configured in Google Cloud Console
-    // This should match what you've set in your Supabase redirect URLs
-    const redirectTo = `${origin}/auth/callback`;
+    // Use the auth page instead of a non-existent callback route
+    const redirectTo = `${origin}/auth`;
     
     console.log("Redirect URL for Google auth:", redirectTo);
     
@@ -72,7 +71,16 @@ export async function signInWithGoogle(): Promise<void> {
       }
     });
     
-    if (error) throw error;
+    if (error) {
+      // Provide more specific error messages based on common issues
+      let errorMessage = error.message;
+      if (error.message.includes('invalid_request')) {
+        errorMessage = 'Google authentication setup issue. Please contact support if this persists.';
+      } else if (error.message.includes('access_denied')) {
+        errorMessage = 'Google sign-in was cancelled. Please try again to continue.';
+      }
+      throw new Error(errorMessage);
+    }
     
     console.log("Google auth initiated successfully", data);
   } catch (error) {
@@ -91,11 +99,23 @@ export async function signUp(email: string, password: string, username?: string)
       password,
       options: {
         data: { username },
-        emailRedirectTo: `${window.location.origin}/auth/callback`
+        // Use the same /auth route for email confirmations
+        emailRedirectTo: `${window.location.origin}/auth`
       },
     });
     
-    if (error) throw error;
+    if (error) {
+      // Provide more helpful error messages for common signup issues
+      let errorMessage = error.message;
+      if (error.message.includes('User already registered')) {
+        errorMessage = 'This email is already registered. Try signing in instead, or use the password reset option if you forgot your password.';
+      } else if (error.message.includes('Password should be at least')) {
+        errorMessage = 'Password must be at least 6 characters long and contain a mix of letters and numbers.';
+      } else if (error.message.includes('Invalid email')) {
+        errorMessage = 'Please enter a valid email address.';
+      }
+      throw new Error(errorMessage);
+    }
     toast.success("Account created! Please check your email for confirmation.");
   } catch (error) {
     console.error("Error signing up:", error);

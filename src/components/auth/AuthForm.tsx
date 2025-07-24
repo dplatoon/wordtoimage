@@ -8,6 +8,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { EmailPasswordForm } from './EmailPasswordForm';
 import { SocialLoginButton } from './SocialLoginButton';
 import { ConfigErrorAlert } from './ConfigErrorAlert';
+import { AuthRedirectGuide } from './AuthRedirectGuide';
 import { AuthFormValues } from './schema/authFormSchema';
 
 interface AuthFormProps {
@@ -18,6 +19,7 @@ interface AuthFormProps {
 
 export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
   const [authError, setAuthError] = useState<string | null>(null);
+  const [showRedirectGuide, setShowRedirectGuide] = useState(false);
   const [isConfigured] = useState(true);
   const { signIn, signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
       console.error("Auth error:", error);
       let errorMessage = error instanceof Error ? error.message : 'An error occurred';
       
-      // Provide user-friendly error messages
+      // Provide user-friendly error messages with specific guidance
       if (errorMessage.includes('User already registered')) {
         errorMessage = 'This email is already registered. Please sign in instead.';
       } else if (errorMessage.includes('Invalid login') || errorMessage.includes('Invalid credentials')) {
@@ -58,6 +60,12 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
         errorMessage = 'Please check your email and click the verification link before signing in.';
       } else if (errorMessage.includes('Too many requests')) {
         errorMessage = 'Too many login attempts. Please wait a moment before trying again.';
+      } else if (errorMessage.includes('requested path is invalid')) {
+        errorMessage = 'Authentication configuration issue. The app needs URL setup in Supabase settings.';
+        setShowRedirectGuide(true); // Show the setup guide
+      } else if (errorMessage.includes('redirect_uri_mismatch')) {
+        errorMessage = 'Authentication redirect error. Please check the app configuration.';
+        setShowRedirectGuide(true); // Show the setup guide
       }
       
       setAuthError(errorMessage);
@@ -106,27 +114,38 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
 
   return (
     <div className="space-y-6">
-      <EmailPasswordForm 
-        mode={mode}
-        isLoading={isLoading}
-        onSubmit={onSubmit}
-        authError={authError}
+      {/* Show redirect setup guide when auth config errors occur */}
+      <AuthRedirectGuide 
+        isVisible={showRedirectGuide}
+        onClose={() => setShowRedirectGuide(false)}
       />
+      
+      {/* Only show auth form when guide is not visible */}
+      {!showRedirectGuide && (
+        <>
+          <EmailPasswordForm 
+            mode={mode}
+            isLoading={isLoading}
+            onSubmit={onSubmit}
+            authError={authError}
+          />
 
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-slate-200" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white px-3 text-slate-500 font-medium">Or continue with</span>
-        </div>
-      </div>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-slate-200" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-3 text-slate-500 font-medium">Or continue with</span>
+            </div>
+          </div>
 
-      <SocialLoginButton 
-        provider="google"
-        onClick={handleSignInWithGoogle}
-        isLoading={isLoading}
-      />
+          <SocialLoginButton 
+            provider="google"
+            onClick={handleSignInWithGoogle}
+            isLoading={isLoading}
+          />
+        </>
+      )}
     </div>
   );
 }
