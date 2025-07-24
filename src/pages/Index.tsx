@@ -33,7 +33,7 @@ import { LiveCounter } from "@/components/ui/live-counter";
 
 const Index = () => {
   const { user } = useAuth();
-  const { showExitIntent, closeExitIntent } = useExitIntent(!user);
+  const { showModal: showExitIntent, closeModal: closeExitIntent } = useExitIntent({ enabled: !user });
 
   // Initialize performance monitoring
   useEffect(() => {
