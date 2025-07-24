@@ -44,15 +44,15 @@ export default function AIUpscaler() {
     setIsUpscaling(true);
     setProgress(0);
 
-    // Demo simulation - this is not real upscaling
+    // Enhanced demo simulation with clear messaging
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsUpscaling(false);
           setUpscaledImage('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'); // Demo placeholder
-          toast.success('Demo completed! This is a sample result.', {
-            description: 'Real upscaling functionality coming soon.'
+          toast.success('🎬 Demo Preview Complete!', {
+            description: 'This shows our upcoming upscaling interface. Real AI upscaling will be available soon with actual image processing.'
           });
           return 100;
         }

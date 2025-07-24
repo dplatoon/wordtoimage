@@ -34,11 +34,13 @@ export default function BatchGenerator() {
     }
 
     setIsGenerating(true);
-    toast.error('Batch generation is currently in beta development. This feature is not yet functional and will be available in a future update.', {
-      description: 'For now, please use the single image generator on our homepage.'
+    
+    // Enhanced beta experience with clear messaging
+    toast.error('🚧 Feature in Development', {
+      description: 'Batch generation is currently being built. Use our Text-to-Image generator for immediate results while we perfect this feature.'
     });
     
-    // Reset the generating state immediately since this is a beta notice
+    // Reset the generating state after showing the message
     setTimeout(() => {
       setIsGenerating(false);
     }, 100);

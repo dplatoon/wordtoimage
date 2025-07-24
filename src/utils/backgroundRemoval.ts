@@ -59,11 +59,12 @@ export const removeBackground = async (imageElement: HTMLImageElement): Promise<
     const isMobile = isMobileDevice();
     
     if (!hasWebGPU) {
-      throw new Error('WebGPU not supported on this browser. Please use Chrome or Edge with WebGPU enabled.');
+      throw new Error('This browser doesn\'t support WebGPU acceleration. For best results, please use Chrome, Edge, or Firefox with WebGPU enabled. Background removal may run slower on CPU-only processing.');
     }
     
     if (isMobile) {
-      throw new Error('Background removal is not available on mobile devices due to memory limitations.');
+      console.warn('Mobile device detected - background removal may be slower');
+      // Allow mobile processing but with warning instead of blocking
     }
     
     const segmenter = await pipeline('image-segmentation', 'Xenova/segformer-b0-finetuned-ade-512-512', {

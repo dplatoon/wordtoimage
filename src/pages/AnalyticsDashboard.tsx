@@ -18,7 +18,8 @@ import {
   Pie,
   Cell
 } from 'recharts';
-import { TrendingUp, Users, MousePointer, Target, TestTube } from 'lucide-react';
+import { TrendingUp, Users, MousePointer, Target, TestTube, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface AnalyticsData {
   totalUsers: number;
@@ -170,12 +171,20 @@ export default function AnalyticsDashboard() {
             <CardContent className="p-8 text-center">
               <div className="space-y-4">
                 <div className="text-warning text-6xl">🔒</div>
-                <h3 className="text-xl font-semibold">Admin Access Required</h3>
+                <h3 className="text-xl font-semibold">Analytics Dashboard</h3>
                 <p className="text-muted-foreground">
-                  This analytics dashboard is only available to administrators.
+                  This page provides analytics insights for administrators. Regular users can explore our other features.
                 </p>
+                <div className="mt-6">
+                  <Button variant="outline" asChild>
+                    <Link to="/" className="inline-flex items-center gap-2">
+                      Go to Image Generator
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
                 <Badge variant="outline" className="text-sm">
-                  Admin-Only Preview
+                  Admin-Only Feature
                 </Badge>
               </div>
             </CardContent>

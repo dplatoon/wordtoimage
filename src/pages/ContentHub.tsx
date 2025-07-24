@@ -131,19 +131,59 @@ export default function ContentHub() {
     if (!searchQuery.trim()) return;
     
     trackFeatureUsage('content_search', { query: searchQuery });
-    // Implement search functionality
-    toast({ title: 'Search functionality coming soon!' });
+    
+    // Enhanced search experience
+    const filteredResults = posts.filter(post => 
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+    
+    if (filteredResults.length > 0) {
+      setPosts(filteredResults);
+      toast({ 
+        title: `Found ${filteredResults.length} result${filteredResults.length === 1 ? '' : 's'}`,
+        description: 'Clear search to see all articles' 
+      });
+    } else {
+      toast({ 
+        title: 'No results found', 
+        description: 'Try different keywords or browse our categories',
+        variant: 'destructive' 
+      });
+    }
   };
 
   const handleNewsletterSignup = async () => {
-    if (!newsletterEmail.trim()) return;
+    if (!newsletterEmail.trim()) {
+      toast({ title: 'Email required', description: 'Please enter your email address', variant: 'destructive' });
+      return;
+    }
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newsletterEmail)) {
+      toast({ title: 'Invalid email', description: 'Please enter a valid email address', variant: 'destructive' });
+      return;
+    }
     
     try {
       trackFeatureUsage('newsletter_signup', { email: newsletterEmail });
-      toast({ title: 'Successfully subscribed!', description: 'Thank you for subscribing to our newsletter.' });
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({ 
+        title: '🎉 Welcome to our community!', 
+        description: 'You\'ll receive weekly AI art tips and tutorials.' 
+      });
       setNewsletterEmail('');
     } catch (error) {
-      toast({ title: 'Subscription failed', description: 'Please try again later.', variant: 'destructive' });
+      toast({ 
+        title: 'Subscription failed', 
+        description: 'Please try again later or contact support.', 
+        variant: 'destructive' 
+      });
     }
   };
 

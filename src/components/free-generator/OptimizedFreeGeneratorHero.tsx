@@ -44,7 +44,7 @@ export const OptimizedFreeGeneratorHero = () => {
               </div>
               <div className="flex items-center">
                 <Sparkles className="w-4 h-4 mr-1 text-purple-500" />
-                <span className="font-medium">No Login Required</span>
+                <span className="font-medium">Free Trial Available</span>
               </div>
             </div>
 
@@ -57,8 +57,8 @@ export const OptimizedFreeGeneratorHero = () => {
             </h1>
             
             <p className="text-xl text-gray-600 leading-relaxed">
-              Transform your ideas into beautiful images instantly. No signup, no watermarks, 
-              no limits. Just describe what you want and watch our AI bring it to life.
+              Transform your ideas into beautiful images instantly. Start with a free trial, 
+              no watermarks, no limits. Sign up to unlock unlimited generations and premium features.
             </p>
 
             {/* Features list */}
