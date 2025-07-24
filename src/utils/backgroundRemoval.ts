@@ -58,17 +58,23 @@ export const removeBackground = async (imageElement: HTMLImageElement): Promise<
     const hasWebGPU = await checkWebGPUSupport();
     const isMobile = isMobileDevice();
     
-    if (!hasWebGPU) {
-      throw new Error('This browser doesn\'t support WebGPU acceleration. For best results, please use Chrome, Edge, or Firefox with WebGPU enabled. Background removal may run slower on CPU-only processing.');
+    // Determine processing device and approach
+    let processingDevice: 'cpu' | 'webgpu' = 'cpu';
+    let processingMessage = 'Processing with CPU (slower but compatible)';
+    
+    if (hasWebGPU && !isMobile) {
+      processingDevice = 'webgpu';
+      processingMessage = 'Processing with WebGPU acceleration';
+    } else if (hasWebGPU && isMobile) {
+      processingDevice = 'cpu';
+      processingMessage = 'Processing with CPU (mobile device detected)';
     }
     
-    if (isMobile) {
-      console.warn('Mobile device detected - background removal may be slower');
-      // Allow mobile processing but with warning instead of blocking
-    }
+    console.log(processingMessage);
     
     const segmenter = await pipeline('image-segmentation', 'Xenova/segformer-b0-finetuned-ade-512-512', {
-      device: 'webgpu',
+      device: processingDevice,
+      dtype: 'fp32' as const, // Use fp32 for better CPU compatibility
     });
     
     // Convert HTMLImageElement to canvas

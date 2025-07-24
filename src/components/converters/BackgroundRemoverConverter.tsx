@@ -33,9 +33,24 @@ export function BackgroundRemoverConverter() {
       
       // Start processing
       setIsProcessing(true);
-      toast('Processing image...', {
-        description: 'Our AI is removing the background from your image.'
-      });
+      
+      // Show appropriate processing message based on capabilities
+      const webGPUSupported = await checkWebGPUSupport();
+      const mobile = isMobileDevice();
+      
+      if (webGPUSupported && !mobile) {
+        toast('Processing image with WebGPU acceleration...', {
+          description: 'This should be fast with your browser\'s GPU acceleration.'
+        });
+      } else if (mobile) {
+        toast('Processing image on mobile device...', {
+          description: 'This may take longer on mobile devices. Please be patient.'
+        });
+      } else {
+        toast('Processing image with CPU...', {
+          description: 'This may take longer without GPU acceleration. Consider using Chrome or Edge for faster processing.'
+        });
+      }
 
       // Load image element for processing
       const img = await loadImage(file);
@@ -82,31 +97,27 @@ export function BackgroundRemoverConverter() {
     }
   }, [processedImage, fileName]);
 
-  // Show compatibility warning if not supported
-  if (browserSupported === false) {
-    return (
-      <div className="w-full max-w-4xl mx-auto">
-        <Card className="border-2 border-destructive/50 bg-destructive/5">
-          <CardContent className="p-8 text-center">
-            <div className="space-y-4">
-              <div className="text-destructive text-6xl">⚠️</div>
-              <h3 className="text-xl font-semibold text-destructive">Feature Not Available</h3>
-              <p className="text-muted-foreground">
-                Background removal requires WebGPU support and is not available on your current browser or device.
-              </p>
-              <div className="text-sm text-muted-foreground space-y-1">
-                <p><strong>Supported browsers:</strong> Chrome 113+, Edge 113+ (with WebGPU enabled)</p>
-                <p><strong>Note:</strong> Not available on mobile devices due to memory limitations</p>
+  return (
+    <div className="w-full max-w-4xl mx-auto">
+      {/* Show compatibility info banner */}
+      {browserSupported === false && (
+        <Card className="border-2 border-amber-200 bg-amber-50 mb-6">
+          <CardContent className="p-4">
+            <div className="flex items-start space-x-3">
+              <div className="text-amber-600 text-xl">⚠️</div>
+              <div className="flex-1">
+                <h4 className="text-sm font-semibold text-amber-800 mb-1">Slower Processing Expected</h4>
+                <p className="text-sm text-amber-700 mb-2">
+                  Your browser will use CPU processing instead of GPU acceleration, which may be slower.
+                </p>
+                <p className="text-xs text-amber-600">
+                  For faster processing, consider using Chrome or Edge with WebGPU enabled.
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
-      </div>
-    );
-  }
-
-  return (
-    <div className="w-full max-w-4xl mx-auto">
+      )}
       {!originalImage ? (
         <Card className="border-2 border-dashed border-border">
           <CardContent className="p-0">
