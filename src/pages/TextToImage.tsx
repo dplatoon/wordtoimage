@@ -494,6 +494,8 @@ export default function TextToImage() {
             onCountChange={setCount}
             resolution={resolution}
             onResolutionChange={setResolution}
+            prompt={prompt}
+            onPromptChange={setPrompt}
           />
 
           {/* Main Content */}

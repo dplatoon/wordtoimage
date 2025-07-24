@@ -1,5 +1,6 @@
 import React from 'react';
 import { Settings, Palette, Image, Sliders, Info, ChevronDown, RotateCcw } from 'lucide-react';
+import { StyleTemplateGrid } from './StyleTemplateGrid';
 import {
   Sidebar,
   SidebarContent,
@@ -20,6 +21,16 @@ import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
+interface StyleTemplate {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  prompt: string;
+  category: string;
+  isPro?: boolean;
+}
+
 interface ImageGenerationSidebarProps {
   style: string;
   onStyleChange: (style: string) => void;
@@ -27,6 +38,8 @@ interface ImageGenerationSidebarProps {
   onCountChange: (count: number) => void;
   resolution: string;
   onResolutionChange: (resolution: string) => void;
+  prompt: string;
+  onPromptChange: (prompt: string) => void;
 }
 
 const STYLE_OPTIONS = [
@@ -56,10 +69,20 @@ export function ImageGenerationSidebar({
   onCountChange,
   resolution,
   onResolutionChange,
+  prompt,
+  onPromptChange,
 }: ImageGenerationSidebarProps) {
   const [advancedOpen, setAdvancedOpen] = React.useState(false);
   const [qualityMode, setQualityMode] = React.useState('standard');
   const [promptMagic, setPromptMagic] = React.useState(true);
+  const [selectedTemplate, setSelectedTemplate] = React.useState<StyleTemplate | undefined>();
+
+  const handleTemplateSelect = (template: StyleTemplate) => {
+    setSelectedTemplate(template);
+    // Enhance the current prompt with the template's style
+    const enhancedPrompt = prompt ? `${prompt}, ${template.prompt}` : template.prompt;
+    onPromptChange(enhancedPrompt);
+  };
 
   return (
     <Sidebar className="border-r border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -108,6 +131,21 @@ export function ImageGenerationSidebar({
                 </Button>
               </div>
             </div>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarSeparator />
+
+        {/* Style Templates */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground">
+            Style Templates
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <StyleTemplateGrid 
+              onTemplateSelect={handleTemplateSelect}
+              selectedTemplate={selectedTemplate}
+            />
           </SidebarGroupContent>
         </SidebarGroup>
 
