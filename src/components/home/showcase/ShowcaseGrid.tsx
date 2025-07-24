@@ -31,7 +31,7 @@ export const ShowcaseGrid = ({ items, hoveredIndex, setHoveredIndex }: ShowcaseG
   };
 
   const handleUsePrompt = (prompt: string, style: string) => {
-    console.log('Using prompt:', prompt, 'with style:', style);
+    // This will be handled by ShowcaseCard's navigation
   };
 
   return (

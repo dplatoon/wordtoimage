@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/carousel';
 import { ImageSEO } from '@/components/seo/ImageSEO';
 import { defaultFallbackImage } from '@/utils/imageUtils';
+import { useNavigate } from 'react-router-dom';
 
 interface ShowcaseMobileCarouselProps {
   items: Array<{
@@ -23,11 +24,21 @@ interface ShowcaseMobileCarouselProps {
 }
 
 export const ShowcaseMobileCarousel = ({ items, hoveredIndex, setHoveredIndex }: ShowcaseMobileCarouselProps) => {
+  const navigate = useNavigate();
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   
   const handleImageError = (id: number) => {
     console.log('Failed to load carousel image:', id);
     setImageErrors(prev => ({ ...prev, [id]: true }));
+  };
+
+  const handleImageClick = (item: any) => {
+    navigate('/text-to-image', { 
+      state: { 
+        prompt: item.prompt,
+        style: item.style 
+      } 
+    });
   };
 
   // Generate carousel structured data
@@ -68,7 +79,10 @@ export const ShowcaseMobileCarousel = ({ items, hoveredIndex, setHoveredIndex }:
           <CarouselContent>
             {items.map((item, index) => (
               <CarouselItem key={item.id} className="pl-1">
-                <article className="relative overflow-hidden rounded-xl aspect-square">
+                <article 
+                  className="relative overflow-hidden rounded-xl aspect-square cursor-pointer group"
+                  onClick={() => handleImageClick(item)}
+                >
                   <ImageSEO
                     src={imageErrors[item.id] ? defaultFallbackImage : item.imageUrl}
                     alt={`AI-generated ${item.style} artwork: ${item.prompt} created by ${item.author}`}

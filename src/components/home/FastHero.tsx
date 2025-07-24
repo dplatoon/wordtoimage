@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Wand2, Play, Star, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { trackEvent } from '@/utils/analytics';
+import { HeroPromptInput } from './HeroPromptInput';
 
 export const FastHero = () => {
   const [showProModal, setShowProModal] = useState(false);
@@ -152,6 +153,9 @@ export const FastHero = () => {
             50+ artistic styles available
           </div>
         </div>
+
+        {/* Interactive Prompt Input */}
+        <HeroPromptInput />
 
         {/* Additional SEO Content */}
         <div className="max-w-4xl mx-auto text-left">

@@ -27,6 +27,7 @@ import { PerformanceMonitor } from "@/components/performance/PerformanceMonitor"
 import { TestimonialsSocial } from "@/components/home/TestimonialsSocial";
 import { InternalLinking } from "@/components/home/InternalLinking";
 import { SeoHead } from "@/components/home/SeoHead";
+import { TryStyleGallery } from "@/components/home/TryStyleGallery";
 
 const Index = () => {
   const { user } = useAuth();
@@ -98,6 +99,7 @@ const Index = () => {
         {/* Main Content with proper heading structure and accessibility */}
         <main id="main-content" role="main">
           <FastHero />
+          <TryStyleGallery />
           <FastFeatures />
           <ShowcaseSection />
           <TestimonialsSocial />
