@@ -57,6 +57,7 @@
     "embla-carousel-react": "^8.3.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "fabric": "^6.0.2",
+    "framer-motion": "^12.23.7",
     "i18next": "^21.8.10",
     "i18next-browser-languagedetector": "^6.1.4",
     "input-otp": "^1.2.4",

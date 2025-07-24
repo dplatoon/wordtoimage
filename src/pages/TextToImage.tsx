@@ -27,6 +27,9 @@ import { useGenerationHistory } from '@/hooks/useGenerationHistory';
 import { StyleRecommendations } from '@/components/word-to-image/StyleRecommendations';
 import { RecentStyles } from '@/components/word-to-image/RecentStyles';
 import { GenerationHistory } from '@/components/word-to-image/GenerationHistory';
+import { FloatingActionPanel, defaultActions } from '@/components/ui/floating-action-panel';
+import { ProgressRing, PulseAnimation } from '@/components/ui/micro-interactions';
+import { QuickTooltip } from '@/components/ui/enhanced-tooltip';
 
 // Style mapping for URL parameters
 const STYLE_MAPPINGS: Record<string, string> = {
@@ -928,6 +931,49 @@ export default function TextToImage() {
       <Footer />
       
       <AuthModalDialog open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+      
+      {/* Floating Action Panel for Enhanced UX */}
+      <FloatingActionPanel
+        actions={[
+          {
+            id: 'generate',
+            icon: <Sparkles className="h-5 w-5" />,
+            label: 'Generate Image',
+            action: handleGenerate,
+            shortcut: 'Ctrl+Enter',
+            color: 'purple',
+            disabled: !prompt.trim() || isGenerating
+          },
+          {
+            id: 'styles',
+            icon: <Palette className="h-5 w-5" />,
+            label: 'Browse Styles',
+            action: () => window.location.href = '/style-gallery',
+            color: 'pink'
+          },
+          {
+            id: 'history',
+            icon: <History className="h-5 w-5" />,
+            label: 'View History',
+            action: () => {
+              const historySection = document.querySelector('[aria-label="Generation history"]');
+              historySection?.scrollIntoView({ behavior: 'smooth' });
+            },
+            color: 'green',
+            disabled: history.length === 0
+          },
+          {
+            id: 'gallery',
+            icon: <BookOpen className="h-5 w-5" />,
+            label: 'Manage Gallery',
+            action: handleManageGallery,
+            color: 'blue',
+            disabled: generatedImages.length === 0
+          }
+        ]}
+        position="bottom-right"
+        autoHide={true}
+      />
     </div>
   );
 }
