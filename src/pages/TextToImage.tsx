@@ -31,6 +31,8 @@ import { FloatingActionPanel, defaultActions } from '@/components/ui/floating-ac
 import { ProgressRing, PulseAnimation } from '@/components/ui/micro-interactions';
 import { QuickTooltip } from '@/components/ui/enhanced-tooltip';
 import { BrowserCompatibilityWrapper } from '@/components/compatibility/BrowserCompatibilityWrapper';
+import { SidebarProvider, SidebarTrigger, SidebarInset } from '@/components/ui/sidebar';
+import { ImageGenerationSidebar } from '@/components/text-to-image/ImageGenerationSidebar';
 
 // Style mapping for URL parameters
 const STYLE_MAPPINGS: Record<string, string> = {
@@ -57,6 +59,8 @@ export default function TextToImage() {
   const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
   const [showTips, setShowTips] = useState(true);
   const [showGalleryManager, setShowGalleryManager] = useState(false);
+  const [count, setCount] = useState(1);
+  const [resolution, setResolution] = useState('1024x1024');
   const { user, isLoading } = useAuth();
   const isMobile = useIsMobile();
   const { selectedStyle, hasStyleParam, clearStyleParam } = useStyleParams();
@@ -231,6 +235,17 @@ export default function TextToImage() {
     toast.success("Prompt loaded from history");
   };
 
+  const handleStyleChange = (newStyle: string) => {
+    // Update URL to show selected style
+    const url = new URL(window.location.href);
+    url.searchParams.set('style', newStyle);
+    window.history.pushState({}, '', url.toString());
+    
+    toast.success(`${newStyle.replace('-', ' ')} style selected!`, {
+      description: "Your images will be generated with this artistic style."
+    });
+  };
+
   // Fix the Create Another functionality
   const handleCreateAnother = () => {
     // Clear the prompt and focus on input
@@ -331,8 +346,9 @@ export default function TextToImage() {
 
   return (
     <BrowserCompatibilityWrapper>
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50 via-white to-indigo-50">
-      <Helmet>
+      <SidebarProvider defaultOpen={!isMobile}>
+        <div className="min-h-screen flex w-full bg-gradient-to-b from-violet-50 via-white to-indigo-50">
+          <Helmet>
         <title>AI Image Generator: Turn Words to Art in Seconds | WordToImage</title>
         <meta name="description" content="Free AI-powered text-to-image tool. Create stunning visuals from text prompts instantly. No design skills needed. Try now!" />
         <meta name="keywords" content="AI image generator, text to image, AI art generator, free image generator, AI artwork, digital art creator" />
@@ -460,8 +476,28 @@ export default function TextToImage() {
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       
-      <SkipToContent />
-      <Nav />
+          <SkipToContent />
+          
+          {/* Header with Nav and Sidebar Trigger */}
+          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="flex h-14 items-center px-4">
+              <SidebarTrigger className="mr-4" />
+              <Nav />
+            </div>
+          </header>
+
+          {/* Sidebar */}
+          <ImageGenerationSidebar
+            style={selectedStyle || 'auto'}
+            onStyleChange={handleStyleChange}
+            count={count}
+            onCountChange={setCount}
+            resolution={resolution}
+            onResolutionChange={setResolution}
+          />
+
+          {/* Main Content */}
+          <SidebarInset className="flex-1">
       
       <main className={cn(
         "container mx-auto px-4 py-8 flex-grow",
@@ -976,7 +1012,9 @@ export default function TextToImage() {
         position="bottom-right"
         autoHide={true}
       />
-    </div>
+          </SidebarInset>
+        </div>
+      </SidebarProvider>
     </BrowserCompatibilityWrapper>
   );
 }
