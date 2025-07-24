@@ -106,25 +106,28 @@ export function ImageGenerationSidebar({
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="quality-mode" className="text-sm">Quality</Label>
-                <Badge variant={qualityMode === 'standard' ? 'default' : 'secondary'} className="text-xs">
+              <div className="flex items-center justify-between mb-2">
+                <Label htmlFor="quality-mode" className="text-sm font-medium">Quality Mode</Label>
+                <Badge 
+                  variant={qualityMode === 'standard' ? 'default' : 'secondary'} 
+                  className="text-xs"
+                >
                   {qualityMode === 'standard' ? 'Standard' : 'Quality'}
                 </Badge>
               </div>
-              <div className="flex gap-1">
+              <div className="grid grid-cols-2 gap-2">
                 <Button
-                  variant={qualityMode === 'standard' ? 'default' : 'ghost'}
+                  variant={qualityMode === 'standard' ? 'default' : 'outline'}
                   size="sm"
-                  className="flex-1 h-8"
+                  className="h-10"
                   onClick={() => setQualityMode('standard')}
                 >
                   Standard
                 </Button>
                 <Button
-                  variant={qualityMode === 'quality' ? 'default' : 'ghost'}
+                  variant={qualityMode === 'quality' ? 'default' : 'outline'}
                   size="sm"
-                  className="flex-1 h-8"
+                  className="h-10"
                   onClick={() => setQualityMode('quality')}
                 >
                   Quality
@@ -138,7 +141,8 @@ export function ImageGenerationSidebar({
 
         {/* Style Templates */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground">
+          <SidebarGroupLabel className="text-sm font-semibold text-foreground flex items-center gap-2 mb-3">
+            <Palette className="h-4 w-4 text-primary" />
             Style Templates
           </SidebarGroupLabel>
           <SidebarGroupContent>

@@ -1,3 +1,4 @@
+@import './styles/enhanced-theme.css';
 @import './styles/design-system.css';
 
 @tailwind base;

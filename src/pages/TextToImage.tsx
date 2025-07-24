@@ -479,9 +479,15 @@ export default function TextToImage() {
           <SkipToContent />
           
           {/* Header with Nav and Sidebar Trigger */}
-          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="flex h-14 items-center px-4">
-              <SidebarTrigger className="mr-4" />
+          <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+            <div className="flex h-16 items-center justify-between px-6">
+              <div className="flex items-center gap-4">
+                <SidebarTrigger className="h-9 w-9" />
+                <div>
+                  <h1 className="text-xl font-bold text-gradient">AI Image Studio</h1>
+                  <p className="text-sm text-muted-foreground">Create stunning visuals with AI</p>
+                </div>
+              </div>
               <Nav />
             </div>
           </header>
