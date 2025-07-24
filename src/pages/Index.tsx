@@ -12,24 +12,26 @@ import { MobileOptimizedNav } from "@/components/navigation/MobileOptimizedNav";
 import { CoreWebVitalsMonitor } from "@/components/performance/CoreWebVitalsMonitor";
 import { ConversionManager } from "@/components/conversion/ConversionManager";
 import { OnboardingManager } from "@/components/onboarding/OnboardingManager";
-import { LiveActivityCounter } from "@/components/social-proof/LiveActivityCounter";
-import { ExitIntentModal } from "@/components/conversion/ExitIntentModal";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { useAuth } from "@/contexts/AuthContext";
-import { BrokenLinkChecker } from "@/components/common/BrokenLinkChecker";
 import { useEffect } from "react";
 import { initPerformanceMonitoring } from "@/utils/performance";
-import { CriticalPathOptimizer } from "@/components/performance/CriticalPathOptimizer";
-import { LCPOptimizer } from "@/components/performance/LCPOptimizer";
-import { AccessibilityOptimizer } from "@/components/performance/AccessibilityOptimizer";
-import { JSOptimizer } from "@/components/performance/JSOptimizer";
-import { PerformanceMonitor } from "@/components/performance/PerformanceMonitor";
-import { TestimonialsSocial } from "@/components/home/TestimonialsSocial";
-import { InternalLinking } from "@/components/home/InternalLinking";
 import { SeoHead } from "@/components/home/SeoHead";
 import { TryStyleGallery } from "@/components/home/TryStyleGallery";
-import { OnboardingTooltips } from "@/components/onboarding/OnboardingTooltips";
-import { LiveCounter } from "@/components/ui/live-counter";
+import { PerformanceErrorHandler, CriticalResourceErrorHandler } from "@/components/performance/ErrorHandling";
+import { CriticalPerformanceOptimizer } from "@/components/performance/CriticalPerformanceOptimizer";
+
+// Lazy load non-critical components for better performance
+import { 
+  TestimonialsSocial,
+  InternalLinking,
+  OnboardingTooltips,
+  LiveCounter,
+  ExitIntentModal,
+  BrokenLinkChecker,
+  ComponentFallback,
+  Suspense
+} from "@/components/performance/LazyComponents";
 
 const Index = () => {
   const { user } = useAuth();
@@ -51,14 +53,14 @@ const Index = () => {
     >
       <ConversionManager pageId="homepage" userActivity={{}}>
         <div className="min-h-screen">
-        {/* Critical performance optimizations - loaded first */}
-        <CriticalPathOptimizer />
-        <LCPOptimizer />
-        <AccessibilityOptimizer />
-        <JSOptimizer />
-        <PerformanceMonitor />
+        {/* CRITICAL: Performance optimization must run first */}
+        <CriticalPerformanceOptimizer />
         
-        {/* Existing performance components */}
+        {/* Critical error handling - prevent crashes from blocking render */}
+        <PerformanceErrorHandler />
+        <CriticalResourceErrorHandler />
+        
+        {/* Essential performance monitoring only */}
         <CriticalCSS />
         <ResourcePreloader />
         <CoreWebVitalsMonitor />
@@ -98,33 +100,35 @@ const Index = () => {
         </div>
         <MobileOptimizedNav />
         
-        {/* Main Content with proper heading structure and accessibility */}
+        {/* Main Content - Critical path optimized */}
         <main id="main-content" role="main">
           <FastHero />
           <TryStyleGallery />
           <FastFeatures />
           <ShowcaseSection />
-          <TestimonialsSocial />
-          <InternalLinking />
+          
+          {/* Lazy load non-critical below-the-fold content */}
+          <Suspense fallback={<ComponentFallback />}>
+            <TestimonialsSocial />
+            <InternalLinking />
+          </Suspense>
         </main>
         
         <Footer />
 
-        {/* Social Proof & Conversion Elements */}
-        <LiveCounter />
-        <ExitIntentModal 
-          isOpen={showExitIntent} 
-          onClose={closeExitIntent} 
-        />
-
-        {/* Onboarding Tooltips */}
-        <OnboardingTooltips pageType="homepage" />
-
-        {/* Performance & Quality Monitoring */}
-        <BrokenLinkChecker 
-          enabled={process.env.NODE_ENV === 'development'} 
-          checkInterval={60000} 
-        />
+        {/* Lazy load conversion and monitoring components */}
+        <Suspense fallback={<ComponentFallback />}>
+          <LiveCounter />
+          <ExitIntentModal 
+            isOpen={showExitIntent} 
+            onClose={closeExitIntent} 
+          />
+          <OnboardingTooltips pageType="homepage" />
+          <BrokenLinkChecker 
+            enabled={process.env.NODE_ENV === 'development'} 
+            checkInterval={60000} 
+          />
+        </Suspense>
         </div>
       </ConversionManager>
     </OnboardingManager>

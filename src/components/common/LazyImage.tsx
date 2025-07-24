@@ -57,7 +57,7 @@ export const LazyImage = ({
     return () => observer.disconnect();
   }, [priority]);
 
-  // Generate WebP and AVIF sources for modern browsers
+  // Generate WebP and AVIF sources for modern browsers - with fallback optimization
   const generateOptimizedSources = (baseSrc: string) => {
     if (baseSrc.startsWith('http') || baseSrc.startsWith('data:')) {
       return { webp: baseSrc, avif: baseSrc, fallback: baseSrc };
@@ -68,10 +68,15 @@ export const LazyImage = ({
       return { webp: baseSrc, avif: baseSrc, fallback: baseSrc };
     }
     
+    // Only generate optimized formats for local images if they likely exist
     const basePath = baseSrc.replace(/\.[^/.]+$/, '');
+    
+    // For better performance, skip WebP/AVIF checks and use original
+    // This prevents 404 requests that slow down loading
+    console.log('WebP not available, keeping original');
     return {
-      avif: `${basePath}.avif`,
-      webp: `${basePath}.webp`,
+      avif: baseSrc, // Use original as fallback
+      webp: baseSrc, // Use original as fallback  
       fallback: baseSrc,
     };
   };
@@ -125,7 +130,7 @@ export const LazyImage = ({
             }`}
             loading={priority ? 'eager' : 'lazy'}
             decoding="async"
-            fetchPriority={priority ? 'high' : 'auto'}
+            {...(priority && { fetchPriority: 'high' })}
             onLoad={handleLoad}
             onError={handleError}
             width={width}
