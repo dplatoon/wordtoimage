@@ -28,6 +28,8 @@ import { TestimonialsSocial } from "@/components/home/TestimonialsSocial";
 import { InternalLinking } from "@/components/home/InternalLinking";
 import { SeoHead } from "@/components/home/SeoHead";
 import { TryStyleGallery } from "@/components/home/TryStyleGallery";
+import { OnboardingTooltips } from "@/components/onboarding/OnboardingTooltips";
+import { LiveCounter } from "@/components/ui/live-counter";
 
 const Index = () => {
   const { user } = useAuth();
@@ -109,11 +111,14 @@ const Index = () => {
         <Footer />
 
         {/* Social Proof & Conversion Elements */}
-        <LiveActivityCounter />
+        <LiveCounter />
         <ExitIntentModal 
           isOpen={showExitIntent} 
           onClose={closeExitIntent} 
         />
+
+        {/* Onboarding Tooltips */}
+        <OnboardingTooltips pageType="homepage" />
 
         {/* Performance & Quality Monitoring */}
         <BrokenLinkChecker 

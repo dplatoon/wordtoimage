@@ -7,6 +7,7 @@ import { DesktopNav } from '@/components/navigation/DesktopNav';
 import { MobileNav } from '@/components/navigation/MobileNav';
 import { NavAuthButtons } from '@/components/navigation/NavAuthButtons';
 import { useAuthState } from '@/hooks/useAuthState';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 export const Nav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,8 +25,11 @@ export const Nav = () => {
           {/* Desktop Navigation */}
           <DesktopNav />
 
-          {/* Desktop Auth Buttons */}
-          <NavAuthButtons session={session} />
+          {/* Theme Toggle and Auth Buttons */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <NavAuthButtons session={session} />
+          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">

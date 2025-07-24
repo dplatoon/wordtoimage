@@ -23,7 +23,7 @@ export const ShowcaseSection = () => {
   }));
 
   return (
-    <section id="showcase" className="py-16 md:py-24 bg-white">
+    <section id="showcase" className="py-16 md:py-24 bg-white" data-onboarding="showcase-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <ShowcaseHeader />

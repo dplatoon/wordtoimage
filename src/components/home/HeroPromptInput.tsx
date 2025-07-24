@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Wand2, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { AnimatedButton } from '@/components/ui/animated-button';
 
 const EXAMPLE_PROMPTS = [
   "A majestic dragon flying over a crystal castle",
@@ -73,7 +74,7 @@ export const HeroPromptInput = () => {
             
             {/* Prompt Input */}
             <div className="space-y-4">
-              <div className="relative">
+              <div className="relative" data-onboarding="hero-prompt">
                 <Input
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
@@ -83,13 +84,15 @@ export const HeroPromptInput = () => {
                 />
               </div>
               
-              <Button
+              <AnimatedButton
                 onClick={handleGenerate}
-                className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold py-6 text-lg rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold py-6 text-lg rounded-xl shadow-lg transition-all duration-300"
+                successMessage="Redirecting..."
+                loadingText="Preparing..."
               >
                 Generate AI Image
                 <Wand2 className="ml-3 h-5 w-5" />
-              </Button>
+              </AnimatedButton>
             </div>
             
             {/* Example Text */}

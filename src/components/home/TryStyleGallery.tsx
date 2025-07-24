@@ -92,7 +92,7 @@ export const TryStyleGallery = () => {
   };
 
   return (
-    <section className="py-12 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-12 bg-gradient-to-b from-white to-gray-50" data-onboarding="style-gallery">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-8">

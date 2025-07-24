@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { LazyImage } from '@/components/common/LazyImage';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/sonner';
+import { useFlashMessage, FlashMessage } from '@/components/ui/flash-message';
 
 interface ShowcaseCardProps {
   title: string;
@@ -31,8 +32,12 @@ export const ShowcaseCard = ({
   className = ""
 }: ShowcaseCardProps) => {
   const navigate = useNavigate();
+  const { flashState, showFlash, hideFlash } = useFlashMessage();
 
   const handleUsePrompt = () => {
+    // Show flash message
+    showFlash('copy', 'Prompt copied to clipboard!');
+    
     // Navigate to text-to-image page and pre-fill the prompt
     navigate('/text-to-image', { 
       state: { 
@@ -44,6 +49,9 @@ export const ShowcaseCard = ({
   };
 
   const handleGenerateSimilar = () => {
+    // Show flash message for style application
+    showFlash('style', 'Style applied!');
+    
     // Navigate to text-to-image with a modified prompt for similar generation
     const similarPrompt = `${prompt}, ${style} style, similar composition`;
     navigate('/text-to-image', { 
@@ -129,6 +137,14 @@ export const ShowcaseCard = ({
           </Button>
         </div>
       </div>
+      
+      {/* Flash Message */}
+      <FlashMessage
+        show={flashState.show}
+        type={flashState.type}
+        message={flashState.message}
+        onHide={hideFlash}
+      />
     </div>
   );
 };
