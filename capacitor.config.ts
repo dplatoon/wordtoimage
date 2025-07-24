@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'wordtoimage-ai',
   webDir: 'dist',
   server: {
-    url: 'https://721910ee-f437-4eac-8223-3967b0776ac5.lovableproject.com?forceHideBadge=true',
+    url: 'https://wordtoimage.com?forceHideBadge=true',
     cleartext: true
   },
   plugins: {
