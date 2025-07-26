@@ -9,6 +9,12 @@ export default defineConfig(({ command, mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    headers: {
+      // Add performance headers in development
+      'Cache-Control': mode === 'development' ? 'no-cache' : 'public, max-age=31536000',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'SAMEORIGIN'
+    }
   },
   plugins: [
     react(),
@@ -21,8 +27,25 @@ export default defineConfig(({ command, mode }) => ({
     },
   },
   build: {
+    target: 'es2020',
+    cssTarget: 'chrome90',
     rollupOptions: {
       output: {
+        // Optimized asset file naming for better caching
+        assetFileNames: (assetInfo) => {
+          if (!assetInfo.name) return `assets/[name]-[hash][extname]`;
+          const info = assetInfo.name.split('.');
+          const extType = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp|avif/i.test(extType)) {
+            return `assets/images/[name]-[hash][extname]`;
+          }
+          if (/css/i.test(extType)) {
+            return `assets/css/[name]-[hash][extname]`;
+          }
+          return `assets/[name]-[hash][extname]`;
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
         manualChunks: {
           // Core React chunks
           'react-vendor': ['react', 'react-dom'],

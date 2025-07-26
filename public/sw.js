@@ -1,117 +1,113 @@
+// Service Worker for performance optimization
+const CACHE_NAME = 'wordtoimage-v1';
+const STATIC_CACHE = 'static-v1';
+const DYNAMIC_CACHE = 'dynamic-v1';
 
-const CACHE_NAME = 'wordtoimage-v1.2';
-const CRITICAL_CACHE = 'wordtoimage-critical-v1.2';
-
-const CRITICAL_RESOURCES = [
+// Static assets to cache immediately
+const STATIC_ASSETS = [
   '/',
-  '/src/main.tsx',
   '/src/index.css',
   '/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png',
   '/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png'
 ];
 
-const STATIC_RESOURCES = [
-  '/manifest.json',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'
-];
-
-// Enhanced install event with better error handling
+// Install event - cache static assets
 self.addEventListener('install', (event) => {
-  console.log('🔧 Service Worker installing...');
-  
   event.waitUntil(
-    Promise.all([
-      caches.open(CRITICAL_CACHE)
-        .then(cache => cache.addAll(CRITICAL_RESOURCES))
-        .catch(err => console.warn('Failed to cache critical resources:', err)),
-      caches.open(CACHE_NAME)
-        .then(cache => cache.addAll(STATIC_RESOURCES))
-        .catch(err => console.warn('Failed to cache static resources:', err))
-    ]).then(() => {
-      console.log('✅ Service Worker installed successfully');
-      self.skipWaiting();
-    })
+    caches.open(STATIC_CACHE)
+      .then(cache => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
-// Enhanced activate event with cache cleanup
+// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('🚀 Service Worker activating...');
-  
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME && cacheName !== CRITICAL_CACHE) {
-            console.log('🗑️ Deleting old cache:', cacheName);
+          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
             return caches.delete(cacheName);
           }
         })
       );
-    }).then(() => {
-      console.log('✅ Service Worker activated');
-      self.clients.claim();
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
-// Enhanced fetch event with intelligent caching strategy
+// Fetch event - serve from cache or network
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  
-  const url = new URL(event.request.url);
-  
-  // Skip non-http(s) requests
-  if (!url.protocol.startsWith('http')) return;
-  
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      // Return cached response if available
-      if (response) {
-        console.log('📦 Serving from cache:', event.request.url);
-        return response;
-      }
-      
-      // Fetch from network with enhanced error handling
-      return fetch(event.request).then(response => {
-        // Don't cache non-successful responses
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // Skip non-GET requests
+  if (request.method !== 'GET') return;
+
+  // Skip external URLs except for fonts and critical CDN assets
+  if (url.origin !== location.origin && 
+      !url.hostname.includes('fonts.googleapis.com') &&
+      !url.hostname.includes('fonts.gstatic.com')) {
+    return;
+  }
+
+  // Handle static assets
+  if (STATIC_ASSETS.includes(url.pathname) || 
+      request.destination === 'image' ||
+      request.destination === 'font' ||
+      request.destination === 'style') {
+    
+    event.respondWith(
+      caches.match(request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
         }
         
-        // Cache successful responses
-        const responseToCache = response.clone();
-        const cacheName = CRITICAL_RESOURCES.includes(url.pathname) ? CRITICAL_CACHE : CACHE_NAME;
-        
-        caches.open(cacheName).then(cache => {
-          cache.put(event.request, responseToCache);
-          console.log('💾 Cached:', event.request.url);
+        return fetch(request).then(response => {
+          if (response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(STATIC_CACHE).then(cache => {
+              cache.put(request, responseClone);
+            });
+          }
+          return response;
         });
-        
-        return response;
-      }).catch(error => {
-        console.warn('🌐 Network fetch failed:', event.request.url, error);
-        
-        // Return offline fallback for HTML requests
-        if (event.request.headers.get('accept')?.includes('text/html')) {
-          return caches.match('/').then(fallback => {
-            return fallback || new Response('Offline - Please check your connection', {
+      })
+    );
+  }
+  
+  // Handle dynamic content with network-first strategy
+  else {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          if (response.status === 200 && response.type === 'basic') {
+            const responseClone = response.clone();
+            caches.open(DYNAMIC_CACHE).then(cache => {
+              cache.put(request, responseClone);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          return caches.match(request).then(cachedResponse => {
+            return cachedResponse || new Response('Offline content not available', {
               status: 503,
               statusText: 'Service Unavailable'
             });
           });
-        }
-        
-        // Return empty response for other failed requests
-        return new Response('', { status: 503, statusText: 'Service Unavailable' });
-      });
-    })
-  );
-});
-
-// Handle service worker updates
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
+        })
+    );
   }
 });
+
+// Background sync for offline functionality
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'background-sync') {
+    event.waitUntil(doBackgroundSync());
+  }
+});
+
+function doBackgroundSync() {
+  // Handle any background tasks when connection is restored
+  return Promise.resolve();
+}

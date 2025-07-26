@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-// Performance monitoring temporarily disabled for optimization
-import { initServiceWorker, preloadCriticalResources } from './utils/serviceWorker';
+// Performance optimizations
+import { initPerformanceOptimizations, optimizeImageLoading, trackCoreWebVitals } from './utils/performance/performanceUtils';
 
 // Initialize performance monitoring immediately
 // Performance monitoring temporarily disabled
@@ -14,13 +14,14 @@ if (typeof performance !== 'undefined') {
   performance.mark('react-render-start');
 }
 
-// Preload critical resources immediately before React renders
-preloadCriticalResources();
+// Initialize all performance optimizations
+initPerformanceOptimizations().catch(console.error);
 
-// Initialize service worker for offline functionality and caching
-if (import.meta.env.PROD) {
-  initServiceWorker().catch(console.error);
-}
+// Additional optimizations after DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  optimizeImageLoading();
+  trackCoreWebVitals();
+});
 
 // Mobile-specific optimizations
 if ('connection' in navigator) {
