@@ -155,23 +155,28 @@ export const usePerformanceOptimization = (options: PerformanceOptions = {}) => 
   };
 };
 
-// Performance monitoring hook
+  // Optimized performance monitoring hook with memory leak prevention
 export const usePerformanceMonitor = () => {
+  const memoryCheckRef = useRef<NodeJS.Timeout | null>(null);
+  
   useEffect(() => {
-    // Monitor Core Web Vitals
-    if ('web-vital' in window) {
-      // This would integrate with web-vitals library if installed
-      console.log('Performance monitoring active');
-    }
+    // Reduced frequency memory monitoring to prevent performance impact
+    memoryCheckRef.current = setInterval(() => {
+      if ('memory' in performance) {
+        const memory = (performance as any).memory;
+        const usedMB = Math.round(memory.usedJSHeapSize / 1024 / 1024);
+        
+        // Only warn if memory usage is concerning (>100MB)
+        if (usedMB > 100) {
+          console.warn(`[Memory] High usage: ${usedMB}MB`);
+        }
+      }
+    }, 30000); // Check every 30 seconds instead of on every render
     
-    // Monitor memory usage
-    if ('memory' in performance) {
-      const memory = (performance as any).memory;
-      console.log('Memory usage:', {
-        used: Math.round(memory.usedJSHeapSize / 1024 / 1024),
-        total: Math.round(memory.totalJSHeapSize / 1024 / 1024),
-        limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024)
-      });
-    }
+    return () => {
+      if (memoryCheckRef.current) {
+        clearInterval(memoryCheckRef.current);
+      }
+    };
   }, []);
 };

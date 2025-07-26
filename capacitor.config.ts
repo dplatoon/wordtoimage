@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'wordtoimage-ai',
   webDir: 'dist',
   server: {
-    url: 'https://wordtoimage.com?forceHideBadge=true',
+    // Use Lovable domain for now - custom domain can be configured in Lovable settings
     cleartext: true
   },
   plugins: {

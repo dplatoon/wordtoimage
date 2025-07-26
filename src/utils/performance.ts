@@ -36,32 +36,42 @@ export class PerformanceMonitor {
   observeWebVitals(): void {
     if (typeof window === 'undefined') return;
 
-    // Largest Contentful Paint
-    new PerformanceObserver((entryList) => {
-      const entries = entryList.getEntries();
-      const lastEntry = entries[entries.length - 1] as any;
-      console.log('LCP:', lastEntry.startTime);
-    }).observe({ entryTypes: ['largest-contentful-paint'] });
-
-    // First Input Delay
-    new PerformanceObserver((entryList) => {
-      const entries = entryList.getEntries();
-      entries.forEach((entry: any) => {
-        console.log('FID:', entry.processingStart - entry.startTime);
-      });
-    }).observe({ entryTypes: ['first-input'] });
-
-    // Cumulative Layout Shift
-    new PerformanceObserver((entryList) => {
-      let clsValue = 0;
-      const entries = entryList.getEntries();
-      entries.forEach((entry: any) => {
-        if (!entry.hadRecentInput) {
-          clsValue += entry.value;
+    // Optimized Core Web Vitals monitoring - only warn for poor scores
+    try {
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        const lastEntry = entries[entries.length - 1] as any;
+        const lcp = lastEntry.startTime;
+        if (lcp > 2500) {
+          console.warn(`[Performance] LCP needs improvement: ${lcp.toFixed(0)}ms`);
         }
-      });
-      console.log('CLS:', clsValue);
-    }).observe({ entryTypes: ['layout-shift'] });
+      }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        entries.forEach((entry: any) => {
+          const fid = entry.processingStart - entry.startTime;
+          if (fid > 100) {
+            console.warn(`[Performance] FID needs improvement: ${fid.toFixed(0)}ms`);
+          }
+        });
+      }).observe({ entryTypes: ['first-input'] });
+
+      let clsValue = 0;
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        entries.forEach((entry: any) => {
+          if (!entry.hadRecentInput) {
+            clsValue += entry.value;
+          }
+        });
+        if (clsValue > 0.1) {
+          console.warn(`[Performance] CLS needs improvement: ${clsValue.toFixed(3)}`);
+        }
+      }).observe({ entryTypes: ['layout-shift'] });
+    } catch (error) {
+      // Silently fail if performance observers aren't supported
+    }
   }
 }
 

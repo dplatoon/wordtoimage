@@ -47,13 +47,9 @@ export const usePerformanceMonitoring = (componentName: string): PerformanceMoni
       const result = fn(...args);
       const duration = performance.now() - start;
       
-      if (duration > 16) { // Longer than a frame
-        trackEvent({
-          action: 'performance_slow_function',
-          category: 'performance',
-          label: `${componentName}.${fnName}`,
-          value: Math.round(duration)
-        });
+      // Only log critically slow functions (>100ms) to reduce noise
+      if (duration > 100) {
+        console.warn(`[Performance] Slow function: ${componentName}.${fnName} took ${duration.toFixed(2)}ms`);
       }
       
       return result;
@@ -95,12 +91,10 @@ export const usePerformanceMonitoring = (componentName: string): PerformanceMoni
     const isSlow = metrics.lastRenderTime > threshold;
     
     if (isSlow) {
-      trackEvent({
-        action: 'performance_slow_render',
-        category: 'performance',
-        label: componentName,
-        value: Math.round(metrics.lastRenderTime)
-      });
+      // Reduced logging for slow renders - only warn for very slow renders
+      if (metrics.lastRenderTime > 50) {
+        console.warn(`[Performance] Slow render: ${componentName} took ${metrics.lastRenderTime.toFixed(2)}ms`);
+      }
     }
     
     return isSlow;
