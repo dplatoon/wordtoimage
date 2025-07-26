@@ -3,7 +3,7 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AdvancedImageEditor } from '@/components/image-editor/AdvancedImageEditor';
+// Advanced image editor removed for performance optimization
 import { BatchProcessingEngine } from '@/components/batch/BatchProcessingEngine';
 import { MobileOptimizationDashboard } from '@/components/mobile/MobileOptimizationDashboard';
 import { 
@@ -291,13 +291,9 @@ const TechnicalEnhancements = () => {
           <DialogHeader className="sr-only">
             <DialogTitle>Image Editor</DialogTitle>
           </DialogHeader>
-          {selectedImageUrl && (
-            <AdvancedImageEditor
-              imageUrl={selectedImageUrl}
-              onSave={handleSaveEditedImage}
-              onClose={() => setIsEditorOpen(false)}
-            />
-          )}
+          <div className="p-8 text-center">
+            <p className="text-muted-foreground">Advanced editor is being optimized and will return soon.</p>
+          </div>
         </DialogContent>
       </Dialog>
 

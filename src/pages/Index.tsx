@@ -9,13 +9,13 @@ import { CriticalCSS } from "@/components/performance/CriticalCSS";
 import { ResourcePreloader } from "@/components/performance/ResourcePreloader";
 import { EnhancedSchemaMarkup } from "@/components/seo/EnhancedSchemaMarkup";
 import { MobileOptimizedNav } from "@/components/navigation/MobileOptimizedNav";
-import { CoreWebVitalsMonitor } from "@/components/performance/CoreWebVitalsMonitor";
+// Performance monitoring temporarily disabled for optimization
 import { ConversionManager } from "@/components/conversion/ConversionManager";
 import { OnboardingManager } from "@/components/onboarding/OnboardingManager";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
-import { initPerformanceMonitoring } from "@/utils/performance";
+// Performance monitoring temporarily disabled for optimization
 import { SeoHead } from "@/components/home/SeoHead";
 import { TryStyleGallery } from "@/components/home/TryStyleGallery";
 import { PerformanceErrorHandler, CriticalResourceErrorHandler } from "@/components/performance/ErrorHandling";
@@ -39,7 +39,7 @@ const Index = () => {
 
   // Initialize performance monitoring
   useEffect(() => {
-    initPerformanceMonitoring();
+    // Performance monitoring temporarily disabled
   }, []);
 
   return (
@@ -63,7 +63,7 @@ const Index = () => {
         {/* Essential performance monitoring only */}
         <CriticalCSS />
         <ResourcePreloader />
-        <CoreWebVitalsMonitor />
+        {/* Performance monitoring temporarily disabled */}
         
         {/* Enhanced SEO with proper heading structure */}
         <SeoHead />

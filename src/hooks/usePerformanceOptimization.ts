@@ -30,33 +30,20 @@ export const usePerformanceOptimization = (options: PerformanceOptions = {}) => 
     };
   }, []);
 
-  // Lazy loading setup
+  // Optimized lazy loading setup
   useEffect(() => {
     if (!enableLazyLoading || !('IntersectionObserver' in window)) return;
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const img = entry.target as HTMLImageElement;
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-              img.removeAttribute('data-src');
-              observerRef.current?.unobserve(img);
-            }
-          }
-        });
-      },
-      {
-        rootMargin: isMobile ? '50px' : '100px',
-        threshold: 0.1
-      }
-    );
+    // Use optimized lazy loader
+    import('@/utils/optimizedLazyLoading').then(({ OptimizedLazyLoader }) => {
+      // Lazy loader is initialized as singleton
+      OptimizedLazyLoader.getInstance();
+    });
 
     return () => {
-      observerRef.current?.disconnect();
+      // Cleanup handled by singleton
     };
-  }, [enableLazyLoading, isMobile]);
+  }, [enableLazyLoading]);
 
   // Image optimization utilities
   const optimizeImageSrc = useCallback((src: string, width?: number, height?: number) => {
@@ -91,20 +78,25 @@ export const usePerformanceOptimization = (options: PerformanceOptions = {}) => 
     document.head.appendChild(link);
   }, [enablePreloading]);
 
-  // Performance monitoring
+  // Performance monitoring - reduced logging for optimization
   const measurePerformance = useCallback((name: string, fn: () => void | Promise<void>) => {
     const start = performance.now();
-    
     const result = fn();
     
     if (result instanceof Promise) {
       return result.finally(() => {
         const end = performance.now();
-        console.log(`[Performance] ${name}: ${(end - start).toFixed(2)}ms`);
+        // Only log slow operations (>100ms)
+        if (end - start > 100) {
+          console.log(`[Performance] ${name}: ${(end - start).toFixed(2)}ms`);
+        }
       });
     } else {
       const end = performance.now();
-      console.log(`[Performance] ${name}: ${(end - start).toFixed(2)}ms`);
+      // Only log slow operations (>100ms)
+      if (end - start > 100) {
+        console.log(`[Performance] ${name}: ${(end - start).toFixed(2)}ms`);
+      }
       return result;
     }
   }, []);

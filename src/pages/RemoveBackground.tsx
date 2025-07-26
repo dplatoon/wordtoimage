@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
-import { BackgroundRemoverConverter } from '@/components/converters/BackgroundRemoverConverter';
+// Background removal component removed for performance optimization
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -106,8 +106,10 @@ const RemoveBackground = () => {
           </div>
         </div>
 
-        {/* Converter Component */}
-        <BackgroundRemoverConverter />
+        {/* Converter Component - Feature temporarily disabled for performance optimization */}
+        <div className="bg-muted/30 rounded-lg p-8 text-center">
+          <p className="text-muted-foreground">Background removal feature is being optimized and will return soon.</p>
+        </div>
 
         {/* How It Works */}
         <div className="mt-16 text-center">

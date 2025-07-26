@@ -54,7 +54,7 @@ export const usePerformanceTesting = () => {
       const entries = entryList.getEntries();
       const lastEntry = entries[entries.length - 1] as any;
       setMetrics(prev => ({ ...prev, lcp: Math.round(lastEntry.startTime) }));
-      console.log('📊 LCP:', Math.round(lastEntry.startTime), 'ms');
+      // Reduced logging for performance optimization
     }).observe({ entryTypes: ['largest-contentful-paint'] });
 
     // FID (First Input Delay)
@@ -62,7 +62,7 @@ export const usePerformanceTesting = () => {
       entryList.getEntries().forEach((entry: any) => {
         const fid = entry.processingStart - entry.startTime;
         setMetrics(prev => ({ ...prev, fid: Math.round(fid) }));
-        console.log('📊 FID:', Math.round(fid), 'ms');
+        // Reduced logging for performance optimization
       });
     }).observe({ entryTypes: ['first-input'] });
 
@@ -75,7 +75,7 @@ export const usePerformanceTesting = () => {
         }
       });
       setMetrics(prev => ({ ...prev, cls: parseFloat(clsValue.toFixed(4)) }));
-      console.log('📊 CLS:', clsValue.toFixed(4));
+      // Reduced logging for performance optimization
     }).observe({ entryTypes: ['layout-shift'] });
 
     // FCP (First Contentful Paint)
@@ -83,7 +83,7 @@ export const usePerformanceTesting = () => {
       const entries = entryList.getEntries();
       entries.forEach((entry: any) => {
         setMetrics(prev => ({ ...prev, fcp: Math.round(entry.startTime) }));
-        console.log('📊 FCP:', Math.round(entry.startTime), 'ms');
+        // Reduced logging for performance optimization
       });
     }).observe({ entryTypes: ['paint'] });
   }, []);
@@ -247,14 +247,8 @@ export const usePerformanceTesting = () => {
     return recommendations;
   }, [metrics]);
 
-  useEffect(() => {
-    // Auto-run test when component mounts
-    const timer = setTimeout(() => {
-      runPerformanceTest();
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [runPerformanceTest]);
+  // Removed auto-run for performance optimization
+  // Performance test can be manually triggered when needed
 
   return {
     metrics,

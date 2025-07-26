@@ -89,7 +89,7 @@ const queryClient = new QueryClient({
 
 // Component imports for performance monitoring
 import { OptimizedFontLoader } from "./components/performance/OptimizedFontLoader";
-import { CoreWebVitalsMonitor } from "./components/performance/CoreWebVitalsMonitor";
+// Performance monitoring temporarily disabled for optimization
 import { EnhancedLighthouseOptimizer } from "./components/performance/EnhancedLighthouseOptimizer";
 import { MobileLighthouseOptimizer } from "./components/performance/MobileLighthouseOptimizer";
 import { BehaviorTracker } from "./components/analytics/BehaviorTracker";
@@ -114,7 +114,7 @@ function App() {
             <Toaster />
             <BehaviorTracker />
             <OptimizedFontLoader />
-            <CoreWebVitalsMonitor />
+            {/* Performance monitoring temporarily disabled */}
             <EnhancedLighthouseOptimizer />
             <MobileLighthouseOptimizer />
             <BrowserRouter>

@@ -3,11 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { initPerformanceMonitoring } from './utils/performance';
+// Performance monitoring temporarily disabled for optimization
 import { initServiceWorker, preloadCriticalResources } from './utils/serviceWorker';
 
 // Initialize performance monitoring immediately
-initPerformanceMonitoring();
+// Performance monitoring temporarily disabled
 
 // Mark critical rendering start
 if (typeof performance !== 'undefined') {
