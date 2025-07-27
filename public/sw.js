@@ -1,32 +1,27 @@
-// Service Worker for performance optimization
-const CACHE_NAME = 'wordtoimage-v1';
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
 
-// Static assets to cache immediately
-const STATIC_ASSETS = [
+// Minimal Service Worker for essential caching only
+const CACHE_NAME = 'wordtoimage-minimal-v1';
+const CRITICAL_ASSETS = [
   '/',
-  '/src/index.css',
-  '/lovable-uploads/da1df0c4-3f9d-47c9-913f-1e5ed78bb52a.png',
-  '/lovable-uploads/01102ecb-626e-44c0-983b-c6d90083b3ee.png'
+  '/src/index.css'
 ];
 
-// Install event - cache static assets
+// Install - cache only critical assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then(cache => cache.addAll(STATIC_ASSETS))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(CRITICAL_ASSETS))
       .then(() => self.skipWaiting())
   );
 });
 
-// Activate event - clean up old caches
+// Activate - clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+          if (cacheName !== CACHE_NAME) {
             return caches.delete(cacheName);
           }
         })
@@ -35,79 +30,22 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - serve from cache or network
+// Fetch - minimal caching strategy
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  const url = new URL(request.url);
-
+  
   // Skip non-GET requests
   if (request.method !== 'GET') return;
+  
+  // Skip external URLs
+  if (new URL(request.url).origin !== location.origin) return;
 
-  // Skip external URLs except for fonts and critical CDN assets
-  if (url.origin !== location.origin && 
-      !url.hostname.includes('fonts.googleapis.com') &&
-      !url.hostname.includes('fonts.gstatic.com')) {
-    return;
-  }
-
-  // Handle static assets
-  if (STATIC_ASSETS.includes(url.pathname) || 
-      request.destination === 'image' ||
-      request.destination === 'font' ||
-      request.destination === 'style') {
-    
+  // Cache-first for critical assets
+  if (CRITICAL_ASSETS.includes(new URL(request.url).pathname)) {
     event.respondWith(
-      caches.match(request).then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        
-        return fetch(request).then(response => {
-          if (response.status === 200) {
-            const responseClone = response.clone();
-            caches.open(STATIC_CACHE).then(cache => {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        });
+      caches.match(request).then(response => {
+        return response || fetch(request);
       })
     );
   }
-  
-  // Handle dynamic content with network-first strategy
-  else {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          if (response.status === 200 && response.type === 'basic') {
-            const responseClone = response.clone();
-            caches.open(DYNAMIC_CACHE).then(cache => {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          return caches.match(request).then(cachedResponse => {
-            return cachedResponse || new Response('Offline content not available', {
-              status: 503,
-              statusText: 'Service Unavailable'
-            });
-          });
-        })
-    );
-  }
 });
-
-// Background sync for offline functionality
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'background-sync') {
-    event.waitUntil(doBackgroundSync());
-  }
-});
-
-function doBackgroundSync() {
-  // Handle any background tasks when connection is restored
-  return Promise.resolve();
-}

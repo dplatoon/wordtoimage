@@ -3,23 +3,15 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import { imageOptimizer } from "./src/plugins/vite-image-optimizer";
 
 export default defineConfig(({ command, mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    headers: {
-      // Add performance headers in development
-      'Cache-Control': mode === 'development' ? 'no-cache' : 'public, max-age=31536000',
-      'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'SAMEORIGIN'
-    }
   },
   plugins: [
     react(),
     ...(command === 'serve' ? [componentTagger()] : []),
-    imageOptimizer(),
   ],
   resolve: {
     alias: {
@@ -31,13 +23,49 @@ export default defineConfig(({ command, mode }) => ({
     cssTarget: 'chrome90',
     rollupOptions: {
       output: {
-        // Optimized asset file naming for better caching
+        // Aggressive code splitting for better performance
+        manualChunks: {
+          // Core React chunk (smallest possible)
+          'react-core': ['react', 'react-dom'],
+          
+          // Router chunk
+          'router': ['react-router-dom'],
+          
+          // UI components - split by usage
+          'ui-core': [
+            '@radix-ui/react-slot',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-toast'
+          ],
+          
+          // Form components
+          'ui-forms': [
+            '@radix-ui/react-select',
+            '@radix-ui/react-checkbox',
+            '@radix-ui/react-label',
+            'react-hook-form'
+          ],
+          
+          // Data fetching
+          'data': ['@tanstack/react-query'],
+          
+          // Auth
+          'auth': ['@supabase/supabase-js'],
+          
+          // Icons and utilities
+          'utils': ['lucide-react', 'clsx', 'tailwind-merge'],
+          
+          // Charts (lazy loaded)
+          'charts': ['recharts'],
+        },
+        
+        // Optimize file naming for caching
         assetFileNames: (assetInfo) => {
           if (!assetInfo.name) return `assets/[name]-[hash][extname]`;
           const info = assetInfo.name.split('.');
           const extType = info[info.length - 1];
-          if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp|avif/i.test(extType)) {
-            return `assets/images/[name]-[hash][extname]`;
+          if (/png|jpe?g|svg|gif|webp|avif/i.test(extType)) {
+            return `assets/img/[name]-[hash][extname]`;
           }
           if (/css/i.test(extType)) {
             return `assets/css/[name]-[hash][extname]`;
@@ -46,52 +74,18 @@ export default defineConfig(({ command, mode }) => ({
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
-        manualChunks: {
-          // Core React chunks
-          'react-vendor': ['react', 'react-dom'],
-          'react-router': ['react-router-dom'],
-          
-          // UI Library chunks
-          'radix-ui': [
-            '@radix-ui/react-slot',
-            '@radix-ui/react-toast',
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-popover',
-            '@radix-ui/react-select',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-aspect-ratio',
-            '@radix-ui/react-avatar',
-            '@radix-ui/react-checkbox',
-            '@radix-ui/react-label',
-            '@radix-ui/react-tooltip'
-          ],
-          
-          // Heavy dependencies
-          'heavy-deps': ['@tanstack/react-query', 'react-helmet-async'],
-          
-          // Icons and utils
-          'icons-utils': ['lucide-react', 'clsx', 'tailwind-merge'],
-          
-          // Charts and analytics (lazy loaded)
-          'charts': ['recharts'],
-          
-          // Supabase and auth
-          'supabase': ['@supabase/supabase-js'],
-        },
       },
     },
     cssCodeSplit: true,
-    sourcemap: mode === 'development',
+    sourcemap: false, // Disable sourcemaps for production
     minify: mode === 'production' ? 'terser' : false,
-    chunkSizeWarningLimit: 1000, // Increase to reduce warnings
+    chunkSizeWarningLimit: 500, // Smaller chunks
     ...(mode === 'production' && {
       terserOptions: {
         compress: {
           drop_console: true,
           drop_debugger: true,
-          pure_funcs: ['console.log', 'console.info', 'console.debug'],
+          pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
         },
         mangle: {
           safari10: true,
@@ -107,6 +101,6 @@ export default defineConfig(({ command, mode }) => ({
       '@radix-ui/react-slot',
       '@radix-ui/react-toast'
     ],
-    exclude: ['@tanstack/react-query'] // Let this be dynamically imported
+    exclude: ['@tanstack/react-query']
   },
 }));

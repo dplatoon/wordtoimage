@@ -1,9 +1,9 @@
 
-// Main entry point for performance optimization - now uses modular structure
+// Minimal performance optimizer entry point
 export { 
-  PerformanceOptimizer,
-  WebVitalsMonitor,
-  ResourceOptimizer,
-  PerformanceReporter,
-  initPerformanceOptimizations
-} from './performance/index';
+  MinimalPerformanceOptimizer,
+  initMinimalPerformanceOptimizations
+} from './performance/minimalOptimizer';
+
+export { OptimizedLazyLoader } from './performance/optimizedLazyLoading';
+export { LightweightPerformanceMonitor } from './performance/lightweightMonitor';
