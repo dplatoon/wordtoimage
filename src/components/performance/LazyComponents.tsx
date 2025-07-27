@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 
 // Lazy load non-critical components to improve initial load
-const TestimonialsSocial = lazy(() => import('@/components/home/TestimonialsSocial').then(module => ({ default: module.TestimonialsSocial })));
+const TestimonialsSocial = lazy(() => import('@/components/home/TestimonialsSocial'));
 const InternalLinking = lazy(() => import('@/components/home/InternalLinking').then(module => ({ default: module.InternalLinking })));
 const OnboardingTooltips = lazy(() => import('@/components/onboarding/OnboardingTooltips').then(module => ({ default: module.OnboardingTooltips })));
 const LiveCounter = lazy(() => import('@/components/ui/live-counter').then(module => ({ default: module.LiveCounter })));

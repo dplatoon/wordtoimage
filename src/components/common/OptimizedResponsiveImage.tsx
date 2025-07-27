@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ImageOff } from 'lucide-react';
-import { PerformanceOptimizer } from '@/utils/performanceOptimizer';
+import { MinimalPerformanceOptimizer } from '@/utils/performanceOptimizer';
 
 interface OptimizedResponsiveImageProps {
   src: string;
@@ -37,7 +37,7 @@ export const OptimizedResponsiveImage: React.FC<OptimizedResponsiveImageProps> =
   const imgRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  const optimizer = PerformanceOptimizer.getInstance();
+  const optimizer = MinimalPerformanceOptimizer.getInstance();
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -65,8 +65,7 @@ export const OptimizedResponsiveImage: React.FC<OptimizedResponsiveImageProps> =
     return () => observer.disconnect();
   }, [priority]);
 
-  // Generate optimized sources
-  const responsiveSources = optimizer.generateResponsiveSources(src);
+  // Generate optimized source
   const optimizedSrc = optimizer.optimizeImageSrc(src, 
     typeof width === 'number' ? width : 800, 
     quality
@@ -107,43 +106,27 @@ export const OptimizedResponsiveImage: React.FC<OptimizedResponsiveImageProps> =
           <span className="sr-only">{alt}</span>
         </div>
       ) : isInView ? (
-        <picture>
-          {/* AVIF for maximum compression */}
-          <source 
-            srcSet={responsiveSources.avif} 
-            type="image/avif" 
-            sizes={sizes || responsiveSources.sizes} 
-          />
-          {/* WebP fallback */}
-          <source 
-            srcSet={responsiveSources.webp} 
-            type="image/webp" 
-            sizes={sizes || responsiveSources.sizes} 
-          />
-          {/* Original format fallback */}
-          <img
-            ref={imgRef}
-            src={optimizedSrc}
-            alt={alt}
-            className={`w-full h-full object-cover transition-opacity duration-300 ${
-              isLoading ? 'opacity-0' : 'opacity-100'
-            }`}
-            loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
-            fetchPriority={priority ? 'high' : 'auto'}
-            onLoad={handleLoad}
-            onError={handleError}
-            width={width}
-            height={height}
-            sizes={sizes || responsiveSources.sizes}
-            // Prevent layout shift by setting dimensions
-            style={{ 
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
-          />
-        </picture>
+        <img
+          ref={imgRef}
+          src={optimizedSrc}
+          alt={alt}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${
+            isLoading ? 'opacity-0' : 'opacity-100'
+          }`}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
+          onLoad={handleLoad}
+          onError={handleError}
+          width={width}
+          height={height}
+          sizes={sizes}
+          style={{ 
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
       ) : (
         <div className="w-full h-full bg-gray-100" aria-label="Loading..." />
       )}

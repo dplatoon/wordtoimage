@@ -18,9 +18,9 @@ import { Suspense, lazy } from "react";
 
 // Lazy load heavy non-critical components
 const TestimonialsSocial = lazy(() => import("@/components/home/TestimonialsSocial"));
-const InternalLinking = lazy(() => import("@/components/seo/InternalLinking"));
-const LiveCounter = lazy(() => import("@/components/ui/LiveCounter"));
-const ExitIntentModal = lazy(() => import("@/components/ui/ExitIntentModal"));
+const InternalLinking = lazy(() => import("@/components/home/InternalLinking").then(m => ({ default: m.InternalLinking })));
+const LiveCounter = lazy(() => import("@/components/ui/live-counter").then(m => ({ default: m.LiveCounter })));
+const ExitIntentModal = lazy(() => import("@/components/conversion/ExitIntentModal").then(m => ({ default: m.ExitIntentModal })));
 
 const Index = () => {
   const { user } = useAuth();

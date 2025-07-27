@@ -1,6 +1,6 @@
 import { Star, Quote, Users, TrendingUp } from 'lucide-react';
 
-export const TestimonialsSocial = () => {
+const TestimonialsSocial = () => {
   const testimonials = [
     {
       name: "Sarah K.",
@@ -124,3 +124,5 @@ export const TestimonialsSocial = () => {
     </section>
   );
 };
+
+export default TestimonialsSocial;
