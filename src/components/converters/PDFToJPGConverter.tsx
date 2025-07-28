@@ -66,7 +66,8 @@ export function PDFToJPGConverter() {
         if (context) {
           await page.render({
             canvasContext: context,
-            viewport: viewport
+            viewport: viewport,
+            canvas: canvas
           }).promise;
           
           const imageDataUrl = canvas.toDataURL('image/jpeg', 0.95);
