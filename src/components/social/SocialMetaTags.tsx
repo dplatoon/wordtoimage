@@ -17,7 +17,7 @@ interface SocialMetaTagsProps {
 export const SocialMetaTags: React.FC<SocialMetaTagsProps> = ({
   title,
   description,
-  image = 'https://wordtoimage.com/og-default.jpg',
+  image = 'https://wordtoimage.online/og-default.jpg',
   url = typeof window !== 'undefined' ? window.location.href : '',
   type = 'website',
   siteName = 'WordToImage',
@@ -77,7 +77,7 @@ export const SocialMetaTags: React.FC<SocialMetaTagsProps> = ({
             "name": siteName,
             "logo": {
               "@type": "ImageObject",
-              "url": "https://wordtoimage.com/logo.png"
+              "url": "https://wordtoimage.online/logo.png"
             }
           }
         })}

@@ -7,7 +7,7 @@ export const SeoHead = () => {
     "@type": "SoftwareApplication",
     "name": "WordToImage - AI Image Generator",
     "description": "AI-powered text-to-image generator that creates stunning visuals from simple text prompts. Generate high-quality images for social media, marketing, and creative projects with artificial intelligence.",
-    "url": "https://wordtoimage.com",
+    "url": "https://wordtoimage.online",
     "applicationCategory": "MultimediaApplication",
     "operatingSystem": "Web",
     "browserRequirements": "Requires JavaScript. Compatible with Chrome, Firefox, Safari, Edge.",
@@ -18,7 +18,7 @@ export const SeoHead = () => {
     "author": {
       "@type": "Organization",
       "name": "WordToImage",
-      "url": "https://wordtoimage.com"
+      "url": "https://wordtoimage.online"
     },
     "offers": [
       {
@@ -70,8 +70,8 @@ export const SeoHead = () => {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "WordToImage",
-    "url": "https://wordtoimage.com",
-    "logo": "https://wordtoimage.com/logo.png",
+    "url": "https://wordtoimage.online",
+    "logo": "https://wordtoimage.online/logo.png",
     "description": "Leading AI text-to-image generation platform powered by advanced machine learning algorithms",
     "foundingDate": "2024",
     "sameAs": [
@@ -161,15 +161,15 @@ export const SeoHead = () => {
       <meta name="rating" content="general" />
       <meta name="distribution" content="global" />
       <meta name="category" content="Artificial Intelligence, Digital Art, Creative Tools" />
-      <link rel="canonical" href="https://wordtoimage.com/" />
+      <link rel="canonical" href="https://wordtoimage.online/" />
       
       {/* Enhanced Open Graph / Facebook with AI Focus */}
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="WordToImage - AI Image Generator" />
-      <meta property="og:url" content="https://wordtoimage.com/" />
+      <meta property="og:url" content="https://wordtoimage.online/" />
       <meta property="og:title" content="AI Image Generator: Free Text-to-Art Converter | WordToImage AI" />
       <meta property="og:description" content="Create stunning AI art in seconds! Free text-to-image generator with 100+ styles. Perfect for designers, marketers & creators. No skills required - try now!" />
-      <meta property="og:image" content="https://wordtoimage.com/og-image-ai-generator.jpg" />
+      <meta property="og:image" content="https://wordtoimage.online/og-image-ai-generator.jpg" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content="WordToImage AI art generator interface showing text prompt converting to beautiful AI-generated artwork" />

@@ -2,7 +2,7 @@
 // Technical SEO utilities for WordToImage
 
 export const generateCanonicalUrl = (pathname: string): string => {
-  const baseUrl = 'https://wordtoimage.com';
+  const baseUrl = 'https://wordtoimage.online';
   const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
   return `${baseUrl}${normalizedPath}`;
 };
@@ -10,13 +10,13 @@ export const generateCanonicalUrl = (pathname: string): string => {
 export const setupRedirects = () => {
   // Client-side redirect handling for secondary domains
   const currentHost = window.location.hostname;
-  const primaryDomain = 'wordtoimage.com';
+  const primaryDomain = 'wordtoimage.online';
   
   // List of secondary domains that should redirect to primary
   const secondaryDomains = [
     'wordtoimage.xyz',
     'wordtoimage.org',
-    'wordtoimage.online',
+    'wordtoimage.com',
     'wordtoimage.net'
   ];
   
@@ -46,7 +46,7 @@ export const generateSitemapEntry = (
   priority: number = 0.5
 ) => {
   return {
-    loc: `https://wordtoimage.com${url}`,
+    loc: `https://wordtoimage.online${url}`,
     lastmod,
     changefreq,
     priority,
@@ -56,7 +56,7 @@ export const generateSitemapEntry = (
 
 // Submit sitemap to search engines
 export const submitSitemapToSearchEngines = async () => {
-  const sitemapUrl = 'https://wordtoimage.com/sitemap.xml';
+  const sitemapUrl = 'https://wordtoimage.online/sitemap.xml';
   
   const searchEngines = [
     `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`,
