@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -362,10 +362,10 @@ export type Database = {
       get_user_subscription_status: {
         Args: { user_uuid: string }
         Returns: {
+          cancel_at_period_end: boolean
+          current_period_end: string
           plan_name: string
           status: string
-          current_period_end: string
-          cancel_at_period_end: boolean
         }[]
       }
       increment_image_views: {
@@ -378,11 +378,11 @@ export type Database = {
       }
       update_subscription_status: {
         Args: {
-          subscription_id_param: string
-          status_param: string
-          period_start_param: string
-          period_end_param: string
           cancel_at_period_end_param: boolean
+          period_end_param: string
+          period_start_param: string
+          status_param: string
+          subscription_id_param: string
         }
         Returns: undefined
       }
