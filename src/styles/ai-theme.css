@@ -1,187 +1,41 @@
+/* AI Theme - Modern colors optimized for mobile */
 
-@layer components {
-  /* Enhanced AI Theme Colors */
-  :root {
-    --ai-dark: #0a0a1a;
-    --ai-surface: #1a1a2e;
-    --ai-muted: #16213e;
-    --ai-primary: #4338ca;      /* Deep indigo */
-    --ai-secondary: #7c3aed;    /* Rich violet */
-    --ai-accent: #06d6a0;       /* Neon green accent */
-    --ai-neon: #00f5ff;         /* Electric blue neon */
-    --ai-coral: #ff6b6b;        /* Vibrant coral */
-    --ai-purple: #9333ea;       /* Bright purple */
-    --ai-gradient-start: #4338ca;
-    --ai-gradient-end: #7c3aed;
-    --ai-neon-gradient: linear-gradient(135deg, #00f5ff 0%, #06d6a0 100%);
-    --ai-purple-gradient: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%);
-    --ai-hero-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-  }
+/* Enhanced AI Theme Colors */
+:root {
+  --ai-dark: #0a0a1a;
+  --ai-surface: #1a1a2e;
+  --ai-muted: #16213e;
+  --ai-primary: #4338ca;      /* Deep indigo */
+  --ai-secondary: #7c3aed;    /* Rich violet */
+  --ai-accent: #06d6a0;       /* Neon green accent */
+  --ai-neon: #10b981;         /* Neon emerald */
+}
 
-  /* Enhanced AI Theme Background Classes */
-  .bg-ai-dark { background-color: var(--ai-dark); }
-  .bg-ai-surface { background-color: var(--ai-surface); }
-  .bg-ai-muted { background-color: var(--ai-muted); }
-  .bg-ai-primary { background-color: var(--ai-primary); }
-  .bg-ai-secondary { background-color: var(--ai-secondary); }
-  .bg-ai-accent { background-color: var(--ai-accent); }
-  .bg-ai-neon { background-color: var(--ai-neon); }
-  .bg-ai-coral { background-color: var(--ai-coral); }
-  .bg-ai-purple { background-color: var(--ai-purple); }
+/* AI-themed gradient backgrounds */
+.bg-ai-gradient {
+  background: linear-gradient(135deg, var(--ai-primary) 0%, var(--ai-secondary) 100%);
+}
 
-  /* Enhanced AI Theme Text Classes */
-  .text-ai-dark { color: var(--ai-dark); }
-  .text-ai-surface { color: var(--ai-surface); }
-  .text-ai-muted { color: var(--ai-muted); }
-  .text-ai-primary { color: var(--ai-primary); }
-  .text-ai-secondary { color: var(--ai-secondary); }
-  .text-ai-accent { color: var(--ai-accent); }
-  .text-ai-neon { color: var(--ai-neon); }
-  .text-ai-coral { color: var(--ai-coral); }
-  .text-ai-purple { color: var(--ai-purple); }
+.bg-ai-dark-gradient {
+  background: linear-gradient(135deg, var(--ai-dark) 0%, var(--ai-muted) 100%);
+}
 
-  /* Enhanced AI Gradients */
-  .bg-ai-hero-gradient {
-    background: var(--ai-hero-gradient);
-  }
-  
-  .bg-ai-neon-gradient {
-    background: var(--ai-neon-gradient);
-  }
-  
-  .bg-ai-purple-gradient {
-    background: var(--ai-purple-gradient);
-  }
+/* Mobile-optimized AI cards */
+.ai-card {
+  background: var(--ai-surface);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  .bg-ai-vibrant-gradient {
-    background: linear-gradient(135deg, #ff6b6b 0%, #00f5ff 50%, #06d6a0 100%);
-  }
+.ai-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
 
-  /* Enhanced AI Text Gradients */
-  .text-gradient-ai {
-    background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  .text-gradient-neon {
-    background: var(--ai-neon-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  .text-gradient-vibrant {
-    background: linear-gradient(135deg, #ff6b6b 0%, #00f5ff 50%, #06d6a0 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  /* Enhanced Button Styles */
-  .btn-ai-primary {
-    @apply bg-ai-neon-gradient text-white font-bold;
-    @apply px-8 py-4 rounded-xl shadow-lg transition-all duration-300;
-    @apply hover:shadow-2xl hover:-translate-y-1 transform;
-    @apply text-lg font-bold;
-    @apply focus:ring-4 focus:ring-ai-accent focus:ring-opacity-50;
-    will-change: transform, box-shadow;
-  }
-  
-  .btn-ai-secondary {
-    @apply border-2 border-ai-accent text-ai-accent bg-transparent;
-    @apply hover:bg-ai-accent hover:text-white transition-all duration-300;
-    @apply px-8 py-4 rounded-xl font-semibold text-lg;
-    @apply hover:shadow-lg hover:-translate-y-0.5 transform;
-    @apply focus:ring-4 focus:ring-ai-accent focus:ring-opacity-30;
-  }
-
-  .btn-ai-neon {
-    @apply bg-ai-neon text-ai-dark font-bold;
-    @apply px-8 py-4 rounded-xl shadow-lg transition-all duration-300;
-    @apply hover:shadow-2xl hover:-translate-y-1 transform hover:scale-105;
-    @apply text-lg;
-    @apply focus:ring-4 focus:ring-ai-neon focus:ring-opacity-50;
-  }
-
-  /* Enhanced Card Styles */
-  .ai-card-modern {
-    @apply bg-white/95 backdrop-blur-sm border border-gray-200/50 rounded-2xl p-8;
-    @apply shadow-xl hover:shadow-2xl transition-all duration-500;
-    @apply hover:-translate-y-2;
-    @apply relative overflow-hidden;
-    will-change: transform, box-shadow;
-  }
-
-  .ai-card-modern:hover {
-    border-color: rgba(6, 214, 160, 0.3);
-  }
-
-  .ai-card-modern::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--ai-neon-gradient);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .ai-card-modern:hover::before {
-    opacity: 1;
-  }
-
-  /* Enhanced Typography */
-  .hero-title {
-    @apply font-bold tracking-tight leading-tight;
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    line-height: 1.1;
-  }
-
-  .hero-subtitle {
-    @apply text-xl md:text-2xl leading-relaxed;
-    font-size: clamp(1.25rem, 4vw, 1.75rem);
-    line-height: 1.6;
-  }
-
-  .section-title {
-    @apply text-3xl md:text-4xl font-bold tracking-tight;
-    font-size: clamp(2rem, 5vw, 3rem);
-    line-height: 1.2;
-  }
-
-  /* Enhanced Animations */
-  .animate-float-slow {
-    animation: float 8s ease-in-out infinite;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% { 
-      box-shadow: 0 0 20px rgba(6, 214, 160, 0.3);
-    }
-    50% { 
-      box-shadow: 0 0 40px rgba(6, 214, 160, 0.6);
-    }
-  }
-
-  /* Mobile Touch Targets */
-  .touch-target {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  .touch-target-large {
-    min-height: 56px;
-    min-width: 56px;
+@media (min-width: 768px) {
+  .ai-card {
+    padding: 2rem;
   }
 }

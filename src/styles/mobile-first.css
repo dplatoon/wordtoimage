@@ -1,9 +1,9 @@
 
 
 /* Mobile-First Design System */
-@layer utilities {
-  /* Base mobile-first typography */
-  :root {
+
+/* Base mobile-first typography */
+:root {
     /* Mobile font scale */
     --text-xs: 0.75rem;    /* 12px */
     --text-sm: 0.875rem;   /* 14px */

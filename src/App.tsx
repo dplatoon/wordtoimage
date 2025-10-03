@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { initAccessibility } from "@/utils/accessibility";
+import { MobileOptimizer } from "@/components/mobile/MobileOptimizer";
 // Import critical pages that should load immediately
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -66,8 +67,6 @@ const ProfessionalMarketingVisuals = lazy(() => import("@/pages/blog/professiona
 
 // Lazy load dashboard and gallery pages
 const Gallery = lazy(() => import("./pages/Gallery"));
-const CommunityGallery = lazy(() => import("./pages/CommunityGallery"));
-const AnalyticsDashboard = lazy(() => import("./pages/AnalyticsDashboard"));
 const ContentHub = lazy(() => import("./pages/ContentHub"));
 const BlogPostDetail = lazy(() => import("./pages/BlogPostDetail"));
 const OnboardingDemo = lazy(() => import("./pages/OnboardingDemo"));
@@ -92,7 +91,6 @@ import { OptimizedFontLoader } from "./components/performance/OptimizedFontLoade
 // Performance monitoring temporarily disabled for optimization
 import { EnhancedLighthouseOptimizer } from "./components/performance/EnhancedLighthouseOptimizer";
 import { MobileLighthouseOptimizer } from "./components/performance/MobileLighthouseOptimizer";
-import { BehaviorTracker } from "./components/analytics/BehaviorTracker";
 
 // Loading component for Suspense fallback
 const PageLoadingFallback = () => (
@@ -112,10 +110,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
+        <MobileOptimizer />
         <AuthProvider>
           <TooltipProvider>
             <Toaster />
-            <BehaviorTracker />
             <OptimizedFontLoader />
             {/* Performance monitoring temporarily disabled */}
             <EnhancedLighthouseOptimizer />
@@ -156,8 +154,6 @@ function App() {
                   <Route path="/batch-generator" element={<BatchGenerator />} />
                   <Route path="/contact-support" element={<ContactSupport />} />
                   <Route path="/gallery" element={<Gallery />} />
-                  <Route path="/community-gallery" element={<CommunityGallery />} />
-                  <Route path="/analytics-dashboard" element={<AnalyticsDashboard />} />
                   <Route path="/content-hub" element={<ContentHub />} />
                   <Route path="/blog/:slug" element={<BlogPostDetail />} />
                   <Route path="/pdf-to-jpg" element={<PDFToJPG />} />
