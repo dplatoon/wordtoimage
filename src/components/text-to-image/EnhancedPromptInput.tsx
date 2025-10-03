@@ -47,16 +47,16 @@ export function EnhancedPromptInput({
   const isAtLimit = characterCount >= maxCharacters;
 
   return (
-    <div className={cn("space-y-4", className)}>
-      {/* Main Input Area */}
+    <div className={cn("space-y-3 sm:space-y-4", className)}>
+      {/* Main Input Area - Mobile Optimized */}
       <div className="relative">
         <motion.div
           animate={{
             boxShadow: isFocused 
-              ? "0 0 0 2px hsl(var(--primary) / 0.2), 0 8px 25px -8px hsl(var(--primary) / 0.3)"
+              ? "0 0 0 2px hsl(var(--primary) / 0.2), 0 4px 20px -4px hsl(var(--primary) / 0.25)"
               : "0 1px 3px 0 rgb(0 0 0 / 0.1)"
           }}
-          className="relative bg-white rounded-xl border border-gray-200 overflow-hidden"
+          className="relative bg-white rounded-lg sm:rounded-xl border border-gray-200 overflow-hidden"
         >
           <Textarea
             ref={textareaRef}
@@ -65,8 +65,8 @@ export function EnhancedPromptInput({
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="Describe your vision in detail... (e.g., A majestic watercolor painting of a peaceful forest at sunset, with golden light filtering through tall pine trees, soft brushstrokes, ethereal atmosphere)"
-            className="w-full min-h-[120px] max-h-[200px] resize-none border-0 bg-transparent text-base leading-relaxed placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 p-6"
+            placeholder="Describe your vision in detail... (e.g., A majestic watercolor painting of a peaceful forest at sunset)"
+            className="w-full min-h-[100px] sm:min-h-[120px] max-h-[200px] resize-none border-0 bg-transparent text-sm sm:text-base leading-relaxed placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 p-4 sm:p-6"
             maxLength={maxCharacters}
           />
           
@@ -90,14 +90,15 @@ export function EnhancedPromptInput({
           </AnimatePresence>
         </motion.div>
 
-        {/* Character Counter */}
-        <div className="flex items-center justify-between mt-2 px-2">
-          <div className="flex items-center gap-2 text-xs text-gray-500">
-            <Wand2 className="h-3 w-3" />
-            <span>Pro tip: Include style, mood, lighting, and composition details</span>
+        {/* Character Counter - Mobile Optimized */}
+        <div className="flex items-center justify-between mt-2 px-1 sm:px-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-gray-500">
+            <Wand2 className="h-3 w-3 flex-shrink-0" />
+            <span className="hidden sm:inline">Pro tip: Include style, mood, lighting, and composition details</span>
+            <span className="sm:hidden text-[10px]">Include style & details</span>
           </div>
           <span className={cn(
-            "text-xs font-medium tabular-nums",
+            "text-xs font-medium tabular-nums flex-shrink-0",
             isAtLimit ? "text-red-600" : 
             isNearLimit ? "text-amber-600" : "text-gray-500"
           )}>
@@ -106,16 +107,16 @@ export function EnhancedPromptInput({
         </div>
       </div>
 
-      {/* Generate Button */}
+      {/* Generate Button - Mobile Optimized */}
       <motion.div
-        whileHover={{ scale: 1.02 }}
+        whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.98 }}
       >
         <Button
           onClick={onGenerate}
           disabled={!canGenerate || isGenerating || prompt.trim().length === 0}
           size="lg"
-          className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
+          className="w-full h-12 sm:h-14 text-base sm:text-lg font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200 touch-target"
         >
           {isGenerating ? (
             <>
@@ -123,22 +124,22 @@ export function EnhancedPromptInput({
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
               >
-                <Sparkles className="h-5 w-5 mr-2" />
+                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               </motion.div>
-              Creating your image...
+              <span className="text-sm sm:text-base">Creating your image...</span>
             </>
           ) : (
             <>
-              <Sparkles className="h-5 w-5 mr-2" />
-              Create Your Free Image Now
-              <ArrowRight className="h-5 w-5 ml-2" />
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+              <span className="text-sm sm:text-base">Create Your Free Image Now</span>
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-2" />
             </>
           )}
         </Button>
       </motion.div>
 
-      {/* Keyboard Shortcut Hint */}
-      <p className="text-xs text-center text-gray-400">
+      {/* Keyboard Shortcut Hint - Hide on very small screens */}
+      <p className="text-xs text-center text-gray-400 hidden sm:block">
         Press <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">Ctrl + Enter</kbd> to generate quickly
       </p>
     </div>

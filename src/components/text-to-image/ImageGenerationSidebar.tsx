@@ -85,15 +85,17 @@ export function ImageGenerationSidebar({
   };
 
   return (
-    <Sidebar className="border-r border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <SidebarHeader className="border-b border-border/40 p-4">
+    <Sidebar className="border-r border-border/10 bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/80 shadow-sm">
+      <SidebarHeader className="border-b border-border/10 p-3 md:p-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-primary/5">
             <Palette className="h-4 w-4 text-primary" />
           </div>
           <div>
-            <h2 className="text-sm font-semibold">Image Generator</h2>
-            <p className="text-xs text-muted-foreground">v1.0</p>
+            <h2 className="text-sm font-semibold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              Image Generator
+            </h2>
+            <p className="text-xs text-muted-foreground">Professional AI Studio</p>
           </div>
         </div>
       </SidebarHeader>

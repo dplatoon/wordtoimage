@@ -359,7 +359,7 @@ export default function TextToImage() {
   return (
     <BrowserCompatibilityWrapper>
       <SidebarProvider defaultOpen={!isMobile}>
-        <div className="min-h-screen flex w-full bg-gradient-to-b from-violet-50 via-white to-indigo-50">
+        <div className="min-h-screen flex w-full bg-gradient-to-br from-violet-50/50 via-white to-indigo-50/50">
           <Helmet>
             <title>AI Image Generator: Turn Words to Art in Seconds | WordToImage</title>
             <meta name="description" content="Free AI-powered text-to-image tool. Create stunning visuals from text prompts instantly. No design skills needed. Try now!" />
@@ -369,16 +369,25 @@ export default function TextToImage() {
           <EnhancedSEOManager pageContent={pageContent} />
           
           {/* Header with Nav and Sidebar Trigger */}
-          <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-            <div className="flex h-16 items-center justify-between px-6">
-              <div className="flex items-center gap-4">
-                <SidebarTrigger className="h-9 w-9" />
-                <div>
-                  <h1 className="text-xl font-bold text-gradient">AI Image Studio</h1>
-                  <p className="text-sm text-muted-foreground">Create stunning visuals with AI</p>
+          <header className="sticky top-0 z-50 w-full border-b border-border/10 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 shadow-sm">
+            <div className="flex h-14 md:h-16 items-center justify-between px-4 md:px-6">
+              <div className="flex items-center gap-3 md:gap-4">
+                <SidebarTrigger className="h-8 w-8 md:h-9 md:w-9 touch-target" />
+                <div className="hidden sm:block">
+                  <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                    AI Image Studio
+                  </h1>
+                  <p className="text-xs text-muted-foreground hidden md:block">Create stunning visuals with AI</p>
+                </div>
+                <div className="sm:hidden">
+                  <h1 className="text-base font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                    AI Studio
+                  </h1>
                 </div>
               </div>
-              <Nav />
+              <div className="flex items-center gap-2">
+                <Nav />
+              </div>
             </div>
           </header>
 
@@ -396,34 +405,34 @@ export default function TextToImage() {
 
           {/* Main Content */}
           <SidebarInset className="flex-1">
-            <div className="container mx-auto px-4 py-8 max-w-4xl">
+            <div className="container mx-auto px-3 md:px-6 py-4 md:py-8 max-w-5xl">
               <SkipToContent />
               
-              {/* Hero Section */}
-              <div className="text-center mb-8">
+              {/* Hero Section - Mobile Optimized */}
+              <div className="text-center mb-6 md:mb-8">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3 md:mb-4 leading-tight">
                     {pageContent.h1}
                   </h1>
-                  <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-4 md:mb-6 max-w-2xl mx-auto leading-relaxed px-2">
                     Transform your imagination into stunning visuals with our AI-powered image generator.
                   </p>
                 </motion.div>
               </div>
 
               {/* Value Proposition */}
-              <ValueProposition className="mb-8" />
+              <ValueProposition className="mb-6 md:mb-8" />
 
-              {/* Main Generation Section */}
-              <div className="bg-white/80 backdrop-blur rounded-2xl shadow-xl border border-white/50 p-8 mb-8">
+              {/* Main Generation Section - Mobile Optimized */}
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg md:shadow-xl border border-white/60 p-4 sm:p-6 md:p-8 mb-6 md:mb-8">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
                 >
                   <EnhancedPromptInput
                     prompt={prompt}
@@ -431,7 +440,7 @@ export default function TextToImage() {
                     onGenerate={handleGenerate}
                     isGenerating={isGenerating}
                     canGenerate={!!prompt.trim() && !isGenerating}
-                    className="mb-6"
+                    className="mb-4 md:mb-6"
                   />
 
                   {/* Generation Progress */}
@@ -497,17 +506,17 @@ export default function TextToImage() {
                 </motion.div>
               </div>
 
-              {/* Browse Styles Section */}
-              <div className="text-center mb-8">
+              {/* Browse Styles Section - Mobile Optimized */}
+              <div className="text-center mb-6 md:mb-8">
                 <BrowseStylesModal onStyleSelect={handleStyleChange}>
                   <Button 
                     variant="outline" 
-                    size="lg"
-                    className="bg-white/60 hover:bg-white/80 border-primary/30 hover:border-primary/50 text-primary"
+                    size={isMobile ? "default" : "lg"}
+                    className="bg-white/60 hover:bg-white/80 border-primary/30 hover:border-primary/50 text-primary touch-target w-full sm:w-auto"
                   >
-                    <Palette className="h-5 w-5 mr-2" />
-                    Browse 50+ Art Styles
-                    <ArrowRight className="h-4 w-4 ml-2" />
+                    <Palette className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    <span className="text-sm sm:text-base">Browse 50+ Art Styles</span>
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-2" />
                   </Button>
                 </BrowseStylesModal>
               </div>
@@ -515,11 +524,11 @@ export default function TextToImage() {
               {/* Style Tag Suggestions */}
               <StyleTagSuggestions 
                 onTagSelect={handleTagSelect}
-                className="mb-8"
+                className="mb-6 md:mb-8"
               />
 
-              {/* Generated Images Gallery */}
-              <div className="mt-8" role="region" aria-label="Generated images">
+              {/* Generated Images Gallery - Mobile Optimized */}
+              <div className="mt-6 md:mt-8" role="region" aria-label="Generated images">
                 <EnhancedImageGallery 
                   images={generatedImages} 
                   loading={isGenerating}
@@ -527,6 +536,9 @@ export default function TextToImage() {
                   onToggleGalleryManager={setShowGalleryManager}
                 />
               </div>
+
+              {/* Footer Spacing for Mobile Navigation */}
+              <div className="h-20 md:h-0" />
             </div>
           </SidebarInset>
         </div>
