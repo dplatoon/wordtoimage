@@ -1,5 +1,5 @@
 
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
 export async function setupUserProfile(userId: string, email: string | undefined) {
@@ -7,13 +7,13 @@ export async function setupUserProfile(userId: string, email: string | undefined
     const { data: profile } = await supabase
       .from('profiles')
       .select('*')
-      .eq('user_id', userId)
+      .eq('id', userId)
       .single();
 
     if (!profile) {
       const { error: profileError } = await supabase
         .from('profiles')
-        .insert([{ user_id: userId, username: email }]);
+        .insert([{ id: userId, email, username: email }]);
 
       if (profileError) {
         console.error("Error creating profile:", profileError);

@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { Dispatch, SetStateAction } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { Logo } from './Logo';
 import { cn } from '@/lib/utils';
 

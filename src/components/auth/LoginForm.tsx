@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from '@/components/ui/sonner';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,7 +20,6 @@ const loginSchema = z.object({
 export const LoginForm = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const isConfigured = isSupabaseConfigured();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -31,13 +30,6 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
-    if (!isConfigured) {
-      toast.error('Supabase is not configured', {
-        description: 'Please set up your environment variables',
-      });
-      return;
-    }
-
     setIsLoading(true);
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -57,22 +49,6 @@ export const LoginForm = () => {
       setIsLoading(false);
     }
   };
-
-  if (!isConfigured) {
-    return (
-      <div className="max-w-md w-full mx-auto space-y-6 p-6 bg-white rounded-lg shadow-lg">
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            Supabase configuration is missing. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.
-          </AlertDescription>
-        </Alert>
-        <p className="text-sm text-gray-500 text-center">
-          You need to set up Supabase environment variables to enable authentication.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-md w-full mx-auto space-y-6 p-6 bg-white rounded-lg shadow-lg">

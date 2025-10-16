@@ -3,10 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { initMinimalPerformanceOptimizations } from './utils/performanceOptimizer';
-
-// Initialize minimal performance optimizations
-initMinimalPerformanceOptimizations();
 
 // Mobile viewport optimization
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {

@@ -9,17 +9,15 @@ import { SEOManager } from "@/components/seo/SEOManager";
 import { FAQStructuredData, PRICING_FAQS } from "@/components/seo/FAQStructuredData";
 import { PageSEO } from "@/components/seo/PageSEO";
 import { usePagePerformance } from "@/hooks/usePerformanceMonitoring";
-import { useConversionTracking } from "@/hooks/useConversionTracking";
 import { useEffect } from "react";
 
 const Pricing = () => {
   usePagePerformance('Pricing');
-  const { trackPricingView } = useConversionTracking();
 
   useEffect(() => {
-    // Track pricing page view
-    trackPricingView();
-  }, [trackPricingView]);
+    // Track pricing page view without conversion tracking
+    console.log('Pricing page viewed');
+  }, []);
 
   const pricingSEO = {
     title: "AI Image Generator Pricing - Free & Pro Plans | WordToImage",

@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { ProfileCard } from '@/components/dashboard/ProfileCard';
