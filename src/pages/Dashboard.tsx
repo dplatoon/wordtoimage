@@ -10,11 +10,12 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 
 interface Profile {
-  id: number;
-  username: string;
-  full_name: string;
-  bio: string;
-  avatar_url: string;
+  id: string;
+  username: string | null;
+  email: string | null;
+  avatar_url: string | null;
+  credits: number;
+  subscription_tier: string;
 }
 
 export default function Dashboard() {
@@ -41,8 +42,8 @@ export default function Dashboard() {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', user.id)
-        .maybeSingle();
+        .eq('id', user.id)
+        .single();
 
       if (error) {
         console.error('Profile fetch error:', error);
@@ -51,41 +52,12 @@ export default function Dashboard() {
       
       if (data) {
         console.log('Profile data found:', data);
-        const profileData: Profile = {
-          id: data.id,
-          username: data.username || user.email?.split('@')[0] || '',
-          full_name: data.full_name || data.username || user.email?.split('@')[0] || '',
-          bio: data.bio || '',
-          avatar_url: data.avatar_url || '',
-        };
-        
-        setProfile(profileData);
-      } else {
-        console.log('No profile found, creating default profile');
-        // Create a default profile if none exists
-        const defaultProfile: Profile = {
-          id: 0, // Will be set by database
-          username: user.email?.split('@')[0] || 'User',
-          full_name: user.email?.split('@')[0] || 'User',
-          bio: '',
-          avatar_url: '',
-        };
-        setProfile(defaultProfile);
+        setProfile(data);
       }
     } catch (error) {
       console.error('Error fetching profile:', error);
-      // Create a fallback profile so users can still use the app
-      const fallbackProfile: Profile = {
-        id: 0,
-        username: user.email?.split('@')[0] || 'User',
-        full_name: user.email?.split('@')[0] || 'User',
-        bio: '',
-        avatar_url: '',
-      };
-      setProfile(fallbackProfile);
-      
-      toast.error('Profile data unavailable', {
-        description: 'Using default profile. You can update your information below.'
+      toast.error('Failed to load profile', {
+        description: 'Please try refreshing the page.'
       });
     } finally {
       setLoading(false);

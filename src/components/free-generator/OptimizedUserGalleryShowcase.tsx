@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { OptimizedResponsiveImage } from '@/components/common/OptimizedResponsiveImage';
 import { localGalleryImages } from '@/utils/imageUtils';
 import { Filter, Upload, Heart, Eye } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
@@ -135,14 +134,11 @@ export const OptimizedUserGalleryShowcase = ({ userImages }: OptimizedUserGaller
               onMouseLeave={() => setHoveredImage(null)}
             >
               <div className="relative">
-                <OptimizedResponsiveImage
+                <img
                   src={image.src}
                   alt={`${image.style} artwork: ${image.prompt}`}
-                  className="w-full h-auto"
-                  priority={index < 4} // Only prioritize first 4 images
-                  quality={index < 4 ? 90 : 75} // Higher quality for visible images
-                  aspectRatio={index % 3 === 0 ? 1.2 : index % 2 === 0 ? 0.8 : 1} // Varied aspect ratios for masonry
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="w-full h-auto object-cover"
+                  loading={index < 4 ? 'eager' : 'lazy'}
                 />
                 
                 {/* Hover Overlay */}

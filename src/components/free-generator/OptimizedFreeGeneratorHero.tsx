@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Sparkles, Zap, Users } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { localGalleryImages } from '@/utils/imageUtils';
-import { OptimizedResponsiveImage } from '@/components/common/OptimizedResponsiveImage';
 
 export const OptimizedFreeGeneratorHero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -101,14 +100,11 @@ export const OptimizedFreeGeneratorHero = () => {
                     index === currentImageIndex ? 'opacity-100' : 'opacity-0'
                   }`}
                 >
-                  <OptimizedResponsiveImage
+                  <img
                     src={image.src}
                     alt={`Free AI generated ${image.style}: ${image.alt}`}
-                    className="w-full h-full"
-                    priority={index === 0}
-                    quality={90}
-                    aspectRatio={1}
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="w-full h-full object-cover"
+                    loading={index === 0 ? 'eager' : 'lazy'}
                   />
                 </div>
               ))}

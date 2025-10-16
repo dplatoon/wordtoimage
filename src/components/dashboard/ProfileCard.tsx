@@ -4,11 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ProfileForm } from './ProfileForm';
 
 interface Profile {
-  id: number;
-  username: string;
-  full_name: string;
-  bio: string;
-  avatar_url: string;
+  id: string;
+  username: string | null;
+  email: string | null;
+  avatar_url: string | null;
+  credits: number;
+  subscription_tier: string;
 }
 
 interface ProfileCardProps {

@@ -20,7 +20,6 @@ import {
 } from 'lucide-react';
 import { ContentService, BlogPost } from '@/services/contentService';
 import { useAuth } from '@/contexts/AuthContext';
-import { useConversionTracking } from '@/hooks/useConversionTracking';
 import { EnhancedSEOManager } from '@/components/seo/EnhancedSEOManager';
 import { toast } from '@/hooks/use-toast';
 
@@ -32,7 +31,6 @@ export default function BlogPostDetail() {
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  const { trackFeatureUsage } = useConversionTracking();
 
   useEffect(() => {
     if (slug) {
@@ -137,7 +135,7 @@ export default function BlogPostDetail() {
         }
       ]);
 
-      trackFeatureUsage('blog_post_view', { post_slug: postSlug });
+      console.log('Blog post viewed:', postSlug);
     } catch (error) {
       console.error('Failed to fetch post:', error);
     } finally {
@@ -156,7 +154,7 @@ export default function BlogPostDetail() {
     try {
       setLiked(!liked);
       setLikeCount(prev => liked ? prev - 1 : prev + 1);
-      trackFeatureUsage('blog_post_like', { post_id: post.id });
+      console.log('Post liked:', post.id);
       toast({ title: liked ? 'Post unliked' : 'Post liked!' });
     } catch (error) {
       setLiked(liked);
@@ -176,7 +174,7 @@ export default function BlogPostDetail() {
       navigator.clipboard.writeText(window.location.href);
       toast({ title: 'Link copied to clipboard!' });
     }
-    trackFeatureUsage('blog_post_share', { post_id: post?.id });
+    console.log('Post shared:', post?.id);
   };
 
   if (loading) {

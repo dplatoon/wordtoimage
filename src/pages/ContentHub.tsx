@@ -24,7 +24,6 @@ import {
   Star
 } from 'lucide-react';
 import { ContentService, BlogPost } from '@/services/contentService';
-import { useConversionTracking } from '@/hooks/useConversionTracking';
 import { EnhancedSEOManager } from '@/components/seo/EnhancedSEOManager';
 import { toast } from '@/hooks/use-toast';
 
@@ -36,11 +35,9 @@ export default function ContentHub() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [newsletterEmail, setNewsletterEmail] = useState('');
-  const { trackFeatureUsage } = useConversionTracking();
 
   useEffect(() => {
     fetchContent();
-    trackFeatureUsage('content_hub_visit');
   }, []);
 
   const fetchContent = async () => {
@@ -130,7 +127,7 @@ export default function ContentHub() {
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
     
-    trackFeatureUsage('content_search', { query: searchQuery });
+    console.log('Content search:', searchQuery);
     
     // Enhanced search experience
     const filteredResults = posts.filter(post => 
@@ -168,7 +165,7 @@ export default function ContentHub() {
     }
     
     try {
-      trackFeatureUsage('newsletter_signup', { email: newsletterEmail });
+      console.log('Newsletter signup:', newsletterEmail);
       
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));

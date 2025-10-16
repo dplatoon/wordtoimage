@@ -9,11 +9,10 @@ import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 
 interface Profile {
-  id: number;
-  username: string;
-  full_name: string;
-  bio: string;
-  avatar_url: string;
+  id: string;
+  username: string | null;
+  email: string | null;
+  avatar_url: string | null;
 }
 
 interface ProfileFormProps {
@@ -37,39 +36,16 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
     try {
       console.log('Updating profile for user:', user.id);
       
-      // Check if profile exists first
-      const { data: existingProfile } = await supabase
+      // Update profile (it's created by trigger on signup)
+      const { error } = await supabase
         .from('profiles')
-        .select('id')
-        .eq('user_id', user.id)
-        .maybeSingle();
+        .update({
+          username: profile.username,
+          avatar_url: profile.avatar_url,
+        })
+        .eq('id', user.id);
 
-      if (existingProfile) {
-        // Update existing profile
-        const { error } = await supabase
-          .from('profiles')
-          .update({
-            username: profile.username,
-            full_name: profile.full_name,
-            bio: profile.bio,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('user_id', user.id);
-
-        if (error) throw error;
-      } else {
-        // Create new profile
-        const { error } = await supabase
-          .from('profiles')
-          .insert([{
-            user_id: user.id,
-            username: profile.username,
-            full_name: profile.full_name,
-            bio: profile.bio,
-          }]);
-
-        if (error) throw error;
-      }
+      if (error) throw error;
 
       toast.success('Profile updated successfully');
     } catch (error) {
@@ -101,31 +77,33 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
       </div>
       
       <div className="space-y-2">
-        <label htmlFor="fullName" className="text-sm font-medium block">
-          Full Name
+        <label htmlFor="email" className="text-sm font-medium block">
+          Email
         </label>
         <Input
-          id="fullName"
-          value={profile?.full_name || ''}
-          onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
-          className="max-w-md"
+          id="email"
+          value={profile?.email || ''}
+          disabled
+          className="max-w-md bg-gray-50"
         />
+        <p className="text-sm text-gray-500">
+          Email cannot be changed
+        </p>
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="bio" className="text-sm font-medium block">
-          Bio
+        <label htmlFor="avatarUrl" className="text-sm font-medium block">
+          Avatar URL
         </label>
-        <Textarea
-          id="bio"
-          value={profile?.bio || ''}
-          onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
-          rows={4}
+        <Input
+          id="avatarUrl"
+          value={profile?.avatar_url || ''}
+          onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
           className="max-w-md"
-          placeholder="Tell us a little about yourself"
+          placeholder="https://example.com/avatar.jpg"
         />
         <p className="text-sm text-gray-500">
-          Brief description for your profile
+          URL to your profile picture
         </p>
       </div>
 
