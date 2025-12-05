@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
+import { supabase } from '@/integrations/supabase/client';
 import { Textarea } from '@/components/ui/textarea';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { Send, User, Mail, MessageSquare, Tag } from 'lucide-react';
@@ -49,25 +50,18 @@ export const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Use the REST API directly to avoid TypeScript issues
-      const response = await fetch('https://itkfghwxbodjlmpgydsq.supabase.co/rest/v1/contact_submissions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0a2ZnaHd4Ym9kamxtcGd5ZHNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUwMzMzOTQsImV4cCI6MjA2MDYwOTM5NH0.1QFLzTYlsFK6eGi_kpnN-pF1xqz3FJP5fphD8wGCC9M',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ 
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert({
           first_name: formData.firstName,
           last_name: formData.lastName,
           email: formData.email,
           subject: formData.subject,
-          message: formData.message 
-        })
-      });
+          message: formData.message
+        });
       
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
+      if (error) {
+        throw error;
       }
       
       // Show success message
