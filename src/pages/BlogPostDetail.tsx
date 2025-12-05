@@ -22,6 +22,7 @@ import { ContentService, BlogPost } from '@/services/contentService';
 import { useAuth } from '@/contexts/AuthContext';
 import { EnhancedSEOManager } from '@/components/seo/EnhancedSEOManager';
 import { toast } from '@/hooks/use-toast';
+import { SafeHTML } from '@/components/SafeHTML';
 
 export default function BlogPostDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -314,10 +315,7 @@ export default function BlogPostDetail() {
         </header>
 
         {/* Article Content */}
-        <div 
-          className="prose prose-lg prose-violet max-w-none mb-12"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        <SafeHTML html={post.content} className="prose prose-lg prose-violet max-w-none mb-12" />
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-12">

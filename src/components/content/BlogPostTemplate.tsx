@@ -1,9 +1,9 @@
-
 import { Helmet } from 'react-helmet-async';
 import { Calendar, Clock, User, Tag } from 'lucide-react';
 import { ContentBreadcrumbs } from '@/components/seo/ContentBreadcrumbs';
 import { RelatedContent } from '@/components/seo/RelatedContent';
 import { InternalLink } from '@/components/seo/InternalLink';
+import { SafeHTML } from '@/components/SafeHTML';
 
 interface BlogPostProps {
   title: string;
@@ -144,9 +144,7 @@ export const BlogPostTemplate = ({
           </div>
         )}
 
-        <div className="prose prose-lg max-w-none mb-12">
-          <div dangerouslySetInnerHTML={{ __html: content }} />
-        </div>
+        <SafeHTML html={content} className="prose prose-lg max-w-none mb-12" />
 
         {tags.length > 0 && (
           <div className="mb-8">

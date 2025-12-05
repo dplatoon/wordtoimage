@@ -1,9 +1,9 @@
-
 import { Helmet } from 'react-helmet-async';
 import { Clock, BarChart3, CheckCircle } from 'lucide-react';
 import { ContentBreadcrumbs } from '@/components/seo/ContentBreadcrumbs';
 import { RelatedContent } from '@/components/seo/RelatedContent';
 import { InternalLink } from '@/components/seo/InternalLink';
+import { SafeHTML } from '@/components/SafeHTML';
 
 interface TutorialStep {
   title: string;
@@ -152,9 +152,7 @@ export const TutorialTemplate = ({
                 </div>
               )}
               
-              <div className="prose max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: step.content }} />
-              </div>
+              <SafeHTML html={step.content} className="prose max-w-none" />
             </div>
           ))}
         </div>
