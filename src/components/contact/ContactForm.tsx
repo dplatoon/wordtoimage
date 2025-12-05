@@ -50,7 +50,8 @@ export const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase
+      // Use type assertion since contact_submissions table types may not be generated yet
+      const { error } = await (supabase as any)
         .from('contact_submissions')
         .insert({
           first_name: formData.firstName,
