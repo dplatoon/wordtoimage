@@ -1,27 +1,10 @@
-
-import { generateImageWithAI } from '@/services/imageGenerationService';
+// API Key service - simplified for new backend architecture
+// Server keys are now handled automatically via Supabase edge functions
 
 export class ApiKeyService {
   static async checkServerKeyAvailability(): Promise<boolean> {
-    try {
-      console.log('Checking if server API key is available...');
-      
-      // Use a minimal test call to check server key
-      const testOptions = {
-        prompt: 'server key check',
-        size: '1024x1024' as const,
-        quality: 'standard' as const,
-        numberResults: 1,
-        apiKey: null,
-        userId: null
-      };
-      
-      await generateImageWithAI(testOptions);
-      console.log('Server API key is available and working');
-      return true;
-    } catch (error) {
-      console.log('No server key available or server key invalid');
-      return false;
-    }
+    // With Lovable Cloud, server keys are always available
+    // The edge function handles authentication via Supabase
+    return true;
   }
 }

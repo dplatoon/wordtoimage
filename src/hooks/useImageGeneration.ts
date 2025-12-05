@@ -1,12 +1,9 @@
-
 import { useState } from 'react';
-import { generateImage } from '@/services/runwareService';
-import { toast } from '@/components/ui/sonner';
-import { getErrorMessage, getErrorDisplayDetails } from '@/utils/imageGenerationErrors';
+import { generateImage, GenerateImageResponse } from '@/services/api/imageGeneration';
+import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { 
   ImageGenerationHookProps, 
-  ImageGenerationOptions, 
   ImageGenerationState,
   ImageGenerationHookReturn
 } from '@/types/imageGeneration';
@@ -24,7 +21,6 @@ export const useImageGeneration = ({
     usingServerKey: false
   });
   
-  // Get the current authenticated user
   const { user } = useAuth();
 
   const generateImageFromPrompt = async (
@@ -33,21 +29,20 @@ export const useImageGeneration = ({
     retry: boolean = false,
     sourceImage: string = ''
   ): Promise<void> => {
-    // If this is a retry and we're already retrying, skip
     if (state.isRetrying && !retry) return;
     
-    // Empty prompt check
     if (!prompt.trim() && !retry) {
-      const error = getErrorMessage(new Error('Empty prompt'));
-      const errorDetails = getErrorDisplayDetails(error);
-      
-      toast.error(errorDetails.title, {
-        description: errorDetails.description,
+      toast.error("Empty Prompt", {
+        description: "Please enter a description for your image.",
         duration: 5000,
-        action: {
-          label: 'Dismiss',
-          onClick: () => {}
-        }
+      });
+      return;
+    }
+
+    if (!user) {
+      toast.error("Authentication Required", {
+        description: "Please sign in to generate images.",
+        duration: 5000,
       });
       return;
     }
@@ -64,91 +59,66 @@ export const useImageGeneration = ({
     onError(null);
     
     try {
-      // For server key check, use a simplified special prompt
-      const finalPrompt = retry && prompt.includes('server key check') 
-        ? prompt 
-        : prompt.trim().replace(/^\[(.*?)\]\s*/i, ''); // Remove style tags for better compatibility
+      const cleanPrompt = prompt.trim().replace(/^\[(.*?)\]\s*/i, '');
       
-      const options: ImageGenerationOptions = {
-        prompt: finalPrompt,
-        size: '1024x1024',
-        quality: 'standard',
-        numberResults: 1,
-        apiKey: tempApiKey || null, // Pass API key only if provided
-        userId: user?.id || null,    // Pass user ID if authenticated
-        sourceImage: sourceImage || undefined // Pass source image if available
-      };
+      console.log("Generating image with prompt:", cleanPrompt.substring(0, 50) + "...");
       
-      console.log("Calling generate image with options:", {
-        prompt: options.prompt.substring(0, 20) + "...",
-        size: options.size,
-        quality: options.quality,
-        userId: options.userId ? "provided" : "not provided",
-        hasSourceImage: !!sourceImage
+      const result: GenerateImageResponse = await generateImage({
+        prompt: cleanPrompt,
+        resolution: '1024x1024',
       });
       
-      const result = await generateImage(options);
-      
-      if (result.error) {
-        console.error("Generation error in result:", result.error);
-        const error = getErrorMessage(result.error);
-        const errorDetails = getErrorDisplayDetails(error);
-        throw new Error(errorDetails.description);
+      if (!result.success || !result.generation) {
+        throw new Error(result.error || "Generation failed");
       }
       
-      if (result.imageUrl) {
-        // Update state with info about whether we're using server key
-        setState(prev => ({
-          ...prev,
-          usingServerKey: result.usingServerKey || false
-        }));
-        
-        onImageGenerated(result.imageUrl);
-        
-        if (!retry) {
-          toast.success("Image Generated!", {
-            description: "Your custom graphic is ready to download.",
-            duration: 5000,
-            action: {
-              label: 'Generate Another',
-              onClick: () => generateImageFromPrompt(prompt, tempApiKey, false, sourceImage)
-            }
-          });
-        }
-      } else {
-        throw new Error("No image URL received");
-      }
-    } catch (error) {
-      console.error('Failed to generate image:', error);
-      
-      if (retry) {
-        // If this was a server key check and it failed, don't show error toast
-        console.log("Server key check failed");
-        throw error;
-      }
-      
-      const processedError = getErrorMessage(error);
-      const errorDetails = getErrorDisplayDetails(processedError);
+      const imageUrl = result.generation.image_url;
       
       setState(prev => ({
         ...prev,
-        error: errorDetails.description
+        usingServerKey: true
       }));
       
-      onError(errorDetails.description);
+      onImageGenerated(imageUrl);
       
-      toast.error(errorDetails.title, {
-        description: errorDetails.description,
-        duration: 8000,
-        action: errorDetails.action ? {
-          label: errorDetails.action,
-          onClick: () => {
-            if (errorDetails.action === 'Retry') {
-              generateImageFromPrompt(prompt, tempApiKey, true, sourceImage);
-            }
-          }
-        } : undefined
+      const creditsMsg = result.creditsRemaining === "unlimited" 
+        ? "Premium account - unlimited generations" 
+        : `${result.creditsRemaining} credits remaining`;
+      
+      toast.success("Image Generated!", {
+        description: creditsMsg,
+        duration: 5000,
       });
+      
+    } catch (error: any) {
+      console.error('Failed to generate image:', error);
+      
+      const errorMessage = error.message || "Failed to generate image";
+      
+      setState(prev => ({
+        ...prev,
+        error: errorMessage
+      }));
+      
+      onError(errorMessage);
+      
+      // Handle specific error cases
+      if (errorMessage.includes("Insufficient credits")) {
+        toast.error("Out of Credits", {
+          description: "Upgrade to premium for unlimited generations.",
+          duration: 8000,
+        });
+      } else if (errorMessage.includes("Unauthorized")) {
+        toast.error("Session Expired", {
+          description: "Please sign in again to continue.",
+          duration: 8000,
+        });
+      } else {
+        toast.error("Generation Failed", {
+          description: errorMessage,
+          duration: 8000,
+        });
+      }
     } finally {
       setState(prev => ({
         ...prev,

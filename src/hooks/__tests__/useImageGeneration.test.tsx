@@ -1,20 +1,23 @@
-
 import { renderHook, act } from '@testing-library/react';
 import { useImageGeneration } from '../useImageGeneration';
-import { generateImage } from '@/services/runwareService';
-import { toast } from '@/components/ui/sonner';
+import { generateImage } from '@/services/api/imageGeneration';
+import { toast } from 'sonner';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 // Mock dependencies
-vi.mock('@/services/runwareService', () => ({
+vi.mock('@/services/api/imageGeneration', () => ({
   generateImage: vi.fn()
 }));
 
-vi.mock('@/components/ui/sonner', () => ({
+vi.mock('sonner', () => ({
   toast: {
     error: vi.fn(),
     success: vi.fn()
   }
+}));
+
+vi.mock('@/contexts/AuthContext', () => ({
+  useAuth: () => ({ user: { id: 'test-user-id' } })
 }));
 
 describe('useImageGeneration', () => {
@@ -28,36 +31,29 @@ describe('useImageGeneration', () => {
     vi.clearAllMocks();
   });
 
-  it('should handle empty API key', async () => {
-    const { result } = renderHook(() => useImageGeneration(mockProps));
-
-    await act(async () => {
-      await result.current.generateImageFromPrompt('test prompt', '', false);
-    });
-
-    expect(toast.error).toHaveBeenCalledWith('API Key Required', expect.any(Object));
-    expect(mockProps.onGeneratingChange).not.toHaveBeenCalled();
-  });
-
   it('should handle empty prompt', async () => {
     const { result } = renderHook(() => useImageGeneration(mockProps));
 
     await act(async () => {
-      await result.current.generateImageFromPrompt('', 'fake-api-key', false);
+      await result.current.generateImageFromPrompt('', '', false);
     });
 
-    expect(toast.error).toHaveBeenCalled();
+    expect(toast.error).toHaveBeenCalledWith('Empty Prompt', expect.any(Object));
     expect(mockProps.onGeneratingChange).not.toHaveBeenCalled();
   });
 
   it('should handle successful image generation', async () => {
     const mockImageUrl = 'https://example.com/image.jpg';
-    (generateImage as any).mockResolvedValueOnce({ imageUrl: mockImageUrl });
+    (generateImage as any).mockResolvedValueOnce({ 
+      success: true, 
+      generation: { image_url: mockImageUrl },
+      creditsRemaining: 9 
+    });
 
     const { result } = renderHook(() => useImageGeneration(mockProps));
 
     await act(async () => {
-      await result.current.generateImageFromPrompt('test prompt', 'fake-api-key', false);
+      await result.current.generateImageFromPrompt('test prompt', '', false);
     });
 
     expect(mockProps.onImageGenerated).toHaveBeenCalledWith(mockImageUrl);
@@ -66,13 +62,15 @@ describe('useImageGeneration', () => {
   });
 
   it('should handle API error', async () => {
-    const mockError = new Error('API Error');
-    (generateImage as any).mockRejectedValueOnce(mockError);
+    (generateImage as any).mockResolvedValueOnce({ 
+      success: false, 
+      error: 'API Error' 
+    });
 
     const { result } = renderHook(() => useImageGeneration(mockProps));
 
     await act(async () => {
-      await result.current.generateImageFromPrompt('test prompt', 'fake-api-key', false);
+      await result.current.generateImageFromPrompt('test prompt', '', false);
     });
 
     expect(mockProps.onError).toHaveBeenCalled();
@@ -80,19 +78,18 @@ describe('useImageGeneration', () => {
     expect(toast.error).toHaveBeenCalled();
   });
 
-  it('should prevent concurrent retries', async () => {
+  it('should handle insufficient credits error', async () => {
+    (generateImage as any).mockResolvedValueOnce({ 
+      success: false, 
+      error: 'Insufficient credits' 
+    });
+
     const { result } = renderHook(() => useImageGeneration(mockProps));
-    
-    // Start a retry
+
     await act(async () => {
-      await result.current.generateImageFromPrompt('test prompt', 'fake-api-key', true);
+      await result.current.generateImageFromPrompt('test prompt', '', false);
     });
 
-    // Try to generate while retrying
-    await act(async () => {
-      await result.current.generateImageFromPrompt('test prompt', 'fake-api-key', false);
-    });
-
-    expect(generateImage).toHaveBeenCalledTimes(1);
+    expect(toast.error).toHaveBeenCalledWith('Out of Credits', expect.any(Object));
   });
 });

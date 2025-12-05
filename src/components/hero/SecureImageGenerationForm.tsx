@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -8,13 +7,18 @@ import { AlertCircle, Wand2, Clock, Shield, Zap } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
-import { secureImageGeneration, GenerationProgress } from '@/services/secureImageGenerationService';
-import { OptimizedImage } from '@/components/performance/OptimizedImage';
-import { toast } from '@/components/ui/sonner';
+import { generateImage } from '@/services/api/imageGeneration';
+import { toast } from 'sonner';
 
 interface SecureImageGenerationFormProps {
   onImageGenerated?: (url: string) => void;
   onError?: (error: string) => void;
+}
+
+interface GenerationProgress {
+  status: 'starting' | 'processing' | 'succeeded' | 'failed';
+  progress: number;
+  estimatedTime?: number;
 }
 
 const STYLE_OPTIONS = [
@@ -50,7 +54,6 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
 
   const { user } = useAuth();
 
-  // Performance: Load user stats
   useEffect(() => {
     const loadStats = () => {
       const stats = localStorage.getItem('generationStats');
@@ -90,7 +93,6 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
       return { isValid: false, message: 'Prompt too long (max 1000 characters)' };
     }
 
-    // Basic content validation
     const nsfw = ['nude', 'naked', 'sexual', 'explicit', 'adult', 'nsfw'];
     const lowerPrompt = prompt.toLowerCase();
     const hasNSFW = nsfw.some(word => lowerPrompt.includes(word));
@@ -103,65 +105,71 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
   }, []);
 
   const handleGenerate = useCallback(async () => {
-    // Validation
     const validation = validatePrompt(prompt);
     if (!validation.isValid) {
       setError(validation.message || 'Invalid prompt');
       return;
     }
 
+    if (!user) {
+      setError('Please sign in to generate images');
+      toast.error('Authentication Required', {
+        description: 'Please sign in to generate images.',
+      });
+      return;
+    }
+
     setIsGenerating(true);
     setError(null);
-    setProgress(null);
+    setProgress({ status: 'starting', progress: 0 });
     setGeneratedImage(null);
 
     const startTime = Date.now();
 
     try {
-      const imageUrl = await secureImageGeneration.generateImage(
-        {
-          prompt: prompt.trim(),
-          style,
-          resolution,
-          userId: user?.id
-        },
-        (progressUpdate) => {
-          setProgress(progressUpdate);
-        }
-      );
+      setProgress({ status: 'processing', progress: 30, estimatedTime: 15 });
+
+      const result = await generateImage({
+        prompt: prompt.trim(),
+        style: style !== 'auto' ? style : undefined,
+        resolution,
+      });
+
+      if (!result.success || !result.generation) {
+        throw new Error(result.error || 'Generation failed');
+      }
+
+      setProgress({ status: 'succeeded', progress: 100 });
 
       const generationTime = (Date.now() - startTime) / 1000;
+      const imageUrl = result.generation.image_url;
       
       setGeneratedImage(imageUrl);
       updateStats(true, generationTime);
       onImageGenerated?.(imageUrl);
 
+      const creditsMsg = result.creditsRemaining === "unlimited" 
+        ? "Premium - unlimited generations" 
+        : `${result.creditsRemaining} credits remaining`;
+
       toast.success('Image Generated!', {
-        description: `Created in ${generationTime.toFixed(1)}s with enhanced security`,
-        action: {
-          label: 'Download',
-          onClick: () => {
-            const link = document.createElement('a');
-            link.href = imageUrl;
-            link.download = `generated-${Date.now()}.webp`;
-            link.click();
-          }
-        }
+        description: `Created in ${generationTime.toFixed(1)}s. ${creditsMsg}`,
       });
 
     } catch (error) {
       const generationTime = (Date.now() - startTime) / 1000;
       const errorMessage = error instanceof Error ? error.message : 'Generation failed';
       
+      setProgress({ status: 'failed', progress: 0 });
       setError(errorMessage);
       updateStats(false, generationTime);
       onError?.(errorMessage);
 
     } finally {
       setIsGenerating(false);
-      setProgress(null);
+      setTimeout(() => setProgress(null), 2000);
     }
-  }, [prompt, style, resolution, user?.id, validatePrompt, updateStats, onImageGenerated, onError]);
+  }, [prompt, style, resolution, user, validatePrompt, updateStats, onImageGenerated, onError]);
 
   const getRemainingCharacters = () => 1000 - prompt.length;
   const isPromptValid = validatePrompt(prompt).isValid;
@@ -292,7 +300,7 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
           {/* Generate Button */}
           <Button
             onClick={handleGenerate}
-            disabled={!isPromptValid || isGenerating}
+            disabled={!isPromptValid || isGenerating || !user}
             className="w-full h-12 text-lg font-medium bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700"
           >
             {isGenerating ? (
@@ -303,7 +311,7 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
             ) : (
               <div className="flex items-center space-x-2">
                 <Wand2 className="h-5 w-5" />
-                <span>Generate Secure Image</span>
+                <span>{user ? 'Generate Secure Image' : 'Sign in to Generate'}</span>
               </div>
             )}
           </Button>
@@ -314,13 +322,10 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
           <div className="p-6 bg-gray-50 border-t border-gray-200">
             <div className="text-center space-y-4">
               <h3 className="text-lg font-semibold text-gray-900">Your Generated Image</h3>
-              <OptimizedImage
+              <img
                 src={generatedImage}
                 alt="Generated image"
-                className="w-full max-w-md mx-auto h-auto"
-                enableCompression={true}
-                quality={0.9}
-                priority={true}
+                className="w-full max-w-md mx-auto h-auto rounded-lg shadow-md"
               />
             </div>
           </div>
