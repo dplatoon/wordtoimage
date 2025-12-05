@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { getSignedImageUrls } from "@/utils/signedUrls";
 
 export interface Generation {
   id: string;
@@ -14,7 +15,7 @@ export interface Generation {
 }
 
 /**
- * Fetch all generations for the current user
+ * Fetch all generations for the current user with fresh signed URLs
  */
 export const getUserGenerations = async (): Promise<Generation[]> => {
   const { data, error } = await supabase
@@ -27,11 +28,26 @@ export const getUserGenerations = async (): Promise<Generation[]> => {
     throw error;
   }
 
-  return data || [];
+  if (!data || data.length === 0) return [];
+
+  // Get fresh signed URLs for all images with storage paths
+  const storagePaths = data
+    .filter(gen => gen.storage_path)
+    .map(gen => gen.storage_path!);
+  
+  const signedUrls = await getSignedImageUrls(storagePaths);
+
+  // Update image_url with signed URLs where available
+  return data.map(gen => ({
+    ...gen,
+    image_url: gen.storage_path && signedUrls.has(gen.storage_path)
+      ? signedUrls.get(gen.storage_path)!
+      : gen.image_url
+  }));
 };
 
 /**
- * Fetch a single generation by ID
+ * Fetch a single generation by ID with a fresh signed URL
  */
 export const getGenerationById = async (id: string): Promise<Generation | null> => {
   const { data, error } = await supabase
@@ -43,6 +59,16 @@ export const getGenerationById = async (id: string): Promise<Generation | null> 
   if (error) {
     console.error("Error fetching generation:", error);
     return null;
+  }
+
+  if (!data) return null;
+
+  // Get fresh signed URL if storage path exists
+  if (data.storage_path) {
+    const signedUrls = await getSignedImageUrls([data.storage_path]);
+    if (signedUrls.has(data.storage_path)) {
+      return { ...data, image_url: signedUrls.get(data.storage_path)! };
+    }
   }
 
   return data;

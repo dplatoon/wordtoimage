@@ -126,12 +126,18 @@ serve(async (req) => {
       throw new Error("Failed to upload image");
     }
 
-    // Get public URL
-    const { data: { publicUrl } } = supabase.storage
+    // Get signed URL (valid for 1 hour)
+    const { data: signedUrlData, error: signedUrlError } = await supabase.storage
       .from("generated-images")
-      .getPublicUrl(fileName);
+      .createSignedUrl(fileName, 3600);
 
-    console.log("Image uploaded to storage:", publicUrl);
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      console.error("Signed URL error:", signedUrlError);
+      throw new Error("Failed to generate signed URL");
+    }
+
+    const imageUrl = signedUrlData.signedUrl;
+    console.log("Image uploaded to storage with signed URL");
 
     // Save generation to database
     const { data: generation, error: insertError } = await supabase
@@ -142,7 +148,7 @@ serve(async (req) => {
         enhanced_prompt: enhancedPrompt,
         style,
         resolution,
-        image_url: publicUrl,
+        image_url: imageUrl,
         storage_path: fileName,
         settings,
       })
