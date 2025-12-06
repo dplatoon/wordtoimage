@@ -48,6 +48,7 @@ const PDFToJPG = lazy(() => import("./pages/PDFToJPG"));
 const WordToJPG = lazy(() => import("./pages/WordToJPG"));
 const JPGToWord = lazy(() => import("./pages/JPGToWord"));
 const JPGToPDF = lazy(() => import("./pages/JPGToPDF"));
+const AIEnhance = lazy(() => import("./pages/AIEnhance"));
 
 // HuggingFace transformer only loaded on background remover page
 const RemoveBackground = lazy(() => import("./pages/RemoveBackground"));
@@ -161,6 +162,7 @@ function App() {
                   <Route path="/jpg-to-word" element={<JPGToWord />} />
                   <Route path="/jpg-to-pdf" element={<JPGToPDF />} />
                   <Route path="/remove-background" element={<RemoveBackground />} />
+                  <Route path="/ai-enhance" element={<AIEnhance />} />
                   <Route path="/blog/ai-art-styles" element={<AIArtStylesBlogPost />} />
                   <Route path="/blog/prompt-writing-guide" element={<PromptWritingGuideBlogPost />} />
                   <Route path="/blog/ai-marketing-success" element={<AIMarketingSuccessBlogPost />} />
