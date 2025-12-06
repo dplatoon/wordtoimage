@@ -1,5 +1,6 @@
 @import './styles/enhanced-theme.css';
 @import './styles/design-system.css';
+@import './styles/mobile-design-system.css';
 
 @tailwind base;
 @tailwind components;
