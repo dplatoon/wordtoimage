@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sparkles, User, Home, Image, Palette } from 'lucide-react';
+import { Menu, X, Sparkles, User, Home, Image, Palette, Wand2, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { Link, useLocation } from 'react-router-dom';
@@ -9,23 +8,38 @@ import { cn } from '@/lib/utils';
 export const MobileOptimizedNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showStickyNav, setShowStickyNav] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { user } = useAuth();
   const location = useLocation();
 
-  // Show sticky navigation on scroll
+  // Smart scroll detection - show on scroll up, hide on scroll down
   useEffect(() => {
     const handleScroll = () => {
-      setShowStickyNav(window.scrollY > 100);
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 100) {
+        setShowStickyNav(currentScrollY < lastScrollY || currentScrollY < 200);
+      } else {
+        setShowStickyNav(false);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
+
+  // Close menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   const mainNavItems = [
     { path: '/', label: 'Home', icon: Home },
-    { path: '/text-to-image', label: 'Generate', icon: Sparkles },
+    { path: '/text-to-image', label: 'Create', icon: Sparkles },
     { path: '/style-gallery', label: 'Styles', icon: Palette },
+    { path: '/ai-enhance', label: 'Enhance', icon: Wand2 },
     { path: '/dashboard', label: 'Gallery', icon: Image },
   ];
 
@@ -35,96 +49,130 @@ export const MobileOptimizedNav = () => {
 
   return (
     <>
-      {/* Mobile Header */}
-      <div className="md:hidden bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="flex items-center justify-between px-4 py-3">
-          <Link to="/" className="flex items-center space-x-2">
-            <Sparkles className="h-8 w-8 text-violet-600" />
-            <span className="font-bold text-xl text-gray-900">WordToImage</span>
+      {/* Mobile Header - Glass morphism */}
+      <header className="md:hidden fixed top-0 left-0 right-0 z-50 glass-card-dark safe-top">
+        <div className="flex items-center justify-between px-4 h-14">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg">
+              <Sparkles className="h-5 w-5 text-white" />
+            </div>
+            <span className="font-bold text-lg text-white">WordToImage</span>
           </Link>
           
           <Button
             variant="ghost"
-            size="sm"
+            size="icon-sm"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2"
+            className="text-white hover:bg-white/10"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
+      </header>
 
-        {/* Mobile Menu Overlay */}
-        {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg">
-            <div className="px-4 py-2 space-y-1">
-              {/* Quick Actions */}
-              <div className="py-2">
-                <Button 
-                  asChild 
-                  className="w-full bg-violet-600 hover:bg-violet-700 text-white h-12 text-base font-medium"
+      {/* Mobile Menu Overlay - Slide in from right */}
+      <div className={cn(
+        "md:hidden fixed inset-0 z-40 transition-all duration-300",
+        isMenuOpen ? "visible" : "invisible"
+      )}>
+        {/* Backdrop */}
+        <div 
+          className={cn(
+            "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300",
+            isMenuOpen ? "opacity-100" : "opacity-0"
+          )}
+          onClick={() => setIsMenuOpen(false)}
+        />
+        
+        {/* Menu Panel */}
+        <div className={cn(
+          "absolute right-0 top-0 bottom-0 w-[280px] bg-slate-900 shadow-2xl transition-transform duration-300 ease-out safe-top",
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        )}>
+          <div className="flex flex-col h-full pt-16 pb-safe">
+            {/* Quick Action */}
+            <div className="px-4 pb-4">
+              <Button 
+                asChild 
+                variant="gradient-primary"
+                size="lg"
+                className="w-full"
+              >
+                <Link to="/text-to-image">
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  Create AI Image
+                </Link>
+              </Button>
+            </div>
+
+            {/* Navigation Links */}
+            <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
+              {[
+                { path: '/ai-enhance', label: 'AI Enhance', icon: Wand2 },
+                { path: '/style-gallery', label: 'Style Gallery', icon: Palette },
+                { path: '/pricing', label: 'Pricing', badge: 'Pro' },
+                { path: '/tutorials', label: 'Tutorials' },
+                { path: '/help', label: 'Help & Support' },
+                { path: '/about', label: 'About Us' },
+              ].map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={cn(
+                    "flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all touch-manipulation",
+                    isActiveRoute(item.path)
+                      ? "bg-violet-600/20 text-violet-400"
+                      : "text-gray-300 hover:bg-white/5 active:bg-white/10"
+                  )}
                 >
-                  <Link to="/text-to-image" onClick={() => setIsMenuOpen(false)}>
-                    <Sparkles className="mr-2 h-5 w-5" />
-                    Create AI Image
-                  </Link>
-                </Button>
-              </div>
+                  {item.icon && <item.icon className="h-5 w-5" />}
+                  <span className="flex-1">{item.label}</span>
+                  {item.badge && (
+                    <span className="px-2 py-0.5 text-xs font-bold bg-gradient-to-r from-violet-500 to-indigo-500 text-white rounded-full">
+                      {item.badge}
+                    </span>
+                  )}
+                </Link>
+              ))}
+            </nav>
 
-              {/* Navigation Links */}
-              <div className="space-y-1">
-                {[
-                  { path: '/style-gallery', label: 'Style Gallery' },
-                  { path: '/pricing', label: 'Pricing' },
-                  { path: '/tutorials', label: 'Tutorials' },
-                  { path: '/help', label: 'Help' },
-                  { path: '/about', label: 'About' },
-                ].map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className="block px-3 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-
-              {/* Auth Section */}
-              <div className="pt-4 border-t border-gray-200">
-                {user ? (
-                  <Link
-                    to="/dashboard"
-                    className="flex items-center px-3 py-3 text-gray-700 hover:bg-gray-50 rounded-lg"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <User className="mr-3 h-5 w-5" />
-                    Dashboard
-                  </Link>
-                ) : (
-                  <Button 
-                    asChild 
-                    variant="outline" 
-                    className="w-full h-12 text-base"
-                  >
-                    <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
-                      Sign In
-                    </Link>
+            {/* Auth Section */}
+            <div className="px-4 pt-4 border-t border-white/10">
+              {user ? (
+                <Link
+                  to="/dashboard"
+                  className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all"
+                >
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+                    <User className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-medium text-white">My Dashboard</div>
+                    <div className="text-sm text-gray-400">View your creations</div>
+                  </div>
+                </Link>
+              ) : (
+                <div className="space-y-2">
+                  <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
+                    <Link to="/auth">Sign In</Link>
                   </Button>
-                )}
-              </div>
+                  <Button asChild variant="gradient-primary" className="w-full">
+                    <Link to="/auth?mode=signup">Get Started Free</Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Sticky Bottom Navigation for Mobile */}
-      <div className={cn(
-        "md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 transition-transform duration-300",
-        showStickyNav ? "translate-y-0" : "translate-y-full"
+      {/* Sticky Bottom Navigation - Glass morphism */}
+      <nav className={cn(
+        "md:hidden fixed bottom-0 left-0 right-0 z-40 mobile-nav-bar transition-transform duration-300",
+        showStickyNav || location.pathname === '/' ? "translate-y-0" : "translate-y-full"
       )}>
-        <div className="grid grid-cols-4 gap-1 px-2 py-2">
+        <div className="grid grid-cols-5 gap-1 px-2 py-1.5">
           {mainNavItems.map((item) => {
             const Icon = item.icon;
             const active = isActiveRoute(item.path);
@@ -134,27 +182,33 @@ export const MobileOptimizedNav = () => {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-colors min-h-[48px]",
-                  active 
-                    ? "bg-violet-100 text-violet-600" 
-                    : "text-gray-600 hover:text-violet-600 hover:bg-gray-50"
+                  "mobile-nav-item",
+                  active && "active"
                 )}
                 aria-label={item.label}
+                aria-current={active ? "page" : undefined}
               >
-                <Icon className="h-5 w-5 mb-1" />
-                <span className="text-xs font-medium">{item.label}</span>
+                <Icon className={cn(
+                  "h-5 w-5 mb-0.5 transition-transform",
+                  active && "scale-110"
+                )} />
+                <span className="text-[10px] font-medium">{item.label}</span>
               </Link>
             );
           })}
         </div>
-      </div>
+      </nav>
 
-      {/* Main CTA Floating Button - Always Visible */}
-      <div className="md:hidden fixed bottom-20 right-4 z-30">
+      {/* Floating Create Button - Always visible on scroll */}
+      <div className={cn(
+        "md:hidden fixed z-30 transition-all duration-300",
+        showStickyNav ? "bottom-20 right-4" : "bottom-6 right-4"
+      )}>
         <Button
           asChild
-          size="lg"
-          className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white shadow-lg rounded-full h-14 w-14 p-0"
+          variant="gradient-neon"
+          size="icon-lg"
+          className="rounded-full shadow-2xl"
           aria-label="Create AI Image"
         >
           <Link to="/text-to-image">
@@ -162,6 +216,9 @@ export const MobileOptimizedNav = () => {
           </Link>
         </Button>
       </div>
+
+      {/* Spacer for content below fixed nav */}
+      <div className="md:hidden h-14" />
     </>
   );
 };
