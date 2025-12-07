@@ -5,38 +5,28 @@ import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
 import { AuthModalDialog } from '@/components/hero/AuthModalDialog';
 import { trackEvent } from '@/utils/analytics';
-import { Nav } from '@/components/Nav';
-import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Download, HelpCircle, Wand2, ArrowRight, History, BookOpen, Palette, Zap, Star, Users } from 'lucide-react';
-import { SkipToContent } from '@/components/home/SkipToContent';
+import { Sparkles, Wand2, ArrowRight, Palette, Zap, Clock, Shield, Star, ChevronRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { EnhancedSEOManager } from '@/components/seo/EnhancedSEOManager';
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { GenerationProgress } from '@/components/word-to-image/GenerationProgress';
 import { EnhancedImageGallery } from '@/components/word-to-image/EnhancedImageGallery';
-import { ValueProposition } from '@/components/text-to-image/ValueProposition';
-import { EnhancedPromptInput } from '@/components/text-to-image/EnhancedPromptInput';
-import { StyleTagSuggestions } from '@/components/text-to-image/StyleTagSuggestions';
 import { BrowseStylesModal } from '@/components/text-to-image/BrowseStylesModal';
 import { storageService } from '@/services/storageService';
 import { useStyleParams } from '@/hooks/useStyleParams';
-import { Link } from 'react-router-dom';
 import { useStyleRecommendations } from '@/hooks/useStyleRecommendations';
 import { useRecentStyles } from '@/hooks/useRecentStyles';
 import { useGenerationHistory } from '@/hooks/useGenerationHistory';
 import { StyleRecommendations } from '@/components/word-to-image/StyleRecommendations';
 import { RecentStyles } from '@/components/word-to-image/RecentStyles';
-import { GenerationHistory } from '@/components/word-to-image/GenerationHistory';
-import { FloatingActionPanel, defaultActions } from '@/components/ui/floating-action-panel';
-import { ProgressRing, PulseAnimation } from '@/components/ui/micro-interactions';
-import { QuickTooltip } from '@/components/ui/enhanced-tooltip';
 import { BrowserCompatibilityWrapper } from '@/components/compatibility/BrowserCompatibilityWrapper';
-import { SidebarProvider, SidebarTrigger, SidebarInset } from '@/components/ui/sidebar';
-import { ImageGenerationSidebar } from '@/components/text-to-image/ImageGenerationSidebar';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MobileOptimizedNav } from '@/components/navigation/MobileOptimizedNav';
+import { ModernPromptInput } from '@/components/text-to-image/ModernPromptInput';
+import { ModernFeatureCards } from '@/components/text-to-image/ModernFeatureCards';
+import { ModernStyleSelector } from '@/components/text-to-image/ModernStyleSelector';
 
 // Style mapping for URL parameters
 const STYLE_MAPPINGS: Record<string, string> = {
@@ -61,16 +51,13 @@ export default function TextToImage() {
   }[]>([]);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
-  const [showTips, setShowTips] = useState(true);
   const [showGalleryManager, setShowGalleryManager] = useState(false);
-  const [count, setCount] = useState(1);
-  const [resolution, setResolution] = useState('1024x1024');
   const { user, isLoading } = useAuth();
   const isMobile = useIsMobile();
   const { selectedStyle, hasStyleParam, clearStyleParam } = useStyleParams();
   const recommendations = useStyleRecommendations(prompt);
   const { recentStyles, addRecentStyle, clearRecentStyles } = useRecentStyles();
-  const { history, addToHistory, regenerateFromHistory, clearHistory } = useGenerationHistory();
+  const { history, addToHistory } = useGenerationHistory();
   
   const { generateImageFromPrompt } = useImageGeneration({
     onImageGenerated: (url) => {
@@ -85,28 +72,24 @@ export default function TextToImage() {
       setLastGenerationTime(Date.now());
       setProgress(100);
       
-      // Add to generation history
       addToHistory({
         prompt: prompt,
         style: selectedStyle || undefined,
         imageUrl: url
       });
       
-      // Track recent style usage
       if (selectedStyle) {
         addRecentStyle(selectedStyle);
       }
       
       toast.success("Image generated successfully!", {
-        description: selectedStyle ? `Your custom graphic with ${selectedStyle} style is ready to download.` : "Your custom graphic is ready to download.",
+        description: selectedStyle ? `Your custom graphic with ${selectedStyle} style is ready.` : "Your custom graphic is ready.",
         action: {
           label: "Download",
           onClick: () => window.open(url, '_blank')
         }
       });
-      trackEvent('text_to_image_generated', {
-        style: selectedStyle || 'none'
-      });
+      trackEvent('text_to_image_generated', { style: selectedStyle || 'none' });
     },
     onGeneratingChange: (generating) => {
       setIsGenerating(generating);
@@ -129,36 +112,16 @@ export default function TextToImage() {
       setError(errorMsg);
       setProgress(0);
       toast.error("Failed to generate image", {
-        description: errorMsg || "An unexpected error occurred",
-        action: {
-          label: "Try Again",
-          onClick: () => handleGenerate()
-        }
-      });
-      trackEvent('text_to_image_error', {
-        errorMessage: errorMsg,
-        style: selectedStyle || 'none'
+        description: errorMsg || "An unexpected error occurred"
       });
     }
   });
 
-  // Load user preferences on mount
-  useEffect(() => {
-    const preferences = storageService.getPreferences();
-    if (preferences.autoSave === false) {
-      setShowTips(false);
-    }
-  }, []);
-
-  // Show style notification when coming from gallery
   useEffect(() => {
     if (hasStyleParam && selectedStyle) {
-      toast.success(`${selectedStyle.replace('-', ' ')}` + ' style selected!', {
+      toast.success(`${selectedStyle.replace('-', ' ')} style selected!`, {
         description: "Your images will be generated with this artistic style.",
-        action: {
-          label: "Clear Style",
-          onClick: () => clearStyleParam()
-        }
+        action: { label: "Clear Style", onClick: () => clearStyleParam() }
       });
     }
   }, [hasStyleParam, selectedStyle, clearStyleParam]);
@@ -166,20 +129,15 @@ export default function TextToImage() {
   const handleGenerate = async () => {
     if (!user && !isLoading) {
       setAuthModalOpen(true);
-      trackEvent('auth_modal_opened', {
-        source: 'text_to_image'
-      });
+      trackEvent('auth_modal_opened', { source: 'text_to_image' });
       return;
     }
     
     if (!prompt.trim()) {
-      toast.error("Please enter a description", {
-        description: "Tell us what you'd like to create!"
-      });
+      toast.error("Please enter a description", { description: "Tell us what you'd like to create!" });
       return;
     }
     
-    // Enhance prompt with selected style
     let enhancedPrompt = prompt.trim();
     if (selectedStyle && STYLE_MAPPINGS[selectedStyle]) {
       enhancedPrompt = `${enhancedPrompt}, ${STYLE_MAPPINGS[selectedStyle]}`;
@@ -188,125 +146,26 @@ export default function TextToImage() {
     storageService.addSearchTerm(prompt.trim());
     
     try {
-      trackEvent('text_to_image_generate_attempt', {
-        promptLength: prompt.length,
-        style: selectedStyle || 'none'
-      });
+      trackEvent('text_to_image_generate_attempt', { promptLength: prompt.length, style: selectedStyle || 'none' });
       await generateImageFromPrompt(enhancedPrompt, '', false, '');
     } catch (error) {
       console.error('Failed to generate image:', error);
-      const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      toast.error("Failed to generate image", {
-        description: errorMessage
-      });
     }
   };
 
   const handleSelectRecommendedStyle = (styleId: string) => {
     clearStyleParam();
-    // Update URL to show selected style
     const url = new URL(window.location.href);
     url.searchParams.set('style', styleId);
     window.history.pushState({}, '', url.toString());
-    
-    toast.success(`${styleId.replace('-', ' ')} style selected!`, {
-      description: "Your images will be generated with this artistic style."
-    });
-  };
-
-  const handleRegenerateFromHistory = (historyPrompt: string, historyStyle?: string) => {
-    setPrompt(historyPrompt);
-    if (historyStyle) {
-      handleSelectRecommendedStyle(historyStyle);
-    }
-    
-    toast.success("Prompt and style loaded from history!", {
-      description: "Ready to regenerate with previous settings"
-    });
-    
-    // Focus on the prompt input
-    setTimeout(() => {
-      const promptInput = document.querySelector('textarea[placeholder*="Describe"]') as HTMLTextAreaElement;
-      if (promptInput) {
-        promptInput.focus();
-        promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 100);
-  };
-
-  const handleSelectFromHistory = (historicalPrompt: string) => {
-    setPrompt(historicalPrompt);
-    toast.success("Prompt loaded from history");
-  };
-
-  const handleTagSelect = (tag: string) => {
-    const newPrompt = prompt ? `${prompt}, ${tag}` : tag;
-    setPrompt(newPrompt);
-    toast.success(`"${tag}" added to your prompt`, {
-      description: "Your prompt has been enhanced with this style tag"
-    });
+    toast.success(`${styleId.replace('-', ' ')} style selected!`);
   };
 
   const handleStyleChange = (newStyle: string) => {
-    // Update URL to show selected style
     const url = new URL(window.location.href);
     url.searchParams.set('style', newStyle);
     window.history.pushState({}, '', url.toString());
-    
-    toast.success(`${newStyle.replace('-', ' ')} style selected!`, {
-      description: "Your images will be generated with this artistic style."
-    });
-  };
-
-  // Fix the Create Another functionality
-  const handleCreateAnother = () => {
-    // Clear the prompt and focus on input
-    setPrompt('');
-    setError(null);
-    setProgress(0);
-    
-    // Focus on the prompt input
-    setTimeout(() => {
-      const promptInput = document.querySelector('textarea[placeholder*="Describe"]') as HTMLTextAreaElement;
-      if (promptInput) {
-        promptInput.focus();
-        promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 100);
-    
-    toast.success("Ready for your next creation!", {
-      description: "Enter a new prompt to generate another image"
-    });
-  };
-
-  // Fix the Generate Variation functionality  
-  const handleGenerateVariation = async () => {
-    if (!prompt.trim()) {
-      toast.error("No prompt available for variation", {
-        description: "Please enter a description first"
-      });
-      return;
-    }
-    
-    // Add variation keywords to the existing prompt
-    const variationPrompt = `${prompt}, different style, alternate version, creative variation`;
-    
-    try {
-      await generateImageFromPrompt(variationPrompt, '', false, '');
-      toast.info("Generating variation...", {
-        description: "Creating a different version of your image"
-      });
-    } catch (error) {
-      console.error('Failed to generate variation:', error);
-    }
-  };
-
-  // Fix the Manage Gallery functionality
-  const handleManageGallery = () => {
-    setShowGalleryManager(true);
-    toast.success("Gallery Manager opened", {
-      description: "Manage your generated images below"
-    });
+    toast.success(`${newStyle.replace('-', ' ')} style selected!`);
   };
 
   // Keyboard shortcuts
@@ -319,232 +178,221 @@ export default function TextToImage() {
         }
       }
     };
-
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, [prompt, isGenerating]);
 
-  const faqItems = [
-    {
-      question: "How does the AI text-to-image generator work?",
-      answer: "Our AI uses advanced machine learning models to turn your text descriptions into unique images. Simply describe what you want to see, and our AI will create it in seconds!"
-    },
-    {
-      question: "What makes a good prompt?",
-      answer: "Be specific and descriptive! Instead of 'forest', try 'a watercolor painting of a misty forest at sunrise with golden light filtering through the trees'. Include details about style, colors, mood, and composition."
-    },
-    {
-      question: "How are my images stored?",
-      answer: "All your generated images are automatically saved to your personal gallery with search, filtering, and organization features. You can favorite images, search by prompt, and manage your entire collection."
-    },
-    {
-      question: "Can I download all my images at once?",
-      answer: "Yes! Use the Gallery Manager to select multiple images and download them in bulk. You can also export your entire gallery data for backup purposes."
-    }
-  ];
-
-  const generationTime = lastGenerationTime ? ((Date.now() - lastGenerationTime) / 1000).toFixed(1) : null;
-  const searchHistory = storageService.getSearchHistory().slice(0, 5);
-
   const pageContent = {
-    h1: "AI Image Generator: Turn Words to Art in Seconds",
-    h2Headings: [
-      "How to Generate AI Images",
-      "Popular Use Cases for AI Art",
-      "Frequently Asked Questions",
-      "Ready to Create Without Limits?"
-    ]
+    h1: "AI Image Generator",
+    h2Headings: ["Transform Words Into Art", "Popular Use Cases", "FAQ"]
   };
 
   return (
     <BrowserCompatibilityWrapper>
-      <SidebarProvider defaultOpen={!isMobile}>
-        <div className="min-h-screen flex w-full bg-gradient-to-br from-violet-50/50 via-white to-indigo-50/50">
-          <Helmet>
-            <title>AI Image Generator: Turn Words to Art in Seconds | WordToImage</title>
-            <meta name="description" content="Free AI-powered text-to-image tool. Create stunning visuals from text prompts instantly. No design skills needed. Try now!" />
-            <meta name="keywords" content="AI image generator, text to image, AI art generator, free image generator, AI artwork, digital art creator" />
-            <link rel="canonical" href="https://wordtoimage.com/text-to-image" />
-          </Helmet>
-          <EnhancedSEOManager pageContent={pageContent} />
-          
-          {/* Header with Nav and Sidebar Trigger */}
-          <header className="sticky top-0 z-50 w-full border-b border-border/10 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 shadow-sm">
-            <div className="flex h-14 md:h-16 items-center justify-between px-4 md:px-6">
-              <div className="flex items-center gap-3 md:gap-4">
-                <SidebarTrigger className="h-8 w-8 md:h-9 md:w-9 touch-target" />
-                <div className="hidden sm:block">
-                  <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                    AI Image Studio
-                  </h1>
-                  <p className="text-xs text-muted-foreground hidden md:block">Create stunning visuals with AI</p>
-                </div>
-                <div className="sm:hidden">
-                  <h1 className="text-base font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                    AI Studio
-                  </h1>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Nav />
-              </div>
-            </div>
-          </header>
+      <div className="min-h-screen bg-background">
+        <Helmet>
+          <title>AI Image Generator: Turn Words to Art | WordToImage</title>
+          <meta name="description" content="Free AI-powered text-to-image tool. Create stunning visuals from text prompts instantly." />
+          <link rel="canonical" href="https://wordtoimage.online/text-to-image" />
+        </Helmet>
+        <EnhancedSEOManager pageContent={pageContent} />
+        
+        <MobileOptimizedNav />
+        
+        {/* Modern Hero Section */}
+        <section className="relative pt-20 pb-8 md:pt-28 md:pb-16 overflow-hidden">
+          {/* Animated Background */}
+          <div className="absolute inset-0 -z-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          </div>
 
-          {/* Sidebar */}
-          <ImageGenerationSidebar
-            style={selectedStyle || 'auto'}
-            onStyleChange={handleStyleChange}
-            count={count}
-            onCountChange={setCount}
-            resolution={resolution}
-            onResolutionChange={setResolution}
-            prompt={prompt}
-            onPromptChange={setPrompt}
-          />
+          <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="text-center mb-8 md:mb-12"
+            >
+              {/* Badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+              >
+                <Sparkles className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium text-primary">Powered by Advanced AI</span>
+              </motion.div>
 
-          {/* Main Content */}
-          <SidebarInset className="flex-1">
-            <div className="container mx-auto px-3 md:px-6 py-4 md:py-8 max-w-5xl">
-              <SkipToContent />
-              
-              {/* Hero Section - Mobile Optimized */}
-              <div className="text-center mb-6 md:mb-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3 md:mb-4 leading-tight">
-                    {pageContent.h1}
-                  </h1>
-                  <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-4 md:mb-6 max-w-2xl mx-auto leading-relaxed px-2">
-                    Transform your imagination into stunning visuals with our AI-powered image generator.
-                  </p>
-                </motion.div>
-              </div>
+              {/* Main Heading */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+                <span className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent">
+                  Turn Words Into
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
+                  Stunning Art
+                </span>
+              </h1>
 
-              {/* Value Proposition */}
-              <ValueProposition className="mb-6 md:mb-8" />
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Create beautiful, unique images from your imagination in seconds. 
+                No design skills required.
+              </p>
+            </motion.div>
 
-              {/* Main Generation Section - Mobile Optimized */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg md:shadow-xl border border-white/60 p-4 sm:p-6 md:p-8 mb-6 md:mb-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                >
-                  <EnhancedPromptInput
+            {/* Feature Cards */}
+            <ModernFeatureCards />
+
+            {/* Main Generation Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="relative"
+            >
+              <div className="relative bg-card/80 backdrop-blur-xl rounded-3xl border border-border/50 shadow-2xl overflow-hidden">
+                {/* Card Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+                
+                <div className="relative p-6 md:p-10">
+                  {/* Prompt Input */}
+                  <ModernPromptInput
                     prompt={prompt}
                     onChange={setPrompt}
                     onGenerate={handleGenerate}
                     isGenerating={isGenerating}
                     canGenerate={!!prompt.trim() && !isGenerating}
-                    className="mb-4 md:mb-6"
                   />
 
                   {/* Generation Progress */}
-                  {isGenerating && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="mb-6"
-                    >
-                      <GenerationProgress 
-                        isGenerating={isGenerating}
-                        progress={progress}
-                        currentPrompt={prompt}
-                        estimatedTime={5}
-                      />
-                    </motion.div>
-                  )}
+                  <AnimatePresence>
+                    {isGenerating && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="mt-6"
+                      >
+                        <GenerationProgress 
+                          isGenerating={isGenerating}
+                          progress={progress}
+                          currentPrompt={prompt}
+                          estimatedTime={5}
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   {/* Error Display */}
-                  {error && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mb-6"
-                    >
-                      <Alert className="border-red-200 bg-red-50">
-                        <AlertDescription className="text-red-800">
-                          {error}
-                        </AlertDescription>
-                      </Alert>
-                    </motion.div>
-                  )}
-
-                  {/* Style Recommendations */}
-                  {recommendations.length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mb-6"
-                    >
-                      <StyleRecommendations
-                        recommendations={recommendations}
-                        onSelectStyle={handleSelectRecommendedStyle}
-                      />
-                    </motion.div>
-                  )}
-
-                  {/* Recent Styles */}
-                  {recentStyles.length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mb-6"
-                    >
-                      <RecentStyles
-                        recentStyles={recentStyles}
-                        onSelectStyle={handleSelectRecommendedStyle}
-                        onClearRecent={clearRecentStyles}
-                      />
-                    </motion.div>
-                  )}
-                </motion.div>
+                  <AnimatePresence>
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="mt-6"
+                      >
+                        <Alert className="border-destructive/50 bg-destructive/10">
+                          <AlertDescription className="text-destructive">
+                            {error}
+                          </AlertDescription>
+                        </Alert>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
+            </motion.div>
 
-              {/* Browse Styles Section - Mobile Optimized */}
-              <div className="text-center mb-6 md:mb-8">
-                <BrowseStylesModal onStyleSelect={handleStyleChange}>
-                  <Button 
-                    variant="outline" 
-                    size={isMobile ? "default" : "lg"}
-                    className="bg-white/60 hover:bg-white/80 border-primary/30 hover:border-primary/50 text-primary touch-target w-full sm:w-auto"
-                  >
-                    <Palette className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                    <span className="text-sm sm:text-base">Browse 50+ Art Styles</span>
-                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-2" />
-                  </Button>
-                </BrowseStylesModal>
-              </div>
-
-              {/* Style Tag Suggestions */}
-              <StyleTagSuggestions 
-                onTagSelect={handleTagSelect}
-                className="mb-6 md:mb-8"
+            {/* Style Selector */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="mt-8"
+            >
+              <ModernStyleSelector
+                selectedStyle={selectedStyle}
+                onStyleChange={handleStyleChange}
               />
+            </motion.div>
 
-              {/* Generated Images Gallery - Mobile Optimized */}
-              <div className="mt-6 md:mt-8" role="region" aria-label="Generated images">
-                <EnhancedImageGallery 
-                  images={generatedImages} 
-                  loading={isGenerating}
-                  showGalleryManager={showGalleryManager}
-                  onToggleGalleryManager={setShowGalleryManager}
+            {/* Style Recommendations */}
+            {recommendations.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-8"
+              >
+                <StyleRecommendations
+                  recommendations={recommendations}
+                  onSelectStyle={handleSelectRecommendedStyle}
                 />
-              </div>
+              </motion.div>
+            )}
 
-              {/* Footer Spacing for Mobile Navigation */}
-              <div className="h-20 md:h-0" />
-            </div>
-          </SidebarInset>
-        </div>
+            {/* Recent Styles */}
+            {recentStyles.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-6"
+              >
+                <RecentStyles
+                  recentStyles={recentStyles}
+                  onSelectStyle={handleSelectRecommendedStyle}
+                  onClearRecent={clearRecentStyles}
+                />
+              </motion.div>
+            )}
+
+            {/* Browse Styles Button */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="mt-8 text-center"
+            >
+              <BrowseStylesModal onStyleSelect={handleStyleChange}>
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="group bg-background/50 hover:bg-background border-border/50 hover:border-primary/30 rounded-full px-8"
+                >
+                  <Palette className="h-5 w-5 mr-2 text-primary" />
+                  <span>Explore 50+ Art Styles</span>
+                  <ChevronRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </BrowseStylesModal>
+            </motion.div>
+
+            {/* Generated Images Gallery */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="mt-12"
+              role="region"
+              aria-label="Generated images"
+            >
+              <EnhancedImageGallery 
+                images={generatedImages} 
+                loading={isGenerating}
+                showGalleryManager={showGalleryManager}
+                onToggleGalleryManager={setShowGalleryManager}
+              />
+            </motion.div>
+
+            {/* Bottom Spacing for Mobile Nav */}
+            <div className="h-24 md:h-0" />
+          </div>
+        </section>
         
         <AuthModalDialog open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
-      </SidebarProvider>
+      </div>
     </BrowserCompatibilityWrapper>
   );
 }
