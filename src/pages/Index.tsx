@@ -1,9 +1,5 @@
 
 import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
-import { FastHero } from "@/components/home/FastHero";
-import { FastFeatures } from "@/components/home/FastFeatures";
-import { ShowcaseSection } from "@/components/home/showcase/ShowcaseSection";
 import { EnhancedSEOManager } from "@/components/seo/EnhancedSEOManager";
 import { FAQStructuredData, AI_IMAGE_GENERATION_FAQS } from "@/components/seo/FAQStructuredData";
 import { EnhancedSchemaMarkup } from "@/components/seo/EnhancedSchemaMarkup";
@@ -13,7 +9,11 @@ import { OnboardingManager } from "@/components/onboarding/OnboardingManager";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { useAuth } from "@/contexts/AuthContext";
 import { SeoHead } from "@/components/home/SeoHead";
-import { TryStyleGallery } from "@/components/home/TryStyleGallery";
+import { AdvancedHero } from "@/components/home/AdvancedHero";
+import { AdvancedFeatures } from "@/components/home/AdvancedFeatures";
+import { AdvancedStyleGallery } from "@/components/home/AdvancedStyleGallery";
+import { AdvancedFooter } from "@/components/home/AdvancedFooter";
+import { ShowcaseSection } from "@/components/home/showcase/ShowcaseSection";
 import { Suspense, lazy } from "react";
 
 // Lazy load heavy non-critical components
@@ -36,7 +36,7 @@ const Index = () => {
       }}
     >
       <ConversionManager pageId="homepage" userActivity={{}}>
-        <div className="min-h-screen">
+        <div className="min-h-screen bg-slate-950">
           {/* SEO - Critical for ranking */}
           <SeoHead />
           <EnhancedSEOManager 
@@ -56,7 +56,7 @@ const Index = () => {
             pageData={{
               title: "WordToImage - AI Image Generator: Transform Text Into Art",
               description: "Generate professional-quality images from simple text descriptions using advanced artificial intelligence. Create stunning visual artwork in seconds with our AI image generator.",
-              url: "https://wordtoimage.com",
+              url: "https://wordtoimage.online",
               datePublished: "2024-01-01",
               dateModified: new Date().toISOString()
             }}
@@ -72,11 +72,18 @@ const Index = () => {
           </div>
           <MobileOptimizedNav />
           
-          {/* Critical above-the-fold content */}
+          {/* Main Content */}
           <main id="main-content" role="main">
-            <FastHero />
-            <TryStyleGallery />
-            <FastFeatures />
+            {/* Advanced Hero Section */}
+            <AdvancedHero />
+            
+            {/* Style Gallery */}
+            <AdvancedStyleGallery />
+            
+            {/* Features Section */}
+            <AdvancedFeatures />
+            
+            {/* Showcase */}
             <ShowcaseSection />
             
             {/* Lazy load non-critical content */}
@@ -91,7 +98,8 @@ const Index = () => {
             </Suspense>
           </main>
           
-          <Footer />
+          {/* Advanced Footer */}
+          <AdvancedFooter />
         </div>
       </ConversionManager>
     </OnboardingManager>
