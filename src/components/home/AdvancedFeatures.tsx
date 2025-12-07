@@ -1,8 +1,9 @@
 
 import { motion } from 'framer-motion';
-import { Sparkles, Zap, Palette, Download, Shield, Globe, ArrowRight, Layers, Wand2 } from 'lucide-react';
+import { Sparkles, Zap, Palette, Download, Shield, Globe, Layers, Wand2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/animations/ScrollReveal';
 
 const features = [
   {
@@ -74,13 +75,7 @@ export const AdvancedFeatures = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <ScrollReveal animation="fadeUp" className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
             <Layers className="w-4 h-4 text-violet-400" />
             <span className="text-violet-300 text-sm font-medium">Powerful Features</span>
@@ -96,16 +91,10 @@ export const AdvancedFeatures = () => {
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Professional-grade AI tools designed for creators, marketers, and artists seeking exceptional results.
           </p>
-        </motion.div>
+        </ScrollReveal>
 
         {/* Features Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.08}>
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
@@ -134,7 +123,7 @@ export const AdvancedFeatures = () => {
               </motion.div>
             );
           })}
-        </motion.div>
+        </StaggerContainer>
 
         {/* CTA Section */}
         <motion.div
