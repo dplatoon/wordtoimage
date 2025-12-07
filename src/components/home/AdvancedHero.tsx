@@ -52,12 +52,13 @@ export const AdvancedHero = () => {
           }}
         />
         
-        {/* Floating Orbs */}
+      {/* Floating Orbs with Parallax Effect */}
         <motion.div
           className="absolute top-20 left-[10%] w-72 h-72 rounded-full bg-violet-500/20 blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
+            y: [0, -30, 0],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -66,6 +67,7 @@ export const AdvancedHero = () => {
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.4, 0.2, 0.4],
+            y: [0, 40, 0],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -76,6 +78,24 @@ export const AdvancedHero = () => {
             rotate: [0, 180, 360],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        {/* Additional parallax orbs */}
+        <motion.div
+          className="absolute top-[30%] right-[20%] w-48 h-48 rounded-full bg-pink-500/10 blur-2xl"
+          animate={{
+            y: [0, -50, 0],
+            x: [0, 20, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div
+          className="absolute bottom-[30%] left-[15%] w-64 h-64 rounded-full bg-cyan-500/10 blur-2xl"
+          animate={{
+            y: [0, 60, 0],
+            scale: [1.1, 1, 1.1],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
       </div>
 
