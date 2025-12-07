@@ -68,9 +68,31 @@ const itemVariants = {
 export const AdvancedFeatures = () => {
   return (
     <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-      {/* Background */}
+      {/* Enhanced Background with Parallax Layers */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-violet-900/10 via-transparent to-transparent" />
+        
+        {/* Parallax floating shapes */}
+        <motion.div
+          className="absolute top-[10%] left-[5%] w-32 h-32 rounded-full border border-violet-500/20"
+          animate={{ y: [0, -20, 0], rotate: [0, 45, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-[60%] right-[8%] w-24 h-24 rounded-lg border border-indigo-500/20 rotate-45"
+          animate={{ y: [0, 30, 0], rotate: [45, 90, 45] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-[20%] left-[12%] w-16 h-16 rounded-full bg-violet-500/5"
+          animate={{ y: [0, -40, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-[40%] right-[15%] w-40 h-40 rounded-full bg-indigo-500/5 blur-xl"
+          animate={{ y: [0, 50, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
