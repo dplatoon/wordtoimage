@@ -1,4 +1,3 @@
-
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { EnhancedPricingHero } from "@/components/pricing/EnhancedPricingHero";
@@ -15,7 +14,6 @@ const Pricing = () => {
   usePagePerformance('Pricing');
 
   useEffect(() => {
-    // Track pricing page view without conversion tracking
     console.log('Pricing page viewed');
   }, []);
 
@@ -23,7 +21,7 @@ const Pricing = () => {
     title: "AI Image Generator Pricing - Free & Pro Plans | WordToImage",
     description: "Affordable AI image generation pricing. Start free with daily credits or upgrade to Pro for unlimited generations. Commercial use included.",
     keywords: "AI image generator pricing, text to image cost, AI art subscription, image generation plans, affordable AI tools",
-    canonical: "https://wordtoimage.com/pricing",
+    canonical: "https://wordtoimage.online/pricing",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Product",
@@ -55,7 +53,15 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50/50 to-indigo-50/50">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Futuristic Background */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-dark-gradient" />
+        <div className="absolute inset-0 cyber-grid opacity-20" />
+        <div className="absolute top-40 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] animate-pulse" />
+        <div className="absolute bottom-40 right-1/4 w-[400px] h-[400px] bg-neon-coral/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+      </div>
+
       <PageSEO {...pricingSEO} />
       <FAQStructuredData 
         faqs={PRICING_FAQS} 

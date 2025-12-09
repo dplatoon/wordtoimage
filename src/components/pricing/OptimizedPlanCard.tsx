@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/sonner';
 import { PaymentMethodModal } from '@/components/PaymentMethodModal';
@@ -66,21 +65,25 @@ export const OptimizedPlanCard = ({
       return;
     }
 
-    // Use the new subscription hook
     const planId = name.toLowerCase();
     upgradeToPlane(planId);
   };
 
   return (
     <div
-      className={`relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl ${
+      className={`relative glass-card rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary/40 ${
         popular || isCurrentPlan 
-          ? 'ring-2 ring-blue-500 shadow-lg transform scale-105' 
-          : 'border border-gray-200 shadow-sm hover:border-blue-300'
-      } ${isCurrentPlan ? 'bg-gradient-to-br from-blue-50 to-indigo-50' : ''}`}
+          ? 'border-primary/50 shadow-neon transform scale-105' 
+          : 'border-border/30 hover:shadow-glass-lg'
+      } ${isCurrentPlan ? 'bg-gradient-to-br from-primary/10 to-neon-coral/5' : ''}`}
       role="listitem"
     >
-      <div className={`p-4 md:p-6 ${popular || isCurrentPlan ? 'pt-8 md:pt-10' : 'pt-6'}`}>
+      {/* Glow effect for popular/current */}
+      {(popular || isCurrentPlan) && (
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-neon-coral/5 pointer-events-none" />
+      )}
+
+      <div className={`relative p-4 md:p-6 ${popular || isCurrentPlan ? 'pt-8 md:pt-10' : 'pt-6'}`}>
         <PlanHeader 
           name={name}
           description={description}

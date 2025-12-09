@@ -189,7 +189,15 @@ export default function TextToImage() {
 
   return (
     <BrowserCompatibilityWrapper>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative overflow-hidden">
+        {/* Futuristic Background */}
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute inset-0 bg-dark-gradient" />
+          <div className="absolute inset-0 cyber-grid opacity-20" />
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" />
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-neon-coral/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+        </div>
+
         <Helmet>
           <title>AI Image Generator: Turn Words to Art | WordToImage</title>
           <meta name="description" content="Free AI-powered text-to-image tool. Create stunning visuals from text prompts instantly." />
@@ -201,13 +209,6 @@ export default function TextToImage() {
         
         {/* Modern Hero Section */}
         <section className="relative pt-20 pb-8 md:pt-28 md:pb-16 overflow-hidden">
-          {/* Animated Background */}
-          <div className="absolute inset-0 -z-10">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-          </div>
-
           <div className="container mx-auto px-4 md:px-6 max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -220,7 +221,7 @@ export default function TextToImage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-primary/30 mb-6"
               >
                 <Sparkles className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-primary">Powered by Advanced AI</span>
@@ -228,11 +229,9 @@ export default function TextToImage() {
 
               {/* Main Heading */}
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-                <span className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent">
-                  Turn Words Into
-                </span>
+                <span className="text-foreground">Turn Words Into</span>
                 <br />
-                <span className="bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary via-neon-coral to-neon-amber bg-clip-text text-transparent">
                   Stunning Art
                 </span>
               </h1>
@@ -253,9 +252,9 @@ export default function TextToImage() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="relative"
             >
-              <div className="relative bg-card/80 backdrop-blur-xl rounded-3xl border border-border/50 shadow-2xl overflow-hidden">
+              <div className="relative glass-card rounded-3xl border-primary/20 shadow-glass-lg overflow-hidden">
                 {/* Card Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-neon-coral/5 pointer-events-none" />
                 
                 <div className="relative p-6 md:p-10">
                   {/* Prompt Input */}
@@ -358,9 +357,9 @@ export default function TextToImage() {
             >
               <BrowseStylesModal onStyleSelect={handleStyleChange}>
                 <Button 
-                  variant="outline" 
+                  variant="glass" 
                   size="lg"
-                  className="group bg-background/50 hover:bg-background border-border/50 hover:border-primary/30 rounded-full px-8"
+                  className="group rounded-full px-8 border-primary/30 hover:border-primary/50"
                 >
                   <Palette className="h-5 w-5 mr-2 text-primary" />
                   <span>Explore 50+ Art Styles</span>
