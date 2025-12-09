@@ -143,7 +143,7 @@ serve(async (req) => {
       // Log to database if Supabase is configured
       if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY && userId) {
         try {
-          const logResponse = await fetch(`${SUPABASE_URL}/rest/v1/image_generations`, {
+          const logResponse = await fetch(`${SUPABASE_URL}/rest/v1/generations`, {
             method: 'POST',
             headers: {
               apikey: SUPABASE_SERVICE_ROLE_KEY,
@@ -155,13 +155,9 @@ serve(async (req) => {
               user_id: userId,
               prompt: prompt,
               image_url: imageUrl,
-              size: size,
-              model: metadata.model,
-              quality: 'hd',
-              prompt_id: promptId,
-              created_at: createdAt,
-              plan: 'free',
-              source_image_provided: !!sourceImage
+              resolution: size,
+              style: metadata.model,
+              created_at: createdAt
             })
           });
 

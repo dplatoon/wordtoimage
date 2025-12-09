@@ -15,6 +15,7 @@ export async function logImageGeneration({
     quality: string;
     prompt_id: string;
     created_at: string;
+    plan?: string;
   };
 }) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
@@ -23,7 +24,8 @@ export async function logImageGeneration({
   }
 
   try {
-    const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/image_generations`, {
+    // Use the correct 'generations' table with proper column names
+    const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/generations`, {
       method: "POST",
       headers: {
         apikey: SUPABASE_SERVICE_ROLE_KEY,
@@ -34,10 +36,8 @@ export async function logImageGeneration({
         user_id: data.user_id || null,
         prompt: data.prompt,
         image_url: data.image_url,
-        size: data.size,
-        model: data.model,
-        quality: data.quality,
-        prompt_id: data.prompt_id,
+        resolution: data.size,
+        style: data.model,
         created_at: data.created_at
       }])
     });
