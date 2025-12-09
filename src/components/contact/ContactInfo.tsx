@@ -1,5 +1,5 @@
-
 import { Mail, MessageSquare, Clock, Globe } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 export const ContactInfo = () => {
   const contactMethods = [
@@ -7,58 +7,56 @@ export const ContactInfo = () => {
       icon: Mail,
       title: "Email Us",
       description: "Get personalized support from our team",
-      contact: "contact@wordtoimage.com",
-      action: "mailto:contact@wordtoimage.com",
-      color: "from-blue-400 to-cyan-500"
+      contact: "contact@wordtoimage.online",
+      action: "mailto:contact@wordtoimage.online"
     },
     {
       icon: MessageSquare,
       title: "Live Chat",
       description: "Instant help when you need it most",
       contact: "Available 24/7",
-      action: "#",
-      color: "from-green-400 to-emerald-500"
+      action: "#"
     },
     {
       icon: Clock,
       title: "Response Time",
       description: "We aim to respond within hours",
       contact: "< 2 hours",
-      action: "#",
-      color: "from-purple-400 to-pink-500"
+      action: "#"
     },
     {
       icon: Globe,
       title: "Global Support",
       description: "Helping creators worldwide",
       contact: "Worldwide",
-      action: "#",
-      color: "from-orange-400 to-red-500"
+      action: "#"
     }
   ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
       {contactMethods.map((method, index) => (
-        <div key={index} className="ai-card group text-center">
-          <div className={`w-16 h-16 bg-gradient-to-r ${method.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-            <method.icon className="h-8 w-8 text-white" />
-          </div>
-          
-          <h3 className="text-xl font-semibold text-white mb-2">{method.title}</h3>
-          <p className="text-gray-400 text-sm mb-3">{method.description}</p>
-          
-          {method.action.startsWith('mailto:') ? (
-            <a 
-              href={method.action} 
-              className="text-ai-neon hover:text-ai-accent transition-colors duration-200 font-medium"
-            >
-              {method.contact}
-            </a>
-          ) : (
-            <span className="text-ai-neon font-medium">{method.contact}</span>
-          )}
-        </div>
+        <Card key={index} className="text-center group">
+          <CardContent className="p-6">
+            <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 group-hover:shadow-neon transition-all duration-300">
+              <method.icon className="h-7 w-7 text-primary" />
+            </div>
+            
+            <h3 className="text-xl font-semibold text-foreground mb-2">{method.title}</h3>
+            <p className="text-muted-foreground text-sm mb-3">{method.description}</p>
+            
+            {method.action.startsWith('mailto:') ? (
+              <a 
+                href={method.action} 
+                className="text-primary hover:text-primary/80 transition-colors duration-200 font-medium"
+              >
+                {method.contact}
+              </a>
+            ) : (
+              <span className="text-primary font-medium">{method.contact}</span>
+            )}
+          </CardContent>
+        </Card>
       ))}
     </div>
   );
