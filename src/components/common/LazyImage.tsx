@@ -73,7 +73,6 @@ export const LazyImage = ({
     
     // For better performance, skip WebP/AVIF checks and use original
     // This prevents 404 requests that slow down loading
-    console.log('WebP not available, keeping original');
     return {
       avif: baseSrc, // Use original as fallback
       webp: baseSrc, // Use original as fallback  

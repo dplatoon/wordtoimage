@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Wand2, TrendingUp } from 'lucide-react';
 import { localGalleryImages, defaultFallbackImage } from '@/utils/imageUtils';
 import { LazyImage } from '@/components/common/LazyImage';
-import { useLazyLoading } from '@/hooks/useLazyLoading';
+import { useEnhancedLazyLoading } from '@/hooks/useEnhancedLazyLoading';
 
 export const ImageShowcaseGrid = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [containerRef, isInView] = useLazyLoading<HTMLDivElement>({ rootMargin: '100px' });
+  const [containerRef, isInView] = useEnhancedLazyLoading<HTMLDivElement>({ rootMargin: '100px' });
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   const images = localGalleryImages.slice(0, 8);
   

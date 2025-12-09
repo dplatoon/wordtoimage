@@ -4,7 +4,7 @@ import { ChevronRight, Lock, Eye, Star, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { useLazyLoading } from '@/hooks/useLazyLoading';
+import { useEnhancedLazyLoading } from '@/hooks/useEnhancedLazyLoading';
 import { TemplateTooltip } from './TemplateTooltip';
 
 interface TemplateCardProps {
@@ -28,7 +28,7 @@ interface TemplateCardProps {
 export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [ref, isIntersecting] = useLazyLoading({ threshold: 0.1 });
+  const [ref, isIntersecting] = useEnhancedLazyLoading({ threshold: 0.1 });
 
   return (
     <article 
