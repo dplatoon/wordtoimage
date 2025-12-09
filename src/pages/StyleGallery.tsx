@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Nav } from '@/components/Nav';
@@ -76,12 +75,12 @@ const StyleGallery = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-50 via-white to-blue-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Helmet>
         <title>AI Art Style Gallery – 50+ Professional Artistic Styles | WordToImage</title>
         <meta name="description" content="Explore 50+ professional AI art styles including photorealistic, anime, cyberpunk, watercolor & more. Transform your images with expert-curated artistic styles." />
         <meta name="keywords" content="AI art styles, image generation styles, artistic styles gallery, photorealistic AI, anime style generator, digital art styles, painting styles AI" />
-        <link rel="canonical" href="https://wordtoimage.com/style-gallery" />
+        <link rel="canonical" href="https://wordtoimage.online/style-gallery" />
         
         <script type="application/ld+json">
           {JSON.stringify({
@@ -89,7 +88,7 @@ const StyleGallery = () => {
             "@type": "CollectionPage",
             "name": "AI Art Style Gallery",
             "description": "Professional collection of AI art styles for image generation",
-            "url": "https://wordtoimage.com/style-gallery",
+            "url": "https://wordtoimage.online/style-gallery",
             "mainEntity": {
               "@type": "ItemList",
               "name": "AI Art Styles",
@@ -110,7 +109,7 @@ const StyleGallery = () => {
             "provider": {
               "@type": "Organization",
               "name": "WordToImage",
-              "url": "https://wordtoimage.com"
+              "url": "https://wordtoimage.online"
             },
             "aggregateRating": {
               "@type": "AggregateRating",
@@ -144,13 +143,13 @@ const StyleGallery = () => {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://wordtoimage.com"
+                "item": "https://wordtoimage.online"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Style Gallery",
-                "item": "https://wordtoimage.com/style-gallery"
+                "item": "https://wordtoimage.online/style-gallery"
               }
             ]
           })}
@@ -160,43 +159,46 @@ const StyleGallery = () => {
       
       <Nav />
       
-      <main className="container mx-auto px-4 py-12 flex-grow">
+      <main className="container mx-auto px-4 py-24 flex-grow">
         {/* Enhanced Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
-            <Palette className="text-purple-600 mr-3 h-10 w-10" />
-            <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
-              AI Art Style Gallery – 50+ Professional Artistic Styles
+            <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20 mr-4">
+              <Palette className="text-primary h-8 w-8" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold">
+              <span className="text-foreground">AI Art Style Gallery – </span>
+              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">50+ Professional Styles</span>
             </h1>
           </div>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Explore 50+ professional AI art styles including photorealistic, anime, cyberpunk, watercolor & more. Transform your images with expert-curated artistic styles.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-8">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">50+</div>
-              <div className="text-sm text-gray-600">Professional art styles</div>
+            <div className="text-center p-4 rounded-xl bg-background/60 backdrop-blur-sm border border-primary/20">
+              <div className="text-2xl font-bold text-primary">50+</div>
+              <div className="text-sm text-muted-foreground">Professional art styles</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">6</div>
-              <div className="text-sm text-gray-600">Style categories</div>
+            <div className="text-center p-4 rounded-xl bg-background/60 backdrop-blur-sm border border-primary/20">
+              <div className="text-2xl font-bold text-primary">6</div>
+              <div className="text-sm text-muted-foreground">Style categories</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">1-Click</div>
-              <div className="text-sm text-gray-600">Style application</div>
+            <div className="text-center p-4 rounded-xl bg-background/60 backdrop-blur-sm border border-primary/20">
+              <div className="text-2xl font-bold text-primary">1-Click</div>
+              <div className="text-sm text-muted-foreground">Style application</div>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600">
+            <Button asChild variant="neon" size="lg">
               <Link to="/text-to-image">
                 <Sparkles className="h-5 w-5 mr-2" />
                 Try Styles Now
               </Link>
             </Button>
-            <Button variant="outline" size="lg" asChild>
+            <Button variant="glass" size="lg" asChild>
               <Link to="/ai-templates">
                 Browse Templates
                 <ArrowRight className="h-5 w-5 ml-2" />
@@ -206,18 +208,18 @@ const StyleGallery = () => {
         </div>
 
         {/* Style Categories Section */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Style Categories</h2>
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Style Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {styleCategories.map((category, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow cursor-pointer">
+              <Card key={index} className="text-center cursor-pointer group">
                 <CardContent className="p-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Brush className="w-6 h-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors duration-300">
+                    <Brush className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-gray-900">{category.name}</h3>
-                  <p className="text-sm text-gray-600 mb-2">{category.description}</p>
-                  <Badge variant="secondary">{category.count} styles</Badge>
+                  <h3 className="font-semibold text-foreground">{category.name}</h3>
+                  <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">{category.count} styles</Badge>
                 </CardContent>
               </Card>
             ))}
@@ -225,224 +227,207 @@ const StyleGallery = () => {
         </div>
 
         {/* Popular Art Styles Section */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Popular Art Styles</h2>
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Popular Art Styles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {styles.map((style) => (
-              <div key={style.id} className="bg-white rounded-xl shadow-lg border overflow-hidden group hover:shadow-xl transition-shadow">
-                <div className="aspect-video bg-gradient-to-br from-violet-100 to-indigo-100 relative">
+              <Card key={style.id} className="overflow-hidden group">
+                <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/5 relative">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                       <img
+                      <img
                         src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&h=200&fit=crop"
                         alt={`Visual representation of ${style.name} AI art style`}
-                        className="w-24 h-24 rounded-xl mx-auto mb-2 object-cover shadow-lg"
+                        className="w-24 h-24 rounded-xl mx-auto mb-2 object-cover shadow-neon"
                         loading="lazy"
                       />
-                      <p className="text-sm text-gray-600 font-semibold">{style.name} Style</p>
+                      <p className="text-sm text-foreground font-semibold">{style.name} Style</p>
                     </div>
                   </div>
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button size="sm" variant="secondary">
+                    <Button size="sm" variant="glass">
                       <Eye className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-semibold text-gray-900">{style.name}</h3>
-                    <Badge variant="outline">{style.category}</Badge>
+                    <h3 className="text-xl font-semibold text-foreground">{style.name}</h3>
+                    <Badge variant="outline" className="border-primary/30 text-primary">{style.category}</Badge>
                   </div>
-                  <p className="text-gray-600 mb-4">{style.description}</p>
+                  <p className="text-muted-foreground mb-4">{style.description}</p>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1 text-sm text-gray-500">
-                      <Heart className="h-4 w-4" />
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <Heart className="h-4 w-4 text-primary" />
                       <span>{style.likes.toLocaleString()}</span>
                     </div>
                     <Button 
                       size="sm" 
-                      variant="outline" 
-                      className="min-h-[44px] text-xs sm:text-sm px-2 sm:px-4 focus:ring-2 focus:ring-violet-500/50 whitespace-nowrap"
+                      variant="neon-outline" 
+                      className="min-h-[44px] text-xs sm:text-sm px-2 sm:px-4"
                       onClick={() => handleUseStyle(style.styleId)}
                     >
                       <Copy className="h-4 w-4 mr-1 sm:mr-2" />
-                      <span className="truncate">Use Style</span>
+                      <span>Use Style</span>
                     </Button>
                   </div>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
 
         {/* How to Use Styles Section */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">How to Use Styles</h2>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">How to Use Styles</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <Camera className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Choose Style</h3>
-              <p className="text-gray-600">Browse our gallery and click on any style that matches your creative vision. Preview examples before applying.</p>
-            </div>
+            <Card>
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                  <Camera className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Choose Style</h3>
+                <p className="text-muted-foreground">Browse our gallery and click on any style that matches your creative vision. Preview examples before applying.</p>
+              </CardContent>
+            </Card>
             
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Apply Instantly</h3>
-              <p className="text-gray-600">Click 'Use Style' to automatically apply it to the AI generator. The style will be pre-selected for your next creation.</p>
-            </div>
+            <Card>
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-4">
+                  <Zap className="w-6 h-6 text-cyan-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Apply Instantly</h3>
+                <p className="text-muted-foreground">Click 'Use Style' to automatically apply it to the AI generator. The style will be pre-selected for your next creation.</p>
+              </CardContent>
+            </Card>
             
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <Sparkles className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Create Magic</h3>
-              <p className="text-gray-600">Enter your prompt and generate images with professional artistic styling applied automatically.</p>
-            </div>
+            <Card>
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-4">
+                  <Sparkles className="w-6 h-6 text-green-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Create Magic</h3>
+                <p className="text-muted-foreground">Enter your prompt and generate images with professional artistic styling applied automatically.</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
         {/* Featured Artists Section */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Featured Artists</h2>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Featured Artists</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                  <Users className="w-5 h-5 text-purple-600" />
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                    <Users className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Vincent AI</h4>
+                    <p className="text-sm text-muted-foreground">Digital Renaissance Artist</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold">Vincent AI</h4>
-                  <p className="text-sm text-gray-600">Digital Renaissance Artist</p>
+                <p className="text-muted-foreground mb-4">"The photorealistic style helped me create stunning portraits for my client portfolio. Results exceeded expectations!"</p>
+                <div className="flex items-center text-primary">
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
                 </div>
-              </div>
-              <p className="text-gray-600 mb-4">"The photorealistic style helped me create stunning portraits for my client portfolio. Results exceeded expectations!"</p>
-              <div className="flex items-center text-yellow-500">
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-              </div>
-            </div>
+              </CardContent>
+            </Card>
             
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                  <Target className="w-5 h-5 text-blue-600" />
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 bg-cyan-500/10 rounded-full flex items-center justify-center mr-3">
+                    <Target className="w-5 h-5 text-cyan-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Maya Digital</h4>
+                    <p className="text-sm text-muted-foreground">Cyberpunk Specialist</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold">Maya Digital</h4>
-                  <p className="text-sm text-gray-600">Cyberpunk Specialist</p>
+                <p className="text-muted-foreground mb-4">"Cyberpunk and anime styles are incredibly detailed and true to form. Perfect for my sci-fi artwork series."</p>
+                <div className="flex items-center text-primary">
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
                 </div>
-              </div>
-              <p className="text-gray-600 mb-4">"Cyberpunk and anime styles are incredibly detailed and true to form. Perfect for my sci-fi artwork series."</p>
-              <div className="flex items-center text-yellow-500">
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-              </div>
-            </div>
+              </CardContent>
+            </Card>
             
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                  <Brush className="w-5 h-5 text-green-600" />
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 bg-green-500/10 rounded-full flex items-center justify-center mr-3">
+                    <Brush className="w-5 h-5 text-green-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Alex Studio</h4>
+                    <p className="text-sm text-muted-foreground">Traditional Art Enthusiast</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold">Isabella Art</h4>
-                  <p className="text-sm text-gray-600">Traditional Artist</p>
+                <p className="text-muted-foreground mb-4">"Oil painting and watercolor styles perfectly capture the essence of traditional techniques. Incredible quality!"</p>
+                <div className="flex items-center text-primary">
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
                 </div>
-              </div>
-              <p className="text-gray-600 mb-4">"The watercolor and oil painting styles capture the essence of traditional art perfectly. Absolutely stunning results!"</p>
-              <div className="flex items-center text-yellow-500">
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
-        {/* Enhanced FAQ Section */}
-        <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Frequently Asked Questions</h2>
-          <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqData.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-md border">
-                  <AccordionTrigger className="px-6 py-4 text-left">
-                    <span className="text-lg font-semibold">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <p className="text-gray-600">{faq.answer}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-
-        {/* Internal Links Section */}
-        <div className="mt-16 bg-gray-50 rounded-lg p-8">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-            Explore More Creative Tools
+        {/* FAQ Section */}
+        <div className="mt-16 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8 flex items-center justify-center gap-3">
+            <HelpCircle className="w-8 h-8 text-primary" />
+            Frequently Asked Questions
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/ai-templates" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-purple-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold">AI Templates</h3>
-                <p className="text-sm text-gray-600">Ready-made prompts</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            
-            <Link to="/prompt-guide" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                <HelpCircle className="w-5 h-5 text-blue-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold">Prompt Guide</h3>
-                <p className="text-sm text-gray-600">Learn prompt writing</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            
-            <Link to="/text-to-image" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center">
-                <Camera className="w-5 h-5 text-green-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold">AI Generator</h3>
-                <p className="text-sm text-gray-600">Create images now</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            
-            <Link to="/gallery" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <div className="w-8 h-8 bg-orange-100 rounded flex items-center justify-center">
-                <Eye className="w-5 h-5 text-orange-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold">Community Gallery</h3>
-                <p className="text-sm text-gray-600">See user creations</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-          </div>
+          <Card>
+            <CardContent className="p-6">
+              <Accordion type="single" collapsible className="w-full">
+                {faqData.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} className="border-primary/10">
+                    <AccordionTrigger className="text-foreground hover:text-primary transition-colors">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-16 text-center">
+          <Card className="max-w-2xl mx-auto">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-foreground mb-4">Ready to Create?</h2>
+              <p className="text-muted-foreground mb-6">
+                Start generating stunning AI art with our professional style collection.
+              </p>
+              <Button asChild variant="neon" size="lg">
+                <Link to="/text-to-image">
+                  <Sparkles className="h-5 w-5 mr-2" />
+                  Start Creating Now
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </main>
-
+      
       <Footer />
     </div>
   );
