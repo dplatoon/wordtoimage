@@ -5,6 +5,7 @@ import { SubscriptionStatus } from '@/components/SubscriptionStatus';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { UrgentProCTA } from './UrgentProCTA';
 import { TrustElements } from '@/components/trust/TrustElements';
+import { motion } from 'framer-motion';
 
 const pricingPlans = [
   {
@@ -94,11 +95,6 @@ export const EnhancedPricingTable = () => {
 
   return (
     <section className="py-8 md:py-16 relative overflow-hidden" aria-labelledby="pricing-heading">
-      {/* Subtle background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-purple-50/20 pointer-events-none" />
-      <div className="absolute top-20 left-10 w-64 h-64 bg-blue-100/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-100/15 rounded-full blur-3xl pointer-events-none" />
-      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Urgent Pro CTA */}
         <div className="mb-8">
@@ -116,16 +112,29 @@ export const EnhancedPricingTable = () => {
           <SubscriptionStatus />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" role="list" aria-label="Pricing plans">
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" 
+          role="list" 
+          aria-label="Pricing plans"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, staggerChildren: 0.1 }}
+        >
           {pricingPlans.map((plan, index) => (
-            <OptimizedPlanCard
+            <motion.div
               key={index}
-              {...plan}
-              billingCycle={billingCycle}
-              isCurrentPlan={plan.name === currentPlan}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <OptimizedPlanCard
+                {...plan}
+                billingCycle={billingCycle}
+                isCurrentPlan={plan.name === currentPlan}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Trust Elements */}
         <div className="mt-8 max-w-md mx-auto">
@@ -133,25 +142,25 @@ export const EnhancedPricingTable = () => {
         </div>
 
         <div className="mt-8 md:mt-12 text-center space-y-4">
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 max-w-4xl mx-auto">
-            <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4" id="help-choosing">Need help choosing the right plan?</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+          <div className="glass-card rounded-2xl p-6 border-primary/20 max-w-4xl mx-auto">
+            <h3 className="text-lg md:text-xl font-semibold text-foreground mb-4" id="help-choosing">Need help choosing the right plan?</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-foreground">
               <div>
-                <p className="font-medium text-gray-900 mb-2">✓ Easy upgrades & downgrades</p>
+                <p className="font-medium text-foreground mb-2">✓ Easy upgrades & downgrades</p>
                 <p>Switch plans anytime with prorated billing. Changes take effect immediately with no setup fees.</p>
               </div>
               <div>
-                <p className="font-medium text-gray-900 mb-2">✓ Transparent pricing</p>
+                <p className="font-medium text-foreground mb-2">✓ Transparent pricing</p>
                 <p>No setup fees, no hidden costs. Pay only for what you use with clearly defined limits and overage rates.</p>
               </div>
             </div>
           </div>
           
-          <p className="text-gray-600 mb-4 text-sm md:text-base">
+          <p className="text-muted-foreground mb-4 text-sm md:text-base">
             All plans include access to our core AI image generation technology with 99.9% uptime SLA
           </p>
-          <p className="text-xs md:text-sm text-gray-500">
-            Enterprise teams with 10+ users? <a href="/contact" className="text-blue-600 hover:text-blue-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">Contact us for volume pricing, custom integrations, and dedicated infrastructure</a>
+          <p className="text-xs md:text-sm text-muted-foreground">
+            Enterprise teams with 10+ users? <a href="/contact" className="text-primary hover:text-primary/80 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded transition-colors">Contact us for volume pricing, custom integrations, and dedicated infrastructure</a>
           </p>
         </div>
       </div>

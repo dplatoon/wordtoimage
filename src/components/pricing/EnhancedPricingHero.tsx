@@ -1,35 +1,55 @@
-
 import { Badge } from '@/components/ui/badge';
-import { Star, Sparkles } from 'lucide-react';
+import { Star, Sparkles, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const EnhancedPricingHero = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-10 left-1/4 w-32 h-32 bg-blue-200/20 rounded-full blur-2xl" />
-      <div className="absolute bottom-20 right-1/4 w-40 h-40 bg-purple-200/15 rounded-full blur-2xl" />
-      
+    <section className="py-16 md:py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-        <div className="animate-fade-in">
-          <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-none px-6 py-2 text-lg shadow-lg">
-            <Sparkles className="h-5 w-5 mr-2" />
-            Simple, Transparent Pricing
-          </Badge>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-primary/30 mb-6"
+          >
+            <Sparkles className="h-4 w-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Simple, Transparent Pricing</span>
+          </motion.div>
           
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-900 mb-6" id="pricing-heading">
-            Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Perfect Plan</span>
+          {/* Main Heading */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6" id="pricing-heading">
+            <span className="text-foreground">Choose Your </span>
+            <span className="bg-gradient-to-r from-primary via-neon-coral to-neon-amber bg-clip-text text-transparent">
+              Perfect Plan
+            </span>
           </h1>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
             From free exploration to professional creation, find the plan that matches your needs. 
             All plans include our core AI image generation with no setup fees or hidden costs.
           </p>
           
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-            <span>Trusted by 100,000+ creators worldwide</span>
-          </div>
-        </div>
+          {/* Trust indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/50 border border-border/50"
+          >
+            <div className="flex -space-x-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+              ))}
+            </div>
+            <span className="text-sm text-muted-foreground">Trusted by 100,000+ creators worldwide</span>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Image, Heart, Sparkles, TrendingUp } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 
 interface DashboardOverviewProps {
   totalGenerations: number;
@@ -20,29 +19,29 @@ export const DashboardOverview = ({
       label: 'Total Generations',
       value: totalGenerations,
       icon: Image,
-      gradient: 'from-violet-500 to-purple-600',
-      bgGlow: 'violet'
+      gradient: 'from-primary to-neon-coral',
+      glow: 'shadow-neon'
     },
     {
       label: 'Favorites',
       value: totalFavorites,
       icon: Heart,
-      gradient: 'from-rose-500 to-pink-600',
-      bgGlow: 'rose'
+      gradient: 'from-neon-coral to-neon-amber',
+      glow: 'shadow-neon-coral'
     },
     {
       label: 'Credits Available',
       value: credits,
       icon: Sparkles,
-      gradient: 'from-amber-500 to-orange-600',
-      bgGlow: 'amber'
+      gradient: 'from-neon-amber to-primary',
+      glow: 'shadow-neon'
     },
     {
       label: 'Plan',
       value: subscriptionTier === 'pro' ? 'Pro' : 'Free',
       icon: TrendingUp,
-      gradient: subscriptionTier === 'pro' ? 'from-emerald-500 to-teal-600' : 'from-slate-500 to-gray-600',
-      bgGlow: subscriptionTier === 'pro' ? 'emerald' : 'slate'
+      gradient: subscriptionTier === 'pro' ? 'from-primary to-neon-coral' : 'from-muted to-muted-foreground',
+      glow: subscriptionTier === 'pro' ? 'shadow-neon' : ''
     }
   ];
 
@@ -57,22 +56,25 @@ export const DashboardOverview = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="relative overflow-hidden bg-card hover:shadow-lg transition-all duration-300 border-border/50">
-              <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-5`} />
-              <CardContent className="p-5">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
-                    <p className="text-2xl font-bold text-foreground">
-                      {typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}
-                    </p>
-                  </div>
-                  <div className={`p-2.5 rounded-xl bg-gradient-to-br ${stat.gradient}`}>
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
+            <div className="relative overflow-hidden glass-card rounded-2xl p-5 hover:border-primary/40 transition-all duration-300 group">
+              {/* Glow effect on hover */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+              
+              <div className="relative flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    {typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+                <div className={`p-2.5 rounded-xl bg-gradient-to-br ${stat.gradient} ${stat.glow}`}>
+                  <Icon className="w-5 h-5 text-primary-foreground" />
+                </div>
+              </div>
+
+              {/* Bottom accent line */}
+              <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r ${stat.gradient} opacity-50`} />
+            </div>
           </motion.div>
         );
       })}
