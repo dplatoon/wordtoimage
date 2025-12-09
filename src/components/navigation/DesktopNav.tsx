@@ -23,13 +23,13 @@ export const DesktopNav = () => {
                 <div className="row-span-3">
                   <NavigationMenuLink asChild>
                     <Link
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-violet-500 to-violet-600 p-6 no-underline outline-none focus:shadow-md"
+                      className="flex h-full w-full select-none flex-col justify-end rounded-xl bg-gradient-to-b from-primary to-primary/80 p-6 no-underline outline-none focus:shadow-neon transition-all duration-300 hover:shadow-neon"
                       to="/product"
                     >
-                      <div className="mb-2 mt-4 text-lg font-medium text-white">
+                      <div className="mb-2 mt-4 text-lg font-medium text-primary-foreground">
                         AI Image Platform
                       </div>
-                      <p className="text-sm leading-tight text-violet-100">
+                      <p className="text-sm leading-tight text-primary-foreground/80">
                         Complete suite of AI-powered image generation tools
                       </p>
                     </Link>
@@ -39,9 +39,9 @@ export const DesktopNav = () => {
                   <NavigationMenuLink key={item.title} asChild>
                     <Link
                       to={item.href}
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-primary/10 focus:bg-primary/10"
                     >
-                      <div className="text-sm font-medium leading-none">{item.title}</div>
+                      <div className="text-sm font-medium leading-none text-foreground">{item.title}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {item.description}
                       </p>
@@ -61,9 +61,9 @@ export const DesktopNav = () => {
                   <NavigationMenuLink key={item.title} asChild>
                     <Link
                       to={item.href}
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-primary/10 focus:bg-primary/10"
                     >
-                      <div className="text-sm font-medium leading-none">{item.title}</div>
+                      <div className="text-sm font-medium leading-none text-foreground">{item.title}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {item.description}
                       </p>
@@ -83,9 +83,9 @@ export const DesktopNav = () => {
                   <NavigationMenuLink key={item.title} asChild>
                     <Link
                       to={item.href}
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-primary/10 focus:bg-primary/10"
                     >
-                      <div className="text-sm font-medium leading-none">{item.title}</div>
+                      <div className="text-sm font-medium leading-none text-foreground">{item.title}</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {item.description}
                       </p>
@@ -101,7 +101,7 @@ export const DesktopNav = () => {
             <NavigationMenuLink asChild>
               <Link
                 to="/pricing"
-                className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                className="group inline-flex h-10 w-max items-center justify-center rounded-xl bg-transparent px-4 py-2 text-sm font-medium transition-all duration-300 text-foreground/80 hover:text-foreground hover:bg-primary/10 focus:bg-primary/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
               >
                 Pricing
               </Link>
