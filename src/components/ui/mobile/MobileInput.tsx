@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -27,10 +26,13 @@ export const MobileInput = ({
     'w-full',
     'min-h-[48px]',
     'px-4 py-3',
-    'text-base', // Prevents zoom on iOS
-    'border border-gray-300 rounded-lg',
-    'focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none',
-    'transition-all duration-200',
+    'text-base text-foreground',
+    'border border-primary/20 rounded-xl',
+    'bg-background/60 backdrop-blur-sm',
+    'placeholder:text-muted-foreground/60',
+    'focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus:shadow-neon focus:outline-none',
+    'hover:border-primary/30 hover:bg-background/80',
+    'transition-all duration-300',
     'touch-target',
     className
   );
