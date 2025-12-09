@@ -1,11 +1,11 @@
-
 import { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { Textarea } from '@/components/ui/textarea';
-import { PrimaryButton } from '@/components/ui/primary-button';
-import { Send, User, Mail, MessageSquare, Tag } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Send, User, Mail, MessageSquare, Tag, Loader2 } from 'lucide-react';
 
 type ContactFormData = {
   firstName: string;
@@ -92,106 +92,113 @@ export const ContactForm = () => {
   };
 
   return (
-    <div className="ai-card max-w-2xl mx-auto">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">Send Us a Message</h2>
-        <p className="text-gray-300">
-          Share your thoughts, questions, or ideas with us. We'd love to hear from you!
-        </p>
-      </div>
-      
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <Card className="max-w-2xl mx-auto">
+      <CardContent className="p-8">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-foreground mb-4">Send Us a Message</h2>
+          <p className="text-muted-foreground">
+            Share your thoughts, questions, or ideas with us. We'd love to hear from you!
+          </p>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label htmlFor="firstName" className="flex items-center text-sm font-medium text-foreground">
+                <User className="h-4 w-4 mr-2 text-primary" />
+                First Name
+              </label>
+              <Input
+                type="text"
+                id="firstName"
+                placeholder="John"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <label htmlFor="lastName" className="flex items-center text-sm font-medium text-foreground">
+                <User className="h-4 w-4 mr-2 text-primary" />
+                Last Name
+              </label>
+              <Input
+                type="text"
+                id="lastName"
+                placeholder="Doe"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          
           <div className="space-y-2">
-            <label htmlFor="firstName" className="flex items-center text-sm font-medium text-gray-300">
-              <User className="h-4 w-4 mr-2 text-ai-neon" />
-              First Name
+            <label htmlFor="email" className="flex items-center text-sm font-medium text-foreground">
+              <Mail className="h-4 w-4 mr-2 text-primary" />
+              Email Address <span className="text-destructive ml-1">*</span>
             </label>
             <Input
-              type="text"
-              id="firstName"
-              placeholder="John"
-              value={formData.firstName}
+              type="email"
+              id="email"
+              placeholder="john.doe@example.com"
+              required
+              value={formData.email}
               onChange={handleChange}
-              className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon"
             />
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="lastName" className="flex items-center text-sm font-medium text-gray-300">
-              <User className="h-4 w-4 mr-2 text-ai-neon" />
-              Last Name
+            <label htmlFor="subject" className="flex items-center text-sm font-medium text-foreground">
+              <Tag className="h-4 w-4 mr-2 text-primary" />
+              Subject
             </label>
             <Input
               type="text"
-              id="lastName"
-              placeholder="Doe"
-              value={formData.lastName}
+              id="subject"
+              placeholder="How can we help you?"
+              value={formData.subject}
               onChange={handleChange}
-              className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon"
             />
           </div>
-        </div>
-        
-        <div className="space-y-2">
-          <label htmlFor="email" className="flex items-center text-sm font-medium text-gray-300">
-            <Mail className="h-4 w-4 mr-2 text-ai-neon" />
-            Email Address <span className="text-red-400 ml-1">*</span>
-          </label>
-          <Input
-            type="email"
-            id="email"
-            placeholder="john.doe@example.com"
-            required
-            value={formData.email}
-            onChange={handleChange}
-            className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon"
-          />
-        </div>
-        
-        <div className="space-y-2">
-          <label htmlFor="subject" className="flex items-center text-sm font-medium text-gray-300">
-            <Tag className="h-4 w-4 mr-2 text-ai-neon" />
-            Subject
-          </label>
-          <Input
-            type="text"
-            id="subject"
-            placeholder="How can we help you?"
-            value={formData.subject}
-            onChange={handleChange}
-            className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon"
-          />
-        </div>
-        
-        <div className="space-y-2">
-          <label htmlFor="message" className="flex items-center text-sm font-medium text-gray-300">
-            <MessageSquare className="h-4 w-4 mr-2 text-ai-neon" />
-            Message <span className="text-red-400 ml-1">*</span>
-          </label>
-          <Textarea
-            id="message"
-            rows={5}
-            placeholder="Tell us more about your question or feedback..."
-            required
-            value={formData.message}
-            onChange={handleChange}
-            className="bg-ai-surface/50 border-ai-primary/30 text-white placeholder-gray-400 focus:border-ai-neon resize-none"
-          />
-        </div>
-        
-        <div className="pt-4">
-          <PrimaryButton 
-            type="submit" 
-            className="w-full btn-ai-neon text-lg py-4"
-            isLoading={isSubmitting}
-            loadingText="Sending..."
-          >
-            <Send className="mr-2 h-5 w-5" />
-            Send Message
-          </PrimaryButton>
-        </div>
-      </form>
-    </div>
+          
+          <div className="space-y-2">
+            <label htmlFor="message" className="flex items-center text-sm font-medium text-foreground">
+              <MessageSquare className="h-4 w-4 mr-2 text-primary" />
+              Message <span className="text-destructive ml-1">*</span>
+            </label>
+            <Textarea
+              id="message"
+              rows={5}
+              placeholder="Tell us more about your question or feedback..."
+              required
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </div>
+          
+          <div className="pt-4">
+            <Button 
+              type="submit" 
+              variant="neon"
+              size="lg"
+              className="w-full"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="mr-2 h-5 w-5" />
+                  Send Message
+                </>
+              )}
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 };
