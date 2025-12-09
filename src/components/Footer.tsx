@@ -45,40 +45,46 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-background text-foreground border-t border-primary/10 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-10 left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-80 h-80 bg-neon-cyan/5 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Logo variant="footer" className="mb-4" />
-            <p className="text-gray-300 text-sm mb-6 max-w-xs">
+            <p className="text-muted-foreground text-sm mb-6 max-w-xs">
               Transform text into stunning AI-generated images. Create, enhance, and explore the possibilities of artificial intelligence.
             </p>
             <div className="flex space-x-4">
               <a 
                 href="https://twitter.com/wordtoimage" 
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-10 h-10 bg-background/60 backdrop-blur-sm border border-primary/20 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 hover:shadow-neon transition-all"
                 aria-label="Follow us on Twitter"
               >
                 <Twitter className="h-5 w-5" />
               </a>
               <a 
                 href="https://github.com/wordtoimage" 
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-10 h-10 bg-background/60 backdrop-blur-sm border border-primary/20 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 hover:shadow-neon transition-all"
                 aria-label="View our GitHub"
               >
                 <Github className="h-5 w-5" />
               </a>
               <a 
                 href="https://linkedin.com/company/wordtoimage" 
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-10 h-10 bg-background/60 backdrop-blur-sm border border-primary/20 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 hover:shadow-neon transition-all"
                 aria-label="Connect on LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
                 href="mailto:support@wordtoimage.com" 
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-10 h-10 bg-background/60 backdrop-blur-sm border border-primary/20 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 hover:shadow-neon transition-all"
                 aria-label="Email support"
               >
                 <Mail className="h-5 w-5" />
@@ -88,13 +94,13 @@ export const Footer = () => {
 
           {/* Product */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Product</h3>
+            <h3 className="text-lg font-semibold mb-4 text-primary">Product</h3>
             <ul className="space-y-2">
               {productLinks.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -105,13 +111,13 @@ export const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
+            <h3 className="text-lg font-semibold mb-4 text-primary">Resources</h3>
             <ul className="space-y-2">
               {resourceLinks.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -122,13 +128,13 @@ export const Footer = () => {
 
           {/* Converter Tools */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Converter Tools</h3>
+            <h3 className="text-lg font-semibold mb-4 text-primary">Converter Tools</h3>
             <ul className="space-y-2">
               {converterLinks.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -139,13 +145,13 @@ export const Footer = () => {
 
           {/* Company */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
+            <h3 className="text-lg font-semibold mb-4 text-primary">Company</h3>
             <ul className="space-y-2">
               {companyLinks.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -156,13 +162,13 @@ export const Footer = () => {
 
           {/* Legal */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Legal</h3>
+            <h3 className="text-lg font-semibold mb-4 text-primary">Legal</h3>
             <ul className="space-y-2">
               {legalLinks.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -172,12 +178,12 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
+        <div className="border-t border-primary/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-muted-foreground text-sm">
             © {new Date().getFullYear()} WordToImage. All rights reserved.
           </p>
-          <p className="text-gray-400 text-sm mt-2 md:mt-0">
-            Made with ❤️ for creators worldwide
+          <p className="text-muted-foreground text-sm mt-2 md:mt-0 flex items-center gap-2">
+            Made with <span className="text-primary">❤️</span> for creators worldwide
           </p>
         </div>
       </div>
