@@ -95,7 +95,7 @@ export const MobileOptimizedNav = () => {
             <div className="px-4 pb-4">
               <Button 
                 asChild 
-                variant="gradient-primary"
+                variant="neon"
                 size="lg"
                 className="w-full"
               >
@@ -157,7 +157,7 @@ export const MobileOptimizedNav = () => {
                   <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
                     <Link to="/auth">Sign In</Link>
                   </Button>
-                  <Button asChild variant="gradient-primary" className="w-full">
+                  <Button asChild variant="neon" className="w-full">
                     <Link to="/auth?mode=signup">Get Started Free</Link>
                   </Button>
                 </div>
@@ -206,9 +206,9 @@ export const MobileOptimizedNav = () => {
       )}>
         <Button
           asChild
-          variant="gradient-neon"
+          variant="neon"
           size="icon-lg"
-          className="rounded-full shadow-2xl"
+          className="rounded-full shadow-neon-lg"
           aria-label="Create AI Image"
         >
           <Link to="/text-to-image">

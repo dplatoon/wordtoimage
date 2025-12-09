@@ -6,37 +6,35 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 touch-manipulation select-none active:scale-[0.98]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 touch-manipulation select-none active:scale-[0.97] min-h-[48px]",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:shadow-lg",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-md hover:bg-destructive/90",
-        outline:
-          "border-2 border-input bg-background hover:bg-accent hover:text-accent-foreground hover:border-primary/50",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        // Premium gradient variants
-        "gradient-primary": "bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg hover:from-violet-700 hover:to-indigo-700 hover:shadow-xl",
-        "gradient-accent": "bg-gradient-to-r from-pink-500 to-orange-400 text-white shadow-lg hover:from-pink-600 hover:to-orange-500 hover:shadow-xl",
-        "gradient-neon": "bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]",
-        // Glass variant
-        "glass": "bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20",
-        "glass-dark": "bg-black/20 backdrop-blur-md border border-black/10 text-foreground hover:bg-black/30",
-        // AI theme variants  
-        "ai-primary": "bg-gradient-to-r from-blue-600 to-teal-500 text-white font-semibold shadow-lg hover:from-blue-700 hover:to-teal-600 hover:shadow-xl",
-        "ai-secondary": "border-2 border-gray-300 text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-400 hover:text-gray-800 shadow-sm hover:shadow-md font-medium",
+        default: "bg-primary text-primary-foreground shadow-neon hover:shadow-neon-lg hover:brightness-110",
+        destructive: "bg-destructive text-destructive-foreground shadow-md hover:bg-destructive/90",
+        outline: "border-2 border-primary/50 bg-transparent text-foreground hover:bg-primary/10 hover:border-primary hover:shadow-neon",
+        secondary: "bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80 hover:border-primary/30",
+        ghost: "text-foreground hover:bg-muted hover:text-foreground",
+        link: "text-primary underline-offset-4 hover:underline min-h-0",
+        
+        // Neon gradient variants
+        neon: "bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] text-white shadow-neon hover:shadow-neon-lg animate-gradient-shift hover:brightness-110",
+        "neon-outline": "bg-transparent border-2 border-primary text-primary shadow-inner-glow hover:bg-primary/10 hover:shadow-neon",
+        
+        // Glass variants
+        glass: "bg-white/5 backdrop-blur-xl border border-white/10 text-foreground hover:bg-white/10 hover:border-white/20 shadow-glass",
+        "glass-primary": "bg-primary/10 backdrop-blur-xl border border-primary/30 text-primary hover:bg-primary/20 hover:border-primary/50 shadow-glass",
+        
+        // Cyber variants
+        cyber: "bg-gradient-to-r from-primary to-accent text-white font-bold tracking-wide uppercase shadow-neon-lg hover:shadow-[0_0_40px_hsl(24_95%_55%_/_0.6)] relative overflow-hidden",
       },
       size: {
-        default: "h-11 px-5 py-2.5",
-        sm: "h-9 rounded-md px-4 text-sm",
-        lg: "h-12 rounded-xl px-8 text-base",
-        xl: "h-14 rounded-xl px-10 text-lg",
-        icon: "h-11 w-11",
-        "icon-sm": "h-9 w-9",
+        default: "h-12 px-6 py-3",
+        sm: "h-10 rounded-lg px-4 text-sm min-h-[40px]",
+        lg: "h-14 rounded-2xl px-8 text-base",
+        xl: "h-16 rounded-2xl px-10 text-lg",
+        icon: "h-12 w-12 min-h-[48px]",
+        "icon-sm": "h-10 w-10 min-h-[40px]",
         "icon-lg": "h-14 w-14",
       },
     },

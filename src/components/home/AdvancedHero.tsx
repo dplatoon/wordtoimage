@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Wand2, Play, Sparkles, ArrowRight, Zap, Star, Crown } from 'lucide-react';
+import { Wand2, Play, Sparkles, ArrowRight, Zap, Star, Crown, Flame } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { trackEvent } from '@/utils/analytics';
 import { motion } from 'framer-motion';
@@ -36,76 +36,75 @@ export const AdvancedHero = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-violet-950/30 to-slate-950">
-      {/* Animated Background Mesh */}
+    <section className="relative min-h-screen overflow-hidden bg-background">
+      {/* Animated Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-600/20 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-600/15 via-transparent to-transparent" />
+        {/* Gradient overlays */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent" />
         
-        {/* Animated Grid */}
+        {/* Cyber Grid */}
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: `linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
+            backgroundImage: `
+              linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
           }}
         />
         
-      {/* Floating Orbs with Parallax Effect */}
+        {/* Floating Orbs */}
         <motion.div
-          className="absolute top-20 left-[10%] w-72 h-72 rounded-full bg-violet-500/20 blur-3xl"
+          className="absolute top-20 left-[10%] w-80 h-80 rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.3), transparent)' }}
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-            y: [0, -30, 0],
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.6, 0.4],
+            y: [0, -40, 0],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-20 right-[10%] w-96 h-96 rounded-full bg-indigo-500/15 blur-3xl"
+          className="absolute bottom-20 right-[10%] w-96 h-96 rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, hsl(var(--accent) / 0.25), transparent)' }}
           animate={{
             scale: [1.2, 1, 1.2],
-            opacity: [0.4, 0.2, 0.4],
-            y: [0, 40, 0],
+            opacity: [0.3, 0.5, 0.3],
+            y: [0, 50, 0],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/10 blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, hsl(35 100% 50% / 0.1), transparent)' }}
           animate={{
-            scale: [1, 1.1, 1],
+            scale: [1, 1.15, 1],
             rotate: [0, 180, 360],
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
         />
-        {/* Additional parallax orbs */}
+        
+        {/* Additional accent orbs */}
         <motion.div
-          className="absolute top-[30%] right-[20%] w-48 h-48 rounded-full bg-pink-500/10 blur-2xl"
+          className="absolute top-[30%] right-[20%] w-48 h-48 rounded-full blur-2xl"
+          style={{ background: 'radial-gradient(circle, hsl(var(--neon-coral) / 0.2), transparent)' }}
           animate={{
-            y: [0, -50, 0],
-            x: [0, 20, 0],
-            scale: [1, 1.1, 1],
+            y: [0, -60, 0],
+            x: [0, 30, 0],
           }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
-        <motion.div
-          className="absolute bottom-[30%] left-[15%] w-64 h-64 rounded-full bg-cyan-500/10 blur-2xl"
-          animate={{
-            y: [0, 60, 0],
-            scale: [1.1, 1, 1.1],
-          }}
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 md:pt-32 md:pb-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 md:pt-36 md:pb-24">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
@@ -115,40 +114,40 @@ export const AdvancedHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/20 to-indigo-500/20 border border-violet-500/30 backdrop-blur-sm mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 backdrop-blur-sm mb-8"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
-              <span className="text-violet-300 text-sm font-medium">AI-Powered Creative Studio</span>
-              <Crown className="w-4 h-4 text-amber-400" />
+              <span className="text-primary text-sm font-semibold">Next-Gen AI Studio</span>
+              <Flame className="w-4 h-4 text-accent" />
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6">
-              <span className="text-white">Create </span>
-              <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8">
+              <span className="text-foreground">Create </span>
+              <span className="text-gradient-warm">
                 Stunning Art
               </span>
               <br />
-              <span className="text-white">With </span>
-              <span className="relative">
-                <span className="bg-gradient-to-r from-pink-400 via-rose-400 to-orange-400 bg-clip-text text-transparent">
+              <span className="text-foreground">With </span>
+              <span className="relative inline-block">
+                <span className="text-gradient-primary neon-text">
                   AI Magic
                 </span>
-                <Sparkles className="absolute -top-2 -right-6 w-5 h-5 text-amber-400 animate-pulse" />
+                <Sparkles className="absolute -top-3 -right-8 w-6 h-6 text-primary animate-pulse" />
               </span>
             </h1>
 
             {/* Description */}
-            <p className="text-lg sm:text-xl text-gray-300/90 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-              Transform your ideas into breathtaking visuals in seconds. 
-              Professional-quality AI art generation, no design skills required.
+            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
+              Transform your wildest ideas into breathtaking visuals in seconds. 
+              Professional-quality AI art generation—no design skills required.
             </p>
 
             {/* Stats Row */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-6 mb-8">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-10">
               {[
                 { value: '50+', label: 'Art Styles', icon: Sparkles },
                 { value: '3s', label: 'Generation', icon: Zap },
@@ -159,12 +158,14 @@ export const AdvancedHero = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
+                  className="glass-card px-5 py-4 flex items-center gap-3"
                 >
-                  <stat.icon className="w-5 h-5 text-violet-400" />
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <stat.icon className="w-5 h-5 text-primary" />
+                  </div>
                   <div>
-                    <div className="text-xl font-bold text-white">{stat.value}</div>
-                    <div className="text-xs text-gray-400">{stat.label}</div>
+                    <div className="text-xl font-bold text-foreground">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground">{stat.label}</div>
                   </div>
                 </motion.div>
               ))}
@@ -178,23 +179,23 @@ export const AdvancedHero = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <Button 
-                size="lg" 
-                className="group relative overflow-hidden bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:via-purple-500 hover:to-indigo-500 text-white font-semibold px-8 py-6 text-lg rounded-2xl shadow-2xl shadow-violet-500/25 transition-all duration-300 hover:shadow-violet-500/40 hover:scale-[1.02]" 
+                size="xl" 
+                variant="neon"
+                className="group relative text-lg font-bold" 
                 asChild
               >
                 <Link to="/text-to-image" onClick={handleGetStarted}>
                   <span className="relative z-10 flex items-center">
                     Start Creating Free
-                    <Wand2 className="ml-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
+                    <Wand2 className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                 </Link>
               </Button>
               
               <Button 
-                size="lg" 
-                variant="outline"
-                className="group border-2 border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 hover:border-white/30 px-8 py-6 text-lg rounded-2xl transition-all duration-300"
+                size="xl" 
+                variant="glass"
+                className="group text-lg"
                 onClick={handleViewExamples}
               >
                 View Examples
@@ -207,26 +208,20 @@ export const AdvancedHero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-4 mt-8 text-sm text-gray-400"
+              className="flex flex-wrap justify-center lg:justify-start gap-6 mt-10 text-sm text-muted-foreground"
             >
-              <span className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                Free to try
-              </span>
-              <span className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                No signup needed
-              </span>
-              <span className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                Commercial use OK
-              </span>
+              {['Free to try', 'No signup needed', 'Commercial use OK'].map((item) => (
+                <span key={item} className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-primary shadow-neon" />
+                  {item}
+                </span>
+              ))}
             </motion.div>
           </motion.div>
 
           {/* Right Content - Interactive Preview */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative hidden lg:block"
@@ -234,31 +229,35 @@ export const AdvancedHero = () => {
             {/* Main Image Card */}
             <div className="relative">
               <motion.div
-                className="relative rounded-3xl overflow-hidden shadow-2xl shadow-violet-500/20 border border-white/10"
+                className="relative glass-card rounded-3xl overflow-hidden shadow-neon-lg"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="aspect-square bg-gradient-to-br from-violet-900/50 to-indigo-900/50 backdrop-blur-sm">
+                <div className="aspect-square">
                   <img
                     src={floatingImages[currentImageIndex]}
                     alt="AI Generated Art"
                     className="w-full h-full object-cover transition-all duration-700"
                   />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
                 </div>
                 
                 {/* Overlay UI */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                <div className="absolute bottom-0 left-0 right-0 p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-xs text-violet-300 mb-1">AI Generated</div>
-                      <div className="text-white font-medium">Cyberpunk City</div>
+                      <div className="text-xs text-primary font-semibold mb-1">AI Generated</div>
+                      <div className="text-foreground font-bold text-lg">Cyberpunk City</div>
                     </div>
                     <div className="flex gap-2">
                       {floatingImages.map((_, i) => (
                         <div
                           key={i}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            i === currentImageIndex ? 'bg-violet-400 w-6' : 'bg-white/30'
+                          className={`h-2 rounded-full transition-all duration-300 ${
+                            i === currentImageIndex 
+                              ? 'bg-primary w-8 shadow-neon' 
+                              : 'bg-muted-foreground/30 w-2'
                           }`}
                         />
                       ))}
@@ -269,24 +268,34 @@ export const AdvancedHero = () => {
 
               {/* Floating Cards */}
               <motion.div
-                className="absolute -top-6 -right-6 px-4 py-3 rounded-2xl bg-gradient-to-r from-green-500/90 to-emerald-500/90 backdrop-blur-sm shadow-lg"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-6 -right-6 px-5 py-3 rounded-2xl glass-card border-primary/30"
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                <div className="flex items-center gap-2 text-white">
-                  <Zap className="w-4 h-4" />
-                  <span className="text-sm font-semibold">3s Generation</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <span className="text-foreground font-bold">3s</span>
+                    <span className="text-muted-foreground text-sm ml-1">Generation</span>
+                  </div>
                 </div>
               </motion.div>
 
               <motion.div
-                className="absolute -bottom-4 -left-6 px-4 py-3 rounded-2xl bg-gradient-to-r from-violet-500/90 to-purple-500/90 backdrop-blur-sm shadow-lg"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -bottom-4 -left-6 px-5 py-3 rounded-2xl glass-card border-accent/30"
+                animate={{ y: [0, 15, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               >
-                <div className="flex items-center gap-2 text-white">
-                  <Star className="w-4 h-4" />
-                  <span className="text-sm font-semibold">4K Quality</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center">
+                    <Star className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <span className="text-foreground font-bold">4K</span>
+                    <span className="text-muted-foreground text-sm ml-1">Quality</span>
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -301,7 +310,7 @@ export const AdvancedHero = () => {
           className="lg:hidden mt-12"
         >
           <div className="relative max-w-sm mx-auto">
-            <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-violet-500/20 border border-white/10">
+            <div className="aspect-square glass-card rounded-3xl overflow-hidden shadow-neon">
               <img
                 src={floatingImages[currentImageIndex]}
                 alt="AI Generated Art"
@@ -312,8 +321,10 @@ export const AdvancedHero = () => {
               {floatingImages.map((_, i) => (
                 <div
                   key={i}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    i === currentImageIndex ? 'bg-violet-400 w-6' : 'bg-white/30'
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === currentImageIndex 
+                      ? 'bg-primary w-8 shadow-neon' 
+                      : 'bg-muted-foreground/30 w-2'
                   }`}
                 />
               ))}
@@ -321,19 +332,21 @@ export const AdvancedHero = () => {
           </div>
         </motion.div>
 
-        {/* Quick Prompt Input - Mobile Optimized */}
+        {/* Quick Prompt Input */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-16 max-w-3xl mx-auto"
+          className="mt-20 max-w-3xl mx-auto"
         >
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-violet-600/20 to-indigo-600/20 rounded-3xl blur-xl" />
-            <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-8">
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-2xl" />
+            
+            <div className="relative glass-card rounded-3xl p-6 md:p-8 border-primary/20">
               <div className="text-center mb-6">
-                <h2 className="text-xl md:text-2xl font-bold text-white mb-2">Try It Now</h2>
-                <p className="text-gray-400 text-sm">Describe what you want to create</p>
+                <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">Try It Now</h2>
+                <p className="text-muted-foreground text-sm">Describe what you want to create</p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
@@ -342,11 +355,12 @@ export const AdvancedHero = () => {
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="A magical forest with glowing mushrooms..."
-                  className="flex-1 px-5 py-4 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all text-base"
+                  className="flex-1 px-5 py-4 rounded-2xl bg-secondary/50 border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-base"
                 />
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-semibold px-8 py-4 rounded-2xl whitespace-nowrap"
+                  variant="neon"
+                  className="whitespace-nowrap"
                   asChild
                 >
                   <Link to={`/text-to-image${prompt ? `?prompt=${encodeURIComponent(prompt)}` : ''}`}>
@@ -357,12 +371,12 @@ export const AdvancedHero = () => {
               </div>
 
               {/* Quick Suggestions */}
-              <div className="flex flex-wrap gap-2 mt-4 justify-center">
+              <div className="flex flex-wrap gap-2 mt-5 justify-center">
                 {['Cyberpunk city', 'Fantasy dragon', 'Anime portrait', 'Abstract art'].map((suggestion) => (
                   <button
                     key={suggestion}
                     onClick={() => setPrompt(suggestion)}
-                    className="px-3 py-1.5 rounded-full bg-white/10 text-gray-300 text-xs hover:bg-white/20 hover:text-white transition-all"
+                    className="px-4 py-2 rounded-full bg-muted/50 border border-border text-muted-foreground text-sm hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all touch-feedback"
                   >
                     {suggestion}
                   </button>
@@ -375,14 +389,14 @@ export const AdvancedHero = () => {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-gray-400"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-muted-foreground"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
         <span className="text-xs">Scroll to explore</span>
-        <div className="w-6 h-10 rounded-full border-2 border-gray-400/50 flex justify-center pt-2">
+        <div className="w-6 h-10 rounded-full border-2 border-primary/30 flex justify-center pt-2">
           <motion.div
-            className="w-1.5 h-1.5 rounded-full bg-gray-400"
+            className="w-1.5 h-1.5 rounded-full bg-primary"
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           />
