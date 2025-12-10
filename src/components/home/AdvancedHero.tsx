@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 import { trackEvent } from '@/utils/analytics';
 import { motion } from 'framer-motion';
 
-const floatingImages = [
-  '/lovable-uploads/4034377e-d4f1-439d-b479-367253c12770.png',
-  '/lovable-uploads/60da266c-4810-4f41-9449-ae54c2026373.png',
-  '/lovable-uploads/53e8165c-d2db-4f0c-9509-f0e76e5c179f.png',
-];
+// Import hero images
+import cyberpunkCity from '@/assets/hero/cyberpunk-city.jpg';
+import fantasyForest from '@/assets/hero/fantasy-forest.jpg';
+import dragonFire from '@/assets/hero/dragon-fire.jpg';
+
+const floatingImages = [cyberpunkCity, fantasyForest, dragonFire];
 
 export const AdvancedHero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
