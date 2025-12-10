@@ -11,7 +11,7 @@ interface NavAuthButtonsProps {
 
 export const NavAuthButtons = ({ session, isMobile = false, onClose }: NavAuthButtonsProps) => {
   const containerClass = isMobile 
-    ? "pt-4 border-t border-gray-200 space-y-2"
+    ? "pt-4 border-t border-white/10 space-y-2"
     : "hidden md:flex items-center space-x-4";
 
   const buttonClass = isMobile ? "w-full" : "";

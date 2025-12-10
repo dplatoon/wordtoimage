@@ -18,7 +18,7 @@ const STYLES: Style[] = [
   {
     id: 'cyberpunk',
     name: 'Cyberpunk',
-    imageUrl: '/lovable-uploads/4034377e-d4f1-439d-b479-367253c12770.png',
+    imageUrl: '/lovable-uploads/ba65fc79-7bc8-40f0-81b9-d5ea5bc8d35a.png',
     prompt: 'cyberpunk city with neon lights, futuristic architecture',
     color: 'from-cyan-500 to-blue-600'
   },
@@ -39,7 +39,7 @@ const STYLES: Style[] = [
   {
     id: 'digital_art',
     name: 'Digital Art',
-    imageUrl: '/lovable-uploads/99f5c8dc-6b8d-4daf-81a1-ff186d0ee10a.png',
+    imageUrl: '/lovable-uploads/c258fc93-b285-4676-9418-c690eaa9fa60.png',
     prompt: 'digital art illustration, vibrant colors',
     color: 'from-violet-500 to-purple-600'
   },
@@ -60,14 +60,14 @@ const STYLES: Style[] = [
   {
     id: 'fantasy',
     name: 'Fantasy',
-    imageUrl: '/lovable-uploads/53e8165c-d2db-4f0c-9509-f0e76e5c179f.png',
+    imageUrl: '/lovable-uploads/db49271b-8575-4763-9439-0e4d86479b29.png',
     prompt: 'fantasy artwork, magical creatures',
     color: 'from-indigo-500 to-violet-600'
   },
   {
     id: 'watercolor',
     name: 'Watercolor',
-    imageUrl: '/lovable-uploads/4034377e-d4f1-439d-b479-367253c12770.png',
+    imageUrl: '/lovable-uploads/f0dea1ce-ca91-4c0b-9849-6b3649a98249.png',
     prompt: 'watercolor painting, soft brushstrokes',
     color: 'from-teal-500 to-cyan-600'
   }
