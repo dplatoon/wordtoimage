@@ -48,7 +48,6 @@ export function JPGToPDFConverter() {
       setProgress(100);
       toast.success(`Successfully created PDF with ${files.length} image${files.length > 1 ? 's' : ''}!`);
       
-      // Track conversion event
       if (typeof window !== 'undefined' && (window as any).dataLayer) {
         (window as any).dataLayer.push({
           event: "tool_used",
@@ -83,7 +82,7 @@ export function JPGToPDFConverter() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="border-2 border-dashed border-gray-300 hover:border-orange-500 transition-colors">
+      <Card className="border border-border bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
         <CardContent className="p-8">
           <div className="space-y-6">
             {/* File Upload */}
@@ -109,7 +108,8 @@ export function JPGToPDFConverter() {
                 <Button
                   onClick={convertImagesToPDF}
                   disabled={isConverting}
-                  className="w-full bg-orange-600 hover:bg-orange-700"
+                  variant="neon"
+                  className="w-full"
                   size="lg"
                 >
                   {isConverting ? (

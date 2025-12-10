@@ -8,6 +8,8 @@ import { WordToJPGConverter } from '@/components/converters/WordToJPGConverter';
 import { FileText, Image, Zap, Shield, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export default function WordToJPG() {
   const pageContent = {
@@ -48,188 +50,157 @@ export default function WordToJPG() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-green-50 via-white to-blue-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Helmet>
         <title>Convert Word to JPG – Free Online Tool | WordToImage</title>
         <meta name="description" content="Convert Word documents (.doc, .docx) to high-quality JPG images while preserving formatting, fonts, and layout. Free and secure." />
         <meta name="keywords" content="convert Word to JPG, Word to image converter, DOCX to JPG, document to image, Word to picture" />
-        <link rel="canonical" href="https://wordtoimage.com/word-to-jpg" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "Word to JPG Converter",
-            "applicationCategory": "ConverterApplication",
-            "operatingSystem": "Web Browser",
-            "description": "Convert Word documents to JPG images online while preserving formatting and layout",
-            "url": "https://wordtoimage.com/word-to-jpg",
-            "provider": {
-              "@type": "Organization",
-              "name": "WordToImage",
-              "url": "https://wordtoimage.com"
-            },
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "featureList": [
-              "Convert DOC and DOCX files",
-              "Preserve formatting and layout",
-              "High-quality image output",
-              "Multiple output formats",
-              "Browser-based conversion"
-            ]
-          })}
-        </script>
+        <link rel="canonical" href="https://wordtoimage.online/word-to-jpg" />
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />
       
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Convert Word to JPG – <span className="text-green-600">Free Online Tool</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Convert Word documents (.doc, .docx) to high-quality JPG images while preserving formatting, fonts, and layout. Free and secure.
-          </p>
+        <section className="relative py-20 overflow-hidden">
+          {/* Background Effects */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-green-500/10 via-transparent to-transparent" />
+          <div className="absolute top-20 right-10 w-72 h-72 bg-green-500/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
           
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
-            <div className="flex items-center gap-2 text-gray-600">
-              <FileText className="w-5 h-5 text-blue-500" />
-              <span>.doc & .docx</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Image className="w-5 h-5 text-green-500" />
-              <span>JPG & PNG</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Zap className="w-5 h-5 text-orange-500" />
-              <span>Fast Processing</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Shield className="w-5 h-5 text-purple-500" />
-              <span>Secure Upload</span>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center max-w-4xl mx-auto">
+              <Badge className="mb-6 bg-green-500/10 text-green-500 border-green-500/20">
+                <FileText className="w-3 h-3 mr-1" />
+                Document Converter
+              </Badge>
+              
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                <span className="text-foreground">Convert Word to JPG</span>
+                <br />
+                <span className="bg-gradient-to-r from-green-500 to-primary bg-clip-text text-transparent">Free Online Tool</span>
+              </h1>
+              
+              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+                Convert Word documents to high-quality JPG images while preserving formatting, fonts, and layout.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4 mb-12">
+                {[
+                  { icon: FileText, label: '.doc & .docx', color: 'text-primary' },
+                  { icon: Image, label: 'JPG & PNG', color: 'text-green-500' },
+                  { icon: Zap, label: 'Fast Processing', color: 'text-accent' },
+                  { icon: Shield, label: 'Secure Upload', color: 'text-primary' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border">
+                    <item.icon className={`w-4 h-4 ${item.color}`} />
+                    <span className="text-sm text-muted-foreground">{item.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Converter Component */}
-        <WordToJPGConverter />
+        <section className="container mx-auto px-4 pb-16">
+          <WordToJPGConverter />
+        </section>
 
         {/* How-to Section */}
-        <section className="mt-16 mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            How to Convert Word to JPG
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
-                <h3 className="text-xl font-semibold mb-2">Upload Document</h3>
-                <p className="text-gray-600">Select your Word document (.doc or .docx) from your device. Up to 50MB supported.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
-                <h3 className="text-xl font-semibold mb-2">Choose Settings</h3>
-                <p className="text-gray-600">Select output format (JPG/PNG) and enable "Preserve formatting" for best results.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
-                <h3 className="text-xl font-semibold mb-2">Download Images</h3>
-                <p className="text-gray-600">Get your converted images instantly. Multi-page documents create separate image files.</p>
-              </div>
+        <section className="py-16 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              How to Convert Word to JPG
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {[
+                { step: '1', title: 'Upload Document', desc: 'Select your Word document (.doc or .docx) from your device. Up to 50MB supported.', color: 'bg-green-500' },
+                { step: '2', title: 'Choose Settings', desc: 'Select output format (JPG/PNG) and enable "Preserve formatting" for best results.', color: 'bg-primary' },
+                { step: '3', title: 'Download Images', desc: 'Get your converted images instantly. Multi-page documents create separate image files.', color: 'bg-accent' },
+              ].map((item) => (
+                <div key={item.step} className="text-center">
+                  <div className={`w-16 h-16 ${item.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg`}>
+                    {item.step}
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Why Convert Section */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Why Convert Word Documents to Images
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-green-600">Easy Sharing</h3>
-              <p className="text-gray-600">Share documents as images on social media, websites, or messaging apps without formatting issues.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-blue-600">Universal Compatibility</h3>
-              <p className="text-gray-600">JPG images work on any device or platform, ensuring your content looks the same everywhere.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-purple-600">Prevent Editing</h3>
-              <p className="text-gray-600">Convert documents to images to prevent unauthorized editing while maintaining visual appeal.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-orange-600">Web Integration</h3>
-              <p className="text-gray-600">Embed document images directly into websites, presentations, or digital portfolios.</p>
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              Why Convert Word Documents to Images
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {[
+                { title: 'Easy Sharing', desc: 'Share documents as images on social media, websites, or messaging apps without formatting issues.', color: 'text-green-500' },
+                { title: 'Universal Compatibility', desc: 'JPG images work on any device or platform, ensuring your content looks the same everywhere.', color: 'text-primary' },
+                { title: 'Prevent Editing', desc: 'Convert documents to images to prevent unauthorized editing while maintaining visual appeal.', color: 'text-accent' },
+                { title: 'Web Integration', desc: 'Embed document images directly into websites, presentations, or digital portfolios.', color: 'text-primary' },
+              ].map((item) => (
+                <Card key={item.title} className="p-6 bg-card/50 border-border hover:shadow-neon transition-all duration-300">
+                  <h3 className={`text-xl font-semibold mb-3 ${item.color}`}>{item.title}</h3>
+                  <p className="text-muted-foreground">{item.desc}</p>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Frequently Asked Questions
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqData.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-md">
-                  <AccordionTrigger className="px-6 py-4 text-left">
-                    <span className="text-lg font-semibold">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <p className="text-gray-600">{faq.answer}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+        <section className="py-16 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              Frequently Asked Questions
+            </h2>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqData.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 rounded-xl border border-border px-6">
+                    <AccordionTrigger className="py-4 text-left hover:no-underline">
+                      <span className="text-lg font-semibold text-foreground">{faq.question}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-4">
+                      <p className="text-muted-foreground">{faq.answer}</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
         </section>
 
         {/* Internal Links */}
-        <section className="bg-gray-50 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-            Try Our Other Converter Tools
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/jpg-to-word" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <FileText className="w-8 h-8 text-purple-500" />
-              <div>
-                <h3 className="font-semibold">JPG to Word</h3>
-                <p className="text-sm text-gray-600">Extract text from images</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/pdf-to-jpg" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <Image className="w-8 h-8 text-blue-500" />
-              <div>
-                <h3 className="font-semibold">PDF to JPG</h3>
-                <p className="text-sm text-gray-600">Extract images from PDF</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/jpg-to-pdf" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <FileText className="w-8 h-8 text-orange-500" />
-              <div>
-                <h3 className="font-semibold">JPG to PDF</h3>
-                <p className="text-sm text-gray-600">Combine images into PDF</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/remove-background" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <Image className="w-8 h-8 text-green-500" />
-              <div>
-                <h3 className="font-semibold">Remove Background</h3>
-                <p className="text-sm text-gray-600">AI background removal</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold text-center text-foreground mb-8">
+              Try Our Other Converter Tools
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+              {[
+                { to: '/jpg-to-word', icon: FileText, title: 'JPG to Word', desc: 'Extract text from images', color: 'text-accent' },
+                { to: '/pdf-to-jpg', icon: Image, title: 'PDF to JPG', desc: 'Extract images from PDF', color: 'text-primary' },
+                { to: '/jpg-to-pdf', icon: FileText, title: 'JPG to PDF', desc: 'Combine images into PDF', color: 'text-accent' },
+                { to: '/remove-background', icon: Image, title: 'Remove Background', desc: 'AI background removal', color: 'text-green-500' },
+              ].map((link) => (
+                <Link key={link.to} to={link.to} className="group">
+                  <Card className="p-4 bg-card/50 border-border hover:border-primary/50 hover:shadow-neon transition-all duration-300 flex items-center gap-3">
+                    <link.icon className={`w-8 h-8 ${link.color}`} />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground">{link.title}</h3>
+                      <p className="text-sm text-muted-foreground">{link.desc}</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </Card>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       </main>

@@ -8,6 +8,8 @@ import { PDFToJPGConverter } from '@/components/converters/PDFToJPGConverter';
 import { FileText, Download, Zap, Shield, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export default function PDFToJPG() {
   const pageContent = {
@@ -44,207 +46,163 @@ export default function PDFToJPG() {
     {
       question: "Is my data secure during conversion?",
       answer: "All conversions happen in your browser. Your files never leave your device, ensuring complete privacy."
-    },
-    {
-      question: "What browsers are supported?",
-      answer: "Works on all modern browsers including Chrome, Firefox, Safari, and Edge."
-    },
-    {
-      question: "Can I convert password-protected PDFs?",
-      answer: "Currently, password-protected PDFs need to be unlocked before conversion. We're working on this feature."
     }
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Helmet>
         <title>Convert PDF to JPG – Free & Fast | WordToImage</title>
         <meta name="description" content="Transform your PDF documents into high-quality JPG images instantly. Free, secure, and works in your browser. No watermarks!" />
         <meta name="keywords" content="convert PDF to JPG online, PDF to image converter, PDF to JPG free, extract images from PDF, PDF converter" />
-        <link rel="canonical" href="https://wordtoimage.com/pdf-to-jpg" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "PDF to JPG Converter",
-            "applicationCategory": "ConverterApplication",
-            "operatingSystem": "Web Browser",
-            "description": "Convert PDF documents to high-quality JPG images with customizable DPI settings",
-            "url": "https://wordtoimage.com/pdf-to-jpg",
-            "provider": {
-              "@type": "Organization",
-              "name": "WordToImage",
-              "url": "https://wordtoimage.com"
-            },
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "featureList": [
-              "Convert PDF to JPG",
-              "Customizable DPI quality",
-              "No watermarks",
-              "Multi-page support",
-              "Browser-based conversion"
-            ]
-          })}
-        </script>
+        <link rel="canonical" href="https://wordtoimage.online/pdf-to-jpg" />
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />
       
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Convert PDF to JPG – <span className="text-blue-600">Free & Fast</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Transform your PDF documents into high-quality JPG images instantly. Free, secure, and works in your browser. No watermarks!
-          </p>
+        <section className="relative py-20 overflow-hidden">
+          {/* Background Effects */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
           
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
-            <div className="flex items-center gap-2 text-gray-600">
-              <FileText className="w-5 h-5 text-blue-500" />
-              <span>Up to 100MB</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Zap className="w-5 h-5 text-green-500" />
-              <span>Fast Conversion</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Shield className="w-5 h-5 text-purple-500" />
-              <span>100% Secure</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Download className="w-5 h-5 text-orange-500" />
-              <span>ZIP Download</span>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center max-w-4xl mx-auto">
+              <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
+                <FileText className="w-3 h-3 mr-1" />
+                PDF Converter Tool
+              </Badge>
+              
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                <span className="text-foreground">Convert PDF to JPG</span>
+                <br />
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Free & Fast</span>
+              </h1>
+              
+              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+                Transform your PDF documents into high-quality JPG images instantly. Free, secure, and works in your browser.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4 mb-12">
+                {[
+                  { icon: FileText, label: 'Up to 100MB', color: 'text-primary' },
+                  { icon: Zap, label: 'Fast Conversion', color: 'text-accent' },
+                  { icon: Shield, label: '100% Secure', color: 'text-green-500' },
+                  { icon: Download, label: 'ZIP Download', color: 'text-primary' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border">
+                    <item.icon className={`w-4 h-4 ${item.color}`} />
+                    <span className="text-sm text-muted-foreground">{item.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Converter Component */}
-        <PDFToJPGConverter />
+        <section className="container mx-auto px-4 pb-16">
+          <PDFToJPGConverter />
+        </section>
 
         {/* Features Section */}
-        <section className="mt-16 mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Why Choose Our PDF to JPG Converter
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">High-Quality Output</h3>
-              <p className="text-gray-600">Convert PDFs to JPGs with customizable DPI settings from 50 to 600 for perfect quality control.</p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">100% Private</h3>
-              <p className="text-gray-600">All conversions happen locally in your browser. Your files never leave your device.</p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Lightning Fast</h3>
-              <p className="text-gray-600">Instant conversion with no waiting time. Process multiple pages in seconds.</p>
+        <section className="py-16 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              Why Choose Our PDF to JPG Converter
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[
+                { icon: FileText, title: 'High-Quality Output', desc: 'Convert PDFs to JPGs with customizable DPI settings from 50 to 600 for perfect quality control.', color: 'bg-primary/20 text-primary' },
+                { icon: Shield, title: '100% Private', desc: 'All conversions happen locally in your browser. Your files never leave your device.', color: 'bg-green-500/20 text-green-500' },
+                { icon: Zap, title: 'Lightning Fast', desc: 'Instant conversion with no waiting time. Process multiple pages in seconds.', color: 'bg-accent/20 text-accent' },
+              ].map((feature) => (
+                <Card key={feature.title} className="p-6 bg-card/50 border-border hover:shadow-neon transition-all duration-300 group">
+                  <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <feature.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.desc}</p>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
 
         {/* How-to Section */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            How to Convert PDF to JPG
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
-                <h3 className="text-xl font-semibold mb-2">Upload PDF</h3>
-                <p className="text-gray-600">Drag and drop your PDF file or click to browse. Files up to 100MB supported.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
-                <h3 className="text-xl font-semibold mb-2">Choose Quality</h3>
-                <p className="text-gray-600">Select your preferred DPI quality. Higher values for print, lower for web use.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
-                <h3 className="text-xl font-semibold mb-2">Download JPGs</h3>
-                <p className="text-gray-600">Get your converted JPG images instantly as individual files or ZIP archive.</p>
-              </div>
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              How to Convert PDF to JPG
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {[
+                { step: '1', title: 'Upload PDF', desc: 'Drag and drop your PDF file or click to browse. Files up to 100MB supported.', color: 'bg-primary' },
+                { step: '2', title: 'Choose Quality', desc: 'Select your preferred DPI quality. Higher values for print, lower for web use.', color: 'bg-accent' },
+                { step: '3', title: 'Download JPGs', desc: 'Get your converted JPG images instantly as individual files or ZIP archive.', color: 'bg-green-500' },
+              ].map((item) => (
+                <div key={item.step} className="text-center">
+                  <div className={`w-16 h-16 ${item.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg`}>
+                    {item.step}
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Frequently Asked Questions
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqData.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-md">
-                  <AccordionTrigger className="px-6 py-4 text-left">
-                    <span className="text-lg font-semibold">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <p className="text-gray-600">{faq.answer}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+        <section className="py-16 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              Frequently Asked Questions
+            </h2>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqData.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 rounded-xl border border-border px-6">
+                    <AccordionTrigger className="py-4 text-left hover:no-underline">
+                      <span className="text-lg font-semibold text-foreground">{faq.question}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-4">
+                      <p className="text-muted-foreground">{faq.answer}</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
         </section>
 
         {/* Internal Links */}
-        <section className="bg-gray-50 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-            Explore More Converter Tools
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/jpg-to-pdf" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <FileText className="w-8 h-8 text-orange-500" />
-              <div>
-                <h3 className="font-semibold">JPG to PDF</h3>
-                <p className="text-sm text-gray-600">Combine images into PDF</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/word-to-jpg" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <FileText className="w-8 h-8 text-green-500" />
-              <div>
-                <h3 className="font-semibold">Word to JPG</h3>
-                <p className="text-sm text-gray-600">Convert documents to images</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/jpg-to-word" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <FileText className="w-8 h-8 text-purple-500" />
-              <div>
-                <h3 className="font-semibold">JPG to Word</h3>
-                <p className="text-sm text-gray-600">Extract text from images</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/remove-background" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <Shield className="w-8 h-8 text-blue-500" />
-              <div>
-                <h3 className="font-semibold">Remove Background</h3>
-                <p className="text-sm text-gray-600">AI background removal</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold text-center text-foreground mb-8">
+              Explore More Converter Tools
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+              {[
+                { to: '/jpg-to-pdf', icon: FileText, title: 'JPG to PDF', desc: 'Combine images into PDF', color: 'text-primary' },
+                { to: '/word-to-jpg', icon: FileText, title: 'Word to JPG', desc: 'Convert documents to images', color: 'text-green-500' },
+                { to: '/jpg-to-word', icon: FileText, title: 'JPG to Word', desc: 'Extract text from images', color: 'text-accent' },
+                { to: '/remove-background', icon: Shield, title: 'Remove Background', desc: 'AI background removal', color: 'text-primary' },
+              ].map((link) => (
+                <Link key={link.to} to={link.to} className="group">
+                  <Card className="p-4 bg-card/50 border-border hover:border-primary/50 hover:shadow-neon transition-all duration-300 flex items-center gap-3">
+                    <link.icon className={`w-8 h-8 ${link.color}`} />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground">{link.title}</h3>
+                      <p className="text-sm text-muted-foreground">{link.desc}</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </Card>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       </main>

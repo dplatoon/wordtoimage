@@ -156,14 +156,14 @@ export function BackgroundRemover() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="border-2 border-dashed border-gray-300 hover:border-purple-500 transition-colors">
+      <Card className="border border-border bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
         <CardContent className="p-8">
           {!file ? (
             <FileUploader
               onFileSelect={handleFileSelect}
               acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
               maxSize={10 * 1024 * 1024}
-              icon={<Image className="w-12 h-12 text-purple-500" />}
+              icon={<Image className="w-12 h-12 text-primary" />}
               title="Upload Image for Background Removal"
               description="Drag and drop your image here, or click to browse"
               supportText="Supports JPG, PNG, WEBP up to 10MB"
@@ -171,18 +171,20 @@ export function BackgroundRemover() {
           ) : (
             <div className="space-y-6">
               {/* File Info */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-secondary/50 rounded-xl border border-border">
                 <div className="flex items-center gap-3">
-                  <Image className="w-8 h-8 text-purple-500" />
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                    <Image className="w-5 h-5 text-primary" />
+                  </div>
                   <div>
-                    <p className="font-medium">{file.name}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-medium text-foreground">{file.name}</p>
+                    <p className="text-sm text-muted-foreground">
                       {(file.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
                 </div>
                 <Button
-                  variant="outline"
+                  variant="glass"
                   size="sm"
                   onClick={() => setFile(null)}
                 >
@@ -194,7 +196,8 @@ export function BackgroundRemover() {
               <Button
                 onClick={processImage}
                 disabled={isProcessing}
-                className="w-full bg-purple-600 hover:bg-purple-700"
+                variant="neon"
+                className="w-full"
                 size="lg"
               >
                 {isProcessing ? (
@@ -222,7 +225,7 @@ export function BackgroundRemover() {
               {processedImage && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-medium">Background Removed Successfully!</h3>
+                    <h3 className="font-medium text-foreground">Background Removed Successfully!</h3>
                     <DownloadButton
                       onDownload={handleDownload}
                       filename="background-removed.png"
@@ -232,21 +235,30 @@ export function BackgroundRemover() {
                   {/* Preview */}
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="text-sm font-medium mb-2">Original</h4>
-                      <img
-                        src={URL.createObjectURL(file)}
-                        alt="Original"
-                        className="w-full h-48 object-cover rounded border"
-                      />
+                      <h4 className="text-sm font-medium text-muted-foreground mb-2">Original</h4>
+                      <div className="rounded-xl overflow-hidden border border-border">
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt="Original"
+                          className="w-full h-48 object-cover"
+                        />
+                      </div>
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium mb-2">Background Removed</h4>
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 opacity-50 rounded"></div>
+                      <h4 className="text-sm font-medium text-muted-foreground mb-2">Background Removed</h4>
+                      <div className="relative rounded-xl overflow-hidden border border-border">
+                        <div 
+                          className="absolute inset-0"
+                          style={{
+                            backgroundImage: 'linear-gradient(45deg, hsl(var(--secondary)) 25%, transparent 25%), linear-gradient(-45deg, hsl(var(--secondary)) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, hsl(var(--secondary)) 75%), linear-gradient(-45deg, transparent 75%, hsl(var(--secondary)) 75%)',
+                            backgroundSize: '20px 20px',
+                            backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+                          }}
+                        />
                         <img
                           src={processedImage}
                           alt="Background Removed"
-                          className="relative w-full h-48 object-cover rounded border"
+                          className="relative w-full h-48 object-cover"
                         />
                       </div>
                     </div>
