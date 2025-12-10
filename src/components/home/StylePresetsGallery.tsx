@@ -1,12 +1,14 @@
 
-import React, { useState, useMemo } from 'react';
-import { Palette, Download, Eye, Search, Sparkles, X, Check, Layers, Copy, Wand2 } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Palette, Download, Eye, Search, Sparkles, X, Check, Layers, Copy, Wand2, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { LazyImage } from '@/components/common/LazyImage';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
+
+const FAVORITES_STORAGE_KEY = 'style-favorites';
 
 interface StylePreset {
   id: string;
@@ -25,6 +27,7 @@ interface StylePresetsGalleryProps {
 
 const categories = [
   { id: 'all', label: 'All Styles', icon: Sparkles },
+  { id: 'favorites', label: 'Favorites', icon: Heart },
   { id: 'realistic', label: 'Realistic', icon: Eye },
   { id: 'artistic', label: 'Artistic', icon: Palette },
   { id: 'fantasy', label: 'Fantasy', icon: Sparkles },
@@ -377,17 +380,50 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
   const [previewStyle, setPreviewStyle] = useState<StylePreset | null>(null);
   const [selectedStyles, setSelectedStyles] = useState<StylePreset[]>([]);
   const [isMixMode, setIsMixMode] = useState(false);
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
+
+  // Load favorites from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem(FAVORITES_STORAGE_KEY);
+    if (stored) {
+      try {
+        setFavoriteIds(JSON.parse(stored));
+      } catch (e) {
+        console.error('Failed to parse favorites:', e);
+      }
+    }
+  }, []);
+
+  // Save favorites to localStorage when they change
+  const saveFavorites = (ids: string[]) => {
+    setFavoriteIds(ids);
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(ids));
+  };
+
+  const toggleFavorite = (presetId: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    const isFav = favoriteIds.includes(presetId);
+    const newFavorites = isFav 
+      ? favoriteIds.filter(id => id !== presetId)
+      : [...favoriteIds, presetId];
+    saveFavorites(newFavorites);
+    toast({
+      title: isFav ? "Removed from favorites" : "Added to favorites",
+      description: isFav ? "Style removed from your favorites" : "Style saved to your favorites for quick access"
+    });
+  };
 
   const filteredPresets = useMemo(() => {
     return stylePresets.filter(preset => {
-      const matchesCategory = selectedCategory === 'all' || preset.category === selectedCategory;
+      const matchesFavorites = selectedCategory === 'favorites' ? favoriteIds.includes(preset.id) : true;
+      const matchesCategory = selectedCategory === 'all' || selectedCategory === 'favorites' || preset.category === selectedCategory;
       const matchesSearch = searchQuery === '' || 
         preset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         preset.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         preset.style.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
+      return matchesFavorites && matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, favoriteIds]);
 
   const combinedPrompt = useMemo(() => {
     if (selectedStyles.length === 0) return '';
@@ -612,6 +648,21 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                         </span>
                       </div>
 
+                      {/* Favorite Button */}
+                      {!isMixMode && (
+                        <button
+                          onClick={(e) => toggleFavorite(preset.id, e)}
+                          className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                            favoriteIds.includes(preset.id)
+                              ? 'bg-red-500 text-white'
+                              : 'bg-white/80 text-gray-600 hover:bg-white hover:text-red-500'
+                          }`}
+                          aria-label={favoriteIds.includes(preset.id) ? 'Remove from favorites' : 'Add to favorites'}
+                        >
+                          <Heart className={`h-4 w-4 ${favoriteIds.includes(preset.id) ? 'fill-current' : ''}`} />
+                        </button>
+                      )}
+
                       {/* Selection Indicator */}
                       {isMixMode && (
                         <div className={`absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center transition-all ${
@@ -685,9 +736,19 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
         {/* Empty State */}
         {filteredPresets.length === 0 && (
           <div className="text-center py-12">
-            <Search className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">No styles found</h3>
-            <p className="text-gray-500">Try adjusting your search or filter criteria</p>
+            {selectedCategory === 'favorites' ? (
+              <>
+                <Heart className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-700 mb-2">No favorites yet</h3>
+                <p className="text-gray-500">Click the heart icon on any style to save it here for quick access</p>
+              </>
+            ) : (
+              <>
+                <Search className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-700 mb-2">No styles found</h3>
+                <p className="text-gray-500">Try adjusting your search or filter criteria</p>
+              </>
+            )}
           </div>
         )}
 
@@ -762,10 +823,11 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                 <div className="flex gap-3">
                   <Button
                     variant="outline"
-                    className="flex-1"
-                    onClick={() => setPreviewStyle(null)}
+                    onClick={() => toggleFavorite(previewStyle.id)}
+                    className={favoriteIds.includes(previewStyle.id) ? 'text-red-500 border-red-500 hover:bg-red-50' : ''}
                   >
-                    Close
+                    <Heart className={`h-4 w-4 mr-2 ${favoriteIds.includes(previewStyle.id) ? 'fill-current' : ''}`} />
+                    {favoriteIds.includes(previewStyle.id) ? 'Favorited' : 'Favorite'}
                   </Button>
                   <Button
                     className="flex-1 bg-ai-accent text-white hover:bg-ai-accent/90"
