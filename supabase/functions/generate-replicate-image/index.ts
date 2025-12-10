@@ -1,6 +1,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import Replicate from "https://esm.sh/replicate@0.25.2";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -9,6 +10,7 @@ const corsHeaders = {
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY');
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -16,6 +18,44 @@ serve(async (req) => {
   }
 
   try {
+    // Verify authentication
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Missing authorization header",
+          errors: [{ code: "UNAUTHORIZED", message: "Authentication required" }]
+        }),
+        {
+          status: 401,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        }
+      );
+    }
+
+    const supabase = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      console.error("Auth error:", authError);
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Invalid or expired token",
+          errors: [{ code: "UNAUTHORIZED", message: "Please sign in to generate images" }]
+        }),
+        {
+          status: 401,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        }
+      );
+    }
+
+    console.log("Authenticated user:", user.id);
+
     const requestBody = await req.text();
     console.log("Request body received");
     
@@ -37,7 +77,9 @@ serve(async (req) => {
       );
     }
 
-    const { prompt, sourceImage = null, userId = null, size = "1024x1024" } = parsedBody;
+    // Use authenticated user's ID instead of client-supplied userId
+    const { prompt, sourceImage = null, size = "1024x1024" } = parsedBody;
+    const userId = user.id;
 
     // Get Replicate API key
     const replicateApiKey = Deno.env.get("REPLICATE_API_KEY");
