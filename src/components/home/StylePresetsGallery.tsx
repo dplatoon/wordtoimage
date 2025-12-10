@@ -1,10 +1,12 @@
 
 import React, { useState, useMemo } from 'react';
-import { Palette, Download, Eye, Search, Sparkles } from 'lucide-react';
+import { Palette, Download, Eye, Search, Sparkles, X, Check, Layers, Copy, Wand2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { LazyImage } from '@/components/common/LazyImage';
 import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { toast } from '@/hooks/use-toast';
 
 interface StylePreset {
   id: string;
@@ -18,6 +20,7 @@ interface StylePreset {
 
 interface StylePresetsGalleryProps {
   onStyleSelect?: (preset: StylePreset) => void;
+  onCombinedStylesSelect?: (presets: StylePreset[], combinedPrompt: string) => void;
 }
 
 const categories = [
@@ -367,9 +370,13 @@ const stylePresets: StylePreset[] = [
     category: 'experimental'
   }
 ];
-export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps) => {
+
+export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: StylePresetsGalleryProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [previewStyle, setPreviewStyle] = useState<StylePreset | null>(null);
+  const [selectedStyles, setSelectedStyles] = useState<StylePreset[]>([]);
+  const [isMixMode, setIsMixMode] = useState(false);
 
   const filteredPresets = useMemo(() => {
     return stylePresets.filter(preset => {
@@ -381,6 +388,62 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
       return matchesCategory && matchesSearch;
     });
   }, [selectedCategory, searchQuery]);
+
+  const combinedPrompt = useMemo(() => {
+    if (selectedStyles.length === 0) return '';
+    const prompts = selectedStyles.map(s => s.prompt);
+    return prompts.join(', ');
+  }, [selectedStyles]);
+
+  const toggleStyleSelection = (preset: StylePreset) => {
+    setSelectedStyles(prev => {
+      const isSelected = prev.some(s => s.id === preset.id);
+      if (isSelected) {
+        return prev.filter(s => s.id !== preset.id);
+      }
+      if (prev.length >= 3) {
+        toast({
+          title: "Maximum styles reached",
+          description: "You can combine up to 3 styles at a time",
+          variant: "destructive"
+        });
+        return prev;
+      }
+      return [...prev, preset];
+    });
+  };
+
+  const handleCardClick = (preset: StylePreset, e: React.MouseEvent) => {
+    if (isMixMode) {
+      e.stopPropagation();
+      toggleStyleSelection(preset);
+    } else {
+      setPreviewStyle(preset);
+    }
+  };
+
+  const handleUseStyle = (preset: StylePreset) => {
+    onStyleSelect?.(preset);
+    setPreviewStyle(null);
+  };
+
+  const handleUseCombinedStyles = () => {
+    if (selectedStyles.length > 0) {
+      onCombinedStylesSelect?.(selectedStyles, combinedPrompt);
+      toast({
+        title: "Styles combined!",
+        description: `Created a hybrid style from ${selectedStyles.length} styles`
+      });
+    }
+  };
+
+  const copyPromptToClipboard = (prompt: string) => {
+    navigator.clipboard.writeText(prompt);
+    toast({
+      title: "Copied!",
+      description: "Style prompt copied to clipboard"
+    });
+  };
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
@@ -403,17 +466,94 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
 
         {/* Search and Filter Bar */}
         <div className="mb-8 space-y-4">
-          {/* Search Input */}
-          <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Search styles..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 bg-white border-gray-200 focus:border-ai-accent focus:ring-ai-accent/20"
-            />
+          {/* Search and Mix Mode Toggle */}
+          <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Search styles..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-12 bg-white border-gray-200 focus:border-ai-accent focus:ring-ai-accent/20"
+              />
+            </div>
+            <Button
+              onClick={() => {
+                setIsMixMode(!isMixMode);
+                if (isMixMode) setSelectedStyles([]);
+              }}
+              className={`h-12 px-6 ${
+                isMixMode 
+                  ? 'bg-ai-accent text-white hover:bg-ai-accent/90' 
+                  : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
+              }`}
+            >
+              <Layers className="h-4 w-4 mr-2" />
+              {isMixMode ? 'Exit Mix Mode' : 'Mix Styles'}
+            </Button>
           </div>
+
+          {/* Mix Mode Instructions */}
+          {isMixMode && (
+            <div className="max-w-2xl mx-auto bg-ai-accent/10 border border-ai-accent/20 rounded-xl p-4 animate-fade-in">
+              <div className="flex items-start gap-3">
+                <Wand2 className="h-5 w-5 text-ai-accent mt-0.5" />
+                <div>
+                  <p className="font-medium text-gray-900">Style Mixing Mode Active</p>
+                  <p className="text-sm text-gray-600">Select up to 3 styles to combine them into a unique hybrid style</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Selected Styles Display */}
+          {selectedStyles.length > 0 && (
+            <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-xl p-4 shadow-sm animate-fade-in">
+              <div className="flex flex-wrap items-center gap-3 mb-3">
+                <span className="text-sm font-medium text-gray-700">Selected ({selectedStyles.length}/3):</span>
+                {selectedStyles.map(style => (
+                  <div 
+                    key={style.id}
+                    className="flex items-center gap-2 bg-ai-accent/10 px-3 py-1.5 rounded-full"
+                  >
+                    <span className="text-sm font-medium text-ai-accent">{style.name}</span>
+                    <button 
+                      onClick={() => toggleStyleSelection(style)}
+                      className="text-ai-accent hover:text-ai-accent/70"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex-1 bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs text-gray-500 mb-1">Combined Prompt:</p>
+                  <p className="text-sm text-gray-700 line-clamp-2">{combinedPrompt}</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => copyPromptToClipboard(combinedPrompt)}
+                    className="h-10"
+                  >
+                    <Copy className="h-4 w-4 mr-1" />
+                    Copy
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={handleUseCombinedStyles}
+                    className="h-10 bg-ai-accent text-white hover:bg-ai-accent/90"
+                  >
+                    <Wand2 className="h-4 w-4 mr-1" />
+                    Use Combined
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Category Filter Tabs */}
           <div className="flex flex-wrap justify-center gap-2">
@@ -440,77 +580,106 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
 
         {/* Style Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-          {filteredPresets.map((preset, index) => (
-            <div
-              key={preset.id}
-              className="animate-fade-in"
-              style={{ animationDelay: `${0.05 * index}s` }}
-            >
-              <Card className="ai-card-modern group cursor-pointer h-full" onClick={() => onStyleSelect?.(preset)}>
-                <CardContent className="p-0">
-                  {/* Image */}
-                  <div className="relative overflow-hidden rounded-t-2xl">
-                    <LazyImage 
-                      src={preset.imageUrl} 
-                      alt={`${preset.name} AI art style example`}
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                      aspectRatio={1}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    {/* Category Badge */}
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2 py-1 bg-black/50 backdrop-blur-sm text-white text-xs font-medium rounded-full capitalize">
-                        {preset.category}
-                      </span>
+          {filteredPresets.map((preset, index) => {
+            const isSelected = selectedStyles.some(s => s.id === preset.id);
+            return (
+              <div
+                key={preset.id}
+                className="animate-fade-in"
+                style={{ animationDelay: `${0.05 * index}s` }}
+              >
+                <Card 
+                  className={`ai-card-modern group cursor-pointer h-full transition-all duration-300 ${
+                    isSelected ? 'ring-2 ring-ai-accent ring-offset-2' : ''
+                  } ${isMixMode ? 'hover:ring-2 hover:ring-ai-accent/50' : ''}`} 
+                  onClick={(e) => handleCardClick(preset, e)}
+                >
+                  <CardContent className="p-0">
+                    {/* Image */}
+                    <div className="relative overflow-hidden rounded-t-2xl">
+                      <LazyImage 
+                        src={preset.imageUrl} 
+                        alt={`${preset.name} AI art style example`}
+                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                        aspectRatio={1}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* Category Badge */}
+                      <div className="absolute top-3 left-3">
+                        <span className="px-2 py-1 bg-black/50 backdrop-blur-sm text-white text-xs font-medium rounded-full capitalize">
+                          {preset.category}
+                        </span>
+                      </div>
+
+                      {/* Selection Indicator */}
+                      {isMixMode && (
+                        <div className={`absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                          isSelected 
+                            ? 'bg-ai-accent text-white' 
+                            : 'bg-white/80 border-2 border-gray-300'
+                        }`}>
+                          {isSelected && <Check className="h-4 w-4" />}
+                        </div>
+                      )}
+                      
+                      {/* Overlay Actions */}
+                      {!isMixMode && (
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="flex flex-col sm:flex-row gap-2 p-2">
+                            <Button 
+                              size="sm" 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setPreviewStyle(preset);
+                              }}
+                              className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30 focus:ring-2 focus:ring-white/50 min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
+                            >
+                              <Eye className="h-4 w-4 mr-1" />
+                              Preview
+                            </Button>
+                            <Button 
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleUseStyle(preset);
+                              }}
+                              className="bg-ai-neon text-ai-dark hover:bg-ai-accent focus:ring-2 focus:ring-ai-neon/50 min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
+                            >
+                              <Download className="h-4 w-4 mr-1" />
+                              Use Style
+                            </Button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     
-                    {/* Overlay Actions */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="flex flex-col sm:flex-row gap-2 p-2">
-                        <Button 
-                          size="sm" 
-                          className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30 focus:ring-2 focus:ring-white/50 min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
-                        >
-                          <Eye className="h-4 w-4 mr-1" />
-                          Preview
-                        </Button>
-                        <Button 
-                          size="sm" 
-                          className="bg-ai-neon text-ai-dark hover:bg-ai-accent focus:ring-2 focus:ring-ai-neon/50 min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
-                        >
-                          <Download className="h-4 w-4 mr-1" />
-                          Use Style
-                        </Button>
+                    {/* Content */}
+                    <div className="p-5">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-ai-primary transition-colors">
+                        {preset.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-3 leading-relaxed line-clamp-2">
+                        {preset.description}
+                      </p>
+                      
+                      {/* Style Tags */}
+                      <div className="flex flex-wrap gap-1.5">
+                        {preset.style.split(', ').slice(0, 3).map((tag, tagIndex) => (
+                          <span 
+                            key={tagIndex}
+                            className="px-2 py-0.5 bg-ai-accent/10 text-ai-accent text-xs font-medium rounded-full border border-ai-accent/20"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-ai-primary transition-colors">
-                      {preset.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-3 leading-relaxed line-clamp-2">
-                      {preset.description}
-                    </p>
-                    
-                    {/* Style Tags */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {preset.style.split(', ').slice(0, 3).map((tag, tagIndex) => (
-                        <span 
-                          key={tagIndex}
-                          className="px-2 py-0.5 bg-ai-accent/10 text-ai-accent text-xs font-medium rounded-full border border-ai-accent/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
+                  </CardContent>
+                </Card>
+              </div>
+            );
+          })}
         </div>
 
         {/* Empty State */}
@@ -534,6 +703,83 @@ export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps)
           </p>
         </div>
       </div>
+
+      {/* Preview Modal */}
+      <Dialog open={!!previewStyle} onOpenChange={() => setPreviewStyle(null)}>
+        <DialogContent className="max-w-2xl p-0 overflow-hidden">
+          {previewStyle && (
+            <>
+              {/* Large Image */}
+              <div className="relative aspect-video">
+                <img 
+                  src={previewStyle.imageUrl.replace('w=400&h=400', 'w=800&h=600')} 
+                  alt={previewStyle.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full capitalize mb-2 inline-block">
+                    {previewStyle.category}
+                  </span>
+                  <h3 className="text-2xl font-bold text-white">{previewStyle.name}</h3>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <p className="text-gray-600 mb-4">{previewStyle.description}</p>
+                
+                {/* Example Prompt */}
+                <div className="bg-gray-50 rounded-xl p-4 mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-700">Example Prompt</span>
+                    <Button 
+                      size="sm" 
+                      variant="ghost"
+                      onClick={() => copyPromptToClipboard(previewStyle.prompt)}
+                      className="h-8 px-2"
+                    >
+                      <Copy className="h-4 w-4 mr-1" />
+                      Copy
+                    </Button>
+                  </div>
+                  <p className="text-sm text-gray-600 italic">"{previewStyle.prompt}"</p>
+                </div>
+
+                {/* Style Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {previewStyle.style.split(', ').map((tag, idx) => (
+                    <span 
+                      key={idx}
+                      className="px-3 py-1.5 bg-ai-accent/10 text-ai-accent text-sm font-medium rounded-full border border-ai-accent/20"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => setPreviewStyle(null)}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    className="flex-1 bg-ai-accent text-white hover:bg-ai-accent/90"
+                    onClick={() => handleUseStyle(previewStyle)}
+                  >
+                    <Wand2 className="h-4 w-4 mr-2" />
+                    Use This Style
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
