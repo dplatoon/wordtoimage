@@ -1,5 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { generateDalleImage } from "./openai.ts";
 import { logImageGeneration } from "./supabaseClient.ts";
 
@@ -9,6 +10,7 @@ const corsHeaders = {
 };
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
+const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY');
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
 // Maximum number of free generations for first day and subsequent days
@@ -42,7 +44,26 @@ serve(async (req) => {
       );
     }
     
-    const { prompt, n = 1, size = "1024x1024", quality = "standard", apiKey = null, userId = null, sourceImage = null } = parsedBody;
+    // Security: Extract userId from JWT token, ignore any client-supplied userId
+    const { prompt, n = 1, size = "1024x1024", quality = "standard", apiKey = null, sourceImage = null } = parsedBody;
+    
+    // Authenticate user via JWT token
+    const authHeader = req.headers.get('authorization');
+    let userId: string | null = null;
+    
+    if (authHeader) {
+      const supabase = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
+        global: { headers: { Authorization: authHeader } }
+      });
+      
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      if (!authError && user) {
+        userId = user.id;
+        console.log("Authenticated user:", userId);
+      } else {
+        console.log("Auth verification failed:", authError?.message || "No user found");
+      }
+    }
 
     // Check if the OpenAI API key is available
     let openaiKey = Deno.env.get("OPENAI_API_KEY");
