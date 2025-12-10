@@ -31,33 +31,7 @@ const categories = [
 ] as const;
 
 const stylePresets: StylePreset[] = [
-  {
-    id: 'cyberpunk',
-    name: 'Cyberpunk City',
-    description: 'Neon-lit futuristic cityscape with electric atmosphere',
-    imageUrl: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=400&h=400&fit=crop&auto=format',
-    prompt: 'cyberpunk city with neon lights, futuristic architecture, rain-soaked streets',
-    style: 'cyberpunk, neon, futuristic',
-    category: 'digital'
-  },
-  {
-    id: 'watercolor',
-    name: 'Watercolor Dreams',
-    description: 'Soft, flowing artistic watercolor style',
-    imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=400&fit=crop&auto=format',
-    prompt: 'watercolor painting, soft brushstrokes, artistic blend of colors',
-    style: 'watercolor, artistic, soft',
-    category: 'artistic'
-  },
-  {
-    id: 'digital-art',
-    name: 'Digital Art',
-    description: 'Vibrant modern digital illustration',
-    imageUrl: 'https://images.unsplash.com/photo-1634017839464-5c339bbe3a3e?w=400&h=400&fit=crop&auto=format',
-    prompt: 'digital art illustration, vibrant colors, modern style',
-    style: 'digital art, illustration, vibrant',
-    category: 'digital'
-  },
+  // REALISTIC CATEGORY
   {
     id: 'photorealistic',
     name: 'Photorealistic',
@@ -66,78 +40,6 @@ const stylePresets: StylePreset[] = [
     prompt: 'photorealistic, ultra detailed, professional photography',
     style: 'photorealistic, detailed, professional',
     category: 'realistic'
-  },
-  {
-    id: 'anime',
-    name: 'Anime Style',
-    description: 'Japanese anime and manga aesthetics',
-    imageUrl: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&h=400&fit=crop&auto=format',
-    prompt: 'anime style illustration, manga art, Japanese animation',
-    style: 'anime, manga, japanese',
-    category: 'digital'
-  },
-  {
-    id: 'abstract',
-    name: 'Abstract Art',
-    description: 'Bold abstract shapes and colors',
-    imageUrl: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400&h=400&fit=crop&auto=format',
-    prompt: 'abstract art, bold colors, geometric shapes, modern composition',
-    style: 'abstract, bold, geometric',
-    category: 'experimental'
-  },
-  {
-    id: 'surrealism',
-    name: 'Surrealism',
-    description: 'Dreamlike surrealist imagery',
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f5a?w=400&h=400&fit=crop&auto=format',
-    prompt: 'surrealist art, dreamlike, impossible scenes, Salvador Dali inspired',
-    style: 'surreal, dreamlike, fantasy',
-    category: 'fantasy'
-  },
-  {
-    id: 'oil-painting',
-    name: 'Oil Painting',
-    description: 'Classical oil painting technique',
-    imageUrl: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400&h=400&fit=crop&auto=format',
-    prompt: 'oil painting style, classical technique, rich textures, masterpiece quality',
-    style: 'oil painting, classical, textured',
-    category: 'artistic'
-  },
-  {
-    id: 'pop-art',
-    name: 'Pop Art',
-    description: 'Bold pop art style like Warhol',
-    imageUrl: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=400&h=400&fit=crop&auto=format',
-    prompt: 'pop art style, bold colors, Andy Warhol inspired, comic book aesthetic',
-    style: 'pop art, bold, retro',
-    category: 'vintage'
-  },
-  {
-    id: 'fantasy',
-    name: 'Fantasy World',
-    description: 'Epic fantasy landscapes and creatures',
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop&auto=format',
-    prompt: 'epic fantasy art, magical landscapes, mythical creatures, cinematic',
-    style: 'fantasy, magical, epic',
-    category: 'fantasy'
-  },
-  {
-    id: 'noir',
-    name: 'Film Noir',
-    description: 'Dramatic black and white cinema style',
-    imageUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=400&fit=crop&auto=format',
-    prompt: 'film noir style, dramatic shadows, black and white, cinematic lighting',
-    style: 'noir, dramatic, cinematic',
-    category: 'vintage'
-  },
-  {
-    id: 'minimalist',
-    name: 'Minimalist',
-    description: 'Clean, elegant minimal compositions',
-    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop&auto=format',
-    prompt: 'minimalist design, clean composition, simple shapes, elegant',
-    style: 'minimalist, clean, elegant',
-    category: 'experimental'
   },
   {
     id: 'portrait',
@@ -149,6 +51,62 @@ const stylePresets: StylePreset[] = [
     category: 'realistic'
   },
   {
+    id: 'cinematic',
+    name: 'Cinematic Shot',
+    description: 'Movie-quality cinematic photography',
+    imageUrl: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&h=400&fit=crop&auto=format',
+    prompt: 'cinematic photography, movie still, dramatic lighting, 35mm film',
+    style: 'cinematic, dramatic, film',
+    category: 'realistic'
+  },
+  {
+    id: 'nature',
+    name: 'Nature Photography',
+    description: 'Stunning natural landscape shots',
+    imageUrl: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=400&fit=crop&auto=format',
+    prompt: 'nature photography, landscape, golden hour, National Geographic style',
+    style: 'nature, landscape, golden hour',
+    category: 'realistic'
+  },
+  {
+    id: 'macro',
+    name: 'Macro Photography',
+    description: 'Extreme close-up detail shots',
+    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop&auto=format',
+    prompt: 'macro photography, extreme detail, close-up, shallow depth of field',
+    style: 'macro, detailed, close-up',
+    category: 'realistic'
+  },
+  {
+    id: 'architecture',
+    name: 'Architectural',
+    description: 'Professional architecture photography',
+    imageUrl: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=400&fit=crop&auto=format',
+    prompt: 'architectural photography, modern buildings, symmetry, clean lines',
+    style: 'architecture, modern, symmetrical',
+    category: 'realistic'
+  },
+
+  // ARTISTIC CATEGORY
+  {
+    id: 'watercolor',
+    name: 'Watercolor Dreams',
+    description: 'Soft, flowing artistic watercolor style',
+    imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=400&fit=crop&auto=format',
+    prompt: 'watercolor painting, soft brushstrokes, artistic blend of colors',
+    style: 'watercolor, artistic, soft',
+    category: 'artistic'
+  },
+  {
+    id: 'oil-painting',
+    name: 'Oil Painting',
+    description: 'Classical oil painting technique',
+    imageUrl: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400&h=400&fit=crop&auto=format',
+    prompt: 'oil painting style, classical technique, rich textures, masterpiece quality',
+    style: 'oil painting, classical, textured',
+    category: 'artistic'
+  },
+  {
     id: 'impressionism',
     name: 'Impressionist',
     description: 'Light and color like Monet',
@@ -156,6 +114,53 @@ const stylePresets: StylePreset[] = [
     prompt: 'impressionist painting, visible brushstrokes, light and color, Monet style',
     style: 'impressionist, painterly, classic',
     category: 'artistic'
+  },
+  {
+    id: 'pencil-sketch',
+    name: 'Pencil Sketch',
+    description: 'Detailed graphite pencil drawings',
+    imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop&auto=format',
+    prompt: 'pencil sketch, graphite drawing, detailed shading, fine art',
+    style: 'pencil, sketch, graphite',
+    category: 'artistic'
+  },
+  {
+    id: 'charcoal',
+    name: 'Charcoal Drawing',
+    description: 'Expressive charcoal art style',
+    imageUrl: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=400&fit=crop&auto=format',
+    prompt: 'charcoal drawing, expressive strokes, dramatic contrast, fine art',
+    style: 'charcoal, expressive, dramatic',
+    category: 'artistic'
+  },
+  {
+    id: 'pastel',
+    name: 'Soft Pastel',
+    description: 'Dreamy soft pastel artwork',
+    imageUrl: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=400&fit=crop&auto=format',
+    prompt: 'soft pastel art, dreamy colors, gentle textures, artistic',
+    style: 'pastel, soft, dreamy',
+    category: 'artistic'
+  },
+
+  // FANTASY CATEGORY
+  {
+    id: 'surrealism',
+    name: 'Surrealism',
+    description: 'Dreamlike surrealist imagery',
+    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f5a?w=400&h=400&fit=crop&auto=format',
+    prompt: 'surrealist art, dreamlike, impossible scenes, Salvador Dali inspired',
+    style: 'surreal, dreamlike, fantasy',
+    category: 'fantasy'
+  },
+  {
+    id: 'fantasy-world',
+    name: 'Fantasy World',
+    description: 'Epic fantasy landscapes and creatures',
+    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop&auto=format',
+    prompt: 'epic fantasy art, magical landscapes, mythical creatures, cinematic',
+    style: 'fantasy, magical, epic',
+    category: 'fantasy'
   },
   {
     id: 'sci-fi',
@@ -167,16 +172,201 @@ const stylePresets: StylePreset[] = [
     category: 'fantasy'
   },
   {
-    id: 'retro',
+    id: 'dark-fantasy',
+    name: 'Dark Fantasy',
+    description: 'Gothic and dark magical worlds',
+    imageUrl: 'https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=400&h=400&fit=crop&auto=format',
+    prompt: 'dark fantasy art, gothic, mysterious, magical darkness, dramatic',
+    style: 'dark, gothic, mysterious',
+    category: 'fantasy'
+  },
+  {
+    id: 'fairy-tale',
+    name: 'Fairy Tale',
+    description: 'Whimsical storybook illustration',
+    imageUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400&h=400&fit=crop&auto=format',
+    prompt: 'fairy tale illustration, whimsical, enchanted, storybook style',
+    style: 'fairy tale, whimsical, enchanted',
+    category: 'fantasy'
+  },
+  {
+    id: 'steampunk',
+    name: 'Steampunk',
+    description: 'Victorian-era mechanical aesthetics',
+    imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop&auto=format',
+    prompt: 'steampunk art, Victorian era, brass machinery, gears, industrial',
+    style: 'steampunk, Victorian, mechanical',
+    category: 'fantasy'
+  },
+
+  // DIGITAL CATEGORY
+  {
+    id: 'cyberpunk',
+    name: 'Cyberpunk City',
+    description: 'Neon-lit futuristic cityscape with electric atmosphere',
+    imageUrl: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=400&h=400&fit=crop&auto=format',
+    prompt: 'cyberpunk city with neon lights, futuristic architecture, rain-soaked streets',
+    style: 'cyberpunk, neon, futuristic',
+    category: 'digital'
+  },
+  {
+    id: 'digital-art',
+    name: 'Digital Art',
+    description: 'Vibrant modern digital illustration',
+    imageUrl: 'https://images.unsplash.com/photo-1634017839464-5c339bbe3a3e?w=400&h=400&fit=crop&auto=format',
+    prompt: 'digital art illustration, vibrant colors, modern style',
+    style: 'digital art, illustration, vibrant',
+    category: 'digital'
+  },
+  {
+    id: 'anime',
+    name: 'Anime Style',
+    description: 'Japanese anime and manga aesthetics',
+    imageUrl: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&h=400&fit=crop&auto=format',
+    prompt: 'anime style illustration, manga art, Japanese animation',
+    style: 'anime, manga, japanese',
+    category: 'digital'
+  },
+  {
+    id: '3d-render',
+    name: '3D Render',
+    description: 'Clean 3D rendered graphics',
+    imageUrl: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=400&h=400&fit=crop&auto=format',
+    prompt: '3D render, CGI, octane render, high quality, studio lighting',
+    style: '3D, render, CGI',
+    category: 'digital'
+  },
+  {
+    id: 'pixel-art',
+    name: 'Pixel Art',
+    description: 'Retro pixel-based game art',
+    imageUrl: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop&auto=format',
+    prompt: 'pixel art, 16-bit style, retro gaming, nostalgic',
+    style: 'pixel, retro, gaming',
+    category: 'digital'
+  },
+  {
+    id: 'vector',
+    name: 'Vector Graphics',
+    description: 'Clean flat vector illustrations',
+    imageUrl: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop&auto=format',
+    prompt: 'vector illustration, flat design, clean lines, modern graphic',
+    style: 'vector, flat, clean',
+    category: 'digital'
+  },
+
+  // VINTAGE CATEGORY
+  {
+    id: 'pop-art',
+    name: 'Pop Art',
+    description: 'Bold pop art style like Warhol',
+    imageUrl: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=400&h=400&fit=crop&auto=format',
+    prompt: 'pop art style, bold colors, Andy Warhol inspired, comic book aesthetic',
+    style: 'pop art, bold, retro',
+    category: 'vintage'
+  },
+  {
+    id: 'noir',
+    name: 'Film Noir',
+    description: 'Dramatic black and white cinema style',
+    imageUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=400&fit=crop&auto=format',
+    prompt: 'film noir style, dramatic shadows, black and white, cinematic lighting',
+    style: 'noir, dramatic, cinematic',
+    category: 'vintage'
+  },
+  {
+    id: 'retro-80s',
     name: 'Retro 80s',
     description: 'Nostalgic 80s synthwave aesthetic',
-    imageUrl: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop&auto=format',
+    imageUrl: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=400&h=400&fit=crop&auto=format',
     prompt: 'retro 80s aesthetic, synthwave, neon colors, vintage tech',
     style: 'retro, 80s, synthwave',
     category: 'vintage'
+  },
+  {
+    id: 'vintage-photo',
+    name: 'Vintage Photography',
+    description: 'Aged film photography look',
+    imageUrl: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400&h=400&fit=crop&auto=format',
+    prompt: 'vintage photography, aged film, sepia tones, nostalgic',
+    style: 'vintage, film, nostalgic',
+    category: 'vintage'
+  },
+  {
+    id: 'art-deco',
+    name: 'Art Deco',
+    description: '1920s glamorous geometric style',
+    imageUrl: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=400&fit=crop&auto=format',
+    prompt: 'art deco style, 1920s glamour, geometric patterns, gold accents',
+    style: 'art deco, geometric, glamour',
+    category: 'vintage'
+  },
+  {
+    id: 'polaroid',
+    name: 'Polaroid',
+    description: 'Instant camera aesthetic',
+    imageUrl: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=400&fit=crop&auto=format',
+    prompt: 'polaroid photo style, instant camera, warm tones, casual snapshot',
+    style: 'polaroid, instant, warm',
+    category: 'vintage'
+  },
+
+  // EXPERIMENTAL CATEGORY
+  {
+    id: 'abstract',
+    name: 'Abstract Art',
+    description: 'Bold abstract shapes and colors',
+    imageUrl: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400&h=400&fit=crop&auto=format',
+    prompt: 'abstract art, bold colors, geometric shapes, modern composition',
+    style: 'abstract, bold, geometric',
+    category: 'experimental'
+  },
+  {
+    id: 'minimalist',
+    name: 'Minimalist',
+    description: 'Clean, elegant minimal compositions',
+    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop&auto=format',
+    prompt: 'minimalist design, clean composition, simple shapes, elegant',
+    style: 'minimalist, clean, elegant',
+    category: 'experimental'
+  },
+  {
+    id: 'glitch',
+    name: 'Glitch Art',
+    description: 'Digital distortion aesthetic',
+    imageUrl: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=400&h=400&fit=crop&auto=format',
+    prompt: 'glitch art, digital distortion, RGB split, corrupted data aesthetic',
+    style: 'glitch, digital, distorted',
+    category: 'experimental'
+  },
+  {
+    id: 'double-exposure',
+    name: 'Double Exposure',
+    description: 'Layered photographic effect',
+    imageUrl: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=400&h=400&fit=crop&auto=format',
+    prompt: 'double exposure photography, layered images, artistic blend, surreal',
+    style: 'double exposure, layered, artistic',
+    category: 'experimental'
+  },
+  {
+    id: 'low-poly',
+    name: 'Low Poly',
+    description: 'Geometric polygon art style',
+    imageUrl: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=400&h=400&fit=crop&auto=format',
+    prompt: 'low poly art, geometric polygons, faceted style, modern',
+    style: 'low poly, geometric, faceted',
+    category: 'experimental'
+  },
+  {
+    id: 'neon-glow',
+    name: 'Neon Glow',
+    description: 'Vibrant neon light effects',
+    imageUrl: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=400&h=400&fit=crop&auto=format',
+    prompt: 'neon glow art, vibrant lights, electric colors, glowing effect',
+    style: 'neon, glow, vibrant',
+    category: 'experimental'
   }
 ];
-
 export const StylePresetsGallery = ({ onStyleSelect }: StylePresetsGalleryProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
