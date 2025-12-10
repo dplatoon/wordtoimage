@@ -22,50 +22,98 @@ const stylePresets: StylePreset[] = [
   {
     id: 'cyberpunk',
     name: 'Cyberpunk City',
-    description: 'Neon-lit futuristic cityscape',
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=300&h=300&fit=crop&auto=format',
+    description: 'Neon-lit futuristic cityscape with electric atmosphere',
+    imageUrl: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=400&h=400&fit=crop&auto=format',
     prompt: 'cyberpunk city with neon lights, futuristic architecture, rain-soaked streets',
     style: 'cyberpunk, neon, futuristic'
   },
   {
     id: 'watercolor',
-    name: 'Watercolor Portrait',
-    description: 'Soft, artistic watercolor style',
-    imageUrl: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=300&fit=crop&auto=format',
-    prompt: 'watercolor painting of a portrait, soft brushstrokes, artistic',
+    name: 'Watercolor Dreams',
+    description: 'Soft, flowing artistic watercolor style',
+    imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=400&fit=crop&auto=format',
+    prompt: 'watercolor painting, soft brushstrokes, artistic blend of colors',
     style: 'watercolor, artistic, soft'
   },
   {
     id: 'digital-art',
     name: 'Digital Art',
-    description: 'Modern digital illustration',
-    imageUrl: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=300&fit=crop&auto=format',
+    description: 'Vibrant modern digital illustration',
+    imageUrl: 'https://images.unsplash.com/photo-1634017839464-5c339bbe3a3e?w=400&h=400&fit=crop&auto=format',
     prompt: 'digital art illustration, vibrant colors, modern style',
     style: 'digital art, illustration, vibrant'
   },
   {
     id: 'photorealistic',
     name: 'Photorealistic',
-    description: 'Ultra-realistic photography style',
-    imageUrl: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=300&h=300&fit=crop&auto=format',
+    description: 'Ultra-realistic photography quality',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&auto=format',
     prompt: 'photorealistic, ultra detailed, professional photography',
     style: 'photorealistic, detailed, professional'
   },
   {
     id: 'anime',
     name: 'Anime Style',
-    description: 'Japanese anime and manga art',
-    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop&auto=format',
+    description: 'Japanese anime and manga aesthetics',
+    imageUrl: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&h=400&fit=crop&auto=format',
     prompt: 'anime style illustration, manga art, Japanese animation',
     style: 'anime, manga, japanese'
   },
   {
+    id: 'abstract',
+    name: 'Abstract Art',
+    description: 'Bold abstract shapes and colors',
+    imageUrl: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400&h=400&fit=crop&auto=format',
+    prompt: 'abstract art, bold colors, geometric shapes, modern composition',
+    style: 'abstract, bold, geometric'
+  },
+  {
+    id: 'surrealism',
+    name: 'Surrealism',
+    description: 'Dreamlike surrealist imagery',
+    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f5a?w=400&h=400&fit=crop&auto=format',
+    prompt: 'surrealist art, dreamlike, impossible scenes, Salvador Dali inspired',
+    style: 'surreal, dreamlike, fantasy'
+  },
+  {
+    id: 'oil-painting',
+    name: 'Oil Painting',
+    description: 'Classical oil painting technique',
+    imageUrl: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400&h=400&fit=crop&auto=format',
+    prompt: 'oil painting style, classical technique, rich textures, masterpiece quality',
+    style: 'oil painting, classical, textured'
+  },
+  {
+    id: 'pop-art',
+    name: 'Pop Art',
+    description: 'Bold pop art style like Warhol',
+    imageUrl: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=400&h=400&fit=crop&auto=format',
+    prompt: 'pop art style, bold colors, Andy Warhol inspired, comic book aesthetic',
+    style: 'pop art, bold, retro'
+  },
+  {
+    id: 'fantasy',
+    name: 'Fantasy World',
+    description: 'Epic fantasy landscapes and creatures',
+    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop&auto=format',
+    prompt: 'epic fantasy art, magical landscapes, mythical creatures, cinematic',
+    style: 'fantasy, magical, epic'
+  },
+  {
+    id: 'noir',
+    name: 'Film Noir',
+    description: 'Dramatic black and white cinema style',
+    imageUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=400&fit=crop&auto=format',
+    prompt: 'film noir style, dramatic shadows, black and white, cinematic lighting',
+    style: 'noir, dramatic, cinematic'
+  },
+  {
     id: 'minimalist',
-    name: 'Minimalist Design',
-    description: 'Clean, simple compositions',
-    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&h=300&fit=crop&auto=format',
-    prompt: 'minimalist design, clean composition, simple shapes',
-    style: 'minimalist, clean, simple'
+    name: 'Minimalist',
+    description: 'Clean, elegant minimal compositions',
+    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop&auto=format',
+    prompt: 'minimalist design, clean composition, simple shapes, elegant',
+    style: 'minimalist, clean, elegant'
   }
 ];
 
