@@ -6,6 +6,16 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Send, User, Mail, MessageSquare, Tag, Loader2 } from 'lucide-react';
+import { z } from 'zod';
+
+// Validation schema
+const contactSchema = z.object({
+  firstName: z.string().max(100, "First name too long").optional(),
+  lastName: z.string().max(100, "Last name too long").optional(),
+  email: z.string().email("Invalid email address").max(255, "Email too long"),
+  subject: z.string().max(200, "Subject too long").optional(),
+  message: z.string().min(10, "Message must be at least 10 characters").max(2000, "Message too long (max 2000 characters)")
+});
 
 type ContactFormData = {
   firstName: string;
@@ -37,11 +47,13 @@ export const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!formData.email || !formData.message) {
+    // Client-side validation with zod
+    const validation = contactSchema.safeParse(formData);
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
       toast({
-        title: "Error",
-        description: "Please fill in all required fields",
+        title: "Validation Error",
+        description: firstError.message,
         variant: "destructive"
       });
       return;
@@ -50,19 +62,23 @@ export const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Use type assertion since contact_submissions table types may not be generated yet
-      const { error } = await (supabase as any)
-        .from('contact_submissions')
-        .insert({
-          first_name: formData.firstName,
-          last_name: formData.lastName,
+      // Submit via secure edge function
+      const { data, error } = await supabase.functions.invoke('submit-contact', {
+        body: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           email: formData.email,
           subject: formData.subject,
           message: formData.message
-        });
+        }
+      });
       
       if (error) {
-        throw error;
+        throw new Error(error.message || 'Failed to submit');
+      }
+      
+      if (data?.error) {
+        throw new Error(data.error);
       }
       
       // Show success message
@@ -79,11 +95,10 @@ export const ContactForm = () => {
         subject: '',
         message: ''
       });
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    } catch (error: any) {
       toast({
         title: "Something went wrong",
-        description: "Please try again later or contact us directly via email.",
+        description: error.message || "Please try again later or contact us directly via email.",
         variant: "destructive"
       });
     } finally {
