@@ -8,6 +8,8 @@ import { JPGToWordConverter } from '@/components/converters/JPGToWordConverter';
 import { Image, FileText, Zap, Eye, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export default function JPGToWord() {
   const pageContent = {
@@ -48,195 +50,159 @@ export default function JPGToWord() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-50 via-white to-green-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Helmet>
         <title>Convert JPG to Word Online – Free OCR Tool | WordToImage</title>
         <meta name="description" content="Extract text from JPG images to editable Word documents using advanced OCR technology. Free, secure, and supports 100+ languages." />
         <meta name="keywords" content="convert JPG to Word online, JPG to Word OCR, image to text converter, OCR online, extract text from image" />
-        <link rel="canonical" href="https://wordtoimage.com/jpg-to-word" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "JPG to Word OCR Converter",
-            "applicationCategory": "OCRApplication",
-            "operatingSystem": "Web Browser",
-            "description": "Convert JPG images to editable Word documents using optical character recognition technology",
-            "url": "https://wordtoimage.com/jpg-to-word",
-            "provider": {
-              "@type": "Organization",
-              "name": "WordToImage",
-              "url": "https://wordtoimage.com"
-            },
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "featureList": [
-              "OCR text extraction",
-              "100+ languages supported",
-              "Editable Word output",
-              "High accuracy recognition",
-              "Browser-based processing"
-            ]
-          })}
-        </script>
+        <link rel="canonical" href="https://wordtoimage.online/jpg-to-word" />
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />
       
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Convert JPG to Word Online – <span className="text-purple-600">Free OCR Tool</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Extract text from JPG images to editable Word documents using advanced OCR technology. Free, secure, and supports 100+ languages.
-          </p>
+        <section className="relative py-20 overflow-hidden">
+          {/* Background Effects */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
           
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
-            <div className="flex items-center gap-2 text-gray-600">
-              <Image className="w-5 h-5 text-blue-500" />
-              <span>JPG, PNG, WEBP</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Eye className="w-5 h-5 text-green-500" />
-              <span>OCR Technology</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <FileText className="w-5 h-5 text-purple-500" />
-              <span>Editable Word</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Zap className="w-5 h-5 text-orange-500" />
-              <span>Multi-Language</span>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center max-w-4xl mx-auto">
+              <Badge className="mb-6 bg-accent/10 text-accent border-accent/20">
+                <Eye className="w-3 h-3 mr-1" />
+                OCR Technology
+              </Badge>
+              
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                <span className="text-foreground">Convert JPG to Word</span>
+                <br />
+                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">Free OCR Tool</span>
+              </h1>
+              
+              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+                Extract text from JPG images to editable Word documents using advanced OCR technology. Supports 100+ languages.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4 mb-12">
+                {[
+                  { icon: Image, label: 'JPG, PNG, WEBP', color: 'text-primary' },
+                  { icon: Eye, label: 'OCR Technology', color: 'text-accent' },
+                  { icon: FileText, label: 'Editable Word', color: 'text-green-500' },
+                  { icon: Zap, label: 'Multi-Language', color: 'text-primary' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border">
+                    <item.icon className={`w-4 h-4 ${item.color}`} />
+                    <span className="text-sm text-muted-foreground">{item.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Converter Component */}
-        <div className="mb-16">
+        <section className="container mx-auto px-4 pb-16">
           <JPGToWordConverter />
-        </div>
+        </section>
 
         {/* How-to Section */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            How to Convert JPG to Word
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
-                <h3 className="text-xl font-semibold mb-2">Upload Image</h3>
-                <p className="text-gray-600">Select JPG, PNG, or other image files containing text from your device.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
-                <h3 className="text-xl font-semibold mb-2">OCR Processing</h3>
-                <p className="text-gray-600">Advanced OCR technology analyzes and extracts text with 95%+ accuracy.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
-                <h3 className="text-xl font-semibold mb-2">Download Word</h3>
-                <p className="text-gray-600">Get your editable Word document instantly. Edit, format, and save as needed.</p>
-              </div>
+        <section className="py-16 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              How to Convert JPG to Word
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {[
+                { step: '1', title: 'Upload Image', desc: 'Select JPG, PNG, or other image files containing text from your device.', color: 'bg-accent' },
+                { step: '2', title: 'OCR Processing', desc: 'Advanced OCR technology analyzes and extracts text with 95%+ accuracy.', color: 'bg-primary' },
+                { step: '3', title: 'Download Word', desc: 'Get your editable Word document instantly. Edit, format, and save as needed.', color: 'bg-green-500' },
+              ].map((item) => (
+                <div key={item.step} className="text-center">
+                  <div className={`w-16 h-16 ${item.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg`}>
+                    {item.step}
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Why Choose Our Converter
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">High Accuracy OCR</h3>
-              <p className="text-gray-600">Advanced OCR technology achieves 95%+ accuracy on clear images with readable text.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">100+ Languages</h3>
-              <p className="text-gray-600">Support for over 100 languages including English, Chinese, Japanese, Arabic, and more.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Editable Output</h3>
-              <p className="text-gray-600">Get fully editable Word documents that you can modify and format as needed.</p>
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              Why Choose Our Converter
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[
+                { icon: Eye, title: 'High Accuracy OCR', desc: 'Advanced OCR technology achieves 95%+ accuracy on clear images with readable text.', color: 'bg-primary/20 text-primary' },
+                { icon: Zap, title: '100+ Languages', desc: 'Support for over 100 languages including English, Chinese, Japanese, Arabic, and more.', color: 'bg-accent/20 text-accent' },
+                { icon: FileText, title: 'Editable Output', desc: 'Get fully editable Word documents that you can modify and format as needed.', color: 'bg-green-500/20 text-green-500' },
+              ].map((feature) => (
+                <Card key={feature.title} className="p-6 bg-card/50 border-border hover:shadow-neon transition-all duration-300 group">
+                  <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <feature.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.desc}</p>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Frequently Asked Questions
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqData.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-md">
-                  <AccordionTrigger className="px-6 py-4 text-left">
-                    <span className="text-lg font-semibold">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <p className="text-gray-600">{faq.answer}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+        <section className="py-16 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+              Frequently Asked Questions
+            </h2>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqData.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 rounded-xl border border-border px-6">
+                    <AccordionTrigger className="py-4 text-left hover:no-underline">
+                      <span className="text-lg font-semibold text-foreground">{faq.question}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-4">
+                      <p className="text-muted-foreground">{faq.answer}</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
         </section>
 
         {/* Internal Links */}
-        <section className="bg-gray-50 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-            Explore More Converter Tools
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/word-to-jpg" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <FileText className="w-8 h-8 text-green-500" />
-              <div>
-                <h3 className="font-semibold">Word to JPG</h3>
-                <p className="text-sm text-gray-600">Convert documents to images</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/pdf-to-jpg" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <Image className="w-8 h-8 text-blue-500" />
-              <div>
-                <h3 className="font-semibold">PDF to JPG</h3>
-                <p className="text-sm text-gray-600">Extract images from PDF</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/jpg-to-pdf" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <FileText className="w-8 h-8 text-orange-500" />
-              <div>
-                <h3 className="font-semibold">JPG to PDF</h3>
-                <p className="text-sm text-gray-600">Combine images into PDF</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
-            <Link to="/remove-background" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <Image className="w-8 h-8 text-purple-500" />
-              <div>
-                <h3 className="font-semibold">Remove Background</h3>
-                <p className="text-sm text-gray-600">AI background removal</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
-            </Link>
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold text-center text-foreground mb-8">
+              Explore More Converter Tools
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+              {[
+                { to: '/word-to-jpg', icon: FileText, title: 'Word to JPG', desc: 'Convert documents to images', color: 'text-green-500' },
+                { to: '/pdf-to-jpg', icon: Image, title: 'PDF to JPG', desc: 'Extract images from PDF', color: 'text-primary' },
+                { to: '/jpg-to-pdf', icon: FileText, title: 'JPG to PDF', desc: 'Combine images into PDF', color: 'text-accent' },
+                { to: '/remove-background', icon: Image, title: 'Remove Background', desc: 'AI background removal', color: 'text-primary' },
+              ].map((link) => (
+                <Link key={link.to} to={link.to} className="group">
+                  <Card className="p-4 bg-card/50 border-border hover:border-primary/50 hover:shadow-neon transition-all duration-300 flex items-center gap-3">
+                    <link.icon className={`w-8 h-8 ${link.color}`} />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground">{link.title}</h3>
+                      <p className="text-sm text-muted-foreground">{link.desc}</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </Card>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       </main>

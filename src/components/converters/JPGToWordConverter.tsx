@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { FileUploader } from './shared/FileUploader';
 import { ProgressBar } from './shared/ProgressBar';
 import { DownloadButton } from './shared/DownloadButton';
-import { Image, FileText, Eye } from 'lucide-react';
+import { Image, FileText, Eye, X } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 
 export function JPGToWordConverter() {
@@ -40,7 +40,6 @@ export function JPGToWordConverter() {
     setProgress(0);
     
     try {
-      // Simulate OCR processing with Tesseract.js
       setProgress(20);
       
       const Tesseract = await import('tesseract.js');
@@ -66,15 +65,12 @@ export function JPGToWordConverter() {
         results.push(text);
       }
       
-      // Create Word document or PDF
       if (outputType === 'word') {
-        // Create Word document with extracted text
         const docContent = results.join('\n\n--- Page Break ---\n\n');
         const blob = new Blob([docContent], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         setConvertedFiles([url]);
       } else {
-        // Create PDF with extracted text
         const { jsPDF } = await import('jspdf');
         const doc = new jsPDF();
         
@@ -92,7 +88,6 @@ export function JPGToWordConverter() {
       setProgress(100);
       toast.success(`Successfully extracted text from ${files.length} image${files.length > 1 ? 's' : ''}!`);
       
-      // Track conversion event
       if (typeof window !== 'undefined' && (window as any).dataLayer) {
         (window as any).dataLayer.push({
           event: "tool_used",
@@ -126,7 +121,7 @@ export function JPGToWordConverter() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="border-2 border-dashed border-gray-300 hover:border-purple-500 transition-colors">
+      <Card className="border border-border bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
         <CardContent className="p-8">
           <div className="space-y-6">
             {/* File Upload Area */}
@@ -135,7 +130,7 @@ export function JPGToWordConverter() {
                 onFileSelect={handleFileSelect}
                 acceptedTypes={['image/jpeg', 'image/png', 'image/webp', 'image/tiff']}
                 maxSize={10 * 1024 * 1024}
-                icon={<Image className="w-12 h-12 text-purple-500" />}
+                icon={<Image className="w-12 h-12 text-primary" />}
                 title="Upload Images with Text"
                 description="Drag and drop images here, or click to browse"
                 supportText="Supports JPG, PNG, WEBP, TIFF up to 10MB each"
@@ -143,9 +138,9 @@ export function JPGToWordConverter() {
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-medium">Uploaded Images ({files.length})</h3>
+                  <h3 className="font-medium text-foreground">Uploaded Images ({files.length})</h3>
                   <Button
-                    variant="outline"
+                    variant="glass"
                     size="sm"
                     onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
                   >
@@ -155,17 +150,17 @@ export function JPGToWordConverter() {
                 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-48 overflow-y-auto">
                   {files.map((file, index) => (
-                    <div key={index} className="relative group">
+                    <div key={index} className="relative group rounded-lg overflow-hidden border border-border">
                       <img
                         src={URL.createObjectURL(file)}
                         alt={`Upload ${index + 1}`}
-                        className="w-full h-24 object-cover rounded border"
+                        className="w-full h-24 object-cover"
                       />
                       <button
                         onClick={() => removeFile(index)}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 text-xs hover:bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-destructive/90 opacity-0 group-hover:opacity-100 transition-opacity"
                       >
-                        ×
+                        <X className="w-3 h-3" />
                       </button>
                     </div>
                   ))}
@@ -176,11 +171,11 @@ export function JPGToWordConverter() {
             {files.length > 0 && (
               <>
                 {/* OCR Settings */}
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-4 p-4 bg-secondary/30 rounded-xl border border-border">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Language</label>
+                    <label className="text-sm font-medium text-foreground">Language</label>
                     <Select value={language} onValueChange={setLanguage}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-background/50">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -195,9 +190,9 @@ export function JPGToWordConverter() {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Output Format</label>
+                    <label className="text-sm font-medium text-foreground">Output Format</label>
                     <Select value={outputType} onValueChange={(value: 'word' | 'pdf') => setOutputType(value)}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-background/50">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -212,7 +207,8 @@ export function JPGToWordConverter() {
                 <Button
                   onClick={convertImagesToText}
                   disabled={isConverting}
-                  className="w-full bg-purple-600 hover:bg-purple-700"
+                  variant="neon"
+                  className="w-full"
                   size="lg"
                 >
                   {isConverting ? (
@@ -240,8 +236,8 @@ export function JPGToWordConverter() {
                 {convertedFiles.length > 0 && (
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-medium flex items-center gap-2">
-                        <FileText className="w-5 h-5 text-purple-500" />
+                      <h3 className="font-medium flex items-center gap-2 text-foreground">
+                        <FileText className="w-5 h-5 text-primary" />
                         Text Extraction Complete!
                       </h3>
                       <DownloadButton
@@ -250,8 +246,8 @@ export function JPGToWordConverter() {
                       />
                     </div>
                     
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                      <p className="text-green-800 text-sm">
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
+                      <p className="text-green-400 text-sm">
                         Successfully extracted text from {files.length} image{files.length > 1 ? 's' : ''} using OCR technology.
                         {outputType === 'word' 
                           ? ' You can now edit the text in any word processor.' 

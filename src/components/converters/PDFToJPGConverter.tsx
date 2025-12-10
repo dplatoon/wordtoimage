@@ -2,13 +2,11 @@
 import React, { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Slider } from '@/components/ui/slider';
 import { FileUploader } from './shared/FileUploader';
 import { ProgressBar } from './shared/ProgressBar';
 import { QualitySlider } from './shared/QualitySlider';
 import { DownloadButton } from './shared/DownloadButton';
-import { Upload, Download, Settings, FileText } from 'lucide-react';
+import { Upload, Settings, FileText } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 
 export function PDFToJPGConverter() {
@@ -25,7 +23,7 @@ export function PDFToJPGConverter() {
       return;
     }
     
-    if (selectedFile.size > 100 * 1024 * 1024) { // 100MB limit
+    if (selectedFile.size > 100 * 1024 * 1024) {
       toast.error('File size too large. Maximum 100MB allowed.');
       return;
     }
@@ -43,11 +41,8 @@ export function PDFToJPGConverter() {
     setProgress(0);
     
     try {
-      // Dynamic import of PDF.js to reduce initial bundle size
       const pdfjsLib = await import('pdfjs-dist');
-      
-      // Use the correct worker path that's compatible with the installed version
-      const pdfjsVersion = '4.4.168'; // Match the installed version
+      const pdfjsVersion = '4.4.168';
       pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}/pdf.worker.min.js`;
       
       const arrayBuffer = await file.arrayBuffer();
@@ -58,7 +53,7 @@ export function PDFToJPGConverter() {
         setProgress((pageNum / pdf.numPages) * 90);
         
         const page = await pdf.getPage(pageNum);
-        const scale = quality / 72; // Convert DPI to scale
+        const scale = quality / 72;
         const viewport = page.getViewport({ scale });
         
         const canvas = document.createElement('canvas');
@@ -80,7 +75,6 @@ export function PDFToJPGConverter() {
       
       setConvertedImages(images);
       
-      // Create ZIP file if multiple pages
       if (images.length > 1) {
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
@@ -100,7 +94,6 @@ export function PDFToJPGConverter() {
       setProgress(100);
       toast.success(`Successfully converted ${images.length} page${images.length > 1 ? 's' : ''} to JPG!`);
       
-      // Track conversion event
       if (typeof window !== 'undefined' && (window as any).dataLayer) {
         (window as any).dataLayer.push({
           event: "tool_used",
@@ -136,14 +129,14 @@ export function PDFToJPGConverter() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="border-2 border-dashed border-gray-300 hover:border-blue-500 transition-colors">
+      <Card className="border border-border bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
         <CardContent className="p-8">
           {!file ? (
             <FileUploader
               onFileSelect={handleFileSelect}
               acceptedTypes={['application/pdf']}
               maxSize={100 * 1024 * 1024}
-              icon={<FileText className="w-12 h-12 text-blue-500" />}
+              icon={<FileText className="w-12 h-12 text-primary" />}
               title="Upload PDF File"
               description="Drag and drop your PDF here, or click to browse"
               supportText="Supports PDF files up to 100MB"
@@ -151,18 +144,20 @@ export function PDFToJPGConverter() {
           ) : (
             <div className="space-y-6">
               {/* File Info */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-secondary/50 rounded-xl border border-border">
                 <div className="flex items-center gap-3">
-                  <FileText className="w-8 h-8 text-blue-500" />
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </div>
                   <div>
-                    <p className="font-medium">{file.name}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-medium text-foreground">{file.name}</p>
+                    <p className="text-sm text-muted-foreground">
                       {(file.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
                 </div>
                 <Button
-                  variant="outline"
+                  variant="glass"
                   size="sm"
                   onClick={() => setFile(null)}
                 >
@@ -171,10 +166,10 @@ export function PDFToJPGConverter() {
               </div>
 
               {/* Quality Settings */}
-              <div className="space-y-4">
+              <div className="space-y-4 p-4 bg-secondary/30 rounded-xl border border-border">
                 <div className="flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-gray-600" />
-                  <h3 className="font-medium">Quality Settings</h3>
+                  <Settings className="w-5 h-5 text-primary" />
+                  <h3 className="font-medium text-foreground">Quality Settings</h3>
                 </div>
                 <QualitySlider
                   quality={quality}
@@ -186,7 +181,8 @@ export function PDFToJPGConverter() {
               <Button
                 onClick={convertPDFToJPG}
                 disabled={isConverting}
-                className="w-full bg-blue-600 hover:bg-blue-700"
+                variant="neon"
+                className="w-full"
                 size="lg"
               >
                 {isConverting ? (
@@ -211,7 +207,7 @@ export function PDFToJPGConverter() {
               {convertedImages.length > 0 && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-medium">
+                    <h3 className="font-medium text-foreground">
                       Conversion Complete! ({convertedImages.length} image{convertedImages.length > 1 ? 's' : ''})
                     </h3>
                     <DownloadButton
@@ -223,20 +219,20 @@ export function PDFToJPGConverter() {
                   {/* Preview */}
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-64 overflow-y-auto">
                     {convertedImages.slice(0, 6).map((image, index) => (
-                      <div key={index} className="relative">
+                      <div key={index} className="relative rounded-lg overflow-hidden border border-border">
                         <img
                           src={image}
                           alt={`Page ${index + 1}`}
-                          className="w-full h-24 object-cover rounded border"
+                          className="w-full h-24 object-cover"
                         />
-                        <div className="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-1 rounded">
+                        <div className="absolute bottom-1 left-1 bg-background/80 text-foreground text-xs px-2 py-0.5 rounded">
                           Page {index + 1}
                         </div>
                       </div>
                     ))}
                     {convertedImages.length > 6 && (
-                      <div className="flex items-center justify-center bg-gray-100 rounded border h-24">
-                        <span className="text-sm text-gray-600">
+                      <div className="flex items-center justify-center bg-secondary/50 rounded-lg border border-border h-24">
+                        <span className="text-sm text-muted-foreground">
                           +{convertedImages.length - 6} more
                         </span>
                       </div>

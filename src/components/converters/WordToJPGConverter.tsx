@@ -31,7 +31,7 @@ export function WordToJPGConverter() {
       return;
     }
     
-    if (selectedFile.size > 50 * 1024 * 1024) { // 50MB limit
+    if (selectedFile.size > 50 * 1024 * 1024) {
       toast.error('File size too large. Maximum 50MB allowed.');
       return;
     }
@@ -49,7 +49,6 @@ export function WordToJPGConverter() {
     setProgress(10);
     
     try {
-      // Create FormData for file upload
       const formData = new FormData();
       formData.append('file', file);
       formData.append('outputFormat', outputFormat);
@@ -57,7 +56,6 @@ export function WordToJPGConverter() {
       
       setProgress(30);
       
-      // Call Supabase Edge Function for conversion
       const { data, error } = await supabase.functions.invoke('convert-word-to-image', {
         body: formData,
         headers: {
@@ -74,9 +72,7 @@ export function WordToJPGConverter() {
       if (data?.images) {
         setConvertedImages(data.images);
         
-        // Create download URL
         if (data.images.length > 1) {
-          // Multiple images - create ZIP
           const JSZip = (await import('jszip')).default;
           const zip = new JSZip();
           
@@ -95,7 +91,6 @@ export function WordToJPGConverter() {
         setProgress(100);
         toast.success(`Successfully converted to ${data.images.length} ${outputFormat.toUpperCase()} image${data.images.length > 1 ? 's' : ''}!`);
         
-        // Track conversion event
         if (typeof window !== 'undefined' && (window as any).dataLayer) {
           (window as any).dataLayer.push({
             event: "tool_used",
@@ -139,7 +134,7 @@ export function WordToJPGConverter() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="border-2 border-dashed border-gray-300 hover:border-green-500 transition-colors">
+      <Card className="border border-border bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
         <CardContent className="p-8">
           {!file ? (
             <FileUploader
@@ -158,18 +153,20 @@ export function WordToJPGConverter() {
           ) : (
             <div className="space-y-6">
               {/* File Info */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between p-4 bg-secondary/50 rounded-xl border border-border">
                 <div className="flex items-center gap-3">
-                  <FileText className="w-8 h-8 text-green-500" />
+                  <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-green-500" />
+                  </div>
                   <div>
-                    <p className="font-medium">{file.name}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-medium text-foreground">{file.name}</p>
+                    <p className="text-sm text-muted-foreground">
                       {(file.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
                 </div>
                 <Button
-                  variant="outline"
+                  variant="glass"
                   size="sm"
                   onClick={() => setFile(null)}
                 >
@@ -178,37 +175,37 @@ export function WordToJPGConverter() {
               </div>
 
               {/* Conversion Settings */}
-              <div className="space-y-4">
+              <div className="space-y-4 p-4 bg-secondary/30 rounded-xl border border-border">
                 <div className="flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-gray-600" />
-                  <h3 className="font-medium">Conversion Settings</h3>
+                  <Settings className="w-5 h-5 text-primary" />
+                  <h3 className="font-medium text-foreground">Conversion Settings</h3>
                 </div>
                 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-3">
-                    <label className="text-sm font-medium">Output Format</label>
+                    <label className="text-sm font-medium text-foreground">Output Format</label>
                     <div className="flex gap-4">
-                      <label className="flex items-center gap-2">
+                      <label className="flex items-center gap-2 cursor-pointer">
                         <input
                           type="radio"
                           name="format"
                           value="jpg"
                           checked={outputFormat === 'jpg'}
                           onChange={(e) => setOutputFormat(e.target.value as 'jpg')}
-                          className="text-green-600"
+                          className="w-4 h-4 accent-primary"
                         />
-                        <span>JPG</span>
+                        <span className="text-foreground">JPG</span>
                       </label>
-                      <label className="flex items-center gap-2">
+                      <label className="flex items-center gap-2 cursor-pointer">
                         <input
                           type="radio"
                           name="format"
                           value="png"
                           checked={outputFormat === 'png'}
                           onChange={(e) => setOutputFormat(e.target.value as 'png')}
-                          className="text-green-600"
+                          className="w-4 h-4 accent-primary"
                         />
-                        <span>PNG</span>
+                        <span className="text-foreground">PNG</span>
                       </label>
                     </div>
                   </div>
@@ -221,7 +218,7 @@ export function WordToJPGConverter() {
                     />
                     <label
                       htmlFor="preserve-formatting"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      className="text-sm font-medium leading-none cursor-pointer text-foreground"
                     >
                       Preserve formatting (fonts, tables, images)
                     </label>
@@ -233,7 +230,8 @@ export function WordToJPGConverter() {
               <Button
                 onClick={convertWordToJPG}
                 disabled={isConverting}
-                className="w-full bg-green-600 hover:bg-green-700"
+                variant="neon"
+                className="w-full"
                 size="lg"
               >
                 {isConverting ? (
@@ -261,7 +259,7 @@ export function WordToJPGConverter() {
               {convertedImages.length > 0 && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-medium">
+                    <h3 className="font-medium text-foreground">
                       Conversion Complete! ({convertedImages.length} image{convertedImages.length > 1 ? 's' : ''})
                     </h3>
                     <DownloadButton
@@ -275,20 +273,20 @@ export function WordToJPGConverter() {
                   {/* Preview */}
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-64 overflow-y-auto">
                     {convertedImages.slice(0, 6).map((image, index) => (
-                      <div key={index} className="relative">
+                      <div key={index} className="relative rounded-lg overflow-hidden border border-border">
                         <img
                           src={image}
                           alt={`Page ${index + 1}`}
-                          className="w-full h-24 object-cover rounded border"
+                          className="w-full h-24 object-cover"
                         />
-                        <div className="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-1 rounded">
+                        <div className="absolute bottom-1 left-1 bg-background/80 text-foreground text-xs px-2 py-0.5 rounded">
                           Page {index + 1}
                         </div>
                       </div>
                     ))}
                     {convertedImages.length > 6 && (
-                      <div className="flex items-center justify-center bg-gray-100 rounded border h-24">
-                        <span className="text-sm text-gray-600">
+                      <div className="flex items-center justify-center bg-secondary/50 rounded-lg border border-border h-24">
+                        <span className="text-sm text-muted-foreground">
                           +{convertedImages.length - 6} more
                         </span>
                       </div>

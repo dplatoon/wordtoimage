@@ -4,25 +4,31 @@ import { Button } from '@/components/ui/button';
 import { Wand2, Play, Sparkles, ArrowRight, Zap, Star, Crown, Flame } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { trackEvent } from '@/utils/analytics';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Import hero images
 import cyberpunkCity from '@/assets/hero/cyberpunk-city.jpg';
 import fantasyForest from '@/assets/hero/fantasy-forest.jpg';
 import dragonFire from '@/assets/hero/dragon-fire.jpg';
 
-const floatingImages = [cyberpunkCity, fantasyForest, dragonFire];
+const floatingImages = [
+  { src: cyberpunkCity, title: 'Cyberpunk City' },
+  { src: fantasyForest, title: 'Fantasy Forest' },
+  { src: dragonFire, title: 'Fire Dragon' },
+];
 
 export const AdvancedHero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [prompt, setPrompt] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
+    if (isHovered) return;
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % floatingImages.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isHovered]);
 
   const handleGetStarted = () => {
     trackEvent('hero_get_started_clicked');
@@ -228,44 +234,113 @@ export const AdvancedHero = () => {
             className="relative hidden lg:block"
           >
             {/* Main Image Card */}
-            <div className="relative">
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               <motion.div
                 className="relative glass-card rounded-3xl overflow-hidden shadow-neon-lg"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ scale: 1.03, rotateY: 5 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                <div className="aspect-square">
-                  <img
-                    src={floatingImages[currentImageIndex]}
-                    alt="AI Generated Art"
-                    className="w-full h-full object-cover transition-all duration-700"
-                  />
+                <div className="aspect-square relative">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentImageIndex}
+                      src={floatingImages[currentImageIndex].src}
+                      alt={floatingImages[currentImageIndex].title}
+                      className="w-full h-full object-cover"
+                      initial={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
+                      animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                      exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+                      transition={{ duration: 0.7, ease: "easeInOut" }}
+                    />
+                  </AnimatePresence>
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
+                  
+                  {/* Shine effect on hover */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent"
+                    initial={{ x: '-100%', opacity: 0 }}
+                    whileHover={{ x: '100%', opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                  />
                 </div>
                 
                 {/* Overlay UI */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-xs text-primary font-semibold mb-1">AI Generated</div>
-                      <div className="text-foreground font-bold text-lg">Cyberpunk City</div>
+                      <motion.div 
+                        className="text-xs text-primary font-semibold mb-1"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        key={`label-${currentImageIndex}`}
+                      >
+                        AI Generated
+                      </motion.div>
+                      <AnimatePresence mode="wait">
+                        <motion.div 
+                          className="text-foreground font-bold text-lg"
+                          key={`title-${currentImageIndex}`}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {floatingImages[currentImageIndex].title}
+                        </motion.div>
+                      </AnimatePresence>
                     </div>
                     <div className="flex gap-2">
                       {floatingImages.map((_, i) => (
-                        <div
+                        <motion.button
                           key={i}
-                          className={`h-2 rounded-full transition-all duration-300 ${
+                          onClick={() => setCurrentImageIndex(i)}
+                          className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                             i === currentImageIndex 
                               ? 'bg-primary w-8 shadow-neon' 
-                              : 'bg-muted-foreground/30 w-2'
+                              : 'bg-muted-foreground/30 w-2 hover:bg-primary/50'
                           }`}
+                          whileHover={{ scale: 1.2 }}
+                          whileTap={{ scale: 0.9 }}
                         />
                       ))}
                     </div>
                   </div>
                 </div>
               </motion.div>
+
+              {/* Thumbnail Strip */}
+              <div className="flex gap-3 mt-4 justify-center">
+                {floatingImages.map((img, i) => (
+                  <motion.button
+                    key={i}
+                    onClick={() => setCurrentImageIndex(i)}
+                    className={`relative w-20 h-20 rounded-xl overflow-hidden transition-all duration-300 ${
+                      i === currentImageIndex 
+                        ? 'ring-2 ring-primary shadow-neon scale-105' 
+                        : 'opacity-60 hover:opacity-100'
+                    }`}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.title}
+                      className="w-full h-full object-cover"
+                    />
+                    {i === currentImageIndex && (
+                      <motion.div
+                        className="absolute inset-0 bg-primary/20"
+                        layoutId="activeThumb"
+                      />
+                    )}
+                  </motion.button>
+                ))}
+              </div>
 
               {/* Floating Cards */}
               <motion.div
@@ -312,16 +387,24 @@ export const AdvancedHero = () => {
         >
           <div className="relative max-w-sm mx-auto">
             <div className="aspect-square glass-card rounded-3xl overflow-hidden shadow-neon">
-              <img
-                src={floatingImages[currentImageIndex]}
-                alt="AI Generated Art"
-                className="w-full h-full object-cover"
-              />
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentImageIndex}
+                  src={floatingImages[currentImageIndex].src}
+                  alt={floatingImages[currentImageIndex].title}
+                  className="w-full h-full object-cover"
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5 }}
+                />
+              </AnimatePresence>
             </div>
             <div className="flex justify-center gap-2 mt-4">
               {floatingImages.map((_, i) => (
-                <div
+                <button
                   key={i}
+                  onClick={() => setCurrentImageIndex(i)}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     i === currentImageIndex 
                       ? 'bg-primary w-8 shadow-neon' 
