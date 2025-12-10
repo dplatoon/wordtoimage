@@ -39,10 +39,10 @@ export const DesktopNav = () => {
                   <NavigationMenuLink key={item.title} asChild>
                     <Link
                       to={item.href}
-                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-primary/10 focus:bg-primary/10"
+                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-white/10 focus:bg-white/10"
                     >
-                      <div className="text-sm font-medium leading-none text-foreground">{item.title}</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      <div className="text-sm font-medium leading-none text-white">{item.title}</div>
+                      <p className="line-clamp-2 text-sm leading-snug text-white/60">
                         {item.description}
                       </p>
                     </Link>
@@ -61,10 +61,10 @@ export const DesktopNav = () => {
                   <NavigationMenuLink key={item.title} asChild>
                     <Link
                       to={item.href}
-                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-primary/10 focus:bg-primary/10"
+                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-white/10 focus:bg-white/10"
                     >
-                      <div className="text-sm font-medium leading-none text-foreground">{item.title}</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      <div className="text-sm font-medium leading-none text-white">{item.title}</div>
+                      <p className="line-clamp-2 text-sm leading-snug text-white/60">
                         {item.description}
                       </p>
                     </Link>
@@ -83,10 +83,10 @@ export const DesktopNav = () => {
                   <NavigationMenuLink key={item.title} asChild>
                     <Link
                       to={item.href}
-                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-primary/10 focus:bg-primary/10"
+                      className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-white/10 focus:bg-white/10"
                     >
-                      <div className="text-sm font-medium leading-none text-foreground">{item.title}</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      <div className="text-sm font-medium leading-none text-white">{item.title}</div>
+                      <p className="line-clamp-2 text-sm leading-snug text-white/60">
                         {item.description}
                       </p>
                     </Link>
@@ -101,7 +101,7 @@ export const DesktopNav = () => {
             <NavigationMenuLink asChild>
               <Link
                 to="/pricing"
-                className="group inline-flex h-10 w-max items-center justify-center rounded-xl bg-transparent px-4 py-2 text-sm font-medium transition-all duration-300 text-foreground/80 hover:text-foreground hover:bg-primary/10 focus:bg-primary/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                className="group inline-flex h-10 w-max items-center justify-center rounded-xl bg-transparent px-4 py-2 text-sm font-medium transition-all duration-300 text-gray-100 hover:text-white hover:bg-white/10 focus:bg-white/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
               >
                 Pricing
               </Link>
