@@ -46,6 +46,7 @@ const JPGToWord = lazy(() => import('@/pages/JPGToWord'));
 const JPGToPDF = lazy(() => import('@/pages/JPGToPDF'));
 const AIEnhance = lazy(() => import('@/pages/AIEnhance'));
 const RemoveBackground = lazy(() => import('@/pages/RemoveBackground'));
+const Tools = lazy(() => import('@/pages/Tools'));
 const Gallery = lazy(() => import('@/pages/Gallery'));
 const ContentHub = lazy(() => import('@/pages/ContentHub'));
 const BlogPostDetail = lazy(() => import('@/pages/BlogPostDetail'));
@@ -124,6 +125,7 @@ export const AnimatedRoutes = () => {
           <Route path="/jpg-to-pdf" element={<PageTransition><JPGToPDF /></PageTransition>} />
           <Route path="/remove-background" element={<PageTransition><RemoveBackground /></PageTransition>} />
           <Route path="/ai-enhance" element={<PageTransition><AIEnhance /></PageTransition>} />
+          <Route path="/tools" element={<PageTransition><Tools /></PageTransition>} />
           <Route path="/blog/ai-art-styles" element={<PageTransition><AIArtStylesBlogPost /></PageTransition>} />
           <Route path="/blog/prompt-writing-guide" element={<PageTransition><PromptWritingGuideBlogPost /></PageTransition>} />
           <Route path="/blog/ai-marketing-success" element={<PageTransition><AIMarketingSuccessBlogPost /></PageTransition>} />
