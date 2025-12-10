@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { initAccessibility } from "@/utils/accessibility";
 import { MobileOptimizer } from "@/components/mobile/MobileOptimizer";
 import { AnimatedRoutes } from "@/components/AnimatedRoutes";
+import { ScrollProgressIndicator } from "@/components/ScrollProgressIndicator";
 
 import "./App.css";
 
@@ -41,6 +42,7 @@ function App() {
             <EnhancedLighthouseOptimizer />
             <MobileLighthouseOptimizer />
             <BrowserRouter>
+              <ScrollProgressIndicator />
               <AnimatedRoutes />
             </BrowserRouter>
           </TooltipProvider>

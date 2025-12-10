@@ -1,6 +1,7 @@
 
 export const productItems = [
   { title: 'Text to Image', href: '/text-to-image', description: 'Create AI images from text descriptions' },
+  { title: 'All Tools', href: '/tools', description: 'PDF, JPG, Word converters & more' },
   { title: 'Background Remover', href: '/remove-background', description: 'Remove backgrounds with AI' },
   { title: 'AI Templates', href: '/ai-templates', description: 'Ready-to-use prompt templates' },
   { title: 'Style Gallery', href: '/style-gallery', description: 'Explore 50+ artistic styles' },
