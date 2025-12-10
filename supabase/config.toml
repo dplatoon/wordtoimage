@@ -4,4 +4,4 @@ project_id = "tucmwxmsoqqrrotygzcn"
 verify_jwt = false
 
 [functions.enhance-image]
-verify_jwt = false
+verify_jwt = true
