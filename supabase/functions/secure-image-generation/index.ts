@@ -36,7 +36,6 @@ interface GenerationRequest {
   prompt: string;
   style?: string;
   resolution?: string;
-  userId?: string;
   requestId?: string;
 }
 
@@ -138,7 +137,7 @@ serve(async (req) => {
 
     // Parse and validate request
     const body: GenerationRequest = await req.json();
-    const { prompt, style = 'auto', resolution = '1024x1024', userId, requestId } = body;
+    const { prompt, style = 'auto', resolution = '1024x1024', requestId } = body;
 
     // Security: Request ID validation for replay attack prevention
     if (!requestId) {
@@ -146,6 +145,28 @@ serve(async (req) => {
         JSON.stringify({ error: 'Request ID required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
+    }
+
+    // Security: Authenticate user via JWT token
+    const authHeader = req.headers.get('authorization');
+    let userId: string | null = null;
+    let userType: 'anonymous' | 'authenticated' | 'premium' = 'anonymous';
+
+    if (authHeader) {
+      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+      const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+      const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+        global: { headers: { Authorization: authHeader } }
+      });
+
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      if (!authError && user) {
+        userId = user.id;
+        userType = 'authenticated';
+        
+        // Check for premium status (could be expanded with profile lookup)
+        // For now, authenticated users get 'authenticated' rate limits
+      }
     }
 
     // Security: Validate and sanitize prompt
@@ -160,10 +181,9 @@ serve(async (req) => {
       );
     }
 
-    // Security: Rate limiting
+    // Security: Rate limiting using verified userId or client IP
     const clientIP = req.headers.get('x-forwarded-for') || 'unknown';
     const rateLimitKey = userId || clientIP;
-    const userType = userId ? 'authenticated' : 'anonymous';
 
     if (!checkRateLimit(rateLimitKey, userType)) {
       return new Response(
