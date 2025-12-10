@@ -16,12 +16,12 @@ export const Logo = ({ variant = 'default', className = '' }: LogoProps) => {
       className={`flex items-center space-x-2 group touch-target ${className}`}
       aria-label="WordToImage Home"
     >
-      <div className={`bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg ${
+      <div className={`bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-neon ${
         isFooter ? 'w-10 h-10' : 'w-8 h-8'
       }`}>
-        <Sparkles className={`text-white drop-shadow-sm ${isFooter ? 'h-5 w-5' : 'h-4 w-4'}`} />
+        <Sparkles className={`text-primary-foreground drop-shadow-sm ${isFooter ? 'h-5 w-5' : 'h-4 w-4'}`} />
       </div>
-      <span className={`font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 ${
+      <span className={`font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 ${
         isFooter ? 'text-2xl' : 'text-xl'
       }`}>
         WordToImage
