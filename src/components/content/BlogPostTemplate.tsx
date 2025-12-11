@@ -139,7 +139,10 @@ export const BlogPostTemplate = ({
               src={image}
               alt={title}
               className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+              width={1200}
+              height={384}
               loading="lazy"
+              decoding="async"
             />
           </div>
         )}

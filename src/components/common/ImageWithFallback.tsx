@@ -9,6 +9,8 @@ interface ImageWithFallbackProps {
   alt: string;
   className?: string;
   fallbackClassName?: string;
+  width?: number;
+  height?: number;
   onLoad?: () => void;
   onError?: () => void;
   showRetry?: boolean;
@@ -19,6 +21,8 @@ export function ImageWithFallback({
   alt,
   className,
   fallbackClassName,
+  width,
+  height,
   onLoad,
   onError,
   showRetry = false
@@ -88,9 +92,12 @@ export function ImageWithFallback({
           className,
           isLoading ? 'opacity-0' : 'opacity-100'
         )}
+        width={width}
+        height={height}
         onLoad={handleLoad}
         onError={handleError}
         loading="lazy"
+        decoding="async"
       />
     </>
   );

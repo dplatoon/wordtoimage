@@ -85,9 +85,12 @@ export function StyleCard({
                       "w-full h-full object-cover transition-all duration-300 group-hover:scale-110 rounded-lg",
                       imageLoaded ? 'opacity-100' : 'opacity-0'
                     )}
+                    width={200}
+                    height={150}
                     onLoad={handleImageLoad}
                     onError={handleImageError}
                     loading="lazy"
+                    decoding="async"
                   />
                 </>
               )}
