@@ -24,7 +24,6 @@ const queryClient = new QueryClient({
 // Component imports for performance monitoring
 import { OptimizedFontLoader } from "./components/performance/OptimizedFontLoader";
 import { EnhancedLighthouseOptimizer } from "./components/performance/EnhancedLighthouseOptimizer";
-import { MobileLighthouseOptimizer } from "./components/performance/MobileLighthouseOptimizer";
 
 function App() {
   useEffect(() => {
@@ -40,7 +39,6 @@ function App() {
             <Toaster />
             <OptimizedFontLoader />
             <EnhancedLighthouseOptimizer />
-            <MobileLighthouseOptimizer />
             <BrowserRouter>
               <ScrollProgressIndicator />
               <AnimatedRoutes />
