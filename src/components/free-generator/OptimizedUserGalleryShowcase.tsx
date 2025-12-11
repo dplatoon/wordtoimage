@@ -138,7 +138,10 @@ export const OptimizedUserGalleryShowcase = ({ userImages }: OptimizedUserGaller
                   src={image.src}
                   alt={`${image.style} artwork: ${image.prompt}`}
                   className="w-full h-auto object-cover"
+                  width={400}
+                  height={400}
                   loading={index < 4 ? 'eager' : 'lazy'}
+                  decoding="async"
                 />
                 
                 {/* Hover Overlay */}

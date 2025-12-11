@@ -52,6 +52,10 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
           src={images[currentIndex].url}
           alt={images[currentIndex].title}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          width={800}
+          height={450}
+          loading="lazy"
+          decoding="async"
         />
         
         {/* Navigation arrows */}
@@ -127,6 +131,10 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
                 src={image.url}
                 alt={image.title}
                 className="w-full h-full object-cover"
+                width={64}
+                height={64}
+                loading="lazy"
+                decoding="async"
               />
             </button>
           ))}

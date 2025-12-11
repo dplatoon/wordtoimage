@@ -81,6 +81,10 @@ export const TestimonialsSlider = () => {
                   src={testimonials[currentIndex].avatar} 
                   alt={testimonials[currentIndex].author} 
                   className="h-full w-full object-cover"
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="text-left">
