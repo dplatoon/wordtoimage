@@ -51,6 +51,13 @@ export default function WordToJPG() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-green-500/5" />
+        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse-glow" />
+        <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1s' }} />
+      </div>
+
       <Helmet>
         <title>Convert Word to JPG – Free Online Tool | WordToImage</title>
         <meta name="description" content="Convert Word documents (.doc, .docx) to high-quality JPG images while preserving formatting, fonts, and layout. Free and secure." />
@@ -60,25 +67,20 @@ export default function WordToJPG() {
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />
       
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">
-          {/* Background Effects */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-green-500/10 via-transparent to-transparent" />
-          <div className="absolute top-20 right-10 w-72 h-72 bg-green-500/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-          
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center max-w-4xl mx-auto">
+            <div className="text-center max-w-4xl mx-auto animate-fade-in">
               <Badge className="mb-6 bg-green-500/10 text-green-500 border-green-500/20">
                 <FileText className="w-3 h-3 mr-1" />
                 Document Converter
               </Badge>
               
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">
                 <span className="text-foreground">Convert Word to JPG</span>
                 <br />
-                <span className="bg-gradient-to-r from-green-500 to-primary bg-clip-text text-transparent">Free Online Tool</span>
+                <span className="bg-gradient-to-r from-green-500 via-primary to-neon-coral bg-clip-text text-transparent">Free Online Tool</span>
               </h1>
               
               <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
@@ -89,10 +91,10 @@ export default function WordToJPG() {
                 {[
                   { icon: FileText, label: '.doc & .docx', color: 'text-primary' },
                   { icon: Image, label: 'JPG & PNG', color: 'text-green-500' },
-                  { icon: Zap, label: 'Fast Processing', color: 'text-accent' },
-                  { icon: Shield, label: 'Secure Upload', color: 'text-primary' },
+                  { icon: Zap, label: 'Fast Processing', color: 'text-neon-coral' },
+                  { icon: Shield, label: 'Secure Upload', color: 'text-neon-amber' },
                 ].map((item) => (
-                  <div key={item.label} className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border">
+                  <div key={item.label} className="flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-xl bg-card/30 border border-border/50 hover:border-primary/30 transition-colors">
                     <item.icon className={`w-4 h-4 ${item.color}`} />
                     <span className="text-sm text-muted-foreground">{item.label}</span>
                   </div>
@@ -108,19 +110,21 @@ export default function WordToJPG() {
         </section>
 
         {/* How-to Section */}
-        <section className="py-16 bg-secondary/20">
+        <section className="py-16 backdrop-blur-xl bg-card/20">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-              How to Convert Word to JPG
+            <h2 className="text-3xl font-display font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-green-500 to-primary bg-clip-text text-transparent">
+                How to Convert Word to JPG
+              </span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {[
                 { step: '1', title: 'Upload Document', desc: 'Select your Word document (.doc or .docx) from your device. Up to 50MB supported.', color: 'bg-green-500' },
-                { step: '2', title: 'Choose Settings', desc: 'Select output format (JPG/PNG) and enable "Preserve formatting" for best results.', color: 'bg-primary' },
-                { step: '3', title: 'Download Images', desc: 'Get your converted images instantly. Multi-page documents create separate image files.', color: 'bg-accent' },
+                { step: '2', title: 'Choose Settings', desc: 'Select output format (JPG/PNG) and enable "Preserve formatting" for best results.', color: 'bg-primary shadow-neon' },
+                { step: '3', title: 'Download Images', desc: 'Get your converted images instantly. Multi-page documents create separate image files.', color: 'bg-neon-coral shadow-neon-coral' },
               ].map((item) => (
                 <div key={item.step} className="text-center">
-                  <div className={`w-16 h-16 ${item.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg`}>
+                  <div className={`w-16 h-16 ${item.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4`}>
                     {item.step}
                   </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">{item.title}</h3>
@@ -134,17 +138,19 @@ export default function WordToJPG() {
         {/* Why Convert Section */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-              Why Convert Word Documents to Images
+            <h2 className="text-3xl font-display font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-green-500 to-primary bg-clip-text text-transparent">
+                Why Convert Word Documents to Images
+              </span>
             </h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {[
                 { title: 'Easy Sharing', desc: 'Share documents as images on social media, websites, or messaging apps without formatting issues.', color: 'text-green-500' },
                 { title: 'Universal Compatibility', desc: 'JPG images work on any device or platform, ensuring your content looks the same everywhere.', color: 'text-primary' },
-                { title: 'Prevent Editing', desc: 'Convert documents to images to prevent unauthorized editing while maintaining visual appeal.', color: 'text-accent' },
-                { title: 'Web Integration', desc: 'Embed document images directly into websites, presentations, or digital portfolios.', color: 'text-primary' },
+                { title: 'Prevent Editing', desc: 'Convert documents to images to prevent unauthorized editing while maintaining visual appeal.', color: 'text-neon-coral' },
+                { title: 'Web Integration', desc: 'Embed document images directly into websites, presentations, or digital portfolios.', color: 'text-neon-amber' },
               ].map((item) => (
-                <Card key={item.title} className="p-6 bg-card/50 border-border hover:shadow-neon transition-all duration-300">
+                <Card key={item.title} className="p-6 backdrop-blur-xl bg-card/30 border-border/50 hover:border-primary/30 hover:shadow-neon transition-all duration-300">
                   <h3 className={`text-xl font-semibold mb-3 ${item.color}`}>{item.title}</h3>
                   <p className="text-muted-foreground">{item.desc}</p>
                 </Card>
@@ -154,15 +160,17 @@ export default function WordToJPG() {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 bg-secondary/20">
+        <section className="py-16 backdrop-blur-xl bg-card/20">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-              Frequently Asked Questions
+            <h2 className="text-3xl font-display font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-green-500 to-primary bg-clip-text text-transparent">
+                Frequently Asked Questions
+              </span>
             </h2>
             <div className="max-w-3xl mx-auto">
               <Accordion type="single" collapsible className="space-y-4">
                 {faqData.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 rounded-xl border border-border px-6">
+                  <AccordionItem key={index} value={`item-${index}`} className="backdrop-blur-xl bg-card/30 rounded-xl border border-border/50 px-6 hover:border-primary/30 transition-colors">
                     <AccordionTrigger className="py-4 text-left hover:no-underline">
                       <span className="text-lg font-semibold text-foreground">{faq.question}</span>
                     </AccordionTrigger>
@@ -179,18 +187,20 @@ export default function WordToJPG() {
         {/* Internal Links */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-center text-foreground mb-8">
-              Try Our Other Converter Tools
+            <h2 className="text-2xl font-display font-bold text-center mb-8">
+              <span className="bg-gradient-to-r from-green-500 to-primary bg-clip-text text-transparent">
+                Try Our Other Converter Tools
+              </span>
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
               {[
-                { to: '/jpg-to-word', icon: FileText, title: 'JPG to Word', desc: 'Extract text from images', color: 'text-accent' },
+                { to: '/jpg-to-word', icon: FileText, title: 'JPG to Word', desc: 'Extract text from images', color: 'text-neon-cyan' },
                 { to: '/pdf-to-jpg', icon: Image, title: 'PDF to JPG', desc: 'Extract images from PDF', color: 'text-primary' },
-                { to: '/jpg-to-pdf', icon: FileText, title: 'JPG to PDF', desc: 'Combine images into PDF', color: 'text-accent' },
+                { to: '/jpg-to-pdf', icon: FileText, title: 'JPG to PDF', desc: 'Combine images into PDF', color: 'text-neon-coral' },
                 { to: '/remove-background', icon: Image, title: 'Remove Background', desc: 'AI background removal', color: 'text-green-500' },
               ].map((link) => (
                 <Link key={link.to} to={link.to} className="group">
-                  <Card className="p-4 bg-card/50 border-border hover:border-primary/50 hover:shadow-neon transition-all duration-300 flex items-center gap-3">
+                  <Card className="p-4 backdrop-blur-xl bg-card/30 border-border/50 hover:border-primary/30 hover:shadow-neon transition-all duration-300 flex items-center gap-3">
                     <link.icon className={`w-8 h-8 ${link.color}`} />
                     <div className="flex-1">
                       <h3 className="font-semibold text-foreground">{link.title}</h3>

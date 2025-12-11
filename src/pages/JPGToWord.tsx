@@ -51,6 +51,13 @@ export default function JPGToWord() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-neon-cyan/5" />
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-neon-cyan/10 rounded-full blur-3xl animate-pulse-glow" />
+        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1s' }} />
+      </div>
+
       <Helmet>
         <title>Convert JPG to Word Online – Free OCR Tool | WordToImage</title>
         <meta name="description" content="Extract text from JPG images to editable Word documents using advanced OCR technology. Free, secure, and supports 100+ languages." />
@@ -60,25 +67,20 @@ export default function JPGToWord() {
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />
       
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">
-          {/* Background Effects */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent" />
-          <div className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-          
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center max-w-4xl mx-auto">
-              <Badge className="mb-6 bg-accent/10 text-accent border-accent/20">
+            <div className="text-center max-w-4xl mx-auto animate-fade-in">
+              <Badge className="mb-6 bg-neon-cyan/10 text-neon-cyan border-neon-cyan/20">
                 <Eye className="w-3 h-3 mr-1" />
                 OCR Technology
               </Badge>
               
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">
                 <span className="text-foreground">Convert JPG to Word</span>
                 <br />
-                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">Free OCR Tool</span>
+                <span className="bg-gradient-to-r from-neon-cyan via-primary to-neon-coral bg-clip-text text-transparent">Free OCR Tool</span>
               </h1>
               
               <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
@@ -88,11 +90,11 @@ export default function JPGToWord() {
               <div className="flex flex-wrap justify-center gap-4 mb-12">
                 {[
                   { icon: Image, label: 'JPG, PNG, WEBP', color: 'text-primary' },
-                  { icon: Eye, label: 'OCR Technology', color: 'text-accent' },
+                  { icon: Eye, label: 'OCR Technology', color: 'text-neon-cyan' },
                   { icon: FileText, label: 'Editable Word', color: 'text-green-500' },
-                  { icon: Zap, label: 'Multi-Language', color: 'text-primary' },
+                  { icon: Zap, label: 'Multi-Language', color: 'text-neon-amber' },
                 ].map((item) => (
-                  <div key={item.label} className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border">
+                  <div key={item.label} className="flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-xl bg-card/30 border border-border/50 hover:border-primary/30 transition-colors">
                     <item.icon className={`w-4 h-4 ${item.color}`} />
                     <span className="text-sm text-muted-foreground">{item.label}</span>
                   </div>
@@ -108,19 +110,21 @@ export default function JPGToWord() {
         </section>
 
         {/* How-to Section */}
-        <section className="py-16 bg-secondary/20">
+        <section className="py-16 backdrop-blur-xl bg-card/20">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-              How to Convert JPG to Word
+            <h2 className="text-3xl font-display font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-neon-cyan to-primary bg-clip-text text-transparent">
+                How to Convert JPG to Word
+              </span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {[
-                { step: '1', title: 'Upload Image', desc: 'Select JPG, PNG, or other image files containing text from your device.', color: 'bg-accent' },
-                { step: '2', title: 'OCR Processing', desc: 'Advanced OCR technology analyzes and extracts text with 95%+ accuracy.', color: 'bg-primary' },
+                { step: '1', title: 'Upload Image', desc: 'Select JPG, PNG, or other image files containing text from your device.', color: 'bg-neon-cyan' },
+                { step: '2', title: 'OCR Processing', desc: 'Advanced OCR technology analyzes and extracts text with 95%+ accuracy.', color: 'bg-primary shadow-neon' },
                 { step: '3', title: 'Download Word', desc: 'Get your editable Word document instantly. Edit, format, and save as needed.', color: 'bg-green-500' },
               ].map((item) => (
                 <div key={item.step} className="text-center">
-                  <div className={`w-16 h-16 ${item.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg`}>
+                  <div className={`w-16 h-16 ${item.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4`}>
                     {item.step}
                   </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">{item.title}</h3>
@@ -134,16 +138,18 @@ export default function JPGToWord() {
         {/* Benefits Section */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-              Why Choose Our Converter
+            <h2 className="text-3xl font-display font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-neon-cyan to-primary bg-clip-text text-transparent">
+                Why Choose Our Converter
+              </span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {[
-                { icon: Eye, title: 'High Accuracy OCR', desc: 'Advanced OCR technology achieves 95%+ accuracy on clear images with readable text.', color: 'bg-primary/20 text-primary' },
-                { icon: Zap, title: '100+ Languages', desc: 'Support for over 100 languages including English, Chinese, Japanese, Arabic, and more.', color: 'bg-accent/20 text-accent' },
-                { icon: FileText, title: 'Editable Output', desc: 'Get fully editable Word documents that you can modify and format as needed.', color: 'bg-green-500/20 text-green-500' },
+                { icon: Eye, title: 'High Accuracy OCR', desc: 'Advanced OCR technology achieves 95%+ accuracy on clear images with readable text.', color: 'bg-primary/10 text-primary' },
+                { icon: Zap, title: '100+ Languages', desc: 'Support for over 100 languages including English, Chinese, Japanese, Arabic, and more.', color: 'bg-neon-cyan/10 text-neon-cyan' },
+                { icon: FileText, title: 'Editable Output', desc: 'Get fully editable Word documents that you can modify and format as needed.', color: 'bg-green-500/10 text-green-500' },
               ].map((feature) => (
-                <Card key={feature.title} className="p-6 bg-card/50 border-border hover:shadow-neon transition-all duration-300 group">
+                <Card key={feature.title} className="p-6 backdrop-blur-xl bg-card/30 border-border/50 hover:border-primary/30 hover:shadow-neon transition-all duration-300 group">
                   <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                     <feature.icon className="w-6 h-6" />
                   </div>
@@ -156,15 +162,17 @@ export default function JPGToWord() {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 bg-secondary/20">
+        <section className="py-16 backdrop-blur-xl bg-card/20">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-              Frequently Asked Questions
+            <h2 className="text-3xl font-display font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-neon-cyan to-primary bg-clip-text text-transparent">
+                Frequently Asked Questions
+              </span>
             </h2>
             <div className="max-w-3xl mx-auto">
               <Accordion type="single" collapsible className="space-y-4">
                 {faqData.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 rounded-xl border border-border px-6">
+                  <AccordionItem key={index} value={`item-${index}`} className="backdrop-blur-xl bg-card/30 rounded-xl border border-border/50 px-6 hover:border-primary/30 transition-colors">
                     <AccordionTrigger className="py-4 text-left hover:no-underline">
                       <span className="text-lg font-semibold text-foreground">{faq.question}</span>
                     </AccordionTrigger>
@@ -181,18 +189,20 @@ export default function JPGToWord() {
         {/* Internal Links */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-center text-foreground mb-8">
-              Explore More Converter Tools
+            <h2 className="text-2xl font-display font-bold text-center mb-8">
+              <span className="bg-gradient-to-r from-neon-cyan to-primary bg-clip-text text-transparent">
+                Explore More Converter Tools
+              </span>
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
               {[
                 { to: '/word-to-jpg', icon: FileText, title: 'Word to JPG', desc: 'Convert documents to images', color: 'text-green-500' },
                 { to: '/pdf-to-jpg', icon: Image, title: 'PDF to JPG', desc: 'Extract images from PDF', color: 'text-primary' },
-                { to: '/jpg-to-pdf', icon: FileText, title: 'JPG to PDF', desc: 'Combine images into PDF', color: 'text-accent' },
-                { to: '/remove-background', icon: Image, title: 'Remove Background', desc: 'AI background removal', color: 'text-primary' },
+                { to: '/jpg-to-pdf', icon: FileText, title: 'JPG to PDF', desc: 'Combine images into PDF', color: 'text-neon-coral' },
+                { to: '/remove-background', icon: Image, title: 'Remove Background', desc: 'AI background removal', color: 'text-neon-amber' },
               ].map((link) => (
                 <Link key={link.to} to={link.to} className="group">
-                  <Card className="p-4 bg-card/50 border-border hover:border-primary/50 hover:shadow-neon transition-all duration-300 flex items-center gap-3">
+                  <Card className="p-4 backdrop-blur-xl bg-card/30 border-border/50 hover:border-primary/30 hover:shadow-neon transition-all duration-300 flex items-center gap-3">
                     <link.icon className={`w-8 h-8 ${link.color}`} />
                     <div className="flex-1">
                       <h3 className="font-semibold text-foreground">{link.title}</h3>
