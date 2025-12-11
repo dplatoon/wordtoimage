@@ -20,7 +20,7 @@ export const NavAuthButtons = ({ session, isMobile = false, onClose }: NavAuthBu
     return (
       <div className={containerClass}>
         <Link to="/dashboard" onClick={onClose}>
-          <Button variant={isMobile ? "outline" : "ghost"} className={buttonClass}>
+          <Button variant={isMobile ? "outline" : "ghost"} className={`${buttonClass} ${!isMobile && 'text-white hover:text-primary hover:bg-white/10'}`}>
             Dashboard
           </Button>
         </Link>
@@ -36,7 +36,7 @@ export const NavAuthButtons = ({ session, isMobile = false, onClose }: NavAuthBu
   return (
     <div className={containerClass}>
       <Link to="/auth" onClick={onClose}>
-        <Button variant={isMobile ? "outline" : "ghost"} className={buttonClass}>
+        <Button variant={isMobile ? "outline" : "ghost"} className={`${buttonClass} ${!isMobile && 'text-white hover:text-primary hover:bg-white/10'}`}>
           Sign In
         </Button>
       </Link>
