@@ -20,7 +20,7 @@ export const NavAuthButtons = ({ session, isMobile = false, onClose }: NavAuthBu
     return (
       <div className={containerClass}>
         <Link to="/dashboard" onClick={onClose}>
-          <Button variant={isMobile ? "outline" : "ghost"} className={`${buttonClass} ${!isMobile && 'text-white hover:text-primary hover:bg-white/10'}`}>
+          <Button variant={isMobile ? "outline" : "ghost"} className={`${buttonClass} ${!isMobile && 'text-white hover:text-primary hover:bg-white/10 [text-shadow:0_0_10px_rgba(255,255,255,0.3)] hover:[text-shadow:0_0_15px_hsl(var(--primary)/0.6)]'}`}>
             Dashboard
           </Button>
         </Link>
@@ -36,7 +36,7 @@ export const NavAuthButtons = ({ session, isMobile = false, onClose }: NavAuthBu
   return (
     <div className={containerClass}>
       <Link to="/auth" onClick={onClose}>
-        <Button variant={isMobile ? "outline" : "ghost"} className={`${buttonClass} ${!isMobile && 'text-white hover:text-primary hover:bg-white/10'}`}>
+        <Button variant={isMobile ? "outline" : "ghost"} className={`${buttonClass} ${!isMobile && 'text-white hover:text-primary hover:bg-white/10 [text-shadow:0_0_10px_rgba(255,255,255,0.3)] hover:[text-shadow:0_0_15px_hsl(var(--primary)/0.6)]'}`}>
           Sign In
         </Button>
       </Link>

@@ -101,7 +101,7 @@ export const DesktopNav = () => {
             <NavigationMenuLink asChild>
               <Link
                 to="/pricing"
-                className="group inline-flex h-10 w-max items-center justify-center rounded-xl bg-transparent px-4 py-2 text-sm font-medium transition-all duration-300 text-white hover:text-primary hover:bg-white/10 focus:bg-white/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                className="group inline-flex h-10 w-max items-center justify-center rounded-xl bg-transparent px-4 py-2 text-sm font-medium transition-all duration-300 text-white hover:text-primary hover:bg-white/10 focus:bg-white/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50 [text-shadow:0_0_10px_rgba(255,255,255,0.3)] hover:[text-shadow:0_0_15px_hsl(var(--primary)/0.6)]"
               >
                 Pricing
               </Link>
