@@ -1,6 +1,4 @@
-
 import React, { useState, useRef, useEffect } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 import { ImageOff } from 'lucide-react';
 
 interface OptimizedImageProps {
@@ -100,18 +98,23 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     onError?.();
   };
 
+  // Calculate aspect ratio style to prevent CLS
+  const aspectRatioStyle = width && height 
+    ? { aspectRatio: `${width} / ${height}` } 
+    : undefined;
+
   return (
     <div 
       ref={containerRef} 
       className={`relative overflow-hidden ${className}`}
-      style={{ width, height }}
+      style={{ width, height, ...aspectRatioStyle }}
     >
       {isLoading && !hasError && (
-        <Skeleton className="absolute inset-0 w-full h-full" />
+        <div className="absolute inset-0 w-full h-full bg-muted animate-pulse" />
       )}
       
       {hasError ? (
-        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-100 text-gray-400">
+        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-muted text-muted-foreground">
           <ImageOff className="h-8 w-8 mb-2" />
           <p className="text-xs text-center">Image unavailable</p>
         </div>
@@ -139,13 +142,13 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             fetchPriority={priority ? 'high' : 'auto'}
             onLoad={handleLoad}
             onError={handleError}
-            width={width}
-            height={height}
+            width={typeof width === 'number' ? width : undefined}
+            height={typeof height === 'number' ? height : undefined}
             sizes={sizes}
           />
         </picture>
       ) : (
-        <div className="w-full h-full bg-gray-100" />
+        <div className="w-full h-full bg-muted" style={aspectRatioStyle} />
       )}
     </div>
   );

@@ -251,6 +251,10 @@ export const AdvancedHero = () => {
                       src={floatingImages[currentImageIndex].src}
                       alt={floatingImages[currentImageIndex].title}
                       className="w-full h-full object-cover"
+                      width={600}
+                      height={600}
+                      loading="eager"
+                      fetchPriority="high"
                       initial={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
                       animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                       exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
@@ -331,6 +335,9 @@ export const AdvancedHero = () => {
                       src={img.src}
                       alt={img.title}
                       className="w-full h-full object-cover"
+                      width={80}
+                      height={80}
+                      loading="lazy"
                     />
                     {i === currentImageIndex && (
                       <motion.div
@@ -393,6 +400,9 @@ export const AdvancedHero = () => {
                   src={floatingImages[currentImageIndex].src}
                   alt={floatingImages[currentImageIndex].title}
                   className="w-full h-full object-cover"
+                  width={384}
+                  height={384}
+                  loading="lazy"
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
