@@ -45,49 +45,52 @@ serve(async (req) => {
     }
     
     // Security: Extract userId from JWT token, ignore any client-supplied userId
-    const { prompt, n = 1, size = "1024x1024", quality = "standard", apiKey = null, sourceImage = null } = parsedBody;
+    const { prompt, n = 1, size = "1024x1024", quality = "standard", sourceImage = null } = parsedBody;
     
-    // Authenticate user via JWT token
+    // SECURITY: Require authentication - extract user from JWT token
     const authHeader = req.headers.get('authorization');
-    let userId: string | null = null;
-    
-    if (authHeader) {
-      const supabase = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
-        global: { headers: { Authorization: authHeader } }
-      });
-      
-      const { data: { user }, error: authError } = await supabase.auth.getUser();
-      if (!authError && user) {
-        userId = user.id;
-        console.log("Authenticated user:", userId);
-      } else {
-        console.log("Auth verification failed:", authError?.message || "No user found");
-      }
-    }
-
-    // Check if the OpenAI API key is available
-    let openaiKey = Deno.env.get("OPENAI_API_KEY");
-    if (!openaiKey && apiKey) {
-      console.log("Using client-provided API key");
-      openaiKey = apiKey;
-    }
-
-    if (!openaiKey) {
+    if (!authHeader) {
       return new Response(
         JSON.stringify({
           error: true,
-          errorMessage: "OpenAI API key not configured",
-          errors: [
-            {
-              code: "API_NOT_FOUND",
-              message: "API key not found in environment"
-            }
-          ]
+          errorMessage: "Authentication required",
+          errors: [{ code: "UNAUTHORIZED", message: "Authorization header is required" }]
         }),
-        {
-          status: 401,
-          headers: { ...corsHeaders, "Content-Type": "application/json" }
-        }
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabase = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
+      global: { headers: { Authorization: authHeader } }
+    });
+    
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      console.log("Auth verification failed:", authError?.message || "No user found");
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Invalid or expired authentication token",
+          errors: [{ code: "UNAUTHORIZED", message: authError?.message || "Authentication failed" }]
+        }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    
+    const userId = user.id;
+    console.log("Authenticated user:", userId);
+
+    // SECURITY: Only use server-side API key, never accept client-provided keys
+    const openaiKey = Deno.env.get("OPENAI_API_KEY");
+    if (!openaiKey) {
+      console.error("OPENAI_API_KEY not configured on server");
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Image generation service not configured",
+          errors: [{ code: "SERVICE_UNAVAILABLE", message: "Service not configured" }]
+        }),
+        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -348,7 +351,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({
         imageUrl: data.data[0].url,
-        usingServerKey: !apiKey,
+        usingServerKey: true,
         metadata: metadata
       }),
       {

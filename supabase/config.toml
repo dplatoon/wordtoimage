@@ -8,3 +8,6 @@ verify_jwt = true
 
 [functions.check-prediction-status]
 verify_jwt = true
+
+[functions.generate-runware-image]
+verify_jwt = true
