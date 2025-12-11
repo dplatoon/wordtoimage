@@ -3,45 +3,29 @@ import { useEffect } from 'react';
 
 export const ResourcePreloader = () => {
   useEffect(() => {
-    // Preload critical fonts with proper font-display
-    const fontLinks = [
-      'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
-    ];
-
-    fontLinks.forEach(href => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'style';
-      link.href = href;
-      link.onload = () => {
-        link.rel = 'stylesheet';
+    // Defer font loading to not block FCP - use requestIdleCallback
+    const loadFonts = () => {
+      const fontLink = document.createElement('link');
+      fontLink.rel = 'stylesheet';
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+      fontLink.media = 'print';
+      fontLink.onload = () => {
+        fontLink.media = 'all';
       };
-      document.head.appendChild(link);
-    });
+      document.head.appendChild(fontLink);
+    };
 
-    // Preload critical images with high priority
-    const criticalImages = [
-      '/lovable-uploads/ba65fc79-7bc8-40f0-81b9-d5ea5bc8d35a.png',
-      '/lovable-uploads/19295794-7457-41ec-9272-41faed11b055.png',
-      '/lovable-uploads/317dfa28-3425-4dac-a167-343034ee797b.png',
-      '/lovable-uploads/5780c58f-29ec-4462-a0eb-3ba9829bf938.png'
-    ];
+    // Use requestIdleCallback to defer non-critical work
+    if ('requestIdleCallback' in window) {
+      (window as Window & { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(loadFonts);
+    } else {
+      setTimeout(loadFonts, 100);
+    }
 
-    criticalImages.forEach(src => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = src;
-      link.fetchPriority = 'high';
-      document.head.appendChild(link);
-    });
-
-    // DNS prefetch for external domains
+    // DNS prefetch for external domains (low priority, doesn't block)
     const domains = [
       '//fonts.googleapis.com',
-      '//fonts.gstatic.com',
-      '//api.replicate.com',
-      '//api.runware.ai'
+      '//fonts.gstatic.com'
     ];
 
     domains.forEach(domain => {
@@ -51,7 +35,7 @@ export const ResourcePreloader = () => {
       document.head.appendChild(link);
     });
 
-    // Preconnect to critical third-party origins
+    // Preconnect to font origins (helps but doesn't block)
     const preconnectDomains = [
       'https://fonts.googleapis.com',
       'https://fonts.gstatic.com'
