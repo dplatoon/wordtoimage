@@ -155,28 +155,29 @@ export const usePerformanceOptimization = (options: PerformanceOptions = {}) => 
   };
 };
 
-  // Optimized performance monitoring hook with memory leak prevention
+// Lightweight performance monitor - only runs in development
 export const usePerformanceMonitor = () => {
-  const memoryCheckRef = useRef<NodeJS.Timeout | null>(null);
-  
   useEffect(() => {
-    // Reduced frequency memory monitoring to prevent performance impact
-    memoryCheckRef.current = setInterval(() => {
+    // Only monitor in development and only once per session
+    if (process.env.NODE_ENV !== 'development') return;
+    if (sessionStorage.getItem('perf-monitored')) return;
+    
+    sessionStorage.setItem('perf-monitored', 'true');
+    
+    // Single memory check after load
+    const checkMemory = () => {
       if ('memory' in performance) {
         const memory = (performance as any).memory;
         const usedMB = Math.round(memory.usedJSHeapSize / 1024 / 1024);
-        
-        // Only warn if memory usage is concerning (>100MB)
-        if (usedMB > 100) {
+        if (usedMB > 150) {
           console.warn(`[Memory] High usage: ${usedMB}MB`);
         }
       }
-    }, 30000); // Check every 30 seconds instead of on every render
-    
-    return () => {
-      if (memoryCheckRef.current) {
-        clearInterval(memoryCheckRef.current);
-      }
     };
+    
+    // Check once after 10 seconds, not continuously
+    const timeoutId = setTimeout(checkMemory, 10000);
+    
+    return () => clearTimeout(timeoutId);
   }, []);
 };
