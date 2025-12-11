@@ -27,8 +27,8 @@ export const Nav = () => {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-[hsl(220_15%_8%)]/95 backdrop-blur-xl border-b border-primary/10 shadow-glass' 
-          : 'bg-[hsl(220_15%_5%)]/80 backdrop-blur-sm'
+          ? 'bg-background/95 backdrop-blur-xl border-b border-primary/20 shadow-lg shadow-primary/5' 
+          : 'bg-background/70 backdrop-blur-md'
       }`}
     >
       {/* Neon top border when scrolled */}
