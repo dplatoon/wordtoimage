@@ -1,10 +1,10 @@
-@import './styles/enhanced-theme.css';
-@import './styles/design-system.css';
-@import './styles/mobile-design-system.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import './styles/enhanced-theme.css';
+@import './styles/design-system.css';
+@import './styles/mobile-design-system.css';
 
 /* Design System Color Tokens - All HSL values for proper theme support */
 :root {
@@ -48,8 +48,8 @@
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background-color: #ffffff;
-    color: var(--text-primary); /* Enhanced contrast */
+    background-color: hsl(220 15% 5%);
+    color: hsl(0 0% 95%);
     font-size: 16px; /* Prevent iOS zoom */
     line-height: 1.6;
   }
@@ -340,7 +340,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #ffffff;
+  background: hsl(220 15% 5%);
   z-index: 9999;
   display: flex;
   align-items: center;
