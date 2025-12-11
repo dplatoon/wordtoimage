@@ -211,9 +211,25 @@ serve(async (req) => {
       );
     }
 
-    // Extract JWT token and decode user ID (simplified)
-    const token = authHeader.replace('Bearer ', '');
-    const userId = 'user_' + token.substring(0, 10); // Simplified - use proper JWT decoding
+    // Properly verify JWT and extract user ID
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
+    
+    const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+    
+    const { data: { user }, error: authError } = await supabaseAuth.auth.getUser();
+    
+    if (authError || !user) {
+      console.error('Authentication error:', authError?.message);
+      return new Response(
+        JSON.stringify({ error: 'Invalid or expired authentication token' }), 
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    const userId = user.id;
 
     // Get user plan
     const userPlan = await getUserPlan(userId);
