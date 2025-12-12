@@ -1,4 +1,3 @@
-
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ export const TechnicalSEOManager = () => {
   
   // Normalize pathname to handle trailing slashes
   const normalizedPath = location.pathname === '/' ? '/' : location.pathname.replace(/\/$/, '');
-  const canonicalUrl = `https://wordtoimage.com${normalizedPath}`;
+  const canonicalUrl = `https://wordtoimage.online${normalizedPath}`;
 
   return (
     <Helmet>
@@ -44,12 +43,12 @@ export const TechnicalSEOManager = () => {
           "@context": "https://schema.org",
           "@type": "WebSite",
           "name": "WordToImage - AI Image Generator",
-          "url": "https://wordtoimage.com",
+          "url": "https://wordtoimage.online",
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://wordtoimage.com/search?q={search_term_string}"
+              "urlTemplate": "https://wordtoimage.online/search?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           },

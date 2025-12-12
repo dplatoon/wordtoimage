@@ -87,6 +87,76 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     ogImage: 'https://wordtoimage.online/og-batch.jpg',
     canonical: 'https://wordtoimage.online/batch-generator'
   },
+  '/tools': {
+    title: 'AI Image Tools - All-in-One Image Generation & Conversion | WordToImage',
+    description: 'Access all WordToImage tools in one place: AI image generation, converters, background remover, and enhancement tools. Everything you need for image creation.',
+    keywords: ['AI image tools', 'image converter tools', 'AI enhancement tools', 'image generation tools'],
+    ogImage: 'https://wordtoimage.online/og-tools.jpg',
+    canonical: 'https://wordtoimage.online/tools'
+  },
+  '/ai-enhance': {
+    title: 'AI Image Enhancer - Upscale & Improve Your Images | WordToImage',
+    description: 'Enhance your images with AI-powered upscaling, denoising, and color correction. Transform low-quality images into stunning high-resolution visuals.',
+    keywords: ['AI image enhancer', 'image upscaler', 'AI image improvement', 'photo enhancer', 'image quality booster'],
+    ogImage: 'https://wordtoimage.online/og-enhance.jpg',
+    canonical: 'https://wordtoimage.online/ai-enhance'
+  },
+  '/ai-upscaler': {
+    title: 'AI Image Upscaler - Increase Image Resolution | WordToImage',
+    description: 'Upscale your images to 4K resolution with our AI-powered upscaler. Enhance details and quality without losing sharpness.',
+    keywords: ['AI image upscaler', 'image resolution increase', '4K upscale', 'photo enlarger', 'AI upscaling'],
+    ogImage: 'https://wordtoimage.online/og-upscaler.jpg',
+    canonical: 'https://wordtoimage.online/ai-upscaler'
+  },
+  '/ai-templates': {
+    title: 'AI Templates - Pre-built AI Image Prompts | WordToImage',
+    description: 'Browse curated AI image templates with optimized prompts. Create professional images instantly with our ready-to-use AI art templates.',
+    keywords: ['AI templates', 'AI prompts', 'pre-built templates', 'image generation templates'],
+    ogImage: 'https://wordtoimage.online/og-ai-templates.jpg',
+    canonical: 'https://wordtoimage.online/ai-templates'
+  },
+  '/pdf-to-jpg': {
+    title: 'PDF to JPG Converter - Free Online PDF to Image | WordToImage',
+    description: 'Convert PDF files to high-quality JPG images for free. Fast, secure, and easy-to-use PDF to image converter with no watermarks.',
+    keywords: ['PDF to JPG', 'PDF to image converter', 'convert PDF to JPG', 'free PDF converter', 'PDF to picture'],
+    ogImage: 'https://wordtoimage.online/og-pdf-to-jpg.jpg',
+    canonical: 'https://wordtoimage.online/pdf-to-jpg'
+  },
+  '/word-to-jpg': {
+    title: 'Word to JPG Converter - Convert DOCX to Image | WordToImage',
+    description: 'Convert Word documents to JPG images instantly. Free online Word to image converter with high-quality output.',
+    keywords: ['Word to JPG', 'DOCX to image', 'convert Word to JPG', 'document to image'],
+    ogImage: 'https://wordtoimage.online/og-word-to-jpg.jpg',
+    canonical: 'https://wordtoimage.online/word-to-jpg'
+  },
+  '/jpg-to-word': {
+    title: 'JPG to Word Converter - Image to DOCX with OCR | WordToImage',
+    description: 'Convert JPG images to editable Word documents using OCR technology. Extract text from images and create editable documents.',
+    keywords: ['JPG to Word', 'image to DOCX', 'OCR converter', 'image to text', 'JPG to document'],
+    ogImage: 'https://wordtoimage.online/og-jpg-to-word.jpg',
+    canonical: 'https://wordtoimage.online/jpg-to-word'
+  },
+  '/jpg-to-pdf': {
+    title: 'JPG to PDF Converter - Convert Images to PDF | WordToImage',
+    description: 'Convert JPG images to PDF documents for free. Combine multiple images into a single PDF with our easy-to-use converter.',
+    keywords: ['JPG to PDF', 'image to PDF', 'convert JPG to PDF', 'photo to PDF', 'free PDF creator'],
+    ogImage: 'https://wordtoimage.online/og-jpg-to-pdf.jpg',
+    canonical: 'https://wordtoimage.online/jpg-to-pdf'
+  },
+  '/remove-background': {
+    title: 'Background Remover - Free AI Background Removal | WordToImage',
+    description: 'Remove image backgrounds instantly with AI. Create transparent backgrounds for product photos, portraits, and more. Free and fast.',
+    keywords: ['background remover', 'remove image background', 'transparent background', 'AI background removal', 'photo background eraser'],
+    ogImage: 'https://wordtoimage.online/og-remove-bg.jpg',
+    canonical: 'https://wordtoimage.online/remove-background'
+  },
+  '/gallery': {
+    title: 'AI Art Gallery - Community Generated Images | WordToImage',
+    description: 'Explore stunning AI-generated artwork from our community. Get inspiration and discover what\'s possible with AI image generation.',
+    keywords: ['AI art gallery', 'AI generated images', 'community artwork', 'AI art showcase'],
+    ogImage: 'https://wordtoimage.online/og-gallery.jpg',
+    canonical: 'https://wordtoimage.online/gallery'
+  },
   '/contact-support': {
     title: 'Contact Support - Get Help with WordToImage',
     description: 'Get support for WordToImage. Contact our team for technical help, billing questions, or general inquiries. Fast response times guaranteed.',
@@ -191,12 +261,33 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     h1: 'Master AI Image Generation',
     h2Headings: ['Getting Started', 'Advanced Techniques', 'Style Guides', 'Pro Tips']
   },
+  '/video-tutorials': {
+    title: 'Video Tutorials - Watch & Learn AI Image Creation | WordToImage',
+    description: 'Watch step-by-step video tutorials on AI image generation. Learn visually with our comprehensive video guides.',
+    keywords: ['video tutorials', 'AI art videos', 'tutorial videos', 'learn AI art'],
+    ogImage: 'https://wordtoimage.online/og-video-tutorials.jpg',
+    canonical: 'https://wordtoimage.online/video-tutorials'
+  },
   '/design-tips': {
     title: 'AI Design Tips - Create Professional Images | WordToImage',
     description: 'Learn professional design tips for AI image generation. Discover color theory, composition techniques, and style combinations for better results.',
     keywords: ['AI design tips', 'image composition', 'color theory AI', 'professional AI art', 'design principles'],
     ogImage: 'https://wordtoimage.online/og-design-tips.jpg',
     canonical: 'https://wordtoimage.online/design-tips'
+  },
+  '/prompt-guide': {
+    title: 'Prompt Guide - Write Better AI Image Prompts | WordToImage',
+    description: 'Master the art of writing effective AI image prompts. Learn techniques to get better results from your text descriptions.',
+    keywords: ['prompt guide', 'AI prompts', 'prompt writing', 'effective prompts', 'AI art prompts'],
+    ogImage: 'https://wordtoimage.online/og-prompt-guide.jpg',
+    canonical: 'https://wordtoimage.online/prompt-guide'
+  },
+  '/content-hub': {
+    title: 'Content Hub - Resources & Guides | WordToImage',
+    description: 'Access all WordToImage resources, guides, and learning materials in one place. Everything you need to master AI image generation.',
+    keywords: ['content hub', 'resources', 'guides', 'learning materials'],
+    ogImage: 'https://wordtoimage.online/og-content-hub.jpg',
+    canonical: 'https://wordtoimage.online/content-hub'
   },
   '/updates': {
     title: 'WordToImage Updates - Latest Features & Improvements',
@@ -205,12 +296,26 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     ogImage: 'https://wordtoimage.online/og-updates.jpg',
     canonical: 'https://wordtoimage.online/updates'
   },
+  '/whats-new': {
+    title: 'What\'s New - Recent Updates & Features | WordToImage',
+    description: 'Discover the latest updates, features, and improvements to WordToImage. Stay ahead with our newest AI image generation capabilities.',
+    keywords: ['whats new', 'recent updates', 'new features', 'latest improvements'],
+    ogImage: 'https://wordtoimage.online/og-whats-new.jpg',
+    canonical: 'https://wordtoimage.online/whats-new'
+  },
   '/careers': {
     title: 'Careers at WordToImage - Join Our AI Team',
     description: 'Join WordToImage\'s mission to democratize AI art creation. Explore career opportunities in AI, engineering, design, and more.',
     keywords: ['WordToImage careers', 'AI jobs', 'tech careers', 'join our team'],
     ogImage: 'https://wordtoimage.online/og-careers.jpg',
     canonical: 'https://wordtoimage.online/careers'
+  },
+  '/join-our-team': {
+    title: 'Join Our Team - Career Opportunities | WordToImage',
+    description: 'Explore open positions at WordToImage. Join our team of AI innovators and help shape the future of image generation.',
+    keywords: ['join team', 'job openings', 'career opportunities', 'work at WordToImage'],
+    ogImage: 'https://wordtoimage.online/og-join-team.jpg',
+    canonical: 'https://wordtoimage.online/join-our-team'
   }
 };
 

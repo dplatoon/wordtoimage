@@ -1,4 +1,3 @@
-
 import { Helmet } from 'react-helmet-async';
 
 export const SeoHead = () => {
@@ -13,7 +12,7 @@ export const SeoHead = () => {
     "browserRequirements": "Requires JavaScript. Compatible with Chrome, Firefox, Safari, Edge.",
     "softwareVersion": "2.0",
     "datePublished": "2024-01-01",
-    "dateModified": "2025-01-01",
+    "dateModified": "2025-12-12",
     "keywords": "AI image generator, text to image AI, AI art generator, artificial intelligence image creation, machine learning art, AI-powered visual content, automated image generation, free AI image maker, online AI art tool, AI graphics generator, text-to-image converter, AI illustration generator, digital art AI, AI design tool, smart image creation",
     "author": {
       "@type": "Organization",
@@ -62,8 +61,8 @@ export const SeoHead = () => {
       "Social media ready formats",
       "Marketing campaign visuals"
     ],
-    "screenshot": "https://wordtoimage.com/app-screenshot.jpg",
-    "video": "https://wordtoimage.com/demo-video.mp4"
+    "screenshot": "https://wordtoimage.online/app-screenshot.jpg",
+    "video": "https://wordtoimage.online/demo-video.mp4"
   };
 
   const organizationData = {
@@ -84,7 +83,7 @@ export const SeoHead = () => {
       "@type": "ContactPoint",
       "telephone": "+1-555-0123",
       "contactType": "Customer Service",
-      "email": "support@wordtoimage.com",
+      "email": "support@wordtoimage.online",
       "availableLanguage": ["English"],
       "areaServed": "Worldwide"
     },
@@ -174,16 +173,16 @@ export const SeoHead = () => {
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content="WordToImage AI art generator interface showing text prompt converting to beautiful AI-generated artwork" />
       <meta property="og:locale" content="en_US" />
-      <meta property="og:updated_time" content="2025-01-01T00:00:00Z" />
+      <meta property="og:updated_time" content="2025-12-12T00:00:00Z" />
 
       {/* Enhanced Twitter Card with AI Keywords */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@wordtoimage" />
       <meta name="twitter:creator" content="@wordtoimage" />
-      <meta name="twitter:url" content="https://wordtoimage.com/" />
+      <meta name="twitter:url" content="https://wordtoimage.online/" />
       <meta name="twitter:title" content="AI Image Generator: Free Text-to-Art Converter | WordToImage AI" />
       <meta name="twitter:description" content="Create stunning AI art in seconds! Free text-to-image generator with 100+ styles. Perfect for designers, marketers & creators. No skills required - try now!" />
-      <meta name="twitter:image" content="https://wordtoimage.com/twitter-ai-generator.jpg" />
+      <meta name="twitter:image" content="https://wordtoimage.online/twitter-ai-generator.jpg" />
       <meta name="twitter:image:alt" content="AI-powered text-to-image generator creating beautiful artwork from simple text descriptions" />
 
       {/* Voice Search & Additional Social Meta */}

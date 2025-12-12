@@ -1,4 +1,3 @@
-
 # WordToImage AI Image Generator - Robots.txt
 User-agent: *
 Allow: /
@@ -53,8 +52,10 @@ Disallow: /uploads/private/
 Disallow: /*.json$
 Disallow: /*?*utm_*
 Disallow: /*?*ref=*
-Disallow: /auth/
-Disallow: /*?*
+Disallow: /auth
+Disallow: /dev-dashboard
+Disallow: /onboarding-demo
+Disallow: /technical-enhancements
 Disallow: /404
 Disallow: /error
 
@@ -82,6 +83,10 @@ Allow: /pricing
 Allow: /templates
 Allow: /style-gallery
 Allow: /batch-generator
+Allow: /tools
+Allow: /ai-enhance
+Allow: /ai-upscaler
+Allow: /ai-templates
 Allow: /blog
 Allow: /tutorials
 Allow: /help
@@ -90,12 +95,24 @@ Allow: /contact
 Allow: /api
 Allow: /privacy
 Allow: /terms
+Allow: /cookies
+Allow: /pdf-to-jpg
+Allow: /word-to-jpg
+Allow: /jpg-to-word
+Allow: /jpg-to-pdf
+Allow: /remove-background
+Allow: /gallery
+Allow: /product
+Allow: /beta
+Allow: /updates
+Allow: /careers
 
 # Sitemap locations
-Sitemap: https://wordtoimage.com/sitemap.xml
+Sitemap: https://wordtoimage.online/sitemap.xml
+Sitemap: https://wordtoimage.online/sitemap-index.xml
 
 # Host declaration for SEO
-Host: wordtoimage.com
+Host: wordtoimage.online
 
 # Additional crawling preferences
 Request-rate: 1/2s
