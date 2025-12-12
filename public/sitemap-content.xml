@@ -1,163 +1,233 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0">
 
-  <!-- Community -->
-  <url>
-    <loc>https://wordtoimage.com/community</loc>
-    <lastmod>2025-06-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <mobile:mobile/>
-  </url>
-
   <!-- Blog -->
   <url>
-    <loc>https://wordtoimage.com/blog</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/blog</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/blog/ai-art-styles</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/blog/ai-art-styles</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/blog/ai-marketing-success</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/blog/prompt-writing-guide</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/blog/prompt-writing-guide</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/blog/ai-marketing-success</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
-  <!-- Tutorials and Guides -->
   <url>
-    <loc>https://wordtoimage.com/tutorials</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/blog/best-free-ai-image-generators</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/blog/ai-image-generator-online-free</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/blog/image-generator-codes-guide</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/blog/ai-image-generator-revolution</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/blog/bing-image-generator-review</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/blog/mastering-ai-art-prompts</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/blog/future-ai-image-generation</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/blog/professional-marketing-visuals</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <!-- Tutorials & Guides -->
+  <url>
+    <loc>https://wordtoimage.online/tutorials</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/video-tutorials</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/video-tutorials</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/design-tips</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/design-tips</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/prompt-guide</loc>
-    <lastmod>2025-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <mobile:mobile/>
-  </url>
-
-  <!-- Help and Support -->
-  <url>
-    <loc>https://wordtoimage.com/help</loc>
-    <lastmod>2025-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <mobile:mobile/>
-  </url>
-
-  <!-- Company Pages -->
-  <url>
-    <loc>https://wordtoimage.com/about</loc>
-    <lastmod>2025-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://wordtoimage.com/contact</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/prompt-guide</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/contact-support</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/content-hub</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <!-- Help & Company -->
+  <url>
+    <loc>https://wordtoimage.online/help</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/careers</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/about</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/contact</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/contact-support</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <url>
+    <loc>https://wordtoimage.online/careers</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/join-our-team</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/join-our-team</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <mobile:mobile/>
   </url>
 
-  <!-- Beta and Updates -->
+  <!-- Beta & Updates -->
   <url>
-    <loc>https://wordtoimage.com/beta</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/beta</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/beta-landing</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/beta-landing</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/updates</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/updates</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.com/whats-new</loc>
-    <lastmod>2025-06-28</lastmod>
+    <loc>https://wordtoimage.online/whats-new</loc>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
+    <mobile:mobile/>
+  </url>
+
+  <!-- Community -->
+  <url>
+    <loc>https://wordtoimage.online/community</loc>
+    <lastmod>2025-12-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
     <mobile:mobile/>
   </url>
 
