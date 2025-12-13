@@ -8,16 +8,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Zap, Shield, Download, Sparkles, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ToolPageBackground } from '@/components/backgrounds/ToolPageBackground';
 
 const RemoveBackground = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Animated Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-neon-coral/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1s' }} />
-      </div>
+      <ToolPageBackground variant="primary" />
 
       <Helmet>
         <title>Remove Background from Images – Free AI Tool | WordToImage</title>
