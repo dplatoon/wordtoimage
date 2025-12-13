@@ -6,6 +6,17 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Maximum prompt length to prevent abuse
+const MAX_PROMPT_LENGTH = 1000;
+
+// Sanitize prompt by removing control characters and excessive whitespace
+function sanitizePrompt(input: string): string {
+  return input
+    .replace(/[\x00-\x1F\x7F]/g, '') // Remove control characters
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -21,7 +32,10 @@ serve(async (req) => {
     // Get user from auth header
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
-      throw new Error("Missing authorization header");
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
+      );
     }
 
     const { data: { user }, error: authError } = await supabase.auth.getUser(
@@ -29,16 +43,39 @@ serve(async (req) => {
     );
 
     if (authError || !user) {
-      throw new Error("Unauthorized");
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
+      );
     }
 
-    const { prompt, style, resolution = "1024x1024", settings = {} } = await req.json();
+    const { prompt: rawPrompt, style, resolution = "1024x1024", settings = {} } = await req.json();
 
-    if (!prompt || prompt.trim().length === 0) {
-      throw new Error("Prompt is required");
+    // Validate and sanitize prompt
+    if (!rawPrompt || typeof rawPrompt !== 'string') {
+      return new Response(
+        JSON.stringify({ error: "Please provide a valid prompt" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
     }
 
-    console.log("Generating image for user:", user.id, "prompt:", prompt);
+    const prompt = sanitizePrompt(rawPrompt);
+
+    if (prompt.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Prompt cannot be empty" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
+    }
+
+    if (prompt.length > MAX_PROMPT_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: `Prompt is too long. Maximum ${MAX_PROMPT_LENGTH} characters allowed.` }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
+    }
+
+    console.log("Generating image for user:", user.id);
 
     // Check user credits
     const { data: profile, error: profileError } = await supabase
@@ -49,7 +86,10 @@ serve(async (req) => {
 
     if (profileError) {
       console.error("Profile error:", profileError);
-      throw new Error("Failed to fetch user profile");
+      return new Response(
+        JSON.stringify({ error: "Unable to process request. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     if (profile.subscription_tier === "free" && profile.credits <= 0) {
@@ -96,15 +136,22 @@ serve(async (req) => {
 
     if (!aiResponse.ok) {
       const errorText = await aiResponse.text();
-      console.error("AI Gateway error:", errorText);
-      throw new Error(`Image generation failed: ${errorText}`);
+      console.error("AI Gateway error:", aiResponse.status, errorText);
+      return new Response(
+        JSON.stringify({ error: "Image generation failed. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     const aiData = await aiResponse.json();
     const imageBase64 = aiData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
 
     if (!imageBase64) {
-      throw new Error("No image returned from AI");
+      console.error("No image in AI response");
+      return new Response(
+        JSON.stringify({ error: "Image generation failed. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     console.log("Image generated successfully");
@@ -123,7 +170,10 @@ serve(async (req) => {
 
     if (uploadError) {
       console.error("Upload error:", uploadError);
-      throw new Error("Failed to upload image");
+      return new Response(
+        JSON.stringify({ error: "Failed to save image. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     // Get signed URL (valid for 1 hour)
@@ -133,7 +183,10 @@ serve(async (req) => {
 
     if (signedUrlError || !signedUrlData?.signedUrl) {
       console.error("Signed URL error:", signedUrlError);
-      throw new Error("Failed to generate signed URL");
+      return new Response(
+        JSON.stringify({ error: "Failed to process image. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     const imageUrl = signedUrlData.signedUrl;
@@ -157,7 +210,10 @@ serve(async (req) => {
 
     if (insertError) {
       console.error("Insert error:", insertError);
-      throw new Error("Failed to save generation");
+      return new Response(
+        JSON.stringify({ error: "Failed to save generation. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     // Deduct credit for free tier users
@@ -185,7 +241,7 @@ serve(async (req) => {
   } catch (error) {
     console.error("Error in generate-image:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An unexpected error occurred. Please try again." }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
     );
   }
