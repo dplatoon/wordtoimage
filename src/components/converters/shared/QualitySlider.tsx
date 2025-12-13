@@ -26,10 +26,10 @@ export function QualitySlider({
   return (
     <div className="space-y-3">
       <div className="flex justify-between items-center">
-        <Label htmlFor="quality-slider">
+        <Label htmlFor="quality-slider" className="text-foreground">
           Output Quality: {quality} DPI
         </Label>
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-muted-foreground">
           {getQualityLabel(quality)}
         </span>
       </div>
@@ -44,7 +44,7 @@ export function QualitySlider({
         className="w-full"
       />
       
-      <div className="flex justify-between text-xs text-gray-500">
+      <div className="flex justify-between text-xs text-muted-foreground">
         <span>Smaller file</span>
         <span>Larger file</span>
       </div>

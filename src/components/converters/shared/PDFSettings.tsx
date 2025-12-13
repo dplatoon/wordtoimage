@@ -20,11 +20,11 @@ export function PDFSettings({
   onImagesPerPageChange
 }: PDFSettingsProps) {
   return (
-    <div className="grid md:grid-cols-3 gap-4">
+    <div className="grid md:grid-cols-3 gap-4 p-4 bg-secondary/30 rounded-xl border border-border">
       <div className="space-y-2">
-        <label className="text-sm font-medium">Page Size</label>
+        <label className="text-sm font-medium text-foreground">Page Size</label>
         <Select value={pageSize} onValueChange={onPageSizeChange}>
-          <SelectTrigger>
+          <SelectTrigger className="bg-background/50">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -37,9 +37,9 @@ export function PDFSettings({
       </div>
       
       <div className="space-y-2">
-        <label className="text-sm font-medium">Orientation</label>
+        <label className="text-sm font-medium text-foreground">Orientation</label>
         <Select value={orientation} onValueChange={onOrientationChange}>
-          <SelectTrigger>
+          <SelectTrigger className="bg-background/50">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -50,9 +50,9 @@ export function PDFSettings({
       </div>
       
       <div className="space-y-2">
-        <label className="text-sm font-medium">Images per Page</label>
+        <label className="text-sm font-medium text-foreground">Images per Page</label>
         <Select value={imagesPerPage} onValueChange={onImagesPerPageChange}>
-          <SelectTrigger>
+          <SelectTrigger className="bg-background/50">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

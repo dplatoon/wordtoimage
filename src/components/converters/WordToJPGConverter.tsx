@@ -145,7 +145,7 @@ export function WordToJPGConverter() {
                 'application/rtf'
               ]}
               maxSize={50 * 1024 * 1024}
-              icon={<FileText className="w-12 h-12 text-green-500" />}
+              icon={<FileText className="w-12 h-12 text-primary" />}
               title="Upload Word Document"
               description="Drag and drop your Word file here, or click to browse"
               supportText="Supports .doc, .docx, and .rtf files up to 50MB"
@@ -155,8 +155,8 @@ export function WordToJPGConverter() {
               {/* File Info */}
               <div className="flex items-center justify-between p-4 bg-secondary/50 rounded-xl border border-border">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
-                    <FileText className="w-5 h-5 text-green-500" />
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <p className="font-medium text-foreground">{file.name}</p>

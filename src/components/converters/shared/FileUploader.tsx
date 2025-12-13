@@ -41,25 +41,25 @@ export function FileUploader({
   return (
     <div
       {...getRootProps()}
-      className={`text-center p-12 cursor-pointer transition-colors ${
+      className={`text-center p-12 cursor-pointer transition-all duration-300 rounded-xl border-2 border-dashed ${
         isDragActive 
-          ? 'border-blue-500 bg-blue-50' 
-          : 'border-gray-300 hover:border-gray-400'
+          ? 'border-primary bg-primary/10' 
+          : 'border-border hover:border-primary/50 hover:bg-secondary/30'
       }`}
     >
       <input {...getInputProps()} />
       
       <div className="flex flex-col items-center space-y-4">
-        {icon || <Upload className="w-12 h-12 text-gray-400" />}
+        {icon || <Upload className="w-12 h-12 text-muted-foreground" />}
         
         <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
             {title}
           </h3>
-          <p className="text-gray-600 mb-4">
+          <p className="text-muted-foreground mb-4">
             {description}
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground/70">
             {supportText}
           </p>
         </div>
