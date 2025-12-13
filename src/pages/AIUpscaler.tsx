@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
@@ -9,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Upload, Zap, Download, Image, ArrowRight, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from '@/components/ui/sonner';
+import { ToolPageBackground } from '@/components/backgrounds/ToolPageBackground';
 
 export default function AIUpscaler() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -76,9 +76,10 @@ export default function AIUpscaler() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <ToolPageBackground variant="primary" />
       <Nav />
       
-      <main className="container mx-auto px-4 py-12 flex-grow">
+      <main className="container mx-auto px-4 py-12 flex-grow relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">

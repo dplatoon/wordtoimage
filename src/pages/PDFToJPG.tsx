@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Nav } from '@/components/Nav';
@@ -10,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ToolPageBackground } from '@/components/backgrounds/ToolPageBackground';
 
 export default function PDFToJPG() {
   const pageContent = {
@@ -51,12 +51,7 @@ export default function PDFToJPG() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Animated Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-neon-coral/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1s' }} />
-      </div>
+      <ToolPageBackground variant="primary" />
 
       <Helmet>
         <title>Convert PDF to JPG – Free & Fast | WordToImage</title>
