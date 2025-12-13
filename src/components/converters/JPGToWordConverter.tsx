@@ -246,8 +246,8 @@ export function JPGToWordConverter() {
                       />
                     </div>
                     
-                    <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
-                      <p className="text-green-400 text-sm">
+                    <div className="bg-primary/10 border border-primary/20 rounded-xl p-4">
+                      <p className="text-primary text-sm">
                         Successfully extracted text from {files.length} image{files.length > 1 ? 's' : ''} using OCR technology.
                         {outputType === 'word' 
                           ? ' You can now edit the text in any word processor.' 

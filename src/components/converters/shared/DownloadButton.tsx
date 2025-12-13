@@ -32,7 +32,7 @@ export function DownloadButton({
     <div className="flex gap-2">
       <Button
         onClick={onDownload}
-        className="bg-green-600 hover:bg-green-700"
+        variant="neon"
       >
         <Download className="w-4 h-4 mr-2" />
         Download {filename}
@@ -41,7 +41,7 @@ export function DownloadButton({
       {showCopyLink && downloadUrl && (
         <Button
           onClick={copyLinkToClipboard}
-          variant="outline"
+          variant="glass"
           size="sm"
         >
           <Copy className="w-4 h-4 mr-2" />
