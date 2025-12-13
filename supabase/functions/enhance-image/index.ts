@@ -6,6 +6,17 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Maximum prompt length to prevent abuse
+const MAX_PROMPT_LENGTH = 500;
+
+// Sanitize prompt by removing control characters and excessive whitespace
+function sanitizePrompt(input: string): string {
+  return input
+    .replace(/[\x00-\x1F\x7F]/g, '') // Remove control characters
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -21,7 +32,10 @@ serve(async (req) => {
     // Get user from auth header
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
-      throw new Error("Missing authorization header");
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
+      );
     }
 
     const { data: { user }, error: authError } = await supabase.auth.getUser(
@@ -29,13 +43,28 @@ serve(async (req) => {
     );
 
     if (authError || !user) {
-      throw new Error("Unauthorized");
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
+      );
     }
 
-    const { imageUrl, editPrompt, enhancementType = "edit" } = await req.json();
+    const { imageUrl, editPrompt: rawEditPrompt, enhancementType = "edit" } = await req.json();
 
-    if (!imageUrl) {
-      throw new Error("Image URL is required");
+    if (!imageUrl || typeof imageUrl !== 'string') {
+      return new Response(
+        JSON.stringify({ error: "Please provide a valid image" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
+    }
+
+    // Sanitize and validate edit prompt if provided
+    const editPrompt = rawEditPrompt ? sanitizePrompt(String(rawEditPrompt)) : null;
+    if (editPrompt && editPrompt.length > MAX_PROMPT_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: `Edit prompt is too long. Maximum ${MAX_PROMPT_LENGTH} characters allowed.` }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
     }
 
     console.log("Enhancing image for user:", user.id, "type:", enhancementType);
@@ -49,7 +78,10 @@ serve(async (req) => {
 
     if (profileError) {
       console.error("Profile error:", profileError);
-      throw new Error("Failed to fetch user profile");
+      return new Response(
+        JSON.stringify({ error: "Unable to process request. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     if (profile.subscription_tier === "free" && profile.credits <= 0) {
@@ -130,14 +162,21 @@ serve(async (req) => {
       }
       const errorText = await aiResponse.text();
       console.error("AI Gateway error:", aiResponse.status, errorText);
-      throw new Error(`Image enhancement failed: ${errorText}`);
+      return new Response(
+        JSON.stringify({ error: "Image enhancement failed. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     const aiData = await aiResponse.json();
     const enhancedImageBase64 = aiData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
 
     if (!enhancedImageBase64) {
-      throw new Error("No enhanced image returned from AI");
+      console.error("No enhanced image in AI response");
+      return new Response(
+        JSON.stringify({ error: "Image enhancement failed. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     console.log("Image enhanced successfully");
@@ -156,7 +195,10 @@ serve(async (req) => {
 
     if (uploadError) {
       console.error("Upload error:", uploadError);
-      throw new Error("Failed to upload enhanced image");
+      return new Response(
+        JSON.stringify({ error: "Failed to save image. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     // Get signed URL (valid for 1 hour)
@@ -166,7 +208,10 @@ serve(async (req) => {
 
     if (signedUrlError || !signedUrlData?.signedUrl) {
       console.error("Signed URL error:", signedUrlError);
-      throw new Error("Failed to generate signed URL");
+      return new Response(
+        JSON.stringify({ error: "Failed to process image. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     const enhancedImageUrl = signedUrlData.signedUrl;
@@ -190,7 +235,10 @@ serve(async (req) => {
 
     if (insertError) {
       console.error("Insert error:", insertError);
-      throw new Error("Failed to save enhanced generation");
+      return new Response(
+        JSON.stringify({ error: "Failed to save enhancement. Please try again." }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
     // Deduct credit for free tier users
@@ -219,7 +267,7 @@ serve(async (req) => {
   } catch (error) {
     console.error("Error in enhance-image:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An unexpected error occurred. Please try again." }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
     );
   }
