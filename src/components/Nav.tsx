@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/navigation/Logo';
-import { DesktopNav } from '@/components/navigation/DesktopNav';
+import { SimpleDesktopNav } from '@/components/navigation/SimpleDesktopNav';
 import { MobileNav } from '@/components/navigation/MobileNav';
 import { NavAuthButtons } from '@/components/navigation/NavAuthButtons';
 import { useAuthState } from '@/hooks/useAuthState';
@@ -48,7 +48,7 @@ export const Nav = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <DesktopNav />
+          <SimpleDesktopNav />
 
           {/* Auth Buttons & Mobile Menu */}
           <div className="flex items-center gap-3">
