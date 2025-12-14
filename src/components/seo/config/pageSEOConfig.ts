@@ -282,6 +282,14 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     ogImage: 'https://wordtoimage.online/og-prompt-guide.jpg',
     canonical: 'https://wordtoimage.online/prompt-guide'
   },
+  '/payment-success': {
+    title: 'Payment Successful - WordToImage',
+    description: 'Your payment was successful. Thank you for subscribing to WordToImage Pro.',
+    keywords: ['payment confirmation', 'subscription success'],
+    ogImage: 'https://wordtoimage.online/og-payment.jpg',
+    canonical: 'https://wordtoimage.online/payment-success',
+    noindex: true
+  },
   '/content-hub': {
     title: 'Content Hub - Resources & Guides | WordToImage',
     description: 'Access all WordToImage resources, guides, and learning materials in one place. Everything you need to master AI image generation.',

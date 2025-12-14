@@ -52,6 +52,7 @@ const ContentHub = lazy(() => import('@/pages/ContentHub'));
 const BlogPostDetail = lazy(() => import('@/pages/BlogPostDetail'));
 const OnboardingDemo = lazy(() => import('@/pages/OnboardingDemo'));
 const TechnicalEnhancements = lazy(() => import('@/pages/TechnicalEnhancements'));
+const PaymentSuccess = lazy(() => import('@/pages/PaymentSuccess'));
 const ComprehensiveDashboard = lazy(() => import('@/components/testing/ComprehensiveDashboard').then(module => ({ default: module.ComprehensiveDashboard })));
 
 // Blog posts
@@ -140,6 +141,7 @@ export const AnimatedRoutes = () => {
           <Route path="/dev-dashboard" element={<PageTransition><ComprehensiveDashboard /></PageTransition>} />
           <Route path="/onboarding-demo" element={<PageTransition><OnboardingDemo /></PageTransition>} />
           <Route path="/technical-enhancements" element={<PageTransition><TechnicalEnhancements /></PageTransition>} />
+          <Route path="/payment-success" element={<PageTransition><PaymentSuccess /></PageTransition>} />
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
