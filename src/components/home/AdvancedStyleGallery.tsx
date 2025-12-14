@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Palette, Sparkles, ArrowRight } from 'lucide
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { LazyImage } from '@/components/common/LazyImage';
+import animeStyleImage from '@/assets/styles/anime-style.jpg';
 
 interface Style {
   id: string;
@@ -25,7 +26,7 @@ const STYLES: Style[] = [
   {
     id: 'anime',
     name: 'Anime',
-    imageUrl: '/lovable-uploads/60da266c-4810-4f41-9449-ae54c2026373.png',
+    imageUrl: animeStyleImage,
     prompt: 'anime style character portrait, vibrant colors',
     color: 'from-pink-500 to-rose-600'
   },

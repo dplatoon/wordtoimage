@@ -4,6 +4,7 @@ import { StyleCard } from './controls/StyleCard';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { OptimizedImage } from '@/components/performance/OptimizedImage';
+import animeStyleImage from '@/assets/styles/anime-style.jpg';
 
 interface Style {
   id: string;
@@ -38,7 +39,7 @@ const STYLE_OPTIONS: Style[] = [
   {
     id: 'japanese_anime',
     label: 'Anime',
-    image: '/lovable-uploads/60da266c-4810-4f41-9449-ae54c2026373.png',
+    image: animeStyleImage,
     color: '#F59E0B',
     description: 'Traditional anime/manga style'
   },
