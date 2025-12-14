@@ -99,11 +99,6 @@
     font-weight: 600;
   }
 
-  /* Fix navigation menu viewport visibility */
-  [data-radix-navigation-menu-viewport][data-state="closed"] {
-    display: none !important;
-  }
-
   /* Enhanced paragraph text contrast */
   p {
     color: var(--text-muted);
