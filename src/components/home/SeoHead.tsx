@@ -101,6 +101,8 @@ export const SeoHead = () => {
   const faqData = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "name": "WordToImage AI Image Generator FAQ",
+    "description": "Frequently asked questions about AI image generation, text-to-image conversion, and using WordToImage tools",
     "mainEntity": [
       {
         "@type": "Question",
