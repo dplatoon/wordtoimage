@@ -20,14 +20,26 @@ export const CursorTrail = () => {
       const { clientX, clientY } = e;
       addPoint(clientX, clientY);
       
-      let html = '';
+      // Clear existing points safely
+      while (trail.firstChild) {
+        trail.removeChild(trail.firstChild);
+      }
+      
+      // Create DOM elements safely to prevent XSS
       for (let i = 0; i < points.length; i++) {
         const point = points[i];
         const size = Math.max(1, (i / points.length) * 10);
         const alpha = (i / points.length) * 0.3;
-        html += `<div class="point" style="left:${point.x}px;top:${point.y}px;width:${size}px;height:${size}px;opacity:${alpha}"></div>`;
+        
+        const div = document.createElement('div');
+        div.className = 'point';
+        div.style.left = `${point.x}px`;
+        div.style.top = `${point.y}px`;
+        div.style.width = `${size}px`;
+        div.style.height = `${size}px`;
+        div.style.opacity = String(alpha);
+        trail.appendChild(div);
       }
-      trail.innerHTML = html;
     };
     
     document.addEventListener('mousemove', handleMouseMove);
