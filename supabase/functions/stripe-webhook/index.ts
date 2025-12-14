@@ -107,13 +107,19 @@ serve(async (req) => {
         const subscription = event.data.object;
         console.log(`Subscription event (${event.type}): ${subscription.id}`);
         
-        await supabase.rpc('update_subscription_status', {
-          subscription_id_param: subscription.id,
-          status_param: subscription.status,
-          period_start_param: new Date(subscription.current_period_start * 1000).toISOString(),
-          period_end_param: new Date(subscription.current_period_end * 1000).toISOString(),
-          cancel_at_period_end_param: subscription.cancel_at_period_end
+        // Get customer ID from subscription - this matches the RPC function signature
+        const customerId = subscription.customer as string;
+        
+        const { error: rpcError } = await supabase.rpc('update_subscription_status', {
+          p_stripe_customer_id: customerId,
+          p_status: subscription.status
         });
+        
+        if (rpcError) {
+          console.error(`Failed to update subscription status: ${rpcError.message}`);
+        } else {
+          console.log(`Subscription status updated for customer: ${customerId}`);
+        }
         break;
       
       case "invoice.paid":

@@ -32,7 +32,28 @@ serve(async (req) => {
 
     const { action, amount } = await req.json();
 
+    // Validate action type
+    const validActions = ["get", "add", "deduct", "reset"];
+    if (!validActions.includes(action)) {
+      throw new Error("Invalid action. Use: get, add, deduct, or reset");
+    }
+
     console.log("Managing credits for user:", user.id, "action:", action, "amount:", amount);
+
+    // Check admin role for privileged actions (add, reset)
+    if (action === "add" || action === "reset") {
+      const { data: adminRole } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .single();
+
+      if (!adminRole) {
+        console.error("Unauthorized admin action attempt by user:", user.id);
+        throw new Error("Unauthorized: admin access required for this action");
+      }
+    }
 
     // Fetch current profile
     const { data: profile, error: profileError } = await supabase
@@ -60,14 +81,14 @@ serve(async (req) => {
         );
 
       case "add":
-        if (!amount || amount <= 0) {
-          throw new Error("Invalid amount for add action");
+        if (!amount || typeof amount !== "number" || amount <= 0 || amount > 10000) {
+          throw new Error("Invalid amount for add action (must be 1-10000)");
         }
         newCredits = profile.credits + amount;
         break;
 
       case "deduct":
-        if (!amount || amount <= 0) {
+        if (!amount || typeof amount !== "number" || amount <= 0) {
           throw new Error("Invalid amount for deduct action");
         }
         newCredits = Math.max(0, profile.credits - amount);
@@ -77,9 +98,6 @@ serve(async (req) => {
         // Reset to default (10 credits for free tier)
         newCredits = profile.subscription_tier === "free" ? 10 : profile.credits;
         break;
-
-      default:
-        throw new Error("Invalid action. Use: get, add, deduct, or reset");
     }
 
     // Update credits if changed
