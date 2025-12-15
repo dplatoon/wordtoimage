@@ -112,9 +112,11 @@ serve(async (req) => {
     // Insert into database using service role
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
     
-    const { error: dbError } = await supabase
+    const { data: insertedData, error: dbError } = await supabase
       .from('contact_submissions')
-      .insert(sanitizedData);
+      .insert(sanitizedData)
+      .select('id')
+      .single();
 
     if (dbError) {
       console.error("Database error:", dbError);
@@ -123,6 +125,22 @@ serve(async (req) => {
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    // Audit log for contact form submission
+    const userAgent = req.headers.get('user-agent') || null;
+    await supabase.rpc('log_audit_event', {
+      p_user_id: null, // Anonymous submission
+      p_action: 'contact_form_submit',
+      p_resource_type: 'contact_submission',
+      p_resource_id: insertedData?.id || null,
+      p_details: {
+        email_domain: sanitizedData.email.split('@')[1], // Only log domain, not full email
+        has_subject: !!sanitizedData.subject,
+        message_length: sanitizedData.message.length,
+      },
+      p_ip_address: clientIP,
+      p_user_agent: userAgent,
+    });
 
     console.log(`Contact form submitted successfully from ${clientIP}`);
     

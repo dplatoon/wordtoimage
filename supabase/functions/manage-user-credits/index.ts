@@ -113,6 +113,26 @@ serve(async (req) => {
       }
 
       console.log("Credits updated:", profile.credits, "->", newCredits);
+
+      // Audit log for credit modifications
+      const ipAddress = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+                        req.headers.get('cf-connecting-ip') || null;
+      const userAgent = req.headers.get('user-agent') || null;
+
+      await supabase.rpc('log_audit_event', {
+        p_user_id: user.id,
+        p_action: `credits_${action}`,
+        p_resource_type: 'profile',
+        p_resource_id: user.id,
+        p_details: {
+          previous_credits: profile.credits,
+          new_credits: newCredits,
+          amount: amount || null,
+          subscription_tier: profile.subscription_tier,
+        },
+        p_ip_address: ipAddress,
+        p_user_agent: userAgent,
+      });
     }
 
     return new Response(

@@ -96,6 +96,22 @@ serve(async (req) => {
                 updated_at: new Date().toISOString(),
               }, { onConflict: 'user_id' });
               
+              // Audit log for subscription creation
+              await supabase.rpc('log_audit_event', {
+                p_user_id: user.id,
+                p_action: 'subscription_created',
+                p_resource_type: 'subscription',
+                p_resource_id: subscription.id,
+                p_details: {
+                  plan_name: planName,
+                  product_id: productId,
+                  status: subscription.status,
+                  stripe_customer_id: customer.id,
+                },
+                p_ip_address: null,
+                p_user_agent: null,
+              });
+              
               console.log(`Subscription created for user: ${user.id}`);
             }
           }
@@ -118,6 +134,21 @@ serve(async (req) => {
         if (rpcError) {
           console.error(`Failed to update subscription status: ${rpcError.message}`);
         } else {
+          // Audit log for subscription status change
+          await supabase.rpc('log_audit_event', {
+            p_user_id: null, // Webhook doesn't have user context directly
+            p_action: event.type === 'customer.subscription.deleted' ? 'subscription_canceled' : 'subscription_updated',
+            p_resource_type: 'subscription',
+            p_resource_id: subscription.id,
+            p_details: {
+              stripe_customer_id: customerId,
+              status: subscription.status,
+              event_type: event.type,
+            },
+            p_ip_address: null,
+            p_user_agent: null,
+          });
+          
           console.log(`Subscription status updated for customer: ${customerId}`);
         }
         break;
