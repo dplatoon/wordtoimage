@@ -253,6 +253,25 @@ serve(async (req) => {
       }
     }
 
+    // Log audit event for image enhancement
+    const ipAddress = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
+    const userAgent = req.headers.get("user-agent") || "unknown";
+    
+    await supabase.rpc("log_audit_event", {
+      p_user_id: user.id,
+      p_action: "image_enhancement",
+      p_resource_type: "generation",
+      p_resource_id: generation.id,
+      p_details: {
+        model: "gemini-2.5-flash-image-preview",
+        enhancement_type: enhancementType,
+        prompt_length: enhancementPrompt.length,
+        credits_remaining: profile.subscription_tier === "free" ? profile.credits - 1 : "unlimited",
+      },
+      p_ip_address: ipAddress,
+      p_user_agent: userAgent,
+    });
+
     console.log("Enhancement complete:", generation.id);
 
     return new Response(
