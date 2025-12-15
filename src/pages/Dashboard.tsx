@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -13,7 +14,8 @@ import { QuickActions } from '@/components/dashboard/QuickActions';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { User, Image, Settings, Sparkles, Zap } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { User, Image, Settings, Sparkles, Zap, Shield, ArrowRight } from 'lucide-react';
 
 interface Profile {
   id: string;
@@ -34,13 +36,30 @@ export default function Dashboard() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [stats, setStats] = useState<DashboardStats>({ totalGenerations: 0, totalFavorites: 0 });
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (user) {
       fetchProfile();
       fetchStats();
+      checkAdminStatus();
     }
   }, [user]);
+
+  const checkAdminStatus = async () => {
+    if (!user?.id) return;
+    try {
+      const { data } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+      setIsAdmin(!!data);
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+    }
+  };
 
   const fetchProfile = async () => {
     if (!user?.id) {
@@ -164,6 +183,41 @@ export default function Dashboard() {
                       />
                     </div>
                   </div>
+                  
+                  {/* Admin Section */}
+                  {isAdmin && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <Card className="glass-card border-primary/20">
+                        <CardHeader className="pb-3">
+                          <CardTitle className="text-lg flex items-center gap-2">
+                            <Shield className="w-5 h-5 text-primary" />
+                            Admin Tools
+                          </CardTitle>
+                          <CardDescription>Manage and monitor the platform</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <Link to="/admin/audit-logs">
+                            <div className="group flex items-center justify-between p-4 rounded-xl bg-background/50 hover:bg-background/80 border border-primary/10 hover:border-primary/30 transition-all duration-300">
+                              <div className="flex items-center gap-3">
+                                <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary to-neon-coral group-hover:shadow-neon transition-all duration-300">
+                                  <Shield className="w-5 h-5 text-primary-foreground" />
+                                </div>
+                                <div>
+                                  <h4 className="font-medium text-foreground">Security Audit Logs</h4>
+                                  <p className="text-sm text-muted-foreground">View sensitive operations and admin actions</p>
+                                </div>
+                              </div>
+                              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" />
+                            </div>
+                          </Link>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  )}
                 </TabsContent>
 
                 <TabsContent value="generations">
