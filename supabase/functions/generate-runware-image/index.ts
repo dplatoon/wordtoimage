@@ -341,6 +341,38 @@ serve(async (req) => {
             plan: 'free'
           }
         });
+
+        // Log audit event for DALL-E image generation
+        const ipAddress = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
+        const userAgent = req.headers.get("user-agent") || "unknown";
+        
+        const auditResponse = await fetch(`${SUPABASE_URL}/rest/v1/rpc/log_audit_event`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_SERVICE_ROLE_KEY,
+            Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            p_user_id: userId,
+            p_action: "image_generation",
+            p_resource_type: "generation",
+            p_resource_id: promptId,
+            p_details: {
+              model: "dall-e-3",
+              provider: "openai",
+              size: size,
+              quality: quality,
+              prompt_length: cleanedPrompt.length,
+            },
+            p_ip_address: ipAddress,
+            p_user_agent: userAgent,
+          })
+        });
+
+        if (!auditResponse.ok) {
+          console.error("Failed to log audit event:", await auditResponse.text());
+        }
       } catch (logError) {
         console.error("Failed to log image generation:", logError);
         // Continue anyway, this is not critical
