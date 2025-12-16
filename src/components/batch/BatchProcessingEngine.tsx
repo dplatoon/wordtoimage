@@ -173,7 +173,10 @@ export const BatchProcessingEngine = () => {
 
   const startBatchProcessing = async (jobId: string) => {
     const job = jobs.find(j => j.id === jobId);
-    if (!job) return;
+    if (!job || !user) {
+      toast.error('Please sign in to run batch jobs');
+      return;
+    }
 
     setIsProcessing(true);
     setActiveJob(job);
@@ -196,13 +199,23 @@ export const BatchProcessingEngine = () => {
         const prompt = job.prompts[i];
         
         try {
-          // Simulate image generation - replace with actual API call
-          await simulateImageGeneration(prompt);
+          // Real API call to generate image
+          const { data, error } = await supabase.functions.invoke('generate-image', {
+            body: {
+              prompt,
+              style: job.settings.style,
+              resolution: job.settings.resolution,
+            },
+          });
           
-          // Mock successful generation
-          const mockImageUrl = `https://images.unsplash.com/photo-${Date.now()}?w=400&h=400&fit=crop&auto=format`;
-          completedImages.push(mockImageUrl);
-          completedCount++;
+          if (error) throw error;
+          
+          if (data?.imageUrl) {
+            completedImages.push(data.imageUrl);
+            completedCount++;
+          } else {
+            throw new Error('No image URL returned');
+          }
           
           const progress = ((completedCount + failedCount) / totalPrompts) * 100;
           
@@ -234,19 +247,30 @@ export const BatchProcessingEngine = () => {
           let retryCount = 0;
           while (retryCount < batchSettings.retryAttempts) {
             try {
-              await simulateImageGeneration(prompt);
-              // Remove from failed if retry succeeds
-              const index = failedPrompts.indexOf(prompt);
-              if (index > -1) {
-                failedPrompts.splice(index, 1);
+              const { data: retryData, error: retryError } = await supabase.functions.invoke('generate-image', {
+                body: {
+                  prompt,
+                  style: job.settings.style,
+                  resolution: job.settings.resolution,
+                },
+              });
+              
+              if (retryError) throw retryError;
+              
+              if (retryData?.imageUrl) {
+                // Remove from failed if retry succeeds
+                const index = failedPrompts.indexOf(prompt);
+                if (index > -1) {
+                  failedPrompts.splice(index, 1);
+                }
+                completedImages.push(retryData.imageUrl);
+                completedCount++;
+                failedCount--;
+                break;
               }
-              completedImages.push(`https://images.unsplash.com/photo-${Date.now()}?w=400&h=400&fit=crop&auto=format`);
-              completedCount++;
-              failedCount--;
-              break;
             } catch (retryError) {
               retryCount++;
-              await new Promise(resolve => setTimeout(resolve, 1000));
+              await new Promise(resolve => setTimeout(resolve, 2000));
             }
           }
         }
@@ -308,22 +332,12 @@ export const BatchProcessingEngine = () => {
     }
   };
 
-  const simulateImageGeneration = async (prompt: string): Promise<void> => {
-    // Simulate API call delay
-    const delay = Math.random() * 3000 + 2000; // 2-5 seconds
-    await new Promise(resolve => setTimeout(resolve, delay));
-    
-    // Simulate 10% failure rate
-    if (Math.random() < 0.1) {
-      throw new Error('Generation failed');
-    }
-  };
-
   const calculateETA = (total: number, completed: number): number => {
     if (completed === 0) return 0;
-    const avgTimePerImage = 3000; // 3 seconds average
+    const avgTimePerImage = 8000; // 8 seconds average for real API
     return (total - completed) * avgTimePerImage;
   };
+
 
   const pauseJob = (jobId: string) => {
     const updatedJobs = jobs.map(j => 

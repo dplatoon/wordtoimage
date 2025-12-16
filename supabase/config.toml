@@ -26,3 +26,6 @@ verify_jwt = true
 
 [functions.check-subscription]
 verify_jwt = true
+
+[functions.enhance-voice-prompt]
+verify_jwt = false
