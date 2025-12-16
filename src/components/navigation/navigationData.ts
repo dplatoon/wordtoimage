@@ -10,8 +10,8 @@ export const productItems = [
 ];
 
 export const resourceItems = [
+  { title: 'How It Works', href: '/how-it-works', description: 'Learn to create AI images in 3 steps' },
   { title: 'Content Hub', href: '/content-hub', description: 'AI art tutorials, guides, and industry insights' },
-  { title: 'Community Gallery', href: '/community-gallery', description: 'Discover amazing AI art from our community' },
   { title: 'AI Art Blog', href: '/blog', description: 'Latest insights and tips' },
   { title: 'Prompt Guide', href: '/prompt-guide', description: 'Master prompt writing' },
   { title: 'Video Tutorials', href: '/video-tutorials', description: 'Step-by-step guides' },
