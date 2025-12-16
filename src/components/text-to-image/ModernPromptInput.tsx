@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles, Wand2, ArrowRight, Lightbulb } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { VoiceInput } from '@/components/VoiceInput';
 
 interface ModernPromptInputProps {
   prompt: string;
@@ -115,9 +116,13 @@ export function ModernPromptInput({
           {/* Bottom Bar */}
           <div className="flex items-center justify-between px-5 py-3 border-t border-primary/10 bg-background/40">
             <div className="flex items-center gap-3">
+              <VoiceInput 
+                onTranscript={(text) => onChange(prompt ? `${prompt} ${text}` : text)}
+                disabled={isGenerating}
+              />
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Lightbulb className="h-4 w-4 text-primary/60" />
-                <span className="text-sm hidden sm:inline">Be detailed for best results</span>
+                <span className="text-sm hidden sm:inline">Voice or type</span>
               </div>
               {isReady && (
                 <motion.div

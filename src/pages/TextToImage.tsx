@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from '@/components/ui/sonner';
+import type { SocialFormat } from '@/components/FormatSelector';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
 import { AuthModalDialog } from '@/components/hero/AuthModalDialog';
@@ -27,6 +28,7 @@ import { MobileOptimizedNav } from '@/components/navigation/MobileOptimizedNav';
 import { ModernPromptInput } from '@/components/text-to-image/ModernPromptInput';
 import { ModernFeatureCards } from '@/components/text-to-image/ModernFeatureCards';
 import { ModernStyleSelector } from '@/components/text-to-image/ModernStyleSelector';
+import { FormatSelector } from '@/components/FormatSelector';
 
 // Style mapping for URL parameters
 const STYLE_MAPPINGS: Record<string, string> = {
@@ -43,6 +45,7 @@ export default function TextToImage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [selectedFormat, setSelectedFormat] = useState<SocialFormat | null>(null);
   const [generatedImages, setGeneratedImages] = useState<{
     url: string;
     prompt?: string;
@@ -316,6 +319,19 @@ export default function TextToImage() {
               <ModernStyleSelector
                 selectedStyle={selectedStyle}
                 onStyleChange={handleStyleChange}
+              />
+            </motion.div>
+
+            {/* Social Media Format Selector */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="mt-8"
+            >
+              <FormatSelector
+                selectedFormat={selectedFormat}
+                onFormatSelect={setSelectedFormat}
               />
             </motion.div>
 
