@@ -1,6 +1,6 @@
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
-import { Search, HelpCircle, FileText, MessageCircle, Mail, BookOpen, Palette, Code, Users, ChevronDown, ChevronUp } from "lucide-react";
+import { Search, HelpCircle, FileText, MessageCircle, Mail, BookOpen, Palette, Code, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ContentBreadcrumbs } from "@/components/seo/ContentBreadcrumbs";
@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ToolPageBackground } from "@/components/backgrounds/ToolPageBackground";
 
 const Help = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -150,7 +151,9 @@ const Help = () => {
   })).filter(category => category.questions.length > 0);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background relative">
+      <ToolPageBackground variant="green" />
+      
       <PageSEO
         title="Help Center - AI Image Generation Support & FAQ"
         description="Get help with AI image generation. Find answers to common questions about WordToImage features, troubleshooting, and support resources."
@@ -171,27 +174,27 @@ const Help = () => {
       />
       
       <Nav />
-      <main className="flex-grow max-w-7xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
+      <main className="flex-grow max-w-7xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8 relative z-10">
         <ContentBreadcrumbs />
         
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-4">Help Center</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="text-4xl font-bold text-foreground sm:text-5xl mb-4">Help Center</h1>
+          <p className="text-xl text-muted-foreground">
             Find answers to common questions or get support for AI image generation
           </p>
         </div>
 
         {/* Resource Navigation Tabs */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+        <div className="bg-card/30 backdrop-blur-xl rounded-xl border border-primary/20 mb-8">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 bg-gray-50 p-1 rounded-t-xl">
+            <TabsList className="grid w-full grid-cols-5 bg-background/50 p-1 rounded-t-xl">
               {resourceTabs.map((tab) => {
                 const IconComponent = tab.icon;
                 return (
                   <TabsTrigger 
                     key={tab.id} 
                     value={tab.id}
-                    className="flex items-center space-x-2 py-3 px-4 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+                    className="flex items-center space-x-2 py-3 px-4 data-[state=active]:bg-primary/20 data-[state=active]:text-primary data-[state=active]:shadow-sm text-muted-foreground"
                   >
                     <IconComponent className="h-4 w-4" />
                     <span className="hidden sm:inline font-medium">{tab.label}</span>
@@ -206,18 +209,18 @@ const Help = () => {
                 return (
                   <TabsContent key={tab.id} value={tab.id} className="mt-0">
                     <div className="text-center py-8">
-                      <IconComponent className="h-12 w-12 mx-auto text-blue-600 mb-4" />
-                      <h3 className="text-2xl font-semibold mb-2">{tab.label}</h3>
-                      <p className="text-gray-600 mb-6 max-w-md mx-auto">{tab.description}</p>
+                      <IconComponent className="h-12 w-12 mx-auto text-primary mb-4" />
+                      <h3 className="text-2xl font-semibold text-foreground mb-2">{tab.label}</h3>
+                      <p className="text-muted-foreground mb-6 max-w-md mx-auto">{tab.description}</p>
                       {tab.id === 'help' ? (
                         <div className="text-left">
                           <div className="max-w-2xl mx-auto mb-8">
                             <div className="relative">
-                              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
                               <Input 
                                 type="text" 
                                 placeholder="Search help articles and FAQs..." 
-                                className="pl-10 py-3 text-base border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                                className="pl-10 py-3 text-base bg-background/50 border-primary/20 focus:border-primary text-foreground placeholder:text-muted-foreground"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                               />
@@ -226,7 +229,7 @@ const Help = () => {
                         </div>
                       ) : (
                         <Link to={tab.path}>
-                          <Button className="bg-blue-600 hover:bg-blue-700">
+                          <Button variant="neon">
                             Visit {tab.label}
                           </Button>
                         </Link>
@@ -243,51 +246,51 @@ const Help = () => {
         {activeTab === 'help' && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+              <div className="bg-card/30 backdrop-blur-xl p-6 rounded-xl border border-primary/20 hover:border-primary/40 hover:shadow-neon transition-all">
                 <div className="flex items-center space-x-3 mb-4">
-                  <div className="p-3 bg-blue-100 rounded-lg">
-                    <HelpCircle className="h-6 w-6 text-blue-600" />
+                  <div className="p-3 bg-primary/20 rounded-lg">
+                    <HelpCircle className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold">Quick Start Guide</h3>
+                  <h3 className="text-lg font-semibold text-foreground">Quick Start Guide</h3>
                 </div>
-                <p className="text-gray-600 mb-4">Learn the basics of AI image generation in under 5 minutes</p>
-                <Button variant="outline" className="w-full">Get Started</Button>
+                <p className="text-muted-foreground mb-4">Learn the basics of AI image generation in under 5 minutes</p>
+                <Button variant="glass" className="w-full">Get Started</Button>
               </div>
               
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+              <div className="bg-card/30 backdrop-blur-xl p-6 rounded-xl border border-primary/20 hover:border-primary/40 hover:shadow-neon transition-all">
                 <div className="flex items-center space-x-3 mb-4">
-                  <div className="p-3 bg-green-100 rounded-lg">
-                    <Users className="h-6 w-6 text-green-600" />
+                  <div className="p-3 bg-primary/20 rounded-lg">
+                    <Users className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold">Community Support</h3>
+                  <h3 className="text-lg font-semibold text-foreground">Community Support</h3>
                 </div>
-                <p className="text-gray-600 mb-4">Connect with other users and share your creations</p>
+                <p className="text-muted-foreground mb-4">Connect with other users and share your creations</p>
                 <Link to="/community">
-                  <Button variant="outline" className="w-full">Join Community</Button>
+                  <Button variant="glass" className="w-full">Join Community</Button>
                 </Link>
               </div>
               
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+              <div className="bg-card/30 backdrop-blur-xl p-6 rounded-xl border border-primary/20 hover:border-primary/40 hover:shadow-neon transition-all">
                 <div className="flex items-center space-x-3 mb-4">
-                  <div className="p-3 bg-purple-100 rounded-lg">
-                    <MessageCircle className="h-6 w-6 text-purple-600" />
+                  <div className="p-3 bg-primary/20 rounded-lg">
+                    <MessageCircle className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold">Contact Support</h3>
+                  <h3 className="text-lg font-semibold text-foreground">Contact Support</h3>
                 </div>
-                <p className="text-gray-600 mb-4">Get personalized help from our support team</p>
+                <p className="text-muted-foreground mb-4">Get personalized help from our support team</p>
                 <Link to="/contact-support">
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700">Contact Us</Button>
+                  <Button variant="neon" className="w-full">Contact Us</Button>
                 </Link>
               </div>
             </div>
 
             {/* FAQ Section */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-              <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+            <div className="bg-card/30 backdrop-blur-xl rounded-xl border border-primary/20 p-8">
+              <h2 className="text-3xl font-bold text-center text-foreground mb-8">Frequently Asked Questions</h2>
               
               {searchQuery && (
-                <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <p className="text-blue-800">
+                <div className="mb-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
+                  <p className="text-foreground">
                     {filteredFAQs.reduce((total, category) => total + category.questions.length, 0)} results found for "{searchQuery}"
                   </p>
                 </div>
@@ -296,7 +299,7 @@ const Help = () => {
               <div className="space-y-8">
                 {(searchQuery ? filteredFAQs : faqData).map((category, categoryIndex) => (
                   <div key={categoryIndex}>
-                    <h3 className="text-xl font-semibold mb-4 text-gray-900 border-b border-gray-200 pb-2">
+                    <h3 className="text-xl font-semibold mb-4 text-foreground border-b border-primary/20 pb-2">
                       {category.category}
                     </h3>
                     <Accordion type="single" collapsible className="space-y-2">
@@ -304,12 +307,12 @@ const Help = () => {
                         <AccordionItem 
                           key={faqIndex} 
                           value={`${categoryIndex}-${faqIndex}`}
-                          className="border border-gray-200 rounded-lg px-6"
+                          className="border border-primary/20 rounded-lg px-6 bg-background/30"
                         >
                           <AccordionTrigger className="text-left hover:no-underline py-4">
-                            <span className="font-medium text-gray-900">{faq.question}</span>
+                            <span className="font-medium text-foreground">{faq.question}</span>
                           </AccordionTrigger>
-                          <AccordionContent className="pb-4 text-gray-700 leading-relaxed">
+                          <AccordionContent className="pb-4 text-muted-foreground leading-relaxed">
                             {faq.answer}
                           </AccordionContent>
                         </AccordionItem>
@@ -321,32 +324,32 @@ const Help = () => {
 
               {searchQuery && filteredFAQs.length === 0 && (
                 <div className="text-center py-12">
-                  <HelpCircle className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">No results found</h3>
-                  <p className="text-gray-600 mb-6">
+                  <HelpCircle className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-xl font-semibold text-foreground mb-2">No results found</h3>
+                  <p className="text-muted-foreground mb-6">
                     Try different keywords or browse our categories above
                   </p>
-                  <Button onClick={() => setSearchQuery("")}>Clear Search</Button>
+                  <Button variant="glass" onClick={() => setSearchQuery("")}>Clear Search</Button>
                 </div>
               )}
             </div>
 
             {/* Contact Support Section */}
-            <div className="mt-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-center text-white">
-              <Mail className="h-12 w-12 mx-auto mb-4" />
-              <h3 className="text-2xl font-semibold mb-2">Still need help?</h3>
-              <p className="mb-6 max-w-2xl mx-auto opacity-90">
+            <div className="mt-12 bg-gradient-to-r from-primary/20 to-primary/10 rounded-xl p-8 text-center border border-primary/30">
+              <Mail className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <h3 className="text-2xl font-semibold text-foreground mb-2">Still need help?</h3>
+              <p className="mb-6 max-w-2xl mx-auto text-muted-foreground">
                 Our support team is ready to assist you with any questions or issues. 
                 We typically respond within 24 hours.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/contact-support">
-                  <Button className="bg-white text-blue-600 hover:bg-gray-100">
+                  <Button variant="neon">
                     Contact Support
                   </Button>
                 </Link>
                 <Link to="/community">
-                  <Button variant="outline" className="border-white text-white hover:bg-white/10">
+                  <Button variant="glass">
                     Join Community
                   </Button>
                 </Link>

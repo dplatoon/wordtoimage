@@ -11,10 +11,12 @@ import { FAQStructuredData, FEATURES_FAQS } from "@/components/seo/FAQStructured
 import { ContentBreadcrumbs } from "@/components/seo/ContentBreadcrumbs";
 import { CriticalCSS } from "@/components/performance/CriticalCSS";
 import { ResourcePreloader } from "@/components/performance/ResourcePreloader";
+import { ToolPageBackground } from "@/components/backgrounds/ToolPageBackground";
 
 const Features = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background relative">
+      <ToolPageBackground variant="primary" />
       <CriticalCSS />
       <ResourcePreloader />
       <SEOManager />
@@ -24,7 +26,7 @@ const Features = () => {
       />
       
       <Nav />
-      <main>
+      <main className="relative z-10">
         <ContentBreadcrumbs />
         <FeaturesHeroSection />
         <CoreFeaturesGrid />
