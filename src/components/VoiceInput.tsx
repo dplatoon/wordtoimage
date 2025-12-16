@@ -53,12 +53,13 @@ declare global {
   }
 }
 
-interface VoiceInputProps {
+export interface VoiceInputProps {
   onTranscript: (text: string) => void;
   onEnhancedPrompt?: (text: string) => void;
   className?: string;
   language?: 'en-US' | 'bn-BD';
   enhancePrompt?: boolean;
+  disabled?: boolean;
 }
 
 export const VoiceInput: React.FC<VoiceInputProps> = ({
@@ -67,6 +68,7 @@ export const VoiceInput: React.FC<VoiceInputProps> = ({
   className,
   language = 'en-US',
   enhancePrompt = true,
+  disabled = false,
 }) => {
   const [isListening, setIsListening] = useState(false);
   const [isEnhancing, setIsEnhancing] = useState(false);
@@ -191,7 +193,7 @@ export const VoiceInput: React.FC<VoiceInputProps> = ({
       variant="ghost"
       size="icon"
       onClick={isListening ? stopListening : startListening}
-      disabled={isEnhancing}
+      disabled={isEnhancing || disabled}
       className={cn(
         'relative transition-all duration-300',
         isListening && 'text-primary animate-pulse',
