@@ -77,15 +77,15 @@ export const MinimalistPricing = ({ onShowProFeatures }: MinimalistPricingProps)
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900">Simple Pricing</h2>
-        <p className="mt-4 text-xl text-gray-600">Choose the plan that's right for you</p>
+        <h2 className="text-3xl font-bold text-foreground">Simple Pricing</h2>
+        <p className="mt-4 text-xl text-muted-foreground">Choose the plan that's right for you</p>
         
         {/* Billing interval toggle */}
-        <div className="mt-6 inline-flex items-center p-1 bg-gray-100 rounded-full">
+        <div className="mt-6 inline-flex items-center p-1 bg-card/50 backdrop-blur-sm rounded-full border border-primary/20">
           <button
             onClick={() => setBillingInterval('monthly')}
             className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-              billingInterval === 'monthly' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'
+              billingInterval === 'monthly' ? 'bg-primary text-primary-foreground shadow-neon' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             Monthly
@@ -93,10 +93,10 @@ export const MinimalistPricing = ({ onShowProFeatures }: MinimalistPricingProps)
           <button
             onClick={() => setBillingInterval('yearly')}
             className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-              billingInterval === 'yearly' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'
+              billingInterval === 'yearly' ? 'bg-primary text-primary-foreground shadow-neon' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            Yearly <span className="text-xs text-green-600 font-bold">Save 20%</span>
+            Yearly <span className="text-xs text-green-400 font-bold">Save 20%</span>
           </button>
         </div>
       </div>
@@ -106,49 +106,45 @@ export const MinimalistPricing = ({ onShowProFeatures }: MinimalistPricingProps)
         {plans.map((plan, index) => (
           <div
             key={index}
-            className={`rounded-2xl overflow-hidden border animate-fade-in ${
-              plan.highlighted ? 'border-indigo-500 shadow-xl' : 'border-gray-200 shadow-sm'
+            className={`rounded-2xl overflow-hidden border animate-fade-in bg-card/30 backdrop-blur-xl ${
+              plan.highlighted ? 'border-primary shadow-neon-lg' : 'border-primary/20 shadow-glass'
             }`}
             style={{ animationDelay: `${index * 0.2}s` }}
           >
             {plan.highlighted && (
-              <div className="bg-indigo-500 py-1 px-4 text-center">
-                <p className="text-xs font-medium text-white">MOST POPULAR</p>
+              <div className="bg-primary py-1 px-4 text-center">
+                <p className="text-xs font-medium text-primary-foreground">MOST POPULAR</p>
               </div>
             )}
             
             <div className="p-6">
               <div className="text-center mb-6">
-                <h3 className="text-lg font-bold text-gray-900">{plan.name}</h3>
-                <p className="text-sm text-gray-500 mt-1">{plan.description}</p>
+                <h3 className="text-lg font-bold text-foreground">{plan.name}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{plan.description}</p>
               </div>
               
               <div className="text-center mb-6">
-                <p className="text-4xl font-bold text-gray-900">{plan.price[billingInterval]}</p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-4xl font-bold text-foreground">{plan.price[billingInterval]}</p>
+                <p className="text-sm text-muted-foreground mt-1">
                   {billingInterval === 'monthly' ? 'per month' : 'per year'}
                 </p>
                 {billingInterval === 'yearly' && plan.yearlyDiscount && (
-                  <p className="text-sm font-medium text-green-600 mt-1">{plan.yearlyDiscount}</p>
+                  <p className="text-sm font-medium text-green-400 mt-1">{plan.yearlyDiscount}</p>
                 )}
               </div>
               
               <ul className="space-y-3 mb-6">
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                    <span className="text-gray-600 text-sm">{feature}</span>
+                    <Check className="h-5 w-5 text-primary mr-2 shrink-0" />
+                    <span className="text-muted-foreground text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
               
               <Button
-                variant={plan.highlighted ? "default" : "outline"}
-                className={`w-full ${
-                  plan.highlighted
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
-                    : "border-gray-300"
-                } rounded-full`}
+                variant={plan.highlighted ? "neon" : "glass"}
+                className="w-full rounded-full"
                 onClick={plan.name === 'Pro' ? onShowProFeatures : undefined}
                 asChild={plan.name !== 'Pro'}
               >
@@ -167,7 +163,7 @@ export const MinimalistPricing = ({ onShowProFeatures }: MinimalistPricingProps)
       <div className="text-center mt-10">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger className="text-gray-500 hover:text-gray-700 flex items-center mx-auto">
+            <TooltipTrigger className="text-muted-foreground hover:text-foreground flex items-center mx-auto">
               <HelpCircle className="h-4 w-4 mr-1" />
               <span className="text-sm">Need help choosing a plan?</span>
             </TooltipTrigger>

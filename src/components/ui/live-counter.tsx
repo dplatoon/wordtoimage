@@ -32,14 +32,14 @@ export const LiveCounter = () => {
 
   return (
     <div className="fixed bottom-4 left-4 z-50 animate-fade-in">
-      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full px-4 py-2 shadow-lg backdrop-blur-sm">
+      <div className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-full px-4 py-2 shadow-glass">
         <div className="flex items-center gap-2 text-sm">
           <div className="relative">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping opacity-75"></div>
           </div>
-          <Users className="h-4 w-4 text-gray-600 dark:text-gray-300" />
-          <span className="font-medium text-gray-900 dark:text-gray-100">
+          <Users className="h-4 w-4 text-muted-foreground" />
+          <span className="font-medium text-foreground">
             {userCount} users generating now
           </span>
         </div>

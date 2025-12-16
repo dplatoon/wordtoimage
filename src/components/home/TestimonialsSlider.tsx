@@ -57,21 +57,21 @@ export const TestimonialsSlider = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900">What Our Users Say</h2>
-        <p className="mt-4 text-xl text-gray-600">Hear from people who use our AI every day</p>
+        <h2 className="text-3xl font-bold text-foreground">What Our Users Say</h2>
+        <p className="mt-4 text-xl text-muted-foreground">Hear from people who use our AI every day</p>
       </div>
       
       <div className="relative">
         <div
           key={currentIndex}
-          className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 md:p-12 animate-fade-in"
+          className="bg-card/30 backdrop-blur-xl rounded-xl shadow-glass border border-primary/20 p-8 md:p-12 animate-fade-in"
         >
           <div className="flex flex-col items-center text-center">
-            <div className="mb-6 text-indigo-600">
+            <div className="mb-6 text-primary">
               <MessageSquare className="h-12 w-12" />
             </div>
             
-            <p className="text-lg md:text-xl text-gray-700 mb-8 italic">
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 italic">
               "{testimonials[currentIndex].content}"
             </p>
             
@@ -88,8 +88,8 @@ export const TestimonialsSlider = () => {
                 />
               </div>
               <div className="text-left">
-                <p className="font-semibold text-gray-900">{testimonials[currentIndex].author}</p>
-                <p className="text-sm text-gray-600">{testimonials[currentIndex].role}</p>
+                <p className="font-semibold text-foreground">{testimonials[currentIndex].author}</p>
+                <p className="text-sm text-muted-foreground">{testimonials[currentIndex].role}</p>
               </div>
             </div>
           </div>
@@ -98,18 +98,18 @@ export const TestimonialsSlider = () => {
         {/* Navigation buttons */}
         <button 
           onClick={goToPrevious}
-          className="absolute top-1/2 -left-4 md:-left-6 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none"
+          className="absolute top-1/2 -left-4 md:-left-6 transform -translate-y-1/2 bg-card/80 backdrop-blur-sm rounded-full p-2 shadow-glass hover:bg-card border border-primary/20 focus:outline-none"
           aria-label="Previous testimonial"
         >
-          <ChevronLeft className="h-5 w-5 text-gray-600" />
+          <ChevronLeft className="h-5 w-5 text-muted-foreground" />
         </button>
         
         <button 
           onClick={goToNext}
-          className="absolute top-1/2 -right-4 md:-right-6 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none"
+          className="absolute top-1/2 -right-4 md:-right-6 transform -translate-y-1/2 bg-card/80 backdrop-blur-sm rounded-full p-2 shadow-glass hover:bg-card border border-primary/20 focus:outline-none"
           aria-label="Next testimonial"
         >
-          <ChevronRight className="h-5 w-5 text-gray-600" />
+          <ChevronRight className="h-5 w-5 text-muted-foreground" />
         </button>
       </div>
       
@@ -122,8 +122,8 @@ export const TestimonialsSlider = () => {
               setAutoplay(false);
               setCurrentIndex(index);
             }}
-            className={`h-2 w-2 rounded-full focus:outline-none ${
-              index === currentIndex ? 'bg-indigo-600' : 'bg-gray-300'
+            className={`h-2 w-2 rounded-full focus:outline-none transition-colors ${
+              index === currentIndex ? 'bg-primary' : 'bg-muted'
             }`}
             aria-label={`Go to testimonial ${index + 1}`}
           />
