@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
@@ -98,19 +97,19 @@ export const FreeGeneratorTool = ({ onImageGenerated }: FreeGeneratorToolProps) 
   };
 
   return (
-    <section id="generator-tool" className="py-16 bg-gray-50">
+    <section id="generator-tool" className="py-16 bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Free AI Image Generator Tool
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Describe your vision and watch AI create it instantly
           </p>
         </div>
 
-        <Card className="shadow-xl border-0 bg-white">
-          <CardHeader className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-t-lg">
+        <Card className="shadow-glass border-primary/20 bg-card/30 backdrop-blur-xl">
+          <CardHeader className="bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-t-lg">
             <CardTitle className="flex items-center text-2xl">
               <Wand2 className="mr-3 h-6 w-6" />
               Create Your AI Masterpiece
@@ -120,7 +119,7 @@ export const FreeGeneratorTool = ({ onImageGenerated }: FreeGeneratorToolProps) 
           <CardContent className="p-8 space-y-6">
             {/* Prompt Input */}
             <div className="space-y-2">
-              <Label htmlFor="prompt" className="text-lg font-semibold">
+              <Label htmlFor="prompt" className="text-lg font-semibold text-foreground">
                 Describe your image
               </Label>
               <Textarea
@@ -128,19 +127,19 @@ export const FreeGeneratorTool = ({ onImageGenerated }: FreeGeneratorToolProps) 
                 placeholder="e.g., 'cyberpunk cat wearing sunglasses in neon city'"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="min-h-[100px] text-lg border-2 border-gray-200 focus:border-purple-500 transition-colors"
+                className="min-h-[100px] text-lg"
                 disabled={isGenerating}
               />
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 Be descriptive! Include details about style, mood, colors, and setting.
               </p>
             </div>
 
             {/* Style Selector */}
             <div className="space-y-2">
-              <Label className="text-lg font-semibold">Art Style</Label>
+              <Label className="text-lg font-semibold text-foreground">Art Style</Label>
               <Select value={selectedStyle} onValueChange={setSelectedStyle} disabled={isGenerating}>
-                <SelectTrigger className="text-lg border-2 border-gray-200 focus:border-purple-500">
+                <SelectTrigger className="text-lg">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -148,7 +147,7 @@ export const FreeGeneratorTool = ({ onImageGenerated }: FreeGeneratorToolProps) 
                     <SelectItem key={style.value} value={style.value}>
                       <div>
                         <div className="font-medium">{style.label}</div>
-                        <div className="text-sm text-gray-500">{style.description}</div>
+                        <div className="text-sm text-muted-foreground">{style.description}</div>
                       </div>
                     </SelectItem>
                   ))}
@@ -160,11 +159,12 @@ export const FreeGeneratorTool = ({ onImageGenerated }: FreeGeneratorToolProps) 
             <Button
               onClick={handleGenerate}
               disabled={!prompt.trim() || isGenerating}
-              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold py-4 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              variant="neon"
+              className="w-full py-4 text-lg shadow-neon hover:shadow-neon-lg transform hover:scale-105 transition-all duration-200"
             >
               {isGenerating ? (
                 <span className="flex items-center">
-                  <span className="animate-spin mr-3 h-5 w-5 border-b-2 border-white rounded-full" />
+                  <span className="animate-spin mr-3 h-5 w-5 border-b-2 border-current rounded-full" />
                   Creating Your Masterpiece...
                 </span>
               ) : (
@@ -178,11 +178,11 @@ export const FreeGeneratorTool = ({ onImageGenerated }: FreeGeneratorToolProps) 
             {/* Result Display */}
             {generatedImage && (
               <div className="mt-8 space-y-4">
-                <div className="relative rounded-lg overflow-hidden shadow-lg">
+                <div className="relative rounded-lg overflow-hidden shadow-glass">
                   <ImageSEO
                     src={generatedImage}
                     alt={`AI generated ${selectedStyle} image: ${prompt}`}
-                    className="w-full h-auto max-h-96 object-contain bg-gray-100"
+                    className="w-full h-auto max-h-96 object-contain bg-card"
                     structuredData={{
                       caption: prompt,
                       creator: "WordToImage Free AI Generator",
@@ -196,16 +196,16 @@ export const FreeGeneratorTool = ({ onImageGenerated }: FreeGeneratorToolProps) 
                 <div className="flex gap-4 justify-center">
                   <Button
                     onClick={handleDownload}
-                    variant="outline"
-                    className="flex items-center border-purple-500 text-purple-600 hover:bg-purple-50"
+                    variant="glass"
+                    className="flex items-center"
                   >
                     <Download className="mr-2 h-4 w-4" />
                     Download
                   </Button>
                   <Button
                     onClick={handleShare}
-                    variant="outline"
-                    className="flex items-center border-indigo-500 text-indigo-600 hover:bg-indigo-50"
+                    variant="glass"
+                    className="flex items-center"
                   >
                     <Share className="mr-2 h-4 w-4" />
                     Share

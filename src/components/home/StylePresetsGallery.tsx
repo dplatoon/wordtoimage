@@ -482,19 +482,19 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
   };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-16 md:py-24 bg-background">
       <div className="content-container">
         {/* Section Header */}
         <div className="text-center mb-12 animate-fade-in">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-ai-accent/10 border border-ai-accent/20 text-ai-accent text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/20 border border-primary/20 text-primary text-sm font-medium mb-4">
             <Palette className="w-4 h-4 mr-2" />
             AI Style Presets
           </div>
           
-          <h2 className="section-title text-gray-900 mb-6">
-            Choose Your <span className="text-gradient-ai">Creative Style</span>
+          <h2 className="section-title text-foreground mb-6">
+            Choose Your <span className="text-primary">Creative Style</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Select from our curated collection of AI art styles. Each preset applies professional 
             styling to transform your text prompts into stunning visuals.
           </p>
@@ -505,13 +505,13 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
           {/* Search and Mix Mode Toggle */}
           <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 type="text"
                 placeholder="Search styles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 h-12 bg-white border-gray-200 focus:border-ai-accent focus:ring-ai-accent/20"
+                className="pl-10 h-12"
               />
             </div>
             <Button
@@ -519,11 +519,8 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                 setIsMixMode(!isMixMode);
                 if (isMixMode) setSelectedStyles([]);
               }}
-              className={`h-12 px-6 ${
-                isMixMode 
-                  ? 'bg-ai-accent text-white hover:bg-ai-accent/90' 
-                  : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
-              }`}
+              variant={isMixMode ? "neon" : "glass"}
+              className="h-12 px-6"
             >
               <Layers className="h-4 w-4 mr-2" />
               {isMixMode ? 'Exit Mix Mode' : 'Mix Styles'}
@@ -532,12 +529,12 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
 
           {/* Mix Mode Instructions */}
           {isMixMode && (
-            <div className="max-w-2xl mx-auto bg-ai-accent/10 border border-ai-accent/20 rounded-xl p-4 animate-fade-in">
+            <div className="max-w-2xl mx-auto bg-primary/10 border border-primary/20 rounded-xl p-4 animate-fade-in">
               <div className="flex items-start gap-3">
-                <Wand2 className="h-5 w-5 text-ai-accent mt-0.5" />
+                <Wand2 className="h-5 w-5 text-primary mt-0.5" />
                 <div>
-                  <p className="font-medium text-gray-900">Style Mixing Mode Active</p>
-                  <p className="text-sm text-gray-600">Select up to 3 styles to combine them into a unique hybrid style</p>
+                  <p className="font-medium text-foreground">Style Mixing Mode Active</p>
+                  <p className="text-sm text-muted-foreground">Select up to 3 styles to combine them into a unique hybrid style</p>
                 </div>
               </div>
             </div>
@@ -545,18 +542,18 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
 
           {/* Selected Styles Display */}
           {selectedStyles.length > 0 && (
-            <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-xl p-4 shadow-sm animate-fade-in">
+            <div className="max-w-4xl mx-auto bg-card/30 backdrop-blur-xl border border-primary/20 rounded-xl p-4 shadow-glass animate-fade-in">
               <div className="flex flex-wrap items-center gap-3 mb-3">
-                <span className="text-sm font-medium text-gray-700">Selected ({selectedStyles.length}/3):</span>
+                <span className="text-sm font-medium text-muted-foreground">Selected ({selectedStyles.length}/3):</span>
                 {selectedStyles.map(style => (
                   <div 
                     key={style.id}
-                    className="flex items-center gap-2 bg-ai-accent/10 px-3 py-1.5 rounded-full"
+                    className="flex items-center gap-2 bg-primary/20 px-3 py-1.5 rounded-full"
                   >
-                    <span className="text-sm font-medium text-ai-accent">{style.name}</span>
+                    <span className="text-sm font-medium text-primary">{style.name}</span>
                     <button 
                       onClick={() => toggleStyleSelection(style)}
-                      className="text-ai-accent hover:text-ai-accent/70"
+                      className="text-primary hover:text-primary/70"
                     >
                       <X className="h-3.5 w-3.5" />
                     </button>
@@ -564,14 +561,14 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                 ))}
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
-                <div className="flex-1 bg-gray-50 rounded-lg p-3">
-                  <p className="text-xs text-gray-500 mb-1">Combined Prompt:</p>
-                  <p className="text-sm text-gray-700 line-clamp-2">{combinedPrompt}</p>
+                <div className="flex-1 bg-card/50 rounded-lg p-3">
+                  <p className="text-xs text-muted-foreground mb-1">Combined Prompt:</p>
+                  <p className="text-sm text-foreground line-clamp-2">{combinedPrompt}</p>
                 </div>
                 <div className="flex gap-2">
                   <Button
                     size="sm"
-                    variant="outline"
+                    variant="glass"
                     onClick={() => copyPromptToClipboard(combinedPrompt)}
                     className="h-10"
                   >
@@ -580,8 +577,9 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                   </Button>
                   <Button
                     size="sm"
+                    variant="neon"
                     onClick={handleUseCombinedStyles}
-                    className="h-10 bg-ai-accent text-white hover:bg-ai-accent/90"
+                    className="h-10"
                   >
                     <Wand2 className="h-4 w-4 mr-1" />
                     Use Combined
@@ -599,8 +597,8 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                 onClick={() => setSelectedCategory(category.id)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category.id
-                    ? 'bg-ai-accent text-white shadow-lg shadow-ai-accent/25'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                    ? 'bg-primary text-primary-foreground shadow-neon'
+                    : 'bg-card/50 text-muted-foreground hover:bg-card hover:text-foreground border border-primary/20'
                 }`}
               >
                 {category.label}
@@ -609,7 +607,7 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
           </div>
 
           {/* Results count */}
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-sm text-muted-foreground">
             Showing {filteredPresets.length} of {stylePresets.length} styles
           </p>
         </div>
@@ -625,9 +623,9 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                 style={{ animationDelay: `${0.05 * index}s` }}
               >
                 <Card 
-                  className={`ai-card-modern group cursor-pointer h-full transition-all duration-300 ${
-                    isSelected ? 'ring-2 ring-ai-accent ring-offset-2' : ''
-                  } ${isMixMode ? 'hover:ring-2 hover:ring-ai-accent/50' : ''}`} 
+                  className={`bg-card/30 backdrop-blur-xl border-primary/20 group cursor-pointer h-full transition-all duration-300 hover:shadow-neon ${
+                    isSelected ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' : ''
+                  } ${isMixMode ? 'hover:ring-2 hover:ring-primary/50' : ''}`} 
                   onClick={(e) => handleCardClick(preset, e)}
                 >
                   <CardContent className="p-0">
@@ -655,7 +653,7 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                           className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                             favoriteIds.includes(preset.id)
                               ? 'bg-red-500 text-white'
-                              : 'bg-white/80 text-gray-600 hover:bg-white hover:text-red-500'
+                              : 'bg-card/80 backdrop-blur-sm text-muted-foreground hover:bg-card hover:text-red-500'
                           }`}
                           aria-label={favoriteIds.includes(preset.id) ? 'Remove from favorites' : 'Add to favorites'}
                         >
@@ -667,8 +665,8 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                       {isMixMode && (
                         <div className={`absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center transition-all ${
                           isSelected 
-                            ? 'bg-ai-accent text-white' 
-                            : 'bg-white/80 border-2 border-gray-300'
+                            ? 'bg-primary text-primary-foreground' 
+                            : 'bg-card/80 backdrop-blur-sm border-2 border-muted-foreground'
                         }`}>
                           {isSelected && <Check className="h-4 w-4" />}
                         </div>
@@ -680,22 +678,24 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                           <div className="flex flex-col sm:flex-row gap-2 p-2">
                             <Button 
                               size="sm" 
+                              variant="glass"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setPreviewStyle(preset);
                               }}
-                              className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30 focus:ring-2 focus:ring-white/50 min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
+                              className="min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
                             >
                               <Eye className="h-4 w-4 mr-1" />
                               Preview
                             </Button>
                             <Button 
                               size="sm"
+                              variant="neon"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleUseStyle(preset);
                               }}
-                              className="bg-ai-neon text-ai-dark hover:bg-ai-accent focus:ring-2 focus:ring-ai-neon/50 min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
+                              className="min-h-[44px] px-3 text-xs sm:text-sm whitespace-nowrap"
                             >
                               <Download className="h-4 w-4 mr-1" />
                               Use Style
@@ -707,10 +707,10 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                     
                     {/* Content */}
                     <div className="p-5">
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-ai-primary transition-colors">
+                      <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                         {preset.name}
                       </h3>
-                      <p className="text-gray-600 text-sm mb-3 leading-relaxed line-clamp-2">
+                      <p className="text-muted-foreground text-sm mb-3 leading-relaxed line-clamp-2">
                         {preset.description}
                       </p>
                       
@@ -719,7 +719,7 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                         {preset.style.split(', ').slice(0, 3).map((tag, tagIndex) => (
                           <span 
                             key={tagIndex}
-                            className="px-2 py-0.5 bg-ai-accent/10 text-ai-accent text-xs font-medium rounded-full border border-ai-accent/20"
+                            className="px-2 py-0.5 bg-primary/10 text-primary text-xs font-medium rounded-full border border-primary/20"
                           >
                             {tag}
                           </span>
@@ -738,15 +738,15 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
           <div className="text-center py-12">
             {selectedCategory === 'favorites' ? (
               <>
-                <Heart className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-700 mb-2">No favorites yet</h3>
-                <p className="text-gray-500">Click the heart icon on any style to save it here for quick access</p>
+                <Heart className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">No favorites yet</h3>
+                <p className="text-muted-foreground">Click the heart icon on any style to save it here for quick access</p>
               </>
             ) : (
               <>
-                <Search className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-700 mb-2">No styles found</h3>
-                <p className="text-gray-500">Try adjusting your search or filter criteria</p>
+                <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">No styles found</h3>
+                <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>
               </>
             )}
           </div>
@@ -754,12 +754,12 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
 
         {/* CTA */}
         <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-          <Button className="btn-ai-primary group">
+          <Button variant="neon" className="group">
             Explore All 50+ Styles
             <Palette className="ml-2 h-5 w-5 transition-transform group-hover:rotate-12" />
           </Button>
           
-          <p className="mt-4 text-sm text-gray-500">
+          <p className="mt-4 text-sm text-muted-foreground">
             Mix and match styles to create unique AI-generated artwork
           </p>
         </div>
@@ -767,7 +767,7 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
 
       {/* Preview Modal */}
       <Dialog open={!!previewStyle} onOpenChange={() => setPreviewStyle(null)}>
-        <DialogContent className="max-w-2xl p-0 overflow-hidden">
+        <DialogContent className="max-w-2xl p-0 overflow-hidden bg-card border-primary/20">
           {previewStyle && (
             <>
               {/* Large Image */}
@@ -788,12 +788,12 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
 
               {/* Content */}
               <div className="p-6">
-                <p className="text-gray-600 mb-4">{previewStyle.description}</p>
+                <p className="text-muted-foreground mb-4">{previewStyle.description}</p>
                 
                 {/* Example Prompt */}
-                <div className="bg-gray-50 rounded-xl p-4 mb-4">
+                <div className="bg-card/50 rounded-xl p-4 mb-4 border border-primary/20">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">Example Prompt</span>
+                    <span className="text-sm font-medium text-foreground">Example Prompt</span>
                     <Button 
                       size="sm" 
                       variant="ghost"
@@ -804,7 +804,7 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                       Copy
                     </Button>
                   </div>
-                  <p className="text-sm text-gray-600 italic">"{previewStyle.prompt}"</p>
+                  <p className="text-sm text-muted-foreground italic">"{previewStyle.prompt}"</p>
                 </div>
 
                 {/* Style Tags */}
@@ -812,7 +812,7 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                   {previewStyle.style.split(', ').map((tag, idx) => (
                     <span 
                       key={idx}
-                      className="px-3 py-1.5 bg-ai-accent/10 text-ai-accent text-sm font-medium rounded-full border border-ai-accent/20"
+                      className="px-3 py-1.5 bg-primary/10 text-primary text-sm font-medium rounded-full border border-primary/20"
                     >
                       {tag}
                     </span>
@@ -822,15 +822,16 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                 {/* Actions */}
                 <div className="flex gap-3">
                   <Button
-                    variant="outline"
+                    variant="glass"
                     onClick={() => toggleFavorite(previewStyle.id)}
-                    className={favoriteIds.includes(previewStyle.id) ? 'text-red-500 border-red-500 hover:bg-red-50' : ''}
+                    className={favoriteIds.includes(previewStyle.id) ? 'text-red-500 border-red-500' : ''}
                   >
                     <Heart className={`h-4 w-4 mr-2 ${favoriteIds.includes(previewStyle.id) ? 'fill-current' : ''}`} />
                     {favoriteIds.includes(previewStyle.id) ? 'Favorited' : 'Favorite'}
                   </Button>
                   <Button
-                    className="flex-1 bg-ai-accent text-white hover:bg-ai-accent/90"
+                    variant="neon"
+                    className="flex-1"
                     onClick={() => handleUseStyle(previewStyle)}
                   >
                     <Wand2 className="h-4 w-4 mr-2" />
