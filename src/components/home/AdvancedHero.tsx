@@ -133,24 +133,28 @@ export const AdvancedHero = () => {
 
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8">
-              <span className="text-foreground">Create </span>
+              <span className="text-foreground">Free AI Image Generator – </span>
               <span className="text-gradient-warm">
-                Stunning Art
+                Transform Text
               </span>
               <br />
-              <span className="text-foreground">With </span>
+              <span className="text-foreground">Into </span>
               <span className="relative inline-block">
                 <span className="text-gradient-primary neon-text">
-                  AI Magic
+                  Stunning Images
                 </span>
                 <Sparkles className="absolute -top-3 -right-8 w-6 h-6 text-primary animate-pulse" />
               </span>
             </h1>
 
-            {/* Description */}
-            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
-              Transform your wildest ideas into breathtaking visuals in seconds. 
-              Professional-quality AI art generation—no design skills required.
+            {/* Description - Enhanced for SEO */}
+            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0">
+              Create professional AI-generated images in seconds with WordToImage. Simply describe what you want, 
+              and our advanced AI technology transforms your text into stunning, high-quality visuals.
+            </p>
+            <p className="text-base text-muted-foreground/80 leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
+              Perfect for social media content, marketing campaigns, blog graphics, and creative projects. 
+              No design skills or experience required – join 50,000+ creators already using AI to bring their ideas to life.
             </p>
 
             {/* Stats Row */}

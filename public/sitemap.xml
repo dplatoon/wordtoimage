@@ -402,6 +402,23 @@
     <mobile:mobile/>
   </url>
 
+  <url>
+    <loc>https://wordtoimage.online/blog/how-to-create-ai-images</loc>
+    <lastmod>2025-12-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <mobile:mobile/>
+  </url>
+
+  <!-- How It Works Page -->
+  <url>
+    <loc>https://wordtoimage.online/how-it-works</loc>
+    <lastmod>2025-12-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <mobile:mobile/>
+  </url>
+
   <!-- Legal Pages -->
   <url>
     <loc>https://wordtoimage.online/privacy</loc>

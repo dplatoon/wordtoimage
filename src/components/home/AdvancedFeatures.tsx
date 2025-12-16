@@ -9,42 +9,42 @@ const features = [
   {
     icon: Sparkles,
     title: "AI-Powered Creation",
-    description: "Advanced neural networks transform your text into stunning visuals with remarkable accuracy.",
+    description: "Our advanced neural networks understand context, lighting, composition, and artistic style to transform your text descriptions into stunning visuals with remarkable accuracy. Simply type what you want to see in natural language.",
     gradient: "from-violet-500 to-purple-600",
     bgGlow: "violet"
   },
   {
     icon: Zap,
-    title: "Lightning Fast",
-    description: "Generate professional images in just 3 seconds with our optimized AI infrastructure.",
+    title: "Lightning Fast Generation",
+    description: "Generate professional-quality images in just 2-3 seconds with our optimized cloud AI infrastructure. Perfect for content creators who need images fast for social media posts, marketing campaigns, and blog articles.",
     gradient: "from-amber-500 to-orange-600",
     bgGlow: "amber"
   },
   {
     icon: Palette,
-    title: "50+ Art Styles",
-    description: "From photorealistic to anime, oil paintings to digital art - endless creative possibilities.",
+    title: "50+ Artistic Styles",
+    description: "Transform your ideas into any artistic style imaginable. Choose from photorealistic renders, anime characters, watercolor paintings, oil paintings, digital art, 3D renders, and many more creative options.",
     gradient: "from-pink-500 to-rose-600",
     bgGlow: "pink"
   },
   {
     icon: Download,
-    title: "4K Resolution",
-    description: "Download crisp, high-resolution images perfect for professional use and printing.",
+    title: "4K Resolution Downloads",
+    description: "Download crisp, high-resolution images up to 4096×4096 pixels, perfect for professional use, print materials, posters, and large format displays. Multiple export formats including PNG, JPG, and WebP.",
     gradient: "from-cyan-500 to-blue-600",
     bgGlow: "cyan"
   },
   {
     icon: Shield,
-    title: "Commercial Ready",
-    description: "Full commercial rights included. Use your creations anywhere without restrictions.",
+    title: "Commercial Usage Rights",
+    description: "Full commercial rights included with all paid plans. Use your AI-generated images in business marketing, products, websites, social media, presentations, and advertisements without restrictions.",
     gradient: "from-emerald-500 to-green-600",
     bgGlow: "emerald"
   },
   {
     icon: Globe,
-    title: "Free Credits Daily",
-    description: "Start creating immediately with free credits. No signup required to begin.",
+    title: "Free Daily Credits",
+    description: "Start creating immediately with free daily credits. No credit card required and no signup needed to begin generating. Great for entrepreneurs, marketers, bloggers, and anyone who needs stunning visuals.",
     gradient: "from-indigo-500 to-violet-600",
     bgGlow: "indigo"
   }
