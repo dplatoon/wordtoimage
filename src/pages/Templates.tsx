@@ -45,12 +45,12 @@ const Templates = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background relative">
       <PageSEO {...templatesSEO} />
       
       <Nav />
       
-      <main id="main-content" className="pt-8 pb-16" role="main">
+      <main id="main-content" className="pt-8 pb-16 relative z-10" role="main">
         <header>
           <TemplateGalleryHero />
         </header>
