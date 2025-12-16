@@ -177,19 +177,19 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* Security & Performance Indicators */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+      <div className="flex items-center justify-between p-4 bg-card/30 backdrop-blur-xl rounded-lg border border-primary/20">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <Shield className="h-4 w-4 text-green-600" />
-            <span className="text-sm font-medium text-green-700">Secure Generation</span>
+            <Shield className="h-4 w-4 text-green-400" />
+            <span className="text-sm font-medium text-green-400">Secure Generation</span>
           </div>
           <div className="flex items-center space-x-2">
-            <Zap className="h-4 w-4 text-blue-600" />
-            <span className="text-sm font-medium text-blue-700">Optimized Performance</span>
+            <Zap className="h-4 w-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Optimized Performance</span>
           </div>
         </div>
         
-        <div className="flex items-center space-x-4 text-xs text-gray-600">
+        <div className="flex items-center space-x-4 text-xs text-muted-foreground">
           <div>Generated: {generationStats.totalGenerated}</div>
           <div>Success: {generationStats.successRate.toFixed(1)}%</div>
           <div>Avg: {generationStats.avgGenerationTime.toFixed(1)}s</div>
@@ -197,12 +197,12 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
       </div>
 
       {/* Main Form */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+      <div className="bg-card/30 backdrop-blur-xl rounded-2xl shadow-glass border border-primary/20 overflow-hidden">
         <div className="p-6 space-y-6">
           {/* Prompt Input */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label htmlFor="prompt" className="text-sm font-medium text-gray-700">
+              <label htmlFor="prompt" className="text-sm font-medium text-foreground">
                 Describe your image
               </label>
               <Badge variant={getRemainingCharacters() < 100 ? "destructive" : "secondary"}>
@@ -215,13 +215,13 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="A beautiful sunset over the mountains with vibrant colors..."
-              className={`min-h-[100px] resize-none ${!isPromptValid && prompt ? 'border-red-300' : ''}`}
+              className={`min-h-[100px] resize-none ${!isPromptValid && prompt ? 'border-destructive' : ''}`}
               disabled={isGenerating}
               maxLength={1000}
             />
             
             {!isPromptValid && prompt && (
-              <p className="text-sm text-red-600 flex items-center gap-1">
+              <p className="text-sm text-destructive flex items-center gap-1">
                 <AlertCircle className="h-4 w-4" />
                 {validatePrompt(prompt).message}
               </p>
@@ -231,7 +231,7 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
           {/* Style and Resolution Controls */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Art Style</label>
+              <label className="text-sm font-medium text-foreground">Art Style</label>
               <Select value={style} onValueChange={setStyle} disabled={isGenerating}>
                 <SelectTrigger>
                   <SelectValue />
@@ -247,7 +247,7 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Resolution</label>
+              <label className="text-sm font-medium text-foreground">Resolution</label>
               <Select value={resolution} onValueChange={setResolution} disabled={isGenerating}>
                 <SelectTrigger>
                   <SelectValue />
@@ -265,16 +265,16 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
 
           {/* Generation Progress */}
           {progress && (
-            <div className="space-y-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="space-y-3 p-4 bg-primary/10 rounded-lg border border-primary/20">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-blue-700">
+                <span className="text-sm font-medium text-primary">
                   {progress.status === 'starting' && 'Initializing...'}
                   {progress.status === 'processing' && 'Generating your image...'}
                   {progress.status === 'succeeded' && 'Complete!'}
                   {progress.status === 'failed' && 'Generation failed'}
                 </span>
                 {progress.estimatedTime && progress.estimatedTime > 0 && (
-                  <div className="flex items-center space-x-1 text-xs text-blue-600">
+                  <div className="flex items-center space-x-1 text-xs text-primary">
                     <Clock className="h-3 w-3" />
                     <span>{Math.ceil(progress.estimatedTime)}s remaining</span>
                   </div>
@@ -283,7 +283,7 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
               
               <Progress value={progress.progress} className="h-2" />
               
-              <div className="text-xs text-blue-600">
+              <div className="text-xs text-primary">
                 {progress.progress.toFixed(0)}% complete
               </div>
             </div>
@@ -301,11 +301,12 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
           <Button
             onClick={handleGenerate}
             disabled={!isPromptValid || isGenerating || !user}
-            className="w-full h-12 text-lg font-medium bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700"
+            variant="neon"
+            className="w-full h-12 text-lg font-medium"
           >
             {isGenerating ? (
               <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                 <span>Generating...</span>
               </div>
             ) : (
@@ -319,13 +320,13 @@ export const SecureImageGenerationForm: React.FC<SecureImageGenerationFormProps>
 
         {/* Generated Image Display */}
         {generatedImage && (
-          <div className="p-6 bg-gray-50 border-t border-gray-200">
+          <div className="p-6 bg-card/50 border-t border-primary/20">
             <div className="text-center space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Your Generated Image</h3>
+              <h3 className="text-lg font-semibold text-foreground">Your Generated Image</h3>
               <img
                 src={generatedImage}
                 alt="Generated image"
-                className="w-full max-w-md mx-auto h-auto rounded-lg shadow-md"
+                className="w-full max-w-md mx-auto h-auto rounded-lg shadow-glass"
               />
             </div>
           </div>

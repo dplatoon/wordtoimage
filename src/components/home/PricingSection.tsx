@@ -25,7 +25,7 @@ export const PricingSection = () => {
         'Watermarked images'
       ],
       ctaText: 'Get Started',
-      ctaColor: 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+      variant: 'glass' as const
     },
     {
       name: 'Pro',
@@ -42,7 +42,7 @@ export const PricingSection = () => {
         'Commercial usage rights'
       ],
       ctaText: 'Choose Pro',
-      ctaColor: 'bg-blue-600 text-white hover:bg-blue-700'
+      variant: 'neon' as const
     },
     {
       name: 'Enterprise',
@@ -58,46 +58,46 @@ export const PricingSection = () => {
         'Priority rendering'
       ],
       ctaText: 'Contact Sales',
-      ctaColor: 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700'
+      variant: 'neon' as const
     }
   ];
 
-  const discount = 20; // 20% discount for annual billing
+  const discount = 20;
 
   return (
-    <section id="pricing" className="py-16 md:py-24 bg-gray-50">
+    <section id="pricing" className="py-16 md:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium">
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
             <span>Pricing</span>
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
+          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground font-poppins">
             Affordable Plans for Everyone
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
             Choose the perfect plan for your needs, from free to enterprise-grade features
           </p>
           
-          <div className="mt-8 inline-flex items-center p-1 border border-gray-300 rounded-lg bg-white">
+          <div className="mt-8 inline-flex items-center p-1 border border-primary/20 rounded-lg bg-card/50 backdrop-blur-sm">
             <button
               onClick={() => setBillingCycle('monthly')}
-              className={`px-4 py-2 rounded-md text-sm font-medium ${
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 billingCycle === 'monthly'
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:text-gray-900'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               Monthly
             </button>
             <button
               onClick={() => setBillingCycle('annual')}
-              className={`px-4 py-2 rounded-md text-sm font-medium flex items-center ${
+              className={`px-4 py-2 rounded-md text-sm font-medium flex items-center transition-colors ${
                 billingCycle === 'annual'
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:text-gray-900'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              Annual <span className="ml-1 text-xs px-1.5 py-0.5 rounded-full bg-green-100 text-green-800">Save {discount}%</span>
+              Annual <span className="ml-1 text-xs px-1.5 py-0.5 rounded-full bg-green-500/20 text-green-400">Save {discount}%</span>
             </button>
           </div>
         </div>
@@ -106,37 +106,37 @@ export const PricingSection = () => {
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`relative rounded-2xl overflow-hidden animate-fade-in ${
+              className={`relative rounded-2xl overflow-hidden animate-fade-in bg-card/30 backdrop-blur-xl ${
                 plan.popular
-                  ? 'ring-2 ring-blue-500 shadow-xl'
-                  : 'border border-gray-200 shadow-sm'
+                  ? 'ring-2 ring-primary shadow-neon'
+                  : 'border border-primary/20 shadow-glass'
               }`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               {plan.popular && (
                 <div className="absolute top-0 right-0 mt-4 mr-4">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
                     Most Popular
                   </span>
                 </div>
               )}
-              <div className="p-6 bg-white">
-                <h3 className="text-2xl font-bold text-gray-900">{plan.name}</h3>
-                <p className="mt-1 text-sm text-gray-500">{plan.description}</p>
-                <div className="mt-4 flex items-baseline text-gray-900">
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-foreground">{plan.name}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{plan.description}</p>
+                <div className="mt-4 flex items-baseline text-foreground">
                   <span className="text-4xl font-extrabold">
                     ${billingCycle === 'annual' ? plan.price.annual : plan.price.monthly}
                   </span>
-                  <span className="ml-1 text-xl font-medium text-gray-500">/mo</span>
+                  <span className="ml-1 text-xl font-medium text-muted-foreground">/mo</span>
                 </div>
                 {billingCycle === 'annual' && plan.price.annual !== 0 && (
-                  <p className="mt-1 text-xs text-green-600">Billed annually (${(plan.price.annual * 12).toFixed(2)})</p>
+                  <p className="mt-1 text-xs text-green-400">Billed annually (${(plan.price.annual * 12).toFixed(2)})</p>
                 )}
                 <ul className="mt-6 space-y-3">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex">
-                      <Check className="h-5 w-5 text-green-500 shrink-0" />
-                      <span className="ml-2 text-sm text-gray-600">{feature}</span>
+                      <Check className="h-5 w-5 text-green-400 shrink-0" />
+                      <span className="ml-2 text-sm text-muted-foreground">{feature}</span>
                     </li>
                   ))}
                   {plan.limitations && plan.limitations.map((limitation, limitationIndex) => (
@@ -144,19 +144,20 @@ export const PricingSection = () => {
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger>
-                            <Info className="h-5 w-5 text-gray-400 shrink-0" />
+                            <Info className="h-5 w-5 text-muted-foreground shrink-0" />
                           </TooltipTrigger>
                           <TooltipContent>
                             <p>Limitation of the free plan</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                      <span className="ml-2 text-sm text-gray-400 line-through">{limitation}</span>
+                      <span className="ml-2 text-sm text-muted-foreground/50 line-through">{limitation}</span>
                     </li>
                   ))}
                 </ul>
                 <Button 
-                  className={`mt-8 w-full ${plan.ctaColor}`}
+                  variant={plan.variant}
+                  className="mt-8 w-full"
                 >
                   {plan.ctaText}
                 </Button>
