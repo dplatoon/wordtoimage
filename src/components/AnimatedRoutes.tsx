@@ -55,6 +55,8 @@ const TechnicalEnhancements = lazy(() => import('@/pages/TechnicalEnhancements')
 const PaymentSuccess = lazy(() => import('@/pages/PaymentSuccess'));
 const AdminAuditLogs = lazy(() => import('@/pages/AdminAuditLogs'));
 const ComprehensiveDashboard = lazy(() => import('@/components/testing/ComprehensiveDashboard').then(module => ({ default: module.ComprehensiveDashboard })));
+const HowItWorks = lazy(() => import('@/pages/HowItWorks'));
+const HowToCreateAIImages = lazy(() => import('@/pages/blog/HowToCreateAIImages'));
 
 // Blog posts
 const AIArtStylesBlogPost = lazy(() => import('@/pages/blog/ai-art-styles'));
@@ -144,6 +146,8 @@ export const AnimatedRoutes = () => {
           <Route path="/technical-enhancements" element={<PageTransition><TechnicalEnhancements /></PageTransition>} />
           <Route path="/payment-success" element={<PageTransition><PaymentSuccess /></PageTransition>} />
           <Route path="/admin/audit-logs" element={<PageTransition><AdminAuditLogs /></PageTransition>} />
+          <Route path="/how-it-works" element={<PageTransition><HowItWorks /></PageTransition>} />
+          <Route path="/blog/how-to-create-ai-images" element={<PageTransition><HowToCreateAIImages /></PageTransition>} />
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
