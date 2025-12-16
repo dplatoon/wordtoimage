@@ -33,12 +33,12 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
   return (
     <article 
       ref={ref}
-      className="bg-white rounded-xl overflow-hidden shadow-subtle hover:shadow-modern transition-all duration-300 border border-gray-100 group hover:border-brand-purple/20 hover:-translate-y-1 transform-gpu focus-within:ring-2 focus-within:ring-brand-purple/50"
+      className="bg-card/30 backdrop-blur-xl rounded-xl overflow-hidden shadow-glass hover:shadow-neon transition-all duration-300 border border-primary/20 group hover:border-primary/40 hover:-translate-y-1 transform-gpu focus-within:ring-2 focus-within:ring-primary/50"
       role="article"
       aria-labelledby={`template-title-${template.id}`}
       aria-describedby={`template-description-${template.id}`}
     >
-      <div className="relative h-40 overflow-hidden bg-gray-100">
+      <div className="relative h-40 overflow-hidden bg-card/50">
         {isIntersecting && (
           <>
             {!imageError ? (
@@ -58,8 +58,8 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-brand-slate-100" role="img" aria-label="Template image unavailable">
-                <span className="text-brand-slate-400 text-sm font-medium">Image unavailable</span>
+              <div className="w-full h-full flex items-center justify-center bg-card" role="img" aria-label="Template image unavailable">
+                <span className="text-muted-foreground text-sm font-medium">Image unavailable</span>
               </div>
             )}
             
@@ -71,30 +71,28 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
             />
             
             {/* Improved hover overlay with better accessibility */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <div className="absolute inset-0 bg-background/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
               <div className="flex gap-2" role="group" aria-label="Template actions">
                 <Button
-                  variant="secondary"
+                  variant="glass"
                   size="sm"
                   onClick={(e) => {
                     e.stopPropagation();
                     onPreview(template);
                   }}
-                  className="bg-white/95 hover:bg-white text-gray-800 shadow-brand font-medium focus:ring-2 focus:ring-brand-purple"
                   aria-label={`Preview ${template.title} template`}
                 >
                   <Eye className="h-4 w-4 mr-1" aria-hidden="true" />
                   Preview
                 </Button>
                 <Button
-                  variant="default"
+                  variant="neon"
                   size="sm"
                   onClick={(e) => {
                     e.stopPropagation();
                     onUse(template);
                   }}
                   disabled={template.isPro}
-                  className="bg-brand-purple hover:bg-brand-purple/90 shadow-brand font-medium focus:ring-2 focus:ring-brand-purple disabled:opacity-60"
                   aria-label={template.isPro ? `${template.title} requires Pro subscription` : `Use ${template.title} template`}
                 >
                   {template.isPro ? <Lock className="h-4 w-4 mr-1" aria-hidden="true" /> : <ChevronRight className="h-4 w-4 mr-1" aria-hidden="true" />}
@@ -106,25 +104,25 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
         )}
         
         {!imageLoaded && !imageError && isIntersecting && (
-          <div className="absolute inset-0 bg-brand-slate-200 animate-pulse" aria-label="Loading template image" />
+          <div className="absolute inset-0 bg-card animate-pulse" aria-label="Loading template image" />
         )}
         
         {/* Enhanced status badges with better visual hierarchy */}
         <div className="absolute top-3 right-3 flex flex-col gap-1">
           {template.isNew && (
-            <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white border-none shadow-brand font-medium animate-pulse">
+            <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white border-none shadow-neon font-medium animate-pulse">
               <Clock className="h-3 w-3 mr-1" aria-hidden="true" />
               New
             </Badge>
           )}
           {template.isPopular && (
-            <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white border-none shadow-brand font-medium">
+            <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white border-none shadow-neon font-medium">
               <Star className="h-3 w-3 mr-1" aria-hidden="true" />
               Popular
             </Badge>
           )}
           {template.isPro && (
-            <Badge className="bg-gradient-to-r from-brand-purple to-brand-navy text-white border-none shadow-brand font-medium">
+            <Badge className="bg-gradient-to-r from-primary to-accent text-white border-none shadow-neon font-medium">
               <Lock className="h-3 w-3 mr-1" aria-hidden="true" />
               Pro
             </Badge>
@@ -132,12 +130,12 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
         </div>
 
         {/* Subtle image frame overlay for consistency */}
-        <div className="absolute inset-0 ring-1 ring-black/5 ring-inset rounded-t-xl pointer-events-none" />
+        <div className="absolute inset-0 ring-1 ring-primary/10 ring-inset rounded-t-xl pointer-events-none" />
       </div>
       
       <div className="p-4">
         <div className="flex items-start justify-between mb-2">
-          <h3 id={`template-title-${template.id}`} className="font-semibold text-gray-900 font-space flex-1 text-base leading-tight">
+          <h3 id={`template-title-${template.id}`} className="font-semibold text-foreground flex-1 text-base leading-tight">
             {template.title}
           </h3>
           {template.difficulty && (
@@ -145,9 +143,9 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
               variant="outline" 
               className={cn(
                 "text-xs ml-2 shrink-0",
-                template.difficulty === 'Easy' && "border-green-200 text-green-700 bg-green-50",
-                template.difficulty === 'Medium' && "border-orange-200 text-orange-700 bg-orange-50",
-                template.difficulty === 'Advanced' && "border-red-200 text-red-700 bg-red-50"
+                template.difficulty === 'Easy' && "border-green-500/30 text-green-400 bg-green-500/10",
+                template.difficulty === 'Medium' && "border-orange-500/30 text-orange-400 bg-orange-500/10",
+                template.difficulty === 'Advanced' && "border-red-500/30 text-red-400 bg-red-500/10"
               )}
               aria-label={`Difficulty level: ${template.difficulty}`}
             >
@@ -156,12 +154,12 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
           )}
         </div>
         
-        <p id={`template-description-${template.id}`} className="text-sm text-brand-slate-600 mb-3 line-clamp-2 leading-relaxed">
+        <p id={`template-description-${template.id}`} className="text-sm text-muted-foreground mb-3 line-clamp-2 leading-relaxed">
           {template.description}
         </p>
         
         {template.usage && (
-          <p className="text-xs text-brand-purple mb-3 font-medium">
+          <p className="text-xs text-primary mb-3 font-medium">
             <span className="sr-only">Best used for: </span>
             Best for: {template.usage}
           </p>
@@ -169,11 +167,11 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
         
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap gap-1">
-            <span className="inline-block px-2.5 py-1 bg-brand-slate-100 text-xs rounded-full text-brand-slate-700 font-medium">
+            <span className="inline-block px-2.5 py-1 bg-card text-xs rounded-full text-muted-foreground font-medium border border-primary/20">
               {template.style}
             </span>
             {template.tags?.slice(0, 2).map((tag, index) => (
-              <span key={index} className="inline-block px-2.5 py-1 bg-brand-purple/10 text-xs rounded-full text-brand-purple font-medium">
+              <span key={index} className="inline-block px-2.5 py-1 bg-primary/10 text-xs rounded-full text-primary font-medium">
                 {tag}
               </span>
             ))}
@@ -182,7 +180,7 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
           <Button 
             variant="ghost" 
             size="sm" 
-            className="text-brand-purple hover:text-brand-purple/80 hover:bg-brand-purple/5 p-0 h-auto font-semibold transition-all duration-200 focus:ring-2 focus:ring-brand-purple"
+            className="text-primary hover:text-primary/80 hover:bg-primary/10 p-0 h-auto font-semibold transition-all duration-200 focus:ring-2 focus:ring-primary"
             onClick={() => onUse(template)}
             aria-label={`Use ${template.title} template`}
           >

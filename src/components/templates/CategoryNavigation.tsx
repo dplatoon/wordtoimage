@@ -54,35 +54,35 @@ export const CategoryNavigation = ({
 
   return (
     <div className={cn(
-      "bg-white border-b border-gray-200 transition-all duration-300 z-40",
-      isSticky ? "fixed top-0 left-0 right-0 shadow-modern" : "relative"
+      "bg-card/80 backdrop-blur-xl border-b border-primary/20 transition-all duration-300 z-40",
+      isSticky ? "fixed top-0 left-0 right-0 shadow-glass" : "relative rounded-xl"
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Search and Filter */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-brand-slate-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search templates..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-10 border-brand-slate-200 focus:ring-brand-purple focus:border-brand-purple rounded-xl"
+              className="pl-10"
             />
           </div>
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="shrink-0 border-brand-slate-200 hover:bg-brand-purple/5 hover:border-brand-purple/20 rounded-xl font-medium">
+              <Button variant="glass" className="shrink-0">
                 <Filter className="h-4 w-4 mr-2" />
                 Tags
                 {selectedTags.length > 0 && (
-                  <Badge variant="secondary" className="ml-2 bg-brand-purple text-white">
+                  <Badge variant="secondary" className="ml-2 bg-primary text-primary-foreground">
                     {selectedTags.length}
                   </Badge>
                 )}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 rounded-xl border-brand-slate-200">
+            <DropdownMenuContent className="w-56">
               {availableTags.map((tag) => (
                 <DropdownMenuCheckboxItem
                   key={tag}
@@ -100,15 +100,10 @@ export const CategoryNavigation = ({
         {/* Category Navigation */}
         <div className="flex flex-wrap gap-3">
           <Button
-            variant={activeCategory === null ? "default" : "outline"}
+            variant={activeCategory === null ? "neon" : "glass"}
             size="sm"
             onClick={() => onCategoryChange(null)}
-            className={cn(
-              "shrink-0 rounded-xl font-semibold transition-all duration-200",
-              activeCategory === null 
-                ? "bg-brand-purple hover:bg-brand-purple/90 text-white shadow-brand" 
-                : "border-brand-slate-200 hover:bg-brand-purple/5 hover:border-brand-purple/20"
-            )}
+            className="shrink-0 rounded-xl font-semibold"
           >
             All Templates
           </Button>
@@ -116,15 +111,10 @@ export const CategoryNavigation = ({
           {categories.map((category) => (
             <Button
               key={category.name}
-              variant={activeCategory === category.name ? "default" : "outline"}
+              variant={activeCategory === category.name ? "neon" : "glass"}
               size="sm"
               onClick={() => onCategoryChange(category.name)}
-              className={cn(
-                "shrink-0 rounded-xl font-semibold transition-all duration-200",
-                activeCategory === category.name 
-                  ? "bg-brand-purple hover:bg-brand-purple/90 text-white shadow-brand" 
-                  : "border-brand-slate-200 hover:bg-brand-purple/5 hover:border-brand-purple/20"
-              )}
+              className="shrink-0 rounded-xl font-semibold"
             >
               {category.name}
               <Badge 
@@ -133,7 +123,7 @@ export const CategoryNavigation = ({
                   "ml-2 font-medium",
                   activeCategory === category.name 
                     ? "bg-white/20 text-white" 
-                    : "bg-brand-slate-100 text-brand-slate-700"
+                    : "bg-primary/20 text-primary"
                 )}
               >
                 {category.count}
@@ -145,12 +135,12 @@ export const CategoryNavigation = ({
         {/* Selected Tags */}
         {selectedTags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-4">
-            <span className="text-sm text-brand-slate-600 font-medium mr-2">Active filters:</span>
+            <span className="text-sm text-muted-foreground font-medium mr-2">Active filters:</span>
             {selectedTags.map((tag) => (
               <Badge
                 key={tag}
                 variant="secondary"
-                className="cursor-pointer hover:bg-red-100 hover:text-red-800 transition-colors font-medium rounded-lg"
+                className="cursor-pointer bg-primary/20 text-primary hover:bg-destructive/20 hover:text-destructive transition-colors font-medium rounded-lg"
                 onClick={() => handleTagToggle(tag)}
               >
                 {tag} ×

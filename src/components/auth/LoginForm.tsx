@@ -6,11 +6,10 @@ import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from '@/components/ui/sonner';
 import { supabase } from '@/integrations/supabase/client';
-import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
+import { Mail, Lock, LogIn } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -51,10 +50,10 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto space-y-6 p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-md w-full mx-auto space-y-6 p-6 bg-card/30 backdrop-blur-xl rounded-xl border border-primary/20 shadow-glass">
       <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-bold">Welcome Back</h1>
-        <p className="text-gray-500">Enter your credentials to access your account</p>
+        <h1 className="text-2xl font-bold text-foreground">Welcome Back</h1>
+        <p className="text-muted-foreground">Enter your credentials to access your account</p>
       </div>
 
       <Form {...form}>
@@ -64,10 +63,10 @@ export const LoginForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-foreground">Email</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input {...field} type="email" className="pl-10" placeholder="Enter your email" />
                   </div>
                 </FormControl>
@@ -80,10 +79,10 @@ export const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-foreground">Password</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input {...field} type="password" className="pl-10" placeholder="Enter your password" />
                   </div>
                 </FormControl>
@@ -91,7 +90,7 @@ export const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" variant="neon" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <div className="flex items-center gap-2">
                 <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />

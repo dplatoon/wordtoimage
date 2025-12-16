@@ -1,7 +1,8 @@
 
 import { useState } from 'react';
-import { ChevronDown, HelpCircle, Check, X } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const faqs = [
   {
@@ -70,18 +71,18 @@ export const EnhancedFAQ = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-16 md:py-24 bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
             <HelpCircle className="h-4 w-4 mr-2" />
             Frequently Asked Questions
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Everything You Need to Know
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Find answers to common questions about our AI image generation platform
           </p>
         </div>
@@ -94,8 +95,8 @@ export const EnhancedFAQ = () => {
               className="animate-fade-in"
               style={{ animationDelay: `${categoryIndex * 0.1}s` }}
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <div className="w-2 h-6 bg-blue-600 rounded-full mr-3"></div>
+              <h3 className="text-xl font-bold text-foreground mb-4 flex items-center">
+                <div className="w-2 h-6 bg-primary rounded-full mr-3"></div>
                 {category.category}
               </h3>
               
@@ -103,20 +104,20 @@ export const EnhancedFAQ = () => {
                 {category.questions.map((faq, questionIndex) => (
                   <div
                     key={questionIndex}
-                    className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden"
+                    className="bg-card/30 backdrop-blur-xl rounded-lg border border-primary/20 shadow-glass overflow-hidden"
                   >
                     <button
                       onClick={() => toggleItem(categoryIndex, questionIndex)}
-                      className="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 focus:bg-gray-50 focus:outline-none transition-colors"
+                      className="w-full px-6 py-4 text-left hover:bg-card/50 focus:bg-card/50 focus:outline-none transition-colors"
                       aria-expanded={isOpen(categoryIndex, questionIndex)}
                     >
                       <div className="flex items-center justify-between">
-                        <h4 className="text-lg font-semibold text-gray-900 pr-4">
+                        <h4 className="text-lg font-semibold text-foreground pr-4">
                           {faq.question}
                         </h4>
                         <ChevronDown
                           className={cn(
-                            "h-5 w-5 text-gray-500 transition-transform duration-200 flex-shrink-0",
+                            "h-5 w-5 text-muted-foreground transition-transform duration-200 flex-shrink-0",
                             isOpen(categoryIndex, questionIndex) && "rotate-180"
                           )}
                         />
@@ -131,7 +132,7 @@ export const EnhancedFAQ = () => {
                           : "max-h-0 opacity-0"
                       )}
                     >
-                      <div className="px-6 pb-4 text-gray-700 leading-relaxed border-t border-gray-100">
+                      <div className="px-6 pb-4 text-muted-foreground leading-relaxed border-t border-primary/10">
                         <div className="pt-4">
                           {faq.answer}
                         </div>
@@ -146,24 +147,24 @@ export const EnhancedFAQ = () => {
 
         {/* Contact Support */}
         <div className="mt-16 text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+          <div className="bg-card/30 backdrop-blur-xl rounded-2xl p-8 shadow-glass border border-primary/20">
             <div className="max-w-md mx-auto">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <HelpCircle className="h-8 w-8 text-blue-600" />
+              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <HelpCircle className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <h3 className="text-xl font-bold text-foreground mb-2">
                 Still have questions?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-muted-foreground mb-6">
                 Our support team is here to help you get the most out of our platform.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                <Button variant="neon">
                   Contact Support
-                </button>
-                <button className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                </Button>
+                <Button variant="glass">
                   View Documentation
-                </button>
+                </Button>
               </div>
             </div>
           </div>

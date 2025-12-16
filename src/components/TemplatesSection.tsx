@@ -18,10 +18,10 @@ export const TemplatesSection = () => {
 
   // Sample template categories with enhanced data
   const categories = [
-    { name: 'Social Media', count: 24, color: 'bg-blue-100' },
-    { name: 'Art Styles', count: 18, color: 'bg-purple-100' },
-    { name: 'Photography', count: 15, color: 'bg-pink-100' },
-    { name: 'Landscapes', count: 12, color: 'bg-green-100' }
+    { name: 'Social Media', count: 24, color: 'bg-primary/20' },
+    { name: 'Art Styles', count: 18, color: 'bg-primary/20' },
+    { name: 'Photography', count: 15, color: 'bg-primary/20' },
+    { name: 'Landscapes', count: 12, color: 'bg-primary/20' }
   ];
 
   // Enhanced template data with more detailed information
