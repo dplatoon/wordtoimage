@@ -53,13 +53,13 @@ export const LiveDemoSection = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             See It in Action
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Watch how easy it is to create stunning AI images in just three simple steps
           </p>
         </div>
@@ -69,12 +69,12 @@ export const LiveDemoSection = () => {
             <div className="flex items-center gap-4 mb-8">
               <Button
                 onClick={togglePlay}
-                className="bg-violet-600 hover:bg-violet-700 text-white"
+                variant="neon"
               >
                 {isPlaying ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
                 {isPlaying ? 'Pause Demo' : 'Play Demo'}
               </Button>
-              <Button variant="outline" onClick={resetDemo}>
+              <Button variant="glass" onClick={resetDemo}>
                 <RotateCcw className="w-4 h-4 mr-2" />
                 Reset
               </Button>
@@ -85,21 +85,21 @@ export const LiveDemoSection = () => {
                 key={index}
                 className={`p-6 rounded-xl border-2 transition-all duration-300 cursor-pointer ${
                   currentStep === index 
-                    ? 'border-violet-500 bg-violet-50' 
-                    : 'border-gray-200 bg-white hover:border-gray-300'
+                    ? 'border-primary bg-primary/10 shadow-neon' 
+                    : 'border-primary/20 bg-card/30 backdrop-blur-xl hover:border-primary/40'
                 }`}
                 onClick={() => setCurrentStep(index)}
               >
                 <div className="flex items-start gap-4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                    currentStep === index ? 'bg-violet-600 text-white' : 'bg-gray-200 text-gray-600'
+                    currentStep === index ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
                   }`}>
                     {index + 1}
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>
-                    <p className="text-gray-600 mb-2">{step.description}</p>
-                    <p className="text-sm text-violet-600 font-medium">
+                    <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground mb-2">{step.description}</p>
+                    <p className="text-sm text-primary font-medium">
                       Example: {step.example}
                     </p>
                   </div>
@@ -113,11 +113,11 @@ export const LiveDemoSection = () => {
               <OptimizedImage
                 src={demoSteps[currentStep].image}
                 alt={`Demo step ${currentStep + 1}: ${demoSteps[currentStep].title}`}
-                className="w-full max-w-md rounded-xl shadow-2xl"
+                className="w-full max-w-md rounded-xl shadow-neon border border-primary/20"
                 priority={true}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-indigo-500/20 rounded-xl"></div>
-              <div className="absolute top-4 left-4 bg-violet-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-xl"></div>
+              <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
                 Step {currentStep + 1} of {demoSteps.length}
               </div>
             </div>

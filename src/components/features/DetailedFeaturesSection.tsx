@@ -46,13 +46,13 @@ const detailedFeatures = [
 
 export const DetailedFeaturesSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-gray-50">
+    <section className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Detailed Feature Breakdown
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Dive deeper into the capabilities that make WordToImage the preferred choice 
             for creators, marketers, and developers worldwide.
           </p>
@@ -68,13 +68,13 @@ export const DetailedFeaturesSection = () => {
             >
               <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
                 <div className="mb-6">
-                  <span className="inline-block px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-sm font-medium mb-4">
+                  <span className="inline-block px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium mb-4 border border-primary/30">
                     {feature.category}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
                     {feature.title}
                   </h3>
-                  <p className="text-lg text-gray-600 mb-6">
+                  <p className="text-lg text-muted-foreground mb-6">
                     {feature.description}
                   </p>
                 </div>
@@ -82,13 +82,13 @@ export const DetailedFeaturesSection = () => {
                 <ul className="space-y-3 mb-8">
                   {feature.benefits.map((benefit, benefitIndex) => (
                     <li key={benefitIndex} className="flex items-start">
-                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{benefit}</span>
+                      <Check className="w-5 h-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{benefit}</span>
                     </li>
                   ))}
                 </ul>
 
-                <Button asChild className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white">
+                <Button asChild variant="neon">
                   <Link to="/text-to-image">
                     Try This Feature
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -101,28 +101,28 @@ export const DetailedFeaturesSection = () => {
                   <OptimizedImage
                     src={feature.image}
                     alt={`${feature.title} demonstration`}
-                    className="w-full max-w-md rounded-lg shadow-xl"
+                    className="w-full max-w-md rounded-lg shadow-neon border border-primary/20"
                     priority={index === 0}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-indigo-500/10 rounded-lg"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg"></div>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="bg-white rounded-2xl p-8 mt-20 text-center shadow-sm border border-gray-200">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+        <div className="bg-card/30 backdrop-blur-xl rounded-2xl p-8 mt-20 text-center border border-primary/20">
+          <h3 className="text-2xl font-bold text-foreground mb-4">
             Ready to Experience These Features?
           </h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Start creating amazing AI-generated images today with our free plan.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white px-8 py-3">
+            <Button asChild variant="neon" size="lg">
               <Link to="/text-to-image">Start Creating Free</Link>
             </Button>
-            <Button variant="outline" asChild className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-3">
+            <Button variant="glass" size="lg" asChild>
               <Link to="/pricing">View All Plans</Link>
             </Button>
           </div>
