@@ -324,6 +324,64 @@ export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
     keywords: ['join team', 'job openings', 'career opportunities', 'work at WordToImage'],
     ogImage: 'https://wordtoimage.online/og-join-team.jpg',
     canonical: 'https://wordtoimage.online/join-our-team'
+  },
+  '/how-it-works': {
+    title: 'How It Works - Create AI Images in 3 Simple Steps | WordToImage',
+    description: 'Learn how to create stunning AI images with WordToImage in 3 simple steps. Describe your image, choose a style, and generate. No design skills required.',
+    keywords: ['how to create AI images', 'AI image generation process', 'text to image tutorial', 'AI art guide', 'image generation steps'],
+    ogImage: 'https://wordtoimage.online/og-how-it-works.jpg',
+    canonical: 'https://wordtoimage.online/how-it-works',
+    h1: 'How to Create Stunning AI Images with WordToImage',
+    h2Headings: ['Describe Your Image', 'Customize Your Style', 'Generate & Download', 'Advanced Features', 'Pro Tips'],
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Create AI Images with WordToImage",
+      "description": "A step-by-step guide to creating stunning AI-generated images from text descriptions",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Describe Your Image",
+          "text": "Type a detailed description of what you want to create in the text box"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Choose Your Style",
+          "text": "Select from 50+ artistic styles to match your vision"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Generate & Download",
+          "text": "Click generate and download your AI-created image in seconds"
+        }
+      ]
+    }
+  },
+  '/blog/how-to-create-ai-images': {
+    title: 'How to Create AI Images: Complete Beginner\'s Guide 2025 | WordToImage',
+    description: 'Learn how to create stunning AI images from text in 2025. Step-by-step guide for beginners with tips, examples, and best practices for AI image generation.',
+    keywords: ['how to create AI images', 'AI image generation guide', 'text to image tutorial', 'AI art beginner guide', 'create images with AI', 'AI image prompts'],
+    ogImage: 'https://wordtoimage.online/og-blog-how-to-create.jpg',
+    canonical: 'https://wordtoimage.online/blog/how-to-create-ai-images',
+    h1: 'How to Create AI Images: Complete Beginner\'s Guide for 2025',
+    h2Headings: ['What is AI Image Generation?', 'Why Use AI Image Generators?', 'Step-by-Step Guide', 'Tips for Better Prompts', 'Common Use Cases', 'Common Mistakes to Avoid'],
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to Create AI Images: Complete Beginner's Guide for 2025",
+      "description": "Learn everything you need to know about creating stunning AI-generated images from text.",
+      "author": {
+        "@type": "Organization",
+        "name": "WordToImage"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WordToImage",
+        "url": "https://wordtoimage.online"
+      },
+      "datePublished": "2025-12-16",
+      "dateModified": "2025-12-16"
+    }
   }
 };
 
