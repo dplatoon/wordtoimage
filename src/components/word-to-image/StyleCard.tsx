@@ -53,8 +53,8 @@ export function StyleCard({
       className={cn(
         "cursor-pointer transition-all duration-300 hover:shadow-lg group overflow-hidden relative",
         isSelected 
-          ? "ring-2 ring-violet-500 bg-violet-50 shadow-lg transform scale-[1.02]" 
-          : "hover:shadow-md hover:border-violet-300 hover:-translate-y-1"
+          ? "ring-2 ring-primary bg-primary/10 shadow-lg transform scale-[1.02]" 
+          : "hover:shadow-md hover:border-primary/30 hover:-translate-y-1"
       )}
       onClick={() => onSelect(style.id)}
       onMouseEnter={() => setShowExamplePrompt(true)}
@@ -65,18 +65,18 @@ export function StyleCard({
         <div className="relative overflow-hidden rounded-lg mb-3">
           <AspectRatio ratio={4/3}>
             <div className={cn(
-              "w-full bg-gray-100 rounded-lg flex items-center justify-center",
+              "w-full bg-card/50 rounded-lg flex items-center justify-center",
               imageSizes[size]
             )}>
               {imageError ? (
                 <div className="text-center p-2">
-                  <ImageOff className="h-6 w-6 text-gray-400 mx-auto mb-1" />
-                  <p className="text-xs text-gray-500">Image unavailable</p>
+                  <ImageOff className="h-6 w-6 text-muted-foreground mx-auto mb-1" />
+                  <p className="text-xs text-muted-foreground">Image unavailable</p>
                 </div>
               ) : (
                 <>
                   {!imageLoaded && (
-                    <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-lg" />
+                    <div className="absolute inset-0 bg-card/70 animate-pulse rounded-lg" />
                   )}
                   <img
                     src={style.preview}
@@ -118,8 +118,8 @@ export function StyleCard({
 
           {/* Selection indicator with better positioning */}
           {isSelected && (
-            <div className="absolute top-2 right-2 w-6 h-6 bg-violet-600 rounded-full flex items-center justify-center animate-scale-in shadow-lg z-10">
-              <Check className="h-4 w-4 text-white" />
+            <div className="absolute top-2 right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center animate-scale-in shadow-lg z-10">
+              <Check className="h-4 w-4 text-primary-foreground" />
             </div>
           )}
 
@@ -141,13 +141,13 @@ export function StyleCard({
         <div className="space-y-3">
           <div>
             <h4 className={cn(
-              "font-semibold text-gray-900 group-hover:text-violet-600 transition-colors line-clamp-1",
+              "font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1",
               size === 'small' ? 'text-sm' : 'text-base'
             )}>
               {style.name}
             </h4>
             <p className={cn(
-              "text-gray-600 leading-relaxed line-clamp-2",
+              "text-muted-foreground leading-relaxed line-clamp-2",
               size === 'small' ? 'text-xs' : 'text-sm'
             )}>
               {style.description}
@@ -160,13 +160,13 @@ export function StyleCard({
               {style.keywords.slice(0, 2).map((keyword, index) => (
                 <span 
                   key={index}
-                  className="px-2 py-1 bg-violet-100 text-violet-700 text-xs rounded-full border border-violet-200 truncate max-w-20"
+                  className="px-2 py-1 bg-primary/20 text-primary text-xs rounded-full border border-primary/30 truncate max-w-20"
                 >
                   {keyword}
                 </span>
               ))}
               {style.keywords.length > 2 && (
-                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                <span className="px-2 py-1 bg-card/50 text-muted-foreground text-xs rounded-full">
                   +{style.keywords.length - 2}
                 </span>
               )}

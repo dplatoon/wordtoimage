@@ -56,7 +56,7 @@ export function EnhancedPromptInput({
               ? "0 0 0 2px hsl(var(--primary) / 0.2), 0 4px 20px -4px hsl(var(--primary) / 0.25)"
               : "0 1px 3px 0 rgb(0 0 0 / 0.1)"
           }}
-          className="relative bg-white rounded-lg sm:rounded-xl border border-gray-200 overflow-hidden"
+          className="relative bg-card/30 backdrop-blur-xl rounded-lg sm:rounded-xl border border-primary/20 overflow-hidden"
         >
           <Textarea
             ref={textareaRef}
@@ -66,7 +66,7 @@ export function EnhancedPromptInput({
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder="Describe your vision in detail... (e.g., A majestic watercolor painting of a peaceful forest at sunset)"
-            className="w-full min-h-[100px] sm:min-h-[120px] max-h-[200px] resize-none border-0 bg-transparent text-sm sm:text-base leading-relaxed placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 p-4 sm:p-6"
+            className="w-full min-h-[100px] sm:min-h-[120px] max-h-[200px] resize-none border-0 bg-transparent text-sm sm:text-base leading-relaxed placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0 p-4 sm:p-6"
             maxLength={maxCharacters}
           />
           
@@ -81,7 +81,7 @@ export function EnhancedPromptInput({
               >
                 <div className="text-center">
                   <Sparkles className="h-8 w-8 text-primary/30 mx-auto mb-2" />
-                  <p className="text-sm text-gray-400 max-w-md">
+                  <p className="text-sm text-muted-foreground/70 max-w-md">
                     Be creative and detailed for best results
                   </p>
                 </div>
@@ -92,15 +92,15 @@ export function EnhancedPromptInput({
 
         {/* Character Counter - Mobile Optimized */}
         <div className="flex items-center justify-between mt-2 px-1 sm:px-2">
-          <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-gray-500">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-muted-foreground">
             <Wand2 className="h-3 w-3 flex-shrink-0" />
             <span className="hidden sm:inline">Pro tip: Include style, mood, lighting, and composition details</span>
             <span className="sm:hidden text-[10px]">Include style & details</span>
           </div>
           <span className={cn(
             "text-xs font-medium tabular-nums flex-shrink-0",
-            isAtLimit ? "text-red-600" : 
-            isNearLimit ? "text-amber-600" : "text-gray-500"
+            isAtLimit ? "text-red-500" : 
+            isNearLimit ? "text-amber-500" : "text-muted-foreground"
           )}>
             {characterCount}/{maxCharacters}
           </span>
@@ -139,8 +139,8 @@ export function EnhancedPromptInput({
       </motion.div>
 
       {/* Keyboard Shortcut Hint - Hide on very small screens */}
-      <p className="text-xs text-center text-gray-400 hidden sm:block">
-        Press <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">Ctrl + Enter</kbd> to generate quickly
+      <p className="text-xs text-center text-muted-foreground hidden sm:block">
+        Press <kbd className="px-1.5 py-0.5 bg-card/50 rounded text-xs border border-primary/20">Ctrl + Enter</kbd> to generate quickly
       </p>
     </div>
   );

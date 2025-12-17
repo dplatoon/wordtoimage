@@ -32,7 +32,7 @@
     
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 18%;
+    --border: 220 15% 25%;
     --input: 220 15% 15%;
     --ring: 24 95% 55%;
     --radius: 1rem;
@@ -76,7 +76,7 @@
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 18%;
+    --border: 220 15% 25%;
     --input: 220 15% 15%;
     --ring: 24 95% 55%;
   }
