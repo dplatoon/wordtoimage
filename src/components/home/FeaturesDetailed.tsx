@@ -48,7 +48,7 @@ export const FeaturesDetailed = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Powerful Features for <span className="text-gradient-neon">Every Creator</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-foreground/80 max-w-3xl mx-auto">
             Professional-grade AI image generation with all the features you need to bring your creative vision to life.
           </p>
         </div>
@@ -64,12 +64,12 @@ export const FeaturesDetailed = () => {
                 <feature.icon className="h-7 w-7 text-white" />
               </div>
               
-              <h3 className="text-xl font-semibold text-white mb-4">{feature.title}</h3>
-              <p className="text-gray-300 mb-6 leading-relaxed">{feature.description}</p>
+              <h3 className="text-xl font-semibold text-foreground mb-4">{feature.title}</h3>
+              <p className="text-foreground/80 mb-6 leading-relaxed">{feature.description}</p>
               
               <ul className="space-y-2">
                 {feature.benefits.map((benefit, benefitIndex) => (
-                  <li key={benefitIndex} className="flex items-center text-sm text-gray-400">
+                  <li key={benefitIndex} className="flex items-center text-sm text-muted-foreground">
                     <Sparkles className="h-3 w-3 text-ai-neon mr-2 flex-shrink-0" />
                     <span>{benefit}</span>
                   </li>
@@ -81,8 +81,8 @@ export const FeaturesDetailed = () => {
 
         <div className="text-center mt-16 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <div className="bg-gradient-to-r from-ai-primary/20 to-ai-secondary/20 rounded-2xl p-8 border border-ai-primary/30">
-            <h3 className="text-2xl font-bold text-white mb-4">Ready to explore all features?</h3>
-            <p className="text-gray-300 mb-6">Start with our free plan and upgrade when you need more power.</p>
+            <h3 className="text-2xl font-bold text-foreground mb-4">Ready to explore all features?</h3>
+            <p className="text-foreground/80 mb-6">Start with our free plan and upgrade when you need more power.</p>
             <button className="btn-ai-neon">
               <Download className="h-5 w-5 mr-2" />
               Start Creating Free

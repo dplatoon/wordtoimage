@@ -201,8 +201,8 @@
     font-size: 16px;
   }
   
-  .mobile-input::placeholder {
-    color: #6b7280;
+.mobile-input::placeholder {
+    color: hsl(var(--muted-foreground));
   }
   
   .mobile-input:focus {
@@ -229,8 +229,8 @@
     font-size: 16px;
   }
   
-  .mobile-textarea::placeholder {
-    color: #6b7280;
+.mobile-textarea::placeholder {
+    color: hsl(var(--muted-foreground));
   }
   
   .mobile-textarea:focus {

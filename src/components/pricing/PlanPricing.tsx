@@ -27,23 +27,23 @@ export const PlanPricing = ({ price, billingCycle, guarantee, isFree }: PlanPric
   return (
     <div className="text-center mb-6 md:mb-8">
       <div className="flex items-baseline justify-center mb-2">
-        <span className="text-3xl md:text-4xl font-bold text-gray-900">
+        <span className="text-3xl md:text-4xl font-bold text-foreground">
           {getDisplayPrice()}
         </span>
         {!isFree && (
-          <span className="text-gray-500 ml-2 text-sm">
+          <span className="text-muted-foreground ml-2 text-sm">
             /{billingCycle === 'monthly' ? 'mo' : 'yr'}
           </span>
         )}
       </div>
       
       {getSavingsText() && (
-        <div className="text-green-600 text-sm font-medium">
+        <div className="text-green-500 text-sm font-medium">
           {getSavingsText()}
         </div>
       )}
       
-      <div className="text-gray-500 text-xs mt-1">{guarantee}</div>
+      <div className="text-muted-foreground text-xs mt-1">{guarantee}</div>
     </div>
   );
 };

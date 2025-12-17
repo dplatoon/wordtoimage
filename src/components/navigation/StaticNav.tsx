@@ -9,23 +9,23 @@ export const StaticNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <nav className="bg-background/95 backdrop-blur-xl border-b border-primary/20 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <SimpleLogo />
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/features" className="text-gray-600 hover:text-gray-900 font-medium">
+            <Link to="/features" className="text-muted-foreground hover:text-foreground font-medium transition-colors">
               Features
             </Link>
-            <Link to="/pricing" className="text-gray-600 hover:text-gray-900 font-medium">
+            <Link to="/pricing" className="text-muted-foreground hover:text-foreground font-medium transition-colors">
               Pricing
             </Link>
-            <Link to="/templates" className="text-gray-600 hover:text-gray-900 font-medium">
+            <Link to="/templates" className="text-muted-foreground hover:text-foreground font-medium transition-colors">
               Templates
             </Link>
-            <Link to="/about" className="text-gray-600 hover:text-gray-900 font-medium">
+            <Link to="/about" className="text-muted-foreground hover:text-foreground font-medium transition-colors">
               About
             </Link>
             <Button asChild variant="outline" size="sm">
@@ -40,7 +40,7 @@ export const StaticNav = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-600 hover:text-gray-900"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -49,18 +49,18 @@ export const StaticNav = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden py-4 border-t border-primary/20">
             <div className="flex flex-col space-y-4">
-              <Link to="/features" className="text-gray-600 hover:text-gray-900 font-medium">
+              <Link to="/features" className="text-muted-foreground hover:text-foreground font-medium transition-colors">
                 Features
               </Link>
-              <Link to="/pricing" className="text-gray-600 hover:text-gray-900 font-medium">
+              <Link to="/pricing" className="text-muted-foreground hover:text-foreground font-medium transition-colors">
                 Pricing
               </Link>
-              <Link to="/templates" className="text-gray-600 hover:text-gray-900 font-medium">
+              <Link to="/templates" className="text-muted-foreground hover:text-foreground font-medium transition-colors">
                 Templates
               </Link>
-              <Link to="/about" className="text-gray-600 hover:text-gray-900 font-medium">
+              <Link to="/about" className="text-muted-foreground hover:text-foreground font-medium transition-colors">
                 About
               </Link>
               <div className="flex flex-col space-y-2 pt-4">
