@@ -75,14 +75,16 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
         <h3 className="text-sm font-medium text-foreground mb-3">Social Media Format</h3>
         
         <Tabs value={activePlatform} onValueChange={setActivePlatform}>
-          <TabsList className="grid grid-cols-6 gap-1 bg-background/50 p-1">
+          <TabsList className="grid grid-cols-6 gap-1 bg-background/50 p-1" aria-label="Social media platforms">
             {PLATFORMS.map((platform) => (
               <TabsTrigger
                 key={platform.id}
                 value={platform.id}
-                className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary px-2 py-1.5"
+                aria-label={platform.label}
+                className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary px-2 py-1.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                <platform.icon className="h-4 w-4" />
+                <platform.icon className="h-4 w-4" aria-hidden="true" />
+                <span className="sr-only">{platform.label}</span>
               </TabsTrigger>
             ))}
           </TabsList>
@@ -94,9 +96,12 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                   <button
                     key={format.id}
                     onClick={() => onFormatSelect(format)}
+                    aria-pressed={selectedFormat?.id === format.id}
+                    aria-label={`${format.formatName} format, ${format.aspectRatio} ratio, ${format.width} by ${format.height} pixels`}
                     className={cn(
                       'p-3 rounded-lg border text-left transition-all duration-200',
                       'hover:border-primary/50 hover:bg-primary/5',
+                      'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                       selectedFormat?.id === format.id
                         ? 'border-primary bg-primary/10 shadow-neon'
                         : 'border-border/50 bg-background/30'
@@ -111,7 +116,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                       </Badge>
                     </div>
                     <p className="text-xs text-muted-foreground">{format.description}</p>
-                    <p className="text-xs text-muted-foreground/70 mt-1">
+                    <p className="text-xs text-muted-foreground/70 mt-1" aria-hidden="true">
                       {format.width} × {format.height}
                     </p>
                   </button>

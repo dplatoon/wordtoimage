@@ -54,7 +54,12 @@ export function ModernPromptInput({
   const isReady = prompt.trim().length >= 10;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="group" aria-labelledby="prompt-input-label">
+      {/* Hidden label for screen readers */}
+      <label id="prompt-input-label" className="sr-only">
+        Describe your image prompt
+      </label>
+      
       {/* Input Container */}
       <div className="relative">
         <motion.div
@@ -73,11 +78,14 @@ export function ModernPromptInput({
         >
           {/* Gradient Border Effect */}
           {isFocused && (
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-neon-cyan/5 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-neon-cyan/5 pointer-events-none" aria-hidden="true" />
           )}
 
           <Textarea
             ref={textareaRef}
+            id="prompt-input"
+            aria-labelledby="prompt-input-label"
+            aria-describedby="character-count"
             value={prompt}
             onChange={(e) => onChange(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -135,12 +143,18 @@ export function ModernPromptInput({
                 </motion.div>
               )}
             </div>
-            <span className={cn(
-              "text-sm font-mono tabular-nums",
-              isAtLimit ? "text-destructive" : 
-              isNearLimit ? "text-primary" : "text-muted-foreground"
-            )}>
-              {characterCount}/{maxCharacters}
+            <span 
+              id="character-count"
+              aria-live="polite"
+              aria-atomic="true"
+              className={cn(
+                "text-sm font-mono tabular-nums",
+                isAtLimit ? "text-destructive" : 
+                isNearLimit ? "text-primary" : "text-muted-foreground"
+              )}
+            >
+              <span className="sr-only">{characterCount} of {maxCharacters} characters used</span>
+              <span aria-hidden="true">{characterCount}/{maxCharacters}</span>
             </span>
           </div>
         </motion.div>
@@ -163,14 +177,15 @@ export function ModernPromptInput({
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => onChange(quickPrompt)}
+                aria-label={`Use prompt: ${quickPrompt}`}
                 className={cn(
                   "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm",
                   "bg-background/60 backdrop-blur-sm hover:bg-background/80 border border-primary/20 hover:border-primary/40",
                   "text-muted-foreground hover:text-foreground transition-all duration-200",
-                  "hover:shadow-neon"
+                  "hover:shadow-neon focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 )}
               >
-                <Sparkles className="h-3 w-3 text-primary" />
+                <Sparkles className="h-3 w-3 text-primary" aria-hidden="true" />
                 {quickPrompt.length > 25 ? quickPrompt.slice(0, 25) + '...' : quickPrompt}
               </motion.button>
             ))}

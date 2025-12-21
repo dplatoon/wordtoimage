@@ -194,22 +194,27 @@ export const VoiceInput: React.FC<VoiceInputProps> = ({
       size="icon"
       onClick={isListening ? stopListening : startListening}
       disabled={isEnhancing || disabled}
+      aria-label={isEnhancing ? 'Enhancing voice input' : isListening ? 'Stop listening' : 'Start voice input'}
+      aria-pressed={isListening}
       className={cn(
-        'relative transition-all duration-300',
+        'relative transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
         isListening && 'text-primary animate-pulse',
         className
       )}
-      title={isListening ? 'Stop listening' : 'Voice input'}
     >
       {isEnhancing ? (
-        <Loader2 className="h-5 w-5 animate-spin" />
+        <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
       ) : isListening ? (
         <>
-          <MicOff className="h-5 w-5" />
-          <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-red-500 animate-ping" />
+          <MicOff className="h-5 w-5" aria-hidden="true" />
+          <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-destructive animate-ping" aria-hidden="true" />
+          <span className="sr-only">Listening, click to stop</span>
         </>
       ) : (
-        <Mic className="h-5 w-5" />
+        <>
+          <Mic className="h-5 w-5" aria-hidden="true" />
+          <span className="sr-only">Voice input</span>
+        </>
       )}
     </Button>
   );

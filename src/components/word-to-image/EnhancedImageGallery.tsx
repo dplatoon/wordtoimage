@@ -132,12 +132,12 @@ export function EnhancedImageGallery({
   // Show loading state
   if (loading) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6" aria-busy="true" aria-label="Loading images">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-800">Generated Images</h2>
-          <div className="flex gap-2">
-            <div className="h-9 w-24 bg-gray-200 rounded animate-pulse"></div>
-            <div className="h-9 w-32 bg-gray-200 rounded animate-pulse"></div>
+          <h2 className="text-xl font-semibold text-foreground">Generated Images</h2>
+          <div className="flex gap-2" aria-hidden="true">
+            <div className="h-9 w-24 bg-muted rounded animate-pulse"></div>
+            <div className="h-9 w-32 bg-muted rounded animate-pulse"></div>
           </div>
         </div>
         <ImageGallery images={[]} onEdit={handleEdit} loading={true} />
@@ -148,25 +148,28 @@ export function EnhancedImageGallery({
   // Empty state for no images
   if (images.length === 0 && storedImages.length === 0) {
     return (
-      <div className="text-center py-12">
-        <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-          <Grid3X3 className="h-8 w-8 text-gray-400" />
+      <div className="text-center py-12" role="status">
+        <div className="mx-auto w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-4" aria-hidden="true">
+          <Grid3X3 className="h-8 w-8 text-muted-foreground" />
         </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No images yet</h3>
-        <p className="text-gray-500">Generate your first AI image to get started!</p>
+        <h3 className="text-lg font-medium text-foreground mb-2">No images yet</h3>
+        <p className="text-muted-foreground">Generate your first AI image to get started!</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <section className="space-y-6" aria-labelledby="gallery-heading">
       {/* Header with controls */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
-          <h2 className="text-xl font-semibold text-gray-800">
+          <h2 id="gallery-heading" className="text-xl font-semibold text-foreground">
             {viewMode === 'gallery' ? 'Generated Images' : 'Gallery Manager'}
           </h2>
-          <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+          <span 
+            className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded-full"
+            aria-live="polite"
+          >
             {viewMode === 'gallery' ? images.length : storedImages.length} image{(viewMode === 'gallery' ? images.length : storedImages.length) !== 1 ? 's' : ''}
           </span>
         </div>
@@ -177,9 +180,10 @@ export function EnhancedImageGallery({
               variant="outline"
               size="sm"
               onClick={handleDownloadAll}
-              className="hover:bg-blue-50 hover:border-blue-300"
+              aria-label={`Download all ${images.length} images`}
+              className="hover:bg-primary/10 hover:border-primary/30 focus-visible:ring-2 focus-visible:ring-primary"
             >
-              <Download className="h-4 w-4 mr-2" />
+              <Download className="h-4 w-4 mr-2" aria-hidden="true" />
               Download All
             </Button>
           )}
@@ -188,21 +192,23 @@ export function EnhancedImageGallery({
             variant={viewMode === 'manager' ? 'default' : 'outline'}
             size="sm"
             onClick={handleToggleManager}
+            aria-pressed={viewMode === 'manager'}
+            aria-label={viewMode === 'manager' ? 'Switch to gallery view' : 'Open gallery manager'}
             className={cn(
-              "transition-colors",
+              "transition-colors focus-visible:ring-2 focus-visible:ring-primary",
               viewMode === 'manager' 
-                ? "bg-violet-600 hover:bg-violet-700 text-white" 
-                : "hover:bg-violet-50 hover:border-violet-300"
+                ? "bg-primary hover:bg-primary/90 text-primary-foreground" 
+                : "hover:bg-primary/10 hover:border-primary/30"
             )}
           >
             {viewMode === 'manager' ? (
               <>
-                <Grid3X3 className="h-4 w-4 mr-2" />
+                <Grid3X3 className="h-4 w-4 mr-2" aria-hidden="true" />
                 Gallery View
               </>
             ) : (
               <>
-                <Settings className="h-4 w-4 mr-2" />
+                <Settings className="h-4 w-4 mr-2" aria-hidden="true" />
                 Gallery Manager
               </>
             )}
@@ -221,24 +227,24 @@ export function EnhancedImageGallery({
         <GalleryManager
           images={storedImages}
           onImagesChange={handleImagesChange}
-          className="bg-white rounded-xl border border-gray-200 p-6"
+          className="bg-card rounded-xl border border-border p-6"
         />
       )}
 
       {/* Gallery tips for new users */}
       {storedImages.length > 0 && storedImages.length < 5 && viewMode === 'gallery' && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <aside className="bg-primary/10 border border-primary/20 rounded-lg p-4" role="note" aria-label="Gallery tip">
           <div className="flex items-start gap-3">
-            <Search className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <Search className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
             <div>
-              <h3 className="font-medium text-blue-900 mb-1">Gallery Tip</h3>
-              <p className="text-blue-800 text-sm">
+              <h3 className="font-medium text-foreground mb-1">Gallery Tip</h3>
+              <p className="text-muted-foreground text-sm">
                 All your images are automatically saved! Use the Gallery Manager to organize, search, and manage your collection as it grows.
               </p>
             </div>
           </div>
-        </div>
+        </aside>
       )}
-    </div>
+    </section>
   );
 }
