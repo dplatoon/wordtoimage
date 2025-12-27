@@ -64,7 +64,7 @@ export const ShowcaseCard = ({
   };
 
   return (
-    <div className={`group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in ${className}`}>
+    <div className={`group bg-card rounded-xl shadow-sm border border-border overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in ${className}`}>
       {/* Image */}
       <div className="relative aspect-square overflow-hidden">
         <LazyImage
@@ -77,15 +77,15 @@ export const ShowcaseCard = ({
         {/* Overlay with actions */}
         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
           <div className="flex gap-2">
-            <Button size="sm" variant="secondary" className="bg-white/90 text-gray-900">
+            <Button size="sm" variant="secondary" className="bg-card/90 text-foreground">
               <ExternalLink className="h-4 w-4 mr-1" />
               View
             </Button>
-            <Button size="sm" variant="secondary" onClick={handleUsePrompt} className="bg-white/90 text-gray-900">
+            <Button size="sm" variant="secondary" onClick={handleUsePrompt} className="bg-card/90 text-foreground">
               <Wand2 className="h-4 w-4 mr-1" />
               Try
             </Button>
-            <Button size="sm" variant="secondary" className="bg-white/90 text-gray-900">
+            <Button size="sm" variant="secondary" className="bg-card/90 text-foreground">
               <Download className="h-4 w-4" />
             </Button>
           </div>
@@ -93,7 +93,7 @@ export const ShowcaseCard = ({
 
         {/* Category badge */}
         <div className="absolute top-3 left-3">
-          <Badge variant="secondary" className="bg-white/90 text-gray-800 text-xs">
+          <Badge variant="secondary" className="bg-card/90 text-foreground text-xs">
             {category}
           </Badge>
         </div>
@@ -101,11 +101,11 @@ export const ShowcaseCard = ({
 
       {/* Content */}
       <div className="p-4">
-        <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+        <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
           {title}
         </h3>
         
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+        <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
           {prompt}
         </p>
 
@@ -119,7 +119,7 @@ export const ShowcaseCard = ({
           <div className="flex items-center gap-2">
             <button
               onClick={onLike}
-              className="flex items-center gap-1 text-gray-500 hover:text-red-500 transition-colors"
+              className="flex items-center gap-1 text-muted-foreground hover:text-red-500 transition-colors"
             >
               <Heart className="h-4 w-4" />
               <span className="text-xs">{likes}</span>

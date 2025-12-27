@@ -9,11 +9,11 @@ const tooltipVariants = cva(
     variants: {
       variant: {
         default: "bg-popover border-border",
-        dark: "bg-gray-900 border-gray-700 text-white",
-        ai: "bg-gradient-to-r from-violet-500 to-blue-500 border-violet-400 text-white",
+        dark: "bg-card border-border text-foreground",
+        ai: "bg-gradient-to-r from-primary to-violet-500 border-primary text-primary-foreground",
         success: "bg-green-500 border-green-400 text-white",
-        warning: "bg-yellow-500 border-yellow-400 text-white",
-        error: "bg-red-500 border-red-400 text-white",
+        warning: "bg-amber-500 border-amber-400 text-white",
+        error: "bg-destructive border-destructive text-destructive-foreground",
       },
       size: {
         sm: "text-xs px-2 py-1",

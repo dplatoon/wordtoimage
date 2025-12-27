@@ -177,7 +177,7 @@ export const EnhancedStyleSelector = ({
                     onMouseLeave={() => handleStyleHover(null)}
                   >
                     {/* Preview Image */}
-                    <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                    <div className="aspect-square bg-gradient-to-br from-muted to-secondary relative overflow-hidden">
                       <img
                         src={style.preview}
                         alt={style.name}
