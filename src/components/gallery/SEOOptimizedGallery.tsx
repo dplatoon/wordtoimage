@@ -94,7 +94,7 @@ export const SEOOptimizedGallery: React.FC<SEOOptimizedGalleryProps> = ({
           {images.map((image, index) => (
             <article 
               key={image.id}
-              className="group bg-white rounded-lg shadow-sm border overflow-hidden hover:shadow-md transition-shadow"
+              className="group bg-card rounded-lg shadow-sm border border-border overflow-hidden hover:shadow-md transition-shadow"
               aria-labelledby={`image-title-${image.id}`}
             >
               <div className="relative aspect-square overflow-hidden">

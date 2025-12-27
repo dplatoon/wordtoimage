@@ -10,9 +10,9 @@ import { PricingSection } from '@/components/home/PricingSection';
 import { CTASection } from '@/components/home/CTASection';
 
 // Simple skeletal loading component
-const SectionSkeleton = ({ height = "h-40", bg = "bg-white" }: { height?: string, bg?: string }) => (
+const SectionSkeleton = ({ height = "h-40", bg = "bg-background" }: { height?: string, bg?: string }) => (
   <div className={`${height} ${bg} w-full animate-pulse flex items-center justify-center`}>
-    <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+    <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
   </div>
 );
 
@@ -64,37 +64,37 @@ export const HomeContent = () => {
   return (
     <main id="main-content" className="relative w-full">
       {/* Hero section with gradient background */}
-      <div className="bg-gradient-to-b from-blue-50 to-white">
+      <div className="bg-gradient-to-b from-secondary to-background">
         <HeroSection />
       </div>
       
       {/* CTA section moved up */}
-      <div id="cta-section" className="bg-white">
+      <div id="cta-section" className="bg-background">
         <CTASection />
       </div>
       
       {/* Showcase section (similar to Gallery) moved up */}
-      <div className="bg-white py-8 md:py-16">
+      <div className="bg-background py-8 md:py-16">
         <ShowcaseSection />
       </div>
       
       {/* How it works section */}
-      <div id="how-it-works" className="bg-gray-50 py-8 md:py-16">
+      <div id="how-it-works" className="bg-secondary py-8 md:py-16">
         <HowItWorksSection />
       </div>
       
       {/* Features section moved down */}
-      <div id="features-section" className="bg-white">
+      <div id="features-section" className="bg-background">
         <FeaturesSection />
       </div>
       
       {/* Testimonials section */}
-      <div id="testimonials-section" className="bg-gray-100">
+      <div id="testimonials-section" className="bg-muted">
         <TestimonialsSection />
       </div>
       
       {/* Pricing section kept at bottom */}
-      <div id="pricing-section" className="bg-gray-50">
+      <div id="pricing-section" className="bg-secondary">
         <PricingSection />
       </div>
       
