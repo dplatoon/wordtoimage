@@ -42,7 +42,7 @@ const AIMarketingSuccessBlogPost = () => {
       description: "Stand out with completely original visuals that no competitor can replicate or use."
     },
     {
-      icon: <TrendingUp className="w-8 h-8 text-orange-600" />,
+      icon: <TrendingUp className="w-8 h-8 text-primary" />,
       title: "Increased Engagement",
       description: "Custom AI-generated visuals consistently perform better than stock photos in marketing campaigns."
     }

@@ -67,7 +67,7 @@ export const ImageShowcaseGrid = () => {
                 {/* Trending Badge */}
                 {image.style && trendingStyles.includes(image.style) && (
                   <div className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10">
-                    <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                    <div className="bg-gradient-to-r from-primary to-violet-500 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
                       <TrendingUp className="h-3 w-3" />
                       Trending
                     </div>

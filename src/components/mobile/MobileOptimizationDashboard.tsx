@@ -314,7 +314,7 @@ export const MobileOptimizationDashboard = () => {
       case '2g':
         return <WifiOff className="h-4 w-4 text-red-500" />;
       case '3g':
-        return <Wifi className="h-4 w-4 text-orange-500" />;
+        return <Wifi className="h-4 w-4 text-amber-500" />;
       case '4g':
         return <Wifi className="h-4 w-4 text-green-500" />;
       default:
@@ -324,7 +324,7 @@ export const MobileOptimizationDashboard = () => {
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-600';
-    if (score >= 60) return 'text-orange-600';
+    if (score >= 60) return 'text-amber-600';
     return 'text-red-600';
   };
 

@@ -127,7 +127,7 @@ export function PromptOptimizer({
     if (!analysis) return 'bg-gray-200';
     if (analysis.score >= 80) return 'bg-green-500';
     if (analysis.score >= 60) return 'bg-yellow-500';
-    if (analysis.score >= 40) return 'bg-orange-500';
+    if (analysis.score >= 40) return 'bg-amber-500';
     return 'bg-red-500';
   }, [analysis]);
 

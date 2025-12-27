@@ -103,7 +103,7 @@ export function StyleCard({
           {/* Top badges with better spacing */}
           <div className="absolute top-2 left-2 flex gap-1 z-10">
             {style.trending && (
-              <Badge className="bg-orange-500/90 text-white border-none text-xs flex items-center gap-1 shadow-sm backdrop-blur-sm">
+              <Badge className="bg-primary/90 text-white border-none text-xs flex items-center gap-1 shadow-sm backdrop-blur-sm">
                 <TrendingUp className="h-3 w-3" />
                 Hot
               </Badge>

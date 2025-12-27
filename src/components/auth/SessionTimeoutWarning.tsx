@@ -96,20 +96,20 @@ export function SessionTimeoutWarning({
       role="alert"
       aria-live="assertive"
     >
-      <Alert className="border-orange-200 bg-orange-50">
-        <Clock className="h-4 w-4 text-orange-600" />
+      <Alert className="border-amber-200 bg-amber-50">
+        <Clock className="h-4 w-4 text-amber-600" />
         <AlertDescription className="pr-8">
-          <div className="font-medium text-orange-800 mb-2">
+          <div className="font-medium text-amber-800 mb-2">
             Session timeout warning
           </div>
-          <p className="text-sm text-orange-700 mb-3">
+          <p className="text-sm text-amber-700 mb-3">
             Your session will expire in {minutes > 0 && `${minutes}m `}{seconds}s due to inactivity.
           </p>
           <div className="flex space-x-2">
             <Button
               size="sm"
               onClick={extendSession}
-              className="bg-orange-600 hover:bg-orange-700 text-white"
+              className="bg-primary hover:bg-primary/90 text-white"
               autoFocus
             >
               Stay signed in
@@ -118,7 +118,7 @@ export function SessionTimeoutWarning({
               size="sm"
               variant="outline"
               onClick={() => setShowWarning(false)}
-              className="border-orange-300 text-orange-700 hover:bg-orange-100"
+              className="border-amber-300 text-amber-700 hover:bg-amber-100"
             >
               Dismiss
             </Button>
@@ -127,7 +127,7 @@ export function SessionTimeoutWarning({
         <Button
           variant="ghost"
           size="sm"
-          className="absolute top-2 right-2 h-6 w-6 p-0 text-orange-600 hover:text-orange-800"
+          className="absolute top-2 right-2 h-6 w-6 p-0 text-amber-600 hover:text-amber-800"
           onClick={() => setShowWarning(false)}
           aria-label="Close warning"
         >

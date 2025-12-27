@@ -541,8 +541,8 @@ const PromptGuide = () => {
             </Link>
             
             <Link to="/gallery" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
-              <div className="w-8 h-8 bg-orange-100 rounded flex items-center justify-center">
-                <Camera className="w-5 h-5 text-orange-600" />
+              <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center">
+                <Camera className="w-5 h-5 text-purple-600" />
               </div>
               <div>
                 <h3 className="font-semibold">Community Gallery</h3>

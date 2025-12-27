@@ -127,7 +127,7 @@ export const EnhancedExitIntentModal = ({
           </button>
           
           <div className="text-center pt-2">
-            <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <Gift className="w-8 h-8 text-white" />
             </div>
             <DialogTitle className="text-2xl font-bold mb-2">
@@ -189,7 +189,7 @@ export const EnhancedExitIntentModal = ({
           <div className="space-y-3">
             <Button 
               onClick={handleClaimOffer}
-              className="w-full bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-purple-900 font-bold py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+              className="w-full bg-gradient-to-r from-primary to-violet-500 hover:from-primary/90 hover:to-violet-600 text-white font-bold py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
             >
               {offer.ctaText}
             </Button>

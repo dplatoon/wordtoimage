@@ -17,7 +17,7 @@ const features = [
     icon: Zap,
     title: "Lightning Fast Generation",
     description: "Generate professional-quality images in just 2-3 seconds with our optimized cloud AI infrastructure. Perfect for content creators who need images fast for social media posts, marketing campaigns, and blog articles.",
-    gradient: "from-amber-500 to-orange-600",
+    gradient: "from-purple-500 to-violet-600",
     bgGlow: "amber"
   },
   {
