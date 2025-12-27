@@ -80,7 +80,7 @@ export const TemplatePreviewModal = ({
                   </Badge>
                 )}
                 {template.isPopular && (
-                  <Badge className="bg-orange-500 text-white shadow-brand font-medium">
+                  <Badge className="bg-primary text-white shadow-brand font-medium">
                     <Star className="h-3 w-3 mr-1" />
                     Popular
                   </Badge>
@@ -90,7 +90,7 @@ export const TemplatePreviewModal = ({
                     variant="outline" 
                     className={cn(
                       template.difficulty === 'Easy' && "border-green-200 text-green-700 bg-green-50",
-                      template.difficulty === 'Medium' && "border-orange-200 text-orange-700 bg-orange-50",
+                      template.difficulty === 'Medium' && "border-amber-200 text-amber-700 bg-amber-50",
                       template.difficulty === 'Advanced' && "border-red-200 text-red-700 bg-red-50"
                     )}
                   >

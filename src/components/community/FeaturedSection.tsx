@@ -94,7 +94,7 @@ export const FeaturedSection = ({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-orange-500" />
+            <TrendingUp className="h-5 w-5 text-primary" />
             Trending Now
           </CardTitle>
         </CardHeader>
@@ -114,7 +114,7 @@ export const FeaturedSection = ({
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                   {index === 0 && (
-                    <Badge className="absolute top-2 left-2 bg-orange-500">
+                    <Badge className="absolute top-2 left-2 bg-primary">
                       #1 Trending
                     </Badge>
                   )}

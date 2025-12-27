@@ -116,7 +116,7 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
             </Badge>
           )}
           {template.isPopular && (
-            <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white border-none shadow-neon font-medium">
+            <Badge className="bg-gradient-to-r from-primary to-primary/80 text-white border-none shadow-neon font-medium">
               <Star className="h-3 w-3 mr-1" aria-hidden="true" />
               Popular
             </Badge>
@@ -144,7 +144,7 @@ export const TemplateCard = ({ template, onUse, onPreview }: TemplateCardProps) 
               className={cn(
                 "text-xs ml-2 shrink-0",
                 template.difficulty === 'Easy' && "border-green-500/30 text-green-400 bg-green-500/10",
-                template.difficulty === 'Medium' && "border-orange-500/30 text-orange-400 bg-orange-500/10",
+                template.difficulty === 'Medium' && "border-amber-500/30 text-amber-400 bg-amber-500/10",
                 template.difficulty === 'Advanced' && "border-red-500/30 text-red-400 bg-red-500/10"
               )}
               aria-label={`Difficulty level: ${template.difficulty}`}

@@ -129,13 +129,13 @@ export function ProfessionalStyleCard({
           {/* Professional badges with glassmorphism */}
           <div className="absolute top-3 left-3 flex gap-2 z-20">
             {style.trending && (
-              <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-none text-xs flex items-center gap-1 shadow-lg backdrop-blur-md">
+              <Badge className="bg-gradient-to-r from-primary to-violet-500 text-white border-none text-xs flex items-center gap-1 shadow-lg backdrop-blur-md">
                 <TrendingUp className="h-3 w-3" />
                 Trending
               </Badge>
             )}
             {style.popular && (
-              <Badge className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white border-none text-xs flex items-center gap-1 shadow-lg backdrop-blur-md">
+              <Badge className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white border-none text-xs flex items-center gap-1 shadow-lg backdrop-blur-md">
                 <Star className="h-3 w-3" />
                 Popular
               </Badge>

@@ -200,7 +200,7 @@ const Community = () => {
           </Card>
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
             <CardContent className="p-6 text-center">
-              <Award className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+              <Award className="h-8 w-8 text-primary mx-auto mb-2" />
               <p className="text-2xl font-bold text-gray-900">23</p>
               <p className="text-sm text-gray-600">{t('community_page.challenges.title')}</p>
             </CardContent>
@@ -263,7 +263,7 @@ const Community = () => {
                 <div className="space-y-6">
                   <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
                     <CardContent className="p-8 text-center">
-                      <Award className="h-16 w-16 text-orange-500 mx-auto mb-4" />
+                      <Award className="h-16 w-16 text-primary mx-auto mb-4" />
                       <h2 className="text-3xl font-bold mb-2">{t('community_page.challenges.title')}</h2>
                       <p className="text-gray-600 text-lg">
                         {t('community_page.challenges.subtitle')}

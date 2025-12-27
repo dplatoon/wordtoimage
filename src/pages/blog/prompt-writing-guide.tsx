@@ -69,7 +69,7 @@ const PromptWritingGuideBlogPost = () => {
       title: "Technical Details",
       description: "Quality and composition specifics",
       examples: ["high resolution", "cinematic lighting", "detailed", "wide angle"],
-      color: "bg-orange-100 text-orange-800"
+      color: "bg-purple-100 text-purple-800"
     }
   ];
 
@@ -195,7 +195,7 @@ const PromptWritingGuideBlogPost = () => {
         </div>
 
         {/* Common Mistakes */}
-        <div className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-8">
+        <div className="mb-16 bg-gradient-to-r from-red-50 to-rose-50 rounded-xl p-8">
           <h2 className="text-2xl font-bold mb-6 text-center text-red-800">Common Prompt Mistakes to Avoid</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white rounded-lg p-6 shadow-md">

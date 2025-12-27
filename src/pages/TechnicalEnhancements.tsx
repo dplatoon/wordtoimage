@@ -68,7 +68,7 @@ const TechnicalEnhancements = () => {
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-6 text-center">
-              <Zap className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+              <Zap className="h-12 w-12 text-primary mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">API Optimization</h3>
               <p className="text-gray-600 text-sm">Rate limiting, caching, and performance optimization</p>
             </CardContent>
@@ -139,7 +139,7 @@ const TechnicalEnhancements = () => {
                     <p className="text-sm text-gray-600">Brush, eraser, shapes, and text overlay</p>
                   </div>
                   <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <Layers className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                    <Layers className="h-8 w-8 text-purple-600 mx-auto mb-2" />
                     <h4 className="font-medium">Crop & Resize</h4>
                     <p className="text-sm text-gray-600">Precise cropping and resizing tools</p>
                   </div>
@@ -202,14 +202,14 @@ const TechnicalEnhancements = () => {
                       </div>
                     </div>
 
-                    <div className="text-center p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg">
-                      <Settings className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+                    <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-violet-100 rounded-lg">
+                      <Settings className="h-12 w-12 text-primary mx-auto mb-4" />
                       <h3 className="text-lg font-semibold mb-2">Performance Monitoring</h3>
                       <p className="text-gray-600 text-sm">
                         Real-time API metrics, response time tracking, and error monitoring
                       </p>
                       <div className="mt-4 text-center">
-                        <div className="text-2xl font-bold text-orange-600">250ms</div>
+                        <div className="text-2xl font-bold text-primary">250ms</div>
                         <div className="text-xs text-gray-600">avg response time</div>
                       </div>
                     </div>

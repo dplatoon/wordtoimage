@@ -31,7 +31,7 @@ export const FastFeatures = () => {
       icon: Shield,
       title: "Commercial Rights Included",
       description: "Full commercial usage rights with every generated image. Use for marketing, products, websites, and any business purpose without restrictions.",
-      gradient: "from-orange-500 to-amber-500"
+      gradient: "from-purple-500 to-violet-600"
     },
     {
       icon: Globe,

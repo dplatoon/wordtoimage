@@ -65,7 +65,7 @@ const CATEGORIES = [
   { name: 'showcase', label: 'categories.showcase', color: 'bg-purple-500' },
   { name: 'question', label: 'categories.question', color: 'bg-blue-500' },
   { name: 'tutorial', label: 'categories.tutorial', color: 'bg-green-500' },
-  { name: 'feedback', label: 'categories.feedback', color: 'bg-orange-500' },
+  { name: 'feedback', label: 'categories.feedback', color: 'bg-amber-500' },
 ];
 
 export const CommunityFeed = () => {

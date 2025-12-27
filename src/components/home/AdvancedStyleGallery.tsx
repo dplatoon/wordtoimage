@@ -35,7 +35,7 @@ const STYLES: Style[] = [
     name: 'Photorealistic',
     imageUrl: '/lovable-uploads/53e8165c-d2db-4f0c-9509-f0e76e5c179f.png',
     prompt: 'photorealistic portrait, ultra detailed',
-    color: 'from-amber-500 to-orange-600'
+    color: 'from-purple-500 to-violet-600'
   },
   {
     id: 'digital_art',

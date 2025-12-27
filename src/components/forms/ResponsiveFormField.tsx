@@ -107,7 +107,7 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
         <div className="flex justify-end">
           <span className={cn(
             "text-xs tabular-nums",
-            value.length > maxLength * 0.9 ? "text-orange-600" : "text-gray-500",
+            value.length > maxLength * 0.9 ? "text-amber-600" : "text-gray-500",
             value.length >= maxLength && "text-red-600"
           )}>
             {value.length}/{maxLength}

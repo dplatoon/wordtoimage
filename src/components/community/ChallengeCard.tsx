@@ -75,7 +75,7 @@ export const ChallengeCard = ({ challenge, onJoin, onViewEntries }: ChallengeCar
           </div>
           {challenge.status === 'active' && (
             <div className="text-right text-sm">
-              <div className="flex items-center gap-1 text-orange-600">
+              <div className="flex items-center gap-1 text-primary">
                 <Clock className="h-4 w-4" />
                 <span className="font-semibold">{getDaysRemaining()} days left</span>
               </div>

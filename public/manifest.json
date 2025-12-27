@@ -4,7 +4,7 @@
   "description": "Transform text into stunning AI-generated images instantly with voice input and real-time preview",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#f97316",
+  "theme_color": "#8B5CF6",
   "background_color": "#0a0a0f",
   "orientation": "portrait-primary",
   "scope": "/",
