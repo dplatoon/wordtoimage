@@ -377,13 +377,13 @@ serve(async (req) => {
     }
 
   } catch (error) {
+    // Log detailed error server-side only
     console.error('API Error:', error);
     
+    // Return generic error message to client
     return new Response(
       JSON.stringify({ 
-        error: 'Internal server error',
-        message: error.message,
-        timestamp: new Date().toISOString()
+        error: 'An error occurred while processing your request. Please try again.'
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }, 

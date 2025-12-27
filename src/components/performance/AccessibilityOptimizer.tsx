@@ -1,5 +1,5 @@
-
 import { useEffect } from 'react';
+import DOMPurify from 'dompurify';
 
 export const AccessibilityOptimizer = () => {
   useEffect(() => {
@@ -85,7 +85,9 @@ export const AccessibilityOptimizer = () => {
       if (!document.querySelector('.skip-links')) {
         const skipLinks = document.createElement('div');
         skipLinks.className = 'skip-links';
-        skipLinks.innerHTML = `
+        
+        // Use DOMPurify to sanitize static HTML for skip links
+        const skipLinksHTML = `
           <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-blue-600 text-white px-4 py-2 rounded z-50">
             Skip to main content
           </a>
@@ -93,6 +95,13 @@ export const AccessibilityOptimizer = () => {
             Skip to navigation
           </a>
         `;
+        
+        // Sanitize HTML before injection to prevent XSS
+        skipLinks.innerHTML = DOMPurify.sanitize(skipLinksHTML, {
+          ALLOWED_TAGS: ['a'],
+          ALLOWED_ATTR: ['href', 'class']
+        });
+        
         document.body.insertBefore(skipLinks, document.body.firstChild);
       }
     };
