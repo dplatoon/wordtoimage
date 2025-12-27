@@ -31,7 +31,7 @@ export const UrgencyBadge = ({
   const getBgColor = () => {
     switch (type) {
       case 'limited_offer':
-        return 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white';
+        return 'bg-gradient-to-r from-purple-400 to-violet-500 text-white';
       case 'user_count':
         return 'bg-gradient-to-r from-green-400 to-blue-500 text-white';
       case 'time_sensitive':

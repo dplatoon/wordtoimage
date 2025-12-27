@@ -235,7 +235,7 @@ export const AdvancedPromptTemplates = () => {
   const getDifficultyIcon = (difficulty: string) => {
     switch (difficulty) {
       case 'beginner': return <Zap className="h-4 w-4 text-green-500" />;
-      case 'intermediate': return <TrendingUp className="h-4 w-4 text-orange-500" />;
+      case 'intermediate': return <TrendingUp className="h-4 w-4 text-amber-500" />;
       case 'advanced': return <Sparkles className="h-4 w-4 text-red-500" />;
       default: return null;
     }

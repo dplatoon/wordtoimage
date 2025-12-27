@@ -54,7 +54,7 @@ const OnboardingDemo = () => {
       benefits: ['Visual milestones', 'Achievement badges', 'Completion rewards']
     },
     {
-      icon: <BookOpen className="h-6 w-6 text-orange-600" />,
+      icon: <BookOpen className="h-6 w-6 text-primary" />,
       title: 'Smart Recommendations',
       description: 'AI-powered suggestions based on user behavior and preferences.',
       benefits: ['Behavioral insights', 'Personalized content', 'Adaptive learning']

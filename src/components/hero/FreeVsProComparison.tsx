@@ -17,7 +17,7 @@ export const FreeVsProComparison = ({ onUpgradeClick, className = "" }: FreeVsPr
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card className={`bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200 ${className}`}>
+    <Card className={`bg-gradient-to-r from-purple-50 to-violet-50 border-purple-200 ${className}`}>
       <CardContent className="p-6">
         <ComparisonHeader />
         <QuickComparisonCards onUpgradeClick={onUpgradeClick} />
@@ -28,7 +28,7 @@ export const FreeVsProComparison = ({ onUpgradeClick, className = "" }: FreeVsPr
             variant="ghost" 
             size="sm"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-amber-700 hover:bg-amber-100"
+            className="text-purple-700 hover:bg-purple-100"
           >
             {isExpanded ? 'Hide' : 'Show'} detailed comparison
             <ArrowRight className={`h-4 w-4 ml-1 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />

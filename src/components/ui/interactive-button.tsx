@@ -20,7 +20,7 @@ const interactiveButtonVariants = cva(
         ai: 
           "bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-violet-500/25 hover:scale-105 transform-gpu",
         magical: 
-          "bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-purple-500/25 hover:scale-105 transform-gpu animate-pulse",
+          "bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-purple-500/25 hover:scale-105 transform-gpu animate-pulse",
       },
       size: {
         default: "h-12 px-6 py-3",

@@ -40,7 +40,7 @@ const getCategoryDetails = (category: string) => {
     case 'tutorial':
       return { label: 'Tutorial', color: 'bg-green-500' };
     case 'feedback':
-      return { label: 'Feedback', color: 'bg-orange-500' };
+      return { label: 'Feedback', color: 'bg-amber-500' };
     default:
       return { label: 'Post', color: 'bg-gray-500' };
   }

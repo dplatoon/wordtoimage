@@ -19,7 +19,7 @@ const POST_CATEGORIES = [
   { id: 'showcase', label: 'Showcase', color: 'bg-purple-500' },
   { id: 'question', label: 'Question', color: 'bg-blue-500' },
   { id: 'tutorial', label: 'Tutorial', color: 'bg-green-500' },
-  { id: 'feedback', label: 'Feedback', color: 'bg-orange-500' },
+  { id: 'feedback', label: 'Feedback', color: 'bg-amber-500' },
 ];
 
 export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {

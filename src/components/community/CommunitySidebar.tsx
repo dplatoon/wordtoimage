@@ -33,7 +33,7 @@ export const CommunitySidebar = () => {
       <Card className="bg-white shadow-md border-gray-100">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
-            <Flame className="h-5 w-5 mr-2 text-orange-500" />
+            <Flame className="h-5 w-5 mr-2 text-primary" />
             {t('community_page.sidebar.trending_topics')}
           </CardTitle>
         </CardHeader>
