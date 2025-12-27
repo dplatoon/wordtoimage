@@ -37,7 +37,7 @@ const API = () => {
           </div>
           
           <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
-            <Zap className="h-8 w-8 text-orange-600 mb-3" />
+            <Zap className="h-8 w-8 text-primary mb-3" />
             <h3 className="text-lg font-semibold mb-2">Fast</h3>
             <p className="text-gray-600">Low-latency responses for quick generation</p>
           </div>

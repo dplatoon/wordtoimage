@@ -520,8 +520,8 @@ export const MobileOptimizationDashboard = () => {
                 ) : null}
 
                 {deviceMetrics.performance.memory < 1000 ? (
-                  <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
-                    <p className="text-sm text-orange-800">
+                  <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <p className="text-sm text-amber-800">
                       <strong>Limited memory:</strong> Enable minimal cache strategy and reduce motion to improve performance.
                     </p>
                   </div>

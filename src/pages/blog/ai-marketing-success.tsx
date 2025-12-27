@@ -256,9 +256,9 @@ const AIMarketingSuccessBlogPost = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-orange-200">
-              <CardHeader className="bg-orange-50">
-                <CardTitle className="text-orange-800">4. Monitor Performance</CardTitle>
+            <Card className="border-2 border-purple-200">
+              <CardHeader className="bg-purple-50">
+                <CardTitle className="text-purple-800">4. Monitor Performance</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <ul className="space-y-2 text-gray-700">
