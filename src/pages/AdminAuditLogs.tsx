@@ -112,16 +112,17 @@ export default function AdminAuditLogs() {
     }
 
     try {
-      const { data, error } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .maybeSingle();
+      // Use server-side verification for admin status
+      const { data, error } = await supabase.functions.invoke('verify-admin');
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error verifying admin status:', error);
+        toast.error('Failed to verify permissions');
+        navigate('/dashboard');
+        return;
+      }
       
-      if (!data) {
+      if (!data?.isAdmin) {
         toast.error('Access denied: Admin privileges required');
         navigate('/dashboard');
         return;
