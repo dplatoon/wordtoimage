@@ -29,3 +29,6 @@ verify_jwt = true
 
 [functions.enhance-voice-prompt]
 verify_jwt = false
+
+[functions.verify-admin]
+verify_jwt = true

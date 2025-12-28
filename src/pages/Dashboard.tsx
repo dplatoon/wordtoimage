@@ -49,15 +49,19 @@ export default function Dashboard() {
   const checkAdminStatus = async () => {
     if (!user?.id) return;
     try {
-      const { data } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .maybeSingle();
-      setIsAdmin(!!data);
+      // Use server-side verification for admin status
+      const { data, error } = await supabase.functions.invoke('verify-admin');
+      
+      if (error) {
+        console.error('Error verifying admin status:', error);
+        setIsAdmin(false);
+        return;
+      }
+      
+      setIsAdmin(data?.isAdmin === true);
     } catch (error) {
       console.error('Error checking admin status:', error);
+      setIsAdmin(false);
     }
   };
 
