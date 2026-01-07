@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -15,8 +15,9 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { User, Image, Settings, Sparkles, Zap, Shield, ArrowRight } from 'lucide-react';
-
+import { User, Image, Settings, Sparkles, Zap, Shield, ArrowRight, Trash2, Heart } from 'lucide-react';
+import { PullToRefresh } from '@/components/mobile/PullToRefresh';
+import { SwipeableCard } from '@/components/mobile/SwipeableCard';
 interface Profile {
   id: string;
   username: string | null;
@@ -65,7 +66,7 @@ export default function Dashboard() {
     }
   };
 
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     if (!user?.id) {
       setLoading(false);
       return;
@@ -86,7 +87,12 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.id]);
+
+  const handleRefresh = useCallback(async () => {
+    await Promise.all([fetchProfile(), fetchStats(), checkAdminStatus()]);
+    toast.success('Dashboard refreshed');
+  }, [fetchProfile]);
 
   const fetchStats = async () => {
     if (!user?.id) return;
@@ -119,7 +125,8 @@ export default function Dashboard() {
 
         <Nav />
         
-        <main className="container max-w-6xl py-8 px-4 pt-24">
+        <PullToRefresh onRefresh={handleRefresh}>
+          <main className="container max-w-6xl py-8 px-4 pt-24">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -178,13 +185,25 @@ export default function Dashboard() {
                 <TabsContent value="overview" className="space-y-6">
                   <div className="grid lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2">
-                      <QuickActions />
+                      <SwipeableCard
+                        leftAction={<Trash2 className="w-6 h-6 text-destructive" />}
+                        rightAction={<Heart className="w-6 h-6 text-primary" />}
+                        onSwipeLeft={() => toast.info('Swipe left action')}
+                        onSwipeRight={() => toast.success('Added to favorites')}
+                      >
+                        <QuickActions />
+                      </SwipeableCard>
                     </div>
                     <div>
-                      <CreditsCard
-                        credits={profile.credits}
-                        subscriptionTier={profile.subscription_tier}
-                      />
+                      <SwipeableCard
+                        rightAction={<Zap className="w-6 h-6 text-primary" />}
+                        onSwipeRight={() => toast.info('Get more credits')}
+                      >
+                        <CreditsCard
+                          credits={profile.credits}
+                          subscriptionTier={profile.subscription_tier}
+                        />
+                      </SwipeableCard>
                     </div>
                   </div>
                   
@@ -246,7 +265,8 @@ export default function Dashboard() {
               </button>
             </div>
           )}
-        </main>
+          </main>
+        </PullToRefresh>
         
         <Footer />
       </div>
