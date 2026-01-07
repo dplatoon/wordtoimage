@@ -6,6 +6,7 @@
 @import './styles/enhanced-theme.css';
 @import './styles/design-system.css';
 @import './styles/mobile-design-system.css';
+@import './styles/mobile-performance.css';
 
 /* Design System Color Tokens - All HSL values for proper theme support */
 :root {
