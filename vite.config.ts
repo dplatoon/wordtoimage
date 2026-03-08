@@ -99,8 +99,8 @@ export default defineConfig(({ command, mode }) => ({
       'react-dom', 
       'react-router-dom',
       '@radix-ui/react-slot',
-      '@radix-ui/react-toast'
+      '@radix-ui/react-toast',
+      '@tanstack/react-query'
     ],
-    exclude: ['@tanstack/react-query']
   },
 }));
