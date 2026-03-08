@@ -207,7 +207,7 @@ export const OnboardingManager = ({
   return (
     <div className="relative">
       {/* Pass onboarding context through React Context or props */}
-      {React.cloneElement(children as React.ReactElement, { onboardingContext })}
+      {children}
 
       {/* Welcome Flow */}
       {onboardingState.showWelcome && (
