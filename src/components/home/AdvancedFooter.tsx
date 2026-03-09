@@ -111,7 +111,7 @@ export const AdvancedFooter = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="lg:border-l lg:border-white/10 lg:pl-6">
             <h3 className="text-white font-semibold mb-4">Tools</h3>
             <ul className="space-y-3">
               {footerLinks.tools.map((link) => (
