@@ -85,7 +85,7 @@ export const AdvancedHero = () => {
         />
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl"
-          style={{ background: 'radial-gradient(circle, hsl(35 100% 50% / 0.1), transparent)' }}
+          style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.15), transparent)' }}
           animate={{
             scale: [1, 1.15, 1],
             rotate: [0, 180, 360],
