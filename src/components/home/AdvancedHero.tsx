@@ -132,7 +132,7 @@ export const AdvancedHero = () => {
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8" style={{ textShadow: '0 2px 30px hsl(0 0% 0% / 0.8)' }}>
               <span className="text-foreground">Free AI Image Generator – </span>
               <span className="text-gradient-primary">
                 Transform Text
@@ -148,11 +148,11 @@ export const AdvancedHero = () => {
             </h1>
 
             {/* Description - Enhanced for SEO */}
-            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0">
+            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0" style={{ textShadow: '0 1px 20px hsl(0 0% 0% / 0.6)' }}>
               Create professional AI-generated images in seconds with WordToImage. Simply describe what you want, 
               and our advanced AI technology transforms your text into stunning, high-quality visuals.
             </p>
-            <p className="text-base text-muted-foreground/80 leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
+            <p className="text-base text-muted-foreground/80 leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0" style={{ textShadow: '0 1px 20px hsl(0 0% 0% / 0.6)' }}>
               Perfect for social media content, marketing campaigns, blog graphics, and creative projects. 
               No design skills or experience required – join 50,000+ creators already using AI to bring their ideas to life.
             </p>

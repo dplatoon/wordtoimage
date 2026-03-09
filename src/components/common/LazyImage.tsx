@@ -57,31 +57,6 @@ export const LazyImage = ({
     return () => observer.disconnect();
   }, [priority]);
 
-  // Generate WebP and AVIF sources for modern browsers - with fallback optimization
-  const generateOptimizedSources = (baseSrc: string) => {
-    if (baseSrc.startsWith('http') || baseSrc.startsWith('data:')) {
-      return { webp: baseSrc, avif: baseSrc, fallback: baseSrc };
-    }
-    
-    const extension = baseSrc.split('.').pop()?.toLowerCase();
-    if (extension === 'svg') {
-      return { webp: baseSrc, avif: baseSrc, fallback: baseSrc };
-    }
-    
-    // Only generate optimized formats for local images if they likely exist
-    const basePath = baseSrc.replace(/\.[^/.]+$/, '');
-    
-    // For better performance, skip WebP/AVIF checks and use original
-    // This prevents 404 requests that slow down loading
-    return {
-      avif: baseSrc, // Use original as fallback
-      webp: baseSrc, // Use original as fallback  
-      fallback: baseSrc,
-    };
-  };
-
-  const { avif, webp, fallback } = generateOptimizedSources(src);
-
   const handleLoad = () => {
     setIsLoading(false);
     setHasError(false);
@@ -111,34 +86,30 @@ export const LazyImage = ({
       )}
       
       {hasError ? (
-        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-brand-slate-100 text-brand-slate-400">
+        <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-muted text-muted-foreground">
           <ImageOff className="h-8 w-8 mb-2" aria-hidden="true" />
           <p className="text-xs text-center">Image unavailable</p>
           <span className="sr-only">{alt}</span>
         </div>
       ) : isInView ? (
-        <picture>
-          <source srcSet={avif} type="image/avif" sizes={sizes} />
-          <source srcSet={webp} type="image/webp" sizes={sizes} />
-          <img
-            ref={imgRef}
-            src={fallback}
-            alt={alt}
-            className={`w-full h-full object-cover transition-opacity duration-300 ${
-              isLoading ? 'opacity-0' : 'opacity-100'
-            }`}
-            loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
-            {...(priority && { fetchPriority: 'high' })}
-            onLoad={handleLoad}
-            onError={handleError}
-            width={width}
-            height={height}
-            sizes={sizes}
-          />
-        </picture>
+        <img
+          ref={imgRef}
+          src={src}
+          alt={alt}
+          className={`w-full h-full object-cover transition-all duration-500 ${
+            isLoading ? 'opacity-0 blur-md scale-105' : 'opacity-100 blur-0 scale-100'
+          }`}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          {...(priority && { fetchPriority: 'high' })}
+          onLoad={handleLoad}
+          onError={handleError}
+          width={width}
+          height={height}
+          sizes={sizes}
+        />
       ) : (
-        <div className="w-full h-full bg-brand-slate-100" aria-label="Loading..." />
+        <div className="w-full h-full bg-muted" aria-label="Loading..." />
       )}
     </div>
   );

@@ -21,7 +21,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 *:focus-visible {
-  outline: 2px solid #06d6a0;
+  outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
 }
 
@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
   top: 1rem;
   left: 1rem;
   z-index: 50;
-  background: #1e3a8a;
+  background: hsl(var(--primary));
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
