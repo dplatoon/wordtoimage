@@ -148,7 +148,7 @@ export const AdvancedHero = () => {
             </h1>
 
             {/* Description - Enhanced for SEO */}
-            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0">
+            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0" style={{ textShadow: '0 1px 20px hsl(0 0% 0% / 0.6)' }}>
               Create professional AI-generated images in seconds with WordToImage. Simply describe what you want, 
               and our advanced AI technology transforms your text into stunning, high-quality visuals.
             </p>
