@@ -201,7 +201,7 @@
   }
   
   .glass-card-hover:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1.01);
     box-shadow: 
       0 20px 60px hsl(24 95% 55% / 0.2),
       0 8px 32px hsl(0 0% 0% / 0.4),
