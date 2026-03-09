@@ -255,7 +255,7 @@
   
   .mobile-nav-item:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(6, 214, 160, 1), 0 0 0 4px rgba(6, 214, 160, 0.1);
+    box-shadow: 0 0 0 2px hsl(var(--primary)), 0 0 0 4px hsl(var(--primary) / 0.1);
   }
   
   /* Mobile grid system */
