@@ -36,7 +36,7 @@ export function usePromptOptimization(options: UsePromptOptimizationOptions = {}
     isEnhancing: false
   });
 
-  const debounceRef = useRef<NodeJS.Timeout>();
+  const debounceRef = useRef<NodeJS.Timeout>(undefined);
 
   const analyzePrompt = useCallback(async (prompt: string) => {
     if (!prompt.trim()) {

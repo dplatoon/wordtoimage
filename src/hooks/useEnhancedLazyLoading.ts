@@ -25,7 +25,7 @@ export const useEnhancedLazyLoading = <T extends HTMLElement = HTMLDivElement>(
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const ref = useRef<T>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>(undefined);
 
   useEffect(() => {
     // Use modern intersection observer with improved performance
