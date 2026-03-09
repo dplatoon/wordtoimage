@@ -85,7 +85,7 @@ export const AdvancedHero = () => {
         />
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl"
-          style={{ background: 'radial-gradient(circle, hsl(35 100% 50% / 0.1), transparent)' }}
+          style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.15), transparent)' }}
           animate={{
             scale: [1, 1.15, 1],
             rotate: [0, 180, 360],
@@ -134,7 +134,7 @@ export const AdvancedHero = () => {
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8">
               <span className="text-foreground">Free AI Image Generator – </span>
-              <span className="text-gradient-warm">
+              <span className="text-gradient-primary">
                 Transform Text
               </span>
               <br />
@@ -435,7 +435,7 @@ export const AdvancedHero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-20 max-w-3xl mx-auto"
+          className="mt-12 max-w-3xl mx-auto"
         >
           <div className="relative">
             {/* Glow effect */}
@@ -474,7 +474,8 @@ export const AdvancedHero = () => {
                   <button
                     key={suggestion}
                     onClick={() => setPrompt(suggestion)}
-                    className="px-4 py-2 rounded-full bg-muted/50 border border-border text-muted-foreground text-sm hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all touch-feedback"
+                    className="px-4 py-2 rounded-full bg-muted/50 border border-border text-muted-foreground text-sm hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all touch-feedback focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    aria-label={`Use prompt: ${suggestion}`}
                   >
                     {suggestion}
                   </button>

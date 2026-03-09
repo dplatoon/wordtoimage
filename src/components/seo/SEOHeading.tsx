@@ -16,8 +16,6 @@ export const SEOHeading: React.FC<SEOHeadingProps> = ({
   id,
   seoOptimized = true
 }) => {
-  const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
-  
   // Generate ID from heading text if not provided
   const headingId = id || (typeof children === 'string' 
     ? children.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -36,18 +34,21 @@ export const SEOHeading: React.FC<SEOHeadingProps> = ({
 
   const finalClassName = `${seoClasses} ${className}`.trim();
 
-  return React.createElement(
-    HeadingTag,
-    {
-      className: finalClassName,
-      id: headingId,
-      ...(seoOptimized && {
-        'data-seo-heading': level,
-        'data-seo-text': typeof children === 'string' ? children : ''
-      })
-    },
-    children
-  );
+  const props = {
+    className: finalClassName,
+    id: headingId,
+    ...(seoOptimized && {
+      'data-seo-heading': level,
+      'data-seo-text': typeof children === 'string' ? children : ''
+    })
+  };
+
+  if (level === 1) return <h1 {...props}>{children}</h1>;
+  if (level === 2) return <h2 {...props}>{children}</h2>;
+  if (level === 3) return <h3 {...props}>{children}</h3>;
+  if (level === 4) return <h4 {...props}>{children}</h4>;
+  if (level === 5) return <h5 {...props}>{children}</h5>;
+  return <h6 {...props}>{children}</h6>;
 };
 
 // Pre-configured heading components for common use cases

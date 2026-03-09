@@ -99,8 +99,6 @@ export const MobileFirstHeading: React.FC<{
   children: React.ReactNode;
   className?: string;
 }> = ({ level, children, className }) => {
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
-  
   const headingClasses = {
     1: "mobile-text-4xl font-bold text-gray-900",
     2: "mobile-text-3xl font-bold text-gray-900",
@@ -108,9 +106,10 @@ export const MobileFirstHeading: React.FC<{
     4: "mobile-text-xl font-semibold text-gray-900"
   };
 
-  return (
-    <Tag className={cn(headingClasses[level], className)}>
-      {children}
-    </Tag>
-  );
+  const combinedClassName = cn(headingClasses[level], className);
+
+  if (level === 1) return <h1 className={combinedClassName}>{children}</h1>;
+  if (level === 2) return <h2 className={combinedClassName}>{children}</h2>;
+  if (level === 3) return <h3 className={combinedClassName}>{children}</h3>;
+  return <h4 className={combinedClassName}>{children}</h4>;
 };

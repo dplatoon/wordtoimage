@@ -9,6 +9,7 @@ import { OnboardingManager } from "@/components/onboarding/OnboardingManager";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { useAuth } from "@/contexts/AuthContext";
 import { SeoHead } from "@/components/home/SeoHead";
+import { SkipToContent } from "@/components/home/SkipToContent";
 import { AdvancedHero } from "@/components/home/AdvancedHero";
 import { AdvancedFeatures } from "@/components/home/AdvancedFeatures";
 import { AdvancedStyleGallery } from "@/components/home/AdvancedStyleGallery";
@@ -37,6 +38,9 @@ const Index = () => {
     >
       <ConversionManager pageId="homepage" userActivity={{}}>
         <div className="min-h-screen bg-slate-950">
+          {/* Accessibility - Skip to content links */}
+          <SkipToContent />
+          
           {/* SEO - Critical for ranking */}
           <SeoHead />
           <EnhancedSEOManager 
@@ -67,7 +71,7 @@ const Index = () => {
           />
           
           {/* Navigation - Mobile Optimized */}
-          <div className="hidden md:block">
+          <div className="hidden md:block" id="navigation">
             <Nav />
           </div>
           <MobileOptimizedNav />
@@ -99,7 +103,9 @@ const Index = () => {
           </main>
           
           {/* Advanced Footer */}
-          <AdvancedFooter />
+          <footer id="footer">
+            <AdvancedFooter />
+          </footer>
         </div>
       </ConversionManager>
     </OnboardingManager>
