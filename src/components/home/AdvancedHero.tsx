@@ -132,7 +132,7 @@ export const AdvancedHero = () => {
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8" style={{ textShadow: '0 2px 30px hsl(0 0% 0% / 0.8)' }}>
               <span className="text-foreground">Free AI Image Generator – </span>
               <span className="text-gradient-primary">
                 Transform Text
