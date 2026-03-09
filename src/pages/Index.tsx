@@ -38,6 +38,9 @@ const Index = () => {
     >
       <ConversionManager pageId="homepage" userActivity={{}}>
         <div className="min-h-screen bg-slate-950">
+          {/* Accessibility - Skip to content links */}
+          <SkipToContent />
+          
           {/* SEO - Critical for ranking */}
           <SeoHead />
           <EnhancedSEOManager 
@@ -68,7 +71,7 @@ const Index = () => {
           />
           
           {/* Navigation - Mobile Optimized */}
-          <div className="hidden md:block">
+          <div className="hidden md:block" id="navigation">
             <Nav />
           </div>
           <MobileOptimizedNav />
