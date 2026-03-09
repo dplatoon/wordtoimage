@@ -77,7 +77,7 @@ export const AdvancedFooter = () => {
           </div>
 
           {/* Links Columns */}
-          <div>
+          <div className="lg:border-l lg:border-white/10 lg:pl-6">
             <h3 className="text-white font-semibold mb-4">Product</h3>
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
