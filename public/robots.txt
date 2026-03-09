@@ -108,11 +108,11 @@ Allow: /updates
 Allow: /careers
 
 # Sitemap locations
-Sitemap: https://wordtoimage.online/sitemap.xml
-Sitemap: https://wordtoimage.online/sitemap-index.xml
+Sitemap: https://wordtoimage.com/sitemap.xml
+Sitemap: https://wordtoimage.com/sitemap-index.xml
 
 # Host declaration for SEO
-Host: wordtoimage.online
+Host: wordtoimage.com
 
 # Additional crawling preferences
 Request-rate: 1/2s
