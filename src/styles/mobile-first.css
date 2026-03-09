@@ -366,7 +366,7 @@
   /* Mobile-first accessibility */
   .mobile-focus-visible:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 4px rgba(6, 214, 160, 1), 0 0 0 6px rgba(6, 214, 160, 0.1);
+    box-shadow: 0 0 0 4px hsl(var(--primary)), 0 0 0 6px hsl(var(--primary) / 0.1);
   }
   
   /* High contrast mode support */

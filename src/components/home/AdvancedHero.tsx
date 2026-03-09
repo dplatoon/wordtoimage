@@ -152,7 +152,7 @@ export const AdvancedHero = () => {
               Create professional AI-generated images in seconds with WordToImage. Simply describe what you want, 
               and our advanced AI technology transforms your text into stunning, high-quality visuals.
             </p>
-            <p className="text-base text-muted-foreground/80 leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
+            <p className="text-base text-muted-foreground/80 leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0" style={{ textShadow: '0 1px 20px hsl(0 0% 0% / 0.6)' }}>
               Perfect for social media content, marketing campaigns, blog graphics, and creative projects. 
               No design skills or experience required – join 50,000+ creators already using AI to bring their ideas to life.
             </p>

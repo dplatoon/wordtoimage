@@ -83,7 +83,7 @@ export const OptimizedPlanCard = ({
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-neon-coral/5 pointer-events-none" />
       )}
 
-      <div className={`relative p-4 md:p-6 ${popular || isCurrentPlan ? 'pt-8 md:pt-10' : 'pt-6'}`}>
+      <div className={`relative p-6 md:p-8 ${popular || isCurrentPlan ? 'pt-8 md:pt-10' : 'pt-6 md:pt-8'}`}>
         <PlanHeader 
           name={name}
           description={description}
