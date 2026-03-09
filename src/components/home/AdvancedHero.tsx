@@ -435,7 +435,7 @@ export const AdvancedHero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-20 max-w-3xl mx-auto"
+          className="mt-12 max-w-3xl mx-auto"
         >
           <div className="relative">
             {/* Glow effect */}
