@@ -474,7 +474,8 @@ export const AdvancedHero = () => {
                   <button
                     key={suggestion}
                     onClick={() => setPrompt(suggestion)}
-                    className="px-4 py-2 rounded-full bg-muted/50 border border-border text-muted-foreground text-sm hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all touch-feedback"
+                    className="px-4 py-2 rounded-full bg-muted/50 border border-border text-muted-foreground text-sm hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all touch-feedback focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    aria-label={`Use prompt: ${suggestion}`}
                   >
                     {suggestion}
                   </button>

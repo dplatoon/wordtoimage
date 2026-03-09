@@ -30,8 +30,8 @@ export const SkipToContent = () => {
         href="#footer" 
         className={cn(
           "sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-96 z-50",
-          "focus:p-4 focus:bg-blue-600 focus:text-white focus:shadow-lg focus:rounded-md",
-          "focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600",
+          "focus:p-4 focus:bg-primary focus:text-primary-foreground focus:shadow-lg focus:rounded-md",
+          "focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary",
           "font-semibold text-sm transition-all duration-200"
         )}
       >

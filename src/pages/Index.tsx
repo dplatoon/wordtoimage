@@ -103,7 +103,9 @@ const Index = () => {
           </main>
           
           {/* Advanced Footer */}
-          <AdvancedFooter />
+          <footer id="footer">
+            <AdvancedFooter />
+          </footer>
         </div>
       </ConversionManager>
     </OnboardingManager>
