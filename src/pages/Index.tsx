@@ -9,6 +9,7 @@ import { OnboardingManager } from "@/components/onboarding/OnboardingManager";
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { useAuth } from "@/contexts/AuthContext";
 import { SeoHead } from "@/components/home/SeoHead";
+import { SkipToContent } from "@/components/home/SkipToContent";
 import { AdvancedHero } from "@/components/home/AdvancedHero";
 import { AdvancedFeatures } from "@/components/home/AdvancedFeatures";
 import { AdvancedStyleGallery } from "@/components/home/AdvancedStyleGallery";
