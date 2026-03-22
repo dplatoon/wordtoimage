@@ -289,7 +289,7 @@ serve(async (req) => {
           ]
         }),
         {
-          status: err.response?.status || 500,
+          status: (err as any).response?.status || 500,
           headers: { ...corsHeaders, "Content-Type": "application/json" }
         }
       );
