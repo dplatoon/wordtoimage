@@ -113,7 +113,7 @@ function setCachedResult(cacheKey: string, data: any, ttl: number = CACHE_SETTIN
   // Implement LRU eviction if cache is full
   if (cacheStore.size >= CACHE_SETTINGS.maxSize) {
     const oldestKey = cacheStore.keys().next().value;
-    cacheStore.delete(oldestKey);
+    if (oldestKey) cacheStore.delete(oldestKey);
   }
   
   const entry: CacheEntry = {
