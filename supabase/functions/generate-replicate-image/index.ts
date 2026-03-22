@@ -261,9 +261,9 @@ serve(async (req) => {
       let errorMessage = "Failed to generate image";
       let errorCode = "API_ERROR";
       
-      if (err.message) {
-        errorMessage = err.message;
-        if (err.message.includes("NSFW")) {
+      if ((err as Error).message) {
+        errorMessage = (err as Error).message;
+        if ((err as Error).message.includes("NSFW")) {
           errorCode = "CONTENT_POLICY";
           errorMessage = "Content policy violation detected. Please try a different prompt.";
         } else if (err.message.includes("rate limit")) {
