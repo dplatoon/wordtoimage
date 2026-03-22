@@ -266,7 +266,7 @@ serve(async (req) => {
         if ((err as Error).message.includes("NSFW")) {
           errorCode = "CONTENT_POLICY";
           errorMessage = "Content policy violation detected. Please try a different prompt.";
-        } else if (err.message.includes("rate limit")) {
+        } else if ((err as Error).message.includes("rate limit")) {
           errorCode = "RATE_LIMIT";
           errorMessage = "Rate limit exceeded. Please try again later.";
         }
