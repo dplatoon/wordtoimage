@@ -37,8 +37,8 @@ serve(async (req) => {
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err) {
-      console.error(`Webhook signature verification failed: ${err.message}`);
-      return new Response(`Webhook Error: ${err.message}`, { status: 400 });
+      console.error(`Webhook signature verification failed: ${(err as Error).message}`);
+      return new Response(`Webhook Error: ${(err as Error).message}`, { status: 400 });
     }
     
     console.log(`Received Stripe event: ${event.type}`);
@@ -168,9 +168,9 @@ serve(async (req) => {
     });
     
   } catch (error) {
-    console.error(`Error handling webhook: ${error.message}`);
+    console.error(`Error handling webhook: ${(error as Error).message}`);
     
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ error: (error as Error).message }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
     });

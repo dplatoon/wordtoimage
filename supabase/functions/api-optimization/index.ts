@@ -113,7 +113,7 @@ function setCachedResult(cacheKey: string, data: any, ttl: number = CACHE_SETTIN
   // Implement LRU eviction if cache is full
   if (cacheStore.size >= CACHE_SETTINGS.maxSize) {
     const oldestKey = cacheStore.keys().next().value;
-    cacheStore.delete(oldestKey);
+    if (oldestKey) cacheStore.delete(oldestKey);
   }
   
   const entry: CacheEntry = {
@@ -170,21 +170,19 @@ async function logApiUsage(userId: string, endpoint: string, userPlan: string, s
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // Using EdgeRuntime.waitUntil for background logging
-    EdgeRuntime.waitUntil(
-      supabase.from('user_analytics').insert({
-        user_id: userId,
-        event_type: 'api_usage',
-        event_data: {
-          endpoint,
-          user_plan: userPlan,
-          success,
-          response_time: responseTime,
-          timestamp: new Date().toISOString()
-        },
-        session_id: `api_${userId}_${Date.now()}`
-      })
-    );
+    // Fire-and-forget background logging
+    supabase.from('user_analytics').insert({
+      user_id: userId,
+      event_type: 'api_usage',
+      event_data: {
+        endpoint,
+        user_plan: userPlan,
+        success,
+        response_time: responseTime,
+        timestamp: new Date().toISOString()
+      },
+      session_id: `api_${userId}_${Date.now()}`
+    }).then(() => {}).catch((e: unknown) => console.error('Log failed:', e));
   } catch (error) {
     console.error('Error logging API usage:', error);
   }

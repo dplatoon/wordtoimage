@@ -261,12 +261,12 @@ serve(async (req) => {
       let errorMessage = "Failed to generate image";
       let errorCode = "API_ERROR";
       
-      if (err.message) {
-        errorMessage = err.message;
-        if (err.message.includes("NSFW")) {
+      if ((err as Error).message) {
+        errorMessage = (err as Error).message;
+        if ((err as Error).message.includes("NSFW")) {
           errorCode = "CONTENT_POLICY";
           errorMessage = "Content policy violation detected. Please try a different prompt.";
-        } else if (err.message.includes("rate limit")) {
+        } else if ((err as Error).message.includes("rate limit")) {
           errorCode = "RATE_LIMIT";
           errorMessage = "Rate limit exceeded. Please try again later.";
         }
@@ -286,12 +286,12 @@ serve(async (req) => {
     }
 
   } catch (error) {
-    console.error("Edge function error:", error.stack || error);
+    console.error("Edge function error:", (error as Error).stack || error);
     return new Response(
       JSON.stringify({
         error: true,
-        errorMessage: error.message || "An unexpected error occurred",
-        errors: [{ code: "RUNTIME_ERROR", message: error.message || "Unknown error" }]
+        errorMessage: (error as Error).message || "An unexpected error occurred",
+        errors: [{ code: "RUNTIME_ERROR", message: (error as Error).message || "Unknown error" }]
       }),
       {
         status: 500,
