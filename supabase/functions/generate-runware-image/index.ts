@@ -266,12 +266,12 @@ serve(async (req) => {
       let msg = "Failed to generate image";
       let errorType = undefined;
 
-      if (err.isOpenAI && err.errorData?.error?.type) {
-        errorType = err.errorData.error.type;
-        msg = err.errorData.error.message || msg;
+      if ((err as any).isOpenAI && (err as any).errorData?.error?.type) {
+        errorType = (err as any).errorData.error.type;
+        msg = (err as any).errorData.error.message || msg;
         if (errorType === "invalid_request_error") {
-          code = err.errorData.error.param === "api_key" ? "INVALID_API_KEY" : "VALIDATION_ERROR";
-        } else if (err.response?.status === 429) {
+          code = (err as any).errorData.error.param === "api_key" ? "INVALID_API_KEY" : "VALIDATION_ERROR";
+        } else if ((err as any).response?.status === 429) {
           code = "RATE_LIMIT";
         }
       }
