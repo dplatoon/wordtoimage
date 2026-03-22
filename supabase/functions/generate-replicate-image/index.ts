@@ -286,12 +286,12 @@ serve(async (req) => {
     }
 
   } catch (error) {
-    console.error("Edge function error:", error.stack || error);
+    console.error("Edge function error:", (error as Error).stack || error);
     return new Response(
       JSON.stringify({
         error: true,
-        errorMessage: error.message || "An unexpected error occurred",
-        errors: [{ code: "RUNTIME_ERROR", message: error.message || "Unknown error" }]
+        errorMessage: (error as Error).message || "An unexpected error occurred",
+        errors: [{ code: "RUNTIME_ERROR", message: (error as Error).message || "Unknown error" }]
       }),
       {
         status: 500,
