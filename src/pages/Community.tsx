@@ -141,7 +141,7 @@ const Community = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
+    <div className="min-h-screen bg-background">
       <StructuredData data={communityStructuredData} />
       
       <Nav />
@@ -149,7 +149,7 @@ const Community = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Enhanced Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 border border-blue-200 text-blue-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
             <Users className="w-4 h-4 mr-2" />
             {t('community_page.title')}
           </div>
@@ -297,7 +297,7 @@ const Community = () => {
                       <CardContent className="p-6">
                         <h3 className="text-xl font-bold mb-4">This Week's Highlights</h3>
                         <div className="space-y-4">
-                          <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-100">
+                          <div className="bg-secondary/50 p-4 rounded-lg border border-border">
                             <h4 className="font-semibold mb-2 text-foreground">Most Liked Creation</h4>
                             <p className="text-sm text-muted-foreground mb-3">
                               "Ethereal Dreams" by @dreamweaver received 1,247 likes this week
@@ -308,7 +308,7 @@ const Community = () => {
                               className="w-full h-32 object-cover rounded-lg"
                             />
                           </div>
-                          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg border border-green-100">
+                          <div className="bg-secondary/50 p-4 rounded-lg border border-border">
                             <h4 className="font-semibold mb-2 text-foreground">Rising Star</h4>
                             <p className="text-sm text-muted-foreground mb-3">
                               @newartist gained 500+ followers with their amazing portrait series
