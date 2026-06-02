@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SocialMetaTagsProps {
@@ -17,7 +17,7 @@ interface SocialMetaTagsProps {
 export const SocialMetaTags: React.FC<SocialMetaTagsProps> = ({
   title,
   description,
-  image = 'https://wordtoimage.online/og-default.jpg',
+  image = 'https://wordtoimage.com/og-default.jpg',
   url = typeof window !== 'undefined' ? window.location.href : '',
   type = 'website',
   siteName = 'WordToImage',
@@ -77,7 +77,7 @@ export const SocialMetaTags: React.FC<SocialMetaTagsProps> = ({
             "name": siteName,
             "logo": {
               "@type": "ImageObject",
-              "url": "https://wordtoimage.online/logo.png"
+              "url": "https://wordtoimage.com/logo.png"
             }
           }
         })}

@@ -6,7 +6,7 @@ export const TechnicalSEOManager = () => {
   
   // Normalize pathname to handle trailing slashes
   const normalizedPath = location.pathname === '/' ? '/' : location.pathname.replace(/\/$/, '');
-  const canonicalUrl = `https://wordtoimage.online${normalizedPath}`;
+  const canonicalUrl = `https://wordtoimage.com${normalizedPath}`;
 
   return (
     <Helmet>
@@ -43,12 +43,12 @@ export const TechnicalSEOManager = () => {
           "@context": "https://schema.org",
           "@type": "WebSite",
           "name": "WordToImage - AI Image Generator",
-          "url": "https://wordtoimage.online",
+          "url": "https://wordtoimage.com",
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://wordtoimage.online/search?q={search_term_string}"
+              "urlTemplate": "https://wordtoimage.com/search?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           },

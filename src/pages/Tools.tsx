@@ -80,7 +80,7 @@ const Tools = () => {
       <Helmet>
         <title>Free Online Tools | PDF, JPG, Word Converter & More</title>
         <meta name="description" content="Access powerful free online tools for document conversion, background removal, and AI image enhancement. Convert PDF to JPG, Word to JPG, and more." />
-        <link rel="canonical" href="https://wordtoimage.online/tools" />
+        <link rel="canonical" href="https://wordtoimage.com/tools" />
       </Helmet>
       
       {/* Animated Background */}

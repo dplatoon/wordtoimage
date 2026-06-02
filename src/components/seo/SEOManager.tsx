@@ -18,7 +18,7 @@ export const SEOManager = ({ customConfig }: SEOManagerProps) => {
   const finalConfig = { ...pageConfig, ...customConfig };
 
   // Ensure canonical URL is always set and properly formatted without trailing slash
-  const canonicalUrl = finalConfig.canonical || `https://wordtoimage.online${normalizedPath}`;
+  const canonicalUrl = finalConfig.canonical || `https://wordtoimage.com${normalizedPath}`;
 
   return (
     <>
@@ -27,7 +27,7 @@ export const SEOManager = ({ customConfig }: SEOManagerProps) => {
         description={finalConfig.description}
         keywords={finalConfig.keywords}
         canonicalUrl={canonicalUrl}
-        ogImage={finalConfig.ogImage || 'https://wordtoimage.online/og-default.jpg'}
+        ogImage={finalConfig.ogImage || 'https://wordtoimage.com/og-default.jpg'}
         noindex={finalConfig.noindex}
         hreflang={finalConfig.hreflang}
       />

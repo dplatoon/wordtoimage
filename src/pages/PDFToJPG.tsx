@@ -57,7 +57,7 @@ export default function PDFToJPG() {
         <title>Convert PDF to JPG – Free & Fast | WordToImage</title>
         <meta name="description" content="Transform your PDF documents into high-quality JPG images instantly. Free, secure, and works in your browser. No watermarks!" />
         <meta name="keywords" content="convert PDF to JPG online, PDF to image converter, PDF to JPG free, extract images from PDF, PDF converter" />
-        <link rel="canonical" href="https://wordtoimage.online/pdf-to-jpg" />
+        <link rel="canonical" href="https://wordtoimage.com/pdf-to-jpg" />
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />

@@ -133,7 +133,7 @@ const Blog = () => {
         <title>WordToImage Blog – Image Conversion & AI Tools Tips</title>
         <meta name="description" content="Explore tutorials, case studies, and tips on using image converters, background removers, and AI tools. Stay updated with the latest trends." />
         <meta name="keywords" content="AI art blog, image conversion tutorials, background removal tips, AI image generator guides, converter tools" />
-        <link rel="canonical" href="https://wordtoimage.online/blog" />
+        <link rel="canonical" href="https://wordtoimage.com/blog" />
         
         <script type="application/ld+json">
           {JSON.stringify({
@@ -141,11 +141,11 @@ const Blog = () => {
             "@type": "Blog",
             "name": "WordToImage Blog",
             "description": "Tutorials and insights on AI image generation, background removal, and image conversion tools",
-            "url": "https://wordtoimage.online/blog",
+            "url": "https://wordtoimage.com/blog",
             "publisher": {
               "@type": "Organization",
               "name": "WordToImage",
-              "url": "https://wordtoimage.online"
+              "url": "https://wordtoimage.com"
             },
             "mainEntity": {
               "@type": "CollectionPage",

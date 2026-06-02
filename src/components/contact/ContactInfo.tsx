@@ -7,8 +7,8 @@ export const ContactInfo = () => {
       icon: Mail,
       title: "Email Us",
       description: "Get personalized support from our team",
-      contact: "contact@wordtoimage.online",
-      action: "mailto:contact@wordtoimage.online"
+      contact: "contact@wordtoimage.com",
+      action: "mailto:contact@wordtoimage.com"
     },
     {
       icon: MessageSquare,

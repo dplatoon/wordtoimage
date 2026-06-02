@@ -101,7 +101,7 @@ export default function BatchGenerator() {
         <title>AI Batch Image Generator – Create Multiple Images at Once | WordToImage</title>
         <meta name="description" content="Generate up to 40 AI images simultaneously with our batch generator. 10x faster than single generation. Perfect for content creators and businesses." />
         <meta name="keywords" content="batch image generator, bulk AI images, multiple image generation, AI batch processing, bulk image creation, mass image generator" />
-        <link rel="canonical" href="https://wordtoimage.online/batch-generator" />
+        <link rel="canonical" href="https://wordtoimage.com/batch-generator" />
         
         <script type="application/ld+json">
           {JSON.stringify({
@@ -111,11 +111,11 @@ export default function BatchGenerator() {
             "applicationCategory": "DesignApplication",
             "operatingSystem": "Web Browser",
             "description": "Generate multiple AI images simultaneously with batch processing for efficiency",
-            "url": "https://wordtoimage.online/batch-generator",
+            "url": "https://wordtoimage.com/batch-generator",
             "provider": {
               "@type": "Organization",
               "name": "WordToImage",
-              "url": "https://wordtoimage.online"
+              "url": "https://wordtoimage.com"
             },
             "offers": {
               "@type": "Offer",
@@ -162,13 +162,13 @@ export default function BatchGenerator() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://wordtoimage.online"
+                "item": "https://wordtoimage.com"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Batch Generator",
-                "item": "https://wordtoimage.online/batch-generator"
+                "item": "https://wordtoimage.com/batch-generator"
               }
             ]
           })}

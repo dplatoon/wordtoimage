@@ -99,7 +99,7 @@ export default function AITemplates() {
         <title>AI Prompt Templates – Ready-to-Use Image Generation Prompts | WordToImage</title>
         <meta name="description" content="Discover 50+ professional AI prompt templates for image generation. Copy & use expert-crafted prompts for portraits, landscapes, digital art & more. Free templates available." />
         <meta name="keywords" content="AI prompt templates, image generation prompts, AI art prompts, text to image prompts, free AI templates, prompt library, AI image generator" />
-        <link rel="canonical" href="https://wordtoimage.online/ai-templates" />
+        <link rel="canonical" href="https://wordtoimage.com/ai-templates" />
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       

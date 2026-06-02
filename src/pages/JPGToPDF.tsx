@@ -57,7 +57,7 @@ export default function JPGToPDF() {
         <title>Convert JPG to PDF Online Free – Fast & Secure | WordToImage</title>
         <meta name="description" content="Upload JPG, turn it into high-quality PDF in seconds. No signup, 100% secure. Try our free JPG→PDF converter now!" />
         <meta name="keywords" content="convert JPG to PDF online, JPG to PDF converter, images to PDF, merge images PDF, online PDF creator" />
-        <link rel="canonical" href="https://wordtoimage.online/jpg-to-pdf" />
+        <link rel="canonical" href="https://wordtoimage.com/jpg-to-pdf" />
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />

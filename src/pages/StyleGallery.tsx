@@ -80,7 +80,7 @@ const StyleGallery = () => {
         <title>AI Art Style Gallery – 50+ Professional Artistic Styles | WordToImage</title>
         <meta name="description" content="Explore 50+ professional AI art styles including photorealistic, anime, cyberpunk, watercolor & more. Transform your images with expert-curated artistic styles." />
         <meta name="keywords" content="AI art styles, image generation styles, artistic styles gallery, photorealistic AI, anime style generator, digital art styles, painting styles AI" />
-        <link rel="canonical" href="https://wordtoimage.online/style-gallery" />
+        <link rel="canonical" href="https://wordtoimage.com/style-gallery" />
         
         <script type="application/ld+json">
           {JSON.stringify({
@@ -88,7 +88,7 @@ const StyleGallery = () => {
             "@type": "CollectionPage",
             "name": "AI Art Style Gallery",
             "description": "Professional collection of AI art styles for image generation",
-            "url": "https://wordtoimage.online/style-gallery",
+            "url": "https://wordtoimage.com/style-gallery",
             "mainEntity": {
               "@type": "ItemList",
               "name": "AI Art Styles",
@@ -109,7 +109,7 @@ const StyleGallery = () => {
             "provider": {
               "@type": "Organization",
               "name": "WordToImage",
-              "url": "https://wordtoimage.online"
+              "url": "https://wordtoimage.com"
             },
             "aggregateRating": {
               "@type": "AggregateRating",
@@ -143,13 +143,13 @@ const StyleGallery = () => {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://wordtoimage.online"
+                "item": "https://wordtoimage.com"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Style Gallery",
-                "item": "https://wordtoimage.online/style-gallery"
+                "item": "https://wordtoimage.com/style-gallery"
               }
             ]
           })}
