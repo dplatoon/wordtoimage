@@ -13,10 +13,9 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
   }
 }
 
-// Critical CSS injection
+// Critical CSS injection - dark background to prevent flash of white
 const criticalCSS = `
-  body { font-family: system-ui, -apple-system, sans-serif; margin: 0; background: #fff; }
-  .hero-section { min-height: 80vh; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); }
+  body { font-family: system-ui, -apple-system, sans-serif; margin: 0; background: hsl(220 15% 5%); color: hsl(0 0% 95%); }
   .loading { opacity: 0; animation: fadeIn 0.3s ease-in-out forwards; }
   @keyframes fadeIn { to { opacity: 1; } }
   img { font-style: italic; background-repeat: no-repeat; background-size: cover; }

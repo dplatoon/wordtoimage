@@ -55,7 +55,7 @@ const TOP_CREATIONS: TopCreation[] = [
 export const WeeklyTopCreations = () => {
   return (
     <section className="mb-12" aria-labelledby="weekly-top-creations">
-      <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-0 shadow-lg">
+      <Card className="bg-card border-0 shadow-lg">
         <CardHeader className="text-center pb-6">
           <div className="flex items-center justify-center mb-4">
             <TrendingUp className="h-8 w-8 text-purple-600 mr-3" />

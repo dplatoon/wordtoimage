@@ -42,7 +42,7 @@ export const FeaturedSection = ({
   return (
     <div className="space-y-6">
       {/* Featured Artist */}
-      <Card className="bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200">
+      <Card className="bg-card border-primary/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-purple-800">
             <Star className="h-5 w-5 text-yellow-500 fill-current" />
