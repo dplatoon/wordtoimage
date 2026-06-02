@@ -4,8 +4,8 @@
 
   <!-- Tools Hub -->
   <url>
-    <loc>https://wordtoimage.online/tools</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/tools</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
@@ -13,48 +13,48 @@
 
   <!-- AI Generation Tools -->
   <url>
-    <loc>https://wordtoimage.online/templates</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/templates</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/ai-templates</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/ai-templates</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/style-gallery</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/style-gallery</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/batch-generator</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/batch-generator</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/ai-upscaler</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/ai-upscaler</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/ai-enhance</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/ai-enhance</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
@@ -62,40 +62,40 @@
 
   <!-- Converter Tools -->
   <url>
-    <loc>https://wordtoimage.online/pdf-to-jpg</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/pdf-to-jpg</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/word-to-jpg</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/word-to-jpg</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/jpg-to-word</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/jpg-to-word</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/jpg-to-pdf</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/jpg-to-pdf</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
   </url>
 
   <url>
-    <loc>https://wordtoimage.online/remove-background</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/remove-background</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
@@ -103,8 +103,8 @@
 
   <!-- API -->
   <url>
-    <loc>https://wordtoimage.online/api</loc>
-    <lastmod>2025-12-12</lastmod>
+    <loc>https://wordtoimage.com/api</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>

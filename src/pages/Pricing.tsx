@@ -21,7 +21,7 @@ const Pricing = () => {
     title: "AI Image Generator Pricing - Free & Pro Plans | WordToImage",
     description: "Affordable AI image generation pricing. Start free with daily credits or upgrade to Pro for unlimited generations. Commercial use included.",
     keywords: "AI image generator pricing, text to image cost, AI art subscription, image generation plans, affordable AI tools",
-    canonical: "https://wordtoimage.online/pricing",
+    canonical: "https://wordtoimage.com/pricing",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Product",

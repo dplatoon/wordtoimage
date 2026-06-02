@@ -19,7 +19,7 @@ const RemoveBackground = () => {
         <title>Remove Background from Images – Free AI Tool | WordToImage</title>
         <meta name="description" content="Effortlessly remove image backgrounds using AI. Upload PNG/JPG & download transparent results in seconds. Try our free tool!" />
         <meta name="keywords" content="background remover, AI background removal, remove background, transparent background, image editing, transparent PNG, AI masking, background removal tool" />
-        <link rel="canonical" href="https://wordtoimage.online/remove-background" />
+        <link rel="canonical" href="https://wordtoimage.com/remove-background" />
       </Helmet>
 
       <Nav />

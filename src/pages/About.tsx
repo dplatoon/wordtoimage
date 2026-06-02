@@ -73,7 +73,7 @@ const About = () => {
         title="About WordToImage - Leading AI Image Generation Platform"
         description="Learn about WordToImage's mission to democratize AI-powered creativity. Meet our team and discover how we're revolutionizing image generation technology."
         keywords="about WordToImage, AI company, image generation platform, AI art technology, creative AI tools"
-        canonical="https://wordtoimage.online/about"
+        canonical="https://wordtoimage.com/about"
         aiKeywords={['AI image generation company', 'artificial intelligence startup', 'creative technology platform']}
         voiceSearchQueries={['who created WordToImage', 'WordToImage company information']}
       />

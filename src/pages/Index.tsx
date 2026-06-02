@@ -60,7 +60,7 @@ const Index = () => {
             pageData={{
               title: "WordToImage - AI Image Generator: Transform Text Into Art",
               description: "Generate professional-quality images from simple text descriptions using advanced artificial intelligence. Create stunning visual artwork in seconds with our AI image generator.",
-              url: "https://wordtoimage.online",
+              url: "https://wordtoimage.com",
               datePublished: "2024-01-01",
               dateModified: new Date().toISOString()
             }}

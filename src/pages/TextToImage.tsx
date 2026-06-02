@@ -204,7 +204,7 @@ export default function TextToImage() {
         <Helmet>
           <title>AI Image Generator: Turn Words to Art | WordToImage</title>
           <meta name="description" content="Free AI-powered text-to-image tool. Create stunning visuals from text prompts instantly." />
-          <link rel="canonical" href="https://wordtoimage.online/text-to-image" />
+          <link rel="canonical" href="https://wordtoimage.com/text-to-image" />
         </Helmet>
         <EnhancedSEOManager pageContent={pageContent} />
         

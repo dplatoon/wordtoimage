@@ -30,7 +30,7 @@ export default function AIEnhance() {
           name="description" 
           content="Enhance your images with AI. Upscale resolution, remove backgrounds, apply artistic styles, and edit images with natural language prompts." 
         />
-        <link rel="canonical" href="https://wordtoimage.online/ai-enhance" />
+        <link rel="canonical" href="https://wordtoimage.com/ai-enhance" />
       </Helmet>
 
       <main className="min-h-screen bg-background">

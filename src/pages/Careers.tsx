@@ -43,7 +43,7 @@ const Careers = () => {
         title="Careers - Join WordToImage AI Team"
         description="Join the WordToImage team and help build the future of AI image generation. Explore open positions in engineering, AI research, design, and marketing at our innovative company."
         keywords="careers, jobs, AI company careers, machine learning jobs, engineering jobs, WordToImage jobs"
-        canonical="https://wordtoimage.online/careers"
+        canonical="https://wordtoimage.com/careers"
         aiKeywords={['AI company careers', 'machine learning engineer jobs', 'artificial intelligence startup jobs']}
         voiceSearchQueries={['WordToImage careers', 'AI image generator jobs', 'machine learning company jobs']}
       />

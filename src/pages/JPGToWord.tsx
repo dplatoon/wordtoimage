@@ -57,7 +57,7 @@ export default function JPGToWord() {
         <title>Convert JPG to Word Online – Free OCR Tool | WordToImage</title>
         <meta name="description" content="Extract text from JPG images to editable Word documents using advanced OCR technology. Free, secure, and supports 100+ languages." />
         <meta name="keywords" content="convert JPG to Word online, JPG to Word OCR, image to text converter, OCR online, extract text from image" />
-        <link rel="canonical" href="https://wordtoimage.online/jpg-to-word" />
+        <link rel="canonical" href="https://wordtoimage.com/jpg-to-word" />
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />

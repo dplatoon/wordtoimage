@@ -57,7 +57,7 @@ export default function WordToJPG() {
         <title>Convert Word to JPG – Free Online Tool | WordToImage</title>
         <meta name="description" content="Convert Word documents (.doc, .docx) to high-quality JPG images while preserving formatting, fonts, and layout. Free and secure." />
         <meta name="keywords" content="convert Word to JPG, Word to image converter, DOCX to JPG, document to image, Word to picture" />
-        <link rel="canonical" href="https://wordtoimage.online/word-to-jpg" />
+        <link rel="canonical" href="https://wordtoimage.com/word-to-jpg" />
       </Helmet>
       <EnhancedSEOManager pageContent={pageContent} />
       <Nav />
