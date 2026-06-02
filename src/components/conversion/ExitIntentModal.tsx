@@ -62,7 +62,7 @@ export const ExitIntentModal = ({ isOpen, onClose }: ExitIntentModalProps) => {
         <DialogHeader className="relative">
           <button 
             onClick={handleClose}
-            className="absolute -top-2 -right-2 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
+            className="absolute -top-2 -right-2 w-8 h-8 bg-card/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -78,7 +78,7 @@ export const ExitIntentModal = ({ isOpen, onClose }: ExitIntentModalProps) => {
         </DialogHeader>
 
         <div className="text-center space-y-4">
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+          <div className="bg-card/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
             <div className="flex items-center justify-center gap-2 text-yellow-300 mb-2">
               <Zap className="w-5 h-5" />
               <span className="font-bold text-lg">LIMITED TIME OFFER</span>

@@ -56,9 +56,9 @@ export const DemoMode = ({ onDemoGenerate, isGenerating }: DemoModeProps) => {
       <div className="text-center mb-4">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Play className="h-5 w-5 text-blue-600" />
-          <h3 className="text-lg font-semibold text-gray-800">Try AI Generation Instantly</h3>
+          <h3 className="text-lg font-semibold text-foreground">Try AI Generation Instantly</h3>
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-muted-foreground">
           Skip the setup - click any example below for instant AI image generation
         </p>
       </div>
@@ -81,25 +81,25 @@ export const DemoMode = ({ onDemoGenerate, isGenerating }: DemoModeProps) => {
                 />
                 <div className="absolute top-2 left-2 flex gap-1">
                   {example.tags.map(tag => (
-                    <Badge key={tag} variant="secondary" className="text-xs bg-white/90">
+                    <Badge key={tag} variant="secondary" className="text-xs bg-card/90">
                       {tag}
                     </Badge>
                   ))}
                 </div>
                 <div className="absolute inset-0 bg-black/20 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                  <Button size="sm" variant="secondary" className="bg-white/90 hover:bg-white">
+                  <Button size="sm" variant="secondary" className="bg-card/90 hover:bg-white">
                     <Wand2 className="h-4 w-4 mr-1" />
                     Generate
                   </Button>
                 </div>
               </div>
               
-              <h4 className="font-medium text-gray-800 mb-1">{example.title}</h4>
-              <p className="text-xs text-gray-600 line-clamp-2 mb-2">
+              <h4 className="font-medium text-foreground mb-1">{example.title}</h4>
+              <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
                 {example.prompt.substring(0, 60)}...
               </p>
               
-              <div className="flex items-center justify-between text-xs text-gray-500">
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <Clock className="h-3 w-3" />
                   ~5 seconds
@@ -115,7 +115,7 @@ export const DemoMode = ({ onDemoGenerate, isGenerating }: DemoModeProps) => {
       </div>
 
       <div className="text-center mt-4">
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-muted-foreground">
           ✨ No signup required • Instant results • Try unlimited examples
         </p>
       </div>

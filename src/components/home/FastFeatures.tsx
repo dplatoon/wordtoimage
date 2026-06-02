@@ -50,10 +50,10 @@ export const FastFeatures = () => {
             <Sparkles className="w-4 h-4 mr-2" />
             Powerful AI Features
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Everything You Need to Create Amazing AI Art
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Our comprehensive AI image generation platform provides professional-grade tools and features 
             to bring your creative vision to life. From beginners to professionals, create stunning visuals 
             that captivate your audience and elevate your projects.
@@ -67,7 +67,7 @@ export const FastFeatures = () => {
             return (
               <div
                 key={index}
-                className="group relative bg-white rounded-2xl border border-gray-200 p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group relative bg-card rounded-2xl border border-border p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 {/* Icon */}
                 <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${feature.gradient} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
@@ -75,10 +75,10 @@ export const FastFeatures = () => {
                 </div>
                 
                 {/* Content */}
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-violet-600 transition-colors duration-300">
+                <h3 className="text-xl font-semibold text-foreground mb-4 group-hover:text-violet-600 transition-colors duration-300">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>
 
@@ -93,7 +93,7 @@ export const FastFeatures = () => {
         <div className="mt-20">
           <div className="bg-gradient-to-r from-violet-50 to-indigo-50 rounded-3xl p-8 md:p-12">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
                 Perfect for Every Creative Project
               </h2>
               <p className="text-lg text-gray-700 mb-8 leading-relaxed">
@@ -104,21 +104,21 @@ export const FastFeatures = () => {
               </p>
               
               <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm">
-                <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="bg-card rounded-xl p-4 shadow-sm">
                   <div className="font-semibold text-violet-600 mb-2">Content Creators</div>
-                  <div className="text-gray-600">YouTube thumbnails, blog headers, social posts</div>
+                  <div className="text-muted-foreground">YouTube thumbnails, blog headers, social posts</div>
                 </div>
-                <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="bg-card rounded-xl p-4 shadow-sm">
                   <div className="font-semibold text-indigo-600 mb-2">Marketers</div>
-                  <div className="text-gray-600">Ad creatives, landing pages, email campaigns</div>
+                  <div className="text-muted-foreground">Ad creatives, landing pages, email campaigns</div>
                 </div>
-                <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="bg-card rounded-xl p-4 shadow-sm">
                   <div className="font-semibold text-purple-600 mb-2">Designers</div>
-                  <div className="text-gray-600">Concept art, mood boards, client presentations</div>
+                  <div className="text-muted-foreground">Concept art, mood boards, client presentations</div>
                 </div>
-                <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="bg-card rounded-xl p-4 shadow-sm">
                   <div className="font-semibold text-pink-600 mb-2">Businesses</div>
-                  <div className="text-gray-600">Product images, brand assets, promotional graphics</div>
+                  <div className="text-muted-foreground">Product images, brand assets, promotional graphics</div>
                 </div>
               </div>
             </div>

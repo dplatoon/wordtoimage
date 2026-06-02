@@ -48,7 +48,7 @@ export const MobilePerformanceIndicator = () => {
               {isMobile ? (
                 <Smartphone className="h-4 w-4 text-blue-500" />
               ) : (
-                <Monitor className="h-4 w-4 text-gray-500" />
+                <Monitor className="h-4 w-4 text-muted-foreground" />
               )}
               <span className="text-sm font-medium">
                 {isMobile ? 'Mobile' : 'Desktop'} Performance
@@ -70,7 +70,7 @@ export const MobilePerformanceIndicator = () => {
             </div>
             <div>
               <div className="font-medium">{status.label}</div>
-              <div className="text-sm text-gray-500">Performance Score</div>
+              <div className="text-sm text-muted-foreground">Performance Score</div>
             </div>
           </div>
 

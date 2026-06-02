@@ -52,7 +52,7 @@ export function StyleRecommendations({
                   variant="outline"
                   size="sm"
                   onClick={() => onSelectStyle(rec.styleId)}
-                  className="bg-white hover:bg-amber-100 border-amber-300 text-amber-700"
+                  className="bg-card hover:bg-amber-100 border-amber-300 text-amber-700"
                 >
                   <Sparkles className="h-3 w-3 mr-1" />
                   {STYLE_NAMES[rec.styleId] || rec.styleId}

@@ -42,7 +42,7 @@ const getCategoryDetails = (category: string) => {
     case 'feedback':
       return { label: 'Feedback', color: 'bg-amber-500' };
     default:
-      return { label: 'Post', color: 'bg-gray-500' };
+      return { label: 'Post', color: 'bg-muted/500' };
   }
 };
 
@@ -64,7 +64,7 @@ export const PostCard = ({ post }: PostCardProps) => {
   const categoryDetails = getCategoryDetails(post.category);
   
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+    <div className="bg-card rounded-lg shadow-md overflow-hidden border border-border">
       <div className="p-4">
         {/* Post Header */}
         <div className="flex justify-between items-center mb-4">
@@ -75,7 +75,7 @@ export const PostCard = ({ post }: PostCardProps) => {
             </Avatar>
             <div>
               <p className="font-semibold">{post.author.name}</p>
-              <p className="text-xs text-gray-500">{post.timestamp}</p>
+              <p className="text-xs text-muted-foreground">{post.timestamp}</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -96,7 +96,7 @@ export const PostCard = ({ post }: PostCardProps) => {
         
         {/* Post Content */}
         <div className="mb-4">
-          <p className="text-gray-800">{post.content}</p>
+          <p className="text-foreground">{post.content}</p>
         </div>
         
         {/* Post Image (if any) */}
@@ -111,22 +111,22 @@ export const PostCard = ({ post }: PostCardProps) => {
         )}
         
         {/* Post Actions */}
-        <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-2 border-t border-border">
           <div className="flex space-x-4">
             <Button 
               variant="ghost" 
               size="sm" 
-              className={`flex items-center ${liked ? 'text-red-500' : 'text-gray-600'}`}
+              className={`flex items-center ${liked ? 'text-red-500' : 'text-muted-foreground'}`}
               onClick={handleLike}
             >
               <Heart className={`mr-1 h-4 w-4 ${liked ? 'fill-current' : ''}`} />
               {likesCount}
             </Button>
-            <Button variant="ghost" size="sm" className="flex items-center text-gray-600">
+            <Button variant="ghost" size="sm" className="flex items-center text-muted-foreground">
               <MessageSquare className="mr-1 h-4 w-4" />
               {post.comments}
             </Button>
-            <Button variant="ghost" size="sm" className="flex items-center text-gray-600">
+            <Button variant="ghost" size="sm" className="flex items-center text-muted-foreground">
               <Share2 className="mr-1 h-4 w-4" />
               {t('community_page.post.share')}
             </Button>
@@ -134,7 +134,7 @@ export const PostCard = ({ post }: PostCardProps) => {
           <Button 
             variant="ghost" 
             size="sm" 
-            className={`flex items-center ${saved ? 'text-blue-500' : 'text-gray-600'}`}
+            className={`flex items-center ${saved ? 'text-blue-500' : 'text-muted-foreground'}`}
             onClick={() => setSaved(!saved)}
           >
             <Bookmark className={`h-4 w-4 ${saved ? 'fill-current' : ''}`} />

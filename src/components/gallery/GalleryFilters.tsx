@@ -50,7 +50,7 @@ export function GalleryFilters({
       {/* Empty State for Filtered Results */}
       {filteredCount === 0 && totalCount > 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500 mb-2">No images match your search criteria</p>
+          <p className="text-muted-foreground mb-2">No images match your search criteria</p>
           <Button variant="outline" onClick={onClearFilters}>
             Clear all filters
           </Button>

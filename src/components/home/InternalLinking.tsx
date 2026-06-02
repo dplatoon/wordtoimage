@@ -25,13 +25,13 @@ export const InternalLinking = () => {
   ];
 
   return (
-    <section className="py-12 bg-white border-t border-gray-100">
+    <section className="py-12 bg-white border-t border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Explore More AI Art Resources
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             New to AI art? Explore our comprehensive guides, templates, and tutorials to create stunning visuals like a pro
           </p>
         </div>
@@ -39,8 +39,8 @@ export const InternalLinking = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {linkSections.map((section, index) => (
             <div key={index} className="bg-gradient-to-br from-violet-50 to-indigo-50 rounded-2xl p-6 border border-violet-100">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{section.title}</h3>
-              <p className="text-gray-600 mb-6">{section.description}</p>
+              <h3 className="text-xl font-semibold text-foreground mb-2">{section.title}</h3>
+              <p className="text-muted-foreground mb-6">{section.description}</p>
               
               <div className="space-y-3">
                 {section.links.map((link, linkIndex) => {
@@ -49,15 +49,15 @@ export const InternalLinking = () => {
                     <Link
                       key={linkIndex}
                       to={link.to}
-                      className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200 hover:border-violet-300 hover:shadow-md transition-all duration-200 group"
+                      className="flex items-center justify-between p-3 bg-card rounded-lg border border-border hover:border-violet-300 hover:shadow-md transition-all duration-200 group"
                     >
                       <div className="flex items-center">
                         <Icon className="w-5 h-5 text-violet-600 mr-3" />
-                        <span className="font-medium text-gray-900 group-hover:text-violet-600 transition-colors">
+                        <span className="font-medium text-foreground group-hover:text-violet-600 transition-colors">
                           {link.text}
                         </span>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-violet-600 group-hover:translate-x-1 transition-all" />
+                      <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-violet-600 group-hover:translate-x-1 transition-all" />
                     </Link>
                   );
                 })}
@@ -76,14 +76,14 @@ export const InternalLinking = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/text-to-image"
-                className="inline-flex items-center px-6 py-3 bg-white text-violet-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center px-6 py-3 bg-white text-violet-600 font-semibold rounded-lg hover:bg-muted/50 transition-colors"
               >
                 Try Free Generator
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
               <Link
                 to="/pricing"
-                className="inline-flex items-center px-6 py-3 border border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
+                className="inline-flex items-center px-6 py-3 border border-white/30 text-white font-semibold rounded-lg hover:bg-card/10 transition-colors"
               >
                 View Pro Features
                 <ArrowRight className="w-4 h-4 ml-2" />

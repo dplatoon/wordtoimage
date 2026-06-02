@@ -210,7 +210,7 @@ export const HomepageTooltips = ({ isActive = false, onComplete }: HomepageToolt
             onClick={startTour}
             variant="outline"
             size="sm"
-            className="bg-white shadow-lg hover:shadow-xl transition-all duration-200"
+            className="bg-card shadow-lg hover:shadow-xl transition-all duration-200"
           >
             <Lightbulb className="w-4 h-4 mr-2" />
             Take Tour
@@ -253,17 +253,17 @@ export const HomepageTooltips = ({ isActive = false, onComplete }: HomepageToolt
               variant="ghost"
               size="sm"
               onClick={handleSkip}
-              className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
+              className="h-6 w-6 p-0 text-muted-foreground hover:text-muted-foreground"
             >
               <X className="h-4 w-4" />
             </Button>
           </div>
           
-          <h3 className="font-bold text-gray-900 mb-3 text-lg">
+          <h3 className="font-bold text-foreground mb-3 text-lg">
             {currentStepData.title}
           </h3>
           
-          <p className="text-gray-600 mb-6 leading-relaxed">
+          <p className="text-muted-foreground mb-6 leading-relaxed">
             {currentStepData.content}
           </p>
           

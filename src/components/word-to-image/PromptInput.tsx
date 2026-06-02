@@ -65,7 +65,7 @@ export function PromptInput({
         isMobile ? "flex-col space-y-2" : "items-center"
       )}>
         <div className={cn(
-          "text-gray-500 flex items-start flex-1",
+          "text-muted-foreground flex items-start flex-1",
           isMobile ? "text-xs" : "text-sm"
         )} id="prompt-help">
           <Sparkles className="h-3 w-3 mr-2 mt-0.5 text-blue-500 flex-shrink-0" aria-hidden="true" />

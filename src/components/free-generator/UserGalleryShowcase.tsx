@@ -85,10 +85,10 @@ export const UserGalleryShowcase = ({ userImages }: UserGalleryShowcaseProps) =>
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Community Gallery
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Explore amazing creations from our community and get inspired
           </p>
         </div>
@@ -155,7 +155,7 @@ export const UserGalleryShowcase = ({ userImages }: UserGalleryShowcaseProps) =>
                       {image.prompt}
                     </p>
                     <div className="flex justify-between items-center">
-                      <Badge variant="secondary" className="bg-white/20 text-white text-xs">
+                      <Badge variant="secondary" className="bg-card/20 text-white text-xs">
                         {image.style}
                       </Badge>
                       <div className="flex items-center space-x-2">
@@ -166,7 +166,7 @@ export const UserGalleryShowcase = ({ userImages }: UserGalleryShowcaseProps) =>
                             e.stopPropagation();
                             handleLike(image.id);
                           }}
-                          className={`text-white hover:bg-white/20 p-1 ${
+                          className={`text-white hover:bg-card/20 p-1 ${
                             likedImages.has(parseInt(image.id.replace(/\D/g, ''))) 
                               ? 'text-red-400' 
                               : 'text-white'
@@ -201,7 +201,7 @@ export const UserGalleryShowcase = ({ userImages }: UserGalleryShowcaseProps) =>
 
         {filteredImages.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
+            <p className="text-muted-foreground text-lg">
               No images found for "{selectedCategory}". Try a different category or generate your first image!
             </p>
           </div>

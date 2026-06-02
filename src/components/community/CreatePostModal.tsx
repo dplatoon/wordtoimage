@@ -140,7 +140,7 @@ export const CreatePostModal = ({ isOpen, onClose }: CreatePostModalProps) => {
                 className="hidden"
               />
               {selectedImage && (
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-muted-foreground">
                   {selectedImage.name}
                 </span>
               )}

@@ -7,7 +7,7 @@ const Privacy = () => {
   const lastUpdated = "June 3, 2025";
   
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <PageSEO
         title="Privacy Policy - WordToImage AI Generator"
         description="Learn how WordToImage protects your privacy. Our privacy policy explains data collection, usage, and protection measures for our AI image generation service."
@@ -22,8 +22,8 @@ const Privacy = () => {
         <div className="max-w-3xl mx-auto">
           <ContentBreadcrumbs />
           
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Privacy Policy</h1>
-          <p className="text-gray-600 mb-8">Last Updated: {lastUpdated}</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Privacy Policy</h1>
+          <p className="text-muted-foreground mb-8">Last Updated: {lastUpdated}</p>
           
           <div className="prose prose-violet max-w-none">
             <p>

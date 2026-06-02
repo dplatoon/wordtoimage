@@ -99,7 +99,7 @@ export const ContentAnalytics = () => {
           {[...Array(4)].map((_, i) => (
             <Card key={i}>
               <CardContent className="p-6">
-                <div className="h-20 bg-gray-200 animate-pulse rounded" />
+                <div className="h-20 bg-muted animate-pulse rounded" />
               </CardContent>
             </Card>
           ))}
@@ -121,8 +121,8 @@ export const ContentAnalytics = () => {
             <div className="flex items-center">
               <BookOpen className="h-8 w-8 text-violet-600" />
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Posts</p>
-                <p className="text-2xl font-bold text-gray-900">{data.totalPosts}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Posts</p>
+                <p className="text-2xl font-bold text-foreground">{data.totalPosts}</p>
               </div>
             </div>
           </CardContent>
@@ -133,8 +133,8 @@ export const ContentAnalytics = () => {
             <div className="flex items-center">
               <Eye className="h-8 w-8 text-blue-600" />
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Views</p>
-                <p className="text-2xl font-bold text-gray-900">{data.totalViews.toLocaleString()}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Views</p>
+                <p className="text-2xl font-bold text-foreground">{data.totalViews.toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -145,8 +145,8 @@ export const ContentAnalytics = () => {
             <div className="flex items-center">
               <Heart className="h-8 w-8 text-red-600" />
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Likes</p>
-                <p className="text-2xl font-bold text-gray-900">{data.totalLikes}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Likes</p>
+                <p className="text-2xl font-bold text-foreground">{data.totalLikes}</p>
               </div>
             </div>
           </CardContent>
@@ -157,8 +157,8 @@ export const ContentAnalytics = () => {
             <div className="flex items-center">
               <TrendingUp className="h-8 w-8 text-green-600" />
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Avg. Read Time</p>
-                <p className="text-2xl font-bold text-gray-900">{Math.round(data.avgReadTime)} min</p>
+                <p className="text-sm font-medium text-muted-foreground">Avg. Read Time</p>
+                <p className="text-2xl font-bold text-foreground">{Math.round(data.avgReadTime)} min</p>
               </div>
             </div>
           </CardContent>
@@ -183,10 +183,10 @@ export const ContentAnalytics = () => {
               <CardContent>
                 <div className="space-y-4">
                   {data.topPosts.map((post, index) => (
-                    <div key={post.slug} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={post.slug} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                       <div className="flex-1">
                         <p className="font-medium text-sm line-clamp-2">{post.title}</p>
-                        <div className="flex items-center gap-4 mt-1 text-xs text-gray-600">
+                        <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Eye className="w-3 h-3" />
                             {post.views}
@@ -238,19 +238,19 @@ export const ContentAnalytics = () => {
                   <div className="text-2xl font-bold text-violet-600">
                     {((data.totalLikes / data.totalViews) * 100).toFixed(1)}%
                   </div>
-                  <p className="text-sm text-gray-600">Like Rate</p>
+                  <p className="text-sm text-muted-foreground">Like Rate</p>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-blue-600">
                     {(data.totalViews / data.totalPosts).toFixed(0)}
                   </div>
-                  <p className="text-sm text-gray-600">Avg. Views per Post</p>
+                  <p className="text-sm text-muted-foreground">Avg. Views per Post</p>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-green-600">
                     {(data.totalLikes / data.totalPosts).toFixed(0)}
                   </div>
-                  <p className="text-sm text-gray-600">Avg. Likes per Post</p>
+                  <p className="text-sm text-muted-foreground">Avg. Likes per Post</p>
                 </div>
               </div>
               
@@ -279,11 +279,11 @@ export const ContentAnalytics = () => {
                     <div key={category.category} className="flex items-center justify-between p-3 border rounded-lg">
                       <div>
                         <p className="font-medium">{category.category}</p>
-                        <p className="text-sm text-gray-600">{category.posts} posts</p>
+                        <p className="text-sm text-muted-foreground">{category.posts} posts</p>
                       </div>
                       <div className="text-right">
                         <p className="font-semibold">{category.views} views</p>
-                        <p className="text-sm text-gray-600">{category.engagement} likes</p>
+                        <p className="text-sm text-muted-foreground">{category.engagement} likes</p>
                       </div>
                     </div>
                   ))}

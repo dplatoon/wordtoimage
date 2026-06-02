@@ -124,7 +124,7 @@ const VideoTutorials = () => {
       case 'Beginner': return 'bg-green-100 text-green-800';
       case 'Intermediate': return 'bg-yellow-100 text-yellow-800';
       case 'Advanced': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
   
@@ -150,7 +150,7 @@ const VideoTutorials = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Helmet>
         <title>AI Image Generation Video Tutorials | WordToImage</title>
         <meta name="description" content="Learn AI image generation with our comprehensive video tutorials. From beginner basics to advanced techniques. Master text-to-image AI with step-by-step guides." />
@@ -235,10 +235,10 @@ const VideoTutorials = () => {
       <main className="pt-8 pb-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               AI Image Generation Video Tutorials
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Master AI image generation with our step-by-step video guides. From beginner basics to advanced prompt engineering.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-6">
@@ -259,13 +259,13 @@ const VideoTutorials = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div className="lg:col-span-3">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Master AI Art with Step-by-Step Videos</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-6">Master AI Art with Step-by-Step Videos</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {tutorials.map((tutorial) => {
                   const relatedLink = getRelatedLink(tutorial.id);
                   return (
-                    <div key={tutorial.id} className="bg-white rounded-lg shadow-md border overflow-hidden group hover:shadow-lg transition-shadow flex flex-col">
-                      <div className="aspect-video bg-gray-200 relative group-hover:scale-105 transition-transform">
+                    <div key={tutorial.id} className="bg-card rounded-lg shadow-md border overflow-hidden group hover:shadow-lg transition-shadow flex flex-col">
+                      <div className="aspect-video bg-muted relative group-hover:scale-105 transition-transform">
                         <img
                           src={tutorial.thumbnailUrl}
                           alt={`${tutorial.title} - AI tutorial video thumbnail`}
@@ -290,10 +290,10 @@ const VideoTutorials = () => {
                       </div>
                       
                       <div className="p-6 flex flex-col flex-grow">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                        <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">
                           {tutorial.title}
                         </h3>
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                           {tutorial.description}
                         </p>
                         
@@ -302,18 +302,18 @@ const VideoTutorials = () => {
                           <h4 className="text-sm font-medium text-gray-700 mb-2">Chapters:</h4>
                           <div className="space-y-1">
                             {tutorial.chapters.slice(0, 3).map((chapter, index) => (
-                              <div key={index} className="flex justify-between text-xs text-gray-500">
+                              <div key={index} className="flex justify-between text-xs text-muted-foreground">
                                 <span className="truncate mr-2">{chapter.title}</span>
                                 <span className="shrink-0">{chapter.timestamp}</span>
                               </div>
                             ))}
                             {tutorial.chapters.length > 3 && (
-                              <div className="text-xs text-gray-400">+{tutorial.chapters.length - 3} more chapters</div>
+                              <div className="text-xs text-muted-foreground">+{tutorial.chapters.length - 3} more chapters</div>
                             )}
                           </div>
                         </div>
                         
-                        <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
+                        <div className="mt-auto pt-4 border-t border-border flex items-center justify-between text-sm text-muted-foreground">
                           <div className="flex items-center gap-4">
                             <div className="flex items-center gap-1">
                               <Users className="h-4 w-4" />
@@ -335,16 +335,16 @@ const VideoTutorials = () => {
 
             {/* Related Tools Sidebar */}
             <div className="lg:col-span-1">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Related Tools and Resources</h3>
+              <h3 className="text-xl font-bold text-foreground mb-4">Related Tools and Resources</h3>
               <div className="space-y-4">
                 {relatedTools.map((tool, index) => (
                   <Link 
                     key={index}
                     to={tool.href} 
-                    className="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="block p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
                   >
-                    <h4 className="font-semibold text-gray-900 mb-1">{tool.name}</h4>
-                    <p className="text-sm text-gray-600">{tool.description}</p>
+                    <h4 className="font-semibold text-foreground mb-1">{tool.name}</h4>
+                    <p className="text-sm text-muted-foreground">{tool.description}</p>
                     <div className="flex items-center justify-end mt-2">
                       <ArrowRight className="w-4 h-4 text-violet-600" />
                     </div>
@@ -369,10 +369,10 @@ const VideoTutorials = () => {
           {/* Featured Playlist */}
           <div className="mt-16 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl p-8">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
                 Complete AI Art Mastery Course
               </h2>
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
                 Follow our comprehensive playlist to go from beginner to expert in AI image generation. 
                 Learn everything from basic prompts to advanced techniques.
               </p>

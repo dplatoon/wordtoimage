@@ -27,7 +27,7 @@ export default function PaymentSuccess() {
           
           <h1 className="text-3xl font-bold mb-4">Payment Successful!</h1>
           
-          <p className="text-gray-600 mb-8">
+          <p className="text-muted-foreground mb-8">
             Thank you for your purchase. Your subscription has been activated and you can now enjoy all the premium features.
           </p>
           

@@ -11,46 +11,46 @@ const API = () => {
       <Nav />
       <main className="flex-grow max-w-7xl mx-auto w-full px-4 py-12 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">API Documentation</h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <h1 className="text-4xl font-bold text-foreground sm:text-5xl">API Documentation</h1>
+          <p className="mt-4 text-xl text-muted-foreground">
             Integrate WordToImage capabilities directly into your applications
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <div className="bg-card rounded-lg shadow-sm p-6 border border-border">
             <Code className="h-8 w-8 text-blue-600 mb-3" />
             <h3 className="text-lg font-semibold mb-2">RESTful API</h3>
-            <p className="text-gray-600">Simple HTTP endpoints for easy integration</p>
+            <p className="text-muted-foreground">Simple HTTP endpoints for easy integration</p>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <div className="bg-card rounded-lg shadow-sm p-6 border border-border">
             <Server className="h-8 w-8 text-green-600 mb-3" />
             <h3 className="text-lg font-semibold mb-2">99.9% Uptime</h3>
-            <p className="text-gray-600">Reliable service with high availability</p>
+            <p className="text-muted-foreground">Reliable service with high availability</p>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <div className="bg-card rounded-lg shadow-sm p-6 border border-border">
             <Shield className="h-8 w-8 text-purple-600 mb-3" />
             <h3 className="text-lg font-semibold mb-2">Secure</h3>
-            <p className="text-gray-600">Enterprise-grade security with encryption</p>
+            <p className="text-muted-foreground">Enterprise-grade security with encryption</p>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <div className="bg-card rounded-lg shadow-sm p-6 border border-border">
             <Zap className="h-8 w-8 text-primary mb-3" />
             <h3 className="text-lg font-semibold mb-2">Fast</h3>
-            <p className="text-gray-600">Low-latency responses for quick generation</p>
+            <p className="text-muted-foreground">Low-latency responses for quick generation</p>
           </div>
         </div>
         
-        <div className="bg-gray-50 rounded-lg p-8 mb-12">
+        <div className="bg-muted/50 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-bold mb-6">Getting Started</h2>
           
           <div className="mb-6">
             <h3 className="text-xl font-semibold mb-2">1. Get your API key</h3>
             <div className="bg-gray-800 text-gray-200 p-4 rounded-md flex justify-between items-center">
               <code>api_key = "wti_01234567890abcdefghijklmnopqrstuvwxyz"</code>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white">
                 <Copy className="h-4 w-4" />
               </Button>
             </div>
@@ -78,7 +78,7 @@ const API = () => {
 }'`}
                   </pre>
                 </div>
-                <Button variant="ghost" size="sm" className="absolute top-2 right-2 text-gray-400 hover:text-white">
+                <Button variant="ghost" size="sm" className="absolute top-2 right-2 text-muted-foreground hover:text-white">
                   <Copy className="h-4 w-4" />
                 </Button>
               </TabsContent>
@@ -107,7 +107,7 @@ image_url = response.json()["url"]
 print(f"Generated image: {image_url}")`}
                   </pre>
                 </div>
-                <Button variant="ghost" size="sm" className="absolute top-2 right-2 text-gray-400 hover:text-white">
+                <Button variant="ghost" size="sm" className="absolute top-2 right-2 text-muted-foreground hover:text-white">
                   <Copy className="h-4 w-4" />
                 </Button>
               </TabsContent>
@@ -139,7 +139,7 @@ fetch(url, {
   .catch(error => console.error("Error:", error));`}
                   </pre>
                 </div>
-                <Button variant="ghost" size="sm" className="absolute top-2 right-2 text-gray-400 hover:text-white">
+                <Button variant="ghost" size="sm" className="absolute top-2 right-2 text-muted-foreground hover:text-white">
                   <Copy className="h-4 w-4" />
                 </Button>
               </TabsContent>
@@ -147,7 +147,7 @@ fetch(url, {
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow-md p-8 border border-gray-100">
+        <div className="bg-card rounded-lg shadow-md p-8 border border-border">
           <h2 className="text-2xl font-bold mb-6">Explore API Endpoints</h2>
           
           <div className="space-y-8">
@@ -156,7 +156,7 @@ fetch(url, {
                 <Terminal className="h-5 w-5 text-green-600 mr-2" />
                 <h3 className="text-xl font-semibold">POST /v1/generate</h3>
               </div>
-              <p className="text-gray-600 mb-2">Generate an image from text</p>
+              <p className="text-muted-foreground mb-2">Generate an image from text</p>
               <Button variant="outline" size="sm">View Documentation</Button>
             </div>
             
@@ -165,7 +165,7 @@ fetch(url, {
                 <Terminal className="h-5 w-5 text-blue-600 mr-2" />
                 <h3 className="text-xl font-semibold">GET /v1/images</h3>
               </div>
-              <p className="text-gray-600 mb-2">Retrieve your generated images</p>
+              <p className="text-muted-foreground mb-2">Retrieve your generated images</p>
               <Button variant="outline" size="sm">View Documentation</Button>
             </div>
             
@@ -174,7 +174,7 @@ fetch(url, {
                 <Terminal className="h-5 w-5 text-purple-600 mr-2" />
                 <h3 className="text-xl font-semibold">GET /v1/styles</h3>
               </div>
-              <p className="text-gray-600 mb-2">List available image styles</p>
+              <p className="text-muted-foreground mb-2">List available image styles</p>
               <Button variant="outline" size="sm">View Documentation</Button>
             </div>
           </div>

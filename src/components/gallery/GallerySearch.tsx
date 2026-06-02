@@ -80,7 +80,7 @@ export function GallerySearch({ onSearch, onFilter, onClearFilters, activeFilter
       {/* Search Bar */}
       <div className="relative">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -110,8 +110,8 @@ export function GallerySearch({ onSearch, onFilter, onClearFilters, activeFilter
 
         {/* Search History Dropdown */}
         {showHistory && searchHistory.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-            <div className="p-2 border-b border-gray-100 flex items-center text-xs text-gray-500">
+          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-border rounded-md shadow-lg z-10">
+            <div className="p-2 border-b border-border flex items-center text-xs text-muted-foreground">
               <Clock className="h-3 w-3 mr-1" />
               Recent searches
             </div>
@@ -120,7 +120,7 @@ export function GallerySearch({ onSearch, onFilter, onClearFilters, activeFilter
                 <button
                   key={index}
                   onClick={() => handleQuickSearch(term)}
-                  className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
+                  className="w-full text-left px-3 py-2 text-sm hover:bg-muted/50 focus:bg-muted/50 focus:outline-none"
                 >
                   {term}
                 </button>
@@ -183,7 +183,7 @@ export function GallerySearch({ onSearch, onFilter, onClearFilters, activeFilter
 
       {/* Expanded Filters */}
       {showFilters && (
-        <div className="bg-gray-50 p-4 rounded-lg space-y-4">
+        <div className="bg-muted/50 p-4 rounded-lg space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Style Filter */}
             <div>

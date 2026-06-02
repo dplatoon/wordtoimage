@@ -51,7 +51,7 @@ export const ModernAIHero = () => {
           </p>
 
           {/* Trust indicators */}
-          <div className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-400">
+          <div className="flex items-center justify-center gap-6 mb-8 text-sm text-muted-foreground">
             <div className="flex items-center">
               <Star className="h-4 w-4 text-yellow-400 mr-1" />
               <span>4.9/5 Rating</span>
@@ -64,7 +64,7 @@ export const ModernAIHero = () => {
         {/* Main CTA Section */}
         <div className="max-w-4xl mx-auto">
           {/* Input area */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 mb-8 border border-white/20 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <div className="bg-card/10 backdrop-blur-lg rounded-2xl p-6 mb-8 border border-white/20 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1">
                 <Input
@@ -72,7 +72,7 @@ export const ModernAIHero = () => {
                   placeholder="Describe your dream image... (e.g., 'A majestic dragon soaring over a fantasy castle')"
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  className="h-14 text-lg bg-white/20 border-white/30 text-white placeholder:text-gray-300 focus:border-cyan-400 focus:ring-cyan-400"
+                  className="h-14 text-lg bg-card/20 border-white/30 text-white placeholder:text-gray-300 focus:border-cyan-400 focus:ring-cyan-400"
                   onKeyPress={(e) => e.key === 'Enter' && handleGenerate()}
                 />
               </div>
@@ -100,7 +100,7 @@ export const ModernAIHero = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-white/30 text-white hover:bg-white/10"
+              className="border-white/30 text-white hover:bg-card/10"
             >
               View Gallery
               <ArrowRight className="h-5 w-5 ml-2" />
@@ -109,13 +109,13 @@ export const ModernAIHero = () => {
 
           {/* Example prompts */}
           <div className="text-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <p className="text-gray-400 mb-4">🎨 Get inspired by these examples:</p>
+            <p className="text-muted-foreground mb-4">🎨 Get inspired by these examples:</p>
             <div className="flex flex-wrap justify-center gap-2">
               {examplePrompts.map((example, index) => (
                 <button
                   key={index}
                   onClick={() => setPrompt(example)}
-                  className="text-sm px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-gray-300 hover:text-white transition-all duration-200 border border-white/20 hover:border-white/40"
+                  className="text-sm px-4 py-2 bg-card/10 hover:bg-card/20 rounded-full text-gray-300 hover:text-white transition-all duration-200 border border-white/20 hover:border-white/40"
                 >
                   {example}
                 </button>
@@ -141,7 +141,7 @@ export const ModernAIHero = () => {
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
               <h3 className="font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-400 text-sm">{feature.desc}</p>
+              <p className="text-muted-foreground text-sm">{feature.desc}</p>
             </div>
           ))}
         </div>

@@ -70,10 +70,10 @@ export const ImageGenerationForm = ({
   if (authLoading || isCheckingServerKey) {
     return (
       <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-r from-violet-500 to-indigo-600 rounded-2xl shadow-xl p-1">
-        <div className="bg-white rounded-xl p-5 w-full">
+        <div className="bg-card rounded-xl p-5 w-full">
           <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-violet-600"></div>
-            <span className="ml-3 text-gray-600">Loading generator...</span>
+            <span className="ml-3 text-muted-foreground">Loading generator...</span>
           </div>
         </div>
       </div>

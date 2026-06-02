@@ -116,7 +116,7 @@ export const CommunityFeed = () => {
         
         <TabsContent value="following" className="mt-0">
           <div className="flex flex-col items-center justify-center py-10">
-            <p className="text-gray-500 text-center">
+            <p className="text-muted-foreground text-center">
               Follow users to see their posts here.
             </p>
           </div>

@@ -7,7 +7,7 @@ export const ComparisonFooter = () => {
 
   return (
     <div className="text-center mt-4">
-      <p className="text-xs text-gray-600 mb-2">
+      <p className="text-xs text-muted-foreground mb-2">
         ⚡ 7-day free trial • Cancel anytime • No setup fees
       </p>
       {!user && (

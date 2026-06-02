@@ -139,7 +139,7 @@ export function TextToImageForm({ onGenerate, isGenerating }: TextToImageFormPro
 
   return (
     <div className="w-full space-y-6">
-      <Card className="shadow-xl border-gray-200 bg-gradient-to-br from-white to-gray-50/50 backdrop-blur-sm">
+      <Card className="shadow-xl border-border bg-gradient-to-br from-white to-gray-50/50 backdrop-blur-sm">
         <CardContent className={cn(
           "pt-6",
           isMobile ? "px-3 py-4" : "px-6 py-6"

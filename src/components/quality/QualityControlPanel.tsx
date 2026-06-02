@@ -121,32 +121,32 @@ export function QualityControlPanel({
         {/* Quick Stats */}
         {analysis && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
+            <div className="text-center p-3 bg-muted/50 rounded-lg">
               <div className="text-lg font-bold text-violet-600">
                 {analysis.complexity.charAt(0).toUpperCase() + analysis.complexity.slice(1)}
               </div>
-              <div className="text-xs text-gray-600">Complexity</div>
+              <div className="text-xs text-muted-foreground">Complexity</div>
             </div>
             
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
+            <div className="text-center p-3 bg-muted/50 rounded-lg">
               <div className="text-lg font-bold text-violet-600 capitalize">
                 {analysis.estimatedStyle}
               </div>
-              <div className="text-xs text-gray-600">Detected Style</div>
+              <div className="text-xs text-muted-foreground">Detected Style</div>
             </div>
             
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
+            <div className="text-center p-3 bg-muted/50 rounded-lg">
               <div className="text-lg font-bold text-violet-600">
                 {analysis.recommendedGuidanceScale.toFixed(1)}
               </div>
-              <div className="text-xs text-gray-600">Rec. Guidance</div>
+              <div className="text-xs text-muted-foreground">Rec. Guidance</div>
             </div>
             
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
+            <div className="text-center p-3 bg-muted/50 rounded-lg">
               <div className="text-lg font-bold text-violet-600">
                 {suggestions.length}
               </div>
-              <div className="text-xs text-gray-600">Suggestions</div>
+              <div className="text-xs text-muted-foreground">Suggestions</div>
             </div>
           </div>
         )}
@@ -239,7 +239,7 @@ export function QualityControlPanel({
                     )}
                   </div>
                 ) : (
-                  <div className="text-center py-8 text-gray-500">
+                  <div className="text-center py-8 text-muted-foreground">
                     Enter a prompt to see quality assessment
                   </div>
                 )}

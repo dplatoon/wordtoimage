@@ -18,10 +18,10 @@ export const BetaHero = () => {
           <Badge className="mb-3 bg-indigo-100 hover:bg-indigo-100 text-indigo-800 border-none">
             Beta Program
           </Badge>
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 font-poppins mb-6">
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground font-poppins mb-6">
             Join Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Beta Program</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Get early access to our newest features, provide feedback, and help shape the future of WordToImage.
           </p>
           <Button 

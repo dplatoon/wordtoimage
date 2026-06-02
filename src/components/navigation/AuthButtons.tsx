@@ -64,8 +64,8 @@ export const AuthButtons = () => {
               </span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56 border border-gray-200">
-            <div className="px-2 py-1.5 text-sm text-gray-500 border-b">
+          <DropdownMenuContent align="end" className="w-56 border border-border">
+            <div className="px-2 py-1.5 text-sm text-muted-foreground border-b">
               {user.email}
             </div>
             <Link to="/dashboard">

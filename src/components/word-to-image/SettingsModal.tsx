@@ -33,10 +33,10 @@ export function SettingsModal({
           <p className="text-sm text-muted-foreground">
             Settings and API keys are managed securely through your Supabase project settings.
           </p>
-          <div className="border rounded-md p-3 bg-gray-50">
+          <div className="border rounded-md p-3 bg-muted/50">
             <h3 className="font-medium text-sm mb-2">Product Information</h3>
-            <p className="text-xs text-gray-500 mb-2">Word To Image Pro: {STRIPE_PRODUCTS.PRO}</p>
-            <p className="text-xs text-gray-500">Word To Image Business: {STRIPE_PRODUCTS.BUSINESS}</p>
+            <p className="text-xs text-muted-foreground mb-2">Word To Image Pro: {STRIPE_PRODUCTS.PRO}</p>
+            <p className="text-xs text-muted-foreground">Word To Image Business: {STRIPE_PRODUCTS.BUSINESS}</p>
           </div>
           <Button onClick={handleManageSubscription} className="w-full">
             Manage Subscription

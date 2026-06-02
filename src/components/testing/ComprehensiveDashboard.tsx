@@ -15,10 +15,10 @@ export const ComprehensiveDashboard = () => {
   return (
     <div className="max-w-7xl mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-foreground mb-2">
           Development & Performance Dashboard
         </h1>
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           Comprehensive testing and monitoring tools for payment flows, performance optimization, and user experience.
         </p>
       </div>
@@ -54,7 +54,7 @@ export const ComprehensiveDashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <h4 className="font-medium">Stripe Integration</h4>
-                  <ul className="text-sm space-y-1 text-gray-600">
+                  <ul className="text-sm space-y-1 text-muted-foreground">
                     <li>✓ Checkout session creation</li>
                     <li>✓ Customer portal access</li>
                     <li>✓ Subscription status tracking</li>
@@ -63,7 +63,7 @@ export const ComprehensiveDashboard = () => {
                 </div>
                 <div className="space-y-2">
                   <h4 className="font-medium">User Experience</h4>
-                  <ul className="text-sm space-y-1 text-gray-600">
+                  <ul className="text-sm space-y-1 text-muted-foreground">
                     <li>✓ Payment confirmation flow</li>
                     <li>✓ Loading states & feedback</li>
                     <li>✓ Error message display</li>
@@ -86,7 +86,7 @@ export const ComprehensiveDashboard = () => {
               <CardTitle>Mobile Performance Overview</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600 mb-4">
+              <p className="text-muted-foreground mb-4">
                 Monitor mobile-specific performance metrics and optimizations.
               </p>
               <MobilePerformanceIndicator />

@@ -48,8 +48,8 @@ export function ProfessionalStyleGallery({
             <Palette className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Professional Art Styles</h2>
-            <p className="text-gray-600">Choose from 50+ curated artistic styles</p>
+            <h2 className="text-2xl font-bold text-foreground">Professional Art Styles</h2>
+            <p className="text-muted-foreground">Choose from 50+ curated artistic styles</p>
           </div>
         </div>
 
@@ -82,12 +82,12 @@ export function ProfessionalStyleGallery({
           isMobile ? "flex-col" : "flex-row items-center"
         )}>
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               placeholder="Search styles, descriptions, or keywords..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-white border-gray-200 focus:border-violet-300 focus:ring-violet-200"
+              className="pl-10 bg-white border-border focus:border-violet-300 focus:ring-violet-200"
             />
           </div>
           
@@ -147,7 +147,7 @@ export function ProfessionalStyleGallery({
 
       {/* Professional tabs */}
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 bg-gray-100">
+        <TabsList className="grid w-full grid-cols-3 bg-muted">
           <TabsTrigger value="all" className="data-[state=active]:bg-white">All Styles</TabsTrigger>
           <TabsTrigger value="popular" className="data-[state=active]:bg-white">Popular</TabsTrigger>
           <TabsTrigger value="trending" className="data-[state=active]:bg-white">Trending</TabsTrigger>
@@ -221,7 +221,7 @@ export function ProfessionalStyleGallery({
       </Tabs>
 
       {/* Results summary */}
-      <div className="text-center text-gray-500">
+      <div className="text-center text-muted-foreground">
         <p>Showing {filteredStyles.length} of {STYLE_PRESETS.length} professional art styles</p>
       </div>
     </div>

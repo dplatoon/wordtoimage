@@ -110,7 +110,7 @@ export const AdvancedFeatures = () => {
             </span>
           </h2>
           
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Professional-grade AI tools designed for creators, marketers, and artists seeking exceptional results.
           </p>
         </ScrollReveal>
@@ -138,7 +138,7 @@ export const AdvancedFeatures = () => {
                   <h3 className="text-xl font-bold text-white mb-3 group-hover:text-violet-300 transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -169,7 +169,7 @@ export const AdvancedFeatures = () => {
               
               <Button
                 size="lg"
-                className="group bg-white text-slate-900 hover:bg-gray-100 font-semibold px-8 py-6 text-lg rounded-2xl shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                className="group bg-white text-slate-900 hover:bg-muted font-semibold px-8 py-6 text-lg rounded-2xl shadow-xl transition-all duration-300 hover:scale-[1.02]"
                 asChild
               >
                 <Link to="/text-to-image">
@@ -211,7 +211,7 @@ export const AdvancedFeatures = () => {
                 <div className="text-white font-semibold mb-1 group-hover:text-violet-300 transition-colors">
                   {useCase.title}
                 </div>
-                <div className="text-gray-500 text-sm">{useCase.desc}</div>
+                <div className="text-muted-foreground text-sm">{useCase.desc}</div>
               </motion.div>
             ))}
           </div>

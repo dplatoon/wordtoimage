@@ -93,7 +93,7 @@ export const GalleryImage: React.FC<GalleryImageProps> = ({
       ) : (
         <>
           {!imageLoaded && (
-            <div className="absolute inset-0 bg-gray-100 animate-pulse"></div>
+            <div className="absolute inset-0 bg-muted animate-pulse"></div>
           )}
           
           <AspectRatio ratio={1} className="w-full h-full">

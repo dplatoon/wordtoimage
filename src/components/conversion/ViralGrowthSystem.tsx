@@ -163,7 +163,7 @@ export const ViralGrowthSystem = ({
             <Share2 className="h-5 w-5 text-purple-600" />
             {shareData.title}
           </DialogTitle>
-          <p className="text-gray-600">{shareData.description}</p>
+          <p className="text-muted-foreground">{shareData.description}</p>
         </DialogHeader>
 
         <div className="space-y-6">
@@ -176,7 +176,7 @@ export const ViralGrowthSystem = ({
                   alt="Generated artwork"
                   className="w-full h-48 object-cover rounded-lg"
                 />
-                <p className="text-sm text-gray-600 mt-2 italic">
+                <p className="text-sm text-muted-foreground mt-2 italic">
                   "{content.prompt}"
                 </p>
               </CardContent>
@@ -193,7 +193,7 @@ export const ViralGrowthSystem = ({
                 <h3 className="font-bold text-lg text-purple-800">
                   {content.quizResult.primaryStyle} Creator
                 </h3>
-                <p className="text-sm text-gray-600 mt-2">
+                <p className="text-sm text-muted-foreground mt-2">
                   {content.quizResult.description}
                 </p>
               </CardContent>

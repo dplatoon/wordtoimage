@@ -60,7 +60,7 @@ export const OptimizedImageLoader = ({
   if (hasError) {
     return (
       <div className={cn(
-        "flex items-center justify-center bg-gray-100 text-gray-500",
+        "flex items-center justify-center bg-muted text-muted-foreground",
         className
       )}>
         <span className="text-sm">Image failed to load</span>
@@ -71,7 +71,7 @@ export const OptimizedImageLoader = ({
   return (
     <div className={cn("relative overflow-hidden", className)}>
       {!isLoaded && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+        <div className="absolute inset-0 bg-muted animate-pulse" />
       )}
       
       <img

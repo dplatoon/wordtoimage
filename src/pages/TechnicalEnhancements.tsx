@@ -40,10 +40,10 @@ const TechnicalEnhancements = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Technical Enhancements
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Advanced tools for professional image editing, batch processing, API optimization, and mobile performance enhancement.
           </p>
         </div>
@@ -54,7 +54,7 @@ const TechnicalEnhancements = () => {
             <CardContent className="p-6 text-center">
               <Edit3 className="h-12 w-12 text-blue-600 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">Image Editor</h3>
-              <p className="text-gray-600 text-sm">Professional editing tools with filters, effects, and drawing capabilities</p>
+              <p className="text-muted-foreground text-sm">Professional editing tools with filters, effects, and drawing capabilities</p>
             </CardContent>
           </Card>
 
@@ -62,7 +62,7 @@ const TechnicalEnhancements = () => {
             <CardContent className="p-6 text-center">
               <Layers className="h-12 w-12 text-green-600 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">Batch Processing</h3>
-              <p className="text-gray-600 text-sm">Generate multiple images simultaneously with queue management</p>
+              <p className="text-muted-foreground text-sm">Generate multiple images simultaneously with queue management</p>
             </CardContent>
           </Card>
 
@@ -70,7 +70,7 @@ const TechnicalEnhancements = () => {
             <CardContent className="p-6 text-center">
               <Zap className="h-12 w-12 text-primary mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">API Optimization</h3>
-              <p className="text-gray-600 text-sm">Rate limiting, caching, and performance optimization</p>
+              <p className="text-muted-foreground text-sm">Rate limiting, caching, and performance optimization</p>
             </CardContent>
           </Card>
 
@@ -78,7 +78,7 @@ const TechnicalEnhancements = () => {
             <CardContent className="p-6 text-center">
               <Smartphone className="h-12 w-12 text-purple-600 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">Mobile Optimization</h3>
-              <p className="text-gray-600 text-sm">Device detection, performance optimization, and mobile UI enhancement</p>
+              <p className="text-muted-foreground text-sm">Device detection, performance optimization, and mobile UI enhancement</p>
             </CardContent>
           </Card>
         </div>
@@ -115,8 +115,8 @@ const TechnicalEnhancements = () => {
               <CardContent>
                 <div className="text-center py-12">
                   <Edit3 className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Professional Image Editing</h3>
-                  <p className="text-gray-600 mb-6">
+                  <h3 className="text-lg font-medium text-foreground mb-2">Professional Image Editing</h3>
+                  <p className="text-muted-foreground mb-6">
                     Edit your AI-generated images with professional tools including crop, resize, filters, drawing, and text overlay.
                   </p>
                   <button
@@ -128,25 +128,25 @@ const TechnicalEnhancements = () => {
                 </div>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-center p-4 bg-muted/50 rounded-lg">
                     <Settings className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                     <h4 className="font-medium">Filters & Effects</h4>
-                    <p className="text-sm text-gray-600">Brightness, contrast, saturation, blur, and more</p>
+                    <p className="text-sm text-muted-foreground">Brightness, contrast, saturation, blur, and more</p>
                   </div>
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-center p-4 bg-muted/50 rounded-lg">
                     <Edit3 className="h-8 w-8 text-green-600 mx-auto mb-2" />
                     <h4 className="font-medium">Drawing Tools</h4>
-                    <p className="text-sm text-gray-600">Brush, eraser, shapes, and text overlay</p>
+                    <p className="text-sm text-muted-foreground">Brush, eraser, shapes, and text overlay</p>
                   </div>
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-center p-4 bg-muted/50 rounded-lg">
                     <Layers className="h-8 w-8 text-purple-600 mx-auto mb-2" />
                     <h4 className="font-medium">Crop & Resize</h4>
-                    <p className="text-sm text-gray-600">Precise cropping and resizing tools</p>
+                    <p className="text-sm text-muted-foreground">Precise cropping and resizing tools</p>
                   </div>
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-center p-4 bg-muted/50 rounded-lg">
                     <BarChart3 className="h-8 w-8 text-purple-600 mx-auto mb-2" />
                     <h4 className="font-medium">History & Undo</h4>
-                    <p className="text-sm text-gray-600">Full edit history with undo/redo</p>
+                    <p className="text-sm text-muted-foreground">Full edit history with undo/redo</p>
                   </div>
                 </div>
               </CardContent>
@@ -181,41 +181,41 @@ const TechnicalEnhancements = () => {
                     <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
                       <BarChart3 className="h-12 w-12 text-blue-600 mx-auto mb-4" />
                       <h3 className="text-lg font-semibold mb-2">Rate Limiting</h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-muted-foreground text-sm">
                         Intelligent rate limiting based on user plans with configurable limits and windows
                       </p>
                       <div className="mt-4 text-center">
                         <div className="text-2xl font-bold text-blue-600">100</div>
-                        <div className="text-xs text-gray-600">requests/hour (Pro)</div>
+                        <div className="text-xs text-muted-foreground">requests/hour (Pro)</div>
                       </div>
                     </div>
 
                     <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
                       <Zap className="h-12 w-12 text-green-600 mx-auto mb-4" />
                       <h3 className="text-lg font-semibold mb-2">Smart Caching</h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-muted-foreground text-sm">
                         LRU cache with configurable TTL, prompt-based cache keys, and hit rate optimization
                       </p>
                       <div className="mt-4 text-center">
                         <div className="text-2xl font-bold text-green-600">85%</div>
-                        <div className="text-xs text-gray-600">cache hit rate</div>
+                        <div className="text-xs text-muted-foreground">cache hit rate</div>
                       </div>
                     </div>
 
                     <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-violet-100 rounded-lg">
                       <Settings className="h-12 w-12 text-primary mx-auto mb-4" />
                       <h3 className="text-lg font-semibold mb-2">Performance Monitoring</h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-muted-foreground text-sm">
                         Real-time API metrics, response time tracking, and error monitoring
                       </p>
                       <div className="mt-4 text-center">
                         <div className="text-2xl font-bold text-primary">250ms</div>
-                        <div className="text-xs text-gray-600">avg response time</div>
+                        <div className="text-xs text-muted-foreground">avg response time</div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 rounded-lg p-6">
+                  <div className="bg-muted/50 rounded-lg p-6">
                     <h4 className="text-lg font-semibold mb-4">API Features</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <ul className="space-y-2">

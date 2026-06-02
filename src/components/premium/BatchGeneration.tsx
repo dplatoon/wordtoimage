@@ -147,7 +147,7 @@ A powerful ocean wave`}
               disabled={isGenerating}
             />
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-muted-foreground">
                 {parsePrompts(prompts).length} prompts ready
               </span>
               <Button 
@@ -175,7 +175,7 @@ A powerful ocean wave`}
             <h3 className="font-semibold">Batch Jobs</h3>
             
             {batchJobs.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-muted-foreground">
                 No batch jobs yet. Create your first batch above!
               </div>
             ) : (
@@ -195,11 +195,11 @@ A powerful ocean wave`}
                             >
                               {job.status}
                             </Badge>
-                            <span className="text-sm text-gray-500">
+                            <span className="text-sm text-muted-foreground">
                               {job.prompts.length} prompts
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="text-sm text-muted-foreground mt-1">
                             Created: {job.createdAt.toLocaleString()}
                           </p>
                         </div>
@@ -228,7 +228,7 @@ A powerful ocean wave`}
                       {job.status === 'running' && (
                         <div>
                           <Progress value={job.progress} className="w-full" />
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="text-xs text-muted-foreground mt-1">
                             {Math.round(job.progress)}% complete
                           </p>
                         </div>
@@ -245,7 +245,7 @@ A powerful ocean wave`}
                             />
                           ))}
                           {job.results.length > 4 && (
-                            <div className="w-full h-16 bg-gray-100 rounded border flex items-center justify-center text-xs text-gray-500">
+                            <div className="w-full h-16 bg-muted rounded border flex items-center justify-center text-xs text-muted-foreground">
                               +{job.results.length - 4} more
                             </div>
                           )}

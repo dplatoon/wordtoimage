@@ -77,7 +77,7 @@ const WhatsNew = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <SEOManager customConfig={{
         title: "What's New - Latest Updates & Features | WordToImage",
         description: "Stay updated with the latest WordToImage features, improvements, and updates. Discover new AI capabilities and platform enhancements.",
@@ -89,10 +89,10 @@ const WhatsNew = () => {
       <main className="pt-8 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               What's New
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Stay up to date with the latest features, improvements, and updates to WordToImage
             </p>
           </div>
@@ -102,7 +102,7 @@ const WhatsNew = () => {
               const IconComponent = getTypeIcon(update.type);
               
               return (
-                <div key={index} className="bg-white rounded-xl border shadow-sm p-6 hover:shadow-md transition-shadow">
+                <div key={index} className="bg-card rounded-xl border shadow-sm p-6 hover:shadow-md transition-shadow">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center shrink-0">
                       <IconComponent className="h-6 w-6 text-violet-600" />
@@ -110,13 +110,13 @@ const WhatsNew = () => {
                     
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-semibold text-gray-900">{update.title}</h3>
+                        <h3 className="text-xl font-semibold text-foreground">{update.title}</h3>
                         <Badge variant={getBadgeVariant(update.badge)}>{update.badge}</Badge>
                       </div>
                       
-                      <p className="text-gray-600 mb-3">{update.description}</p>
+                      <p className="text-muted-foreground mb-3">{update.description}</p>
                       
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
                           <span>{new Date(update.date).toLocaleDateString()}</span>
@@ -136,10 +136,10 @@ const WhatsNew = () => {
           {/* Roadmap Teaser */}
           <div className="mt-16 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl p-8">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
                 Coming Soon
               </h2>
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
                 We're working on exciting new features including real-time collaboration, 
                 advanced prompt templates, and integration with popular design tools.
               </p>

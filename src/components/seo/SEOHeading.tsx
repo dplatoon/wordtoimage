@@ -24,12 +24,12 @@ export const SEOHeading: React.FC<SEOHeadingProps> = ({
 
   // Add SEO-optimized classes based on heading level
   const seoClasses = seoOptimized ? {
-    1: 'text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight',
-    2: 'text-2xl md:text-3xl font-semibold text-gray-800 mb-4 mt-8',
+    1: 'text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight',
+    2: 'text-2xl md:text-3xl font-semibold text-foreground mb-4 mt-8',
     3: 'text-xl md:text-2xl font-semibold text-gray-700 mb-3 mt-6',
     4: 'text-lg md:text-xl font-medium text-gray-700 mb-2 mt-4',
-    5: 'text-base md:text-lg font-medium text-gray-600 mb-2 mt-3',
-    6: 'text-sm md:text-base font-medium text-gray-600 mb-1 mt-2'
+    5: 'text-base md:text-lg font-medium text-muted-foreground mb-2 mt-3',
+    6: 'text-sm md:text-base font-medium text-muted-foreground mb-1 mt-2'
   }[level] : '';
 
   const finalClassName = `${seoClasses} ${className}`.trim();

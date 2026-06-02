@@ -118,7 +118,7 @@ export const AdvancedStyleGallery = () => {
             </span>
           </h2>
           
-          <p className="text-gray-400 max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto">
             Tap any style to instantly start creating with that artistic approach
           </p>
         </motion.div>
@@ -128,14 +128,14 @@ export const AdvancedStyleGallery = () => {
           {/* Navigation Buttons - Desktop */}
           <button
             onClick={() => scroll('left')}
-            className="absolute -left-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex w-12 h-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all shadow-xl"
+            className="absolute -left-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex w-12 h-12 items-center justify-center rounded-full bg-card/10 backdrop-blur-sm border border-white/20 text-white hover:bg-card/20 transition-all shadow-xl"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           
           <button
             onClick={() => scroll('right')}
-            className="absolute -right-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex w-12 h-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all shadow-xl"
+            className="absolute -right-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex w-12 h-12 items-center justify-center rounded-full bg-card/10 backdrop-blur-sm border border-white/20 text-white hover:bg-card/20 transition-all shadow-xl"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -189,7 +189,7 @@ export const AdvancedStyleGallery = () => {
                       <div className={`inline-flex px-3 py-1 rounded-full bg-gradient-to-r ${style.color} text-white text-xs font-medium mb-3`}>
                         {style.name}
                       </div>
-                      <p className="text-gray-400 text-sm line-clamp-2">
+                      <p className="text-muted-foreground text-sm line-clamp-2">
                         "{style.prompt}"
                       </p>
                     </div>
@@ -202,8 +202,8 @@ export const AdvancedStyleGallery = () => {
           {/* Scroll Hint - Mobile */}
           <div className="flex justify-center gap-1 mt-6 md:hidden">
             <div className="w-8 h-1 rounded-full bg-violet-500" />
-            <div className="w-2 h-1 rounded-full bg-white/20" />
-            <div className="w-2 h-1 rounded-full bg-white/20" />
+            <div className="w-2 h-1 rounded-full bg-card/20" />
+            <div className="w-2 h-1 rounded-full bg-card/20" />
           </div>
         </div>
 
@@ -217,7 +217,7 @@ export const AdvancedStyleGallery = () => {
           <Button
             variant="outline"
             size="lg"
-            className="group border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-white/30 rounded-2xl px-8 py-6"
+            className="group border-white/20 bg-white/5 text-white hover:bg-card/10 hover:border-white/30 rounded-2xl px-8 py-6"
             onClick={() => navigate('/gallery')}
           >
             Explore All 50+ Styles

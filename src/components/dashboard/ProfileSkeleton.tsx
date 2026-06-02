@@ -8,7 +8,7 @@ export function ProfileSkeleton() {
     <div className="container max-w-4xl py-12">
       <Skeleton className="h-10 w-64 mb-8" />
       <Card className="shadow-md">
-        <CardHeader className="bg-gray-50 border-b">
+        <CardHeader className="bg-muted/50 border-b">
           <Skeleton className="h-7 w-48" />
         </CardHeader>
         <CardContent className="pt-6 space-y-6">

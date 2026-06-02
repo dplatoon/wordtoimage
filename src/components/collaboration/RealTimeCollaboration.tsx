@@ -292,7 +292,7 @@ export const RealTimeCollaboration = () => {
                   <Palette className="h-5 w-5" />
                   {session.name}
                 </CardTitle>
-                <p className="text-sm text-gray-600">{session.description}</p>
+                <p className="text-sm text-muted-foreground">{session.description}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Badge variant={session.status === 'active' ? 'default' : 'secondary'}>
@@ -310,7 +310,7 @@ export const RealTimeCollaboration = () => {
         {/* Current Image */}
         <Card>
           <CardContent className="p-6">
-            <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden mb-4">
+            <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-4">
               {session.currentImage ? (
                 <img 
                   src={session.currentImage} 
@@ -318,7 +318,7 @@ export const RealTimeCollaboration = () => {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-400">
+                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                   <div className="text-center">
                     <Palette className="h-16 w-16 mx-auto mb-2" />
                     <p>No image generated yet</p>
@@ -372,12 +372,12 @@ export const RealTimeCollaboration = () => {
           </CardHeader>
           <CardContent className="space-y-3">
             {promptSuggestions.map((suggestion) => (
-              <div key={suggestion.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={suggestion.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                 <div className="flex-1">
                   <p className="text-sm font-medium">"{suggestion.suggestion}"</p>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs text-gray-500">by {suggestion.user.name}</span>
-                    <span className="text-xs text-gray-500">{suggestion.timestamp}</span>
+                    <span className="text-xs text-muted-foreground">by {suggestion.user.name}</span>
+                    <span className="text-xs text-muted-foreground">{suggestion.timestamp}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -490,7 +490,7 @@ export const RealTimeCollaboration = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs font-medium">{message.user.name}</span>
-                        <span className="text-xs text-gray-500">{message.timestamp}</span>
+                        <span className="text-xs text-muted-foreground">{message.timestamp}</span>
                       </div>
                       <p className="text-sm text-gray-700">{message.message}</p>
                     </div>

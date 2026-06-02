@@ -19,12 +19,12 @@ export const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
   return (
     <div className="hidden md:block">
       <div className="flex items-center justify-center mb-16">
-        <div className="w-full max-w-4xl bg-gray-200 h-1 relative">
+        <div className="w-full max-w-4xl bg-muted h-1 relative">
           {steps.map((_, index) => (
             <div 
               key={index}
               className={`absolute w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110
-               ${index <= activeStep ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}
+               ${index <= activeStep ? 'bg-blue-600 text-white' : 'bg-gray-300 text-muted-foreground'}`}
               style={{ left: `calc(${(index / (steps.length - 1)) * 100}% - 1rem)` }}
               onClick={() => {
                 setActiveStep(index);

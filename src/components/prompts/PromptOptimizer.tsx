@@ -124,7 +124,7 @@ export function PromptOptimizer({
   };
 
   const qualityColor = useMemo(() => {
-    if (!analysis) return 'bg-gray-200';
+    if (!analysis) return 'bg-muted';
     if (analysis.score >= 80) return 'bg-green-500';
     if (analysis.score >= 60) return 'bg-yellow-500';
     if (analysis.score >= 40) return 'bg-amber-500';
@@ -156,7 +156,7 @@ export function PromptOptimizer({
           {analysis && (
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Quality Score:</span>
+                <span className="text-sm text-muted-foreground">Quality Score:</span>
                 <Progress value={analysis.score} className="w-20 h-2" />
                 <Badge variant={analysis.score >= 60 ? "default" : "destructive"}>
                   {analysis.score}/100
@@ -181,7 +181,7 @@ export function PromptOptimizer({
             </div>
             <div className="space-y-1">
               {suggestions.map((suggestion, index) => (
-                <div key={index} className="text-sm text-gray-600 bg-yellow-50 p-2 rounded">
+                <div key={index} className="text-sm text-muted-foreground bg-yellow-50 p-2 rounded">
                   {suggestion}
                 </div>
               ))}
@@ -354,7 +354,7 @@ export function PromptOptimizer({
                   <div className="bg-red-50 p-3 rounded text-sm border-l-4 border-red-400">
                     {negativePrompt}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-muted-foreground">
                     Negative prompts help avoid unwanted elements in your generated images.
                   </div>
                 </div>

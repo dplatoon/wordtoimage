@@ -32,7 +32,7 @@ export function PricingTable() {
         "Standard resolution"
       ],
       ctaText: "Get Started",
-      ctaColor: "bg-gray-200 hover:bg-gray-300 text-gray-800",
+      ctaColor: "bg-muted hover:bg-gray-300 text-foreground",
       productId: "" // Free plan doesn't need a product ID
     },
     {
@@ -100,8 +100,8 @@ export function PricingTable() {
         {plans.map((plan, index) => (
           <div 
             key={index}
-            className={`bg-white rounded-xl shadow-md overflow-hidden border ${
-              plan.popular ? 'border-blue-500 ring-2 ring-blue-500 ring-opacity-50' : 'border-gray-200'
+            className={`bg-card rounded-xl shadow-md overflow-hidden border ${
+              plan.popular ? 'border-blue-500 ring-2 ring-blue-500 ring-opacity-50' : 'border-border'
             }`}
           >
             {plan.popular && (
@@ -115,7 +115,7 @@ export function PricingTable() {
               
               <div className="mb-3">
                 <div className="text-2xl font-bold">{plan.price}</div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-muted-foreground">
                   {plan.credits} credits
                 </div>
               </div>
@@ -141,7 +141,7 @@ export function PricingTable() {
         ))}
       </div>
       
-      <p className="text-center text-sm text-gray-500 mt-4">
+      <p className="text-center text-sm text-muted-foreground mt-4">
         All plans include access to our core features. Additional credits can be purchased as needed.
       </p>
 

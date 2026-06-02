@@ -94,10 +94,10 @@ export const PlanCard = ({
   return (
     <>
       <div
-        className={`relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl animate-fade-in ${
+        className={`relative bg-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl animate-fade-in ${
           popular || isCurrentPlan 
             ? 'ring-2 ring-blue-500 shadow-lg scale-105' 
-            : 'border border-gray-200 shadow-sm hover:border-blue-300'
+            : 'border border-border shadow-sm hover:border-blue-300'
         } ${isCurrentPlan ? 'bg-gradient-to-br from-blue-50 to-indigo-50' : ''}`}
         role="listitem"
       >
@@ -130,18 +130,18 @@ export const PlanCard = ({
         <div className={`p-8 ${popular || isCurrentPlan ? 'pt-12' : 'pt-8'}`}>
           {/* Plan name and description */}
           <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{name}</h3>
-            <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+            <h3 className="text-2xl font-bold text-foreground mb-2">{name}</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
           </div>
 
           {/* Pricing */}
           <div className="text-center mb-8">
             <div className="flex items-baseline justify-center mb-2">
-              <span className="text-5xl font-bold text-gray-900">
+              <span className="text-5xl font-bold text-foreground">
                 {getDisplayPrice()}
               </span>
               {!isFree && (
-                <span className="text-gray-500 ml-2">
+                <span className="text-muted-foreground ml-2">
                   /{billingCycle === 'monthly' ? 'mo' : 'yr'}
                 </span>
               )}
@@ -153,7 +153,7 @@ export const PlanCard = ({
               </div>
             )}
             
-            <div className="text-gray-500 text-xs mt-1">{guarantee}</div>
+            <div className="text-muted-foreground text-xs mt-1">{guarantee}</div>
           </div>
 
           {/* Features list */}
@@ -167,7 +167,7 @@ export const PlanCard = ({
                 )}
                 <span 
                   className={`ml-3 text-sm leading-relaxed ${
-                    feature.included ? 'text-gray-700' : 'text-gray-400'
+                    feature.included ? 'text-gray-700' : 'text-muted-foreground'
                   } ${feature.highlight ? 'font-semibold' : ''}`}
                 >
                   {feature.name}
@@ -185,7 +185,7 @@ export const PlanCard = ({
                 ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl'
                 : isCurrentPlan
                 ? 'border-blue-500 text-blue-600 hover:bg-blue-50'
-                : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                : 'border-gray-300 text-gray-700 hover:bg-muted/50'
             }`}
             onClick={handleCTAClick}
             aria-label={`${getCTAText()} for ${name} plan`}

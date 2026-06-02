@@ -149,11 +149,11 @@ export const OnboardingTooltips = ({ pageType }: OnboardingTooltipsProps) => {
         className="fixed z-50 w-80 max-w-sm"
         style={getTooltipPosition()}
       >
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl p-6 animate-scale-in">
+        <div className="bg-card dark:bg-gray-800 border border-border dark:border-gray-700 rounded-xl shadow-2xl p-6 animate-scale-in">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-2">
               <Lightbulb className="h-5 w-5 text-violet-500" />
-              <h3 className="font-bold text-gray-900 dark:text-gray-100">
+              <h3 className="font-bold text-foreground dark:text-gray-100">
                 {currentStepData.title}
               </h3>
             </div>
@@ -161,13 +161,13 @@ export const OnboardingTooltips = ({ pageType }: OnboardingTooltipsProps) => {
               variant="ghost"
               size="sm"
               onClick={handleClose}
-              className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
+              className="h-6 w-6 p-0 text-muted-foreground hover:text-muted-foreground"
             >
               <X className="h-4 w-4" />
             </Button>
           </div>
           
-          <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+          <p className="text-muted-foreground dark:text-gray-300 mb-6 leading-relaxed">
             {currentStepData.content}
           </p>
           

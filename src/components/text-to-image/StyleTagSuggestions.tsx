@@ -83,11 +83,11 @@ export function StyleTagSuggestions({ onTagSelect, className }: StyleTagSuggesti
   };
 
   return (
-    <Card className={cn("border-gray-200 bg-white/80 backdrop-blur", className)}>
+    <Card className={cn("border-border bg-card/80 backdrop-blur", className)}>
       <CardContent className="p-6">
         <div className="flex items-center gap-2 mb-4">
           <Paintbrush className="h-5 w-5 text-primary" />
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg font-semibold text-foreground">
             Quick Style Tags
           </h3>
           <Badge variant="secondary" className="text-xs">
@@ -135,8 +135,8 @@ export function StyleTagSuggestions({ onTagSelect, className }: StyleTagSuggesti
           ))}
         </Tabs>
 
-        <div className="mt-4 pt-4 border-t border-gray-100">
-          <p className="text-xs text-gray-500 text-center">
+        <div className="mt-4 pt-4 border-t border-border">
+          <p className="text-xs text-muted-foreground text-center">
             💡 These tags will be added to your current prompt to enhance the style
           </p>
         </div>

@@ -225,7 +225,7 @@ export function StyleGuidanceOptimizer({
                 className="w-full"
               />
               
-              <p className="text-xs text-gray-600">
+              <p className="text-xs text-muted-foreground">
                 {getScaleDescription(localSettings.scale)}
               </p>
             </div>
@@ -251,7 +251,7 @@ export function StyleGuidanceOptimizer({
                 className="w-full"
               />
               
-              <p className="text-xs text-gray-600">
+              <p className="text-xs text-muted-foreground">
                 {getStepsDescription(localSettings.steps)}
               </p>
             </div>
@@ -277,7 +277,7 @@ export function StyleGuidanceOptimizer({
                 className="w-full"
               />
               
-              <p className="text-xs text-gray-600">
+              <p className="text-xs text-muted-foreground">
                 Controls how much the model modifies the input
               </p>
             </div>
@@ -298,7 +298,7 @@ export function StyleGuidanceOptimizer({
                       "p-3 text-left border rounded-lg transition-colors",
                       localSettings.scheduler === scheduler.value
                         ? "border-violet-500 bg-violet-50"
-                        : "border-gray-200 hover:bg-gray-50"
+                        : "border-border hover:bg-muted/50"
                     )}
                   >
                     <div className="flex items-center justify-between">
@@ -322,14 +322,14 @@ export function StyleGuidanceOptimizer({
                 <button
                   key={key}
                   onClick={() => applyPreset(key)}
-                  className="p-4 text-left border rounded-lg hover:bg-gray-50 transition-colors"
+                  className="p-4 text-left border rounded-lg hover:bg-muted/50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{preset.icon}</span>
                     <div className="flex-1">
                       <div className="font-medium">{preset.name}</div>
-                      <div className="text-sm text-gray-600">{preset.description}</div>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-sm text-muted-foreground">{preset.description}</div>
+                      <div className="text-xs text-muted-foreground mt-1">
                         Scale: {preset.settings.scale} • Steps: {preset.settings.steps} • Strength: {(preset.settings.strength * 100).toFixed(0)}%
                       </div>
                     </div>
@@ -341,28 +341,28 @@ export function StyleGuidanceOptimizer({
         </Tabs>
 
         {/* Current Status */}
-        <div className="bg-gray-50 p-4 rounded-lg">
+        <div className="bg-muted/50 p-4 rounded-lg">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <div className="text-sm text-gray-600">Quality</div>
+              <div className="text-sm text-muted-foreground">Quality</div>
               <div className="font-semibold">
                 {localSettings.steps > 30 ? 'High' : localSettings.steps > 20 ? 'Medium' : 'Fast'}
               </div>
             </div>
             <div>
-              <div className="text-sm text-gray-600">Creativity</div>
+              <div className="text-sm text-muted-foreground">Creativity</div>
               <div className="font-semibold">
                 {localSettings.scale < 6 ? 'High' : localSettings.scale > 8 ? 'Low' : 'Balanced'}
               </div>
             </div>
             <div>
-              <div className="text-sm text-gray-600">Speed</div>
+              <div className="text-sm text-muted-foreground">Speed</div>
               <div className="font-semibold">
                 {localSettings.steps < 25 ? 'Fast' : localSettings.steps > 35 ? 'Slow' : 'Medium'}
               </div>
             </div>
             <div>
-              <div className="text-sm text-gray-600">Mode</div>
+              <div className="text-sm text-muted-foreground">Mode</div>
               <div className="font-semibold">
                 {autoMode ? 'Auto' : 'Manual'}
               </div>

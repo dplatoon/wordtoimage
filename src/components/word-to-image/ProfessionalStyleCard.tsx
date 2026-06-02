@@ -92,8 +92,8 @@ export function ProfessionalStyleCard({
                     <p className="text-xs opacity-75 mt-1">Style Preview</p>
                   </div>
                   {/* Animated background elements */}
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -translate-y-8 translate-x-8" />
-                  <div className="absolute bottom-0 left-0 w-12 h-12 bg-white/10 rounded-full translate-y-6 -translate-x-6" />
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-card/10 rounded-full -translate-y-8 translate-x-8" />
+                  <div className="absolute bottom-0 left-0 w-12 h-12 bg-card/10 rounded-full translate-y-6 -translate-x-6" />
                 </div>
               ) : (
                 <>
@@ -167,13 +167,13 @@ export function ProfessionalStyleCard({
         <div className="space-y-3">
           <div>
             <h4 className={cn(
-              "font-bold text-gray-900 group-hover:text-violet-600 transition-colors line-clamp-1",
+              "font-bold text-foreground group-hover:text-violet-600 transition-colors line-clamp-1",
               size === 'small' ? 'text-sm' : 'text-base'
             )}>
               {style.name}
             </h4>
             <p className={cn(
-              "text-gray-600 leading-relaxed line-clamp-2 font-medium",
+              "text-muted-foreground leading-relaxed line-clamp-2 font-medium",
               size === 'small' ? 'text-xs' : 'text-sm'
             )}>
               {style.description}
@@ -192,7 +192,7 @@ export function ProfessionalStyleCard({
                 </span>
               ))}
               {style.keywords.length > 2 && (
-                <span className="px-2.5 py-1 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-600 text-xs rounded-full font-medium">
+                <span className="px-2.5 py-1 bg-gradient-to-r from-gray-100 to-gray-200 text-muted-foreground text-xs rounded-full font-medium">
                   +{style.keywords.length - 2}
                 </span>
               )}
@@ -204,7 +204,7 @@ export function ProfessionalStyleCard({
             <Badge 
               variant="outline" 
               className={cn(
-                "capitalize w-fit bg-white/50 backdrop-blur-sm",
+                "capitalize w-fit bg-card/50 backdrop-blur-sm",
                 size === 'small' ? 'text-xs' : 'text-xs'
               )}
             >

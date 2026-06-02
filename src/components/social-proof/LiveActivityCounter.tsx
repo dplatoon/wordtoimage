@@ -45,7 +45,7 @@ export const LiveActivityCounter = () => {
 
   return (
     <div className="fixed bottom-4 left-4 z-50">
-      <div className="bg-white shadow-lg rounded-xl p-4 border border-gray-200 min-w-[280px]">
+      <div className="bg-card shadow-lg rounded-xl p-4 border border-border min-w-[280px]">
         <div className="space-y-3">
           {/* Images Generated Today */}
           <div className="flex items-center gap-3 text-sm">
@@ -53,10 +53,10 @@ export const LiveActivityCounter = () => {
               <Image className="w-4 h-4 text-white" />
             </div>
             <div>
-              <div className="font-semibold text-gray-900">
+              <div className="font-semibold text-foreground">
                 🔥 {imagesGenerated.toLocaleString()} images generated today!
               </div>
-              <div className="text-gray-500 text-xs">Live hourly reports</div>
+              <div className="text-muted-foreground text-xs">Live hourly reports</div>
             </div>
           </div>
 
@@ -67,16 +67,16 @@ export const LiveActivityCounter = () => {
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
             </div>
             <div>
-              <div className="font-semibold text-gray-900">
+              <div className="font-semibold text-foreground">
                 {activeUsers} users creating now
               </div>
-              <div className="text-gray-500 text-xs">Live activity updates</div>
+              <div className="text-muted-foreground text-xs">Live activity updates</div>
             </div>
           </div>
 
           {/* Next update indicator */}
-          <div className="text-center pt-2 border-t border-gray-100">
-            <div className="text-xs text-gray-400 flex items-center justify-center gap-1">
+          <div className="text-center pt-2 border-t border-border">
+            <div className="text-xs text-muted-foreground flex items-center justify-center gap-1">
               <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
               Next report in {Math.floor(Math.random() * 45) + 15}min
             </div>

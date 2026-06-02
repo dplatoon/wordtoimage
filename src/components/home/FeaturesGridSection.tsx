@@ -29,10 +29,10 @@ export const FeaturesGridSection = () => {
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-foreground mb-4">
             Powerful AI Features
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Everything you need to create stunning AI-generated images
           </p>
         </div>
@@ -41,16 +41,16 @@ export const FeaturesGridSection = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="text-center p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow animate-fade-in"
+              className="text-center p-6 rounded-xl border border-border hover:shadow-lg transition-shadow animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-foreground mb-2">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-muted-foreground text-sm">
                 {feature.description}
               </p>
             </div>

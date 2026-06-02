@@ -217,12 +217,12 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       <div
         ref={imgRef}
         className={cn(
-          "bg-gray-100 rounded-lg flex items-center justify-center",
+          "bg-muted rounded-lg flex items-center justify-center",
           className
         )}
         style={{ aspectRatio: '1/1' }}
       >
-        <div className="text-gray-400 text-sm">Loading...</div>
+        <div className="text-muted-foreground text-sm">Loading...</div>
       </div>
     );
   }
@@ -232,14 +232,14 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       {imageState.status === 'loading' || imageState.status === 'processing' ? (
         <div
           className={cn(
-            "bg-gray-100 rounded-lg flex items-center justify-center",
+            "bg-muted rounded-lg flex items-center justify-center",
             className
           )}
           style={{ aspectRatio: '1/1' }}
         >
           <div className="flex flex-col items-center gap-2">
-            <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
-            <span className="text-sm text-gray-500">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">
               {imageState.status === 'processing' ? 'Optimizing image...' : 'Loading...'}
             </span>
           </div>

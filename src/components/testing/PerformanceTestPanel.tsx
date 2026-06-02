@@ -45,7 +45,7 @@ export const PerformanceTestPanel = () => {
         </CardHeader>
         <CardContent>
           {!isTestingComplete ? (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <div className="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
               Running performance analysis...
             </div>
@@ -56,7 +56,7 @@ export const PerformanceTestPanel = () => {
                 <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full text-white text-2xl font-bold ${getScoreColor(score)}`}>
                   {score}
                 </div>
-                <p className="text-sm text-gray-600 mt-2">Performance Score</p>
+                <p className="text-sm text-muted-foreground mt-2">Performance Score</p>
               </div>
 
               {/* Core Web Vitals */}
@@ -70,7 +70,7 @@ export const PerformanceTestPanel = () => {
                     <div className={`text-2xl font-bold ${metrics.lcp ? getMetricColor(metrics.lcp, 2500, 4000) : ''}`}>
                       {metrics.lcp ? `${metrics.lcp}ms` : 'Measuring...'}
                     </div>
-                    <p className="text-xs text-gray-500">Largest Contentful Paint</p>
+                    <p className="text-xs text-muted-foreground">Largest Contentful Paint</p>
                   </CardContent>
                 </Card>
 
@@ -83,7 +83,7 @@ export const PerformanceTestPanel = () => {
                     <div className={`text-2xl font-bold ${metrics.fid ? getMetricColor(metrics.fid, 100, 300) : ''}`}>
                       {metrics.fid ? `${metrics.fid}ms` : 'Measuring...'}
                     </div>
-                    <p className="text-xs text-gray-500">First Input Delay</p>
+                    <p className="text-xs text-muted-foreground">First Input Delay</p>
                   </CardContent>
                 </Card>
 
@@ -96,7 +96,7 @@ export const PerformanceTestPanel = () => {
                     <div className={`text-2xl font-bold ${metrics.cls ? getMetricColor(metrics.cls * 1000, 100, 250) : ''}`}>
                       {metrics.cls ? metrics.cls.toFixed(3) : 'Measuring...'}
                     </div>
-                    <p className="text-xs text-gray-500">Cumulative Layout Shift</p>
+                    <p className="text-xs text-muted-foreground">Cumulative Layout Shift</p>
                   </CardContent>
                 </Card>
               </div>
@@ -105,19 +105,19 @@ export const PerformanceTestPanel = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center">
                   <div className="text-lg font-semibold">{metrics.fcp ? `${metrics.fcp}ms` : '...'}</div>
-                  <div className="text-xs text-gray-500">FCP</div>
+                  <div className="text-xs text-muted-foreground">FCP</div>
                 </div>
                 <div className="text-center">
                   <div className="text-lg font-semibold">{metrics.ttfb ? `${metrics.ttfb}ms` : '...'}</div>
-                  <div className="text-xs text-gray-500">TTFB</div>
+                  <div className="text-xs text-muted-foreground">TTFB</div>
                 </div>
                 <div className="text-center">
                   <div className="text-lg font-semibold">{metrics.totalBundleSize ? `${metrics.totalBundleSize}KB` : '...'}</div>
-                  <div className="text-xs text-gray-500">Bundle Size</div>
+                  <div className="text-xs text-muted-foreground">Bundle Size</div>
                 </div>
                 <div className="text-center">
                   <div className="text-lg font-semibold">{metrics.resourceCount || '...'}</div>
-                  <div className="text-xs text-gray-500">Resources</div>
+                  <div className="text-xs text-muted-foreground">Resources</div>
                 </div>
               </div>
 
@@ -132,15 +132,15 @@ export const PerformanceTestPanel = () => {
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div>
                         <div className="font-semibold">{metrics.memoryUsage.used}MB</div>
-                        <div className="text-gray-500">Used</div>
+                        <div className="text-muted-foreground">Used</div>
                       </div>
                       <div>
                         <div className="font-semibold">{metrics.memoryUsage.total}MB</div>
-                        <div className="text-gray-500">Total</div>
+                        <div className="text-muted-foreground">Total</div>
                       </div>
                       <div>
                         <div className="font-semibold">{metrics.memoryUsage.limit}MB</div>
-                        <div className="text-gray-500">Limit</div>
+                        <div className="text-muted-foreground">Limit</div>
                       </div>
                     </div>
                   </CardContent>

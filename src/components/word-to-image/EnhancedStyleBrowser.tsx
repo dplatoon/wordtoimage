@@ -64,8 +64,8 @@ export function EnhancedStyleBrowser({
               <Palette className="h-5 w-5 text-violet-600" />
             </div>
             <div className="text-left">
-              <h2 className="text-2xl font-bold text-gray-900">Choose Your Style</h2>
-              <p className="text-gray-600">Select up to {maxSelections} styles to create unique variations</p>
+              <h2 className="text-2xl font-bold text-foreground">Choose Your Style</h2>
+              <p className="text-muted-foreground">Select up to {maxSelections} styles to create unique variations</p>
             </div>
           </div>
           {selectedStyles.length > 0 && (
@@ -84,7 +84,7 @@ export function EnhancedStyleBrowser({
           <div className="flex items-center gap-2 mb-4">
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-orange-500" />
-              <h3 className="text-lg font-semibold text-gray-800">Trending Now</h3>
+              <h3 className="text-lg font-semibold text-foreground">Trending Now</h3>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -109,7 +109,7 @@ export function EnhancedStyleBrowser({
             <div className="w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center">
               <Sparkles className="h-4 w-4 text-yellow-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-800">Popular Styles</h3>
+            <h3 className="text-lg font-semibold text-foreground">Popular Styles</h3>
           </div>
           {selectedStyles.length > 0 && (
             <Button
@@ -139,7 +139,7 @@ export function EnhancedStyleBrowser({
 
       {/* Browse All Styles by Category */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Browse All Styles</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-4">Browse All Styles</h3>
         
         <Tabs value={activeCategory} onValueChange={setActiveCategory}>
           <TabsList className="grid w-full grid-cols-4 mb-6">
@@ -160,9 +160,9 @@ export function EnhancedStyleBrowser({
 
           {STYLE_CATEGORIES.map((category) => (
             <TabsContent key={category.id} value={category.id} className="mt-0">
-              <div className="mb-4 p-4 bg-gray-50 rounded-lg">
-                <h4 className="font-medium text-gray-800 mb-1">{category.name} Styles</h4>
-                <p className="text-sm text-gray-600">{category.description}</p>
+              <div className="mb-4 p-4 bg-muted/50 rounded-lg">
+                <h4 className="font-medium text-foreground mb-1">{category.name} Styles</h4>
+                <p className="text-sm text-muted-foreground">{category.description}</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

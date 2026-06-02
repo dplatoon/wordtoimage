@@ -30,7 +30,7 @@ export const CommunitySidebar = () => {
   return (
     <div className="space-y-6">
       {/* Trending Topics Card */}
-      <Card className="bg-white shadow-md border-gray-100">
+      <Card className="bg-card shadow-md border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Flame className="h-5 w-5 mr-2 text-primary" />
@@ -41,7 +41,7 @@ export const CommunitySidebar = () => {
           <div className="space-y-2">
             {TRENDING_TOPICS.map((topic, index) => (
               <div key={index} className="flex items-center">
-                <span className="text-gray-500 text-sm mr-2">#{index + 1}</span>
+                <span className="text-muted-foreground text-sm mr-2">#{index + 1}</span>
                 <a href="#" className="text-blue-600 hover:underline text-sm">
                   {topic}
                 </a>
@@ -52,7 +52,7 @@ export const CommunitySidebar = () => {
       </Card>
 
       {/* Suggested Users Card */}
-      <Card className="bg-white shadow-md border-gray-100">
+      <Card className="bg-card shadow-md border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Users className="h-5 w-5 mr-2 text-blue-500" />
@@ -70,7 +70,7 @@ export const CommunitySidebar = () => {
                   </Avatar>
                   <div>
                     <p className="text-sm font-medium">{user.name}</p>
-                    <p className="text-xs text-gray-500">{user.role}</p>
+                    <p className="text-xs text-muted-foreground">{user.role}</p>
                   </div>
                 </div>
                 <Button variant="outline" size="sm" className="text-xs">
@@ -83,7 +83,7 @@ export const CommunitySidebar = () => {
       </Card>
 
       {/* Upcoming Events Card */}
-      <Card className="bg-white shadow-md border-gray-100">
+      <Card className="bg-card shadow-md border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Calendar className="h-5 w-5 mr-2 text-purple-500" />
@@ -95,7 +95,7 @@ export const CommunitySidebar = () => {
             {UPCOMING_EVENTS.map((event) => (
               <div key={event.id} className="border-l-2 border-purple-500 pl-3">
                 <p className="font-medium text-sm">{event.title}</p>
-                <p className="text-xs text-gray-500">{event.date}</p>
+                <p className="text-xs text-muted-foreground">{event.date}</p>
               </div>
             ))}
             <Button variant="ghost" className="w-full text-sm text-blue-600 mt-2">
@@ -106,7 +106,7 @@ export const CommunitySidebar = () => {
       </Card>
 
       {/* Community Stats Card */}
-      <Card className="bg-white shadow-md border-gray-100">
+      <Card className="bg-card shadow-md border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center">
             <Award className="h-5 w-5 mr-2 text-green-500" />
@@ -117,19 +117,19 @@ export const CommunitySidebar = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center">
               <p className="text-2xl font-bold">5.2k</p>
-              <p className="text-xs text-gray-500">{t('community_page.sidebar.members')}</p>
+              <p className="text-xs text-muted-foreground">{t('community_page.sidebar.members')}</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold">128</p>
-              <p className="text-xs text-gray-500">{t('community_page.sidebar.online')}</p>
+              <p className="text-xs text-muted-foreground">{t('community_page.sidebar.online')}</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold">1.3k</p>
-              <p className="text-xs text-gray-500">{t('community_page.sidebar.posts')}</p>
+              <p className="text-xs text-muted-foreground">{t('community_page.sidebar.posts')}</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold">482</p>
-              <p className="text-xs text-gray-500">{t('community_page.sidebar.active_today')}</p>
+              <p className="text-xs text-muted-foreground">{t('community_page.sidebar.active_today')}</p>
             </div>
           </div>
         </CardContent>

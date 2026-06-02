@@ -58,14 +58,14 @@ export const FeaturesSection = () => {
           </span>
           
           <h2 
-            className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins mb-4 animate-fade-in"
+            className="text-3xl md:text-4xl font-bold text-foreground font-poppins mb-4 animate-fade-in"
             style={{ animationDelay: '0.2s' }}
           >
             Why Use WordToImage?
           </h2>
           
           <p 
-            className="text-lg text-gray-600 max-w-2xl mx-auto animate-fade-in"
+            className="text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
             Powerful features designed to transform your ideas into stunning visuals
@@ -81,17 +81,17 @@ export const FeaturesSection = () => {
               onMouseEnter={() => setHoveredFeature(index)}
               onMouseLeave={() => setHoveredFeature(null)}
             >
-              <Card className="h-full transition-all duration-300 hover:shadow-lg border border-gray-100 hover:border-blue-200">
+              <Card className="h-full transition-all duration-300 hover:shadow-lg border border-border hover:border-blue-200">
                 <CardHeader>
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
                   </div>
                   <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
-                  <CardDescription className="text-gray-600">{feature.description}</CardDescription>
+                  <CardDescription className="text-muted-foreground">{feature.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {hoveredFeature === index && (
-                    <div className="animate-fade-in text-sm text-gray-500 pt-2 border-t mt-2">
+                    <div className="animate-fade-in text-sm text-muted-foreground pt-2 border-t mt-2">
                       {feature.extendedDescription}
                     </div>
                   )}

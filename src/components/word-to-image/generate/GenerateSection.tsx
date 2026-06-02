@@ -88,7 +88,7 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
       </div>
       
       {!loading && !disabled && (
-        <div className="mt-2 text-center text-sm text-gray-500">
+        <div className="mt-2 text-center text-sm text-muted-foreground">
           Our AI will create your image in seconds
         </div>
       )}

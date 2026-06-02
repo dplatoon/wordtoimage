@@ -82,11 +82,11 @@ export const SEOOptimizedGallery: React.FC<SEOOptimizedGalleryProps> = ({
         role="region"
       >
         <header>
-          <h2 id="gallery-title" className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 id="gallery-title" className="text-2xl font-bold text-foreground mb-2">
             {title}
           </h2>
           {description && (
-            <p className="text-gray-600">{description}</p>
+            <p className="text-muted-foreground">{description}</p>
           )}
         </header>
 
@@ -141,25 +141,25 @@ export const SEOOptimizedGallery: React.FC<SEOOptimizedGalleryProps> = ({
               </div>
 
               <div className="p-4">
-                <h3 id={`image-title-${image.id}`} className="font-medium text-gray-900 mb-1 line-clamp-1">
+                <h3 id={`image-title-${image.id}`} className="font-medium text-foreground mb-1 line-clamp-1">
                   {image.title}
                 </h3>
-                <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
                   {image.description}
                 </p>
                 
                 {image.prompt && (
                   <details className="mb-2">
-                    <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700">
+                    <summary className="text-xs text-muted-foreground cursor-pointer hover:text-gray-700">
                       View prompt
                     </summary>
-                    <p className="text-xs text-gray-600 mt-1 p-2 bg-gray-50 rounded">
+                    <p className="text-xs text-muted-foreground mt-1 p-2 bg-muted/50 rounded">
                       {image.prompt}
                     </p>
                   </details>
                 )}
 
-                <div className="flex items-center justify-between text-xs text-gray-500">
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
                   {image.resolution && <span>{image.resolution}</span>}
                   {image.author && <span>by {image.author}</span>}
                 </div>

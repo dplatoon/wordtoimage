@@ -56,7 +56,7 @@ export function RecentStyles({
               variant="outline"
               size="sm"
               onClick={() => onSelectStyle(styleId)}
-              className="bg-white hover:bg-blue-100 border-blue-300 text-blue-700 text-xs"
+              className="bg-card hover:bg-blue-100 border-blue-300 text-blue-700 text-xs"
             >
               {STYLE_NAMES[styleId] || styleId}
             </Button>

@@ -27,11 +27,11 @@ export const HeroSection = () => {
       <div className="absolute bottom-40 left-1/3 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6 animate-fade-in">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground font-poppins mb-6 animate-fade-in">
           Transform Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Words</span> Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Visual Magic</span>
         </h1>
         
-        <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.3s' }}>
+        <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.3s' }}>
           Create stunning images from text descriptions in seconds using our advanced AI technology
         </p>
         

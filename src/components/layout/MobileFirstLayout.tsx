@@ -100,10 +100,10 @@ export const MobileFirstHeading: React.FC<{
   className?: string;
 }> = ({ level, children, className }) => {
   const headingClasses = {
-    1: "mobile-text-4xl font-bold text-gray-900",
-    2: "mobile-text-3xl font-bold text-gray-900",
-    3: "mobile-text-2xl font-semibold text-gray-900",
-    4: "mobile-text-xl font-semibold text-gray-900"
+    1: "mobile-text-4xl font-bold text-foreground",
+    2: "mobile-text-3xl font-bold text-foreground",
+    3: "mobile-text-2xl font-semibold text-foreground",
+    4: "mobile-text-xl font-semibold text-foreground"
   };
 
   const combinedClassName = cn(headingClasses[level], className);

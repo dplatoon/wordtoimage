@@ -55,11 +55,11 @@ export function ImageWithFallback({
   if (hasError) {
     return (
       <div className={cn(
-        "flex flex-col items-center justify-center p-4 bg-gray-100 rounded-lg",
+        "flex flex-col items-center justify-center p-4 bg-muted rounded-lg",
         fallbackClassName
       )}>
-        <ImageOff className="h-8 w-8 text-gray-400 mb-2" />
-        <p className="text-xs text-gray-500 text-center mb-2">
+        <ImageOff className="h-8 w-8 text-muted-foreground mb-2" />
+        <p className="text-xs text-muted-foreground text-center mb-2">
           Failed to load image
         </p>
         {showRetry && retryCount < 3 && (
@@ -81,7 +81,7 @@ export function ImageWithFallback({
     <>
       {isLoading && (
         <div className={cn(
-          "absolute inset-0 bg-gray-200 animate-pulse rounded-lg",
+          "absolute inset-0 bg-muted animate-pulse rounded-lg",
           fallbackClassName
         )} />
       )}

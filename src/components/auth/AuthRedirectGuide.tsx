@@ -47,10 +47,10 @@ export function AuthRedirectGuide({ isVisible, onClose }: AuthRedirectGuideProps
           <h4 className="font-semibold text-amber-800">Required Supabase URL Configuration:</h4>
           
           <div className="space-y-2">
-            <div className="bg-white p-3 rounded border">
+            <div className="bg-card p-3 rounded border">
               <p className="text-sm font-medium text-gray-700 mb-1">Site URL:</p>
               <div className="flex items-center gap-2">
-                <code className="flex-1 bg-gray-100 p-2 rounded text-sm">{currentDomain}</code>
+                <code className="flex-1 bg-muted p-2 rounded text-sm">{currentDomain}</code>
                 <Button 
                   size="sm" 
                   variant="outline"
@@ -61,11 +61,11 @@ export function AuthRedirectGuide({ isVisible, onClose }: AuthRedirectGuideProps
               </div>
             </div>
 
-            <div className="bg-white p-3 rounded border">
+            <div className="bg-card p-3 rounded border">
               <p className="text-sm font-medium text-gray-700 mb-1">Redirect URLs (add both):</p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 bg-gray-100 p-2 rounded text-sm">{currentDomain}/auth</code>
+                  <code className="flex-1 bg-muted p-2 rounded text-sm">{currentDomain}/auth</code>
                   <Button 
                     size="sm" 
                     variant="outline"
@@ -75,7 +75,7 @@ export function AuthRedirectGuide({ isVisible, onClose }: AuthRedirectGuideProps
                   </Button>
                 </div>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 bg-gray-100 p-2 rounded text-sm">{currentDomain}/**</code>
+                  <code className="flex-1 bg-muted p-2 rounded text-sm">{currentDomain}/**</code>
                   <Button 
                     size="sm" 
                     variant="outline"
@@ -114,7 +114,7 @@ export function AuthRedirectGuide({ isVisible, onClose }: AuthRedirectGuideProps
           </Button>
         </div>
 
-        <div className="text-xs text-gray-600 bg-gray-50 p-2 rounded">
+        <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
           <p><strong>Common Error Messages This Fixes:</strong></p>
           <ul className="list-disc list-inside mt-1 space-y-1">
             <li>"requested path is invalid"</li>

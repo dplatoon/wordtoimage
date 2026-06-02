@@ -125,7 +125,7 @@ export const ProgressTracker = ({ userActivity = {} }: ProgressTrackerProps) => 
     <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold text-gray-900">
+          <CardTitle className="text-lg font-semibold text-foreground">
             Your Journey Progress
           </CardTitle>
           <Badge variant="secondary" className="bg-blue-100 text-blue-800">
@@ -138,15 +138,15 @@ export const ProgressTracker = ({ userActivity = {} }: ProgressTrackerProps) => 
       <CardContent className="space-y-4">
         {/* Current Step Highlight */}
         {currentStep && (
-          <div className="bg-white p-4 rounded-lg border-2 border-blue-300 shadow-sm">
+          <div className="bg-card p-4 rounded-lg border-2 border-blue-300 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="text-blue-600">
                   {currentStep.icon}
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900">{currentStep.title}</h3>
-                  <p className="text-sm text-gray-600">{currentStep.description}</p>
+                  <h3 className="font-medium text-foreground">{currentStep.title}</h3>
+                  <p className="text-sm text-muted-foreground">{currentStep.description}</p>
                 </div>
               </div>
               {currentStep.action && (
@@ -173,7 +173,7 @@ export const ProgressTracker = ({ userActivity = {} }: ProgressTrackerProps) => 
                   ? 'bg-green-50 text-green-900' 
                   : step.current 
                     ? 'bg-blue-50 text-blue-900'
-                    : 'bg-gray-50 text-gray-600'
+                    : 'bg-muted/50 text-muted-foreground'
               }`}
             >
               <div className={`${
@@ -181,7 +181,7 @@ export const ProgressTracker = ({ userActivity = {} }: ProgressTrackerProps) => 
                   ? 'text-green-600' 
                   : step.current 
                     ? 'text-blue-600'
-                    : 'text-gray-400'
+                    : 'text-muted-foreground'
               }`}>
                 {step.completed ? (
                   <CheckCircle className="h-5 w-5" />

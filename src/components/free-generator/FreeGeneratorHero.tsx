@@ -33,7 +33,7 @@ export const FreeGeneratorHero = () => {
           {/* Left side - Content */}
           <div className="space-y-8">
             {/* Trust indicators */}
-            <div className="flex items-center space-x-4 text-sm text-gray-600">
+            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center">
                 <Users className="w-4 h-4 mr-1 text-green-500" />
                 <span className="font-medium">2M+ users</span>
@@ -48,7 +48,7 @@ export const FreeGeneratorHero = () => {
               </div>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
               Create Stunning{' '}
               <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
                 AI Art
@@ -56,7 +56,7 @@ export const FreeGeneratorHero = () => {
               100% Free
             </h1>
             
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-xl text-muted-foreground leading-relaxed">
               Transform your ideas into beautiful images instantly. Start with a free trial, 
               no watermarks, no limits. Sign up to unlock unlimited generations and premium features.
             </p>
@@ -128,7 +128,7 @@ export const FreeGeneratorHero = () => {
                   <div
                     key={index}
                     className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                      index === currentImageIndex ? 'bg-white' : 'bg-card/50'
                     }`}
                   />
                 ))}

@@ -40,7 +40,7 @@ const NotFound = () => {
               </Link>
             </Button>
             
-            <p className="text-gray-500 text-sm pt-4">
+            <p className="text-muted-foreground text-sm pt-4">
               If you believe this is an error, please <Link to="/contact" className="text-blue-600 hover:underline">contact us</Link>.
             </p>
           </div>

@@ -59,11 +59,11 @@ export const WeeklyTopCreations = () => {
         <CardHeader className="text-center pb-6">
           <div className="flex items-center justify-center mb-4">
             <TrendingUp className="h-8 w-8 text-purple-600 mr-3" />
-            <CardTitle id="weekly-top-creations" className="text-3xl font-bold text-gray-900">
+            <CardTitle id="weekly-top-creations" className="text-3xl font-bold text-foreground">
               Weekly Top Creations
             </CardTitle>
           </div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Discover the most popular AI-generated artworks from our community this week. 
             Get inspired and learn from the best prompts and techniques.
           </p>
@@ -72,7 +72,7 @@ export const WeeklyTopCreations = () => {
         <CardContent>
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             {TOP_CREATIONS.map((creation, index) => (
-              <Card key={creation.id} className="bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 group">
+              <Card key={creation.id} className="bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 group">
                 <div className="relative overflow-hidden rounded-t-lg">
                   <img 
                     src={creation.image} 
@@ -89,15 +89,15 @@ export const WeeklyTopCreations = () => {
                 </div>
                 
                 <CardContent className="p-4">
-                  <h3 className="font-bold text-lg mb-2 text-gray-900 line-clamp-1">
+                  <h3 className="font-bold text-lg mb-2 text-foreground line-clamp-1">
                     {creation.title}
                   </h3>
                   
-                  <p className="text-sm text-gray-600 mb-3">
+                  <p className="text-sm text-muted-foreground mb-3">
                     by <span className="font-medium text-purple-600">@{creation.artist}</span>
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                     <div className="flex items-center gap-1">
                       <Heart className="h-4 w-4 text-red-500" />
                       <span>{creation.likes.toLocaleString()}</span>
@@ -119,7 +119,7 @@ export const WeeklyTopCreations = () => {
                       </Badge>
                     </div>
                     
-                    <p className="text-xs text-gray-600 line-clamp-2">
+                    <p className="text-xs text-muted-foreground line-clamp-2">
                       <strong>Prompt:</strong> {creation.prompt}
                     </p>
                   </div>
@@ -129,7 +129,7 @@ export const WeeklyTopCreations = () => {
           </div>
           
           <div className="text-center">
-            <p className="text-gray-600 mb-4">
+            <p className="text-muted-foreground mb-4">
               Want to see your art featured here? Join our community and start creating!
             </p>
             <div className="flex flex-wrap justify-center gap-4">

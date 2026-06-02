@@ -62,7 +62,7 @@ export const PaymentConfirmation = () => {
       case 'failed':
         return <XCircle className="h-12 w-12 text-red-500" />;
       case 'cancelled':
-        return <XCircle className="h-12 w-12 text-gray-500" />;
+        return <XCircle className="h-12 w-12 text-muted-foreground" />;
       default:
         return <Clock className="h-12 w-12 text-blue-500 animate-spin" />;
     }
@@ -82,7 +82,7 @@ export const PaymentConfirmation = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-muted/50">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
@@ -102,13 +102,13 @@ export const PaymentConfirmation = () => {
           </EnhancedAlert>
 
           {paymentStatus.transactionId && (
-            <div className="text-sm text-gray-600 text-center">
+            <div className="text-sm text-muted-foreground text-center">
               Transaction ID: {paymentStatus.transactionId}
             </div>
           )}
 
           {paymentStatus.status === 'success' && (
-            <div className="text-center text-sm text-gray-600">
+            <div className="text-center text-sm text-muted-foreground">
               Redirecting to dashboard in 5 seconds...
             </div>
           )}

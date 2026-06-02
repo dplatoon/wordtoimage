@@ -69,10 +69,10 @@ export const TestimonialsSection = () => {
             <span>Testimonials</span>
           </span>
           
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-poppins">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground font-poppins">
             Loved by Creators Everywhere
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
             Join thousands of satisfied users who create stunning graphics with WordToImage.
           </p>
         </div>
@@ -82,7 +82,7 @@ export const TestimonialsSection = () => {
           {testimonials.slice(0, 3).map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 animate-fade-in"
+              className="bg-card p-8 rounded-xl shadow-sm border border-border animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex mb-4">
@@ -97,7 +97,7 @@ export const TestimonialsSection = () => {
                 </div>
                 <div className="ml-3">
                   <h4 className="font-semibold">{testimonial.name}</h4>
-                  <p className="text-gray-500 text-sm">{testimonial.role}</p>
+                  <p className="text-muted-foreground text-sm">{testimonial.role}</p>
                 </div>
               </div>
             </div>
@@ -109,7 +109,7 @@ export const TestimonialsSection = () => {
           {testimonials.slice(3, 6).map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 animate-fade-in"
+              className="bg-card p-8 rounded-xl shadow-sm border border-border animate-fade-in"
               style={{ animationDelay: `${(index + 3) * 0.1}s` }}
             >
               <div className="flex mb-4">
@@ -124,7 +124,7 @@ export const TestimonialsSection = () => {
                 </div>
                 <div className="ml-3">
                   <h4 className="font-semibold">{testimonial.name}</h4>
-                  <p className="text-gray-500 text-sm">{testimonial.role}</p>
+                  <p className="text-muted-foreground text-sm">{testimonial.role}</p>
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@ export const TestimonialsSection = () => {
             <div className="flex transition-transform duration-300 ease-out" style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}>
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="w-full flex-shrink-0 px-4">
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                  <div className="bg-card p-6 rounded-xl shadow-sm border border-border">
                     <div className="flex mb-3">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className={`h-4 w-4 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
@@ -150,7 +150,7 @@ export const TestimonialsSection = () => {
                       </div>
                       <div className="ml-3">
                         <h4 className="font-semibold text-sm">{testimonial.name}</h4>
-                        <p className="text-gray-500 text-xs">{testimonial.role}</p>
+                        <p className="text-muted-foreground text-xs">{testimonial.role}</p>
                       </div>
                     </div>
                   </div>
@@ -163,10 +163,10 @@ export const TestimonialsSection = () => {
           <div className="flex justify-center mt-6 gap-2">
             <button 
               onClick={prevTestimonial} 
-              className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm hover:bg-gray-50"
+              className="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center shadow-sm hover:bg-muted/50"
               aria-label="Previous testimonial"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
@@ -184,10 +184,10 @@ export const TestimonialsSection = () => {
             </div>
             <button 
               onClick={nextTestimonial} 
-              className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm hover:bg-gray-50"
+              className="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center shadow-sm hover:bg-muted/50"
               aria-label="Next testimonial"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </button>

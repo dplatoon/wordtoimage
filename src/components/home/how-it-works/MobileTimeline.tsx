@@ -34,11 +34,11 @@ export const MobileTimeline: React.FC<MobileTimelineProps> = ({
               >
                 {index + 1}
               </div>
-              {index < steps.length - 1 && <div className="w-0.5 bg-gray-200 h-full mx-auto mt-2"></div>}
+              {index < steps.length - 1 && <div className="w-0.5 bg-muted h-full mx-auto mt-2"></div>}
             </div>
             <div 
-              className={`bg-white p-4 rounded-lg shadow-sm border flex-1 transition-all ${
-                index === activeStep ? 'border-blue-300 shadow-md' : 'border-gray-100'
+              className={`bg-card p-4 rounded-lg shadow-sm border flex-1 transition-all ${
+                index === activeStep ? 'border-blue-300 shadow-md' : 'border-border'
               }`}
               onClick={() => {
                 setActiveStep(index);
@@ -49,13 +49,13 @@ export const MobileTimeline: React.FC<MobileTimelineProps> = ({
                 <step.icon className="h-5 w-5" />
               </div>
               <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-              <p className="text-gray-600 text-sm mb-2">{step.description}</p>
+              <p className="text-muted-foreground text-sm mb-2">{step.description}</p>
               
               {index === activeStep && (
                 <div 
-                  className="mt-3 pt-3 border-t border-gray-100 animate-fade-in"
+                  className="mt-3 pt-3 border-t border-border animate-fade-in"
                 >
-                  <p className="text-xs text-gray-500">{step.demoContent}</p>
+                  <p className="text-xs text-muted-foreground">{step.demoContent}</p>
                 </div>
               )}
             </div>

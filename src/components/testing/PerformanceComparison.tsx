@@ -47,13 +47,13 @@ export const PerformanceComparison = () => {
   };
 
   const getImprovementIcon = (improvement: number | null) => {
-    if (!improvement) return <Minus className="h-4 w-4 text-gray-400" />;
+    if (!improvement) return <Minus className="h-4 w-4 text-muted-foreground" />;
     if (improvement > 0) return <TrendingUp className="h-4 w-4 text-green-500" />;
     return <TrendingDown className="h-4 w-4 text-red-500" />;
   };
 
   const getImprovementColor = (improvement: number | null) => {
-    if (!improvement) return 'text-gray-500';
+    if (!improvement) return 'text-muted-foreground';
     return improvement > 0 ? 'text-green-600' : 'text-red-600';
   };
 
@@ -86,7 +86,7 @@ export const PerformanceComparison = () => {
             {/* Before */}
             <div className="space-y-4">
               <div className="text-center">
-                <div className="text-sm font-medium text-gray-600 mb-2">{latestSnapshot.label}</div>
+                <div className="text-sm font-medium text-muted-foreground mb-2">{latestSnapshot.label}</div>
                 <div className="w-16 h-16 mx-auto rounded-full bg-red-500 flex items-center justify-center text-white text-xl font-bold">
                   {latestSnapshot.score}
                 </div>
@@ -114,7 +114,7 @@ export const PerformanceComparison = () => {
             {/* After */}
             <div className="space-y-4">
               <div className="text-center">
-                <div className="text-sm font-medium text-gray-600 mb-2">{currentSnapshot.label}</div>
+                <div className="text-sm font-medium text-muted-foreground mb-2">{currentSnapshot.label}</div>
                 <div className="w-16 h-16 mx-auto rounded-full bg-green-500 flex items-center justify-center text-white text-xl font-bold">
                   {currentSnapshot.score}
                 </div>
@@ -141,7 +141,7 @@ export const PerformanceComparison = () => {
           </div>
 
           {/* Improvements */}
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-6 p-4 bg-muted/50 rounded-lg">
             <h3 className="font-medium mb-3">Improvements</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center">
@@ -151,7 +151,7 @@ export const PerformanceComparison = () => {
                     +{calculateImprovement(latestSnapshot.score, currentSnapshot.score, false)?.toFixed(0)}%
                   </span>
                 </div>
-                <div className="text-xs text-gray-500">Score</div>
+                <div className="text-xs text-muted-foreground">Score</div>
               </div>
 
               <div className="text-center">
@@ -161,7 +161,7 @@ export const PerformanceComparison = () => {
                     {calculateImprovement(latestSnapshot.lcp, currentSnapshot.lcp)?.toFixed(0)}%
                   </span>
                 </div>
-                <div className="text-xs text-gray-500">LCP</div>
+                <div className="text-xs text-muted-foreground">LCP</div>
               </div>
 
               <div className="text-center">
@@ -171,7 +171,7 @@ export const PerformanceComparison = () => {
                     {calculateImprovement(latestSnapshot.fid, currentSnapshot.fid)?.toFixed(0)}%
                   </span>
                 </div>
-                <div className="text-xs text-gray-500">FID</div>
+                <div className="text-xs text-muted-foreground">FID</div>
               </div>
 
               <div className="text-center">
@@ -181,7 +181,7 @@ export const PerformanceComparison = () => {
                     {calculateImprovement(latestSnapshot.bundleSize, currentSnapshot.bundleSize)?.toFixed(0)}%
                   </span>
                 </div>
-                <div className="text-xs text-gray-500">Bundle</div>
+                <div className="text-xs text-muted-foreground">Bundle</div>
               </div>
             </div>
 

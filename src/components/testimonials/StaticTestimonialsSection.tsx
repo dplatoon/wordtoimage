@@ -27,17 +27,17 @@ export const StaticTestimonialsSection = () => {
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             What Our Users Say
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Join thousands of creators who love WordToImage
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-gray-50 p-6 rounded-xl">
+            <div key={index} className="bg-muted/50 p-6 rounded-xl">
               <div className="flex mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
@@ -47,8 +47,8 @@ export const StaticTestimonialsSection = () => {
                 "{testimonial.content}"
               </p>
               <div>
-                <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                <p className="text-gray-600 text-sm">{testimonial.role}</p>
+                <p className="font-semibold text-foreground">{testimonial.name}</p>
+                <p className="text-muted-foreground text-sm">{testimonial.role}</p>
               </div>
             </div>
           ))}

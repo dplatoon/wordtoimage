@@ -12,7 +12,7 @@ export const ApiKeyHeader = ({ tempApiKey, onUpdateApiKey }: ApiKeyHeaderProps) 
   <div className="mb-3 flex items-center justify-between">
     <div className="flex items-center gap-2">
       <Shield className="h-4 w-4 mr-1 text-green-500" />
-      <span className="text-sm text-gray-600">Powered by OpenAI DALL-E 3</span>
+      <span className="text-sm text-muted-foreground">Powered by OpenAI DALL-E 3</span>
       {tempApiKey && (
         <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 text-xs flex items-center gap-1">
           <Check className="h-3 w-3" /> API Key Set

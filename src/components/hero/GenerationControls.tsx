@@ -25,7 +25,7 @@ export const GenerationControls = memo(({
   
   const dropdownClass = "rounded-lg border border-gray-300 py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm text-sm";
   
-  const labelClass = "block text-xs font-medium text-gray-600 mb-1 ml-1";
+  const labelClass = "block text-xs font-medium text-muted-foreground mb-1 ml-1";
 
   return (
     <div className={`grid ${isMobile ? 'grid-cols-2' : 'grid-cols-3'} gap-3 mb-4`}>

@@ -189,20 +189,20 @@ export const LeadMagnetSystem = ({
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <div className="flex items-center justify-between mb-2">
-            <DialogTitle className="text-2xl font-bold text-gray-800">
+            <DialogTitle className="text-2xl font-bold text-foreground">
               {magnetData.title}
             </DialogTitle>
             <Badge variant="secondary" className="bg-green-100 text-green-800">
               {magnetData.badge}
             </Badge>
           </div>
-          <p className="text-gray-600 font-medium">{magnetData.subtitle}</p>
+          <p className="text-muted-foreground font-medium">{magnetData.subtitle}</p>
         </DialogHeader>
 
         <Card className="border-none shadow-none bg-gradient-to-br from-gray-50 to-white">
           <CardContent className="p-6">
             <div className="text-center mb-6">
-              <div className="mx-auto mb-4 p-3 bg-white rounded-full w-fit shadow-sm">
+              <div className="mx-auto mb-4 p-3 bg-card rounded-full w-fit shadow-sm">
                 {magnetData.icon}
               </div>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -254,7 +254,7 @@ export const LeadMagnetSystem = ({
               </Button>
             </form>
 
-            <p className="text-xs text-gray-500 text-center mt-3">
+            <p className="text-xs text-muted-foreground text-center mt-3">
               Free download. No spam. Unsubscribe anytime.
             </p>
           </CardContent>

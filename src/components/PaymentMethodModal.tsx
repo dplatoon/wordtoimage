@@ -122,7 +122,7 @@ export function PaymentMethodModal({ open, onOpenChange, planName }: PaymentMeth
             <Users className="h-5 w-5" />
             Other (bKash, Nagad, SSLCommerz)
           </Button>
-          <p className="text-xs text-gray-500 text-center mt-2">
+          <p className="text-xs text-muted-foreground text-center mt-2">
             More payment options coming soon!
           </p>
         </div>

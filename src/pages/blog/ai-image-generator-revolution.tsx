@@ -122,7 +122,7 @@ const AIImageGeneratorRevolution = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -134,12 +134,12 @@ const AIImageGeneratorRevolution = () => {
             <Card key={index} className="overflow-hidden shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-xl font-bold text-gray-900">{study.title}</h3>
+                  <h3 className="text-xl font-bold text-foreground">{study.title}</h3>
                   <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full font-bold">
                     {study.impact}
                   </span>
                 </div>
-                <p className="text-gray-600 mb-3">{study.description}</p>
+                <p className="text-muted-foreground mb-3">{study.description}</p>
                 <p className="text-sm text-blue-600 font-medium">{study.details}</p>
               </CardContent>
             </Card>
@@ -158,7 +158,7 @@ const AIImageGeneratorRevolution = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                    <p className="text-gray-600">{step.description}</p>
+                    <p className="text-muted-foreground">{step.description}</p>
                   </div>
                 </div>
               </CardContent>
@@ -174,7 +174,7 @@ const AIImageGeneratorRevolution = () => {
               <CardContent className="p-6">
                 <div className="text-4xl mb-4">{benefit.icon}</div>
                 <h3 className="text-lg font-bold mb-3">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
+                <p className="text-muted-foreground">{benefit.description}</p>
               </CardContent>
             </Card>
           ))}

@@ -63,8 +63,8 @@ export const FeaturedSection = ({
                   {featuredArtist.badge}
                 </Badge>
               </div>
-              <p className="text-gray-600">@{featuredArtist.username}</p>
-              <div className="flex items-center gap-1 text-sm text-gray-500">
+              <p className="text-muted-foreground">@{featuredArtist.username}</p>
+              <div className="flex items-center gap-1 text-sm text-muted-foreground">
                 <Users className="h-4 w-4" />
                 <span>{featuredArtist.followers.toLocaleString()} followers</span>
               </div>
@@ -121,7 +121,7 @@ export const FeaturedSection = ({
                 </div>
                 <div className="mt-2">
                   <p className="font-medium text-sm truncate">{post.title}</p>
-                  <div className="flex items-center justify-between text-xs text-gray-500">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span>by {post.author}</span>
                     <span className="flex items-center gap-1">
                       <Star className="h-3 w-3 fill-current text-yellow-500" />

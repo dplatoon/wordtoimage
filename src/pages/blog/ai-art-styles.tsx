@@ -99,7 +99,7 @@ const AIArtStylesBlogPost = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -118,12 +118,12 @@ const AIArtStylesBlogPost = () => {
               </div>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-900">{style.name}</h3>
+                  <h3 className="text-xl font-bold text-foreground">{style.name}</h3>
                   <Badge variant="secondary">#{index + 1}</Badge>
                 </div>
-                <p className="text-gray-600 mb-4">{style.description}</p>
+                <p className="text-muted-foreground mb-4">{style.description}</p>
                 
-                <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                <div className="bg-muted/50 rounded-lg p-4 mb-4">
                   <p className="text-sm font-medium text-gray-700 mb-2">Example Prompt:</p>
                   <code className="text-sm text-blue-600 break-all">"{style.prompt}"</code>
                 </div>
@@ -148,21 +148,21 @@ const AIArtStylesBlogPost = () => {
                 <span className="text-2xl">🎨</span>
               </div>
               <h3 className="font-semibold mb-2">Use Specific Adjectives</h3>
-              <p className="text-sm text-gray-600">Include descriptive words like "vibrant," "moody," or "ethereal" to guide the AI's interpretation.</p>
+              <p className="text-sm text-muted-foreground">Include descriptive words like "vibrant," "moody," or "ethereal" to guide the AI's interpretation.</p>
             </div>
             <div className="text-center">
               <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🖼️</span>
               </div>
               <h3 className="font-semibold mb-2">Reference Famous Artists</h3>
-              <p className="text-sm text-gray-600">Mention artists like "Van Gogh style" or "Picasso inspired" for recognizable artistic influences.</p>
+              <p className="text-sm text-muted-foreground">Mention artists like "Van Gogh style" or "Picasso inspired" for recognizable artistic influences.</p>
             </div>
             <div className="text-center">
               <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">💫</span>
               </div>
               <h3 className="font-semibold mb-2">Set the Mood</h3>
-              <p className="text-sm text-gray-600">Include lighting and atmosphere details like "dramatic lighting" or "soft morning light."</p>
+              <p className="text-sm text-muted-foreground">Include lighting and atmosphere details like "dramatic lighting" or "soft morning light."</p>
             </div>
           </div>
         </div>

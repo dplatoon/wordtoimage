@@ -48,19 +48,19 @@ export const SubscriptionStatus = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">Current Plan:</span>
+          <span className="text-sm text-muted-foreground">Current Plan:</span>
           <Badge variant={getPlanBadgeVariant(planName)}>{planName}</Badge>
         </div>
         
         {subscribed && currentPeriodEnd && (
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Renews:</span>
+            <span className="text-sm text-muted-foreground">Renews:</span>
             <span className="text-sm font-medium">{formatDate(currentPeriodEnd)}</span>
           </div>
         )}
         
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">Status:</span>
+          <span className="text-sm text-muted-foreground">Status:</span>
           <Badge variant={subscribed ? 'default' : 'secondary'}>
             {subscribed ? 'Active' : 'Inactive'}
           </Badge>

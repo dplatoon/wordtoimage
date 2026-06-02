@@ -40,8 +40,8 @@ export const ContentNavigation = () => {
   ];
   
   return (
-    <nav className="bg-white shadow-sm border border-gray-200 rounded-lg p-6 mb-8">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">Resources</h2>
+    <nav className="bg-card shadow-sm border border-border rounded-lg p-6 mb-8">
+      <h2 className="text-lg font-semibold text-foreground mb-4">Resources</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {navigationItems.map((item) => {
           const isActive = location.pathname === item.path;
@@ -54,17 +54,17 @@ export const ContentNavigation = () => {
                 "block p-4 rounded-lg border-2 transition-all duration-200 group",
                 isActive
                   ? "border-ai-primary bg-ai-primary/5 shadow-sm"
-                  : "border-gray-200 hover:border-ai-primary/50 hover:shadow-sm"
+                  : "border-border hover:border-ai-primary/50 hover:shadow-sm"
               )}
             >
               <h3 className={cn(
                 "font-medium mb-1 transition-colors",
-                isActive ? "text-ai-primary" : "text-gray-900 group-hover:text-ai-primary"
+                isActive ? "text-ai-primary" : "text-foreground group-hover:text-ai-primary"
               )}>
                 {item.label}
               </h3>
               {item.description && (
-                <p className="text-sm text-gray-600">{item.description}</p>
+                <p className="text-sm text-muted-foreground">{item.description}</p>
               )}
             </Link>
           );

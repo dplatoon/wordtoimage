@@ -26,7 +26,7 @@ export const DynamicHeroVisual = () => {
   return (
     <div className="relative w-full max-w-lg mx-auto">
       {/* Generation Interface Mockup */}
-      <div className="bg-white rounded-2xl shadow-brand-lg border border-brand-slate-200 p-6 mb-6">
+      <div className="bg-card rounded-2xl shadow-brand-lg border border-brand-slate-200 p-6 mb-6">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-8 h-8 bg-gradient-to-r from-brand-teal to-brand-purple rounded-lg flex items-center justify-center">
             <Wand2 className="h-4 w-4 text-white" />
@@ -77,7 +77,7 @@ export const DynamicHeroVisual = () => {
         {/* Generation Effect Overlay */}
         {isGenerating && (
           <div className="absolute inset-0 bg-gradient-to-r from-brand-teal/20 to-brand-purple/20 backdrop-blur-[1px] flex items-center justify-center animate-fade-in">
-            <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+            <div className="bg-card/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
               <div className="flex items-center gap-3">
                 <div className="w-6 h-6 border-3 border-brand-teal border-t-transparent rounded-full animate-spin" />
                 <span className="text-brand-slate-700 font-medium">Creating magic...</span>

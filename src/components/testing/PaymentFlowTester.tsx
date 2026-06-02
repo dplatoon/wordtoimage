@@ -148,7 +148,7 @@ export const PaymentFlowTester = () => {
           <CreditCard className="h-5 w-5" />
           Payment Flow End-to-End Tester
         </CardTitle>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-muted-foreground">
           Comprehensive testing of payment flows in sandbox environment
         </p>
       </CardHeader>
@@ -194,8 +194,8 @@ export const PaymentFlowTester = () => {
                   {getStatusIcon(result.status)}
                   <div className="flex-1">
                     <div className="font-medium text-sm">{result.step}</div>
-                    <div className="text-sm text-gray-600">{result.message}</div>
-                    <div className="text-xs text-gray-500 mt-1">
+                    <div className="text-sm text-muted-foreground">{result.message}</div>
+                    <div className="text-xs text-muted-foreground mt-1">
                       {result.timestamp.toLocaleTimeString()}
                     </div>
                   </div>
@@ -205,7 +205,7 @@ export const PaymentFlowTester = () => {
           </div>
         )}
 
-        <div className="bg-gray-50 p-4 rounded-lg">
+        <div className="bg-muted/50 p-4 rounded-lg">
           <h4 className="font-medium mb-2">Test Coverage</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
             <div>✓ User authentication validation</div>

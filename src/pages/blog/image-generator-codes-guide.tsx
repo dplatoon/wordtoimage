@@ -110,7 +110,7 @@ img.save('generated_image.png')
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -127,8 +127,8 @@ img.save('generated_image.png')
                     {library.language}
                   </span>
                 </div>
-                <p className="text-gray-600 mb-3">{library.description}</p>
-                <p className="text-sm text-gray-500">
+                <p className="text-muted-foreground mb-3">{library.description}</p>
+                <p className="text-sm text-muted-foreground">
                   <strong>Best for:</strong> {library.useCase}
                 </p>
               </CardContent>
@@ -148,7 +148,7 @@ img.save('generated_image.png')
                   </div>
                   <div>
                     <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                    <p className="text-gray-600">{step.description}</p>
+                    <p className="text-muted-foreground">{step.description}</p>
                   </div>
                 </div>
               </CardContent>
@@ -160,7 +160,7 @@ img.save('generated_image.png')
         <Card className="mb-12">
           <CardContent className="p-6">
             <h3 className="text-xl font-bold mb-4">Sample Code Example</h3>
-            <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto text-sm">
+            <pre className="bg-muted/50 p-4 rounded-lg overflow-x-auto text-sm">
               <code>{codeExample}</code>
             </pre>
           </CardContent>

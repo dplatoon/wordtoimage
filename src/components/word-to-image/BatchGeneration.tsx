@@ -159,7 +159,7 @@ export function BatchGeneration({ onBatchGenerate, selectedStyles, isGenerating 
             Add Prompt
           </Button>
           <Separator orientation="vertical" className="h-6" />
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-muted-foreground">
             Total images: <strong>{totalImages}</strong>
           </div>
         </div>

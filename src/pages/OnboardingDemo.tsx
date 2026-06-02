@@ -115,10 +115,10 @@ const OnboardingDemo = () => {
             <Badge variant="secondary" className="bg-blue-100 text-blue-800">
               Enhanced User Onboarding
             </Badge>
-            <h1 className="text-4xl font-bold text-gray-900">
+            <h1 className="text-4xl font-bold text-foreground">
               Advanced Onboarding System
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Experience our comprehensive onboarding system designed to guide users 
               through their journey with personalized flows, interactive tutorials, and progress tracking.
             </p>
@@ -135,7 +135,7 @@ const OnboardingDemo = () => {
             <TabsContent value="overview" className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {features.map((feature, index) => (
-                  <Card key={index} className="bg-white">
+                  <Card key={index} className="bg-card">
                     <CardHeader className="pb-4">
                       <div className="flex items-center gap-3">
                         {feature.icon}
@@ -143,7 +143,7 @@ const OnboardingDemo = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-600 text-sm mb-4">{feature.description}</p>
+                      <p className="text-muted-foreground text-sm mb-4">{feature.description}</p>
                       <ul className="space-y-1">
                         {feature.benefits.map((benefit, i) => (
                           <li key={i} className="flex items-center gap-2 text-xs text-gray-700">
@@ -184,21 +184,21 @@ const OnboardingDemo = () => {
                         <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
                         <div>
                           <h4 className="font-medium">Goal Identification</h4>
-                          <p className="text-sm text-gray-600">Understands user's primary objectives</p>
+                          <p className="text-sm text-muted-foreground">Understands user's primary objectives</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
                         <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
                         <div>
                           <h4 className="font-medium">Experience Assessment</h4>
-                          <p className="text-sm text-gray-600">Adapts complexity based on skill level</p>
+                          <p className="text-sm text-muted-foreground">Adapts complexity based on skill level</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
                         <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
                         <div>
                           <h4 className="font-medium">Interest Mapping</h4>
-                          <p className="text-sm text-gray-600">Customizes content recommendations</p>
+                          <p className="text-sm text-muted-foreground">Customizes content recommendations</p>
                         </div>
                       </div>
                     </div>
@@ -218,21 +218,21 @@ const OnboardingDemo = () => {
                         <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
                         <div>
                           <h4 className="font-medium">Action Detection</h4>
-                          <p className="text-sm text-gray-600">Automatically progresses when user completes actions</p>
+                          <p className="text-sm text-muted-foreground">Automatically progresses when user completes actions</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
                         <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
                         <div>
                           <h4 className="font-medium">Visual Highlighting</h4>
-                          <p className="text-sm text-gray-600">Highlights relevant UI elements with overlays</p>
+                          <p className="text-sm text-muted-foreground">Highlights relevant UI elements with overlays</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
                         <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
                         <div>
                           <h4 className="font-medium">Contextual Tips</h4>
-                          <p className="text-sm text-gray-600">Provides helpful hints and best practices</p>
+                          <p className="text-sm text-muted-foreground">Provides helpful hints and best practices</p>
                         </div>
                       </div>
                     </div>
@@ -245,7 +245,7 @@ const OnboardingDemo = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Try Live Demo</CardTitle>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Experience different parts of the onboarding system. Each demo showcases 
                     different interaction patterns and user flows.
                   </p>
@@ -253,10 +253,10 @@ const OnboardingDemo = () => {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {demoActions.map((demo) => (
-                      <Card key={demo.id} className="bg-gray-50">
+                      <Card key={demo.id} className="bg-muted/50">
                         <CardContent className="p-4">
                           <h4 className="font-medium mb-2">{demo.label}</h4>
-                          <p className="text-sm text-gray-600 mb-4">{demo.description}</p>
+                          <p className="text-sm text-muted-foreground mb-4">{demo.description}</p>
                           <Button 
                             onClick={demo.action}
                             className="w-full bg-blue-600 hover:bg-blue-700"
@@ -316,10 +316,10 @@ const OnboardingDemo = () => {
                 <div data-tutorial="generated-image" className="md:col-span-2">
                   <Card className="bg-gradient-to-br from-purple-50 to-blue-50">
                     <CardContent className="p-8 text-center">
-                      <div className="w-64 h-64 mx-auto bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-                        <Palette className="h-16 w-16 text-gray-400" />
+                      <div className="w-64 h-64 mx-auto bg-muted rounded-lg flex items-center justify-center mb-4">
+                        <Palette className="h-16 w-16 text-muted-foreground" />
                       </div>
-                      <p className="text-gray-600">Your generated image would appear here</p>
+                      <p className="text-muted-foreground">Your generated image would appear here</p>
                     </CardContent>
                   </Card>
                 </div>

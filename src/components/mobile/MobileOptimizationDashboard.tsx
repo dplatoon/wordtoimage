@@ -318,7 +318,7 @@ export const MobileOptimizationDashboard = () => {
       case '4g':
         return <Wifi className="h-4 w-4 text-green-500" />;
       default:
-        return <Wifi className="h-4 w-4 text-gray-500" />;
+        return <Wifi className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -349,7 +349,7 @@ export const MobileOptimizationDashboard = () => {
               {getDeviceIcon(deviceMetrics.deviceType)}
               <span className="font-medium capitalize">{deviceMetrics.deviceType}</span>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-muted-foreground">
               {deviceMetrics.screenSize.width}×{deviceMetrics.screenSize.height}
             </p>
           </CardContent>
@@ -361,7 +361,7 @@ export const MobileOptimizationDashboard = () => {
               {getConnectionIcon(deviceMetrics.connection.effectiveType)}
               <span className="font-medium capitalize">{deviceMetrics.connection.effectiveType}</span>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-muted-foreground">
               {deviceMetrics.connection.downlink}Mbps
             </p>
           </CardContent>
@@ -373,7 +373,7 @@ export const MobileOptimizationDashboard = () => {
               <Cpu className="h-4 w-4" />
               <span className="font-medium">{deviceMetrics.performance.processorCores} cores</span>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-muted-foreground">
               {Math.round(deviceMetrics.performance.memory)}MB RAM
             </p>
           </CardContent>
@@ -387,7 +387,7 @@ export const MobileOptimizationDashboard = () => {
                 {optimizationScore}/100
               </span>
             </div>
-            <p className="text-sm text-gray-600">Optimization Score</p>
+            <p className="text-sm text-muted-foreground">Optimization Score</p>
           </CardContent>
         </Card>
       </div>
@@ -498,7 +498,7 @@ export const MobileOptimizationDashboard = () => {
               {isOptimizing && (
                 <div className="text-center py-4">
                   <RefreshCw className="h-6 w-6 animate-spin mx-auto mb-2" />
-                  <p className="text-sm text-gray-600">Applying optimizations...</p>
+                  <p className="text-sm text-muted-foreground">Applying optimizations...</p>
                 </div>
               )}
             </CardContent>

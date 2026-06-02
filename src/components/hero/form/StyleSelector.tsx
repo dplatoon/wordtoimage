@@ -82,9 +82,9 @@ export const StyleSelector = ({ selectedStyle, onStyleChange }: StyleSelectorPro
 
   return (
     <div className="mb-6">
-      <h3 className="font-medium text-gray-800 mb-3 flex items-center gap-2">
+      <h3 className="font-medium text-foreground mb-3 flex items-center gap-2">
         Select Style
-        <span className="text-sm text-gray-500 font-normal">
+        <span className="text-sm text-muted-foreground font-normal">
           Choose how your image should look
         </span>
       </h3>
@@ -101,7 +101,7 @@ export const StyleSelector = ({ selectedStyle, onStyleChange }: StyleSelectorPro
               className={`flex flex-col items-center justify-end relative overflow-hidden rounded-lg border h-[90px] md:h-[108px] w-full transition-all duration-200 cursor-pointer group ${
                 selectedStyle === style.id 
                   ? "border-violet-600 ring-2 ring-violet-400" 
-                  : "border-gray-200 hover:border-gray-300"
+                  : "border-border hover:border-gray-300"
               }`}
               onClick={() => onStyleChange(style.id)}
               aria-label={`Select ${style.label} style`}
@@ -141,19 +141,19 @@ export const StyleSelector = ({ selectedStyle, onStyleChange }: StyleSelectorPro
         </div>
         
         <button 
-          className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white rounded-full shadow-md p-1 hidden md:flex items-center justify-center hover:bg-gray-50 transition-colors z-30"
+          className="absolute -left-4 top-1/2 -translate-y-1/2 bg-card rounded-full shadow-md p-1 hidden md:flex items-center justify-center hover:bg-muted/50 transition-colors z-30"
           aria-label="Show previous styles"
           onClick={scrollLeft}
         >
-          <ChevronLeft className="h-5 w-5 text-gray-600" />
+          <ChevronLeft className="h-5 w-5 text-muted-foreground" />
         </button>
         
         <button 
-          className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white rounded-full shadow-md p-1 hidden md:flex items-center justify-center hover:bg-gray-50 transition-colors z-30"
+          className="absolute -right-4 top-1/2 -translate-y-1/2 bg-card rounded-full shadow-md p-1 hidden md:flex items-center justify-center hover:bg-muted/50 transition-colors z-30"
           aria-label="Show more styles"
           onClick={scrollRight}
         >
-          <ChevronRight className="h-5 w-5 text-gray-600" />
+          <ChevronRight className="h-5 w-5 text-muted-foreground" />
         </button>
       </div>
     </div>

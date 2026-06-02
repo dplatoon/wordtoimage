@@ -93,10 +93,10 @@ export const InteractiveStyleSelector = () => {
               Interactive Demo
             </Badge>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Click a Style to Try It
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Explore our most popular art styles. Click any style below to start generating 
             with that artistic approach instantly.
           </p>
@@ -110,7 +110,7 @@ export const InteractiveStyleSelector = () => {
               className={`group cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 ${
                 selectedStyle === style.id 
                   ? 'border-purple-500 ring-2 ring-purple-200' 
-                  : 'border-gray-200 hover:border-purple-300'
+                  : 'border-border hover:border-purple-300'
               } ${hoveredStyle === style.id ? 'z-10' : ''}`}
               onClick={() => handleStyleClick(style)}
               onMouseEnter={() => setHoveredStyle(style.id)}
@@ -138,10 +138,10 @@ export const InteractiveStyleSelector = () => {
 
                 {/* Style Info */}
                 <div className="p-3">
-                  <h3 className="font-semibold text-gray-900 text-sm mb-1">
+                  <h3 className="font-semibold text-foreground text-sm mb-1">
                     {style.name}
                   </h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     {style.description}
                   </p>
                 </div>
@@ -151,7 +151,7 @@ export const InteractiveStyleSelector = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-purple-600/90 via-purple-600/50 to-transparent flex items-end justify-center p-3">
                     <Button 
                       size="sm" 
-                      className="bg-white text-purple-600 hover:bg-gray-100 font-medium"
+                      className="bg-card text-purple-600 hover:bg-muted font-medium"
                     >
                       Try This Style
                       <ArrowRight className="w-3 h-3 ml-1" />
