@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Only admins can read contact submissions" ON public.contact_submissions;
