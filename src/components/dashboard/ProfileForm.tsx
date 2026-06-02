@@ -71,7 +71,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
           className="max-w-md"
           aria-describedby="username-description"
         />
-        <p id="username-description" className="text-sm text-gray-500">
+        <p id="username-description" className="text-sm text-muted-foreground">
           This is your public display name
         </p>
       </div>
@@ -84,9 +84,9 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
           id="email"
           value={profile?.email || ''}
           disabled
-          className="max-w-md bg-gray-50"
+          className="max-w-md bg-muted/50"
         />
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           Email cannot be changed
         </p>
       </div>
@@ -102,7 +102,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
           className="max-w-md"
           placeholder="https://example.com/avatar.jpg"
         />
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           URL to your profile picture
         </p>
       </div>

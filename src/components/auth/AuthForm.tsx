@@ -135,7 +135,7 @@ export function AuthForm({ mode, isLoading, setIsLoading }: AuthFormProps) {
               <span className="w-full border-t border-slate-200" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-3 text-slate-500 font-medium">Or continue with</span>
+              <span className="bg-card px-3 text-slate-500 font-medium">Or continue with</span>
             </div>
           </div>
 

@@ -42,7 +42,7 @@ const ProfessionalMarketingVisuals = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />

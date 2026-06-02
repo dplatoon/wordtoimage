@@ -19,7 +19,7 @@ interface ProfileCardProps {
 export function ProfileCard({ profile }: ProfileCardProps) {
   return (
     <Card className="shadow-md">
-      <CardHeader className="bg-gray-50 border-b">
+      <CardHeader className="bg-muted/50 border-b">
         <CardTitle className="text-xl">Your Information</CardTitle>
       </CardHeader>
       <CardContent className="pt-6">

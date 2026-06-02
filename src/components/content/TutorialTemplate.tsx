@@ -64,7 +64,7 @@ export const TutorialTemplate = ({
       case 'Beginner': return 'bg-green-100 text-green-800';
       case 'Intermediate': return 'bg-yellow-100 text-yellow-800';
       case 'Advanced': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -94,20 +94,20 @@ export const TutorialTemplate = ({
             </InternalLink>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
             {title}
           </h1>
           
-          <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+          <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
             {description}
           </p>
           
           <div className="flex flex-wrap items-center gap-4 mb-6">
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-muted-foreground">
               <Clock className="h-4 w-4 mr-2" />
               <span>{duration}</span>
             </div>
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-muted-foreground">
               <BarChart3 className="h-4 w-4 mr-2" />
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(level)}`}>
                 {level}
@@ -117,7 +117,7 @@ export const TutorialTemplate = ({
         </header>
 
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">What You'll Learn</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">What You'll Learn</h2>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
             <div className="space-y-2">
               {steps.map((step, index) => (
@@ -131,14 +131,14 @@ export const TutorialTemplate = ({
         </div>
 
         <div className="space-y-8 mb-12">
-          <h2 className="text-2xl font-bold text-gray-900">Step-by-Step Guide</h2>
+          <h2 className="text-2xl font-bold text-foreground">Step-by-Step Guide</h2>
           {steps.map((step, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg p-6">
+            <div key={index} className="border border-border rounded-lg p-6">
               <div className="flex items-center mb-4">
                 <div className="bg-ai-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">
                   {index + 1}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">{step.title}</h3>
+                <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
               </div>
               
               {step.image && (

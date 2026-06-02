@@ -15,10 +15,10 @@ export const QuickComparisonCards = ({ onUpgradeClick }: QuickComparisonCardsPro
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       {/* Free Plan */}
-      <div className="bg-white rounded-lg p-4 border border-gray-200">
+      <div className="bg-card rounded-lg p-4 border border-border">
         <div className="flex items-center gap-2 mb-3">
-          <Badge variant="secondary" className="bg-gray-100 text-gray-700">Current</Badge>
-          <h4 className="font-semibold text-gray-800">Free Plan</h4>
+          <Badge variant="secondary" className="bg-muted text-gray-700">Current</Badge>
+          <h4 className="font-semibold text-foreground">Free Plan</h4>
         </div>
         <ul className="space-y-2 text-sm">
           <li className="flex items-center gap-2">
@@ -30,12 +30,12 @@ export const QuickComparisonCards = ({ onUpgradeClick }: QuickComparisonCardsPro
             <span>Basic styles & resolution</span>
           </li>
           <li className="flex items-center gap-2">
-            <X className="h-4 w-4 text-gray-400" />
-            <span className="text-gray-500">HD quality downloads</span>
+            <X className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">HD quality downloads</span>
           </li>
           <li className="flex items-center gap-2">
-            <X className="h-4 w-4 text-gray-400" />
-            <span className="text-gray-500">Premium styles</span>
+            <X className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">Premium styles</span>
           </li>
         </ul>
       </div>
@@ -69,7 +69,7 @@ export const QuickComparisonCards = ({ onUpgradeClick }: QuickComparisonCardsPro
         </ul>
         
         <Button 
-          className="w-full mt-4 bg-white text-purple-600 hover:bg-gray-100"
+          className="w-full mt-4 bg-white text-purple-600 hover:bg-muted"
           onClick={onUpgradeClick}
         >
           <Zap className="h-4 w-4 mr-2" />

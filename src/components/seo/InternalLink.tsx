@@ -17,7 +17,7 @@ export const InternalLink = ({
   const priorityClasses = {
     high: 'text-ai-primary font-semibold hover:text-ai-primary/80',
     medium: 'text-ai-primary hover:text-ai-primary/80 hover:underline',
-    low: 'text-gray-600 hover:text-ai-primary'
+    low: 'text-muted-foreground hover:text-ai-primary'
   };
 
   return (

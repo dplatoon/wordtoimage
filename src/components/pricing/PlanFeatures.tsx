@@ -28,7 +28,7 @@ export const PlanFeatures = ({ features }: PlanFeaturesProps) => {
           )}
           <span 
             className={`ml-3 text-sm leading-relaxed ${
-              feature.included ? 'text-gray-700' : 'text-gray-400'
+              feature.included ? 'text-gray-700' : 'text-muted-foreground'
             } ${feature.highlight ? 'font-semibold' : ''}`}
           >
             {feature.name}
@@ -37,7 +37,7 @@ export const PlanFeatures = ({ features }: PlanFeaturesProps) => {
       ))}
       {hasMoreFeatures && (
         <li className="flex items-start md:hidden">
-          <span className="ml-6 text-xs text-gray-500 italic">
+          <span className="ml-6 text-xs text-muted-foreground italic">
             +{features.length - 5} more features
           </span>
         </li>

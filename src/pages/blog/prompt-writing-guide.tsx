@@ -104,7 +104,7 @@ const PromptWritingGuideBlogPost = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -123,7 +123,7 @@ const PromptWritingGuideBlogPost = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">{component.description}</p>
+                <p className="text-muted-foreground mb-4">{component.description}</p>
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-gray-700">Examples:</p>
                   {component.examples.map((example, i) => (
@@ -140,7 +140,7 @@ const PromptWritingGuideBlogPost = () => {
         {/* Before/After Examples */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-center">Prompt Transformation Examples</h2>
-          <p className="text-center text-gray-600 mb-8">
+          <p className="text-center text-muted-foreground mb-8">
             See how simple prompts can be transformed into powerful, detailed instructions that generate stunning results.
           </p>
           
@@ -198,40 +198,40 @@ const PromptWritingGuideBlogPost = () => {
         <div className="mb-16 bg-gradient-to-r from-red-50 to-rose-50 rounded-xl p-8">
           <h2 className="text-2xl font-bold mb-6 text-center text-red-800">Common Prompt Mistakes to Avoid</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg p-6 shadow-md">
+            <div className="bg-card rounded-lg p-6 shadow-md">
               <div className="flex items-center gap-2 text-red-600 mb-3">
                 <XCircle className="w-5 h-5" />
                 <span className="font-semibold">Too Vague</span>
               </div>
               <p className="text-gray-700 mb-2">Prompts like "nice picture" or "beautiful art" don't give the AI enough direction.</p>
-              <p className="text-sm text-gray-600"><strong>Fix:</strong> Be specific about what you want to see.</p>
+              <p className="text-sm text-muted-foreground"><strong>Fix:</strong> Be specific about what you want to see.</p>
             </div>
             
-            <div className="bg-white rounded-lg p-6 shadow-md">
+            <div className="bg-card rounded-lg p-6 shadow-md">
               <div className="flex items-center gap-2 text-red-600 mb-3">
                 <XCircle className="w-5 h-5" />
                 <span className="font-semibold">Overly Complicated</span>
               </div>
               <p className="text-gray-700 mb-2">Extremely long prompts with conflicting instructions confuse the AI.</p>
-              <p className="text-sm text-gray-600"><strong>Fix:</strong> Keep prompts focused and coherent.</p>
+              <p className="text-sm text-muted-foreground"><strong>Fix:</strong> Keep prompts focused and coherent.</p>
             </div>
             
-            <div className="bg-white rounded-lg p-6 shadow-md">
+            <div className="bg-card rounded-lg p-6 shadow-md">
               <div className="flex items-center gap-2 text-red-600 mb-3">
                 <XCircle className="w-5 h-5" />
                 <span className="font-semibold">Unclear Terms</span>
               </div>
               <p className="text-gray-700 mb-2">Using ambiguous words that could mean different things to different people.</p>
-              <p className="text-sm text-gray-600"><strong>Fix:</strong> Use descriptive, specific language.</p>
+              <p className="text-sm text-muted-foreground"><strong>Fix:</strong> Use descriptive, specific language.</p>
             </div>
             
-            <div className="bg-white rounded-lg p-6 shadow-md">
+            <div className="bg-card rounded-lg p-6 shadow-md">
               <div className="flex items-center gap-2 text-red-600 mb-3">
                 <XCircle className="w-5 h-5" />
                 <span className="font-semibold">Conflicting Instructions</span>
               </div>
               <p className="text-gray-700 mb-2">Asking for "realistic cartoon" or "bright dark colors" creates confusion.</p>
-              <p className="text-sm text-gray-600"><strong>Fix:</strong> Ensure all elements work together harmoniously.</p>
+              <p className="text-sm text-muted-foreground"><strong>Fix:</strong> Ensure all elements work together harmoniously.</p>
             </div>
           </div>
         </div>

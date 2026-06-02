@@ -54,7 +54,7 @@ export const BetaBanner = () => {
         <div className="flex items-center space-x-2">
           <button 
             onClick={handleFeedbackClick}
-            className="bg-white text-blue-600 px-3 py-1 rounded-md text-xs font-medium hover:bg-blue-50 transition-colors"
+            className="bg-card text-blue-600 px-3 py-1 rounded-md text-xs font-medium hover:bg-blue-50 transition-colors"
           >
             Share Feedback
           </button>

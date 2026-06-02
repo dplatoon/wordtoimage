@@ -61,10 +61,10 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError, prompt, style }
     return (
       <div className="relative w-full">
         <AspectRatio ratio={1}>
-          <div className="absolute inset-0 bg-gray-100 rounded-t-lg flex items-center justify-center">
+          <div className="absolute inset-0 bg-muted rounded-t-lg flex items-center justify-center">
             <div className="text-center p-4">
-              <AlertCircle className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-              <p className="text-xs text-gray-500">Image unavailable</p>
+              <AlertCircle className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+              <p className="text-xs text-muted-foreground">Image unavailable</p>
             </div>
           </div>
         </AspectRatio>
@@ -79,7 +79,7 @@ export function ImageDisplay({ imageUrl, index, onLoad, onError, prompt, style }
         <AspectRatio ratio={1}>
           <Skeleton className="absolute inset-0 w-full h-full rounded-t-lg" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Loader className="h-6 w-6 text-gray-400 animate-spin" />
+            <Loader className="h-6 w-6 text-muted-foreground animate-spin" />
           </div>
         </AspectRatio>
       </div>

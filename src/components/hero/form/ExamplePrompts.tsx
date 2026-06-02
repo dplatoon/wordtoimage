@@ -68,7 +68,7 @@ export const ExamplePrompts = ({
         "flex flex-wrap gap-2 mx-0 my-0",
         isMobile ? "items-start flex-col" : "items-center"
       )}>
-        <span className="text-sm text-gray-500 mr-1 mb-1">
+        <span className="text-sm text-muted-foreground mr-1 mb-1">
           Quick Prompts:
         </span>
         
@@ -81,7 +81,7 @@ export const ExamplePrompts = ({
               key={index} 
               onClick={() => onSelect(example.text)} 
               className={cn(
-                "flex items-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 text-xs py-1 px-3",
+                "flex items-center bg-muted hover:bg-muted rounded-full text-gray-700 text-xs py-1 px-3",
                 isMobile ? "text-xs" : "text-xs py-[3px] px-[12px]"
               )}
             >
@@ -93,7 +93,7 @@ export const ExamplePrompts = ({
         
         {!isMobile && (
           <div className="ml-auto flex items-center">
-            <span className="text-sm text-gray-500 mr-2">Issues?</span>
+            <span className="text-sm text-muted-foreground mr-2">Issues?</span>
             <button 
               onClick={() => window.open('/contact', '_blank')} 
               className="flex items-center text-sm text-blue-600 hover:text-blue-700 font-medium py-0 my-[9px] mx-[7px]"
@@ -136,7 +136,7 @@ export const ExamplePrompts = ({
       
       {isMobile && (
         <div className="mt-4 flex items-center justify-center">
-          <span className="text-xs text-gray-500 mr-2">Issues?</span>
+          <span className="text-xs text-muted-foreground mr-2">Issues?</span>
           <button 
             onClick={() => window.open('/contact', '_blank')} 
             className="flex items-center text-xs text-blue-600 hover:text-blue-700 font-medium"

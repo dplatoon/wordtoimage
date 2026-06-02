@@ -49,7 +49,7 @@ export const ContentBreadcrumbs = () => {
         {JSON.stringify(structuredData)}
       </script>
       <nav aria-label="Breadcrumb" className="mb-6">
-        <ol className="flex items-center space-x-2 text-sm text-gray-500">
+        <ol className="flex items-center space-x-2 text-sm text-muted-foreground">
           {breadcrumbs.map((breadcrumb, index) => (
             <li key={breadcrumb.name} className="flex items-center">
               {index > 0 && <ChevronRight className="h-4 w-4 mx-2" />}
@@ -62,7 +62,7 @@ export const ContentBreadcrumbs = () => {
                   {breadcrumb.name}
                 </Link>
               ) : (
-                <span className="text-gray-900 font-medium">
+                <span className="text-foreground font-medium">
                   {breadcrumb.name}
                 </span>
               )}

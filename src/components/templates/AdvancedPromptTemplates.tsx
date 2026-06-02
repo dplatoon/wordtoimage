@@ -257,8 +257,8 @@ export const AdvancedPromptTemplates = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Advanced Prompt Templates</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <h1 className="text-3xl font-bold text-foreground mb-2">Advanced Prompt Templates</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
           Professional prompt templates with customizable variables to create stunning AI art. 
           Perfect for beginners and experts alike.
         </p>
@@ -267,7 +267,7 @@ export const AdvancedPromptTemplates = () => {
       {/* Search & Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             placeholder="Search templates, tags, or categories..."
             value={searchQuery}
@@ -326,7 +326,7 @@ export const AdvancedPromptTemplates = () => {
                   >
                     <Heart 
                       className={`h-4 w-4 ${
-                        favorites.has(template.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'
+                        favorites.has(template.id) ? 'fill-red-500 text-red-500' : 'text-muted-foreground'
                       }`} 
                     />
                   </Button>
@@ -335,7 +335,7 @@ export const AdvancedPromptTemplates = () => {
               <CardTitle className="text-lg">{template.title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-sm text-gray-600 line-clamp-2">{template.description}</p>
+              <p className="text-sm text-muted-foreground line-clamp-2">{template.description}</p>
               
               <div className="flex flex-wrap gap-1">
                 {template.tags.slice(0, 3).map((tag) => (
@@ -350,7 +350,7 @@ export const AdvancedPromptTemplates = () => {
                 )}
               </div>
 
-              <div className="flex items-center justify-between text-sm text-gray-500">
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
                 <span>Popularity: {template.popularity}%</span>
                 {template.author && <span>by {template.author}</span>}
               </div>
@@ -403,7 +403,7 @@ export const AdvancedPromptTemplates = () => {
                                         setCustomizedPrompt(generateCustomPrompt(template));
                                       }}
                                     />
-                                    <p className="text-xs text-gray-500 mt-1">{variable.description}</p>
+                                    <p className="text-xs text-muted-foreground mt-1">{variable.description}</p>
                                   </div>
                                 ))}
                               </div>
@@ -445,7 +445,7 @@ export const AdvancedPromptTemplates = () => {
                                 </CardContent>
                               </Card>
                             )) || (
-                              <p className="text-gray-500 text-center">No examples available for this template.</p>
+                              <p className="text-muted-foreground text-center">No examples available for this template.</p>
                             )}
                           </TabsContent>
                         </Tabs>
@@ -470,8 +470,8 @@ export const AdvancedPromptTemplates = () => {
       {filteredTemplates.length === 0 && (
         <div className="text-center py-12">
           <Search className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No templates found</h3>
-          <p className="text-gray-600">Try adjusting your search terms or filters</p>
+          <h3 className="text-lg font-medium text-foreground mb-2">No templates found</h3>
+          <p className="text-muted-foreground">Try adjusting your search terms or filters</p>
         </div>
       )}
     </div>

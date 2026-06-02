@@ -45,11 +45,11 @@ export const AuthModalDialog = ({ open, onClose }: AuthModalDialogProps) => {
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-2xl shadow-2xl px-8 py-9 max-w-sm w-full text-center flex flex-col gap-6"
+        className="bg-card rounded-2xl shadow-2xl px-8 py-9 max-w-sm w-full text-center flex flex-col gap-6"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-2xl font-bold">Sign up or Log in to WordToImage</h2>
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           Log in or sign up in seconds. It's free!
         </p>
         <Button 
@@ -70,7 +70,7 @@ export const AuthModalDialog = ({ open, onClose }: AuthModalDialogProps) => {
         <button 
           aria-label="Close Modal" 
           onClick={onClose} 
-          className="absolute right-6 top-6 text-gray-400 hover:text-black text-2xl font-bold"
+          className="absolute right-6 top-6 text-muted-foreground hover:text-black text-2xl font-bold"
         >
           &times;
         </button>

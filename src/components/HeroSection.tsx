@@ -63,7 +63,7 @@ export const HeroSection = () => {
           <HeroHeader />
           
           {/* Enhanced main container */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 md:p-8 mb-8">
+          <div className="bg-card/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 md:p-8 mb-8">
             <div className="max-w-4xl mx-auto">
               <ImageGenerationForm 
                 onImageGenerated={handleImageGenerated} 
@@ -85,13 +85,13 @@ export const HeroSection = () => {
           
           {/* Enhanced footer text */}
           <div className="text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-white/50 shadow-sm">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <div className="inline-flex items-center px-4 py-2 bg-card/60 backdrop-blur-sm rounded-full border border-white/50 shadow-sm">
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="font-medium">Free to try</span>
-                <span className="text-gray-400">•</span>
+                <span className="text-muted-foreground">•</span>
                 <span>No credit card required</span>
-                <span className="text-gray-400">•</span>
+                <span className="text-muted-foreground">•</span>
                 <span>Instant results</span>
               </div>
             </div>

@@ -31,7 +31,7 @@ export function SingleImageTab({
       <div className="flex items-center">
         <Wand2 className="text-blue-600 mr-2 h-5 w-5" />
         <h2 className={cn(
-          "font-medium text-gray-800",
+          "font-medium text-foreground",
           isMobile ? "text-lg" : "text-xl"
         )}>
           Describe Your Image

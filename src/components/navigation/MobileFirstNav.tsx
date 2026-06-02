@@ -39,7 +39,7 @@ export const MobileFirstNav = () => {
   const isCurrentPage = (path: string) => location.pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 mobile-content">
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border mobile-content">
       <div className="mobile-first-container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -83,7 +83,7 @@ export const MobileFirstNav = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="mobile-only touch-target-comfortable rounded-lg text-gray-700 hover:text-ai-accent hover:bg-gray-50 transition-colors mobile-focus-visible"
+            className="mobile-only touch-target-comfortable rounded-lg text-gray-700 hover:text-ai-accent hover:bg-muted/50 transition-colors mobile-focus-visible"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
           >
@@ -105,11 +105,11 @@ export const MobileFirstNav = () => {
           <div className="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl z-50 md:hidden mobile-scroll animate-slide-in-right">
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                <div className="mobile-text-lg font-semibold text-gray-900">Menu</div>
+              <div className="flex items-center justify-between p-4 border-b border-border">
+                <div className="mobile-text-lg font-semibold text-foreground">Menu</div>
                 <button
                   onClick={() => setIsMenuOpen(false)}
-                  className="touch-target rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors mobile-focus-visible"
+                  className="touch-target rounded-lg text-muted-foreground hover:text-gray-700 hover:bg-muted/50 transition-colors mobile-focus-visible"
                   aria-label="Close menu"
                 >
                   <X className="h-5 w-5" />
@@ -125,21 +125,21 @@ export const MobileFirstNav = () => {
                     className={`mobile-nav-item rounded-xl transition-all duration-200 ${
                       isCurrentPage(item.path)
                         ? 'text-ai-accent bg-ai-accent/10 border-l-4 border-ai-accent'
-                        : 'text-gray-700 hover:text-ai-accent hover:bg-gray-50'
+                        : 'text-gray-700 hover:text-ai-accent hover:bg-muted/50'
                     }`}
                   >
                     <item.icon className="h-5 w-5 mr-3" />
                     <div className="flex-1">
                       <div className="font-medium">{item.name}</div>
-                      <div className="mobile-text-sm text-gray-500">{item.description}</div>
+                      <div className="mobile-text-sm text-muted-foreground">{item.description}</div>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-gray-400" />
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
                   </Link>
                 ))}
               </div>
 
               {/* Mobile CTA Section */}
-              <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+              <div className="p-4 border-t border-border bg-muted/50/50">
                 <div className="space-y-3">
                   <Link
                     to="/auth"
@@ -158,7 +158,7 @@ export const MobileFirstNav = () => {
                 
                 {/* Trust indicators */}
                 <div className="mt-4 text-center">
-                  <div className="mobile-text-xs text-gray-500">
+                  <div className="mobile-text-xs text-muted-foreground">
                     Free to try • No credit card required
                   </div>
                 </div>

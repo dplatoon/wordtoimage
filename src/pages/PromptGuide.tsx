@@ -278,22 +278,22 @@ const PromptGuide = () => {
             </h1>
           </div>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Master AI prompt writing with our comprehensive guide. Learn techniques, see examples, and create stunning AI-generated images with professional-quality prompts.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-8">
             <div className="text-center">
               <div className="text-2xl font-bold text-violet-600">20+</div>
-              <div className="text-sm text-gray-600">Expert techniques</div>
+              <div className="text-sm text-muted-foreground">Expert techniques</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-violet-600">50+</div>
-              <div className="text-sm text-gray-600">Example prompts</div>
+              <div className="text-sm text-muted-foreground">Example prompts</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-violet-600">Free</div>
-              <div className="text-sm text-gray-600">Complete guide</div>
+              <div className="text-sm text-muted-foreground">Complete guide</div>
             </div>
           </div>
 
@@ -315,18 +315,18 @@ const PromptGuide = () => {
 
         {/* Essential Prompt Tips Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Essential Prompt Tips</h2>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Essential Prompt Tips</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {promptTips.map((tip, index) => (
-              <div key={index} className="bg-white rounded-lg border shadow-sm p-6 hover:shadow-lg transition-shadow">
+              <div key={index} className="bg-card rounded-lg border shadow-sm p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center shrink-0">
                     <tip.icon className="h-6 w-6 text-violet-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{tip.title}</h3>
-                    <p className="text-gray-600 mb-3">{tip.description}</p>
-                    <div className="bg-gray-50 rounded-md p-3 text-sm">
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{tip.title}</h3>
+                    <p className="text-muted-foreground mb-3">{tip.description}</p>
+                    <div className="bg-muted/50 rounded-md p-3 text-sm">
                       <p className="text-gray-700 italic">"{tip.example}"</p>
                     </div>
                   </div>
@@ -338,10 +338,10 @@ const PromptGuide = () => {
 
         {/* Prompt Examples Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Prompt Examples</h2>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Prompt Examples</h2>
           <div className="space-y-6">
             {examples.map((example, index) => (
-              <div key={index} className="bg-white rounded-lg border shadow-sm p-6 hover:shadow-lg transition-shadow">
+              <div key={index} className="bg-card rounded-lg border shadow-sm p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-lg font-semibold text-violet-600">{example.category}</h3>
                   <Button
@@ -353,8 +353,8 @@ const PromptGuide = () => {
                     Copy
                   </Button>
                 </div>
-                <div className="bg-gray-50 rounded-md p-4">
-                  <p className="text-gray-800 font-mono text-sm leading-relaxed">{example.prompt}</p>
+                <div className="bg-muted/50 rounded-md p-4">
+                  <p className="text-foreground font-mono text-sm leading-relaxed">{example.prompt}</p>
                 </div>
               </div>
             ))}
@@ -363,7 +363,7 @@ const PromptGuide = () => {
 
         {/* Advanced Techniques Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Advanced Techniques</h2>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Advanced Techniques</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {advancedTechniques.map((technique, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
@@ -374,7 +374,7 @@ const PromptGuide = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 mb-3">{technique.description}</p>
+                  <p className="text-muted-foreground mb-3">{technique.description}</p>
                   <div className="bg-violet-50 rounded-md p-3">
                     <p className="text-violet-800 font-mono text-sm">{technique.example}</p>
                   </div>
@@ -387,30 +387,30 @@ const PromptGuide = () => {
         {/* Prompt Structure Template */}
         <div className="mb-16">
           <div className="bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Prompt Structure Template</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6 text-center">Prompt Structure Template</h2>
             <div className="space-y-4">
-              <div className="bg-white rounded-lg p-4 border-l-4 border-violet-500">
-                <h4 className="font-semibold text-gray-900 mb-2">1. Subject</h4>
-                <p className="text-gray-600">What is the main focus of your image?</p>
-                <p className="text-sm text-gray-500 mt-1">Example: "A majestic lion"</p>
+              <div className="bg-card rounded-lg p-4 border-l-4 border-violet-500">
+                <h4 className="font-semibold text-foreground mb-2">1. Subject</h4>
+                <p className="text-muted-foreground">What is the main focus of your image?</p>
+                <p className="text-sm text-muted-foreground mt-1">Example: "A majestic lion"</p>
               </div>
               
-              <div className="bg-white rounded-lg p-4 border-l-4 border-indigo-500">
-                <h4 className="font-semibold text-gray-900 mb-2">2. Description</h4>
-                <p className="text-gray-600">Add details about appearance, pose, or action</p>
-                <p className="text-sm text-gray-500 mt-1">Example: "standing proudly on a rocky cliff"</p>
+              <div className="bg-card rounded-lg p-4 border-l-4 border-indigo-500">
+                <h4 className="font-semibold text-foreground mb-2">2. Description</h4>
+                <p className="text-muted-foreground">Add details about appearance, pose, or action</p>
+                <p className="text-sm text-muted-foreground mt-1">Example: "standing proudly on a rocky cliff"</p>
               </div>
               
-              <div className="bg-white rounded-lg p-4 border-l-4 border-purple-500">
-                <h4 className="font-semibold text-gray-900 mb-2">3. Environment</h4>
-                <p className="text-gray-600">Describe the setting or background</p>
-                <p className="text-sm text-gray-500 mt-1">Example: "overlooking an African savanna at sunset"</p>
+              <div className="bg-card rounded-lg p-4 border-l-4 border-purple-500">
+                <h4 className="font-semibold text-foreground mb-2">3. Environment</h4>
+                <p className="text-muted-foreground">Describe the setting or background</p>
+                <p className="text-sm text-muted-foreground mt-1">Example: "overlooking an African savanna at sunset"</p>
               </div>
               
-              <div className="bg-white rounded-lg p-4 border-l-4 border-blue-500">
-                <h4 className="font-semibold text-gray-900 mb-2">4. Style & Quality</h4>
-                <p className="text-gray-600">Add artistic style and quality modifiers</p>
-                <p className="text-sm text-gray-500 mt-1">Example: "wildlife photography, 85mm lens, golden hour lighting"</p>
+              <div className="bg-card rounded-lg p-4 border-l-4 border-blue-500">
+                <h4 className="font-semibold text-foreground mb-2">4. Style & Quality</h4>
+                <p className="text-muted-foreground">Add artistic style and quality modifiers</p>
+                <p className="text-sm text-muted-foreground mt-1">Example: "wildlife photography, 85mm lens, golden hour lighting"</p>
               </div>
             </div>
           </div>
@@ -418,19 +418,19 @@ const PromptGuide = () => {
 
         {/* Success Stories Section */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Success Stories</h2>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Success Stories</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="bg-white p-6 rounded-xl shadow-md border">
+            <div className="bg-card p-6 rounded-xl shadow-md border">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center mr-3">
                   <Users className="w-5 h-5 text-violet-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold">Alex Creative</h4>
-                  <p className="text-sm text-gray-600">Digital Artist</p>
+                  <p className="text-sm text-muted-foreground">Digital Artist</p>
                 </div>
               </div>
-              <p className="text-gray-600 mb-4">"This guide transformed my prompt writing! My images went from basic to professional quality overnight. The structure template is gold."</p>
+              <p className="text-muted-foreground mb-4">"This guide transformed my prompt writing! My images went from basic to professional quality overnight. The structure template is gold."</p>
               <div className="flex items-center text-yellow-500">
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
@@ -440,17 +440,17 @@ const PromptGuide = () => {
               </div>
             </div>
             
-            <div className="bg-white p-6 rounded-xl shadow-md border">
+            <div className="bg-card p-6 rounded-xl shadow-md border">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                   <Target className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold">Maria Designer</h4>
-                  <p className="text-sm text-gray-600">Freelance Creator</p>
+                  <p className="text-sm text-muted-foreground">Freelance Creator</p>
                 </div>
               </div>
-              <p className="text-gray-600 mb-4">"The advanced techniques section helped me master weighted prompts. Now I can control exactly what I want in my images!"</p>
+              <p className="text-muted-foreground mb-4">"The advanced techniques section helped me master weighted prompts. Now I can control exactly what I want in my images!"</p>
               <div className="flex items-center text-yellow-500">
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
@@ -460,17 +460,17 @@ const PromptGuide = () => {
               </div>
             </div>
             
-            <div className="bg-white p-6 rounded-xl shadow-md border">
+            <div className="bg-card p-6 rounded-xl shadow-md border">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold">James Marketer</h4>
-                  <p className="text-sm text-gray-600">Content Creator</p>
+                  <p className="text-sm text-muted-foreground">Content Creator</p>
                 </div>
               </div>
-              <p className="text-gray-600 mb-4">"Perfect for beginners! Clear examples and practical tips. I'm creating professional marketing visuals in minutes now."</p>
+              <p className="text-muted-foreground mb-4">"Perfect for beginners! Clear examples and practical tips. I'm creating professional marketing visuals in minutes now."</p>
               <div className="flex items-center text-yellow-500">
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
@@ -484,16 +484,16 @@ const PromptGuide = () => {
 
         {/* Enhanced FAQ Section */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">Frequently Asked Questions</h2>
           <div className="max-w-4xl mx-auto">
             <Accordion type="single" collapsible className="space-y-4">
               {faqData.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-md border">
+                <AccordionItem key={index} value={`item-${index}`} className="bg-card rounded-lg shadow-md border">
                   <AccordionTrigger className="px-6 py-4 text-left">
                     <span className="text-lg font-semibold">{faq.question}</span>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    <p className="text-gray-600">{faq.answer}</p>
+                    <p className="text-muted-foreground">{faq.answer}</p>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -502,53 +502,53 @@ const PromptGuide = () => {
         </div>
 
         {/* Internal Links Section */}
-        <div className="mt-16 bg-gray-50 rounded-lg p-8">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
+        <div className="mt-16 bg-muted/50 rounded-lg p-8">
+          <h2 className="text-2xl font-bold text-center text-foreground mb-6">
             Continue Your AI Journey
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/ai-templates" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+            <Link to="/ai-templates" className="bg-card p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
               <div className="w-8 h-8 bg-violet-100 rounded flex items-center justify-center">
                 <Book className="w-5 h-5 text-violet-600" />
               </div>
               <div>
                 <h3 className="font-semibold">AI Templates</h3>
-                <p className="text-sm text-gray-600">Ready-made prompts</p>
+                <p className="text-sm text-muted-foreground">Ready-made prompts</p>
               </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+              <ArrowRight className="w-4 h-4 text-muted-foreground ml-auto" />
             </Link>
             
-            <Link to="/style-gallery" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+            <Link to="/style-gallery" className="bg-card p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
               <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
                 <Palette className="w-5 h-5 text-blue-600" />
               </div>
               <div>
                 <h3 className="font-semibold">Style Gallery</h3>
-                <p className="text-sm text-gray-600">Browse art styles</p>
+                <p className="text-sm text-muted-foreground">Browse art styles</p>
               </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+              <ArrowRight className="w-4 h-4 text-muted-foreground ml-auto" />
             </Link>
             
-            <Link to="/text-to-image" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+            <Link to="/text-to-image" className="bg-card p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
               <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center">
                 <Zap className="w-5 h-5 text-green-600" />
               </div>
               <div>
                 <h3 className="font-semibold">AI Generator</h3>
-                <p className="text-sm text-gray-600">Create images now</p>
+                <p className="text-sm text-muted-foreground">Create images now</p>
               </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+              <ArrowRight className="w-4 h-4 text-muted-foreground ml-auto" />
             </Link>
             
-            <Link to="/gallery" className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+            <Link to="/gallery" className="bg-card p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
               <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center">
                 <Camera className="w-5 h-5 text-purple-600" />
               </div>
               <div>
                 <h3 className="font-semibold">Community Gallery</h3>
-                <p className="text-sm text-gray-600">See user creations</p>
+                <p className="text-sm text-muted-foreground">See user creations</p>
               </div>
-              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+              <ArrowRight className="w-4 h-4 text-muted-foreground ml-auto" />
             </Link>
           </div>
         </div>

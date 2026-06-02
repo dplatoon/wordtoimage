@@ -62,18 +62,18 @@ export function ValueProposition({ className }: ValuePropositionProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-white/80 backdrop-blur border border-gray-200 rounded-lg p-4 text-center hover:bg-white/90 transition-all duration-200"
+            className="bg-card/80 backdrop-blur border border-border rounded-lg p-4 text-center hover:bg-card/90 transition-all duration-200"
           >
             <div className="flex items-center justify-center w-10 h-10 mx-auto mb-2 bg-primary/10 rounded-lg">
               <metric.icon className="h-5 w-5 text-primary" />
             </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">
+            <div className="text-2xl font-bold text-foreground mb-1">
               {metric.value}
             </div>
             <div className="text-sm font-medium text-gray-700 mb-1">
               {metric.label}
             </div>
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-muted-foreground">
               {metric.description}
             </div>
           </motion.div>

@@ -14,7 +14,7 @@ interface AuthCardProps {
 export function AuthCard({ defaultTab, isLoading, setIsLoading }: AuthCardProps) {
   return (
     <div className="w-full max-w-md">
-      <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-md relative overflow-hidden">
+      <Card className="shadow-2xl border-0 bg-card/90 backdrop-blur-md relative overflow-hidden">
         {/* Subtle decorative background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-violet-50/30 pointer-events-none" />
         

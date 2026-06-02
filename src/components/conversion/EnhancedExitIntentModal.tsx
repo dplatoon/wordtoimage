@@ -121,7 +121,7 @@ export const EnhancedExitIntentModal = ({
         <DialogHeader className="relative">
           <button 
             onClick={handleClose}
-            className="absolute -top-2 -right-2 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors z-10"
+            className="absolute -top-2 -right-2 w-8 h-8 bg-card/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors z-10"
           >
             <X className="w-4 h-4" />
           </button>
@@ -137,7 +137,7 @@ export const EnhancedExitIntentModal = ({
         </DialogHeader>
 
         <div className="text-center space-y-6 pb-6">
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 relative overflow-hidden">
+          <div className="bg-card/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 relative overflow-hidden">
             {/* Glow effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse"></div>
             

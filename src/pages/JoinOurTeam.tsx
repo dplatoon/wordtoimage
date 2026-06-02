@@ -56,7 +56,7 @@ const JoinOurTeam = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <SEOManager customConfig={{
         title: "Join Our Team - AI Careers at WordToImage",
         description: "Join WordToImage and help build the future of AI image generation. Remote-friendly positions in engineering, design, and more.",
@@ -68,24 +68,24 @@ const JoinOurTeam = () => {
       <main className="pt-8 pb-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Join Our Team
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Help us democratize AI and empower creativity worldwide
             </p>
           </div>
 
           {/* Company Values */}
           <div className="mb-16 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Why WordToImage?</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6 text-center">Why WordToImage?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="w-16 h-16 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-8 w-8 text-violet-600" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Mission-Driven</h3>
-                <p className="text-gray-600">Make AI accessible to everyone and democratize creative tools</p>
+                <p className="text-muted-foreground">Make AI accessible to everyone and democratize creative tools</p>
               </div>
               
               <div className="text-center">
@@ -93,7 +93,7 @@ const JoinOurTeam = () => {
                   <Clock className="h-8 w-8 text-indigo-600" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Work-Life Balance</h3>
-                <p className="text-gray-600">Flexible hours and remote-first culture with unlimited PTO</p>
+                <p className="text-muted-foreground">Flexible hours and remote-first culture with unlimited PTO</p>
               </div>
               
               <div className="text-center">
@@ -101,20 +101,20 @@ const JoinOurTeam = () => {
                   <ArrowRight className="h-8 w-8 text-purple-600" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Growth Focused</h3>
-                <p className="text-gray-600">Continuous learning opportunities and career development</p>
+                <p className="text-muted-foreground">Continuous learning opportunities and career development</p>
               </div>
             </div>
           </div>
 
           {/* Open Positions */}
           <div className="mb-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Open Positions</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-8">Open Positions</h2>
             <div className="space-y-6">
               {positions.map((position, index) => (
-                <div key={index} className={`bg-white rounded-xl border p-6 ${position.featured ? 'ring-2 ring-violet-200 shadow-lg' : 'shadow-sm'} hover:shadow-md transition-shadow`}>
+                <div key={index} className={`bg-card rounded-xl border p-6 ${position.featured ? 'ring-2 ring-violet-200 shadow-lg' : 'shadow-sm'} hover:shadow-md transition-shadow`}>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                     <div className="flex items-center gap-3 mb-2 md:mb-0">
-                      <h3 className="text-xl font-semibold text-gray-900">{position.title}</h3>
+                      <h3 className="text-xl font-semibold text-foreground">{position.title}</h3>
                       {position.featured && (
                         <Badge className="bg-violet-100 text-violet-800">Featured</Badge>
                       )}
@@ -124,7 +124,7 @@ const JoinOurTeam = () => {
                     </Button>
                   </div>
                   
-                  <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
+                  <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
                     <div className="flex items-center gap-1">
                       <Users className="h-4 w-4" />
                       <span>{position.department}</span>
@@ -139,10 +139,10 @@ const JoinOurTeam = () => {
                     </div>
                   </div>
                   
-                  <p className="text-gray-600 mb-4">{position.description}</p>
+                  <p className="text-muted-foreground mb-4">{position.description}</p>
                   
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Key Requirements:</h4>
+                    <h4 className="font-medium text-foreground mb-2">Key Requirements:</h4>
                     <div className="flex flex-wrap gap-2">
                       {position.requirements.map((req, reqIndex) => (
                         <Badge key={reqIndex} variant="outline">{req}</Badge>
@@ -155,8 +155,8 @@ const JoinOurTeam = () => {
           </div>
 
           {/* Benefits */}
-          <div className="bg-white rounded-xl border shadow-sm p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Benefits & Perks</h2>
+          <div className="bg-card rounded-xl border shadow-sm p-8">
+            <h2 className="text-2xl font-bold text-foreground mb-6">Benefits & Perks</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
@@ -169,10 +169,10 @@ const JoinOurTeam = () => {
 
           {/* CTA */}
           <div className="mt-16 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Don't see the right position?
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-muted-foreground mb-6">
               We're always looking for talented people. Send us your resume and tell us how you'd like to contribute.
             </p>
             <Button variant="outline" size="lg">

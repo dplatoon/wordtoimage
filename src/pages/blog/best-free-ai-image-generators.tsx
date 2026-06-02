@@ -83,7 +83,7 @@ const BestFreeAIImageGenerators = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -96,10 +96,10 @@ const BestFreeAIImageGenerators = () => {
             <Card key={index} className="overflow-hidden shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-gray-900">{generator.name}</h3>
+                  <h3 className="text-2xl font-bold text-foreground">{generator.name}</h3>
                   <Badge variant="secondary">{generator.rating}</Badge>
                 </div>
-                <p className="text-gray-600 mb-4">{generator.description}</p>
+                <p className="text-muted-foreground mb-4">{generator.description}</p>
                 
                 <div className="grid grid-cols-2 gap-2 mb-4">
                   {generator.features.map((feature, idx) => (

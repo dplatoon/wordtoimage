@@ -39,10 +39,10 @@ export const EmailCaptureModule = () => {
           <Card className="shadow-2xl border-0 bg-white">
             <CardContent className="p-12 text-center">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+              <h3 className="text-3xl font-bold text-foreground mb-4">
                 Check Your Email! 📧
               </h3>
-              <p className="text-xl text-gray-600 mb-6">
+              <p className="text-xl text-muted-foreground mb-6">
                 Your free AI Prompt Library is on its way. Don't forget to check your spam folder!
               </p>
               <div className="flex justify-center space-x-2">
@@ -73,7 +73,7 @@ export const EmailCaptureModule = () => {
                   <span className="text-2xl font-bold">AI Prompt Bible</span>
                 </div>
                 
-                <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
+                <div className="bg-card/10 rounded-lg p-6 backdrop-blur-sm">
                   <h4 className="text-xl font-semibold mb-4">What's Inside:</h4>
                   <ul className="space-y-3 text-sm">
                     <li className="flex items-center">
@@ -100,8 +100,8 @@ export const EmailCaptureModule = () => {
                 </div>
 
                 {/* Mock PDF Preview */}
-                <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                  <div className="bg-white rounded p-2 text-gray-800 text-xs">
+                <div className="bg-card/10 rounded-lg p-4 backdrop-blur-sm">
+                  <div className="bg-card rounded p-2 text-foreground text-xs">
                     <div className="border-b pb-2 mb-2">
                       <strong>AI-Prompt-Bible.pdf</strong>
                     </div>
@@ -118,7 +118,7 @@ export const EmailCaptureModule = () => {
                         <span>Cyberpunk Scenes</span>
                         <span>30 prompts</span>
                       </div>
-                      <div className="text-center pt-2 text-gray-500">
+                      <div className="text-center pt-2 text-muted-foreground">
                         + 400 more...
                       </div>
                     </div>
@@ -131,20 +131,20 @@ export const EmailCaptureModule = () => {
             <CardContent className="p-8">
               <div className="space-y-6">
                 <div className="text-center">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-3xl font-bold text-foreground mb-2">
                     Get 500+ Proven AI Prompts
                   </h3>
-                  <p className="text-lg text-gray-600 mb-4">
+                  <p className="text-lg text-muted-foreground mb-4">
                     Free Download - No Spam, Unsubscribe Anytime
                   </p>
                   
                   {/* Social Proof */}
                   <div className="flex justify-center items-center space-x-4 mb-6">
-                    <div className="flex items-center text-sm text-gray-500">
+                    <div className="flex items-center text-sm text-muted-foreground">
                       <Users className="w-4 h-4 mr-1" />
                       <span>15,000+ downloads</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-500">
+                    <div className="flex items-center text-sm text-muted-foreground">
                       <Mail className="w-4 h-4 mr-1" />
                       <span>Instant delivery</span>
                     </div>
@@ -158,7 +158,7 @@ export const EmailCaptureModule = () => {
                       placeholder="Enter your email address"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="h-12 text-lg border-2 border-gray-200 focus:border-purple-500 transition-colors"
+                      className="h-12 text-lg border-2 border-border focus:border-purple-500 transition-colors"
                       required
                     />
                   </div>
@@ -188,7 +188,7 @@ export const EmailCaptureModule = () => {
                   </Badge>
                 </div>
 
-                <p className="text-xs text-gray-500 text-center">
+                <p className="text-xs text-muted-foreground text-center">
                   By submitting this form, you agree to receive emails from WordToImage. 
                   You can unsubscribe at any time. We respect your privacy.
                 </p>

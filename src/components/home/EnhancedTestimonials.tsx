@@ -48,16 +48,16 @@ export const EnhancedTestimonials = () => {
     <section className="py-16 md:py-24 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Loved by Creators Worldwide
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             See what our users are saying about their experience with WordToImage
           </p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 animate-fade-in">
+          <div className="bg-card rounded-2xl shadow-xl p-8 md:p-12 animate-fade-in">
             <div className="flex items-start mb-6">
               <Quote className="h-8 w-8 text-blue-500 mr-4 flex-shrink-0" />
               <div className="flex-1">
@@ -79,10 +79,10 @@ export const EnhancedTestimonials = () => {
                 className="w-12 h-12 rounded-full object-cover mr-4"
               />
               <div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-foreground">
                   {testimonials[currentIndex].author}
                 </div>
-                <div className="text-gray-600 text-sm">
+                <div className="text-muted-foreground text-sm">
                   {testimonials[currentIndex].role} at {testimonials[currentIndex].company}
                 </div>
               </div>
@@ -96,7 +96,7 @@ export const EnhancedTestimonials = () => {
                 variant="outline"
                 size="sm"
                 onClick={prevTestimonial}
-                className="bg-white shadow-lg hover:shadow-xl"
+                className="bg-card shadow-lg hover:shadow-xl"
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
@@ -104,7 +104,7 @@ export const EnhancedTestimonials = () => {
                 variant="outline"
                 size="sm"
                 onClick={nextTestimonial}
-                className="bg-white shadow-lg hover:shadow-xl"
+                className="bg-card shadow-lg hover:shadow-xl"
               >
                 <ChevronRight className="h-4 w-4" />
               </Button>

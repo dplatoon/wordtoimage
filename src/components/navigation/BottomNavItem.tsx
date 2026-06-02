@@ -17,7 +17,7 @@ export const BottomNavItem = ({ name, path, icon: Icon, isActive }: BottomNavIte
     <Link
       to={path}
       className={`flex flex-col items-center justify-center relative min-h-[56px] px-2 py-1 transition-all duration-300 touch-manipulation flex-1 ${
-        active ? 'text-violet-600' : 'text-gray-500 hover:text-violet-600'
+        active ? 'text-violet-600' : 'text-muted-foreground hover:text-violet-600'
       }`}
       aria-label={name}
     >

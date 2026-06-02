@@ -20,7 +20,7 @@ const variantStyles = {
   primary: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-neon',
   glass: 'glass-card border-primary/20 hover:border-primary/40 text-foreground',
   neon: 'bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-neon hover:shadow-neon-lg',
-  ghost: 'bg-transparent hover:bg-white/10 text-foreground',
+  ghost: 'bg-transparent hover:bg-card/10 text-foreground',
 };
 
 const sizeStyles = {

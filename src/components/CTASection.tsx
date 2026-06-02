@@ -104,19 +104,19 @@ export const CTASection = () => {
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mt-10">
-              <div className="text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 w-full md:w-auto">
+              <div className="text-center p-4 bg-card/10 backdrop-blur-sm rounded-xl border border-white/20 w-full md:w-auto">
                 <div className="text-4xl font-bold text-white mb-1">{currentDailyImages.toLocaleString()}</div>
                 <div className="text-white/80 text-sm">Images Generated Today</div>
                 <div className="text-white/60 text-xs mt-1">📈 Live hourly updates</div>
               </div>
               
-              <div className="text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 w-full md:w-auto">
+              <div className="text-center p-4 bg-card/10 backdrop-blur-sm rounded-xl border border-white/20 w-full md:w-auto">
                 <div className="text-4xl font-bold text-white mb-1">4.9/5</div>
                 <div className="text-white/80 text-sm">User Satisfaction</div>
                 <div className="text-white/60 text-xs mt-1">⭐ 2,500+ reviews</div>
               </div>
               
-              <div className="text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 w-full md:w-auto">
+              <div className="text-center p-4 bg-card/10 backdrop-blur-sm rounded-xl border border-white/20 w-full md:w-auto">
                 <div className="text-4xl font-bold text-white mb-1">3 sec</div>
                 <div className="text-white/80 text-sm">Average Generation Time</div>
                 <div className="text-white/60 text-xs mt-1">⚡ Lightning fast</div>
@@ -126,7 +126,7 @@ export const CTASection = () => {
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <PrimaryButton 
                 size="lg" 
-                className="bg-white text-blue-600 text-lg px-8 shadow-lg"
+                className="bg-card text-blue-600 text-lg px-8 shadow-lg"
                 onClick={handleCreateDesignClick}
                 aria-label="Create your first design with WordToImage"
               >
@@ -138,7 +138,7 @@ export const CTASection = () => {
                 size="lg" 
                 variant="outline" 
                 onClick={handleExploreTemplatesClick}
-                className="text-white border-white hover:bg-white/10 text-lg"
+                className="text-white border-white hover:bg-card/10 text-lg"
                 aria-label="Browse template gallery"
               >
                 Explore Templates
@@ -146,7 +146,7 @@ export const CTASection = () => {
               </Button>
             </div>
             
-            <p className="mt-6 text-white/80 text-sm bg-white/10 px-4 py-2 rounded-full" role="note">
+            <p className="mt-6 text-white/80 text-sm bg-card/10 px-4 py-2 rounded-full" role="note">
               <span className="font-semibold">Start creating for free.</span> No credit card required.
             </p>
             
@@ -167,7 +167,7 @@ export const CTASection = () => {
             <div className="mt-8 pt-4 border-t border-white/20 w-full max-w-md">
               <button 
                 onClick={handleFeedbackClick}
-                className="text-white/90 hover:text-white text-sm font-medium flex items-center justify-center mx-auto hover:bg-white/10 px-4 py-2 rounded-full"
+                className="text-white/90 hover:text-white text-sm font-medium flex items-center justify-center mx-auto hover:bg-card/10 px-4 py-2 rounded-full"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />

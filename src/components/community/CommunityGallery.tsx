@@ -121,7 +121,7 @@ export const CommunityGallery = () => {
       <div className="space-y-4">
         <div className="flex gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               placeholder="Search by prompt, artist, or style..."
               value={searchTerm}
@@ -180,7 +180,7 @@ export const CommunityGallery = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredImages.map((image, index) => (
               <div key={index} className="group relative">
-                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                <div className="aspect-square rounded-lg overflow-hidden bg-muted">
                   <img
                     src={image.url}
                     alt={image.prompt}
@@ -197,7 +197,7 @@ export const CommunityGallery = () => {
                       <Button
                         size="icon"
                         variant="secondary"
-                        className="h-8 w-8 rounded-full bg-white/90"
+                        className="h-8 w-8 rounded-full bg-card/90"
                         onClick={() => toggleFavorite(image.url)}
                       >
                         <Heart className={`h-4 w-4 ${favorites.includes(image.url) ? 'fill-red-500 text-red-500' : ''}`} />
@@ -233,9 +233,9 @@ export const CommunityGallery = () => {
                         alt={image.author.name}
                         className="w-6 h-6 rounded-full"
                       />
-                      <span className="text-sm text-gray-600">@{image.author.username}</span>
+                      <span className="text-sm text-muted-foreground">@{image.author.username}</span>
                     </div>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-muted-foreground">
                       {new Date(image.createdAt).toLocaleDateString()}
                     </span>
                   </div>
@@ -255,13 +255,13 @@ export const CommunityGallery = () => {
 
         <TabsContent value="featured" className="mt-6">
           <div className="text-center py-8">
-            <p className="text-gray-500">Featured images will appear here</p>
+            <p className="text-muted-foreground">Featured images will appear here</p>
           </div>
         </TabsContent>
 
         <TabsContent value="following" className="mt-6">
           <div className="text-center py-8">
-            <p className="text-gray-500">Images from people you follow will appear here</p>
+            <p className="text-muted-foreground">Images from people you follow will appear here</p>
           </div>
         </TabsContent>
       </Tabs>

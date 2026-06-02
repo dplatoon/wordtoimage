@@ -73,7 +73,7 @@ export const GenerateButton = ({
       
       {/* Progress indicator during generation */}
       {isGenerating && (
-        <div className="mt-3 w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+        <div className="mt-3 w-full bg-muted rounded-full h-1.5 overflow-hidden">
           <div className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse" 
                style={{ width: '100%', animation: 'pulse 2s ease-in-out infinite' }} />
         </div>

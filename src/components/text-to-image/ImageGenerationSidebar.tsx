@@ -85,7 +85,7 @@ export function ImageGenerationSidebar({
   };
 
   return (
-    <Sidebar className="border-r border-border/10 bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/80 shadow-sm">
+    <Sidebar className="border-r border-border/10 bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-card/80 shadow-sm">
       <SidebarHeader className="border-b border-border/10 p-3 md:p-4">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-primary/5">

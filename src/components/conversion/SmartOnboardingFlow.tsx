@@ -193,7 +193,7 @@ export const SmartOnboardingFlow = ({
             </div>
           </CardHeader>
           <CardContent className="text-center space-y-6">
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               {currentStepData.description}
             </p>
 

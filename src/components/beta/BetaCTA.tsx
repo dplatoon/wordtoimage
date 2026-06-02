@@ -10,10 +10,10 @@ export const BetaCTA = () => {
           Join our beta program today and help us build a better product while enjoying exclusive benefits.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Button size="lg" className="bg-white text-blue-700 hover:bg-gray-100 text-lg">
+          <Button size="lg" className="bg-card text-blue-700 hover:bg-muted text-lg">
             Apply to Beta Program
           </Button>
-          <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 text-lg">
+          <Button size="lg" variant="outline" className="text-white border-white hover:bg-card/10 text-lg">
             Learn More
           </Button>
         </div>

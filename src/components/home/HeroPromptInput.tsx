@@ -59,7 +59,7 @@ export const HeroPromptInput = () => {
 
   return (
     <div className="max-w-5xl mx-auto mt-12 mb-16">
-      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-8 lg:p-12">
+      <div className="bg-card/10 backdrop-blur-sm border border-white/20 rounded-3xl p-8 lg:p-12">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Side - Input */}
           <div>
@@ -80,7 +80,7 @@ export const HeroPromptInput = () => {
                   onChange={(e) => setPrompt(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={EXAMPLE_PROMPTS[currentExample]}
-                  className="bg-white/20 border-white/30 text-white placeholder:text-gray-300 text-lg py-6 px-6 rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                  className="bg-card/20 border-white/30 text-white placeholder:text-gray-300 text-lg py-6 px-6 rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
                 />
               </div>
               
@@ -103,7 +103,7 @@ export const HeroPromptInput = () => {
                   <button
                     key={index}
                     onClick={() => setPrompt(example)}
-                    className="text-xs bg-white/10 hover:bg-white/20 text-violet-300 px-3 py-2 rounded-full transition-colors border border-white/20"
+                    className="text-xs bg-card/10 hover:bg-card/20 text-violet-300 px-3 py-2 rounded-full transition-colors border border-white/20"
                   >
                     {example.slice(0, 25)}...
                   </button>
@@ -133,7 +133,7 @@ export const HeroPromptInput = () => {
                 {/* Generation Overlay */}
                 {isAnimating && (
                   <div className="absolute inset-0 bg-violet-600/20 flex items-center justify-center">
-                    <div className="bg-white/90 rounded-lg px-4 py-2">
+                    <div className="bg-card/90 rounded-lg px-4 py-2">
                       <div className="flex items-center gap-2">
                         <div className="w-4 h-4 border-2 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
                         <span className="text-violet-600 font-medium text-sm">Generating...</span>
@@ -147,15 +147,15 @@ export const HeroPromptInput = () => {
               <div className="grid grid-cols-3 gap-4 mt-4 text-center">
                 <div>
                   <div className="text-violet-400 font-bold text-lg">3s</div>
-                  <div className="text-gray-400 text-xs">Generation</div>
+                  <div className="text-muted-foreground text-xs">Generation</div>
                 </div>
                 <div>
                   <div className="text-indigo-400 font-bold text-lg">4K</div>
-                  <div className="text-gray-400 text-xs">Quality</div>
+                  <div className="text-muted-foreground text-xs">Quality</div>
                 </div>
                 <div>
                   <div className="text-purple-400 font-bold text-lg">Free</div>
-                  <div className="text-gray-400 text-xs">To Try</div>
+                  <div className="text-muted-foreground text-xs">To Try</div>
                 </div>
               </div>
             </div>

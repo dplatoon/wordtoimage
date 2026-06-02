@@ -180,16 +180,16 @@ export default function BlogPostDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-background">
         <Nav />
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="animate-pulse space-y-8">
-            <div className="h-8 bg-gray-200 rounded w-3/4"></div>
-            <div className="h-64 bg-gray-200 rounded"></div>
+            <div className="h-8 bg-muted rounded w-3/4"></div>
+            <div className="h-64 bg-muted rounded"></div>
             <div className="space-y-4">
-              <div className="h-4 bg-gray-200 rounded"></div>
-              <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-              <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+              <div className="h-4 bg-muted rounded"></div>
+              <div className="h-4 bg-muted rounded w-5/6"></div>
+              <div className="h-4 bg-muted rounded w-4/6"></div>
             </div>
           </div>
         </div>
@@ -200,11 +200,11 @@ export default function BlogPostDetail() {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-background">
         <Nav />
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <h1 className="text-3xl font-bold mb-4">Post Not Found</h1>
-          <p className="text-gray-600 mb-8">The post you're looking for doesn't exist.</p>
+          <p className="text-muted-foreground mb-8">The post you're looking for doesn't exist.</p>
           <Button asChild>
             <Link to="/content-hub">Back to Content Hub</Link>
           </Button>
@@ -215,7 +215,7 @@ export default function BlogPostDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <EnhancedSEOManager 
         pageContent={{
           h1: post.seo_title || post.title,
@@ -227,14 +227,14 @@ export default function BlogPostDetail() {
 
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
           <Link to="/content-hub" className="hover:text-violet-600">Content Hub</Link>
           <ChevronRight className="w-4 h-4" />
           <Link to={`/content-hub?category=${post.category.toLowerCase()}`} className="hover:text-violet-600">
             {post.category}
           </Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900">{post.title}</span>
+          <span className="text-foreground">{post.title}</span>
         </div>
 
         {/* Article Header */}
@@ -246,16 +246,16 @@ export default function BlogPostDetail() {
             )}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
             {post.title}
           </h1>
 
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+          <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
             {post.excerpt}
           </p>
 
           {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 mb-8">
+          <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-8">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4" />
               <span>{post.author_name}</span>
@@ -328,7 +328,7 @@ export default function BlogPostDetail() {
 
         {/* Related Posts */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-foreground mb-8 flex items-center gap-2">
             <BookOpen className="w-6 h-6" />
             Related Articles
           </h2>
@@ -345,14 +345,14 @@ export default function BlogPostDetail() {
                 </div>
                 <CardContent className="p-6">
                   <Badge variant="secondary" className="mb-3">{relatedPost.category}</Badge>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                  <h3 className="text-xl font-semibold text-foreground mb-3 line-clamp-2">
                     {relatedPost.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-3">
+                  <p className="text-muted-foreground mb-4 line-clamp-3">
                     {relatedPost.excerpt}
                   </p>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center text-sm text-gray-500">
+                    <div className="flex items-center text-sm text-muted-foreground">
                       <Clock className="w-4 h-4 mr-1" />
                       <span>{relatedPost.read_time} min</span>
                     </div>

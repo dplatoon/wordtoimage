@@ -30,7 +30,7 @@ export const ChallengeCard = ({ challenge, onJoin, onViewEntries }: ChallengeCar
       case 'beginner': return 'bg-green-500';
       case 'intermediate': return 'bg-yellow-500';
       case 'advanced': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      default: return 'bg-muted/500';
     }
   };
 
@@ -38,8 +38,8 @@ export const ChallengeCard = ({ challenge, onJoin, onViewEntries }: ChallengeCar
     switch (status) {
       case 'upcoming': return 'bg-blue-500';
       case 'active': return 'bg-green-500';
-      case 'ended': return 'bg-gray-500';
-      default: return 'bg-gray-500';
+      case 'ended': return 'bg-muted/500';
+      default: return 'bg-muted/500';
     }
   };
 
@@ -71,7 +71,7 @@ export const ChallengeCard = ({ challenge, onJoin, onViewEntries }: ChallengeCar
               </Badge>
             </div>
             <CardTitle className="text-lg">{challenge.title}</CardTitle>
-            <p className="text-sm text-gray-600">Theme: {challenge.theme}</p>
+            <p className="text-sm text-muted-foreground">Theme: {challenge.theme}</p>
           </div>
           {challenge.status === 'active' && (
             <div className="text-right text-sm">
@@ -87,7 +87,7 @@ export const ChallengeCard = ({ challenge, onJoin, onViewEntries }: ChallengeCar
       <CardContent className="space-y-4">
         <p className="text-gray-700">{challenge.description}</p>
         
-        <div className="flex items-center justify-between text-sm text-gray-600">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />

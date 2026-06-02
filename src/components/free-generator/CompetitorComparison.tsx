@@ -112,16 +112,16 @@ export const CompetitorComparison = () => {
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Free vs Paid Tools: Feature Breakdown
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             See why WordToImage is the best choice for free AI image generation
           </p>
         </div>
 
         <Card className="shadow-xl border-0 overflow-hidden">
-          <CardHeader className="bg-gray-50">
+          <CardHeader className="bg-muted/50">
             <CardTitle className="text-center text-2xl">
               Complete Feature Comparison
             </CardTitle>
@@ -133,23 +133,23 @@ export const CompetitorComparison = () => {
                 {/* Header */}
                 <thead>
                   <tr className="border-b">
-                    <th className="p-4 text-left font-semibold text-gray-900 bg-gray-50">
+                    <th className="p-4 text-left font-semibold text-foreground bg-muted/50">
                       Feature
                     </th>
                     {tools.map((tool, index) => (
                       <th key={index} className={`p-4 text-center ${
-                        tool.isOurs ? 'bg-purple-50' : 'bg-gray-50'
+                        tool.isOurs ? 'bg-purple-50' : 'bg-muted/50'
                       }`}>
                         <div className="space-y-1">
                           <div className="flex items-center justify-center">
                             {tool.isOurs && <Star className="w-4 h-4 text-purple-600 mr-1" />}
                             <span className={`font-bold ${
-                              tool.isOurs ? 'text-purple-600' : 'text-gray-900'
+                              tool.isOurs ? 'text-purple-600' : 'text-foreground'
                             }`}>
                               {tool.name}
                             </span>
                           </div>
-                          <div className="text-sm text-gray-500">{tool.subtitle}</div>
+                          <div className="text-sm text-muted-foreground">{tool.subtitle}</div>
                           <Badge variant={tool.isOurs ? "default" : "secondary"} className={
                             tool.isOurs ? 'bg-purple-600' : ''
                           }>
@@ -164,10 +164,10 @@ export const CompetitorComparison = () => {
                 {/* Body */}
                 <tbody>
                   {comparisonData.map((item, index) => (
-                    <tr key={index} className={`border-b hover:bg-gray-50 ${
+                    <tr key={index} className={`border-b hover:bg-muted/50 ${
                       index % 2 === 0 ? 'bg-white' : 'bg-gray-25'
                     }`}>
-                      <td className="p-4 font-medium text-gray-900">
+                      <td className="p-4 font-medium text-foreground">
                         {item.feature}
                       </td>
                       <td className={`p-4 text-center ${
@@ -193,7 +193,7 @@ export const CompetitorComparison = () => {
         </Card>
         
         <div className="mt-8 text-center">
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             *Data accurate as of January 2025. Competitor features may change.
           </p>
         </div>

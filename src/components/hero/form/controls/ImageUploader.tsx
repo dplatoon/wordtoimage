@@ -102,7 +102,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
     <div className="w-full space-y-4">
       <div className="flex items-center space-x-2">
         <Wand2 className="h-5 w-5 text-purple-600" />
-        <h3 className="text-lg font-semibold text-gray-800">Image-to-Image Generation</h3>
+        <h3 className="text-lg font-semibold text-foreground">Image-to-Image Generation</h3>
       </div>
       
       <Alert className="bg-blue-50 border-blue-200">
@@ -136,10 +136,10 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
               <Upload className="h-8 w-8 text-purple-600" />
             </div>
             
-            <h4 className="text-lg font-medium text-gray-800 mb-2">
+            <h4 className="text-lg font-medium text-foreground mb-2">
               Drop your image here or click to upload
             </h4>
-            <p className="text-sm text-gray-600 text-center max-w-xs">
+            <p className="text-sm text-muted-foreground text-center max-w-xs">
               Supports PNG, JPG, WEBP • Max 10MB
             </p>
             
@@ -150,7 +150,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
             )}
           </div>
         ) : (
-          <div className="relative rounded-lg overflow-hidden bg-gray-100">
+          <div className="relative rounded-lg overflow-hidden bg-muted">
             {isLoading ? (
               <div className="flex items-center justify-center h-48">
                 <Skeleton className="w-full h-full" />
@@ -168,7 +168,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
                       variant="secondary"
                       size="sm"
                       onClick={handleUploadClick}
-                      className="bg-white text-gray-800 hover:bg-gray-100"
+                      className="bg-card text-foreground hover:bg-muted"
                     >
                       <Upload className="h-4 w-4 mr-2" />
                       Replace
@@ -189,7 +189,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
         )}
       </div>
       
-      <div className="flex items-start space-x-2 text-sm text-gray-600">
+      <div className="flex items-start space-x-2 text-sm text-muted-foreground">
         <ImageIcon className="h-4 w-4 mt-0.5 text-purple-600" />
         <div>
           <p className="font-medium">Tips for best results:</p>

@@ -40,11 +40,11 @@ export const AccessibilityOptimizer = () => {
       const style = document.createElement('style');
       style.textContent = `
         /* Enhanced contrast for better accessibility */
-        .text-slate-500, .text-gray-500 {
+        .text-slate-500, .text-muted-foreground {
           color: #4a5568 !important; /* Improved from #6B7280 */
         }
         
-        .text-slate-600, .text-gray-600 {
+        .text-slate-600, .text-muted-foreground {
           color: #2d3748 !important; /* Enhanced contrast */
         }
         
@@ -123,7 +123,7 @@ export const AccessibilityOptimizer = () => {
         }
         
         // Check for low contrast (simplified check)
-        const lowContrastElements = document.querySelectorAll('.text-gray-400, .text-slate-400');
+        const lowContrastElements = document.querySelectorAll('.text-muted-foreground, .text-slate-400');
         if (lowContrastElements.length > 0) {
           issues.push(`${lowContrastElements.length} elements with potentially low contrast`);
         }

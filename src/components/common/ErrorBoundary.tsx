@@ -53,10 +53,10 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
               <AlertTriangle className="h-8 w-8 text-red-600" />
             </div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl font-semibold text-foreground mb-2">
               Something went wrong
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-muted-foreground mb-6">
               We encountered an unexpected error. Please try refreshing the page or contact support if the problem persists.
             </p>
             <div className="space-y-2">
@@ -74,10 +74,10 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             {import.meta.env.DEV && this.state.error && (
               <details className="mt-4 text-left">
-                <summary className="cursor-pointer text-sm text-gray-500">
+                <summary className="cursor-pointer text-sm text-muted-foreground">
                   Error Details (Development)
                 </summary>
-                <pre className="mt-2 p-2 bg-gray-100 rounded text-xs overflow-auto">
+                <pre className="mt-2 p-2 bg-muted rounded text-xs overflow-auto">
                   {this.state.error.stack}
                 </pre>
               </details>

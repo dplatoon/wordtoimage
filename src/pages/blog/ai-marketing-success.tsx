@@ -105,7 +105,7 @@ const AIMarketingSuccessBlogPost = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -123,7 +123,7 @@ const AIMarketingSuccessBlogPost = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
-                    <p className="text-gray-600">{benefit.description}</p>
+                    <p className="text-muted-foreground">{benefit.description}</p>
                   </div>
                 </div>
               </CardContent>
@@ -149,7 +149,7 @@ const AIMarketingSuccessBlogPost = () => {
                     Use Case #{index + 1}
                   </Badge>
                   <h3 className="text-2xl font-bold mb-3">{useCase.title}</h3>
-                  <p className="text-gray-600 mb-4">{useCase.description}</p>
+                  <p className="text-muted-foreground mb-4">{useCase.description}</p>
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                     <p className="text-sm font-medium text-green-800 mb-1">Success Story:</p>
                     <p className="text-green-700 text-sm">{useCase.example}</p>
@@ -176,19 +176,19 @@ const AIMarketingSuccessBlogPost = () => {
             <div className="grid md:grid-cols-3 gap-6 mb-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600 mb-2">90%</div>
-                <p className="text-sm text-gray-600">Reduction in content creation time</p>
+                <p className="text-sm text-muted-foreground">Reduction in content creation time</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-600 mb-2">$12K</div>
-                <p className="text-sm text-gray-600">Monthly savings on design costs</p>
+                <p className="text-sm text-muted-foreground">Monthly savings on design costs</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-purple-600 mb-2">45%</div>
-                <p className="text-sm text-gray-600">Higher click-through rates</p>
+                <p className="text-sm text-muted-foreground">Higher click-through rates</p>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-md">
+            <div className="bg-card rounded-lg p-6 shadow-md">
               <h3 className="font-bold mb-3">The Challenge:</h3>
               <p className="text-gray-700 mb-4">
                 StartupX, a B2B SaaS company, struggled with creating consistent, engaging visual content for their social media 

@@ -19,18 +19,18 @@ export const ErrorState = ({ error, onRetry }: ErrorStateProps) => {
     <div className="w-full h-full flex items-center justify-center p-4">
       <div className="flex flex-col items-center text-center max-w-md">
         <div className="mb-6">
-          <div className="h-16 w-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-            <AlertCircle className="h-8 w-8 text-gray-400" />
+          <div className="h-16 w-16 bg-muted rounded-full flex items-center justify-center mb-4">
+            <AlertCircle className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h3 className="text-lg font-medium text-gray-800 mb-2">Failed to load image</h3>
-          <p className="text-sm text-gray-500 mb-4">The generated image could not be displayed</p>
+          <h3 className="text-lg font-medium text-foreground mb-2">Failed to load image</h3>
+          <p className="text-sm text-muted-foreground mb-4">The generated image could not be displayed</p>
           
           {isApiNotFoundError ? (
-            <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded-md mb-4">
+            <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded-md mb-4">
               Your prompt may be too short or unclear. Try adding more details to your description.
             </p>
           ) : (
-            <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded-md mb-4">{error}</p>
+            <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded-md mb-4">{error}</p>
           )}
         </div>
         

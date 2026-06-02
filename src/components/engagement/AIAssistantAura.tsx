@@ -164,7 +164,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
                   variant="ghost"
                   size="sm"
                   onClick={handleDismiss}
-                  className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
+                  className="h-6 w-6 p-0 text-muted-foreground hover:text-muted-foreground"
                 >
                   <X className="h-3 w-3" />
                 </Button>
@@ -183,8 +183,8 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
                     <Bot className="h-4 w-4 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800">Aura</h3>
-                    <p className="text-xs text-gray-500">AI Design Assistant</p>
+                    <h3 className="font-semibold text-foreground">Aura</h3>
+                    <p className="text-xs text-muted-foreground">AI Design Assistant</p>
                   </div>
                 </div>
                 <Button
@@ -201,7 +201,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
                 <p className="text-sm text-gray-700">{currentMessage}</p>
                 
                 <div className="space-y-2">
-                  <p className="text-xs font-medium text-gray-600 uppercase tracking-wide">Quick Actions</p>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Quick Actions</p>
                   {suggestions.map((suggestion, index) => (
                     <Button
                       key={index}

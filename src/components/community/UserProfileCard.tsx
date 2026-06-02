@@ -43,7 +43,7 @@ export const UserProfileCard = ({ profile, onFollow, onMessage }: UserProfileCar
             </Avatar>
             <div>
               <h2 className="text-xl font-bold">{profile.name}</h2>
-              <p className="text-gray-600">@{profile.username}</p>
+              <p className="text-muted-foreground">@{profile.username}</p>
               <div className="flex gap-2 mt-2">
                 {profile.badges.map((badge, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
@@ -87,31 +87,31 @@ export const UserProfileCard = ({ profile, onFollow, onMessage }: UserProfileCar
           <div className="grid grid-cols-4 gap-4 text-center">
             <div>
               <div className="flex items-center justify-center gap-1">
-                <Camera className="h-4 w-4 text-gray-500" />
+                <Camera className="h-4 w-4 text-muted-foreground" />
                 <span className="font-semibold">{profile.stats.posts}</span>
               </div>
-              <p className="text-xs text-gray-500">Posts</p>
+              <p className="text-xs text-muted-foreground">Posts</p>
             </div>
             <div>
               <div className="flex items-center justify-center gap-1">
-                <Users className="h-4 w-4 text-gray-500" />
+                <Users className="h-4 w-4 text-muted-foreground" />
                 <span className="font-semibold">{profile.stats.followers}</span>
               </div>
-              <p className="text-xs text-gray-500">Followers</p>
+              <p className="text-xs text-muted-foreground">Followers</p>
             </div>
             <div>
               <div className="flex items-center justify-center gap-1">
-                <Users className="h-4 w-4 text-gray-500" />
+                <Users className="h-4 w-4 text-muted-foreground" />
                 <span className="font-semibold">{profile.stats.following}</span>
               </div>
-              <p className="text-xs text-gray-500">Following</p>
+              <p className="text-xs text-muted-foreground">Following</p>
             </div>
             <div>
               <div className="flex items-center justify-center gap-1">
-                <Heart className="h-4 w-4 text-gray-500" />
+                <Heart className="h-4 w-4 text-muted-foreground" />
                 <span className="font-semibold">{profile.stats.likes}</span>
               </div>
-              <p className="text-xs text-gray-500">Likes</p>
+              <p className="text-xs text-muted-foreground">Likes</p>
             </div>
           </div>
         </div>

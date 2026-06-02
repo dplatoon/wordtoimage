@@ -53,7 +53,7 @@ export const ShowcaseSection = () => {
               </span>
             </h2>
             
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               Explore stunning creations from our community of artists and creators
             </p>
           </div>
@@ -96,7 +96,7 @@ export const ShowcaseSection = () => {
                       <p className="text-white font-medium mb-2 line-clamp-2">{item.prompt}</p>
                       <div className="flex items-center justify-between">
                         <span className="text-violet-300 text-sm">{item.style}</span>
-                        <span className="text-gray-400 text-sm">by {item.author}</span>
+                        <span className="text-muted-foreground text-sm">by {item.author}</span>
                       </div>
                     </div>
                   </div>
@@ -112,14 +112,14 @@ export const ShowcaseSection = () => {
             <Button
               variant="outline"
               size="lg"
-              className="group border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-violet-500/30 rounded-2xl px-8 py-6"
+              className="group border-white/20 bg-white/5 text-white hover:bg-card/10 hover:border-violet-500/30 rounded-2xl px-8 py-6"
               onClick={() => navigate('/gallery')}
             >
               Explore More Creations
               <ImagePlus className="ml-2 h-5 w-5 group-hover:scale-110 transition-transform" />
             </Button>
             
-            <p className="mt-4 text-sm text-gray-500">
+            <p className="mt-4 text-sm text-muted-foreground">
               Submit your own creations to be featured
             </p>
           </div>

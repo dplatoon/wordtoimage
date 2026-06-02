@@ -25,7 +25,7 @@ export const ActionButton = () => {
         <ArrowRight className="ml-2 h-5 w-5" />
       </Button>
       
-      <p className="mt-4 text-sm text-gray-500">
+      <p className="mt-4 text-sm text-muted-foreground">
         No credit card required • Free to try
       </p>
     </div>

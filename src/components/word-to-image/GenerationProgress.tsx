@@ -35,10 +35,10 @@ export function GenerationProgress({
         <div className="space-y-4">
           {/* Header */}
           <div className="text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            <h3 className="text-lg font-semibold text-foreground mb-2">
               Creating Your Masterpiece
             </h3>
-            <p className="text-sm text-gray-600 line-clamp-2">
+            <p className="text-sm text-muted-foreground line-clamp-2">
               "{currentPrompt}"
             </p>
           </div>
@@ -49,7 +49,7 @@ export function GenerationProgress({
               value={progress} 
               className="h-3 bg-white shadow-inner"
             />
-            <div className="flex justify-between text-xs text-gray-500">
+            <div className="flex justify-between text-xs text-muted-foreground">
               <span>Processing...</span>
               <span>{Math.round(progress)}%</span>
             </div>
@@ -69,20 +69,20 @@ export function GenerationProgress({
                     "flex flex-col items-center p-3 rounded-lg transition-all duration-300",
                     isActive ? "bg-violet-100 border border-violet-300" : 
                     isCompleted ? "bg-green-50 border border-green-200" : 
-                    "bg-white border border-gray-200"
+                    "bg-white border border-border"
                   )}
                 >
                   <Icon className={cn(
                     "h-5 w-5 mb-1",
                     isActive ? "text-violet-600 animate-pulse" :
                     isCompleted ? "text-green-600" :
-                    "text-gray-400"
+                    "text-muted-foreground"
                   )} />
                   <span className={cn(
                     "text-xs font-medium text-center",
                     isActive ? "text-violet-800" :
                     isCompleted ? "text-green-800" :
-                    "text-gray-500"
+                    "text-muted-foreground"
                   )}>
                     {step.label}
                   </span>
@@ -93,9 +93,9 @@ export function GenerationProgress({
 
           {/* Estimated Time */}
           <div className="text-center">
-            <div className="inline-flex items-center px-3 py-1 bg-white rounded-full border border-violet-200">
+            <div className="inline-flex items-center px-3 py-1 bg-card rounded-full border border-violet-200">
               <Clock className="h-3 w-3 mr-1 text-violet-600" />
-              <span className="text-xs text-gray-600">
+              <span className="text-xs text-muted-foreground">
                 Usually takes {estimatedTime} seconds
               </span>
             </div>

@@ -18,7 +18,7 @@ export const MobileOptimizedHero = () => {
       <div className="container mx-auto px-4 py-8 flex flex-col justify-center min-h-screen">
         {/* Hero content */}
         <div className="text-center mb-8 animate-fade-in">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur text-white text-sm font-medium mb-6">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-card/20 backdrop-blur text-white text-sm font-medium mb-6">
             <Sparkles className="h-4 w-4 mr-2" />
             AI Image Generator
           </div>
@@ -35,18 +35,18 @@ export const MobileOptimizedHero = () => {
         </div>
 
         {/* Input section - optimized for mobile */}
-        <div className="bg-white/10 backdrop-blur rounded-2xl p-4 mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+        <div className="bg-card/10 backdrop-blur rounded-2xl p-4 mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
           <Textarea
             placeholder="Describe your image... (e.g., 'A sunset over mountains with purple clouds')"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            className="w-full mb-4 min-h-[100px] bg-white/20 border-white/30 text-white placeholder:text-blue-200 focus:border-white focus:ring-white"
+            className="w-full mb-4 min-h-[100px] bg-card/20 border-white/30 text-white placeholder:text-blue-200 focus:border-white focus:ring-white"
           />
           
           <Button
             onClick={handleGenerate}
             size="lg"
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-foreground font-semibold"
             disabled={!prompt.trim()}
           >
             <Wand2 className="h-5 w-5 mr-2" />
@@ -66,7 +66,7 @@ export const MobileOptimizedHero = () => {
               <button
                 key={index}
                 onClick={() => setPrompt(example.substring(2))}
-                className="text-left p-3 bg-white/10 rounded-lg text-white hover:bg-white/20 transition-colors text-sm"
+                className="text-left p-3 bg-card/10 rounded-lg text-white hover:bg-card/20 transition-colors text-sm"
               >
                 {example}
               </button>
@@ -77,7 +77,7 @@ export const MobileOptimizedHero = () => {
         {/* Features grid - mobile optimized */}
         <div className="grid grid-cols-3 gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <div className="text-center">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2">
+            <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-2">
               <Zap className="h-6 w-6 text-yellow-300" />
             </div>
             <h3 className="font-medium text-sm">Fast</h3>
@@ -85,7 +85,7 @@ export const MobileOptimizedHero = () => {
           </div>
 
           <div className="text-center">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2">
+            <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-2">
               <Sparkles className="h-6 w-6 text-yellow-300" />
             </div>
             <h3 className="font-medium text-sm">Quality</h3>
@@ -93,7 +93,7 @@ export const MobileOptimizedHero = () => {
           </div>
 
           <div className="text-center">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2">
+            <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-2">
               <Download className="h-6 w-6 text-yellow-300" />
             </div>
             <h3 className="font-medium text-sm">Free</h3>
@@ -108,7 +108,7 @@ export const MobileOptimizedHero = () => {
           </p>
           <Button 
             variant="outline" 
-            className="border-white text-white hover:bg-white hover:text-gray-900"
+            className="border-white text-white hover:bg-white hover:text-foreground"
           >
             View Examples →
           </Button>

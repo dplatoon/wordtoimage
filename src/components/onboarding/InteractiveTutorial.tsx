@@ -153,7 +153,7 @@ export const InteractiveTutorial = ({
           </div>
 
           <h3 className="font-semibold text-lg mb-2">{currentStepData.title}</h3>
-          <p className="text-gray-600 text-sm mb-4">{currentStepData.description}</p>
+          <p className="text-muted-foreground text-sm mb-4">{currentStepData.description}</p>
           
           {currentStepData.tip && (
             <div className="bg-blue-50 p-3 rounded-lg mb-4">

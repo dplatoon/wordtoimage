@@ -214,8 +214,8 @@ export const UserCollections = ({ selectedImages = [], onAddToCollection }: User
         {[...Array(3)].map((_, i) => (
           <Card key={i} className="animate-pulse">
             <CardContent className="p-6">
-              <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
-              <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+              <div className="h-4 bg-muted rounded w-1/3 mb-2"></div>
+              <div className="h-3 bg-muted rounded w-2/3"></div>
             </CardContent>
           </Card>
         ))}
@@ -228,8 +228,8 @@ export const UserCollections = ({ selectedImages = [], onAddToCollection }: User
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">My Collections</h2>
-          <p className="text-gray-600">Organize your AI artworks into collections</p>
+          <h2 className="text-2xl font-bold text-foreground">My Collections</h2>
+          <p className="text-muted-foreground">Organize your AI artworks into collections</p>
         </div>
         
         <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
@@ -289,7 +289,7 @@ export const UserCollections = ({ selectedImages = [], onAddToCollection }: User
       {/* Search & Filters */}
       <div className="flex items-center gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             placeholder="Search collections..."
             value={searchQuery}
@@ -368,10 +368,10 @@ export const UserCollections = ({ selectedImages = [], onAddToCollection }: User
                     )}
                   </div>
                   {collection.description && (
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">{collection.description}</p>
+                    <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{collection.description}</p>
                   )}
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-muted-foreground">
                       {collection.image_count} image{collection.image_count !== 1 ? 's' : ''}
                     </span>
                     {selectedImages.length > 0 && (
@@ -391,11 +391,11 @@ export const UserCollections = ({ selectedImages = [], onAddToCollection }: User
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex items-center justify-center">
                       {collection.cover_image ? (
                         <img src={collection.cover_image} alt="" className="w-full h-full object-cover" />
                       ) : (
-                        <Folder className="h-6 w-6 text-gray-400" />
+                        <Folder className="h-6 w-6 text-muted-foreground" />
                       )}
                     </div>
                     <div>
@@ -407,7 +407,7 @@ export const UserCollections = ({ selectedImages = [], onAddToCollection }: User
                           </Badge>
                         )}
                       </div>
-                      <p className="text-sm text-gray-600">{collection.image_count} images</p>
+                      <p className="text-sm text-muted-foreground">{collection.image_count} images</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -455,8 +455,8 @@ export const UserCollections = ({ selectedImages = [], onAddToCollection }: User
       {filteredCollections.length === 0 && (
         <div className="text-center py-12">
           <Folder className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No collections found</h3>
-          <p className="text-gray-600 mb-4">
+          <h3 className="text-lg font-medium text-foreground mb-2">No collections found</h3>
+          <p className="text-muted-foreground mb-4">
             {searchQuery ? 'Try adjusting your search terms' : 'Create your first collection to organize your AI artworks'}
           </p>
           <Button onClick={() => setIsCreateModalOpen(true)}>

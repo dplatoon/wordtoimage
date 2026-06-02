@@ -30,7 +30,7 @@ export const ApiKeyForm = ({
   };
 
   return (
-    <div className="mb-4 p-4 border border-gray-200 rounded-lg">
+    <div className="mb-4 p-4 border border-border rounded-lg">
       <div className="mb-2">
         <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
           {serviceName} API Key (stored only for this session)
@@ -47,7 +47,7 @@ export const ApiKeyForm = ({
           <Button type="button" onClick={handleSubmit}>Save</Button>
         </div>
       </div>
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-muted-foreground">
         This key will be stored temporarily in your browser's memory only.
         For production use, we recommend using a server-side proxy with Supabase.
       </p>

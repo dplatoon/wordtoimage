@@ -38,7 +38,7 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
 
   if (!images.length) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <div className="text-center py-8 text-muted-foreground">
         No images to display
       </div>
     );
@@ -47,7 +47,7 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
   return (
     <div className={cn("relative w-full animate-fade-in", className)}>
       {/* Main image display */}
-      <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
+      <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
         <img
           src={images[currentIndex].url}
           alt={images[currentIndex].title}
@@ -65,7 +65,7 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
               variant="ghost"
               size="sm"
               onClick={prevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-card/80 hover:bg-white"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -74,7 +74,7 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
               variant="ghost"
               size="sm"
               onClick={nextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-card/80 hover:bg-white"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -87,7 +87,7 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
             variant="ghost"
             size="sm"
             onClick={() => toggleFavorite(images[currentIndex].id)}
-            className="bg-white/80 hover:bg-white"
+            className="bg-card/80 hover:bg-white"
           >
             <Heart className={cn(
               "h-4 w-4",
@@ -98,7 +98,7 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
           <Button
             variant="ghost"
             size="sm"
-            className="bg-white/80 hover:bg-white"
+            className="bg-card/80 hover:bg-white"
           >
             <Download className="h-4 w-4" />
           </Button>
@@ -109,7 +109,7 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
       <div className="mt-4 animate-fade-in">
         <h3 className="text-lg font-semibold">{images[currentIndex].title}</h3>
         {images[currentIndex].description && (
-          <p className="text-gray-600 text-sm mt-1">{images[currentIndex].description}</p>
+          <p className="text-muted-foreground text-sm mt-1">{images[currentIndex].description}</p>
         )}
       </div>
 
@@ -124,7 +124,7 @@ export const ResponsiveImageGallery = ({ images, className }: ResponsiveImageGal
                 "flex-shrink-0 w-16 h-16 rounded border-2 overflow-hidden transition-all duration-200",
                 index === currentIndex 
                   ? "border-blue-500 scale-110" 
-                  : "border-gray-200 hover:border-gray-300"
+                  : "border-border hover:border-gray-300"
               )}
             >
               <img

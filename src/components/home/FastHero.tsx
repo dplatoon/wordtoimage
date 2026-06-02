@@ -67,19 +67,19 @@ export const FastHero = () => {
 
         {/* Key Features Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10 sm:mb-12">
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+          <div className="bg-card/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
             <div className="text-2xl font-bold text-violet-400 mb-1">50+</div>
             <div className="text-sm text-gray-300">AI Art Styles</div>
           </div>
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+          <div className="bg-card/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
             <div className="text-2xl font-bold text-indigo-400 mb-1">4K</div>
             <div className="text-sm text-gray-300">Resolution Output</div>
           </div>
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+          <div className="bg-card/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
             <div className="text-2xl font-bold text-purple-400 mb-1">3 Sec</div>
             <div className="text-sm text-gray-300">Generation Time</div>
           </div>
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+          <div className="bg-card/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
             <div className="text-2xl font-bold text-pink-400 mb-1">Free</div>
             <div className="text-sm text-gray-300">Daily Credits</div>
           </div>
@@ -87,25 +87,25 @@ export const FastHero = () => {
 
         {/* How it Works Process */}
         <div className="max-w-4xl mx-auto mb-10 sm:mb-12">
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-8">
+          <div className="bg-card/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-8">
             <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">How Our AI Image Generator Works</h2>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-white">
               <div className="flex flex-col items-center gap-3 text-center">
                 <div className="w-12 h-12 bg-violet-500 rounded-full flex items-center justify-center text-white font-bold text-lg">1</div>
                 <div className="font-semibold">Write Your Prompt</div>
-                <div className="text-sm text-gray-400">Describe the image you want to create</div>
+                <div className="text-sm text-muted-foreground">Describe the image you want to create</div>
               </div>
               <div className="hidden sm:block w-8 h-0.5 bg-gradient-to-r from-violet-500 to-indigo-500"></div>
               <div className="flex flex-col items-center gap-3 text-center">
                 <div className="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-lg">2</div>
                 <div className="font-semibold">AI Generates Art</div>
-                <div className="text-sm text-gray-400">Our AI creates your unique image</div>
+                <div className="text-sm text-muted-foreground">Our AI creates your unique image</div>
               </div>
               <div className="hidden sm:block w-8 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
               <div className="flex flex-col items-center gap-3 text-center">
                 <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">3</div>
                 <div className="font-semibold">Download & Use</div>
-                <div className="text-sm text-gray-400">Get high-res images instantly</div>
+                <div className="text-sm text-muted-foreground">Get high-res images instantly</div>
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@ export const FastHero = () => {
         </div>
         
         {/* Trust Indicators */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-gray-400 mb-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-muted-foreground mb-8">
           <div className="flex items-center gap-2">
             <Star className="w-4 h-4 text-violet-400" />
             Free to try - No signup required

@@ -63,7 +63,7 @@ export function GalleryGrid({
       {images.map((image, index) => (
         <div
           key={`${image.url}-${index}`}
-          className="relative group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 animate-fade-in"
+          className="relative group bg-card rounded-lg shadow-sm border border-border overflow-hidden hover:shadow-md transition-shadow duration-200 animate-fade-in"
           style={{ animationDelay: `${index * 0.1}s` }}
           onMouseEnter={() => setHoveredImage(index)}
           onMouseLeave={() => setHoveredImage(null)}
@@ -96,7 +96,7 @@ export function GalleryGrid({
                 <Button
                   size="sm"
                   variant="secondary"
-                  className="bg-white/90 hover:bg-white text-gray-900 shadow-sm"
+                  className="bg-card/90 hover:bg-white text-foreground shadow-sm"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDownload(image.url, index);
@@ -111,7 +111,7 @@ export function GalleryGrid({
                   size="sm"
                   variant="secondary"
                   className={cn(
-                    "bg-white/90 hover:bg-white text-gray-900 shadow-sm",
+                    "bg-card/90 hover:bg-white text-foreground shadow-sm",
                     favorites.includes(index) && "text-red-500"
                   )}
                   onClick={(e) => {
@@ -130,7 +130,7 @@ export function GalleryGrid({
                 <Button
                   size="sm"
                   variant="secondary"
-                  className="bg-white/90 hover:bg-white text-gray-900 shadow-sm"
+                  className="bg-card/90 hover:bg-white text-foreground shadow-sm"
                   onClick={(e) => {
                     e.stopPropagation();
                     onEdit(image.url);
@@ -144,7 +144,7 @@ export function GalleryGrid({
                 <Button
                   size="sm"
                   variant="secondary"
-                  className="bg-white/90 hover:bg-white text-gray-900 shadow-sm"
+                  className="bg-card/90 hover:bg-white text-foreground shadow-sm"
                   onClick={(e) => {
                     e.stopPropagation();
                     window.open(image.url, '_blank');
@@ -159,11 +159,11 @@ export function GalleryGrid({
           </div>
           
           <div className="p-3 bg-white">
-            <p className="text-xs text-gray-500 truncate">
+            <p className="text-xs text-muted-foreground truncate">
               Generated image {index + 1}
             </p>
             <div className="flex items-center justify-between mt-1">
-              <span className="text-xs text-gray-400">Ready for download</span>
+              <span className="text-xs text-muted-foreground">Ready for download</span>
               {favorites.includes(index) && (
                 <Heart className="h-3 w-3 text-red-500 fill-current" aria-label="Favorited" />
               )}

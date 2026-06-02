@@ -101,10 +101,10 @@ export const TryStyleGallery = () => {
             <Palette className="w-4 h-4 mr-2" />
             Try a Style
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Explore AI <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">Art Styles</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Click any style to instantly start creating with that artistic approach
           </p>
         </div>
@@ -137,7 +137,7 @@ export const TryStyleGallery = () => {
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Button 
                         size="sm" 
-                        className="bg-white/90 backdrop-blur-sm text-gray-900 hover:bg-white transition-colors"
+                        className="bg-card/90 backdrop-blur-sm text-foreground hover:bg-white transition-colors"
                       >
                         Try {style.name}
                       </Button>
@@ -146,16 +146,16 @@ export const TryStyleGallery = () => {
                   
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-violet-600 transition-colors">
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-violet-600 transition-colors">
                       {style.name}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
                       {style.description}
                     </p>
                     
                     {/* Example Prompt */}
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <p className="text-xs text-gray-500 mb-1">Example prompt:</p>
+                    <div className="bg-muted/50 rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground mb-1">Example prompt:</p>
                       <p className="text-sm text-gray-700 line-clamp-2 font-medium">
                         "{style.prompt}"
                       </p>
@@ -168,19 +168,19 @@ export const TryStyleGallery = () => {
           
           {/* Navigation Buttons */}
           <button 
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full shadow-lg p-3 hover:shadow-xl transition-shadow z-10 hidden md:flex items-center justify-center"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-card rounded-full shadow-lg p-3 hover:shadow-xl transition-shadow z-10 hidden md:flex items-center justify-center"
             onClick={scrollLeft}
             aria-label="Scroll to previous styles"
           >
-            <ChevronLeft className="h-5 w-5 text-gray-600" />
+            <ChevronLeft className="h-5 w-5 text-muted-foreground" />
           </button>
           
           <button 
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full shadow-lg p-3 hover:shadow-xl transition-shadow z-10 hidden md:flex items-center justify-center"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-card rounded-full shadow-lg p-3 hover:shadow-xl transition-shadow z-10 hidden md:flex items-center justify-center"
             onClick={scrollRight}
             aria-label="Scroll to more styles"
           >
-            <ChevronRight className="h-5 w-5 text-gray-600" />
+            <ChevronRight className="h-5 w-5 text-muted-foreground" />
           </button>
         </div>
 

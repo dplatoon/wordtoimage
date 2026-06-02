@@ -10,7 +10,7 @@ interface GalleryHeaderProps {
 export const GalleryHeader = ({ title, imageCount, onViewAllClick }: GalleryHeaderProps) => {
   return (
     <div className="flex justify-between items-center mb-4">
-      <h3 className="text-lg font-medium text-gray-800">{title}</h3>
+      <h3 className="text-lg font-medium text-foreground">{title}</h3>
       {imageCount > 4 && (
         <Button 
           variant="ghost" 

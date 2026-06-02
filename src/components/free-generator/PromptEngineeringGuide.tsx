@@ -68,13 +68,13 @@ export const PromptEngineeringGuide = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-muted/50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Master Prompt Engineering
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Learn the secrets to writing prompts that generate stunning AI artwork
           </p>
         </div>
@@ -90,7 +90,7 @@ export const PromptEngineeringGuide = () => {
           <CardContent className="p-8">
             <Accordion type="single" collapsible className="space-y-4">
               {/* Basic Formula */}
-              <AccordionItem value="basic-formula" className="border border-gray-200 rounded-lg">
+              <AccordionItem value="basic-formula" className="border border-border rounded-lg">
                 <AccordionTrigger className="p-6 hover:no-underline">
                   <div className="flex items-center">
                     <Lightbulb className="mr-3 h-5 w-5 text-green-600" />
@@ -107,12 +107,12 @@ export const PromptEngineeringGuide = () => {
                     </div>
                     
                     <div className="space-y-4">
-                      <h4 className="font-semibold text-gray-900">Examples:</h4>
+                      <h4 className="font-semibold text-foreground">Examples:</h4>
                       {promptExamples.basic.map((example, index) => (
-                        <div key={index} className="border border-gray-200 rounded-lg p-4">
+                        <div key={index} className="border border-border rounded-lg p-4">
                           <div className="flex justify-between items-start mb-2">
                             <div className="flex-1">
-                              <p className="font-medium text-gray-900 mb-1">"{example.prompt}"</p>
+                              <p className="font-medium text-foreground mb-1">"{example.prompt}"</p>
                               <Badge variant="secondary" className="text-xs">
                                 {example.breakdown}
                               </Badge>
@@ -134,7 +134,7 @@ export const PromptEngineeringGuide = () => {
               </AccordionItem>
 
               {/* Advanced Techniques */}
-              <AccordionItem value="advanced-techniques" className="border border-gray-200 rounded-lg">
+              <AccordionItem value="advanced-techniques" className="border border-border rounded-lg">
                 <AccordionTrigger className="p-6 hover:no-underline">
                   <div className="flex items-center">
                     <Lightbulb className="mr-3 h-5 w-5 text-blue-600" />
@@ -144,11 +144,11 @@ export const PromptEngineeringGuide = () => {
                 <AccordionContent className="px-6 pb-6">
                   <div className="space-y-6">
                     {promptExamples.advanced.map((category, index) => (
-                      <div key={index} className="border border-gray-200 rounded-lg p-4">
-                        <h4 className="font-semibold text-gray-900 mb-3">{category.category}</h4>
+                      <div key={index} className="border border-border rounded-lg p-4">
+                        <h4 className="font-semibold text-foreground mb-3">{category.category}</h4>
                         <div className="space-y-2">
                           {category.examples.map((example, exIndex) => (
-                            <div key={exIndex} className="flex justify-between items-center bg-gray-50 p-3 rounded">
+                            <div key={exIndex} className="flex justify-between items-center bg-muted/50 p-3 rounded">
                               <span className="text-gray-700 font-medium">"{example}"</span>
                               <Button
                                 size="sm"
@@ -168,7 +168,7 @@ export const PromptEngineeringGuide = () => {
               </AccordionItem>
 
               {/* What to Avoid */}
-              <AccordionItem value="avoid-these" className="border border-gray-200 rounded-lg">
+              <AccordionItem value="avoid-these" className="border border-border rounded-lg">
                 <AccordionTrigger className="p-6 hover:no-underline">
                   <div className="flex items-center">
                     <AlertTriangle className="mr-3 h-5 w-5 text-red-600" />

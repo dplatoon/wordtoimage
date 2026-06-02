@@ -21,7 +21,7 @@ const NavDropdown = ({ label, items, featured }: NavDropdownProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="group inline-flex h-10 items-center justify-center gap-1 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent text-white hover:text-primary hover:bg-white/10 focus:bg-white/10 focus:text-primary focus:outline-none [text-shadow:0_0_10px_rgba(255,255,255,0.3)] hover:[text-shadow:0_0_15px_hsl(var(--primary)/0.6)]">
+        <button className="group inline-flex h-10 items-center justify-center gap-1 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent text-white hover:text-primary hover:bg-card/10 focus:bg-card/10 focus:text-primary focus:outline-none [text-shadow:0_0_10px_rgba(255,255,255,0.3)] hover:[text-shadow:0_0_15px_hsl(var(--primary)/0.6)]">
           {label}
           <ChevronDown className="h-3 w-3 transition-transform duration-200 text-white/80 group-hover:text-primary group-data-[state=open]:rotate-180 group-data-[state=open]:text-primary" />
         </button>
@@ -51,7 +51,7 @@ const NavDropdown = ({ label, items, featured }: NavDropdownProps) => {
             <Link
               key={item.title}
               to={item.href}
-              className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-white/10 focus:bg-white/10"
+              className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-card/10 focus:bg-card/10"
             >
               <div className="text-sm font-medium leading-none text-white">{item.title}</div>
               <p className="line-clamp-2 text-sm leading-snug text-white/60">
@@ -90,7 +90,7 @@ export const SimpleDesktopNav = () => {
       
       <Link
         to="/pricing"
-        className="inline-flex h-10 items-center justify-center rounded-xl bg-transparent px-4 py-2 text-sm font-medium transition-all duration-300 text-white hover:text-primary hover:bg-white/10 focus:bg-white/10 focus:outline-none [text-shadow:0_0_10px_rgba(255,255,255,0.3)] hover:[text-shadow:0_0_15px_hsl(var(--primary)/0.6)]"
+        className="inline-flex h-10 items-center justify-center rounded-xl bg-transparent px-4 py-2 text-sm font-medium transition-all duration-300 text-white hover:text-primary hover:bg-card/10 focus:bg-card/10 focus:outline-none [text-shadow:0_0_10px_rgba(255,255,255,0.3)] hover:[text-shadow:0_0_15px_hsl(var(--primary)/0.6)]"
       >
         Pricing
       </Link>

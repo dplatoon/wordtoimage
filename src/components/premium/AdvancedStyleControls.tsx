@@ -102,7 +102,7 @@ export const AdvancedStyleControls = ({
                     step={1}
                     className="mt-2"
                   />
-                  <div className="text-xs text-gray-500 mt-1">{settings.colorVibrance}%</div>
+                  <div className="text-xs text-muted-foreground mt-1">{settings.colorVibrance}%</div>
                 </div>
                 
                 <div>
@@ -114,7 +114,7 @@ export const AdvancedStyleControls = ({
                     step={1}
                     className="mt-2"
                   />
-                  <div className="text-xs text-gray-500 mt-1">{settings.contrast}%</div>
+                  <div className="text-xs text-muted-foreground mt-1">{settings.contrast}%</div>
                 </div>
                 
                 <div>
@@ -126,7 +126,7 @@ export const AdvancedStyleControls = ({
                     step={1}
                     className="mt-2"
                   />
-                  <div className="text-xs text-gray-500 mt-1">{settings.saturation}%</div>
+                  <div className="text-xs text-muted-foreground mt-1">{settings.saturation}%</div>
                 </div>
               </div>
             </TabsContent>

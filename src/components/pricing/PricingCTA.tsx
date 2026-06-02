@@ -16,7 +16,7 @@ export const PricingCTA = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8 py-4">
+            <Button size="lg" className="bg-card text-blue-600 hover:bg-muted font-semibold px-8 py-4">
               Start Creating Free
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -27,7 +27,7 @@ export const PricingCTA = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="h-6 w-6 text-yellow-300" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Instant Results</h3>
@@ -35,7 +35,7 @@ export const PricingCTA = () => {
             </div>
 
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-6 w-6 text-green-300" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Risk-Free Trial</h3>
@@ -43,7 +43,7 @@ export const PricingCTA = () => {
             </div>
 
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Star className="h-6 w-6 text-yellow-300 fill-current" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Trusted Platform</h3>

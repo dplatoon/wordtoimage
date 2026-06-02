@@ -154,10 +154,10 @@ const Community = () => {
             {t('community_page.title')}
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             AI Art Community
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             Join thousands of creators sharing stunning AI art, learning techniques, and participating in weekly challenges. 
             Discover inspiration in our <InternalLink to="/prompt-guide">comprehensive prompt guide</InternalLink> and 
             explore <InternalLink to="/templates">professional templates</InternalLink>.
@@ -177,39 +177,39 @@ const Community = () => {
 
         {/* Community Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
+          <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
             <CardContent className="p-6 text-center">
               <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-gray-900">12.5K</p>
-              <p className="text-sm text-gray-600">{t('community_page.sidebar.members')}</p>
+              <p className="text-2xl font-bold text-foreground">12.5K</p>
+              <p className="text-sm text-muted-foreground">{t('community_page.sidebar.members')}</p>
             </CardContent>
           </Card>
-          <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
+          <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
             <CardContent className="p-6 text-center">
               <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-gray-900">1.2K</p>
-              <p className="text-sm text-gray-600">{t('community_page.sidebar.online')}</p>
+              <p className="text-2xl font-bold text-foreground">1.2K</p>
+              <p className="text-sm text-muted-foreground">{t('community_page.sidebar.online')}</p>
             </CardContent>
           </Card>
-          <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
+          <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
             <CardContent className="p-6 text-center">
               <Camera className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-gray-900">450</p>
-              <p className="text-sm text-gray-600">{t('community_page.sidebar.posts')}</p>
+              <p className="text-2xl font-bold text-foreground">450</p>
+              <p className="text-sm text-muted-foreground">{t('community_page.sidebar.posts')}</p>
             </CardContent>
           </Card>
-          <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
+          <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
             <CardContent className="p-6 text-center">
               <Award className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-2xl font-bold text-gray-900">23</p>
-              <p className="text-sm text-gray-600">{t('community_page.challenges.title')}</p>
+              <p className="text-2xl font-bold text-foreground">23</p>
+              <p className="text-sm text-muted-foreground">{t('community_page.challenges.title')}</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8 bg-white/80 backdrop-blur-sm p-1 rounded-xl shadow-md">
+          <TabsList className="grid w-full grid-cols-4 mb-8 bg-card/80 backdrop-blur-sm p-1 rounded-xl shadow-md">
             <TabsTrigger 
               value="feed" 
               className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-lg transition-all"
@@ -244,7 +244,7 @@ const Community = () => {
             {/* Main Content Area */}
             <div className="flex-1">
               <TabsContent value="feed" className="mt-0">
-                <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
+                <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
                   <CardContent className="p-6">
                     <CommunityFeed />
                   </CardContent>
@@ -252,7 +252,7 @@ const Community = () => {
               </TabsContent>
 
               <TabsContent value="gallery" className="mt-0">
-                <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
+                <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
                   <CardContent className="p-6">
                     <CommunityGallery />
                   </CardContent>
@@ -261,11 +261,11 @@ const Community = () => {
 
               <TabsContent value="challenges" className="mt-0">
                 <div className="space-y-6">
-                  <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
+                  <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
                     <CardContent className="p-8 text-center">
                       <Award className="h-16 w-16 text-primary mx-auto mb-4" />
                       <h2 className="text-3xl font-bold mb-2">{t('community_page.challenges.title')}</h2>
-                      <p className="text-gray-600 text-lg">
+                      <p className="text-muted-foreground text-lg">
                         {t('community_page.challenges.subtitle')}
                       </p>
                     </CardContent>
@@ -293,13 +293,13 @@ const Community = () => {
                     onViewPost={handleViewPost}
                   />
                   <div className="space-y-6">
-                    <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
+                    <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
                       <CardContent className="p-6">
                         <h3 className="text-xl font-bold mb-4">This Week's Highlights</h3>
                         <div className="space-y-4">
                           <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-100">
-                            <h4 className="font-semibold mb-2 text-gray-900">Most Liked Creation</h4>
-                            <p className="text-sm text-gray-600 mb-3">
+                            <h4 className="font-semibold mb-2 text-foreground">Most Liked Creation</h4>
+                            <p className="text-sm text-muted-foreground mb-3">
                               "Ethereal Dreams" by @dreamweaver received 1,247 likes this week
                             </p>
                             <img 
@@ -309,8 +309,8 @@ const Community = () => {
                             />
                           </div>
                           <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg border border-green-100">
-                            <h4 className="font-semibold mb-2 text-gray-900">Rising Star</h4>
-                            <p className="text-sm text-gray-600 mb-3">
+                            <h4 className="font-semibold mb-2 text-foreground">Rising Star</h4>
+                            <p className="text-sm text-muted-foreground mb-3">
                               @newartist gained 500+ followers with their amazing portrait series
                             </p>
                             <img 
@@ -329,7 +329,7 @@ const Community = () => {
 
             {/* Enhanced Sidebar */}
             <div className="w-full lg:w-1/3">
-              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden sticky top-6">
+              <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden sticky top-6">
                 <CardContent className="p-0">
                   <CommunitySidebar />
                 </CardContent>

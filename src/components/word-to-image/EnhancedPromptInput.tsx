@@ -41,7 +41,7 @@ export function EnhancedPromptInput({
             isMobile ? "w-full py-4 text-lg" : "px-12 py-4 text-lg",
             isReady && !isGenerating
               ? "bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-700 hover:via-purple-700 hover:to-indigo-700 text-white scale-100 hover:scale-105"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-gray-300 text-muted-foreground cursor-not-allowed"
           )}
         >
           {/* Background gradient animation */}
@@ -70,7 +70,7 @@ export function EnhancedPromptInput({
       {/* Professional tips */}
       {!isReady && prompt.length > 0 && (
         <div className="text-center">
-          <p className="text-sm text-gray-600 bg-amber-50 border border-amber-200 rounded-lg p-3">
+          <p className="text-sm text-muted-foreground bg-amber-50 border border-amber-200 rounded-lg p-3">
             <Sparkles className="w-4 h-4 inline mr-2 text-amber-600" />
             Add more details for professional-quality results
           </p>

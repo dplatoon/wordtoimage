@@ -254,7 +254,7 @@ export const EnhancedWebVitalsMonitor = () => {
               <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full text-2xl font-bold ${getScoreColor(overallScore)}`}>
                 {overallScore}
               </div>
-              <p className="text-sm text-gray-600 mt-2">Overall Performance Score</p>
+              <p className="text-sm text-muted-foreground mt-2">Overall Performance Score</p>
             </div>
           )}
 
@@ -274,7 +274,7 @@ export const EnhancedWebVitalsMonitor = () => {
                       : `${Math.round(metric.value)}ms`
                     }
                   </div>
-                  <p className="text-xs text-gray-600">{metric.recommendation}</p>
+                  <p className="text-xs text-muted-foreground">{metric.recommendation}</p>
                 </Card>
               ))}
             </div>

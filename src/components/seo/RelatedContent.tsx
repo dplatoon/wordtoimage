@@ -33,8 +33,8 @@ export const RelatedContent = ({ currentPath, className = "" }: RelatedContentPr
   const relatedItems = getRelatedContent();
 
   return (
-    <section className={`border-t border-gray-200 pt-8 ${className}`}>
-      <h3 className="text-xl font-bold text-gray-900 mb-6">Continue Learning</h3>
+    <section className={`border-t border-border pt-8 ${className}`}>
+      <h3 className="text-xl font-bold text-foreground mb-6">Continue Learning</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {relatedItems.map((item) => {
           const Icon = item.icon;
@@ -42,17 +42,17 @@ export const RelatedContent = ({ currentPath, className = "" }: RelatedContentPr
             <Link
               key={item.href}
               to={item.href}
-              className="group p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              className="group p-6 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
             >
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
                   <Icon className="h-6 w-6 text-ai-primary" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 group-hover:text-ai-primary transition-colors">
+                  <h4 className="font-semibold text-foreground group-hover:text-ai-primary transition-colors">
                     {item.title}
                   </h4>
-                  <p className="text-sm text-gray-600 mt-1">{item.description}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
                   <div className="flex items-center mt-3 text-sm text-ai-primary">
                     <span>Learn more</span>
                     <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />

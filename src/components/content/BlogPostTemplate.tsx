@@ -101,15 +101,15 @@ export const BlogPostTemplate = ({
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
             {title}
           </h1>
           
-          <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+          <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
             {excerpt}
           </p>
           
-          <div className="flex flex-wrap items-center text-sm text-gray-500 space-x-6">
+          <div className="flex flex-wrap items-center text-sm text-muted-foreground space-x-6">
             <div className="flex items-center">
               <User className="h-4 w-4 mr-2" />
               <span>{author.name}</span>
@@ -151,12 +151,12 @@ export const BlogPostTemplate = ({
 
         {tags.length > 0 && (
           <div className="mb-8">
-            <h3 className="text-sm font-medium text-gray-900 mb-3">Tags:</h3>
+            <h3 className="text-sm font-medium text-foreground mb-3">Tags:</h3>
             <div className="flex flex-wrap gap-2">
               {tags.map(tag => (
                 <span
                   key={tag}
-                  className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700"
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-muted text-gray-700"
                 >
                   {tag}
                 </span>

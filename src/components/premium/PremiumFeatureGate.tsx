@@ -55,9 +55,9 @@ export const PremiumFeatureGate = ({
         </Badge>
         
         <div>
-          <h3 className="font-semibold text-gray-900">{feature}</h3>
+          <h3 className="font-semibold text-foreground">{feature}</h3>
           {description && (
-            <p className="text-sm text-gray-600 mt-1">{description}</p>
+            <p className="text-sm text-muted-foreground mt-1">{description}</p>
           )}
         </div>
         
@@ -70,7 +70,7 @@ export const PremiumFeatureGate = ({
             Upgrade to {requiredPlan.charAt(0).toUpperCase() + requiredPlan.slice(1)}
           </Button>
           
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted-foreground">
             Unlock this feature and many more with a premium plan
           </p>
         </div>

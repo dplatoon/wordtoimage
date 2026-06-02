@@ -207,8 +207,8 @@ export function GalleryManager({ images, onImagesChange, className }: GalleryMan
       {/* Empty State */}
       {images.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500">No images in your gallery yet</p>
-          <p className="text-sm text-gray-400 mt-1">Start generating some amazing AI art!</p>
+          <p className="text-muted-foreground">No images in your gallery yet</p>
+          <p className="text-sm text-muted-foreground mt-1">Start generating some amazing AI art!</p>
         </div>
       )}
     </div>

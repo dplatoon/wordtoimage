@@ -22,7 +22,7 @@ export const HeroHeader = () => {
   return (
     <div className="text-center mb-8 animate-fade-in">
       <h1 
-        className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 font-poppins mb-6 animate-fade-in"
+        className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground font-poppins mb-6 animate-fade-in"
         style={{ animationDelay: '0.2s' }}
       >
         Turn Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Words</span> into <br className="hidden md:block" />
@@ -30,7 +30,7 @@ export const HeroHeader = () => {
       </h1>
       
       <p 
-        className="text-lg md:text-xl text-gray-600 mb-4 max-w-2xl mx-auto animate-fade-in"
+        className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-in"
         style={{ animationDelay: '0.4s' }}
       >
         Harness the power of AI to create beautiful visuals from any text.
@@ -38,7 +38,7 @@ export const HeroHeader = () => {
       </p>
       
       <p 
-        className="text-sm text-gray-500 mb-8 max-w-xl mx-auto animate-fade-in"
+        className="text-sm text-muted-foreground mb-8 max-w-xl mx-auto animate-fade-in"
         style={{ animationDelay: '0.5s' }}
       >
         Try it free - no signup required! Create your first AI image instantly.

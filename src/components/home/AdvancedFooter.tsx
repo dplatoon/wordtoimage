@@ -54,7 +54,7 @@ export const AdvancedFooter = () => {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Logo variant="footer" className="mb-6" />
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
+            <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-xs">
               Transform text into stunning AI-generated images. Create, enhance, and explore the limitless possibilities of artificial intelligence.
             </p>
             
@@ -66,7 +66,7 @@ export const AdvancedFooter = () => {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all"
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-muted-foreground hover:text-white hover:bg-card/10 hover:border-white/20 transition-all"
                     aria-label={social.name}
                   >
                     <Icon className="w-4 h-4" />
@@ -84,7 +84,7 @@ export const AdvancedFooter = () => {
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="group text-gray-400 hover:text-white text-sm transition-colors inline-flex items-center gap-1"
+                    className="group text-muted-foreground hover:text-white text-sm transition-colors inline-flex items-center gap-1"
                   >
                     {link.name}
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -101,7 +101,7 @@ export const AdvancedFooter = () => {
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="group text-gray-400 hover:text-white text-sm transition-colors inline-flex items-center gap-1"
+                    className="group text-muted-foreground hover:text-white text-sm transition-colors inline-flex items-center gap-1"
                   >
                     {link.name}
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -118,7 +118,7 @@ export const AdvancedFooter = () => {
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="group text-gray-400 hover:text-white text-sm transition-colors inline-flex items-center gap-1"
+                    className="group text-muted-foreground hover:text-white text-sm transition-colors inline-flex items-center gap-1"
                   >
                     {link.name}
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -135,7 +135,7 @@ export const AdvancedFooter = () => {
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="group text-gray-400 hover:text-white text-sm transition-colors inline-flex items-center gap-1"
+                    className="group text-muted-foreground hover:text-white text-sm transition-colors inline-flex items-center gap-1"
                   >
                     {link.name}
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -149,7 +149,7 @@ export const AdvancedFooter = () => {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-white/5">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm text-gray-500">
+            <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm text-muted-foreground">
               <Link to="/privacy" className="hover:text-white transition-colors">
                 Privacy Policy
               </Link>
@@ -161,7 +161,7 @@ export const AdvancedFooter = () => {
               </Link>
             </div>
             
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>© {new Date().getFullYear()} WordToImage.</span>
               <span className="flex items-center gap-1">
                 Made with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> for creators

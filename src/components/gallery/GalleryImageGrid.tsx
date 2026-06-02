@@ -40,7 +40,7 @@ export function GalleryImageGrid({
         <div
           key={image.id}
           className={cn(
-            "relative group bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow",
+            "relative group bg-card rounded-lg shadow-sm border border-border overflow-hidden hover:shadow-md transition-shadow",
             viewMode === 'list' && "flex"
           )}
         >
@@ -49,7 +49,7 @@ export function GalleryImageGrid({
             <Checkbox
               checked={selectedImages.has(image.id)}
               onCheckedChange={() => onSelectImage(image.id)}
-              className="bg-white/80 border-white"
+              className="bg-card/80 border-white"
             />
           </div>
 
@@ -79,7 +79,7 @@ export function GalleryImageGrid({
               {image.prompt}
             </p>
             
-            <div className="flex items-center justify-between text-xs text-gray-500">
+            <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{new Date(image.timestamp).toLocaleDateString()}</span>
               {image.style && (
                 <Badge variant="secondary" className="text-xs">

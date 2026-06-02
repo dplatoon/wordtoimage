@@ -45,7 +45,7 @@ export const ImagePreview = ({
 
   return (
     <div>
-      <div className="bg-gray-50 border border-gray-200 h-[350px] sm:h-[400px] md:h-[450px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group">
+      <div className="bg-muted/50 border border-border h-[350px] sm:h-[400px] md:h-[450px] rounded-xl flex items-center justify-center overflow-hidden relative shadow-md group">
         {isGenerating ? (
           <LoadingState progress={loadingProgress} />
         ) : error ? (
@@ -63,7 +63,7 @@ export const ImagePreview = ({
         )}
       </div>
       
-      <Suspense fallback={<div className="h-12 w-full bg-gray-100 animate-pulse mt-6 rounded"></div>}>
+      <Suspense fallback={<div className="h-12 w-full bg-muted animate-pulse mt-6 rounded"></div>}>
         {gallery && gallery.length > 0 && <GenerationGallery images={gallery} />}
       </Suspense>
     </div>

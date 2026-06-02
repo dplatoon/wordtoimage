@@ -53,7 +53,7 @@ export const GallerySection = () => {
             <h2 id="gallery-section-title" className="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
               AI Image Gallery
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-muted-foreground">
               Explore the possibilities of AI-generated imagery across multiple artistic styles
             </p>
           </header>
@@ -62,7 +62,7 @@ export const GallerySection = () => {
             {localGalleryImages.map((image, i) => (
               <article 
                 key={i} 
-                className="aspect-square bg-gray-100 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group relative animate-fade-in"
+                className="aspect-square bg-muted rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group relative animate-fade-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
                 role="listitem"
               >
@@ -113,7 +113,7 @@ export const GallerySection = () => {
                 Create Your Own AI Art
               </Link>
             </Button>
-            <p className="mt-4 text-sm text-gray-500">
+            <p className="mt-4 text-sm text-muted-foreground">
               No credit card needed • Free trial available • Start creating in seconds
             </p>
           </div>

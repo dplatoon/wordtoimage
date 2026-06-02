@@ -104,7 +104,7 @@ const BingImageGeneratorReview = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -190,7 +190,7 @@ const BingImageGeneratorReview = () => {
             <Card key={index}>
               <CardContent className="p-6">
                 <h3 className="text-lg font-bold mb-2">{tipItem.tip}</h3>
-                <p className="text-gray-600">{tipItem.description}</p>
+                <p className="text-muted-foreground">{tipItem.description}</p>
               </CardContent>
             </Card>
           ))}

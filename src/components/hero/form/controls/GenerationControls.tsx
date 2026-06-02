@@ -66,18 +66,18 @@ export const GenerationControls = memo(({
                 <Image className="h-5 w-5" />
               </div>
               <div className="text-left">
-                <div className="font-semibold text-gray-800">
+                <div className="font-semibold text-foreground">
                   {hasSourceImage ? 'Image uploaded!' : 'Image-to-Image Generation'}
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-muted-foreground">
                   {hasSourceImage ? 'Click to change or remove image' : 'Transform an existing image with AI'}
                 </div>
               </div>
             </div>
             {showImageUpload ? (
-              <ChevronUp className="h-5 w-5 text-gray-400" />
+              <ChevronUp className="h-5 w-5 text-muted-foreground" />
             ) : (
-              <ChevronDown className="h-5 w-5 text-gray-400" />
+              <ChevronDown className="h-5 w-5 text-muted-foreground" />
             )}
           </Button>
         </CollapsibleTrigger>

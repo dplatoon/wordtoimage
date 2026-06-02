@@ -107,7 +107,7 @@ export function FloatingActionButton({
 
       {/* Ripple effect background */}
       <motion.span
-        className="absolute inset-0 rounded-full bg-white/20"
+        className="absolute inset-0 rounded-full bg-card/20"
         initial={{ scale: 0, opacity: 0.5 }}
         whileTap={{ scale: 1.5, opacity: 0 }}
         transition={{ duration: 0.4 }}

@@ -27,18 +27,18 @@ export const StaticFAQSection = () => {
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Everything you need to know about WordToImage
           </p>
         </div>
         
         <div className="space-y-8">
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b border-gray-200 pb-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            <div key={index} className="border-b border-border pb-8">
+              <h3 className="text-xl font-semibold text-foreground mb-4">
                 {faq.question}
               </h3>
               <p className="text-gray-700 leading-relaxed">

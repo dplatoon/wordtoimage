@@ -30,10 +30,10 @@ export const CameraUploadInterface = ({
             </div>
           </div>
           
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+          <h3 className="text-lg font-semibold text-foreground mb-2">
             {isMobile ? 'Capture Your Room' : 'Upload Room Photo'}
           </h3>
-          <p className="text-sm text-gray-600 mb-4">
+          <p className="text-sm text-muted-foreground mb-4">
             {isMobile 
               ? 'Take a photo of your room to get AI design suggestions' 
               : 'Upload a photo of your room for AI-powered redesign ideas'
@@ -64,7 +64,7 @@ export const CameraUploadInterface = ({
           </div>
 
           {isMobile && (
-            <div className="flex items-center justify-center gap-2 mt-3 text-xs text-gray-500">
+            <div className="flex items-center justify-center gap-2 mt-3 text-xs text-muted-foreground">
               <Smartphone className="h-3 w-3" />
               <span>Camera optimized for iOS 16+ and Android</span>
             </div>
@@ -72,7 +72,7 @@ export const CameraUploadInterface = ({
         </div>
 
         <div className="mt-4 text-center">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted-foreground">
             Supports PNG, JPG, WEBP • Max 10MB • Privacy protected
           </p>
         </div>

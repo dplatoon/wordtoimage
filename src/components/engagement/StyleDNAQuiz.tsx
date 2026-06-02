@@ -178,10 +178,10 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
         
         <CardContent className="space-y-6">
           <div className="text-center">
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            <h3 className="text-xl font-semibold text-foreground mb-2">
               {primaryStyleInfo.name}
             </h3>
-            <p className="text-gray-600 mb-4">{primaryStyleInfo.description}</p>
+            <p className="text-muted-foreground mb-4">{primaryStyleInfo.description}</p>
             
             <div className="flex justify-center gap-2 mb-4">
               {primaryStyleInfo.colorPalette.map((color, index) => (
@@ -203,8 +203,8 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
           </div>
 
           <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4">
-            <h4 className="font-medium text-gray-800 mb-2">🎨 Your Perfect Design Mix:</h4>
-            <p className="text-sm text-gray-600">
+            <h4 className="font-medium text-foreground mb-2">🎨 Your Perfect Design Mix:</h4>
+            <p className="text-sm text-muted-foreground">
               Primary: <strong>{styleProfiles[profile.primaryStyle as keyof typeof styleProfiles].name}</strong> • 
               Secondary: <strong>{styleProfiles[profile.secondaryStyle as keyof typeof styleProfiles].name}</strong>
             </p>
@@ -240,7 +240,7 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
         
         <Progress value={progress} className="h-2 mb-4" />
         
-        <CardTitle className="text-xl font-semibold text-gray-800">
+        <CardTitle className="text-xl font-semibold text-foreground">
           {question.question}
         </CardTitle>
       </CardHeader>
@@ -255,7 +255,7 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
           >
             <div className="flex items-center justify-between w-full">
               <span className="text-gray-700">{option.label}</span>
-              <ArrowRight className="h-4 w-4 text-gray-400" />
+              <ArrowRight className="h-4 w-4 text-muted-foreground" />
             </div>
           </Button>
         ))}
@@ -265,13 +265,13 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
             variant="ghost"
             onClick={goBack}
             disabled={currentQuestion === 0}
-            className="text-gray-500"
+            className="text-muted-foreground"
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
             Back
           </Button>
           
-          <span className="text-sm text-gray-500 self-center">
+          <span className="text-sm text-muted-foreground self-center">
             {Math.round(progress)}% complete
           </span>
         </div>

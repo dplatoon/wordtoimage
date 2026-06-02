@@ -27,7 +27,7 @@ export const PlanCTA = ({ ctaText, ctaVariant = 'default', isCurrentPlan, planNa
           ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl'
           : isCurrentPlan
           ? 'border-blue-500 text-blue-600 hover:bg-blue-50'
-          : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+          : 'border-gray-300 text-gray-700 hover:bg-muted/50'
       }`}
       onClick={onCTAClick}
       aria-label={`${getCTAText()} for ${planName} plan`}

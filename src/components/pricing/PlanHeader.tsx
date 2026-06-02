@@ -40,8 +40,8 @@ export const PlanHeader = ({ name, description, popular, badge, isCurrentPlan }:
 
       {/* Plan name and description */}
       <div className="text-center mb-4 md:mb-6">
-        <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">{name}</h3>
-        <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+        <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">{name}</h3>
+        <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
       </div>
     </div>
   );

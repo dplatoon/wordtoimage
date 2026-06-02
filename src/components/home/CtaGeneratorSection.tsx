@@ -21,7 +21,7 @@ export const CtaGeneratorSection = () => {
               Create stunning visuals from simple text descriptions with our AI-powered generator. No design skills needed.
             </p>
             <Button 
-              className="bg-white text-indigo-600 hover:bg-gray-100 text-lg shadow-lg px-8 py-6 transform transition-transform hover:scale-105"
+              className="bg-card text-indigo-600 hover:bg-muted text-lg shadow-lg px-8 py-6 transform transition-transform hover:scale-105"
               asChild
             >
               <Link to="/text-to-image">

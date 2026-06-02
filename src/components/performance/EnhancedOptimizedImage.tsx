@@ -178,7 +178,7 @@ export const EnhancedOptimizedImage: React.FC<EnhancedOptimizedImageProps> = ({
     return (
       <div
         ref={imgRef}
-        className={cn("bg-gray-100 rounded-lg animate-pulse", className)}
+        className={cn("bg-muted rounded-lg animate-pulse", className)}
         style={{ width, height, aspectRatio: width && height ? `${width}/${height}` : '1/1' }}
       />
     );
@@ -190,10 +190,10 @@ export const EnhancedOptimizedImage: React.FC<EnhancedOptimizedImageProps> = ({
       <div className="relative">
         {imageState.status === 'loading' && (
           <div
-            className={cn("bg-gray-100 rounded-lg flex items-center justify-center", className)}
+            className={cn("bg-muted rounded-lg flex items-center justify-center", className)}
             style={{ width, height }}
           >
-            <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
           </div>
         )}
         

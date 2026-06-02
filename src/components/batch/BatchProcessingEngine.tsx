@@ -418,12 +418,12 @@ export const BatchProcessingEngine = () => {
 
   const getStatusIcon = (status: BatchJob['status']) => {
     switch (status) {
-      case 'pending': return <Clock className="h-4 w-4 text-gray-500" />;
+      case 'pending': return <Clock className="h-4 w-4 text-muted-foreground" />;
       case 'running': return <RefreshCw className="h-4 w-4 text-blue-500 animate-spin" />;
       case 'completed': return <CheckCircle className="h-4 w-4 text-green-500" />;
       case 'failed': return <AlertCircle className="h-4 w-4 text-red-500" />;
       case 'paused': return <Pause className="h-4 w-4 text-amber-500" />;
-      default: return <Clock className="h-4 w-4 text-gray-500" />;
+      default: return <Clock className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -435,28 +435,28 @@ export const BatchProcessingEngine = () => {
           <CardContent className="p-4 text-center">
             <BarChart3 className="h-8 w-8 text-blue-600 mx-auto mb-2" />
             <p className="text-2xl font-bold">{processingStats.totalJobs}</p>
-            <p className="text-sm text-gray-600">Total Jobs</p>
+            <p className="text-sm text-muted-foreground">Total Jobs</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
             <p className="text-2xl font-bold">{processingStats.completedImages}</p>
-            <p className="text-sm text-gray-600">Images Generated</p>
+            <p className="text-sm text-muted-foreground">Images Generated</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <AlertCircle className="h-8 w-8 text-red-600 mx-auto mb-2" />
             <p className="text-2xl font-bold">{processingStats.failedImages}</p>
-            <p className="text-sm text-gray-600">Failed</p>
+            <p className="text-sm text-muted-foreground">Failed</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <Zap className="h-8 w-8 text-primary mx-auto mb-2" />
             <p className="text-2xl font-bold">{isProcessing ? Math.round(globalProgress) : 0}%</p>
-            <p className="text-sm text-gray-600">Progress</p>
+            <p className="text-sm text-muted-foreground">Progress</p>
           </CardContent>
         </Card>
       </div>
@@ -475,11 +475,11 @@ export const BatchProcessingEngine = () => {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-medium">Processing: {activeJob?.name}</span>
-                  <span className="text-sm text-gray-600">{Math.round(globalProgress)}%</span>
+                  <span className="text-sm text-muted-foreground">{Math.round(globalProgress)}%</span>
                 </div>
                 <Progress value={globalProgress} className="h-2" />
                 {activeJob?.estimatedTimeRemaining && (
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="text-sm text-muted-foreground mt-2">
                     Estimated time remaining: {Math.round(activeJob.estimatedTimeRemaining / 1000)}s
                   </p>
                 )}
@@ -498,7 +498,7 @@ export const BatchProcessingEngine = () => {
                         {getStatusIcon(job.status)}
                         <div>
                           <h3 className="font-medium">{job.name}</h3>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-muted-foreground">
                             {job.prompts.length} prompts • {job.completedImages.length} completed • {job.failedPrompts.length} failed
                           </p>
                         </div>
@@ -511,7 +511,7 @@ export const BatchProcessingEngine = () => {
                     {job.progress > 0 && (
                       <div className="mb-3">
                         <Progress value={job.progress} className="h-2" />
-                        <p className="text-xs text-gray-500 mt-1">{Math.round(job.progress)}% complete</p>
+                        <p className="text-xs text-muted-foreground mt-1">{Math.round(job.progress)}% complete</p>
                       </div>
                     )}
 
@@ -583,7 +583,7 @@ export const BatchProcessingEngine = () => {
                             />
                           ))}
                           {job.completedImages.length > 5 && (
-                            <div className="w-12 h-12 bg-gray-100 rounded border flex items-center justify-center text-xs text-gray-600">
+                            <div className="w-12 h-12 bg-muted rounded border flex items-center justify-center text-xs text-muted-foreground">
                               +{job.completedImages.length - 5}
                             </div>
                           )}
@@ -599,8 +599,8 @@ export const BatchProcessingEngine = () => {
           {jobs.length === 0 && (
             <div className="text-center py-12">
               <ImageIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No batch jobs yet</h3>
-              <p className="text-gray-600">Create your first batch job to generate multiple images efficiently</p>
+              <h3 className="text-lg font-medium text-foreground mb-2">No batch jobs yet</h3>
+              <p className="text-muted-foreground">Create your first batch job to generate multiple images efficiently</p>
             </div>
           )}
         </TabsContent>
@@ -632,7 +632,7 @@ export const BatchProcessingEngine = () => {
                   rows={8}
                   className="mt-1"
                 />
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   {newJobPrompts.split('\n').filter(p => p.trim()).length} prompts
                 </p>
               </div>
@@ -661,7 +661,7 @@ export const BatchProcessingEngine = () => {
                   max={5}
                   className="mt-1"
                 />
-                <p className="text-sm text-gray-600 mt-1">Maximum number of simultaneous image generations</p>
+                <p className="text-sm text-muted-foreground mt-1">Maximum number of simultaneous image generations</p>
               </div>
 
               <div>
@@ -674,7 +674,7 @@ export const BatchProcessingEngine = () => {
                   max={5}
                   className="mt-1"
                 />
-                <p className="text-sm text-gray-600 mt-1">Number of retry attempts for failed generations</p>
+                <p className="text-sm text-muted-foreground mt-1">Number of retry attempts for failed generations</p>
               </div>
 
               <div>
@@ -687,7 +687,7 @@ export const BatchProcessingEngine = () => {
                   max={10000}
                   className="mt-1"
                 />
-                <p className="text-sm text-gray-600 mt-1">Delay between individual image generations</p>
+                <p className="text-sm text-muted-foreground mt-1">Delay between individual image generations</p>
               </div>
 
               <div className="flex items-center space-x-2">

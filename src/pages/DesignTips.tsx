@@ -60,8 +60,8 @@ const DesignTips = () => {
         <ContentBreadcrumbs />
         
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">Design Tips</h1>
-          <p className="mt-4 text-xl text-gray-600">
+          <h1 className="text-4xl font-bold text-foreground sm:text-5xl">Design Tips</h1>
+          <p className="mt-4 text-xl text-muted-foreground">
             Professional design principles to make your AI-generated content stand out
           </p>
         </div>
@@ -70,12 +70,12 @@ const DesignTips = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {tips.map((tip, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
+            <div key={index} className="bg-card rounded-lg shadow-md p-6 border border-border">
               <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                 <Lightbulb className="h-6 w-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{tip.title}</h3>
-              <p className="text-gray-600">{tip.description}</p>
+              <h3 className="text-xl font-semibold text-foreground mb-2">{tip.title}</h3>
+              <p className="text-muted-foreground">{tip.description}</p>
             </div>
           ))}
         </div>

@@ -106,7 +106,7 @@ export const ImageShowcaseGrid = () => {
         role="region"
         aria-labelledby="cta-heading"
       >
-        <div className="bg-white rounded-xl sm:rounded-2xl border border-brand-slate-200 p-6 sm:p-8 md:p-12 shadow-modern max-w-2xl mx-auto">
+        <div className="bg-card rounded-xl sm:rounded-2xl border border-brand-slate-200 p-6 sm:p-8 md:p-12 shadow-modern max-w-2xl mx-auto">
           <h3 id="cta-heading" className="text-xl sm:text-2xl md:text-3xl font-inter font-semibold text-brand-slate-900 mb-3 sm:mb-4 leading-tight">
             Ready to Create Your Own?
           </h3>

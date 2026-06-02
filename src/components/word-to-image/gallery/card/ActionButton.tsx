@@ -24,7 +24,7 @@ export function ActionButton({
   active = false
 }: ActionButtonProps) {
   const baseClasses = "transition-all duration-300 shadow-md";
-  const standardClasses = "bg-white hover:bg-gray-100 text-gray-800";
+  const standardClasses = "bg-white hover:bg-muted text-foreground";
   const roundedClasses = "rounded-full h-8 w-8 p-0";
   const activeClasses = "bg-red-100 text-red-500";
   

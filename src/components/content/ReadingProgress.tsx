@@ -76,7 +76,7 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
         aria-label={`Reading progress: ${Math.round(progress)}%`}
       />
       {showPercentage && (
-        <div className="absolute top-2 right-4 text-xs text-gray-600 bg-white px-2 py-1 rounded shadow">
+        <div className="absolute top-2 right-4 text-xs text-muted-foreground bg-white px-2 py-1 rounded shadow">
           {Math.round(progress)}%
         </div>
       )}

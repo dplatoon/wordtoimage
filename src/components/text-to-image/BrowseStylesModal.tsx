@@ -149,7 +149,7 @@ export function BrowseStylesModal({ onStyleSelect, children }: BrowseStylesModal
         <div className="flex-1 flex flex-col space-y-4 overflow-hidden">
           {/* Search Bar */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search styles..."
               value={searchQuery}
@@ -190,10 +190,10 @@ export function BrowseStylesModal({ onStyleSelect, children }: BrowseStylesModal
                       className="group cursor-pointer"
                       onClick={() => handleStyleSelect(style.id)}
                     >
-                      <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white hover:border-primary/50 hover:shadow-lg transition-all duration-200">
+                      <div className="relative overflow-hidden rounded-lg border border-border bg-white hover:border-primary/50 hover:shadow-lg transition-all duration-200">
                         {/* Image placeholder */}
                         <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                          <Palette className="h-8 w-8 text-gray-400" />
+                          <Palette className="h-8 w-8 text-muted-foreground" />
                         </div>
                         
                         {/* Badges */}
@@ -216,10 +216,10 @@ export function BrowseStylesModal({ onStyleSelect, children }: BrowseStylesModal
 
                         {/* Content */}
                         <div className="p-3">
-                          <h4 className="font-semibold text-sm text-gray-900 mb-1">
+                          <h4 className="font-semibold text-sm text-foreground mb-1">
                             {style.name}
                           </h4>
-                          <p className="text-xs text-gray-500 leading-relaxed">
+                          <p className="text-xs text-muted-foreground leading-relaxed">
                             {style.description}
                           </p>
                         </div>
@@ -239,7 +239,7 @@ export function BrowseStylesModal({ onStyleSelect, children }: BrowseStylesModal
               {filteredStyles.length === 0 && (
                 <div className="text-center py-12">
                   <Palette className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500">No styles match your search</p>
+                  <p className="text-muted-foreground">No styles match your search</p>
                   <Button 
                     variant="ghost" 
                     onClick={() => setSearchQuery('')}

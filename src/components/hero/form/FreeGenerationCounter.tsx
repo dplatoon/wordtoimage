@@ -17,7 +17,7 @@ export const FreeGenerationCounter = ({
 
   return (
     <div className="mt-2 text-center">
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-muted-foreground">
         {isLimitReached ? (
           <span>Free limit reached. <Button 
             onClick={onSignUpClick}

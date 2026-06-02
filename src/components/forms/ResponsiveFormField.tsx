@@ -107,7 +107,7 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
         <div className="flex justify-end">
           <span className={cn(
             "text-xs tabular-nums",
-            value.length > maxLength * 0.9 ? "text-amber-600" : "text-gray-500",
+            value.length > maxLength * 0.9 ? "text-amber-600" : "text-muted-foreground",
             value.length >= maxLength && "text-red-600"
           )}>
             {value.length}/{maxLength}
@@ -118,7 +118,7 @@ export const ResponsiveFormField: React.FC<ResponsiveFormFieldProps> = ({
       {/* Help text */}
       {helpText && (
         <p id={helpId} className={cn(
-          "text-gray-600",
+          "text-muted-foreground",
           isMobile ? "text-xs" : "text-sm"
         )}>
           {helpText}

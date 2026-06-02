@@ -103,7 +103,7 @@ export function PromptSuggestions({
       {recentPrompts.length > 0 && (
         <div>
           <div className="flex items-center mb-2">
-            <History className="h-4 w-4 text-gray-500 mr-2" />
+            <History className="h-4 w-4 text-muted-foreground mr-2" />
             <span className="text-sm font-medium text-gray-700">Recent Prompts</span>
           </div>
           <div className="space-y-1">
@@ -125,7 +125,7 @@ export function PromptSuggestions({
       {/* Popular Keywords */}
       <div>
         <div className="flex items-center mb-2">
-          <Star className="h-4 w-4 text-gray-500 mr-2" />
+          <Star className="h-4 w-4 text-muted-foreground mr-2" />
           <span className="text-sm font-medium text-gray-700">Popular Keywords</span>
         </div>
         <div className="flex flex-wrap gap-1">

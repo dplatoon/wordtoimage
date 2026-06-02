@@ -124,7 +124,7 @@ export const AIPersonalization = () => {
         <CardContent className="flex items-center justify-center py-12">
           <div className="text-center space-y-4">
             <Brain className="h-8 w-8 animate-pulse mx-auto text-purple-600" />
-            <p className="text-gray-600">Analyzing your creative patterns...</p>
+            <p className="text-muted-foreground">Analyzing your creative patterns...</p>
             <Progress value={66} className="w-48" />
           </div>
         </CardContent>
@@ -163,7 +163,7 @@ export const AIPersonalization = () => {
                         <span className="text-sm capitalize">{style.style}</span>
                         <div className="flex items-center gap-2">
                           <Progress value={style.preference} className="w-16 h-2" />
-                          <span className="text-xs text-gray-500 w-8">{style.preference}%</span>
+                          <span className="text-xs text-muted-foreground w-8">{style.preference}%</span>
                         </div>
                       </div>
                     ))}
@@ -226,7 +226,7 @@ export const AIPersonalization = () => {
                   <div className="flex justify-between items-start">
                     <div className="space-y-1">
                       <h4 className="font-medium">{suggestion.title}</h4>
-                      <p className="text-sm text-gray-600">{suggestion.description}</p>
+                      <p className="text-sm text-muted-foreground">{suggestion.description}</p>
                     </div>
                     <Badge 
                       variant="outline" 

@@ -63,7 +63,7 @@ export const MobileOptimizedNav = () => {
             variant="ghost"
             size="icon-sm"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white hover:bg-white/10"
+            className="text-white hover:bg-card/10"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -123,7 +123,7 @@ export const MobileOptimizedNav = () => {
                     "flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all touch-manipulation",
                     isActiveRoute(item.path)
                       ? "bg-violet-600/20 text-violet-400"
-                      : "text-gray-300 hover:bg-white/5 active:bg-white/10"
+                      : "text-gray-300 hover:bg-white/5 active:bg-card/10"
                   )}
                 >
                   {item.icon && <item.icon className="h-5 w-5" />}
@@ -149,12 +149,12 @@ export const MobileOptimizedNav = () => {
                   </div>
                   <div>
                     <div className="font-medium text-white">My Dashboard</div>
-                    <div className="text-sm text-gray-400">View your creations</div>
+                    <div className="text-sm text-muted-foreground">View your creations</div>
                   </div>
                 </Link>
               ) : (
                 <div className="space-y-2">
-                  <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
+                  <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-card/10">
                     <Link to="/auth">Sign In</Link>
                   </Button>
                   <Button asChild variant="neon" className="w-full">

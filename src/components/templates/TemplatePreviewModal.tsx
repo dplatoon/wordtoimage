@@ -66,7 +66,7 @@ export const TemplatePreviewModal = ({
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-brand-slate-200">
             <div className="flex items-center gap-3">
-              <h2 className="text-xl font-bold text-gray-900 font-space">{template.title}</h2>
+              <h2 className="text-xl font-bold text-foreground font-space">{template.title}</h2>
               <div className="flex gap-2">
                 {template.isPro && (
                   <Badge className="bg-gradient-to-r from-brand-purple to-brand-navy text-white shadow-brand font-medium">
@@ -157,7 +157,7 @@ export const TemplatePreviewModal = ({
                     <h3 className="text-sm font-semibold text-brand-slate-500 uppercase tracking-wide mb-2">
                       Style
                     </h3>
-                    <p className="text-lg font-medium text-gray-900">{template.style}</p>
+                    <p className="text-lg font-medium text-foreground">{template.style}</p>
                   </div>
 
                   <div className="mb-6">

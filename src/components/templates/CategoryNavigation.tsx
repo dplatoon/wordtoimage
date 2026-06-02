@@ -122,7 +122,7 @@ export const CategoryNavigation = ({
                 className={cn(
                   "ml-2 font-medium",
                   activeCategory === category.name 
-                    ? "bg-white/20 text-white" 
+                    ? "bg-card/20 text-white" 
                     : "bg-primary/20 text-primary"
                 )}
               >

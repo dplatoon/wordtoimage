@@ -21,21 +21,21 @@ export const EmptyState = () => {
       </div>
       
       <div className="space-y-3 max-w-sm">
-        <h3 className="text-xl font-semibold text-gray-800 flex items-center justify-center">
+        <h3 className="text-xl font-semibold text-foreground flex items-center justify-center">
           <Wand2 className="h-5 w-5 mr-2 text-indigo-500" />
           Ready to Create Magic?
         </h3>
         
-        <p className="text-gray-600 text-sm leading-relaxed">
+        <p className="text-muted-foreground text-sm leading-relaxed">
           Describe your vision above and watch our AI transform your words into stunning artwork
         </p>
         
         <div className="mt-4 space-y-2">
-          <div className="flex items-center justify-center text-xs text-gray-500">
+          <div className="flex items-center justify-center text-xs text-muted-foreground">
             <Sparkles className="h-3 w-3 mr-1" />
             <span>Try: "A peaceful forest with morning sunlight"</span>
           </div>
-          <div className="flex items-center justify-center text-xs text-gray-500">
+          <div className="flex items-center justify-center text-xs text-muted-foreground">
             <Sparkles className="h-3 w-3 mr-1" />
             <span>Or: "Futuristic city skyline at sunset"</span>
           </div>

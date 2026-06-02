@@ -779,7 +779,7 @@ export const StylePresetsGallery = ({ onStyleSelect, onCombinedStylesSelect }: S
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full capitalize mb-2 inline-block">
+                  <span className="px-3 py-1 bg-card/20 backdrop-blur-sm text-white text-xs font-medium rounded-full capitalize mb-2 inline-block">
                     {previewStyle.category}
                   </span>
                   <h3 className="text-2xl font-bold text-white">{previewStyle.name}</h3>

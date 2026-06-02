@@ -253,7 +253,7 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
               <div className="mx-auto p-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-full w-fit">
                 {currentStepData.icon}
               </div>
-              <p className="text-gray-600 text-lg leading-relaxed">
+              <p className="text-muted-foreground text-lg leading-relaxed">
                 {currentStepData.description}
               </p>
               <div className="grid grid-cols-2 gap-4 text-sm">
@@ -271,7 +271,7 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
 
           {(currentStepData.type === 'goal_selection' || currentStepData.type === 'experience_level') && (
             <div className="space-y-6">
-              <p className="text-gray-600 text-center">{currentStepData.description}</p>
+              <p className="text-muted-foreground text-center">{currentStepData.description}</p>
               <RadioGroup 
                 value={currentStepData.type === 'goal_selection' ? userProfile.primaryGoal : userProfile.experienceLevel}
                 onValueChange={(value) => handleOptionSelect(currentStepData.type, value)}
@@ -282,14 +282,14 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
                     <RadioGroupItem value={option.id} id={option.id} />
                     <Label 
                       htmlFor={option.id} 
-                      className="flex-1 cursor-pointer p-4 border rounded-lg hover:bg-gray-50 flex items-center gap-4"
+                      className="flex-1 cursor-pointer p-4 border rounded-lg hover:bg-muted/50 flex items-center gap-4"
                     >
                       <div className="text-purple-600">
                         {option.icon}
                       </div>
                       <div>
                         <div className="font-medium">{option.label}</div>
-                        <div className="text-sm text-gray-600">{option.description}</div>
+                        <div className="text-sm text-muted-foreground">{option.description}</div>
                       </div>
                     </Label>
                   </div>
@@ -300,24 +300,24 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
 
           {currentStepData.type === 'interests' && (
             <div className="space-y-6">
-              <p className="text-gray-600 text-center">{currentStepData.description}</p>
+              <p className="text-muted-foreground text-center">{currentStepData.description}</p>
               <div className="grid grid-cols-2 gap-3">
                 {currentStepData.options?.map((option) => (
                   <Label
                     key={option.id}
-                    className={`cursor-pointer p-4 border rounded-lg hover:bg-gray-50 flex items-center gap-3 transition-colors ${
+                    className={`cursor-pointer p-4 border rounded-lg hover:bg-muted/50 flex items-center gap-3 transition-colors ${
                       userProfile.interests.includes(option.id) 
                         ? 'bg-purple-50 border-purple-300 text-purple-900' 
                         : ''
                     }`}
                     onClick={() => handleOptionSelect('interests', option.id)}
                   >
-                    <div className={userProfile.interests.includes(option.id) ? 'text-purple-600' : 'text-gray-500'}>
+                    <div className={userProfile.interests.includes(option.id) ? 'text-purple-600' : 'text-muted-foreground'}>
                       {option.icon}
                     </div>
                     <div>
                       <div className="font-medium text-sm">{option.label}</div>
-                      <div className="text-xs text-gray-600">{option.description}</div>
+                      <div className="text-xs text-muted-foreground">{option.description}</div>
                     </div>
                   </Label>
                 ))}
@@ -330,22 +330,22 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
               <div className="mx-auto p-4 bg-gradient-to-br from-green-50 to-blue-50 rounded-full w-fit">
                 {currentStepData.icon}
               </div>
-              <p className="text-gray-600 text-lg">{currentStepData.description}</p>
+              <p className="text-muted-foreground text-lg">{currentStepData.description}</p>
               
               <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg">
                 <h3 className="font-semibold text-lg mb-4">Your Personalized Setup:</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="font-medium">Primary Goal:</span>
-                    <div className="text-gray-600 capitalize">{userProfile.primaryGoal.replace('_', ' ')}</div>
+                    <div className="text-muted-foreground capitalize">{userProfile.primaryGoal.replace('_', ' ')}</div>
                   </div>
                   <div>
                     <span className="font-medium">Experience Level:</span>
-                    <div className="text-gray-600 capitalize">{userProfile.experienceLevel.replace('_', ' ')}</div>
+                    <div className="text-muted-foreground capitalize">{userProfile.experienceLevel.replace('_', ' ')}</div>
                   </div>
                   <div className="md:col-span-2">
                     <span className="font-medium">Interested Styles:</span>
-                    <div className="text-gray-600">{userProfile.interests.join(', ')}</div>
+                    <div className="text-muted-foreground">{userProfile.interests.join(', ')}</div>
                   </div>
                 </div>
               </div>

@@ -41,10 +41,10 @@ export const FAQSection = () => {
             <HelpCircle className="h-4 w-4 mr-2" />
             FAQ
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Everything you need to know about WordToImage
           </p>
         </div>
@@ -53,21 +53,21 @@ export const FAQSection = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg overflow-hidden animate-fade-in"
+              className="border border-border rounded-lg overflow-hidden animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <button
                 onClick={() => toggleQuestion(index)}
-                className="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 focus:bg-gray-50 focus:outline-none transition-colors"
+                className="w-full px-6 py-4 text-left bg-white hover:bg-muted/50 focus:bg-muted/50 focus:outline-none transition-colors"
                 aria-expanded={openIndex === index}
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4">
+                  <h3 className="text-lg font-semibold text-foreground pr-4">
                     {faq.question}
                   </h3>
                   <ChevronDown
                     className={cn(
-                      "h-5 w-5 text-gray-500 transition-transform duration-200",
+                      "h-5 w-5 text-muted-foreground transition-transform duration-200",
                       openIndex === index && "rotate-180"
                     )}
                   />
@@ -89,7 +89,7 @@ export const FAQSection = () => {
         </div>
 
         <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-          <p className="text-gray-600 mb-4">
+          <p className="text-muted-foreground mb-4">
             Still have questions? We're here to help!
           </p>
           <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">

@@ -47,7 +47,7 @@ const updates = [
 
 const Updates = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <PageSEO
         title="Product Updates - WordToImage AI Generator"
         description="Stay updated with the latest WordToImage features, improvements, and releases. Get the newest AI image generation capabilities and platform enhancements."
@@ -69,19 +69,19 @@ const Updates = () => {
               <Badge className="mb-3 bg-violet-100 hover:bg-violet-100 text-violet-800 border-none">
                 Product Updates
               </Badge>
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-6">
                 Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Updates & Releases</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Stay informed about the newest features, improvements, and fixes to WordToImage.
               </p>
             </div>
 
             {/* Subscribe section */}
-            <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <div className="max-w-xl mx-auto bg-card p-6 rounded-xl shadow-sm border border-border">
               <div className="text-center mb-4">
                 <h3 className="text-lg font-semibold">Get updates in your inbox</h3>
-                <p className="text-sm text-gray-600">Subscribe to our newsletter to receive product updates directly to your email.</p>
+                <p className="text-sm text-muted-foreground">Subscribe to our newsletter to receive product updates directly to your email.</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-2">
                 <input 
@@ -100,11 +100,11 @@ const Updates = () => {
         {/* Updates Timeline */}
         <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold mb-8 text-gray-900">Recent Updates</h2>
+            <h2 className="text-2xl font-bold mb-8 text-foreground">Recent Updates</h2>
             
             <div className="space-y-8">
               {updates.map((update, index) => (
-                <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div key={index} className="bg-card p-6 rounded-xl shadow-sm border border-border">
                   <div className="flex items-start">
                     <div className="flex-shrink-0 mr-4">
                       <div className="h-12 w-12 rounded-full bg-violet-100 flex items-center justify-center text-violet-600">
@@ -116,13 +116,13 @@ const Updates = () => {
                         <Badge className="mr-2" variant="secondary">
                           {update.tag}
                         </Badge>
-                        <div className="text-sm text-gray-500 flex items-center">
+                        <div className="text-sm text-muted-foreground flex items-center">
                           <Calendar className="h-3 w-3 mr-1" />
                           {update.date}
                         </div>
                       </div>
                       <h3 className="text-xl font-semibold mb-2">{update.title}</h3>
-                      <p className="text-gray-600">{update.description}</p>
+                      <p className="text-muted-foreground">{update.description}</p>
                       <Button variant="link" className="p-0 h-auto mt-2 text-violet-600">
                         Read more
                       </Button>

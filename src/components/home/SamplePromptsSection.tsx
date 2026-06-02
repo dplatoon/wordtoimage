@@ -98,7 +98,7 @@ export const SamplePromptsSection = () => {
       case 'Beginner': return 'bg-green-100 text-green-800';
       case 'Intermediate': return 'bg-yellow-100 text-yellow-800';
       case 'Advanced': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -107,10 +107,10 @@ export const SamplePromptsSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Sample Prompts & Inspiration
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Get started with these curated prompts designed to showcase the power of AI image generation
           </p>
         </div>
@@ -154,7 +154,7 @@ export const SamplePromptsSection = () => {
                         size="sm"
                         variant="secondary"
                         onClick={() => generateWithPrompt(prompt.prompt)}
-                        className="bg-white/90 text-gray-900"
+                        className="bg-card/90 text-foreground"
                       >
                         <Wand2 className="h-4 w-4 mr-1" />
                         Generate
@@ -163,7 +163,7 @@ export const SamplePromptsSection = () => {
                         size="sm"
                         variant="secondary"
                         onClick={() => copyToClipboard(prompt.prompt)}
-                        className="bg-white/90 text-gray-900"
+                        className="bg-card/90 text-foreground"
                       >
                         <Copy className="h-4 w-4" />
                       </Button>
@@ -174,7 +174,7 @@ export const SamplePromptsSection = () => {
                 {/* Content */}
                 <div className="p-4">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-lg text-gray-900 group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-semibold text-lg text-foreground group-hover:text-blue-600 transition-colors">
                       {prompt.title}
                     </h3>
                     <Button
@@ -183,11 +183,11 @@ export const SamplePromptsSection = () => {
                       onClick={() => toggleFavorite(prompt.id)}
                       className="p-1"
                     >
-                      <Heart className={`h-4 w-4 ${favorites.includes(prompt.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
+                      <Heart className={`h-4 w-4 ${favorites.includes(prompt.id) ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} />
                     </Button>
                   </div>
 
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                     {prompt.prompt}
                   </p>
 
@@ -227,7 +227,7 @@ export const SamplePromptsSection = () => {
 
         {/* CTA */}
         <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-          <p className="text-gray-600 mb-4">
+          <p className="text-muted-foreground mb-4">
             Ready to create your own unique images?
           </p>
           <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">

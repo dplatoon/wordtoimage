@@ -22,7 +22,7 @@ export const ImageActions = ({
       <Button
         variant="default"
         size="sm"
-        className="bg-white/95 hover:bg-white text-gray-800 shadow-md"
+        className="bg-white/95 hover:bg-white text-foreground shadow-md"
         onClick={onDownload}
       >
         <Download className="h-4 w-4 mr-2" />
@@ -33,7 +33,7 @@ export const ImageActions = ({
         <Button
           size="icon"
           variant="secondary"
-          className="h-8 w-8 rounded-full bg-white/90 hover:bg-white shadow"
+          className="h-8 w-8 rounded-full bg-card/90 hover:bg-white shadow"
           onClick={onShare}
           title="Share"
         >
@@ -43,7 +43,7 @@ export const ImageActions = ({
         <Button
           size="icon"
           variant="secondary"
-          className={`h-8 w-8 rounded-full bg-white/90 hover:bg-white shadow ${
+          className={`h-8 w-8 rounded-full bg-card/90 hover:bg-white shadow ${
             favorite ? 'text-red-500' : 'text-gray-700'
           }`}
           onClick={onFavoriteToggle}

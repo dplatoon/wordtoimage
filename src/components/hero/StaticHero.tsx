@@ -46,18 +46,18 @@ export const StaticHero = ({ onShowProFeatures }: StaticHeroProps) => {
 
         {/* How it Works Flow */}
         <div className="max-w-4xl mx-auto mb-10 sm:mb-12">
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-8">
+          <div className="bg-card/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-8">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-white">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-violet-500 rounded-full flex items-center justify-center text-white font-bold text-lg">1</div>
                 <span className="font-semibold">Describe</span>
               </div>
-              <ArrowRight className="h-5 w-5 text-gray-400 rotate-90 sm:rotate-0" />
+              <ArrowRight className="h-5 w-5 text-muted-foreground rotate-90 sm:rotate-0" />
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-lg">2</div>
                 <span className="font-semibold">Generate</span>
               </div>
-              <ArrowRight className="h-5 w-5 text-gray-400 rotate-90 sm:rotate-0" />
+              <ArrowRight className="h-5 w-5 text-muted-foreground rotate-90 sm:rotate-0" />
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">3</div>
                 <span className="font-semibold">Download</span>
@@ -90,7 +90,7 @@ export const StaticHero = ({ onShowProFeatures }: StaticHeroProps) => {
         </div>
         
         {/* Trust Indicators */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-gray-400">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-violet-400 rounded-full"></div>
             Free to try

@@ -95,7 +95,7 @@ const AIImageGeneratorOnlineFree = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -112,7 +112,7 @@ const AIImageGeneratorOnlineFree = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                    <p className="text-gray-600">{step.description}</p>
+                    <p className="text-muted-foreground">{step.description}</p>
                   </div>
                 </div>
               </CardContent>
@@ -127,7 +127,7 @@ const AIImageGeneratorOnlineFree = () => {
             <Card key={index} className="overflow-hidden">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">{tool.tool}</h3>
-                <p className="text-gray-600 mb-4">{tool.description}</p>
+                <p className="text-muted-foreground mb-4">{tool.description}</p>
                 <div className="grid grid-cols-2 gap-2">
                   {tool.pros.map((pro, idx) => (
                     <div key={idx} className="flex items-center text-sm text-green-700">

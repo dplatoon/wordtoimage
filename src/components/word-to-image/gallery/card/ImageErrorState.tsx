@@ -14,9 +14,9 @@ export function ImageErrorState({
   iconSize = 8 
 }: ImageErrorStateProps) {
   return (
-    <div className={`${className} bg-gray-100 flex flex-col items-center justify-center p-4`}>
+    <div className={`${className} bg-muted flex flex-col items-center justify-center p-4`}>
       <ImageOff className={`h-${iconSize} w-${iconSize} text-gray-300 mb-2`} />
-      <p className="text-sm text-gray-400">{message}</p>
+      <p className="text-sm text-muted-foreground">{message}</p>
     </div>
   );
 }
