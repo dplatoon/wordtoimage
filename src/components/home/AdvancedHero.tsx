@@ -307,6 +307,8 @@ export const AdvancedHero = () => {
                         <motion.button
                           key={i}
                           onClick={() => setCurrentImageIndex(i)}
+                          aria-label={`View image ${i + 1}: ${floatingImages[i].title}`}
+                          aria-current={i === currentImageIndex}
                           className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                             i === currentImageIndex 
                               ? 'bg-primary w-8 shadow-neon' 
@@ -327,6 +329,8 @@ export const AdvancedHero = () => {
                   <motion.button
                     key={i}
                     onClick={() => setCurrentImageIndex(i)}
+                    aria-label={`View image ${i + 1}: ${img.title}`}
+                    aria-current={i === currentImageIndex}
                     className={`relative w-20 h-20 rounded-xl overflow-hidden transition-all duration-300 ${
                       i === currentImageIndex 
                         ? 'ring-2 ring-primary shadow-neon scale-105' 
