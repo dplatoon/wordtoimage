@@ -83,10 +83,11 @@ export const InternalLinking = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/text-to-image"
-                className="inline-flex items-center justify-center px-6 py-3 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 bg-white !text-violet-700 font-semibold rounded-lg hover:bg-white/90 transition-colors"
+                style={{ color: '#6d28d9' }}
               >
-                Try Free Generator
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <span style={{ color: '#6d28d9' }}>Try Free Generator</span>
+                <ArrowRight className="w-4 h-4 ml-2" style={{ color: '#6d28d9' }} />
               </Link>
               <Link
                 to="/pricing"
