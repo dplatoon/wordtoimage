@@ -14,7 +14,7 @@ export const BetaCTA = () => {
             Apply to Beta Program
           </Button>
           <Button size="lg" variant="outline" className="text-white border-white hover:bg-card/10 text-lg">
-            Learn More
+            Learn about our beta program
           </Button>
         </div>
       </div>
