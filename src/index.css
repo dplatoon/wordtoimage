@@ -133,16 +133,10 @@
     padding: 0;
   }
 
-  /* Enhanced accessibility improvements */
+  /* Enhanced accessibility improvements - scoped so Tailwind text-* utilities win on Links/Buttons */
   a {
-    color: hsl(var(--ai-primary));
     text-decoration: none;
     transition: color 0.2s ease;
-  }
-  
-  a:hover {
-    color: hsl(var(--ai-accent));
-    text-decoration: underline;
   }
 
   /* Enhanced focus styles for keyboard navigation */
