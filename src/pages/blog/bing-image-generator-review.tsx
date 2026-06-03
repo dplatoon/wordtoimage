@@ -216,7 +216,7 @@ const BingImageGeneratorReview = () => {
         </Card>
         
         {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Experience Superior AI Image Generation</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             Don't settle for basic results. Create professional-quality images with advanced features and superior quality.

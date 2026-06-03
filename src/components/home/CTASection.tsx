@@ -30,7 +30,7 @@ export const CTASection = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-r from-blue-50 to-violet-50 overflow-hidden relative">
+    <section className="py-16 md:py-24 bg-gradient-to-r from-primary to-violet-50 overflow-hidden relative">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-10 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -53,7 +53,7 @@ export const CTASection = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
                     size="lg" 
-                    className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-blue-600 text-white text-lg px-8 py-6 shadow-lg transform hover:scale-105 transition-all duration-300"
+                    className="bg-gradient-to-r from-primary to-accent hover:bg-blue-600 text-white text-lg px-8 py-6 shadow-lg transform hover:scale-105 transition-all duration-300"
                     onClick={handleStartNow}
                   >
                     Start Creating Now

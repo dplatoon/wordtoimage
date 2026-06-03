@@ -88,7 +88,7 @@ const AIMarketingSuccessBlogPost = () => {
         cut costs—they often outperform traditional marketing imagery in engagement, conversion rates, and brand differentiation.
       </p>
 
-      <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6 my-8">
+      <div class="bg-gradient-to-r from-primary to-accent border border-blue-200 rounded-lg p-6 my-8">
         <p class="font-semibold text-blue-900 mb-2">📈 Industry Insight:</p>
         <p class="text-blue-800">
           Studies show that businesses using AI-generated visuals in their marketing see an average of 35% higher engagement rates 
@@ -164,7 +164,7 @@ const AIMarketingSuccessBlogPost = () => {
         </div>
 
         {/* Case Study Section */}
-        <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8 mb-12">
+        <div className="bg-gradient-to-r from-green-50 to-accent rounded-xl p-8 mb-12">
           <h2 className="text-2xl font-bold mb-6 text-center">Featured Case Study: StartupX</h2>
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-6">
@@ -273,7 +273,7 @@ const AIMarketingSuccessBlogPost = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Transform Your Marketing Visuals Today</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             Join thousands of businesses already using AI-generated images to create more engaging, cost-effective marketing campaigns.

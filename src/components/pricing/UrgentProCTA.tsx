@@ -25,7 +25,7 @@ export const UrgentProCTA = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-purple-600 via-violet-600 to-indigo-600 rounded-2xl p-6 text-white shadow-xl border-2 border-yellow-400 relative overflow-hidden">
+    <div className="bg-gradient-to-br from-primary via-primary/90 to-accent rounded-2xl p-6 text-white shadow-xl border-2 border-yellow-400 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 rounded-full blur-2xl animate-pulse"></div>
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-pink-400/10 rounded-full blur-xl animate-pulse"></div>
@@ -47,14 +47,14 @@ export const UrgentProCTA = () => {
 
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
-            <Crown className="w-6 h-6 text-purple-600" />
+            <Crown className="w-6 h-6 text-primary" />
           </div>
           
           <div className="flex-1">
             <h3 className="text-xl font-bold mb-2">
               Join Pro Now - Limited 50% OFF!
             </h3>
-            <p className="text-purple-100 mb-4 text-sm">
+            <p className="text-primary-foreground/80 mb-4 text-sm">
               Unlock unlimited HD images, premium styles, and priority processing. 
               This exclusive offer expires in 24 hours!
             </p>
@@ -85,7 +85,7 @@ export const UrgentProCTA = () => {
                 $7.49/mo
               </div>
               <div className="text-sm">
-                <span className="line-through text-purple-200">$14.99</span>
+                <span className="line-through text-primary-foreground/60">$14.99</span>
                 <span className="ml-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
                   SAVE 50%
                 </span>
@@ -94,12 +94,12 @@ export const UrgentProCTA = () => {
 
             <Button 
               onClick={handleUpgrade}
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-purple-900 font-bold py-3 text-lg shadow-lg transform hover:scale-105 transition-all"
+              className="w-full bg-yellow-400 hover:bg-yellow-500 text-foreground font-bold py-3 text-lg shadow-lg transform hover:scale-105 transition-all"
             >
               Claim Limited Offer Now →
             </Button>
             
-            <div className="text-xs text-purple-200 mt-2 text-center">
+            <div className="text-xs text-primary-foreground/60 mt-2 text-center">
               ⏰ Offer expires in 23:45:12 • No setup fees • Cancel anytime
             </div>
           </div>

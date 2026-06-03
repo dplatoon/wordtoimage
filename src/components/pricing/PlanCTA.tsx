@@ -24,9 +24,9 @@ export const PlanCTA = ({ ctaText, ctaVariant = 'default', isCurrentPlan, planNa
       size="lg"
       className={`w-full text-sm md:text-base font-semibold py-3 md:py-4 transition-all duration-200 ${
         !isCurrentPlan && ctaVariant === 'default'
-          ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl'
+          ? 'bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl'
           : isCurrentPlan
-          ? 'border-blue-500 text-blue-600 hover:bg-blue-50'
+          ? 'border-primary text-primary hover:bg-primary/10'
           : 'border-gray-300 text-gray-700 hover:bg-muted/50'
       }`}
       onClick={onCTAClick}

@@ -138,7 +138,7 @@ const PromptGuide = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50 via-white to-indigo-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-primary via-white to-accent">
       <Helmet>
         <title>AI Prompt Writing Guide – Master Text-to-Image Prompts | WordToImage</title>
         <meta name="description" content="Master AI prompt writing with our comprehensive guide. Learn techniques, see examples, and create stunning AI-generated images with professional-quality prompts." />
@@ -273,7 +273,7 @@ const PromptGuide = () => {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">
             <Book className="text-violet-600 mr-3 h-10 w-10" />
-            <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600">
+            <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
               AI Prompt Writing Guide – Master Text-to-Image Prompts
             </h1>
           </div>
@@ -298,7 +298,7 @@ const PromptGuide = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-gradient-to-r from-violet-600 to-indigo-600">
+            <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent">
               <Link to="/text-to-image">
                 <Zap className="h-5 w-5 mr-2" />
                 Try Now
@@ -386,7 +386,7 @@ const PromptGuide = () => {
 
         {/* Prompt Structure Template */}
         <div className="mb-16">
-          <div className="bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl p-8">
+          <div className="bg-gradient-to-br from-primary to-accent rounded-xl p-8">
             <h2 className="text-2xl font-bold text-foreground mb-6 text-center">Prompt Structure Template</h2>
             <div className="space-y-4">
               <div className="bg-card rounded-lg p-4 border-l-4 border-violet-500">

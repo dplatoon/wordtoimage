@@ -11,7 +11,7 @@ export function SubmitButton({ mode, isLoading }: SubmitButtonProps) {
   return (
     <Button 
       type="submit" 
-      className="w-full h-12 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-2 focus:ring-violet-500 focus:ring-offset-2" 
+      className="w-full h-12 bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-2 focus:ring-violet-500 focus:ring-offset-2" 
       disabled={isLoading}
       aria-describedby={isLoading ? "loading-status" : undefined}
     >

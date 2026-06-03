@@ -4,23 +4,23 @@ import { ArrowRight, Star, Shield, Zap } from 'lucide-react';
 
 export const PricingCTA = () => {
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-600 via-blue-700 to-purple-700 text-white">
+    <section className="py-16 bg-gradient-to-br from-primary via-primary/90 to-accent text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Transform Your Ideas into Images?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-primary-foreground/80 mb-8 max-w-3xl mx-auto">
             Join thousands of creators, marketers, and businesses already using our AI to bring their visions to life. 
             Start with our free plan and upgrade when you're ready.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-card text-blue-600 hover:bg-muted font-semibold px-8 py-4">
+            <Button size="lg" className="bg-card text-primary hover:bg-muted font-semibold px-8 py-4">
               Start Creating Free
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-4">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-4">
               View Examples
             </Button>
           </div>
@@ -31,7 +31,7 @@ export const PricingCTA = () => {
                 <Zap className="h-6 w-6 text-yellow-300" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Instant Results</h3>
-              <p className="text-blue-100 text-sm">Generate professional images in seconds, not hours</p>
+              <p className="text-primary-foreground/80 text-sm">Generate professional images in seconds, not hours</p>
             </div>
 
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
@@ -39,7 +39,7 @@ export const PricingCTA = () => {
                 <Shield className="h-6 w-6 text-green-300" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Risk-Free Trial</h3>
-              <p className="text-blue-100 text-sm">14-day money-back guarantee on all paid plans</p>
+              <p className="text-primary-foreground/80 text-sm">14-day money-back guarantee on all paid plans</p>
             </div>
 
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
@@ -47,11 +47,11 @@ export const PricingCTA = () => {
                 <Star className="h-6 w-6 text-yellow-300 fill-current" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Trusted Platform</h3>
-              <p className="text-blue-100 text-sm">Join 100,000+ satisfied creators worldwide</p>
+              <p className="text-primary-foreground/80 text-sm">Join 100,000+ satisfied creators worldwide</p>
             </div>
           </div>
 
-          <div className="mt-8 text-sm text-blue-200">
+          <div className="mt-8 text-sm text-primary-foreground/60">
             No credit card required for free plan • Cancel anytime • Secure payments
           </div>
         </div>

@@ -30,7 +30,7 @@ export function GenerationProgress({
   const currentStep = Math.floor((progress / 100) * generationSteps.length);
   
   return (
-    <Card className="border-violet-200 bg-gradient-to-r from-violet-50 to-blue-50">
+    <Card className="border-violet-200 bg-gradient-to-r from-primary to-accent">
       <CardContent className="p-6">
         <div className="space-y-4">
           {/* Header */}

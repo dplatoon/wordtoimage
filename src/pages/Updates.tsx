@@ -63,14 +63,14 @@ const Updates = () => {
         <ContentBreadcrumbs />
         
         {/* Hero Section */}
-        <section className="py-12 md:py-16 bg-gradient-to-br from-violet-50 via-white to-indigo-50">
+        <section className="py-12 md:py-16 bg-gradient-to-br from-primary via-white to-accent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <Badge className="mb-3 bg-violet-100 hover:bg-violet-100 text-violet-800 border-none">
                 Product Updates
               </Badge>
               <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-6">
-                Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Updates & Releases</span>
+                Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Updates & Releases</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Stay informed about the newest features, improvements, and fixes to WordToImage.

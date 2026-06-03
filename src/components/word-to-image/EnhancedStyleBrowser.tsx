@@ -184,7 +184,7 @@ export function EnhancedStyleBrowser({
 
       {/* Selection Summary */}
       {selectedStyles.length > 0 && (
-        <div className="bg-gradient-to-r from-violet-50 to-purple-50 border border-violet-200 rounded-xl p-6">
+        <div className="bg-gradient-to-r from-primary to-accent border border-violet-200 rounded-xl p-6">
           <div className="flex items-center justify-between">
             <div>
               <h4 className="font-semibold text-violet-900 mb-2">

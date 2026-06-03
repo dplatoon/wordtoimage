@@ -246,7 +246,7 @@ export const LeadMagnetSystem = ({
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
                 size="lg"
               >
                 {isSubmitting ? 'Sending...' : magnetData.buttonText}

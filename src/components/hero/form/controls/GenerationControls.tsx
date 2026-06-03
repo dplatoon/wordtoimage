@@ -57,7 +57,7 @@ export const GenerationControls = memo(({
           <Button
             type="button"
             variant="outline"
-            className="w-full flex items-center justify-between p-4 h-auto bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200 hover:from-purple-100 hover:to-blue-100 transition-all duration-200"
+            className="w-full flex items-center justify-between p-4 h-auto bg-gradient-to-r from-primary to-accent border-purple-200 hover:from-primary hover:to-accent transition-all duration-200"
           >
             <div className="flex items-center space-x-3">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center ${

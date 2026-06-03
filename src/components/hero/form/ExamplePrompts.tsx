@@ -120,7 +120,7 @@ export const ExamplePrompts = ({
               key={index} 
               onClick={() => onSelect(example.text)} 
               className={cn(
-                "text-left bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100",
+                "text-left bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent",
                 "border border-indigo-100 rounded-lg p-3 transition-all text-sm text-gray-700 shadow-sm"
               )}
             >

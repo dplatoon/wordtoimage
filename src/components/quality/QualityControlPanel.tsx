@@ -110,7 +110,7 @@ export function QualityControlPanel({
               size="sm"
               onClick={handleQuickOptimize}
               disabled={!prompt.trim() || isProcessing}
-              className="bg-gradient-to-r from-violet-600 to-purple-600"
+              className="bg-gradient-to-r from-primary to-accent"
             >
               <Sparkles className="h-3 w-3 mr-1" />
               Quick Optimize
@@ -200,7 +200,7 @@ export function QualityControlPanel({
           <TabsContent value="overview" className="mt-6">
             <div className="space-y-6">
               {/* Quality Overview */}
-              <div className="bg-gradient-to-r from-violet-50 to-purple-50 p-6 rounded-xl">
+              <div className="bg-gradient-to-r from-primary to-accent p-6 rounded-xl">
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-violet-600" />
                   Quality Assessment

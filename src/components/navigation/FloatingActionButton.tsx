@@ -14,7 +14,7 @@ export const FloatingActionButton = ({ to, label, className }: FloatingActionBut
     <Link
       to={to}
       className={cn(
-        "w-14 h-14 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 touch-target",
+        "w-14 h-14 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 touch-target",
         className
       )}
       aria-label={label}

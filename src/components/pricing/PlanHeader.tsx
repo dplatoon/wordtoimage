@@ -19,7 +19,7 @@ export const PlanHeader = ({ name, description, popular, badge, isCurrentPlan }:
         <div className="absolute -top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
           <Badge 
             variant="default" 
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 text-xs font-semibold"
+            className="bg-gradient-to-r from-primary to-accent text-white px-3 py-1 text-xs font-semibold"
           >
             {badge || 'Most Popular'}
           </Badge>

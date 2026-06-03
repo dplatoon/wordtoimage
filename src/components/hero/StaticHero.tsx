@@ -28,7 +28,7 @@ export const StaticHero = ({ onShowProFeatures }: StaticHeroProps) => {
         {/* Main Headline */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 sm:mb-8">
           <span className="block">Transform Your</span>
-          <span className="block mt-2 bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+          <span className="block mt-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Words Into Magic
           </span>
           <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-gray-300">
@@ -70,7 +70,7 @@ export const StaticHero = ({ onShowProFeatures }: StaticHeroProps) => {
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-10 sm:mb-12">
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold px-10 py-6 text-xl rounded-xl shadow-lg transition-all duration-300 w-full sm:w-auto" 
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white font-bold px-10 py-6 text-xl rounded-xl shadow-lg transition-all duration-300 w-full sm:w-auto" 
             asChild
           >
             <Link to="/text-to-image">

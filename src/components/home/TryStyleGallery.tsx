@@ -102,7 +102,7 @@ export const TryStyleGallery = () => {
             Try a Style
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Explore AI <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">Art Styles</span>
+            Explore AI <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Art Styles</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Click any style to instantly start creating with that artistic approach

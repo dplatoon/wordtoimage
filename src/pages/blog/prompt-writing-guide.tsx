@@ -147,7 +147,7 @@ const PromptWritingGuideBlogPost = () => {
           <div className="space-y-8">
             {promptExamples.map((example, index) => (
               <Card key={index} className="overflow-hidden shadow-lg">
-                <CardHeader className="bg-gradient-to-r from-gray-50 to-blue-50">
+                <CardHeader className="bg-gradient-to-r from-gray-50 to-accent">
                   <CardTitle className="text-xl">{example.category}</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6">
@@ -183,7 +183,7 @@ const PromptWritingGuideBlogPost = () => {
                     <Button 
                       asChild 
                       size="sm"
-                      className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+                      className="bg-gradient-to-r from-green-600 to-accent hover:from-green-700 hover:to-accent"
                     >
                       <InternalLink to="/">Try This Prompt</InternalLink>
                     </Button>
@@ -237,7 +237,7 @@ const PromptWritingGuideBlogPost = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Ready to Master AI Prompts?</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             Put these prompt writing techniques into practice and start creating amazing AI-generated images today.

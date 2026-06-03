@@ -80,7 +80,7 @@ export const PromptEngineeringGuide = () => {
         </div>
 
         <Card className="shadow-xl border-0">
-          <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+          <CardHeader className="bg-gradient-to-r from-primary to-accent text-white">
             <CardTitle className="flex items-center text-2xl">
               <BookOpen className="mr-3 h-6 w-6" />
               Complete Prompt Engineering Guide

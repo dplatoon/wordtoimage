@@ -25,8 +25,8 @@ export const HeroHeader = () => {
         className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground font-poppins mb-6 animate-fade-in"
         style={{ animationDelay: '0.2s' }}
       >
-        Turn Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Words</span> into <br className="hidden md:block" />
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Stunning Visuals</span> Instantly!
+        Turn Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Words</span> into <br className="hidden md:block" />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500">Stunning Visuals</span> Instantly!
       </h1>
       
       <p 
@@ -50,7 +50,7 @@ export const HeroHeader = () => {
       >
         <Button 
           size="lg" 
-          className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+          className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
           onClick={handleGenerateImageClick}
         >
           Create Your Image

@@ -58,7 +58,7 @@ export const ExitIntentModal = ({ isOpen, onClose }: ExitIntentModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md mx-auto bg-gradient-to-br from-purple-600 to-blue-600 text-white border-0">
+      <DialogContent className="max-w-md mx-auto bg-gradient-to-br from-primary to-accent text-white border-0">
         <DialogHeader className="relative">
           <button 
             onClick={handleClose}

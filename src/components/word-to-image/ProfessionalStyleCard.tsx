@@ -51,10 +51,10 @@ export function ProfessionalStyleCard({
   // Professional gradient fallback based on style category
   const getFallbackGradient = (category: string) => {
     const gradients = {
-      realistic: 'from-blue-400 via-purple-500 to-pink-500',
+      realistic: 'from-primary via-primary/80 to-pink-500',
       artistic: 'from-amber-400 via-orange-500 to-red-500',
-      digital: 'from-green-400 via-blue-500 to-purple-600',
-      anime: 'from-pink-400 via-purple-500 to-indigo-500'
+      digital: 'from-green-400 via-primary/80 to-accent',
+      anime: 'from-pink-400 via-primary/80 to-accent'
     };
     return gradients[category as keyof typeof gradients] || gradients.digital;
   };
@@ -64,7 +64,7 @@ export function ProfessionalStyleCard({
       className={cn(
         "cursor-pointer transition-all duration-500 hover:shadow-2xl group overflow-hidden relative backdrop-blur-sm",
         isSelected 
-          ? "ring-2 ring-violet-500 bg-gradient-to-br from-violet-50 to-purple-50 shadow-2xl transform scale-[1.02] z-10" 
+          ? "ring-2 ring-violet-500 bg-gradient-to-br from-primary to-accent shadow-2xl transform scale-[1.02] z-10" 
           : "hover:shadow-xl hover:border-violet-300 hover:-translate-y-2 hover:rotate-1"
       )}
       onClick={() => onSelect(style.id)}
@@ -129,7 +129,7 @@ export function ProfessionalStyleCard({
           {/* Professional badges with glassmorphism */}
           <div className="absolute top-3 left-3 flex gap-2 z-20">
             {style.trending && (
-              <Badge className="bg-gradient-to-r from-primary to-violet-500 text-white border-none text-xs flex items-center gap-1 shadow-lg backdrop-blur-md">
+              <Badge className="bg-gradient-to-r from-primary to-accent text-white border-none text-xs flex items-center gap-1 shadow-lg backdrop-blur-md">
                 <TrendingUp className="h-3 w-3" />
                 Trending
               </Badge>
@@ -144,7 +144,7 @@ export function ProfessionalStyleCard({
 
           {/* Premium selection indicator */}
           {isSelected && (
-            <div className="absolute top-3 right-3 w-8 h-8 bg-gradient-to-r from-violet-500 to-purple-600 rounded-full flex items-center justify-center animate-scale-in shadow-xl z-20 ring-2 ring-white">
+            <div className="absolute top-3 right-3 w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center animate-scale-in shadow-xl z-20 ring-2 ring-white">
               <Check className="h-5 w-5 text-white font-bold" />
             </div>
           )}
@@ -186,7 +186,7 @@ export function ProfessionalStyleCard({
               {style.keywords.slice(0, 2).map((keyword, index) => (
                 <span 
                   key={index}
-                  className="px-2.5 py-1 bg-gradient-to-r from-violet-100 to-purple-100 text-violet-700 text-xs rounded-full border border-violet-200 font-medium truncate max-w-20 hover:from-violet-200 hover:to-purple-200 transition-colors"
+                  className="px-2.5 py-1 bg-gradient-to-r from-primary to-accent text-violet-700 text-xs rounded-full border border-violet-200 font-medium truncate max-w-20 hover:from-primary hover:to-accent transition-colors"
                 >
                   {keyword}
                 </span>

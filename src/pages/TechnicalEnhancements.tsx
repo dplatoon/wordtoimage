@@ -34,7 +34,7 @@ const TechnicalEnhancements = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-accent/30">
       <Nav />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -178,7 +178,7 @@ const TechnicalEnhancements = () => {
               <CardContent>
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                    <div className="text-center p-6 bg-gradient-to-br from-primary to-accent rounded-lg">
                       <BarChart3 className="h-12 w-12 text-blue-600 mx-auto mb-4" />
                       <h3 className="text-lg font-semibold mb-2">Rate Limiting</h3>
                       <p className="text-muted-foreground text-sm">
@@ -202,7 +202,7 @@ const TechnicalEnhancements = () => {
                       </div>
                     </div>
 
-                    <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-violet-100 rounded-lg">
+                    <div className="text-center p-6 bg-gradient-to-br from-primary to-accent rounded-lg">
                       <Settings className="h-12 w-12 text-primary mx-auto mb-4" />
                       <h3 className="text-lg font-semibold mb-2">Performance Monitoring</h3>
                       <p className="text-muted-foreground text-sm">

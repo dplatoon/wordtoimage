@@ -42,7 +42,7 @@ export const FastHero = () => {
         {/* Main H1 Headline - SEO Optimized */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 sm:mb-8">
           <span className="block">AI Image Generator:</span>
-          <span className="block mt-2 bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+          <span className="block mt-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Transform Text Into Art
           </span>
           <span className="block mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-gray-300">
@@ -95,13 +95,13 @@ export const FastHero = () => {
                 <div className="font-semibold">Write Your Prompt</div>
                 <div className="text-sm text-muted-foreground">Describe the image you want to create</div>
               </div>
-              <div className="hidden sm:block w-8 h-0.5 bg-gradient-to-r from-violet-500 to-indigo-500"></div>
+              <div className="hidden sm:block w-8 h-0.5 bg-gradient-to-r from-primary to-accent"></div>
               <div className="flex flex-col items-center gap-3 text-center">
                 <div className="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-lg">2</div>
                 <div className="font-semibold">AI Generates Art</div>
                 <div className="text-sm text-muted-foreground">Our AI creates your unique image</div>
               </div>
-              <div className="hidden sm:block w-8 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+              <div className="hidden sm:block w-8 h-0.5 bg-gradient-to-r from-primary to-accent"></div>
               <div className="flex flex-col items-center gap-3 text-center">
                 <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">3</div>
                 <div className="font-semibold">Download & Use</div>
@@ -115,7 +115,7 @@ export const FastHero = () => {
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-10 sm:mb-12">
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold px-10 py-6 text-xl rounded-xl shadow-lg transition-all duration-300 w-full sm:w-auto" 
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white font-bold px-10 py-6 text-xl rounded-xl shadow-lg transition-all duration-300 w-full sm:w-auto" 
             asChild
           >
             <Link to="/text-to-image" onClick={handleGetStarted}>

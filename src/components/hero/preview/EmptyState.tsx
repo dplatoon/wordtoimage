@@ -5,7 +5,7 @@ export const EmptyState = () => {
   return (
     <div className="text-center px-4 sm:px-8 py-8 w-full h-full flex flex-col items-center justify-center">
       <div className="relative mb-6">
-        <div className="w-24 h-24 bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center shadow-lg border border-white/50">
+        <div className="w-24 h-24 bg-gradient-to-br from-primary via-primary/80 to-accent rounded-2xl flex items-center justify-center shadow-lg border border-white/50">
           <div className="relative">
             <Image className="h-12 w-12 text-indigo-500" />
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">

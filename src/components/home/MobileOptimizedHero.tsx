@@ -14,7 +14,7 @@ export const MobileOptimizedHero = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 text-white">
+    <section className="min-h-screen bg-gradient-to-br from-primary via-primary/80 to-pink-500 text-white">
       <div className="container mx-auto px-4 py-8 flex flex-col justify-center min-h-screen">
         {/* Hero content */}
         <div className="text-center mb-8 animate-fade-in">

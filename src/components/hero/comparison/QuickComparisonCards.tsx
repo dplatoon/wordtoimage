@@ -41,7 +41,7 @@ export const QuickComparisonCards = ({ onUpgradeClick }: QuickComparisonCardsPro
       </div>
 
       {/* Pro Plan */}
-      <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg p-4 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-br from-primary to-accent rounded-lg p-4 text-white relative overflow-hidden">
         <div className="absolute top-2 right-2">
           <Crown className="h-6 w-6 text-yellow-300" />
         </div>

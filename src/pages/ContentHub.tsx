@@ -189,7 +189,7 @@ export default function ContentHub() {
     : posts;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-white to-accent">
       <EnhancedSEOManager 
         pageContent={{
           h1: "Content Marketing Hub - AI Art & Creative Resources",
@@ -409,7 +409,7 @@ export default function ContentHub() {
         </Tabs>
 
         {/* Newsletter Signup */}
-        <Card className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white mb-12">
+        <Card className="bg-gradient-to-r from-primary to-accent text-white mb-12">
           <CardContent className="p-8 md:p-12 text-center">
             <h2 className="text-3xl font-bold mb-4">Join Our Creative Community</h2>
             <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">

@@ -96,9 +96,9 @@ export const PlanCard = ({
       <div
         className={`relative bg-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl animate-fade-in ${
           popular || isCurrentPlan 
-            ? 'ring-2 ring-blue-500 shadow-lg scale-105' 
-            : 'border border-border shadow-sm hover:border-blue-300'
-        } ${isCurrentPlan ? 'bg-gradient-to-br from-blue-50 to-indigo-50' : ''}`}
+            ? 'ring-2 ring-primary shadow-lg scale-105' 
+            : 'border border-border shadow-sm hover:border-primary/40'
+        } ${isCurrentPlan ? 'bg-gradient-to-br from-primary/10 to-accent/10' : ''}`}
         role="listitem"
       >
         {/* Header badges */}
@@ -107,7 +107,7 @@ export const PlanCard = ({
             <div className="absolute -top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
               <Badge 
                 variant="default" 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 text-xs font-semibold tracking-wide"
+                className="bg-gradient-to-r from-primary to-accent text-white px-4 py-1 text-xs font-semibold tracking-wide"
               >
                 {badge || 'Most Popular'}
               </Badge>
@@ -182,9 +182,9 @@ export const PlanCard = ({
             size="lg"
             className={`w-full text-base font-semibold py-4 transition-all duration-200 ${
               !isCurrentPlan && ctaVariant === 'default'
-                ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl'
+                ? 'bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl'
                 : isCurrentPlan
-                ? 'border-blue-500 text-blue-600 hover:bg-blue-50'
+                ? 'border-primary text-primary hover:bg-primary/10'
                 : 'border-gray-300 text-gray-700 hover:bg-muted/50'
             }`}
             onClick={handleCTAClick}

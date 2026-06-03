@@ -188,7 +188,7 @@ export const SmartOnboardingFlow = ({
 
         <Card className="border-none shadow-none">
           <CardHeader className="text-center pb-4">
-            <div className="mx-auto mb-4 p-3 bg-gradient-to-br from-purple-50 to-blue-50 rounded-full w-fit">
+            <div className="mx-auto mb-4 p-3 bg-gradient-to-br from-primary to-accent rounded-full w-fit">
               {currentStepData.icon}
             </div>
           </CardHeader>
@@ -211,7 +211,7 @@ export const SmartOnboardingFlow = ({
               {currentStepData.action && (
                 <Button 
                   onClick={() => handleAction(currentStepData.action!)}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                  className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
                   size="lg"
                 >
                   {currentStepData.action}

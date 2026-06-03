@@ -23,7 +23,7 @@ export const OptimizedFreeGeneratorHero = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-purple-50 via-white to-indigo-50 py-20 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-primary via-white to-accent py-20 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
@@ -49,7 +49,7 @@ export const OptimizedFreeGeneratorHero = () => {
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
               Create Stunning{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 AI Art
               </span>{' '}
               100% Free
@@ -83,7 +83,7 @@ export const OptimizedFreeGeneratorHero = () => {
             <Button 
               onClick={scrollToTool}
               size="lg" 
-              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
             >
               Generate Your First Image
               <ArrowRight className="ml-2 h-5 w-5" />

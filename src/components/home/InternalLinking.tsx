@@ -38,7 +38,7 @@ export const InternalLinking = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
           {linkSections.map((section, index) => (
-            <div key={index} className="bg-gradient-to-br from-violet-50 to-indigo-50 rounded-2xl p-6 border border-violet-100">
+            <div key={index} className="bg-gradient-to-br from-primary to-accent rounded-2xl p-6 border border-violet-100">
               <h3 className="text-xl font-semibold text-foreground mb-2">{section.title}</h3>
               <p className="text-muted-foreground mb-6">{section.description}</p>
               
@@ -68,7 +68,7 @@ export const InternalLinking = () => {
 
         {/* Featured Content Callout */}
         <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+          <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">Ready to Create Amazing AI Art?</h3>
             <p className="text-violet-100 mb-6 max-w-2xl mx-auto">
               Start with our free AI image generator and explore professional features with our Pro plan

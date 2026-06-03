@@ -13,7 +13,7 @@ export function GenerationFeedback({ isGenerating, generationTime }: GenerationF
       {/* Enhanced Generation Feedback */}
       {isGenerating && (
         <div 
-          className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200 animate-fade-in"
+          className="mt-6 p-4 bg-gradient-to-r from-primary to-accent rounded-lg border border-blue-200 animate-fade-in"
           role="status"
           aria-live="polite"
         >

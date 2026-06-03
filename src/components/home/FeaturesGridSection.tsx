@@ -44,7 +44,7 @@ export const FeaturesGridSection = () => {
               className="text-center p-6 rounded-xl border border-border hover:shadow-lg transition-shadow animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center mx-auto mb-4">
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">

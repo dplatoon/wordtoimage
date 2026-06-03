@@ -21,7 +21,7 @@ const STYLES: Style[] = [
     name: 'Cyberpunk',
     imageUrl: '/lovable-uploads/ba65fc79-7bc8-40f0-81b9-d5ea5bc8d35a.png',
     prompt: 'cyberpunk city with neon lights, futuristic architecture',
-    color: 'from-cyan-500 to-blue-600'
+    color: 'from-cyan-500 to-accent'
   },
   {
     id: 'anime',
@@ -35,14 +35,14 @@ const STYLES: Style[] = [
     name: 'Photorealistic',
     imageUrl: '/lovable-uploads/53e8165c-d2db-4f0c-9509-f0e76e5c179f.png',
     prompt: 'photorealistic portrait, ultra detailed',
-    color: 'from-purple-500 to-violet-600'
+    color: 'from-primary to-accent'
   },
   {
     id: 'digital_art',
     name: 'Digital Art',
     imageUrl: '/lovable-uploads/c258fc93-b285-4676-9418-c690eaa9fa60.png',
     prompt: 'digital art illustration, vibrant colors',
-    color: 'from-violet-500 to-purple-600'
+    color: 'from-primary to-accent'
   },
   {
     id: 'cinematic',
@@ -63,7 +63,7 @@ const STYLES: Style[] = [
     name: 'Fantasy',
     imageUrl: '/lovable-uploads/db49271b-8575-4763-9439-0e4d86479b29.png',
     prompt: 'fantasy artwork, magical creatures',
-    color: 'from-indigo-500 to-violet-600'
+    color: 'from-primary to-accent'
   },
   {
     id: 'watercolor',
@@ -113,7 +113,7 @@ export const AdvancedStyleGallery = () => {
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Choose Your{' '}
-            <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-pink-400 bg-clip-text text-transparent">
               Art Style
             </span>
           </h2>

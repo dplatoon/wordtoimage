@@ -9,7 +9,7 @@ export const CtaGeneratorSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-2xl p-8 md:p-12 text-white shadow-xl">
           {/* Gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-pink-500"></div>
           
           {/* Decorative elements */}
           <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-white opacity-5 -translate-x-1/2 -translate-y-1/2"></div>

@@ -17,7 +17,7 @@ export const FreeVsProComparison = ({ onUpgradeClick, className = "" }: FreeVsPr
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card className={`bg-gradient-to-r from-purple-50 to-violet-50 border-purple-200 ${className}`}>
+    <Card className={`bg-gradient-to-r from-primary to-accent border-purple-200 ${className}`}>
       <CardContent className="p-6">
         <ComparisonHeader />
         <QuickComparisonCards onUpgradeClick={onUpgradeClick} />

@@ -143,7 +143,7 @@ img.save('generated_image.png')
             <Card key={index} className="overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
+                  <div className="bg-gradient-to-r from-primary to-pink-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
                     {index + 1}
                   </div>
                   <div>
@@ -192,7 +192,7 @@ img.save('generated_image.png')
         </Card>
         
         {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Ready to Integrate AI Image Generation?</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             WordToImage.com provides seamless API integration for developers. Build advanced image generation into your applications.

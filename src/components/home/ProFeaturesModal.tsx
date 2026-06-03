@@ -22,7 +22,7 @@ export const ProFeaturesModal = ({ showModal = true, onClose }: ProFeaturesModal
         </p>
         
         <div className="space-y-4">
-          <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+          <Button className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent">
             Subscribe Now - $9.99/month
           </Button>
           

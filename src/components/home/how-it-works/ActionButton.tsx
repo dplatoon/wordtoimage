@@ -19,7 +19,7 @@ export const ActionButton = () => {
     >
       <Button 
         onClick={handleButtonClick}
-        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-blue-600 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+        className="bg-gradient-to-r from-primary to-accent hover:bg-blue-600 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
       >
         Create Your Image Now
         <ArrowRight className="ml-2 h-5 w-5" />

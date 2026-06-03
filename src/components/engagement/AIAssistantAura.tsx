@@ -154,7 +154,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
           <Card className="mb-4 bg-white shadow-lg border-purple-200 animate-fade-in">
             <CardContent className="p-3">
               <div className="flex items-start gap-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0">
                   <Bot className="h-4 w-4 text-white" />
                 </div>
                 <div className="flex-1">
@@ -179,7 +179,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
                     <Bot className="h-4 w-4 text-white" />
                   </div>
                   <div>
@@ -217,7 +217,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
                 </div>
 
                 {!user && (
-                  <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-3 border border-purple-200">
+                  <div className="bg-gradient-to-r from-primary to-accent rounded-lg p-3 border border-purple-200">
                     <p className="text-xs text-purple-700 mb-2">
                       🎁 <strong>Pro Tip:</strong> Sign up for unlimited generations and premium features!
                     </p>
@@ -231,7 +231,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
         {/* Floating Avatar */}
         <Button
           onClick={handleExpand}
-          className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 shadow-lg hover:shadow-xl transition-all duration-300 relative group"
+          className="w-14 h-14 rounded-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 relative group"
         >
           <Bot className="h-6 w-6 text-white" />
           

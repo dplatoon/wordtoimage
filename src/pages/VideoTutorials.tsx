@@ -367,7 +367,7 @@ const VideoTutorials = () => {
           </div>
 
           {/* Featured Playlist */}
-          <div className="mt-16 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl p-8">
+          <div className="mt-16 bg-gradient-to-br from-primary to-accent rounded-xl p-8">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground mb-4">
                 Complete AI Art Mastery Course

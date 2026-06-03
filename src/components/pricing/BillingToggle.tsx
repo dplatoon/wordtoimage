@@ -14,7 +14,7 @@ export const BillingToggle = ({ billingCycle, onToggle, discount = 20 }: Billing
         aria-label="Billing cycle selection"
       >
         <div
-          className={`absolute inset-1 bg-blue-600 rounded-lg shadow-sm transition-transform duration-300 ${
+          className={`absolute inset-1 bg-primary rounded-lg shadow-sm transition-transform duration-300 ${
             billingCycle === 'monthly' ? 'translate-x-0' : 'translate-x-full'
           }`}
           style={{ width: '50%' }}
@@ -23,7 +23,7 @@ export const BillingToggle = ({ billingCycle, onToggle, discount = 20 }: Billing
         
         <button
           onClick={() => onToggle('monthly')}
-          className={`relative z-10 px-6 py-3 text-sm font-medium transition-colors duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+          className={`relative z-10 px-6 py-3 text-sm font-medium transition-colors duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
             billingCycle === 'monthly' ? 'text-white' : 'text-gray-700 hover:text-foreground'
           }`}
           aria-pressed={billingCycle === 'monthly'}
@@ -34,7 +34,7 @@ export const BillingToggle = ({ billingCycle, onToggle, discount = 20 }: Billing
         
         <button
           onClick={() => onToggle('annual')}
-          className={`relative z-10 px-6 py-3 text-sm font-medium transition-colors duration-200 rounded-lg flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+          className={`relative z-10 px-6 py-3 text-sm font-medium transition-colors duration-200 rounded-lg flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
             billingCycle === 'annual' ? 'text-white' : 'text-gray-700 hover:text-foreground'
           }`}
           aria-pressed={billingCycle === 'annual'}

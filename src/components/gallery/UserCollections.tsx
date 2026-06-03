@@ -234,7 +234,7 @@ export const UserCollections = ({ selectedImages = [], onAddToCollection }: User
         
         <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+            <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent">
               <Plus className="h-4 w-4 mr-2" />
               New Collection
             </Button>
