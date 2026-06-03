@@ -13,8 +13,8 @@ interface SEOPageConfig {
 
 export const PAGE_SEO_CONFIG: Record<string, SEOPageConfig> = {
   '/': {
-    title: 'AI Image Generator – Transform Words into Stunning Images | WordToImage',
-    description: 'Instantly create beautiful AI-generated images from your text prompts. Easy, powerful, and free to try. Join 50,000+ creators using AI to transform ideas into professional visuals.',
+    title: 'WordToImage – Free AI Image Generator from Text',
+    description: 'Turn text into stunning AI art in seconds. Free AI image generator with 50+ styles. No signup required — try it now.',
     keywords: ['AI image generator', 'text to image AI', 'AI art generator', 'create AI images from text', 'free AI image maker', 'AI graphics generator', 'text-to-image converter'],
     ogImage: 'https://wordtoimage.com/og-ai-generator.jpg',
     canonical: 'https://wordtoimage.com/',
