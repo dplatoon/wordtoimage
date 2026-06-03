@@ -83,7 +83,7 @@ export const InteractiveStyleSelector = () => {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-purple-50 to-indigo-50">
+    <section className="py-16 bg-gradient-to-br from-primary to-accent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -148,7 +148,7 @@ export const InteractiveStyleSelector = () => {
 
                 {/* Hover Overlay */}
                 {hoveredStyle === style.id && (
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-600/90 via-purple-600/50 to-transparent flex items-end justify-center p-3">
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/80/50 to-transparent flex items-end justify-center p-3">
                     <Button 
                       size="sm" 
                       className="bg-card text-purple-600 hover:bg-muted font-medium"

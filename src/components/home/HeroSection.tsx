@@ -28,7 +28,7 @@ export const HeroSection = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground font-poppins mb-6 animate-fade-in">
-          Transform Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Words</span> Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Visual Magic</span>
+          Transform Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Words</span> Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500">Visual Magic</span>
         </h1>
         
         <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.3s' }}>
@@ -38,7 +38,7 @@ export const HeroSection = () => {
         <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105" 
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105" 
             asChild
           >
             <Link to="/text-to-image" onClick={handleGetStarted}>

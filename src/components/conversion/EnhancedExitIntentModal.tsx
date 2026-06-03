@@ -107,7 +107,7 @@ export const EnhancedExitIntentModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg mx-auto bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-600 text-white border-0 overflow-hidden">
+      <DialogContent className="max-w-lg mx-auto bg-gradient-to-br from-primary via-primary/80 to-accent text-white border-0 overflow-hidden">
         {/* Confetti Effect */}
         {showConfetti && (
           <div className="absolute inset-0 pointer-events-none">
@@ -189,7 +189,7 @@ export const EnhancedExitIntentModal = ({
           <div className="space-y-3">
             <Button 
               onClick={handleClaimOffer}
-              className="w-full bg-gradient-to-r from-primary to-violet-500 hover:from-primary/90 hover:to-violet-600 text-white font-bold py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+              className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent text-white font-bold py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
             >
               {offer.ctaText}
             </Button>

@@ -21,7 +21,7 @@ export const MinimalistHero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-gray-50 to-blue-50">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-gray-50 to-accent">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="animate-fade-in">
           {/* Badge */}
@@ -32,9 +32,9 @@ export const MinimalistHero = () => {
 
           {/* Main heading */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
-            Turn <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Words</span> into
+            Turn <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Words</span> into
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Art</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500">Art</span>
           </h1>
 
           {/* Subtitle */}
@@ -56,7 +56,7 @@ export const MinimalistHero = () => {
               <Button
                 onClick={handleGenerate}
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 whitespace-nowrap"
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 whitespace-nowrap"
                 disabled={!prompt.trim()}
               >
                 <Wand2 className="h-5 w-5 mr-2" />

@@ -185,7 +185,7 @@ export const ViralGrowthSystem = ({
 
           {/* Quiz result preview */}
           {type === 'quiz_share' && content.quizResult && (
-            <Card className="bg-gradient-to-br from-purple-50 to-blue-50">
+            <Card className="bg-gradient-to-br from-primary to-accent">
               <CardContent className="p-4 text-center">
                 <Badge className="mb-2" variant="secondary">
                   Style DNA Result
@@ -284,7 +284,7 @@ export const ViralGrowthSystem = ({
               <Button
                 onClick={() => handlePlatformShare('email')}
                 disabled={type === 'challenge_friend' && !friendEmail}
-                className="col-span-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                className="col-span-2 bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
               >
                 <Users className="h-4 w-4 mr-2" />
                 {type === 'challenge_friend' ? 'Send Challenge' : 'Share via Email'}

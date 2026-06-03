@@ -49,7 +49,7 @@ export const LiveActivityCounter = () => {
         <div className="space-y-3">
           {/* Images Generated Today */}
           <div className="flex items-center gap-3 text-sm">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-pink-500 rounded-full flex items-center justify-center">
               <Image className="w-4 h-4 text-white" />
             </div>
             <div>
@@ -62,7 +62,7 @@ export const LiveActivityCounter = () => {
 
           {/* Active Users */}
           <div className="flex items-center gap-3 text-sm">
-            <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center relative">
+            <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-accent rounded-full flex items-center justify-center relative">
               <Users className="w-4 h-4 text-white" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
             </div>

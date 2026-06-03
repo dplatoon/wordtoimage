@@ -62,7 +62,7 @@ export const TrustElements = () => {
           {[1, 2, 3, 4, 5].map((i) => (
             <div 
               key={i}
-              className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center text-white text-xs font-bold animate-pulse"
+              className="w-12 h-12 bg-gradient-to-br from-primary to-pink-400 rounded-lg flex items-center justify-center text-white text-xs font-bold animate-pulse"
               style={{ animationDelay: `${i * 0.2}s` }}
             >
               AI

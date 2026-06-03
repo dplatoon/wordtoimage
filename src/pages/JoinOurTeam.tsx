@@ -77,7 +77,7 @@ const JoinOurTeam = () => {
           </div>
 
           {/* Company Values */}
-          <div className="mb-16 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl p-8">
+          <div className="mb-16 bg-gradient-to-br from-primary to-accent rounded-xl p-8">
             <h2 className="text-2xl font-bold text-foreground mb-6 text-center">Why WordToImage?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">

@@ -29,7 +29,7 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
   return (
     <div className="mb-6 animate-fade-in">
       {loading && (
-        <div className="mb-4 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-3 border border-indigo-100 shadow-sm">
+        <div className="mb-4 bg-gradient-to-br from-primary to-accent rounded-lg p-3 border border-indigo-100 shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
               <div className="h-4 w-4 border-2 border-indigo-200 border-b-indigo-600 rounded-full animate-spin mr-2"></div>
@@ -69,7 +69,7 @@ export const GenerateSection = ({ loading, progress, onGenerate, disabled }: Gen
           disabled={disabled || loading} 
           className={cn(
             "w-full md:w-auto",
-            disabled ? 'bg-gray-400' : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-purple-600',
+            disabled ? 'bg-gray-400' : 'bg-gradient-to-r from-primary via-primary/80 to-accent',
             'px-6 py-6 h-auto rounded-xl shadow-md hover:shadow-lg transition-all'
           )}
         >

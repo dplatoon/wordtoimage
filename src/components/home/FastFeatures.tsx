@@ -7,13 +7,13 @@ export const FastFeatures = () => {
       icon: Sparkles,
       title: "AI-Powered Creation",
       description: "Advanced machine learning algorithms transform your text descriptions into stunning visual artwork with remarkable accuracy and artistic flair.",
-      gradient: "from-violet-500 to-purple-500"
+      gradient: "from-primary to-accent"
     },
     {
       icon: Zap,
       title: "Lightning Fast Results",
       description: "Generate professional-quality images in just 3 seconds. Our optimized AI infrastructure delivers exceptional speed without compromising quality.",
-      gradient: "from-blue-500 to-indigo-500"
+      gradient: "from-primary to-accent"
     },
     {
       icon: Palette,
@@ -31,7 +31,7 @@ export const FastFeatures = () => {
       icon: Shield,
       title: "Commercial Rights Included",
       description: "Full commercial usage rights with every generated image. Use for marketing, products, websites, and any business purpose without restrictions.",
-      gradient: "from-purple-500 to-violet-600"
+      gradient: "from-primary to-accent"
     },
     {
       icon: Globe,
@@ -91,7 +91,7 @@ export const FastFeatures = () => {
 
         {/* Additional Content Section */}
         <div className="mt-20">
-          <div className="bg-gradient-to-r from-violet-50 to-indigo-50 rounded-3xl p-8 md:p-12">
+          <div className="bg-gradient-to-r from-primary to-accent rounded-3xl p-8 md:p-12">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
                 Perfect for Every Creative Project

@@ -22,7 +22,7 @@ export const ModernAIHero = () => {
   ];
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-primary/80 to-accent text-white overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -32,13 +32,13 @@ export const ModernAIHero = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
         {/* Hero header */}
         <div className="text-center mb-12 animate-fade-in">
-          <Badge className="mb-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-none px-6 py-2 text-lg">
+          <Badge className="mb-6 bg-gradient-to-r from-primary to-accent text-white border-none px-6 py-2 text-lg">
             <Sparkles className="h-5 w-5 mr-2" />
             Next-Gen AI Technology
           </Badge>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-accent">
               AI-Powered
             </span>
             <br />
@@ -79,7 +79,7 @@ export const ModernAIHero = () => {
               <Button
                 onClick={handleGenerate}
                 size="lg"
-                className="h-14 px-8 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold"
+                className="h-14 px-8 bg-gradient-to-r from-cyan-500 to-accent hover:from-cyan-600 hover:to-accent text-white font-semibold"
                 disabled={!prompt.trim()}
               >
                 <Wand2 className="h-5 w-5 mr-2" />
@@ -92,7 +92,7 @@ export const ModernAIHero = () => {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+              className="bg-gradient-to-r from-primary to-pink-500 hover:from-primary hover:to-pink-600 text-white"
             >
               <Play className="h-5 w-5 mr-2" />
               Watch Demo
@@ -137,7 +137,7 @@ export const ModernAIHero = () => {
               className="text-center p-6 bg-white/5 backdrop-blur rounded-xl border border-white/10 animate-fade-in"
               style={{ animationDelay: `${0.4 + index * 0.1}s` }}
             >
-              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-accent rounded-full flex items-center justify-center mx-auto mb-4">
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
               <h3 className="font-semibold mb-2">{feature.title}</h3>

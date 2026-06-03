@@ -53,7 +53,7 @@ export const MobileOptimizedNav = () => {
       <header className="md:hidden fixed top-0 left-0 right-0 z-50 glass-card-dark safe-top">
         <div className="flex items-center justify-between px-4 h-14">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
               <Sparkles className="h-5 w-5 text-white" />
             </div>
             <span className="font-bold text-lg text-white">WordToImage</span>
@@ -129,7 +129,7 @@ export const MobileOptimizedNav = () => {
                   {item.icon && <item.icon className="h-5 w-5" />}
                   <span className="flex-1">{item.label}</span>
                   {item.badge && (
-                    <span className="px-2 py-0.5 text-xs font-bold bg-gradient-to-r from-violet-500 to-indigo-500 text-white rounded-full">
+                    <span className="px-2 py-0.5 text-xs font-bold bg-gradient-to-r from-primary to-accent text-white rounded-full">
                       {item.badge}
                     </span>
                   )}
@@ -144,7 +144,7 @@ export const MobileOptimizedNav = () => {
                   to="/dashboard"
                   className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                     <User className="h-5 w-5 text-white" />
                   </div>
                   <div>

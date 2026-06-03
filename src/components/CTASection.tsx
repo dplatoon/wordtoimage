@@ -74,7 +74,7 @@ export const CTASection = () => {
   return (
     <section className="py-16 md:py-24" aria-label="Call to Action">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 to-purple-600 py-16 px-6 sm:py-24 sm:px-12 shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent py-16 px-6 sm:py-24 sm:px-12 shadow-xl">
           {/* Decorative elements - hidden from screen readers */}
           <div className="absolute top-1/3 left-0 opacity-10" aria-hidden="true">
             <PenTool className="h-64 w-64 text-white" />
@@ -154,7 +154,7 @@ export const CTASection = () => {
             <div className="mt-12 flex items-center justify-center">
               <div className="flex -space-x-2 mr-3">
                 {[...Array(5)].map((_, i) => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 border-white/30 bg-gradient-to-br from-blue-300 to-purple-300"></div>
+                  <div key={i} className="w-8 h-8 rounded-full border-2 border-white/30 bg-gradient-to-br from-primary to-accent"></div>
                 ))}
               </div>
               <span className="text-white/90 text-sm">

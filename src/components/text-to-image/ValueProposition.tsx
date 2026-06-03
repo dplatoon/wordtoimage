@@ -41,7 +41,7 @@ export function ValueProposition({ className }: ValuePropositionProps) {
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-emerald-50 to-blue-50 border border-emerald-200 rounded-xl p-4 mb-6"
+        className="bg-gradient-to-r from-emerald-50 to-accent border border-emerald-200 rounded-xl p-4 mb-6"
       >
         <div className="flex items-center justify-center gap-2">
           <Gift className="h-5 w-5 text-emerald-600" />

@@ -166,11 +166,11 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
       <Card className="w-full max-w-2xl mx-auto">
         <CardHeader className="text-center pb-4">
           <div className="flex items-center justify-center mb-4">
-            <div className="p-3 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full">
+            <div className="p-3 bg-gradient-to-r from-primary to-accent rounded-full">
               <Sparkles className="h-8 w-8 text-purple-600" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Your Style DNA Results
           </CardTitle>
           <CheckCircle className="h-6 w-6 text-green-500 mx-auto mt-2" />
@@ -202,7 +202,7 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4">
+          <div className="bg-gradient-to-r from-primary to-accent rounded-lg p-4">
             <h4 className="font-medium text-foreground mb-2">🎨 Your Perfect Design Mix:</h4>
             <p className="text-sm text-muted-foreground">
               Primary: <strong>{styleProfiles[profile.primaryStyle as keyof typeof styleProfiles].name}</strong> • 
@@ -211,7 +211,7 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
           </div>
 
           <div className="flex gap-3">
-            <Button onClick={handleComplete} className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+            <Button onClick={handleComplete} className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent">
               <Palette className="h-4 w-4 mr-2" />
               Generate My Perfect Room
             </Button>

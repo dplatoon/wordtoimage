@@ -86,7 +86,7 @@ export const HeroPromptInput = () => {
               
               <AnimatedButton
                 onClick={handleGenerate}
-                className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold py-6 text-lg rounded-xl shadow-lg transition-all duration-300"
+                className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white font-bold py-6 text-lg rounded-xl shadow-lg transition-all duration-300"
                 successMessage="Redirecting..."
                 loadingText="Preparing..."
               >
@@ -121,7 +121,7 @@ export const HeroPromptInput = () => {
               </div>
               
               {/* Result Preview */}
-              <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-violet-900/20 to-indigo-900/20">
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
                 <img
                   src={ANIMATED_RESULTS[currentResult]}
                   alt="AI generated preview"

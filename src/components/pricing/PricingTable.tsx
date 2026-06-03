@@ -46,7 +46,7 @@ export function PricingTable() {
         "Commercial usage"
       ],
       ctaText: "Choose Standard",
-      ctaColor: "bg-blue-600 hover:bg-blue-700 text-white",
+      ctaColor: "bg-primary hover:bg-primary/90 text-primary-foreground",
       productId: "prod_SGdyRu7i1RabBb"
     },
     {
@@ -61,7 +61,7 @@ export function PricingTable() {
       ],
       popular: true,
       ctaText: "Choose Pro",
-      ctaColor: "bg-blue-600 hover:bg-blue-700 text-white",
+      ctaColor: "bg-primary hover:bg-primary/90 text-primary-foreground",
       productId: "prod_SEe2MxYit85qLo"
     },
     {
@@ -75,7 +75,7 @@ export function PricingTable() {
         "Extended API access"
       ],
       ctaText: "Contact Sales",
-      ctaColor: "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white",
+      ctaColor: "bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white",
       productId: "prod_SEe3iHfdBt84EE"
     }
   ];
@@ -101,11 +101,11 @@ export function PricingTable() {
           <div 
             key={index}
             className={`bg-card rounded-xl shadow-md overflow-hidden border ${
-              plan.popular ? 'border-blue-500 ring-2 ring-blue-500 ring-opacity-50' : 'border-border'
+              plan.popular ? 'border-primary ring-2 ring-primary ring-opacity-50' : 'border-border'
             }`}
           >
             {plan.popular && (
-              <div className="bg-blue-500 text-white text-center py-1 text-xs font-medium">
+              <div className="bg-primary text-primary-foreground text-center py-1 text-xs font-medium">
                 Most Popular
               </div>
             )}

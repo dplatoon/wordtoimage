@@ -49,7 +49,7 @@ const FutureAIImageGeneration = () => {
       
       {/* CTA Section */}
       <div className="max-w-4xl mx-auto px-4 mb-16">
-        <div className="text-center bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Experience the Future Today</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             Stay ahead of the curve with WordToImage.com's cutting-edge AI technology.

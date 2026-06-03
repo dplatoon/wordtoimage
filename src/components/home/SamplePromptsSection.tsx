@@ -103,7 +103,7 @@ export const SamplePromptsSection = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-accent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">

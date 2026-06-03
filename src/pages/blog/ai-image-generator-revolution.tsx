@@ -103,7 +103,7 @@ const AIImageGeneratorRevolution = () => {
         traditional barriers between imagination and creation, allowing anyone with an idea to produce professional-quality visuals instantly.
       </p>
 
-      <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6 my-8">
+      <div class="bg-gradient-to-r from-primary to-accent border border-blue-200 rounded-lg p-6 my-8">
         <p class="font-semibold text-blue-900 mb-2">🚀 Industry Impact:</p>
         <ul class="text-blue-800 space-y-2">
           <li>• Democratized access to high-quality visual content creation</li>
@@ -153,7 +153,7 @@ const AIImageGeneratorRevolution = () => {
             <Card key={index} className="overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">
+                  <div className="bg-gradient-to-r from-primary to-accent text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">
                     {step.number}
                   </div>
                   <div>
@@ -181,7 +181,7 @@ const AIImageGeneratorRevolution = () => {
         </div>
         
         {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Join the Creative Revolution</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             Discover why WordToImage.com is the leading platform for AI-generated visuals. Start creating extraordinary images today!

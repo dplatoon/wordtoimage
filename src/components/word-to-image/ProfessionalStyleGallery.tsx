@@ -44,7 +44,7 @@ export function ProfessionalStyleGallery({
       {/* Professional header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center">
-          <div className="w-12 h-12 bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg mr-4">
+          <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg mr-4">
             <Palette className="w-6 h-6 text-white" />
           </div>
           <div>
@@ -55,7 +55,7 @@ export function ProfessionalStyleGallery({
 
         {/* Selection summary */}
         {selectedStyles.length > 0 && (
-          <div className="bg-gradient-to-r from-violet-50 to-purple-50 border border-violet-200 rounded-xl p-4">
+          <div className="bg-gradient-to-r from-primary to-accent border border-violet-200 rounded-xl p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <Sparkles className="w-5 h-5 text-violet-600 mr-2" />
@@ -65,7 +65,7 @@ export function ProfessionalStyleGallery({
               </div>
               <Button 
                 onClick={() => onGenerateWithStyles(selectedStyles)}
-                className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 <Sparkles className="w-4 h-4 mr-2" />
                 Generate with Styles
@@ -120,7 +120,7 @@ export function ProfessionalStyleGallery({
             className={cn(
               "transition-all duration-200",
               selectedCategory === 'all' 
-                ? 'bg-gradient-to-r from-violet-500 to-purple-600 text-white shadow-lg' 
+                ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
                 : 'hover:bg-violet-50 hover:border-violet-300'
             )}
           >
@@ -135,7 +135,7 @@ export function ProfessionalStyleGallery({
               className={cn(
                 "transition-all duration-200 capitalize",
                 selectedCategory === category.id 
-                  ? 'bg-gradient-to-r from-violet-500 to-purple-600 text-white shadow-lg' 
+                  ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
                   : 'hover:bg-violet-50 hover:border-violet-300'
               )}
             >

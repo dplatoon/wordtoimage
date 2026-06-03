@@ -32,7 +32,7 @@ export function PromptInput({
         Image Description
       </label>
       
-      <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 p-1 rounded-xl shadow-sm">
+      <div className="bg-gradient-to-r from-primary via-primary/80 to-accent p-1 rounded-xl shadow-sm">
         <Textarea 
           id="image-prompt"
           value={prompt} 

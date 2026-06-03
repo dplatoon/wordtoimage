@@ -50,7 +50,7 @@ export const GallerySection = () => {
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white" aria-labelledby="gallery-section-title">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <header className="text-center mb-12 animate-fade-in">
-            <h2 id="gallery-section-title" className="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+            <h2 id="gallery-section-title" className="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
               AI Image Gallery
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
@@ -69,7 +69,7 @@ export const GallerySection = () => {
                 {/* Trending Badge */}
                 {image.style && trendingStyles.includes(image.style) && (
                   <div className="absolute top-3 left-3 z-10">
-                    <div className="bg-gradient-to-r from-primary to-violet-500 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                    <div className="bg-gradient-to-r from-primary to-accent text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
                       <TrendingUp className="h-3 w-3" />
                       Hot
                     </div>
@@ -107,7 +107,7 @@ export const GallerySection = () => {
           </div>
           
           <div className="text-center mt-10">
-            <Button variant="default" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md" asChild>
+            <Button variant="default" className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white shadow-md" asChild>
               <Link to="/text-to-image">
                 <Download className="mr-2 h-5 w-5" />
                 Create Your Own AI Art

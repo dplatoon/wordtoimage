@@ -52,7 +52,7 @@ export const DemoMode = ({ onDemoGenerate, isGenerating }: DemoModeProps) => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200 mb-6">
+    <div className="bg-gradient-to-r from-primary to-accent rounded-xl p-6 border border-blue-200 mb-6">
       <div className="text-center mb-4">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Play className="h-5 w-5 text-blue-600" />

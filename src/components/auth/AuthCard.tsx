@@ -16,7 +16,7 @@ export function AuthCard({ defaultTab, isLoading, setIsLoading }: AuthCardProps)
     <div className="w-full max-w-md">
       <Card className="shadow-2xl border-0 bg-card/90 backdrop-blur-md relative overflow-hidden">
         {/* Subtle decorative background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-violet-50/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-violet-50/30 pointer-events-none" />
         
         <CardHeader className="space-y-3 pb-6 text-center relative z-10">
           {/* Security indicator */}

@@ -65,7 +65,7 @@ export function SingleImageTab({
           type="submit"
           disabled={!prompt.trim() || isGenerating || prompt.trim().length < 10}
           className={cn(
-            "w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold shadow-lg transition-all duration-200",
+            "w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white font-semibold shadow-lg transition-all duration-200",
             isMobile ? "py-4 text-base h-14 mt-6" : "py-6 text-lg h-16 mt-8"
           )}
         >

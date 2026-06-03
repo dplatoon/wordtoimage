@@ -106,7 +106,7 @@ const OnboardingDemo = () => {
       triggerTutorial={demoState.tutorialType}
       userActivity={demoState.userActivity}
     >
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+      <div className="min-h-screen bg-gradient-to-br from-primary to-accent">
         <Nav />
         
         <main className="container mx-auto px-4 py-8 space-y-8">
@@ -157,7 +157,7 @@ const OnboardingDemo = () => {
                 ))}
               </div>
 
-              <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+              <Card className="bg-gradient-to-r from-primary to-accent text-white">
                 <CardContent className="p-8 text-center">
                   <Lightbulb className="h-12 w-12 mx-auto mb-4" />
                   <h2 className="text-2xl font-bold mb-2">Smart Adaptive System</h2>
@@ -304,7 +304,7 @@ const OnboardingDemo = () => {
                   <CardContent className="p-6 text-center">
                     <Button 
                       size="lg" 
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                      className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
                     >
                       <Palette className="h-5 w-5 mr-2" />
                       Generate AI Image
@@ -314,7 +314,7 @@ const OnboardingDemo = () => {
                 </Card>
 
                 <div data-tutorial="generated-image" className="md:col-span-2">
-                  <Card className="bg-gradient-to-br from-purple-50 to-blue-50">
+                  <Card className="bg-gradient-to-br from-primary to-accent">
                     <CardContent className="p-8 text-center">
                       <div className="w-64 h-64 mx-auto bg-muted rounded-lg flex items-center justify-center mb-4">
                         <Palette className="h-16 w-16 text-muted-foreground" />

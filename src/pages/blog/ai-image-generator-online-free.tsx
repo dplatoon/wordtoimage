@@ -107,7 +107,7 @@ const AIImageGeneratorOnlineFree = () => {
             <Card key={index} className="relative overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                  <div className="bg-gradient-to-r from-primary to-accent text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
                     {step.number}
                   </div>
                   <div>
@@ -142,7 +142,7 @@ const AIImageGeneratorOnlineFree = () => {
         </div>
         
         {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Simplify Your Creative Workflow</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             Transform your ideas into stunning visuals in seconds. Start creating with WordToImage.com today!

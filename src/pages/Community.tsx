@@ -165,7 +165,7 @@ const Community = () => {
           
           <Button 
             onClick={() => setIsCreatePostModalOpen(true)}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
             <PlusCircle className="h-5 w-5 mr-2" />
             {t('community_page.create_post')}

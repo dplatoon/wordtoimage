@@ -39,9 +39,9 @@ export const PremiumFeatureGate = ({
   }
 
   return (
-    <Card className="border-2 border-dashed border-gray-300 bg-gradient-to-br from-purple-50 to-blue-50">
+    <Card className="border-2 border-dashed border-gray-300 bg-gradient-to-br from-primary to-accent">
       <CardHeader className="text-center">
-        <div className="mx-auto mb-2 p-3 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full w-fit">
+        <div className="mx-auto mb-2 p-3 bg-gradient-to-br from-primary to-accent rounded-full w-fit">
           <Crown className="h-6 w-6 text-purple-600" />
         </div>
         <CardTitle className="flex items-center justify-center gap-2">
@@ -64,7 +64,7 @@ export const PremiumFeatureGate = ({
         <div className="space-y-2">
           <Button 
             onClick={() => upgradeToPlane(requiredPlan)}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+            className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
           >
             <Sparkles className="mr-2 h-4 w-4" />
             Upgrade to {requiredPlan.charAt(0).toUpperCase() + requiredPlan.slice(1)}

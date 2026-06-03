@@ -40,13 +40,13 @@ export function EnhancedPromptInput({
             "relative overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl",
             isMobile ? "w-full py-4 text-lg" : "px-12 py-4 text-lg",
             isReady && !isGenerating
-              ? "bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-700 hover:via-purple-700 hover:to-indigo-700 text-white scale-100 hover:scale-105"
+              ? "bg-gradient-to-r from-primary via-primary/80 to-accent hover:from-primary hover:via-primary/80 hover:to-accent text-white scale-100 hover:scale-105"
               : "bg-gray-300 text-muted-foreground cursor-not-allowed"
           )}
         >
           {/* Background gradient animation */}
           {isReady && !isGenerating && (
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-violet-600 to-blue-600 opacity-0 hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-accent opacity-0 hover:opacity-100 transition-opacity duration-300" />
           )}
           
           {/* Button content */}

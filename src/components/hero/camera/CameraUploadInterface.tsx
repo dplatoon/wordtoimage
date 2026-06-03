@@ -21,7 +21,7 @@ export const CameraUploadInterface = ({
   const isMobile = useIsMobile();
 
   return (
-    <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
+    <Card className="bg-gradient-to-r from-primary to-accent border-purple-200">
       <CardContent className="p-6">
         <div className="text-center">
           <div className="flex justify-center mb-4">

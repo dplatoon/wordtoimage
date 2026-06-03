@@ -130,7 +130,7 @@ const AIArtStylesBlogPost = () => {
                 
                 <Button 
                   asChild 
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
                 >
                   <InternalLink to="/">Try This Style</InternalLink>
                 </Button>
@@ -140,7 +140,7 @@ const AIArtStylesBlogPost = () => {
         </div>
         
         {/* Tips Section */}
-        <div className="mt-16 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8">
+        <div className="mt-16 bg-gradient-to-r from-primary to-accent rounded-xl p-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Tips for Better AI Art Results</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
@@ -168,7 +168,7 @@ const AIArtStylesBlogPost = () => {
         </div>
         
         {/* CTA Section */}
-        <div className="text-center mt-16 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center mt-16 bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Ready to Create Your Masterpiece?</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             Start experimenting with these AI art styles today. Create stunning visuals in seconds with our powerful AI image generator.

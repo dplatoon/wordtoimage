@@ -10,14 +10,14 @@ const features = [
     icon: Sparkles,
     title: "AI-Powered Creation",
     description: "Our advanced neural networks understand context, lighting, composition, and artistic style to transform your text descriptions into stunning visuals with remarkable accuracy. Simply type what you want to see in natural language.",
-    gradient: "from-violet-500 to-purple-600",
+    gradient: "from-primary to-accent",
     bgGlow: "violet"
   },
   {
     icon: Zap,
     title: "Lightning Fast Generation",
     description: "Generate professional-quality images in just 2-3 seconds with our optimized cloud AI infrastructure. Perfect for content creators who need images fast for social media posts, marketing campaigns, and blog articles.",
-    gradient: "from-purple-500 to-violet-600",
+    gradient: "from-primary to-accent",
     bgGlow: "amber"
   },
   {
@@ -31,7 +31,7 @@ const features = [
     icon: Download,
     title: "4K Resolution Downloads",
     description: "Download crisp, high-resolution images up to 4096×4096 pixels, perfect for professional use, print materials, posters, and large format displays. Multiple export formats including PNG, JPG, and WebP.",
-    gradient: "from-cyan-500 to-blue-600",
+    gradient: "from-cyan-500 to-accent",
     bgGlow: "cyan"
   },
   {
@@ -45,7 +45,7 @@ const features = [
     icon: Globe,
     title: "Free Daily Credits",
     description: "Start creating immediately with free daily credits. No credit card required and no signup needed to begin generating. Great for entrepreneurs, marketers, bloggers, and anyone who needs stunning visuals.",
-    gradient: "from-indigo-500 to-violet-600",
+    gradient: "from-primary to-accent",
     bgGlow: "indigo"
   }
 ];
@@ -70,7 +70,7 @@ export const AdvancedFeatures = () => {
     <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       {/* Enhanced Background with Parallax Layers */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-violet-900/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
         
         {/* Parallax floating shapes */}
         <motion.div
@@ -105,7 +105,7 @@ export const AdvancedFeatures = () => {
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
             Everything You Need to{' '}
-            <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Create Amazing Art
             </span>
           </h2>
@@ -156,8 +156,8 @@ export const AdvancedFeatures = () => {
           className="mt-20"
         >
           <div className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-violet-600/20 via-purple-600/20 to-indigo-600/20" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-violet-500/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary/80/20 to-accent/20" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
             
             <div className="relative px-6 py-12 md:px-12 md:py-16 text-center">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">

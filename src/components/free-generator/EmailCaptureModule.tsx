@@ -61,12 +61,12 @@ export const EmailCaptureModule = () => {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-br from-purple-50 to-indigo-50">
+    <section className="py-16 bg-gradient-to-br from-primary to-accent">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Card className="shadow-2xl border-0 bg-white overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Left side - Preview */}
-            <div className="bg-gradient-to-br from-purple-600 to-indigo-600 p-8 text-white">
+            <div className="bg-gradient-to-br from-primary to-accent p-8 text-white">
               <div className="space-y-6">
                 <div className="flex items-center">
                   <Download className="w-8 h-8 mr-3" />
@@ -165,7 +165,7 @@ export const EmailCaptureModule = () => {
                   
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold py-4 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                    className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white font-semibold py-4 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                   >
                     <Download className="mr-2 h-5 w-5" />
                     Get Prompt Library (Free!)

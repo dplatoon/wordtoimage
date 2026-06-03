@@ -111,7 +111,7 @@ const BestFreeAIImageGenerators = () => {
                 </div>
                 
                 {index === 0 && (
-                  <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-purple-600">
+                  <Button asChild className="w-full bg-gradient-to-r from-primary to-accent">
                     <InternalLink to="/">Try WordToImage.com Now</InternalLink>
                   </Button>
                 )}
@@ -121,7 +121,7 @@ const BestFreeAIImageGenerators = () => {
         </div>
         
         {/* CTA Section */}
-        <div className="text-center mt-16 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div className="text-center mt-16 bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-4">Start Creating Amazing Images Today</h2>
           <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
             Join thousands of creators who are already using AI to bring their ideas to life. Start your creative journey now!

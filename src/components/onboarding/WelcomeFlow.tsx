@@ -250,7 +250,7 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
         <div className="py-6">
           {currentStepData.type === 'welcome' && (
             <div className="text-center space-y-6">
-              <div className="mx-auto p-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-full w-fit">
+              <div className="mx-auto p-4 bg-gradient-to-br from-primary to-accent rounded-full w-fit">
                 {currentStepData.icon}
               </div>
               <p className="text-muted-foreground text-lg leading-relaxed">
@@ -327,12 +327,12 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
 
           {currentStepData.type === 'completion' && (
             <div className="text-center space-y-6">
-              <div className="mx-auto p-4 bg-gradient-to-br from-green-50 to-blue-50 rounded-full w-fit">
+              <div className="mx-auto p-4 bg-gradient-to-br from-green-50 to-accent rounded-full w-fit">
                 {currentStepData.icon}
               </div>
               <p className="text-muted-foreground text-lg">{currentStepData.description}</p>
               
-              <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg">
+              <div className="bg-gradient-to-r from-primary to-accent p-6 rounded-lg">
                 <h3 className="font-semibold text-lg mb-4">Your Personalized Setup:</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   <div>
@@ -369,7 +369,7 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
               <Button 
                 onClick={handleNext}
                 disabled={!canProceed()}
-                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                className="flex items-center gap-2 bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
               >
                 Next
                 <ArrowRight className="h-4 w-4" />
@@ -377,7 +377,7 @@ export const WelcomeFlow = ({ isOpen, onClose, onComplete }: WelcomeFlowProps) =
             ) : (
               <Button 
                 onClick={handleComplete}
-                className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+                className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-accent hover:from-green-700 hover:to-accent"
               >
                 Get Started
                 <CheckCircle className="h-4 w-4" />

@@ -122,7 +122,7 @@ export const ProgressTracker = ({ userActivity = {} }: ProgressTrackerProps) => 
   }
 
   return (
-    <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200">
+    <Card className="bg-gradient-to-br from-primary to-accent border-blue-200">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold text-foreground">
@@ -211,7 +211,7 @@ export const ProgressTracker = ({ userActivity = {} }: ProgressTrackerProps) => 
 
         {/* Completion Celebration */}
         {completedSteps === steps.length && (
-          <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4 rounded-lg text-center">
+          <div className="bg-gradient-to-r from-green-500 to-accent text-white p-4 rounded-lg text-center">
             <Trophy className="h-8 w-8 mx-auto mb-2" />
             <h3 className="font-bold">Congratulations! 🎉</h3>
             <p className="text-sm opacity-90">You've completed your onboarding journey!</p>

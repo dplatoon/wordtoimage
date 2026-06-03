@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 
 export const BetaCTA = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+    <section className="py-20 bg-gradient-to-br from-primary to-accent text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Shape the Future?</h2>
         <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
