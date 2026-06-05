@@ -8,8 +8,8 @@ export class WebVitalsMonitor {
     if (typeof window === 'undefined') return;
 
     try {
-      // Enhanced LCP monitoring
-      new PerformanceObserver((entryList) => {
+      // Enhanced LCP monitoring — stops after first interaction or tab hide (per Web Vitals spec)
+      const lcpObserver = new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries();
         const lastEntry = entries[entries.length - 1] as any;
         const lcp = Math.round(lastEntry.startTime);
@@ -26,7 +26,11 @@ export class WebVitalsMonitor {
             '• Preload critical resources'
           ].join('\n'));
         }
-      }).observe({ entryTypes: ['largest-contentful-paint'] });
+      });
+      lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+      const stopLcp = () => { try { lcpObserver.takeRecords(); lcpObserver.disconnect(); } catch {} };
+      ['keydown', 'click', 'pointerdown'].forEach(e => addEventListener(e, stopLcp, { once: true, capture: true }));
+      addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') stopLcp(); }, { once: true });
 
       // Enhanced FID monitoring
       new PerformanceObserver((entryList) => {
