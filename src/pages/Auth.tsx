@@ -133,7 +133,7 @@ export default function Auth() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-accent relative overflow-hidden">
+    <div className="min-h-dvh bg-gradient-to-br from-slate-50 via-white to-accent relative overflow-hidden">
       <AuthBackground />
 
       {/* Skip link for accessibility */}
@@ -144,7 +144,7 @@ export default function Auth() {
         Skip to main content
       </a>
 
-      <div className="relative z-10 container flex items-center justify-center min-h-screen py-12 px-4">
+      <div className="relative z-10 container flex items-center justify-center min-h-dvh py-12 px-4">
         <main id="main-content" className="w-full flex flex-col items-center space-y-2">
           <AuthHeader />
           <AuthCard 

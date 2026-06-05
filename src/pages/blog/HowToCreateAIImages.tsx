@@ -12,7 +12,7 @@ const HowToCreateAIImages = () => {
     <>
       <SEOManager />
       
-      <article className="min-h-screen bg-background relative overflow-hidden">
+      <article className="min-h-dvh bg-background relative overflow-hidden">
         <ToolPageBackground variant="coral" />
         
         {/* Article Header */}

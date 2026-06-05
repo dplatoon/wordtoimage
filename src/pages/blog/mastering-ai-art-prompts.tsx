@@ -51,7 +51,7 @@ const MasteringAIArtPrompts = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />

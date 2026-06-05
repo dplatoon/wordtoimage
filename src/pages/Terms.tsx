@@ -7,7 +7,7 @@ const Terms = () => {
   const lastUpdated = "June 3, 2025";
   
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <PageSEO
         title="Terms of Service - WordToImage AI Generator"
         description="Read WordToImage's Terms of Service. Learn about our user agreement, intellectual property rights, and terms for using our AI image generation platform."

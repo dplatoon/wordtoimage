@@ -36,7 +36,7 @@ const Careers = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-dvh bg-background relative">
       <ToolPageBackground variant="amber" />
       
       <PageSEO

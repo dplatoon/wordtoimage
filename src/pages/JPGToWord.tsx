@@ -50,7 +50,7 @@ export default function JPGToWord() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-dvh flex flex-col bg-background">
       <ToolPageBackground variant="cyan" />
 
       <Helmet>

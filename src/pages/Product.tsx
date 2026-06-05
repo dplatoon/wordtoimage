@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 
 const Product = () => {
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-dvh bg-background relative">
       <ToolPageBackground variant="primary" />
       
       <SEOManager customConfig={{

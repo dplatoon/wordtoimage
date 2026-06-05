@@ -7,7 +7,7 @@ const Cookies = () => {
   const lastUpdated = "June 3, 2025";
   
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <PageSEO
         title="Cookie Policy - WordToImage AI Generator"
         description="Learn about WordToImage's cookie usage. Our cookie policy explains how we use cookies and similar technologies to improve your experience with our AI image generator."

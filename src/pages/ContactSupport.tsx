@@ -10,7 +10,7 @@ import { SEOManager } from '@/components/seo/SEOManager';
 
 const ContactSupport = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <SEOManager customConfig={{
         title: "Contact Support - Get Help with WordToImage",
         description: "Get support for WordToImage. Contact our team for technical help, billing questions, or general inquiries. Fast response times guaranteed.",

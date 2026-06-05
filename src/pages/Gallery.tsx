@@ -74,7 +74,7 @@ const Gallery = () => {
         <meta name="description" content="Discover and explore a curated collection of stunning AI-generated artwork. Get inspired and create your own masterpieces." />
       </Helmet>
 
-      <div className="min-h-screen bg-background relative">
+      <div className="min-h-dvh bg-background relative">
         <ToolPageBackground variant="primary" />
         <Nav />
         

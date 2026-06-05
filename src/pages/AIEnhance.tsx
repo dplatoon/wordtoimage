@@ -33,7 +33,7 @@ export default function AIEnhance() {
         <link rel="canonical" href="https://wordtoimage.com/ai-enhance" />
       </Helmet>
 
-      <main className="min-h-screen bg-background">
+      <main className="min-h-dvh bg-background">
         {/* Header */}
         <div className="border-b bg-background/95 backdrop-blur-md sticky top-0 z-10">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">

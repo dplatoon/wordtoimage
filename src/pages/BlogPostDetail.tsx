@@ -180,7 +180,7 @@ export default function BlogPostDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-dvh bg-background">
         <Nav />
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="animate-pulse space-y-8">
@@ -200,7 +200,7 @@ export default function BlogPostDetail() {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-dvh bg-background">
         <Nav />
         <div className="max-w-4xl mx-auto px-4 py-16 text-center">
           <h1 className="text-3xl font-bold mb-4">Post Not Found</h1>
@@ -215,7 +215,7 @@ export default function BlogPostDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <EnhancedSEOManager 
         pageContent={{
           h1: post.seo_title || post.title,

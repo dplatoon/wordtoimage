@@ -47,7 +47,7 @@ const updates = [
 
 const Updates = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <PageSEO
         title="Product Updates - WordToImage AI Generator"
         description="Stay updated with the latest WordToImage features, improvements, and releases. Get the newest AI image generation capabilities and platform enhancements."
