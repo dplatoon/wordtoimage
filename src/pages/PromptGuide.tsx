@@ -138,7 +138,7 @@ const PromptGuide = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-primary via-white to-accent">
+    <div className="min-h-dvh flex flex-col bg-gradient-to-b from-primary via-white to-accent">
       <Helmet>
         <title>AI Prompt Writing Guide – Master Text-to-Image Prompts | WordToImage</title>
         <meta name="description" content="Master AI prompt writing with our comprehensive guide. Learn techniques, see examples, and create stunning AI-generated images with professional-quality prompts." />

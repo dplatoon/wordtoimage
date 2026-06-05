@@ -56,7 +56,7 @@ const JoinOurTeam = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <SEOManager customConfig={{
         title: "Join Our Team - AI Careers at WordToImage",
         description: "Join WordToImage and help build the future of AI image generation. Remote-friendly positions in engineering, design, and more.",

@@ -77,7 +77,7 @@ const WhatsNew = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <SEOManager customConfig={{
         title: "What's New - Latest Updates & Features | WordToImage",
         description: "Stay updated with the latest WordToImage features, improvements, and updates. Discover new AI capabilities and platform enhancements.",

@@ -150,7 +150,7 @@ const VideoTutorials = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Helmet>
         <title>AI Image Generation Video Tutorials | WordToImage</title>
         <meta name="description" content="Learn AI image generation with our comprehensive video tutorials. From beginner basics to advanced techniques. Master text-to-image AI with step-by-step guides." />

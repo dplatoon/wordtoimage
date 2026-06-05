@@ -106,7 +106,7 @@ const OnboardingDemo = () => {
       triggerTutorial={demoState.tutorialType}
       userActivity={demoState.userActivity}
     >
-      <div className="min-h-screen bg-gradient-to-br from-primary to-accent">
+      <div className="min-h-dvh bg-gradient-to-br from-primary to-accent">
         <Nav />
         
         <main className="container mx-auto px-4 py-8 space-y-8">

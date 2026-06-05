@@ -141,7 +141,7 @@ const Community = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <StructuredData data={communityStructuredData} />
       
       <Nav />

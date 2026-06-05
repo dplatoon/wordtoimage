@@ -128,7 +128,7 @@ const Blog = () => {
   const categories = ["All", "Tutorial", "Business", "Industry", "Tips", "Case Studies"];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Helmet>
         <title>WordToImage Blog – Image Conversion & AI Tools Tips</title>
         <meta name="description" content="Explore tutorials, case studies, and tips on using image converters, background removers, and AI tools. Stay updated with the latest trends." />

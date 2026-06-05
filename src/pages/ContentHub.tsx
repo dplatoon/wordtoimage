@@ -189,7 +189,7 @@ export default function ContentHub() {
     : posts;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-white to-accent">
+    <div className="min-h-dvh bg-gradient-to-br from-primary via-white to-accent">
       <EnhancedSEOManager 
         pageContent={{
           h1: "Content Marketing Hub - AI Art & Creative Resources",

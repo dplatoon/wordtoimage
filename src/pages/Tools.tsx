@@ -91,7 +91,7 @@ const Tools = () => {
       </div>
 
       <Nav />
-      <main className="min-h-screen bg-background pt-24 pb-16 relative z-10">
+      <main className="min-h-dvh bg-background pt-24 pb-16 relative z-10">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
           <div className="container mx-auto px-4 py-16 relative z-10">

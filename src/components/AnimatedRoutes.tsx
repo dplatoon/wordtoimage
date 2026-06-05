@@ -72,7 +72,7 @@ const FutureAIImageGeneration = lazy(() => import('@/pages/blog/future-ai-image-
 const ProfessionalMarketingVisuals = lazy(() => import('@/pages/blog/professional-marketing-visuals'));
 
 const PageLoadingFallback = () => (
-  <div className="min-h-screen flex items-center justify-center bg-background">
+  <div className="min-h-dvh flex items-center justify-center bg-background">
     <div className="text-center space-y-4">
       <Skeleton className="h-8 w-48 mx-auto" />
       <Skeleton className="h-32 w-96 mx-auto" />
