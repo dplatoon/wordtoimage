@@ -1,107 +1,58 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { UrgencyBadge } from '@/components/ui/urgency-badge';
-import { Crown, Zap, Users, Timer } from 'lucide-react';
+import { Crown, Zap, Users, Sparkles } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import { Link } from 'react-router-dom';
 
 export const UrgentProCTA = () => {
   const { planName } = useSubscription();
 
   if (planName === 'Pro' || planName === 'Business') {
-    return null; // Don't show to existing Pro/Business users
+    return null;
   }
 
-  const handleUpgrade = () => {
-    // Track urgent CTA click
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'urgent_pro_cta_click', {
-        event_category: 'conversion',
-        event_label: 'limited_50_percent_off'
-      });
-    }
-    
-    window.location.href = '/pricing?offer=limited50';
-  };
-
   return (
-    <div className="bg-gradient-to-br from-primary via-primary/90 to-accent rounded-2xl p-6 text-white shadow-xl border-2 border-yellow-400 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 rounded-full blur-2xl animate-pulse"></div>
-      <div className="absolute bottom-0 left-0 w-24 h-24 bg-pink-400/10 rounded-full blur-xl animate-pulse"></div>
+    <div className="glass-card rounded-2xl p-6 border border-primary/30 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/10 rounded-full blur-xl" aria-hidden="true" />
 
       <div className="relative z-10">
-        {/* Urgency badges */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          <UrgencyBadge 
-            type="limited_offer" 
-            message="50% OFF - First 100 Users Only!" 
-            className="text-xs"
-          />
-          <UrgencyBadge 
-            type="user_count" 
-            message="73 spots left" 
-            className="text-xs bg-red-500 text-white"
-          />
-        </div>
-
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-primary/20 border border-primary/30 rounded-full flex items-center justify-center shrink-0">
             <Crown className="w-6 h-6 text-primary" />
           </div>
-          
+
           <div className="flex-1">
-            <h3 className="text-xl font-bold mb-2">
-              Join Pro Now - Limited 50% OFF!
+            <h3 className="text-xl font-bold text-foreground mb-2">
+              Upgrade to Pro
             </h3>
-            <p className="text-primary-foreground/80 mb-4 text-sm">
-              Unlock unlimited HD images, premium styles, and priority processing. 
-              This exclusive offer expires in 24 hours!
+            <p className="text-muted-foreground mb-4 text-sm">
+              Unlock unlimited HD image generation, premium styles, and priority processing.
             </p>
-            
-            {/* Value props */}
-            <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
+
+            <div className="grid grid-cols-2 gap-3 mb-4 text-sm text-foreground">
               <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-yellow-400" />
+                <Zap className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 <span>Unlimited generations</span>
               </div>
               <div className="flex items-center gap-2">
-                <Crown className="w-4 h-4 text-yellow-400" />
+                <Crown className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 <span>50+ premium styles</span>
               </div>
               <div className="flex items-center gap-2">
-                <Timer className="w-4 h-4 text-yellow-400" />
-                <span>3x faster processing</span>
+                <Sparkles className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
+                <span>HD quality output</span>
               </div>
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-yellow-400" />
+                <Users className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 <span>Commercial license</span>
               </div>
             </div>
 
-            {/* Pricing */}
-            <div className="flex items-center gap-3 mb-4">
-              <div className="text-2xl font-bold text-yellow-400">
-                $7.49/mo
-              </div>
-              <div className="text-sm">
-                <span className="line-through text-primary-foreground/60">$14.99</span>
-                <span className="ml-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                  SAVE 50%
-                </span>
-              </div>
-            </div>
-
-            <Button 
-              onClick={handleUpgrade}
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-foreground font-bold py-3 text-lg shadow-lg transform hover:scale-105 transition-all"
-            >
-              Claim Limited Offer Now →
+            <Button variant="neon" className="w-full" asChild>
+              <Link to="/pricing">See Pro plans</Link>
             </Button>
-            
-            <div className="text-xs text-primary-foreground/60 mt-2 text-center">
-              ⏰ Offer expires in 23:45:12 • No setup fees • Cancel anytime
-            </div>
           </div>
         </div>
       </div>
