@@ -24,11 +24,11 @@ export const PlanFeatures = ({ features }: PlanFeaturesProps) => {
           {feature.included ? (
             <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 shrink-0 mt-0.5" aria-hidden="true" />
           ) : (
-            <X className="h-4 w-4 md:h-5 md:w-5 text-gray-300 shrink-0 mt-0.5" aria-hidden="true" />
+            <X className="h-4 w-4 md:h-5 md:w-5 text-muted-foreground shrink-0 mt-0.5" aria-hidden="true" />
           )}
           <span 
             className={`ml-3 text-sm leading-relaxed ${
-              feature.included ? 'text-gray-700' : 'text-muted-foreground'
+              feature.included ? 'text-muted-foreground' : 'text-muted-foreground'
             } ${feature.highlight ? 'font-semibold' : ''}`}
           >
             {feature.name}

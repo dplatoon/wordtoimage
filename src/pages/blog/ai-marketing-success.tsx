@@ -190,19 +190,19 @@ const AIMarketingSuccessBlogPost = () => {
 
             <div className="bg-card rounded-lg p-6 shadow-md">
               <h3 className="font-bold mb-3">The Challenge:</h3>
-              <p className="text-gray-700 mb-4">
+              <p className="text-muted-foreground mb-4">
                 StartupX, a B2B SaaS company, struggled with creating consistent, engaging visual content for their social media 
                 and marketing campaigns. Traditional design agencies were too expensive, and stock photos looked generic.
               </p>
               
               <h3 className="font-bold mb-3">The Solution:</h3>
-              <p className="text-gray-700 mb-4">
+              <p className="text-muted-foreground mb-4">
                 They implemented AI-generated visuals across all marketing channels, creating custom illustrations that perfectly 
                 matched their brand guidelines and messaging.
               </p>
               
               <h3 className="font-bold mb-3">The Results:</h3>
-              <p className="text-gray-700">
+              <p className="text-muted-foreground">
                 Within 3 months, StartupX saw a 250% increase in social media engagement, 45% higher email click-through rates, 
                 and saved over $12,000 monthly on design costs while maintaining consistent, high-quality visual content.
               </p>
@@ -219,7 +219,7 @@ const AIMarketingSuccessBlogPost = () => {
                 <CardTitle className="text-blue-800">1. Define Brand Guidelines</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-muted-foreground">
                   <li>• Establish consistent color palettes</li>
                   <li>• Define preferred artistic styles</li>
                   <li>• Create template prompts for common needs</li>
@@ -233,7 +233,7 @@ const AIMarketingSuccessBlogPost = () => {
                 <CardTitle className="text-purple-800">2. A/B Test Everything</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-muted-foreground">
                   <li>• Test AI vs. traditional imagery</li>
                   <li>• Compare different artistic styles</li>
                   <li>• Measure engagement across platforms</li>
@@ -247,7 +247,7 @@ const AIMarketingSuccessBlogPost = () => {
                 <CardTitle className="text-green-800">3. Scale Systematically</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-muted-foreground">
                   <li>• Start with social media content</li>
                   <li>• Expand to email marketing visuals</li>
                   <li>• Integrate with website and landing pages</li>
@@ -261,7 +261,7 @@ const AIMarketingSuccessBlogPost = () => {
                 <CardTitle className="text-purple-800">4. Monitor Performance</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-muted-foreground">
                   <li>• Track engagement metrics consistently</li>
                   <li>• Monitor cost savings vs. traditional methods</li>
                   <li>• Measure brand consistency across channels</li>

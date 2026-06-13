@@ -17,7 +17,7 @@ export const QuickComparisonCards = ({ onUpgradeClick }: QuickComparisonCardsPro
       {/* Free Plan */}
       <div className="bg-card rounded-lg p-4 border border-border">
         <div className="flex items-center gap-2 mb-3">
-          <Badge variant="secondary" className="bg-muted text-gray-700">Current</Badge>
+          <Badge variant="secondary" className="bg-muted text-muted-foreground">Current</Badge>
           <h4 className="font-semibold text-foreground">Free Plan</h4>
         </div>
         <ul className="space-y-2 text-sm">

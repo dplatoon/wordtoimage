@@ -192,7 +192,7 @@ export function ProfessionalStyleCard({
                 </span>
               ))}
               {style.keywords.length > 2 && (
-                <span className="px-2.5 py-1 bg-gradient-to-r from-gray-100 to-gray-200 text-muted-foreground text-xs rounded-full font-medium">
+                <span className="px-2.5 py-1 bg-gradient-to-r from-muted to-muted text-muted-foreground text-xs rounded-full font-medium">
                   +{style.keywords.length - 2}
                 </span>
               )}

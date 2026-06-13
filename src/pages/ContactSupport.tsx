@@ -78,13 +78,13 @@ const ContactSupport = () => {
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-muted-foreground mb-2">
                         First Name
                       </label>
                       <Input placeholder="Your first name" />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-muted-foreground mb-2">
                         Last Name
                       </label>
                       <Input placeholder="Your last name" />
@@ -92,14 +92,14 @@ const ContactSupport = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-muted-foreground mb-2">
                       Email Address
                     </label>
                     <Input type="email" placeholder="your.email@example.com" />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-muted-foreground mb-2">
                       Subject Category
                     </label>
                     <Select>
@@ -117,14 +117,14 @@ const ContactSupport = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-muted-foreground mb-2">
                       Subject
                     </label>
                     <Input placeholder="Brief description of your issue" />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-muted-foreground mb-2">
                       Message
                     </label>
                     <Textarea 

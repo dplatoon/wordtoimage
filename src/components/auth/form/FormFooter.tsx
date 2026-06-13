@@ -101,7 +101,7 @@ export function FormFooter({ mode, isLoading }: FormFooterProps) {
 
   return (
     <div className="text-center pt-2" role="region" aria-label="Terms and conditions">
-      <p className="text-xs text-slate-500 leading-relaxed">
+      <p className="text-xs text-muted-foreground leading-relaxed">
         By creating an account, you agree to our{' '}
         <a 
           href="/terms" 

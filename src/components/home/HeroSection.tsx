@@ -50,7 +50,7 @@ export const HeroSection = () => {
           <Button 
             size="lg" 
             variant="outline" 
-            className="text-lg border-2 border-indigo-300 text-gray-700 hover:bg-indigo-50 transition-colors transform hover:scale-105 px-8 py-6"
+            className="text-lg border-2 border-indigo-300 text-muted-foreground hover:bg-indigo-50 transition-colors transform hover:scale-105 px-8 py-6"
             onClick={handleProFeatures}
           >
             Explore Pro Features

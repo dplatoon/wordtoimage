@@ -56,7 +56,7 @@ export const HeroSection = () => {
 
   return (
     <ConversionManager pageId="hero_section" userActivity={userActivity}>
-      <section className="py-8 md:py-16 lg:py-20 relative overflow-hidden image-generation-section bg-gradient-to-br from-gray-50 via-white to-accent">
+      <section className="py-8 md:py-16 lg:py-20 relative overflow-hidden image-generation-section bg-gradient-to-br from-muted via-white to-accent">
         <DecorativeBackground />
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

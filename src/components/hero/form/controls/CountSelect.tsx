@@ -12,7 +12,7 @@ export const CountSelect = ({ value, onChange }: CountSelectProps) => {
 
   return (
     <div className="space-y-2">
-      <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+      <label className="text-sm font-medium text-muted-foreground flex items-center gap-2">
         <Images className="h-4 w-4" />
         Images
       </label>

@@ -18,14 +18,14 @@ export const DetailedComparisonTable = () => {
           <tbody>
             {comparisonFeatures.map((category) => (
               <React.Fragment key={category.category}>
-                <tr className="bg-gray-25">
-                  <td colSpan={3} className="p-3 font-semibold text-gray-700 bg-muted/50">
+                <tr className="bg-muted/50">
+                  <td colSpan={3} className="p-3 font-semibold text-muted-foreground bg-muted/50">
                     {category.category}
                   </td>
                 </tr>
                 {category.features.map((feature, index) => (
                   <tr key={index} className="border-t border-border">
-                    <td className="p-3 text-gray-700">{feature.name}</td>
+                    <td className="p-3 text-muted-foreground">{feature.name}</td>
                     <td className="p-3 text-center">
                       {feature.free ? (
                         <Check className="h-4 w-4 text-green-500 mx-auto" />

@@ -192,7 +192,7 @@ export function BrowseStylesModal({ onStyleSelect, children }: BrowseStylesModal
                     >
                       <div className="relative overflow-hidden rounded-lg border border-border bg-white hover:border-primary/50 hover:shadow-lg transition-all duration-200">
                         {/* Image placeholder */}
-                        <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                        <div className="aspect-[4/3] bg-gradient-to-br from-muted to-muted flex items-center justify-center">
                           <Palette className="h-8 w-8 text-muted-foreground" />
                         </div>
                         
@@ -238,7 +238,7 @@ export function BrowseStylesModal({ onStyleSelect, children }: BrowseStylesModal
 
               {filteredStyles.length === 0 && (
                 <div className="text-center py-12">
-                  <Palette className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                  <Palette className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <p className="text-muted-foreground">No styles match your search</p>
                   <Button 
                     variant="ghost" 

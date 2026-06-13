@@ -146,7 +146,7 @@ const OnboardingDemo = () => {
                       <p className="text-muted-foreground text-sm mb-4">{feature.description}</p>
                       <ul className="space-y-1">
                         {feature.benefits.map((benefit, i) => (
-                          <li key={i} className="flex items-center gap-2 text-xs text-gray-700">
+                          <li key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
                             <CheckCircle className="h-3 w-3 text-green-600" />
                             {benefit}
                           </li>

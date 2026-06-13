@@ -39,12 +39,12 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
         name="password"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-sm font-semibold text-slate-700">
+            <FormLabel className="text-sm font-semibold text-muted-foreground">
               Password
             </FormLabel>
             <FormControl>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" aria-hidden="true" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
                 <Input 
                   type={showPassword ? "text" : "password"}
                   {...field} 
@@ -52,7 +52,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
                   placeholder={mode === 'signup' ? "Create a secure password (min. 6 characters)" : "Enter your password"}
                   disabled={isLoading}
                   autoComplete={mode === 'signup' ? "new-password" : "current-password"}
-                  className="pl-10 pr-11 h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20"
+                  className="pl-10 pr-11 h-11 border-border focus:border-blue-500 focus:ring-blue-500/20"
                   aria-invalid={!!errors.password}
                   aria-describedby={errors.password ? "password-error" : mode === 'signup' ? "password-description" : undefined}
                 />
@@ -60,7 +60,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-1 top-1/2 transform -translate-y-1/2 h-9 w-9 p-0 hover:bg-slate-100"
+                  className="absolute right-1 top-1/2 transform -translate-y-1/2 h-9 w-9 p-0 hover:bg-muted"
                   onClick={togglePasswordVisibility}
                   disabled={isLoading}
                   tabIndex={0}
@@ -68,16 +68,16 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
                   aria-pressed={showPassword}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-slate-400" aria-hidden="true" />
+                    <EyeOff className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   ) : (
-                    <Eye className="h-4 w-4 text-slate-400" aria-hidden="true" />
+                    <Eye className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   )}
                 </Button>
               </div>
             </FormControl>
             <FormMessage id="password-error" className="text-xs" role="alert" />
             {mode === 'signup' && (
-              <p id="password-description" className="text-xs text-slate-500 mt-1">
+              <p id="password-description" className="text-xs text-muted-foreground mt-1">
                 Choose a strong password with at least 6 characters
               </p>
             )}

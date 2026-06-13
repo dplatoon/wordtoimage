@@ -48,7 +48,7 @@ const API = () => {
           
           <div className="mb-6">
             <h3 className="text-xl font-semibold mb-2">1. Get your API key</h3>
-            <div className="bg-gray-800 text-gray-200 p-4 rounded-md flex justify-between items-center">
+            <div className="bg-secondary text-muted-foreground p-4 rounded-md flex justify-between items-center">
               <code>api_key = "wti_01234567890abcdefghijklmnopqrstuvwxyz"</code>
               <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white">
                 <Copy className="h-4 w-4" />
@@ -66,7 +66,7 @@ const API = () => {
               </TabsList>
               
               <TabsContent value="curl" className="relative">
-                <div className="bg-gray-800 text-gray-200 p-4 rounded-md">
+                <div className="bg-secondary text-muted-foreground p-4 rounded-md">
                   <pre className="whitespace-pre-wrap">
 {`curl -X POST https://api.wordtoimage.com/v1/generate \\
   -H "Authorization: Bearer wti_01234567890abcdefghijklmnopqrstuvwxyz" \\
@@ -84,7 +84,7 @@ const API = () => {
               </TabsContent>
               
               <TabsContent value="python" className="relative">
-                <div className="bg-gray-800 text-gray-200 p-4 rounded-md">
+                <div className="bg-secondary text-muted-foreground p-4 rounded-md">
                   <pre className="whitespace-pre-wrap">
 {`import requests
 
@@ -113,7 +113,7 @@ print(f"Generated image: {image_url}")`}
               </TabsContent>
               
               <TabsContent value="javascript" className="relative">
-                <div className="bg-gray-800 text-gray-200 p-4 rounded-md">
+                <div className="bg-secondary text-muted-foreground p-4 rounded-md">
                   <pre className="whitespace-pre-wrap">
 {`const apiKey = "wti_01234567890abcdefghijklmnopqrstuvwxyz";
 const url = "https://api.wordtoimage.com/v1/generate";

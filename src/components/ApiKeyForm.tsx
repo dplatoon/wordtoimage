@@ -32,7 +32,7 @@ export const ApiKeyForm = ({
   return (
     <div className="mb-4 p-4 border border-border rounded-lg">
       <div className="mb-2">
-        <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="apiKey" className="block text-sm font-medium text-muted-foreground mb-1">
           {serviceName} API Key (stored only for this session)
         </label>
         <div className="flex gap-2">

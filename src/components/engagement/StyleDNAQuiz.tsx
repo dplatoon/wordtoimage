@@ -254,7 +254,7 @@ export const StyleDNAQuiz = ({ onComplete, onClose }: StyleDNAQuizProps) => {
             onClick={() => handleAnswer(option.value, option.style)}
           >
             <div className="flex items-center justify-between w-full">
-              <span className="text-gray-700">{option.label}</span>
+              <span className="text-muted-foreground">{option.label}</span>
               <ArrowRight className="h-4 w-4 text-muted-foreground" />
             </div>
           </Button>

@@ -28,7 +28,7 @@ export function PromptInput({
   
   return (
     <div className="space-y-4">
-      <label htmlFor="image-prompt" className="block text-sm font-medium text-gray-700">
+      <label htmlFor="image-prompt" className="block text-sm font-medium text-muted-foreground">
         Image Description
       </label>
       

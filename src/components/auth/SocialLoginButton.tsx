@@ -46,7 +46,7 @@ export function SocialLoginButton({ provider, onClick, isLoading }: SocialLoginB
     <Button
       type="button"
       variant="outline"
-      className="w-full h-12 border-slate-200 hover:bg-slate-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-medium text-slate-700 transition-all duration-200 hover:border-slate-300"
+      className="w-full h-12 border-border hover:bg-muted focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-medium text-muted-foreground transition-all duration-200 hover:border-border"
       onClick={onClick}
       disabled={isLoading}
     >

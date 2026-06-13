@@ -48,7 +48,7 @@ export function AuthRedirectGuide({ isVisible, onClose }: AuthRedirectGuideProps
           
           <div className="space-y-2">
             <div className="bg-card p-3 rounded border">
-              <p className="text-sm font-medium text-gray-700 mb-1">Site URL:</p>
+              <p className="text-sm font-medium text-muted-foreground mb-1">Site URL:</p>
               <div className="flex items-center gap-2">
                 <code className="flex-1 bg-muted p-2 rounded text-sm">{currentDomain}</code>
                 <Button 
@@ -62,7 +62,7 @@ export function AuthRedirectGuide({ isVisible, onClose }: AuthRedirectGuideProps
             </div>
 
             <div className="bg-card p-3 rounded border">
-              <p className="text-sm font-medium text-gray-700 mb-1">Redirect URLs (add both):</p>
+              <p className="text-sm font-medium text-muted-foreground mb-1">Redirect URLs (add both):</p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <code className="flex-1 bg-muted p-2 rounded text-sm">{currentDomain}/auth</code>
