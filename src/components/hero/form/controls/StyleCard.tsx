@@ -20,7 +20,7 @@ export const StyleCard = ({ image, label, selected, onClick, color }: StyleCardP
       onClick={onClick}
       className={cn(
         "flex flex-col items-center justify-end relative overflow-hidden rounded-lg border h-[90px] md:h-[108px] w-full transition-all duration-200 group",
-        selected ? "border-violet-600 ring-2 ring-violet-400" : "border-border hover:border-gray-300"
+        selected ? "border-violet-600 ring-2 ring-violet-400" : "border-border hover:border-border"
       )}
       aria-label={`Select ${label} style`}
       aria-pressed={selected}

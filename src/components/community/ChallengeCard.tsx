@@ -85,7 +85,7 @@ export const ChallengeCard = ({ challenge, onJoin, onViewEntries }: ChallengeCar
       </CardHeader>
       
       <CardContent className="space-y-4">
-        <p className="text-gray-700">{challenge.description}</p>
+        <p className="text-muted-foreground">{challenge.description}</p>
         
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-4">

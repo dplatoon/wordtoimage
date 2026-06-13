@@ -34,7 +34,7 @@ const TechnicalEnhancements = () => {
   };
 
   return (
-    <div className="min-h-dvh bg-gradient-to-br from-gray-50 to-accent/30">
+    <div className="min-h-screen bg-gradient-to-br from-muted to-accent/30">
       <Nav />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -114,7 +114,7 @@ const TechnicalEnhancements = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12">
-                  <Edit3 className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                  <Edit3 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-foreground mb-2">Professional Image Editing</h3>
                   <p className="text-muted-foreground mb-6">
                     Edit your AI-generated images with professional tools including crop, resize, filters, drawing, and text overlay.

@@ -71,7 +71,7 @@ export const FeaturedSection = ({
             </div>
           </div>
           
-          <p className="text-gray-700 text-sm">{featuredArtist.bio}</p>
+          <p className="text-muted-foreground text-sm">{featuredArtist.bio}</p>
           
           <div className="rounded-lg overflow-hidden">
             <img 

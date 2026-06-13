@@ -11,7 +11,7 @@ export function AuthHeader() {
         <Logo />
       </div>
       <Link to="/">
-        <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-900 mb-6">
+        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground mb-6">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to home
         </Button>

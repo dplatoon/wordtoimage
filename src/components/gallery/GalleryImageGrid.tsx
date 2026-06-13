@@ -75,7 +75,7 @@ export function GalleryImageGrid({
 
           {/* Content */}
           <div className="p-3 flex-1">
-            <p className="text-sm text-gray-700 line-clamp-2 mb-2">
+            <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
               {image.prompt}
             </p>
             

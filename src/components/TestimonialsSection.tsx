@@ -59,7 +59,7 @@ export const TestimonialsSection = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-white to-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <span 
@@ -87,10 +87,10 @@ export const TestimonialsSection = () => {
             >
               <div className="flex mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
+                  <Star key={i} className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'}`} />
                 ))}
               </div>
-              <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+              <p className="text-muted-foreground mb-6 italic">"{testimonial.content}"</p>
               <div className="flex items-center">
                 <div className={`h-10 w-10 rounded-full ${testimonial.avatarColor} flex items-center justify-center`}>
                   <span className="text-blue-600 font-semibold">{testimonial.name[0]}</span>
@@ -114,10 +114,10 @@ export const TestimonialsSection = () => {
             >
               <div className="flex mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
+                  <Star key={i} className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'}`} />
                 ))}
               </div>
-              <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+              <p className="text-muted-foreground mb-6 italic">"{testimonial.content}"</p>
               <div className="flex items-center">
                 <div className={`h-10 w-10 rounded-full ${testimonial.avatarColor} flex items-center justify-center`}>
                   <span className="text-blue-600 font-semibold">{testimonial.name[0]}</span>
@@ -140,10 +140,10 @@ export const TestimonialsSection = () => {
                   <div className="bg-card p-6 rounded-xl shadow-sm border border-border">
                     <div className="flex mb-3">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`h-4 w-4 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
+                        <Star key={i} className={`h-4 w-4 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'}`} />
                       ))}
                     </div>
-                    <p className="text-gray-700 mb-4 text-sm italic">"{testimonial.content}"</p>
+                    <p className="text-muted-foreground mb-4 text-sm italic">"{testimonial.content}"</p>
                     <div className="flex items-center">
                       <div className={`h-8 w-8 rounded-full ${testimonial.avatarColor} flex items-center justify-center`}>
                         <span className="text-blue-600 font-semibold text-sm">{testimonial.name[0]}</span>
@@ -176,7 +176,7 @@ export const TestimonialsSection = () => {
                   key={index}
                   onClick={() => setActiveTestimonial(index)}
                   className={`w-2 h-2 rounded-full ${
-                    index === activeTestimonial ? "bg-purple-600" : "bg-gray-300"
+                    index === activeTestimonial ? "bg-purple-600" : "bg-muted"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />

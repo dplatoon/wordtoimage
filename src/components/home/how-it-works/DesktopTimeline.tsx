@@ -24,7 +24,7 @@ export const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
             <div 
               key={index}
               className={`absolute w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110
-               ${index <= activeStep ? 'bg-blue-600 text-white' : 'bg-gray-300 text-muted-foreground'}`}
+               ${index <= activeStep ? 'bg-blue-600 text-white' : 'bg-muted text-muted-foreground'}`}
               style={{ left: `calc(${(index / (steps.length - 1)) * 100}% - 1rem)` }}
               onClick={() => {
                 setActiveStep(index);

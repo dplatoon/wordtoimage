@@ -125,7 +125,7 @@ const PromptWritingGuideBlogPost = () => {
               <CardContent>
                 <p className="text-muted-foreground mb-4">{component.description}</p>
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-700">Examples:</p>
+                  <p className="text-sm font-medium text-muted-foreground">Examples:</p>
                   {component.examples.map((example, i) => (
                     <Badge key={i} variant="outline" className="mr-2 mb-2">
                       {example}
@@ -147,7 +147,7 @@ const PromptWritingGuideBlogPost = () => {
           <div className="space-y-8">
             {promptExamples.map((example, index) => (
               <Card key={index} className="overflow-hidden shadow-lg">
-                <CardHeader className="bg-gradient-to-r from-gray-50 to-accent">
+                <CardHeader className="bg-gradient-to-r from-muted to-accent">
                   <CardTitle className="text-xl">{example.category}</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6">
@@ -203,7 +203,7 @@ const PromptWritingGuideBlogPost = () => {
                 <XCircle className="w-5 h-5" />
                 <span className="font-semibold">Too Vague</span>
               </div>
-              <p className="text-gray-700 mb-2">Prompts like "nice picture" or "beautiful art" don't give the AI enough direction.</p>
+              <p className="text-muted-foreground mb-2">Prompts like "nice picture" or "beautiful art" don't give the AI enough direction.</p>
               <p className="text-sm text-muted-foreground"><strong>Fix:</strong> Be specific about what you want to see.</p>
             </div>
             
@@ -212,7 +212,7 @@ const PromptWritingGuideBlogPost = () => {
                 <XCircle className="w-5 h-5" />
                 <span className="font-semibold">Overly Complicated</span>
               </div>
-              <p className="text-gray-700 mb-2">Extremely long prompts with conflicting instructions confuse the AI.</p>
+              <p className="text-muted-foreground mb-2">Extremely long prompts with conflicting instructions confuse the AI.</p>
               <p className="text-sm text-muted-foreground"><strong>Fix:</strong> Keep prompts focused and coherent.</p>
             </div>
             
@@ -221,7 +221,7 @@ const PromptWritingGuideBlogPost = () => {
                 <XCircle className="w-5 h-5" />
                 <span className="font-semibold">Unclear Terms</span>
               </div>
-              <p className="text-gray-700 mb-2">Using ambiguous words that could mean different things to different people.</p>
+              <p className="text-muted-foreground mb-2">Using ambiguous words that could mean different things to different people.</p>
               <p className="text-sm text-muted-foreground"><strong>Fix:</strong> Use descriptive, specific language.</p>
             </div>
             
@@ -230,7 +230,7 @@ const PromptWritingGuideBlogPost = () => {
                 <XCircle className="w-5 h-5" />
                 <span className="font-semibold">Conflicting Instructions</span>
               </div>
-              <p className="text-gray-700 mb-2">Asking for "realistic cartoon" or "bright dark colors" creates confusion.</p>
+              <p className="text-muted-foreground mb-2">Asking for "realistic cartoon" or "bright dark colors" creates confusion.</p>
               <p className="text-sm text-muted-foreground"><strong>Fix:</strong> Ensure all elements work together harmoniously.</p>
             </div>
           </div>

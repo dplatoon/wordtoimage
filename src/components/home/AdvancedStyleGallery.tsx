@@ -91,7 +91,7 @@ export const AdvancedStyleGallery = () => {
   };
 
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-b from-slate-950 to-slate-900">
+    <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-b from-background to-background">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl" />
@@ -173,7 +173,7 @@ export const AdvancedStyleGallery = () => {
                       />
                       
                       {/* Gradient Overlay */}
-                      <div className={`absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity`} />
+                      <div className={`absolute inset-0 bg-gradient-to-t from-background via-background to-transparent opacity-80 group-hover:opacity-90 transition-opacity`} />
                       
                       {/* Hover CTA */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">

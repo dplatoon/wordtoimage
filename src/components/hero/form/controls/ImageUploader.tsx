@@ -112,7 +112,7 @@ export function ImageUploader({ onImageSelected, disabled = false }: ImageUpload
         </AlertDescription>
       </Alert>
       
-      <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 bg-white transition-all duration-200 hover:border-purple-400 hover:bg-purple-50/50">
+      <div className="border-2 border-dashed border-border rounded-xl p-6 bg-white transition-all duration-200 hover:border-purple-400 hover:bg-purple-50/50">
         {!previewUrl ? (
           <div 
             className={`flex flex-col items-center justify-center py-8 cursor-pointer transition-all duration-200 ${

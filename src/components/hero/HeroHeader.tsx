@@ -60,7 +60,7 @@ export const HeroHeader = () => {
         <Button 
           size="lg" 
           variant="outline" 
-          className="text-lg border-2 border-indigo-300 text-gray-700 hover:bg-indigo-50 transition-colors transform hover:scale-105"
+          className="text-lg border-2 border-indigo-300 text-muted-foreground hover:bg-indigo-50 transition-colors transform hover:scale-105"
           onClick={handleLearnHowClick}
         >
           See Examples

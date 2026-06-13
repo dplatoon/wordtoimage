@@ -598,7 +598,7 @@ export const BatchProcessingEngine = () => {
 
           {jobs.length === 0 && (
             <div className="text-center py-12">
-              <ImageIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <ImageIcon className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-medium text-foreground mb-2">No batch jobs yet</h3>
               <p className="text-muted-foreground">Create your first batch job to generate multiple images efficiently</p>
             </div>

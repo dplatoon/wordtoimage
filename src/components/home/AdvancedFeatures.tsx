@@ -67,7 +67,7 @@ const itemVariants = {
 
 export const AdvancedFeatures = () => {
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-b from-background via-background to-background">
       {/* Enhanced Background with Parallax Layers */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
@@ -163,13 +163,13 @@ export const AdvancedFeatures = () => {
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
                 Ready to Create Something Amazing?
               </h3>
-              <p className="text-gray-300 mb-8 max-w-xl mx-auto">
+              <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
                 Join thousands of creators using our AI to bring their imagination to life.
               </p>
               
               <Button
                 size="lg"
-                className="group bg-white text-slate-900 hover:bg-muted font-semibold px-8 py-6 text-lg rounded-2xl shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                className="group bg-white text-foreground hover:bg-muted font-semibold px-8 py-6 text-lg rounded-2xl shadow-xl transition-all duration-300 hover:scale-[1.02]"
                 asChild
               >
                 <Link to="/text-to-image">

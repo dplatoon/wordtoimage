@@ -87,7 +87,7 @@ export const MobileOptimizedNav = () => {
         
         {/* Menu Panel */}
         <div className={cn(
-          "absolute right-0 top-0 bottom-0 w-[280px] bg-slate-900 shadow-2xl transition-transform duration-300 ease-out safe-top",
+          "absolute right-0 top-0 bottom-0 w-[280px] bg-background shadow-2xl transition-transform duration-300 ease-out safe-top",
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         )}>
           <div className="flex flex-col h-full pt-16 pb-safe">
@@ -123,7 +123,7 @@ export const MobileOptimizedNav = () => {
                     "flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all touch-manipulation",
                     isActiveRoute(item.path)
                       ? "bg-violet-600/20 text-violet-400"
-                      : "text-gray-300 hover:bg-white/5 active:bg-card/10"
+                      : "text-muted-foreground hover:bg-white/5 active:bg-card/10"
                   )}
                 >
                   {item.icon && <item.icon className="h-5 w-5" />}
@@ -142,7 +142,7 @@ export const MobileOptimizedNav = () => {
               {user ? (
                 <Link
                   to="/dashboard"
-                  className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all"
+                  className="flex items-center gap-3 px-4 py-3 text-muted-foreground hover:bg-white/5 rounded-xl transition-all"
                 >
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                     <User className="h-5 w-5 text-white" />

@@ -158,7 +158,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
                   <Bot className="h-4 w-4 text-white" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-gray-700 leading-relaxed">{currentMessage}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{currentMessage}</p>
                 </div>
                 <Button
                   variant="ghost"
@@ -198,7 +198,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
               </div>
 
               <div className="space-y-3">
-                <p className="text-sm text-gray-700">{currentMessage}</p>
+                <p className="text-sm text-muted-foreground">{currentMessage}</p>
                 
                 <div className="space-y-2">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Quick Actions</p>
@@ -244,7 +244,7 @@ export const AIAssistantAura = ({ onQuizStart, onGenerateClick, currentPage = "h
           <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
           
           {/* Tooltip */}
-          <div className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+          <div className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-secondary text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
             Chat with Aura
           </div>
         </Button>

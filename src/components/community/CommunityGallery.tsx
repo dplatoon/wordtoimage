@@ -152,7 +152,7 @@ export const CommunityGallery = () => {
 
         {/* Tag Filters */}
         <div className="space-y-2">
-          <h3 className="text-sm font-medium text-gray-700">Filter by tags:</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">Filter by tags:</h3>
           <div className="flex flex-wrap gap-2">
             {TAG_CATEGORIES.map((tag) => (
               <Badge

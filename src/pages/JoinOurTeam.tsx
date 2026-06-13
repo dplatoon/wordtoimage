@@ -161,7 +161,7 @@ const JoinOurTeam = () => {
               {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-violet-600 rounded-full"></div>
-                  <span className="text-gray-700">{benefit}</span>
+                  <span className="text-muted-foreground">{benefit}</span>
                 </div>
               ))}
             </div>

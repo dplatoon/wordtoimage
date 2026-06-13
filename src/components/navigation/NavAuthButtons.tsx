@@ -25,7 +25,7 @@ export const NavAuthButtons = ({ session, isMobile = false, onClose }: NavAuthBu
           </Button>
         </Link>
         <Link to="/text-to-image" onClick={onClose}>
-          <Button className={`${buttonClass} bg-violet-600 hover:bg-violet-700 text-white`}>
+          <Button className={`${buttonClass} bg-primary hover:bg-primary/90 text-primary-foreground`}>
             Create
           </Button>
         </Link>
@@ -41,7 +41,7 @@ export const NavAuthButtons = ({ session, isMobile = false, onClose }: NavAuthBu
         </Button>
       </Link>
       <Link to="/text-to-image" onClick={onClose}>
-        <Button className={`${buttonClass} bg-violet-600 hover:bg-violet-700 text-white`}>
+        <Button className={`${buttonClass} bg-primary hover:bg-primary/90 text-primary-foreground`}>
           Get Started
         </Button>
       </Link>

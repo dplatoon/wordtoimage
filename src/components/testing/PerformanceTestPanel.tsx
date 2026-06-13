@@ -165,7 +165,7 @@ export const PerformanceTestPanel = () => {
                   <CardContent>
                     <ul className="space-y-2">
                       {recommendations.map((rec, index) => (
-                        <li key={index} className="text-sm text-gray-700 flex items-start gap-2">
+                        <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
                           <span className="text-blue-500 mt-1">•</span>
                           {rec}
                         </li>

@@ -28,7 +28,7 @@ export const GenerateButton = ({
         disabled={isGenerating || isDisabled}
         className={`group relative w-full flex items-center justify-center rounded-xl py-5 text-white font-semibold text-lg transition-all duration-300 transform ${
           isGenerating || isDisabled 
-            ? 'bg-gray-300 cursor-not-allowed' 
+            ? 'bg-muted cursor-not-allowed' 
             : 'bg-gradient-to-r from-primary via-primary/80 to-accent hover:from-primary hover:via-primary/80 hover:to-accent shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0'
         } ${!isGenerating && !isDisabled ? 'animate-pulse' : ''}`}
       >

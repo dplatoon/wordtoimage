@@ -61,7 +61,7 @@ export const CTASection = () => {
                   <Button 
                     size="lg" 
                     variant="outline"
-                    className="border-2 border-blue-300 text-gray-700 hover:bg-blue-50 transform hover:scale-105 transition-all duration-300"
+                    className="border-2 border-blue-300 text-muted-foreground hover:bg-blue-50 transform hover:scale-105 transition-all duration-300"
                   >
                     View Pricing Plans
                   </Button>
@@ -88,13 +88,13 @@ export const CTASection = () => {
                 ) : (
                   <form onSubmit={handleSubscribe}>
                     <div className="mb-3">
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email address</label>
+                      <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">Email address</label>
                       <input
                         type="email"
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="youremail@example.com"
                         required
                       />
@@ -129,7 +129,7 @@ export const CTASection = () => {
                 </div>
               ))}
             </div>
-            <p className="text-gray-700">
+            <p className="text-muted-foreground">
               <span className="font-semibold">10,000+</span> creators already joined
             </p>
           </div>

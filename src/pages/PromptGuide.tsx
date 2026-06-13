@@ -327,7 +327,7 @@ const PromptGuide = () => {
                     <h3 className="text-lg font-semibold text-foreground mb-2">{tip.title}</h3>
                     <p className="text-muted-foreground mb-3">{tip.description}</p>
                     <div className="bg-muted/50 rounded-md p-3 text-sm">
-                      <p className="text-gray-700 italic">"{tip.example}"</p>
+                      <p className="text-muted-foreground italic">"{tip.example}"</p>
                     </div>
                   </div>
                 </div>

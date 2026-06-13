@@ -416,7 +416,7 @@ export const MobileOptimizationDashboard = () => {
                     ...optimizationSettings,
                     imageQuality: e.target.value as OptimizationSettings['imageQuality']
                   })}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-2 border border-border rounded-md"
                 >
                   <option value="auto">Auto (Based on device)</option>
                   <option value="low">Low (Faster loading)</option>
@@ -433,7 +433,7 @@ export const MobileOptimizationDashboard = () => {
                     ...optimizationSettings,
                     cacheStrategy: e.target.value as OptimizationSettings['cacheStrategy']
                   })}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-2 border border-border rounded-md"
                 >
                   <option value="aggressive">Aggressive (More storage)</option>
                   <option value="moderate">Moderate (Balanced)</option>
