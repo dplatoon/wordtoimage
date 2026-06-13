@@ -1,118 +1,112 @@
-
-import React from 'react';
-import { Progress } from '@/components/ui/progress';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
-import { Sparkles, Wand2, Clock, CheckCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Sparkles, Wand2, Palette, ImageIcon } from 'lucide-react';
 
 interface GenerationProgressProps {
   isGenerating: boolean;
-  progress?: number;
   currentPrompt?: string;
-  estimatedTime?: number;
 }
 
-const generationSteps = [
-  { label: 'Processing prompt', icon: Wand2 },
-  { label: 'AI analysis', icon: Sparkles },
-  { label: 'Creating image', icon: Clock },
-  { label: 'Finalizing', icon: CheckCircle }
+/**
+ * Honest, indeterminate generation indicator.
+ *
+ * The backend image model does not stream progress, so we deliberately avoid
+ * a fake percentage bar. Instead we show an animated indeterminate sweep with
+ * rotating status messages that reflect the real pipeline stages, plus a
+ * polite live region for assistive tech.
+ */
+const stages = [
+  { label: 'Understanding your prompt', icon: Wand2 },
+  { label: 'Composing the scene', icon: Palette },
+  { label: 'Painting the details', icon: Sparkles },
+  { label: 'Rendering your image', icon: ImageIcon },
 ];
 
-export function GenerationProgress({ 
-  isGenerating, 
-  progress = 0, 
+export function GenerationProgress({
+  isGenerating,
   currentPrompt = '',
-  estimatedTime = 5 
 }: GenerationProgressProps) {
+  const [stageIndex, setStageIndex] = useState(0);
+
+  useEffect(() => {
+    if (!isGenerating) {
+      setStageIndex(0);
+      return;
+    }
+    // Advance through stage messages while we wait. These are illustrative of
+    // the real pipeline, not a claim of measured progress.
+    const id = setInterval(() => {
+      setStageIndex((prev) => (prev + 1) % stages.length);
+    }, 2200);
+    return () => clearInterval(id);
+  }, [isGenerating]);
+
   if (!isGenerating) return null;
 
-  const currentStep = Math.floor((progress / 100) * generationSteps.length);
-  
+  const ActiveIcon = stages[stageIndex].icon;
+
   return (
-    <Card className="border-violet-200 bg-gradient-to-r from-primary to-accent">
+    <Card className="glass-card border-primary/20">
       <CardContent className="p-6">
-        <div className="space-y-4">
-          {/* Header */}
+        <div
+          className="space-y-5"
+          role="status"
+          aria-live="polite"
+          aria-busy="true"
+        >
+          {/* Heading + current prompt */}
           <div className="text-center">
-            <h3 className="text-lg font-semibold text-foreground mb-2">
-              Creating Your Masterpiece
+            <h3 className="text-lg font-semibold text-foreground">
+              Creating your image
             </h3>
-            <p className="text-sm text-muted-foreground line-clamp-2">
-              "{currentPrompt}"
-            </p>
+            {currentPrompt && (
+              <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                “{currentPrompt}”
+              </p>
+            )}
           </div>
 
-          {/* Progress Bar */}
-          <div className="space-y-2">
-            <Progress 
-              value={progress} 
-              className="h-3 bg-white shadow-inner"
+          {/* Indeterminate sweep bar */}
+          <div
+            className="relative h-2 w-full overflow-hidden rounded-full bg-secondary"
+            aria-hidden="true"
+          >
+            <motion.div
+              className="absolute inset-y-0 w-1/3 rounded-full bg-gradient-to-r from-primary via-neon-coral to-primary"
+              animate={{ x: ['-100%', '350%'] }}
+              transition={{
+                duration: 1.4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
             />
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>Processing...</span>
-              <span>{Math.round(progress)}%</span>
-            </div>
           </div>
 
-          {/* Steps */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {generationSteps.map((step, index) => {
-              const Icon = step.icon;
-              const isActive = index === currentStep;
-              const isCompleted = index < currentStep;
-              
-              return (
-                <div 
-                  key={step.label}
-                  className={cn(
-                    "flex flex-col items-center p-3 rounded-lg transition-all duration-300",
-                    isActive ? "bg-violet-100 border border-violet-300" : 
-                    isCompleted ? "bg-green-50 border border-green-200" : 
-                    "bg-white border border-border"
-                  )}
-                >
-                  <Icon className={cn(
-                    "h-5 w-5 mb-1",
-                    isActive ? "text-violet-600 animate-pulse" :
-                    isCompleted ? "text-green-600" :
-                    "text-muted-foreground"
-                  )} />
-                  <span className={cn(
-                    "text-xs font-medium text-center",
-                    isActive ? "text-violet-800" :
-                    isCompleted ? "text-green-800" :
-                    "text-muted-foreground"
-                  )}>
-                    {step.label}
-                  </span>
-                </div>
-              );
-            })}
+          {/* Rotating stage message */}
+          <div className="flex items-center justify-center gap-2.5">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={stageIndex}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25 }}
+                className="flex items-center gap-2.5"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 text-primary">
+                  <ActiveIcon className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <span className="text-sm font-medium text-foreground">
+                  {stages[stageIndex].label}…
+                </span>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          {/* Estimated Time */}
-          <div className="text-center">
-            <div className="inline-flex items-center px-3 py-1 bg-card rounded-full border border-violet-200">
-              <Clock className="h-3 w-3 mr-1 text-violet-600" />
-              <span className="text-xs text-muted-foreground">
-                Usually takes {estimatedTime} seconds
-              </span>
-            </div>
-          </div>
-
-          {/* Animation Elements */}
-          <div className="flex justify-center">
-            <div className="flex space-x-1">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="w-2 h-2 bg-violet-400 rounded-full animate-bounce"
-                  style={{ animationDelay: `${i * 0.2}s` }}
-                />
-              ))}
-            </div>
-          </div>
+          <p className="text-center text-xs text-muted-foreground">
+            This usually takes just a few seconds.
+          </p>
         </div>
       </CardContent>
     </Card>
