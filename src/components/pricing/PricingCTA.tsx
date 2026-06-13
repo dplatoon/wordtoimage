@@ -28,7 +28,7 @@ export const PricingCTA = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="h-6 w-6 text-yellow-300" />
+                <Zap className="h-6 w-6 text-primary-foreground/80" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Instant Results</h3>
               <p className="text-primary-foreground/80 text-sm">Generate professional images in seconds, not hours</p>
@@ -36,7 +36,7 @@ export const PricingCTA = () => {
 
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-6 w-6 text-green-300" />
+                <Shield className="h-6 w-6 text-primary-foreground/80" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Risk-Free Trial</h3>
               <p className="text-primary-foreground/80 text-sm">14-day money-back guarantee on all paid plans</p>
@@ -44,7 +44,7 @@ export const PricingCTA = () => {
 
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
               <div className="w-12 h-12 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="h-6 w-6 text-yellow-300 fill-current" />
+                <Star className="h-6 w-6 text-primary-foreground/80 fill-current" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Trusted Platform</h3>
               <p className="text-primary-foreground/80 text-sm">Join 100,000+ satisfied creators worldwide</p>

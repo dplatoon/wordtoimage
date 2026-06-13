@@ -9,7 +9,7 @@ export const BillingToggle = ({ billingCycle, onToggle, discount = 20 }: Billing
   return (
     <div className="flex items-center justify-center mb-12">
       <div 
-        className="relative inline-flex items-center p-1 border border-border rounded-xl bg-white shadow-sm"
+        className="relative inline-flex items-center p-1 border border-border rounded-xl bg-secondary shadow-sm"
         role="group"
         aria-label="Billing cycle selection"
       >
@@ -42,7 +42,7 @@ export const BillingToggle = ({ billingCycle, onToggle, discount = 20 }: Billing
         >
           Annual
           <span className={`text-xs px-2 py-1 rounded-full ${
-            billingCycle === 'annual' ? 'bg-card/20 text-white' : 'bg-green-100 text-green-800'
+            billingCycle === 'annual' ? 'bg-card/20 text-white' : 'bg-primary/10 text-primary'
           }`} aria-label={`${discount} percent discount`}>
             Save {discount}%
           </span>

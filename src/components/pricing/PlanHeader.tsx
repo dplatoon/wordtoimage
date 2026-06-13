@@ -30,7 +30,7 @@ export const PlanHeader = ({ name, description, popular, badge, isCurrentPlan }:
         <div className="absolute -top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
           <Badge 
             variant="default" 
-            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 py-1 text-xs font-semibold flex items-center gap-1"
+            className="bg-gradient-to-r from-primary to-accent text-primary-foreground px-3 py-1 text-xs font-semibold flex items-center gap-1"
           >
             <Crown className="h-3 w-3" />
             Your Plan

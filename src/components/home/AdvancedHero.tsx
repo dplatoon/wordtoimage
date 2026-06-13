@@ -418,14 +418,17 @@ export const AdvancedHero = () => {
                 />
               </AnimatePresence>
             </div>
-            <div className="flex justify-center gap-2 mt-4">
-              {floatingImages.map((_, i) => (
+            <div className="flex justify-center gap-2 mt-4" role="tablist" aria-label="Image gallery">
+              {floatingImages.map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentImageIndex(i)}
+                  role="tab"
+                  aria-selected={i === currentImageIndex}
+                  aria-label={`View image ${i + 1}: ${img.title}`}
                   className={`h-2 rounded-full transition-all duration-300 ${
-                    i === currentImageIndex 
-                      ? 'bg-primary w-8 shadow-neon' 
+                    i === currentImageIndex
+                      ? 'bg-primary w-8 shadow-neon'
                       : 'bg-muted-foreground/30 w-2'
                   }`}
                 />
