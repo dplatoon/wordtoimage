@@ -4,30 +4,17 @@ import { Footer } from '@/components/Footer';
 import { CommunityFeed } from '@/components/community/CommunityFeed';
 import { CommunitySidebar } from '@/components/community/CommunitySidebar';
 import { CommunityGallery } from '@/components/community/CommunityGallery';
-import { CreatePostModal } from '@/components/community/CreatePostModal';
 import { FeaturedSection } from '@/components/community/FeaturedSection';
-import { ChallengeCard } from '@/components/community/ChallengeCard';
 import { WeeklyTopCreations } from '@/components/community/WeeklyTopCreations';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
-import { PlusCircle, Users, Camera, Award, TrendingUp } from 'lucide-react';
+import { Users, Camera, Award, TrendingUp, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { StructuredData } from '@/components/seo/components/StructuredData';
 import { InternalLink } from '@/components/seo/InternalLink';
 
-// Mock data for featured content
-const FEATURED_ARTIST = {
-  id: '1',
-  name: 'Maya Rodriguez',
-  username: 'mayar_ai',
-  avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=100&h=100&fit=crop&crop=face&auto=format',
-  bio: 'Digital artist passionate about AI-generated surreal landscapes and abstract compositions.',
-  followers: 2345,
-  featuredImage: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop&auto=format',
-  badge: 'Verified Artist'
-};
-
+// Curated example images for the trending section
 const TRENDING_POSTS = [
   {
     id: '1',
@@ -63,52 +50,13 @@ const TRENDING_POSTS = [
   }
 ];
 
-const ACTIVE_CHALLENGES = [
-  {
-    id: '1',
-    title: 'Retro Futurism Week',
-    description: 'Create AI art that blends vintage aesthetics with futuristic elements. Think 80s neon meets space age design.',
-    theme: 'Retro Futurism',
-    startDate: '2024-01-15',
-    endDate: '2024-01-22',
-    participants: 156,
-    prize: '$500 + Featured Artist Spotlight',
-    difficulty: 'intermediate' as const,
-    status: 'active' as const
-  },
-  {
-    id: '2',
-    title: 'Nature\'s Palette',
-    description: 'Capture the beauty of nature using only earth tones and natural color palettes.',
-    theme: 'Natural Colors',
-    startDate: '2024-01-20',
-    endDate: '2024-01-27',
-    participants: 89,
-    prize: '$300 + Art Supply Package',
-    difficulty: 'beginner' as const,
-    status: 'upcoming' as const
-  }
-];
 
 const Community = () => {
-  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('feed');
   const { t } = useTranslation();
 
-  const handleViewProfile = (userId: string) => {
-    console.log('View profile:', userId);
-  };
-
   const handleViewPost = (postId: string) => {
     console.log('View post:', postId);
-  };
-
-  const handleJoinChallenge = (challengeId: string) => {
-    console.log('Join challenge:', challengeId);
-  };
-
-  const handleViewChallengeEntries = (challengeId: string) => {
-    console.log('View challenge entries:', challengeId);
   };
 
   const communityStructuredData = {
@@ -158,53 +106,35 @@ const Community = () => {
             AI Art Community
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            Join thousands of creators sharing stunning AI art, learning techniques, and participating in weekly challenges. 
-            Discover inspiration in our <InternalLink to="/prompt-guide">comprehensive prompt guide</InternalLink> and 
-            explore <InternalLink to="/templates">professional templates</InternalLink>.
+            A place to share AI-generated art, learn prompting techniques, and connect with other creators.
+            Browse inspiration below, or check out our <InternalLink to="/prompt-guide">prompt guide</InternalLink> and
+            <InternalLink to="/templates"> professional templates</InternalLink>.
           </p>
-          
-          <Button 
-            onClick={() => setIsCreatePostModalOpen(true)}
-            className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-          >
-            <PlusCircle className="h-5 w-5 mr-2" />
-            {t('community_page.create_post')}
-          </Button>
+
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
+            <Sparkles className="h-4 w-4" aria-hidden="true" />
+            Social features coming soon — create a free account to be notified
+          </div>
         </div>
 
         {/* Weekly Top Creations - Public Section */}
         <WeeklyTopCreations />
 
-        {/* Community Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">12.5K</p>
-              <p className="text-sm text-muted-foreground">{t('community_page.sidebar.members')}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">1.2K</p>
-              <p className="text-sm text-muted-foreground">{t('community_page.sidebar.online')}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              <Camera className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">450</p>
-              <p className="text-sm text-muted-foreground">{t('community_page.sidebar.posts')}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              <Award className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">23</p>
-              <p className="text-sm text-muted-foreground">{t('community_page.challenges.title')}</p>
-            </CardContent>
-          </Card>
+        {/* Community features summary */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {[
+            { icon: Users, label: 'Community feed', detail: 'Share & discuss creations' },
+            { icon: Camera, label: 'Gallery', detail: 'Browse AI-generated art' },
+            { icon: Award, label: 'Challenges', detail: 'Weekly creative prompts' },
+          ].map(({ icon: Icon, label, detail }) => (
+            <Card key={label} className="glass-card border-primary/20 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <Icon className="h-8 w-8 text-primary mx-auto mb-2" aria-hidden="true" />
+                <p className="font-semibold text-foreground">{label}</p>
+                <p className="text-sm text-muted-foreground mt-1">{detail}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {/* Main Content */}
@@ -212,28 +142,28 @@ const Community = () => {
           <TabsList className="grid w-full grid-cols-4 mb-8 bg-card/80 backdrop-blur-sm p-1 rounded-xl shadow-md">
             <TabsTrigger 
               value="feed" 
-              className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-lg transition-all"
+              className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg transition-all"
             >
               <Users className="h-4 w-4" />
               <span className="hidden sm:inline">{t('community_page.feed')}</span>
             </TabsTrigger>
             <TabsTrigger 
               value="gallery" 
-              className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-lg transition-all"
+              className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg transition-all"
             >
               <Camera className="h-4 w-4" />
               <span className="hidden sm:inline">{t('community_page.gallery')}</span>
             </TabsTrigger>
             <TabsTrigger 
               value="challenges" 
-              className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-lg transition-all"
+              className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg transition-all"
             >
               <Award className="h-4 w-4" />
               <span className="hidden sm:inline">{t('community_page.challenges')}</span>
             </TabsTrigger>
             <TabsTrigger 
               value="featured" 
-              className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-lg transition-all"
+              className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg transition-all"
             >
               <TrendingUp className="h-4 w-4" />
               <span className="hidden sm:inline">{t('community_page.featured')}</span>
@@ -260,69 +190,42 @@ const Community = () => {
               </TabsContent>
 
               <TabsContent value="challenges" className="mt-0">
-                <div className="space-y-6">
-                  <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
-                    <CardContent className="p-8 text-center">
-                      <Award className="h-16 w-16 text-primary mx-auto mb-4" />
-                      <h2 className="text-3xl font-bold mb-2">{t('community_page.challenges.title')}</h2>
-                      <p className="text-muted-foreground text-lg">
-                        {t('community_page.challenges.subtitle')}
-                      </p>
-                    </CardContent>
-                  </Card>
-                  
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {ACTIVE_CHALLENGES.map((challenge) => (
-                      <ChallengeCard
-                        key={challenge.id}
-                        challenge={challenge}
-                        onJoin={() => handleJoinChallenge(challenge.id)}
-                        onViewEntries={() => handleViewChallengeEntries(challenge.id)}
-                      />
-                    ))}
-                  </div>
-                </div>
+                <Card className="glass-card border-primary/20">
+                  <CardContent className="py-20 text-center space-y-4">
+                    <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 border border-primary/20 mx-auto">
+                      <Award className="h-8 w-8 text-primary" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground">Weekly challenges coming soon</h3>
+                    <p className="text-muted-foreground max-w-sm mx-auto text-sm">
+                      Themed creative prompts, community voting, and winner spotlights — launching with the community feed.
+                    </p>
+                    <Button variant="outline" size="sm" asChild>
+                      <InternalLink to="/auth?tab=signup">Get notified</InternalLink>
+                    </Button>
+                  </CardContent>
+                </Card>
               </TabsContent>
 
               <TabsContent value="featured" className="mt-0">
                 <div className="grid lg:grid-cols-2 gap-8">
                   <FeaturedSection
-                    featuredArtist={FEATURED_ARTIST}
                     trendingPosts={TRENDING_POSTS}
-                    onViewProfile={handleViewProfile}
                     onViewPost={handleViewPost}
                   />
-                  <div className="space-y-6">
-                    <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-md rounded-xl overflow-hidden">
-                      <CardContent className="p-6">
-                        <h3 className="text-xl font-bold mb-4">This Week's Highlights</h3>
-                        <div className="space-y-4">
-                          <div className="bg-secondary/50 p-4 rounded-lg border border-border">
-                            <h4 className="font-semibold mb-2 text-foreground">Most Liked Creation</h4>
-                            <p className="text-sm text-muted-foreground mb-3">
-                              "Ethereal Dreams" by @dreamweaver received 1,247 likes this week
-                            </p>
-                            <img 
-                              src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=200&fit=crop&auto=format" 
-                              alt="Featured creation" 
-                              className="w-full h-32 object-cover rounded-lg"
-                            />
-                          </div>
-                          <div className="bg-secondary/50 p-4 rounded-lg border border-border">
-                            <h4 className="font-semibold mb-2 text-foreground">Rising Star</h4>
-                            <p className="text-sm text-muted-foreground mb-3">
-                              @newartist gained 500+ followers with their amazing portrait series
-                            </p>
-                            <img 
-                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=200&fit=crop&auto=format" 
-                              alt="Rising star artwork" 
-                              className="w-full h-32 object-cover rounded-lg"
-                            />
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
+                  <Card className="glass-card border-primary/20">
+                    <CardContent className="py-16 text-center space-y-4">
+                      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 border border-primary/20 mx-auto">
+                        <TrendingUp className="h-8 w-8 text-primary" aria-hidden="true" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-foreground">Featured creators coming soon</h3>
+                      <p className="text-muted-foreground max-w-xs mx-auto text-sm">
+                        We'll spotlight community members and their work once the social feed launches.
+                      </p>
+                      <Button variant="outline" size="sm" asChild>
+                        <InternalLink to="/auth?tab=signup">Get notified</InternalLink>
+                      </Button>
+                    </CardContent>
+                  </Card>
                 </div>
               </TabsContent>
             </div>
@@ -338,11 +241,6 @@ const Community = () => {
           </div>
         </Tabs>
       </div>
-      
-      <CreatePostModal 
-        isOpen={isCreatePostModalOpen} 
-        onClose={() => setIsCreatePostModalOpen(false)} 
-      />
       
       <Footer />
     </div>

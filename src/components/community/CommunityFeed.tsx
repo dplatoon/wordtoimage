@@ -1,127 +1,33 @@
-import { useState } from 'react';
-import { PostCard } from './PostCard';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useTranslation } from 'react-i18next';
-
-// Mock data for demonstration
-const MOCK_POSTS = [
-  {
-    id: '1',
-    author: {
-      name: 'Sarah Johnson',
-      avatar: '/placeholder.svg',
-    },
-    content: 'Just created an amazing social media graphic using WordToImage! The AI-generated result exceeded my expectations. #DesignMagic',
-    image: '/placeholder.svg',
-    likes: 42,
-    comments: 8,
-    timestamp: '2 hours ago',
-    category: 'showcase',
-  },
-  {
-    id: '2',
-    author: {
-      name: 'Michael Chen',
-      avatar: '/placeholder.svg',
-    },
-    content: 'Does anyone have tips for creating eye-catching Instagram stories? Looking for design advice that stands out!',
-    image: '',
-    likes: 15,
-    comments: 23,
-    timestamp: '4 hours ago',
-    category: 'question',
-  },
-  {
-    id: '3',
-    author: {
-      name: 'Priya Patel',
-      avatar: '/placeholder.svg',
-    },
-    content: 'Here\'s a tutorial on how to create stunning gradients for your social media posts. The secret is in the color harmony!',
-    image: '/placeholder.svg',
-    likes: 67,
-    comments: 12,
-    timestamp: '1 day ago',
-    category: 'tutorial',
-  },
-  {
-    id: '4',
-    author: {
-      name: 'James Wilson',
-      avatar: '/placeholder.svg',
-    },
-    content: 'Just discovered how powerful the text-to-image feature is for creating promotional content. Saved me hours of design work!',
-    image: '/placeholder.svg',
-    likes: 31,
-    comments: 5,
-    timestamp: '2 days ago',
-    category: 'feedback',
-  },
-];
-
-const CATEGORIES = [
-  { name: 'all', label: 'categories.all' },
-  { name: 'showcase', label: 'categories.showcase', color: 'bg-purple-500' },
-  { name: 'question', label: 'categories.question', color: 'bg-blue-500' },
-  { name: 'tutorial', label: 'categories.tutorial', color: 'bg-green-500' },
-  { name: 'feedback', label: 'categories.feedback', color: 'bg-amber-500' },
-];
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Users, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const CommunityFeed = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const { t } = useTranslation();
-  
-  const filteredPosts = activeCategory === 'all' 
-    ? MOCK_POSTS 
-    : MOCK_POSTS.filter(post => post.category === activeCategory);
-
   return (
     <div className="space-y-6">
-      <Tabs defaultValue="trending" className="w-full">
-        <TabsList className="mb-4">
-          <TabsTrigger value="trending">{t('community_page.trending')}</TabsTrigger>
-          <TabsTrigger value="recent">{t('community_page.recent')}</TabsTrigger>
-          <TabsTrigger value="following">{t('community_page.following')}</TabsTrigger>
-        </TabsList>
-        
-        <div className="flex flex-wrap gap-2 mb-6">
-          {CATEGORIES.map((category) => (
-            <Badge 
-              key={category.name}
-              variant={activeCategory === category.name ? "default" : "outline"}
-              className={`cursor-pointer ${activeCategory === category.name ? category.color || '' : ''}`}
-              onClick={() => setActiveCategory(category.name)}
-            >
-              {t(`community_page.${category.label}`)}
-            </Badge>
-          ))}
-        </div>
-        
-        <TabsContent value="trending" className="mt-0">
-          <div className="space-y-6">
-            {filteredPosts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
+      <Card className="glass-card border-primary/20">
+        <CardContent className="py-16 text-center space-y-4">
+          <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 border border-primary/20 mx-auto">
+            <Users className="h-8 w-8 text-primary" aria-hidden="true" />
           </div>
-        </TabsContent>
-        
-        <TabsContent value="recent" className="mt-0">
-          <div className="space-y-6">
-            {[...filteredPosts].reverse().map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
+          <h3 className="text-xl font-semibold text-foreground">Community feed coming soon</h3>
+          <p className="text-muted-foreground max-w-sm mx-auto text-sm">
+            Share your AI creations, comment on others' work, and connect with fellow creators. Sign up to be notified when it launches.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+            <Button variant="neon" asChild>
+              <Link to="/auth?tab=signup">
+                <Sparkles className="mr-2 h-4 w-4" aria-hidden="true" />
+                Create free account
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/text-to-image">Start generating</Link>
+            </Button>
           </div>
-        </TabsContent>
-        
-        <TabsContent value="following" className="mt-0">
-          <div className="flex flex-col items-center justify-center py-10">
-            <p className="text-muted-foreground text-center">
-              Follow users to see their posts here.
-            </p>
-          </div>
-        </TabsContent>
-      </Tabs>
+        </CardContent>
+      </Card>
     </div>
   );
 };
