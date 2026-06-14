@@ -82,7 +82,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
 );
 Section.displayName = "Section";
 
-interface SectionHeadingProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SectionHeadingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** Small uppercase label above the title. */
   eyebrow?: string;
   /** Main heading text. */
