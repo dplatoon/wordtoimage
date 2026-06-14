@@ -192,7 +192,7 @@ export const CommunityGallery = () => {
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-between">
                     <div className="flex justify-between items-start">
                       {image.featured && (
-                        <Badge className="bg-yellow-500">Featured</Badge>
+                        <Badge className="bg-primary text-primary-foreground">Featured</Badge>
                       )}
                       <Button
                         size="icon"
