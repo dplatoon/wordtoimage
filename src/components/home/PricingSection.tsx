@@ -151,7 +151,7 @@ export const PricingSection = () => {
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                      <span className="ml-2 text-sm text-muted-foreground/50 line-through">{limitation}</span>
+                      <span className="ml-2 text-sm text-muted-foreground line-through">{limitation}</span>
                     </li>
                   ))}
                 </ul>
