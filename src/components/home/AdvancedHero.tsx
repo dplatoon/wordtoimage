@@ -410,7 +410,8 @@ export const AdvancedHero = () => {
                   className="w-full h-full object-cover"
                   width={384}
                   height={384}
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
