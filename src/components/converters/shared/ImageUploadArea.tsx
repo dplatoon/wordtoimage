@@ -1,5 +1,5 @@
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { FileUploader } from './FileUploader';
 import { Layers, X } from 'lucide-react';
@@ -18,6 +18,8 @@ export function ImageUploadArea({
   onRemoveFile, 
   maxFiles = 20 
 }: ImageUploadAreaProps) {
+  const addMoreInputRef = useRef<HTMLInputElement>(null);
+
   const handleFileSelect = useCallback((file: File) => {
     const supportedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
     
@@ -35,6 +37,24 @@ export function ImageUploadArea({
     toast.success('Image added successfully!');
   }, [files.length, maxFiles, onFileSelect]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selected = Array.from(e.target.files ?? []);
+    let count = files.length;
+    for (const file of selected) {
+      if (count >= maxFiles) {
+        toast.error(`Maximum ${maxFiles} images allowed in batch mode`);
+        break;
+      }
+      if (!['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(file.type)) {
+        toast.error(`${file.name} is not a supported image type`);
+        continue;
+      }
+      onFileSelect(file);
+      count++;
+    }
+    e.target.value = '';
+  };
+
   if (files.length === 0) {
     return (
       <FileUploader
@@ -51,12 +71,20 @@ export function ImageUploadArea({
 
   return (
     <div className="space-y-4">
+      <input
+        ref={addMoreInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        multiple
+        className="hidden"
+        onChange={handleInputChange}
+      />
       <div className="flex items-center justify-between">
         <h3 className="font-medium text-foreground">Images to Combine ({files.length}/{maxFiles})</h3>
         <Button
           variant="glass"
           size="sm"
-          onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
+          onClick={() => addMoreInputRef.current?.click()}
           disabled={files.length >= maxFiles}
         >
           Add More Images

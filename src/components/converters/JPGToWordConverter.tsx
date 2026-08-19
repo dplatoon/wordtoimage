@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -11,6 +11,7 @@ import { toast } from '@/components/ui/sonner';
 
 export function JPGToWordConverter() {
   const [files, setFiles] = useState<File[]>([]);
+  const addMoreInputRef = useRef<HTMLInputElement>(null);
   const [isConverting, setIsConverting] = useState(false);
   const [progress, setProgress] = useState(0);
   const [language, setLanguage] = useState('en');
@@ -31,6 +32,23 @@ export function JPGToWordConverter() {
 
   const removeFile = (index: number) => {
     setFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleAddMoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const supportedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/tiff'];
+    const selected = Array.from(e.target.files ?? []);
+    const valid = selected.filter(f => {
+      if (!supportedTypes.includes(f.type)) {
+        toast.error(`${f.name} is not a supported image type`);
+        return false;
+      }
+      return true;
+    });
+    if (valid.length > 0) {
+      setFiles(prev => [...prev, ...valid]);
+      toast.success(`${valid.length} image${valid.length > 1 ? 's' : ''} added successfully!`);
+    }
+    e.target.value = '';
   };
 
   const convertImagesToText = async () => {
@@ -66,8 +84,21 @@ export function JPGToWordConverter() {
       }
       
       if (outputType === 'word') {
-        const docContent = results.join('\n\n--- Page Break ---\n\n');
-        const blob = new Blob([docContent], { type: 'text/plain' });
+        const escapeHtml = (value: string) =>
+          value
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+        const body = results
+          .map(text =>
+            text
+              .split(/\n{2,}/)
+              .map(p => `<p>${escapeHtml(p).replace(/\n/g, '<br/>')}</p>`)
+              .join('')
+          )
+          .join('<br clear="all" style="page-break-before:always" />');
+        const docContent = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Extracted Text</title></head><body style="font-family:Calibri,Arial,sans-serif;font-size:11pt">${body}</body></html>`;
+        const blob = new Blob(['\ufeff', docContent], { type: 'application/msword' });
         const url = URL.createObjectURL(blob);
         setConvertedFiles([url]);
       } else {
@@ -111,7 +142,7 @@ export function JPGToWordConverter() {
     
     const link = document.createElement('a');
     link.href = convertedFiles[0];
-    link.download = outputType === 'word' ? 'extracted-text.txt' : 'extracted-text.pdf';
+    link.download = outputType === 'word' ? 'extracted-text.doc' : 'extracted-text.pdf';
     document.body.appendChild(link);
     (link as HTMLAnchorElement).click();
     document.body.removeChild(link);
@@ -124,6 +155,14 @@ export function JPGToWordConverter() {
       <Card className="border border-border bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
         <CardContent className="p-8">
           <div className="space-y-6">
+            <input
+              ref={addMoreInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/tiff"
+              multiple
+              className="hidden"
+              onChange={handleAddMoreChange}
+            />
             {/* File Upload Area */}
             {files.length === 0 ? (
               <FileUploader
@@ -142,7 +181,7 @@ export function JPGToWordConverter() {
                   <Button
                     variant="glass"
                     size="sm"
-                    onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
+                    onClick={() => addMoreInputRef.current?.click()}
                   >
                     Add More Images
                   </Button>
@@ -196,7 +235,7 @@ export function JPGToWordConverter() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="word">Editable Word Document</SelectItem>
+                        <SelectItem value="word">Editable Word Document (.doc)</SelectItem>
                         <SelectItem value="pdf">Flattened PDF</SelectItem>
                       </SelectContent>
                     </Select>
@@ -242,7 +281,7 @@ export function JPGToWordConverter() {
                       </h3>
                       <DownloadButton
                         onDownload={handleDownload}
-                        filename={outputType === 'word' ? 'extracted-text.txt' : 'extracted-text.pdf'}
+                        filename={outputType === 'word' ? 'extracted-text.doc' : 'extracted-text.pdf'}
                       />
                     </div>
                     
