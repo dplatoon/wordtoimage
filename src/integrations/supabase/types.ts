@@ -319,13 +319,6 @@ export type Database = {
         Args: { p_older_than_hours?: number }
         Returns: number
       }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
       log_audit_event: {
         Args: {
           p_action: string
