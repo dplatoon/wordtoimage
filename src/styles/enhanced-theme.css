@@ -1,6 +1,5 @@
 /* Dark Futuristic Theme - Orange/Coral Accents */
 
-@layer base {
   :root {
     /* Dark Futuristic Theme with Orange/Coral Accents */
     --background: 220 15% 5%;
@@ -97,9 +96,7 @@
     --border: 30 15% 88%;
     --input: 30 15% 92%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
@@ -169,9 +166,7 @@
     background: hsl(var(--primary) / 0.3);
     color: hsl(var(--foreground));
   }
-}
 
-@layer components {
   /* Glassmorphism Cards */
   .glass-card {
     @apply relative overflow-hidden rounded-2xl;
@@ -326,9 +321,7 @@
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
   .safe-left { padding-left: env(safe-area-inset-left); }
   .safe-right { padding-right: env(safe-area-inset-right); }
-}
 
-@layer utilities {
   /* Mobile-first utilities */
   .min-touch { min-height: 48px; min-width: 48px; }
   
@@ -354,4 +347,3 @@
   .delay-300 { animation-delay: 300ms; }
   .delay-400 { animation-delay: 400ms; }
   .delay-500 { animation-delay: 500ms; }
-}
