@@ -97,7 +97,6 @@
     --input: 30 15% 92%;
   }
 
-@layer base {
   * {
     @apply border-border;
   }
@@ -170,7 +169,6 @@
 
 }
 
-@layer components {
   /* Glassmorphism Cards */
   .glass-card {
     @apply relative overflow-hidden rounded-2xl;
@@ -351,5 +349,3 @@
   .delay-300 { animation-delay: 300ms; }
   .delay-400 { animation-delay: 400ms; }
   .delay-500 { animation-delay: 500ms; }
-
-}
