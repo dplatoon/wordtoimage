@@ -245,6 +245,17 @@ serve(async (req) => {
         isImageToImage: !!sourceImage
       };
 
+      // Deduct a credit for free tier users
+      if (profile.subscription_tier === "free") {
+        const { error: creditError } = await supabase
+          .from("profiles")
+          .update({ credits: (profile.credits ?? 0) - 1 })
+          .eq("id", userId);
+        if (creditError) {
+          console.error("Credit deduction error:", creditError);
+        }
+      }
+
       // Log to database if Supabase is configured
       if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY && userId) {
         try {
