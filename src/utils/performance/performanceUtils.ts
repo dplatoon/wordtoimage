@@ -172,6 +172,9 @@ export const trackCoreWebVitals = (): void => {
       });
       
       lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+      const stopLcp = () => { try { lcpObserver.takeRecords(); lcpObserver.disconnect(); } catch {} };
+      ['keydown', 'click', 'pointerdown'].forEach(e => addEventListener(e, stopLcp, { once: true, capture: true }));
+      addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') stopLcp(); }, { once: true });
     } catch (error) {
       console.warn('Performance monitoring setup failed:', error);
     }

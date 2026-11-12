@@ -1,5 +1,5 @@
 // Enhanced Service Worker for WordToImage PWA
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const STATIC_CACHE = `wordtoimage-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `wordtoimage-dynamic-${CACHE_VERSION}`;
 const IMAGE_CACHE = `wordtoimage-images-${CACHE_VERSION}`;

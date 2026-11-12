@@ -21,9 +21,8 @@ export const ApiKeyForm = ({
     e.preventDefault();
     if (apiKey.trim()) {
       onSubmit(apiKey);
-      // Store temporarily in localStorage for development only
-      localStorage.setItem(`temp_${serviceName.toLowerCase().replace(' ', '_')}_key`, apiKey);
-      toast.success(`${serviceName} API Key saved temporarily`);
+      setApiKey('');
+      toast.success(`${serviceName} API Key set for this session`);
     } else {
       toast.error('Please enter a valid API key');
     }
@@ -32,7 +31,7 @@ export const ApiKeyForm = ({
   return (
     <div className="mb-4 p-4 border border-border rounded-lg">
       <div className="mb-2">
-        <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="apiKey" className="block text-sm font-medium text-muted-foreground mb-1">
           {serviceName} API Key (stored only for this session)
         </label>
         <div className="flex gap-2">

@@ -150,7 +150,7 @@ const VideoTutorials = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Helmet>
         <title>AI Image Generation Video Tutorials | WordToImage</title>
         <meta name="description" content="Learn AI image generation with our comprehensive video tutorials. From beginner basics to advanced techniques. Master text-to-image AI with step-by-step guides." />
@@ -299,7 +299,7 @@ const VideoTutorials = () => {
                         
                         {/* Video Chapters */}
                         <div className="mb-4">
-                          <h4 className="text-sm font-medium text-gray-700 mb-2">Chapters:</h4>
+                          <h4 className="text-sm font-medium text-muted-foreground mb-2">Chapters:</h4>
                           <div className="space-y-1">
                             {tutorial.chapters.slice(0, 3).map((chapter, index) => (
                               <div key={index} className="flex justify-between text-xs text-muted-foreground">

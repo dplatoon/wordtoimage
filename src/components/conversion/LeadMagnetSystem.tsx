@@ -199,13 +199,13 @@ export const LeadMagnetSystem = ({
           <p className="text-muted-foreground font-medium">{magnetData.subtitle}</p>
         </DialogHeader>
 
-        <Card className="border-none shadow-none bg-gradient-to-br from-gray-50 to-white">
+        <Card className="border-none shadow-none bg-gradient-to-br from-muted to-white">
           <CardContent className="p-6">
             <div className="text-center mb-6">
               <div className="mx-auto mb-4 p-3 bg-card rounded-full w-fit shadow-sm">
                 {magnetData.icon}
               </div>
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <p className="text-muted-foreground leading-relaxed mb-4">
                 {magnetData.description}
               </p>
 
@@ -225,7 +225,7 @@ export const LeadMagnetSystem = ({
               {magnetData.benefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0" />
-                  <span className="text-sm text-gray-700">{benefit}</span>
+                  <span className="text-sm text-muted-foreground">{benefit}</span>
                 </div>
               ))}
             </div>

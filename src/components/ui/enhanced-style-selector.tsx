@@ -244,7 +244,7 @@ export const EnhancedStyleSelector = ({
                                 "h-2 w-2",
                                 i < style.popularity 
                                   ? "fill-yellow-400 text-yellow-400" 
-                                  : "text-gray-300"
+                                  : "text-muted-foreground"
                               )}
                             />
                           ))}

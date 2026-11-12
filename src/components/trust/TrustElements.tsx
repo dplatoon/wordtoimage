@@ -55,7 +55,7 @@ export const TrustElements = () => {
       {/* Sample Images Row */}
       <div className="mt-6 pt-4 border-t border-border">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-gray-700">Recent Creations:</span>
+          <span className="text-sm font-medium text-muted-foreground">Recent Creations:</span>
           <span className="text-xs text-muted-foreground">Updated live</span>
         </div>
         <div className="flex gap-2 overflow-hidden">

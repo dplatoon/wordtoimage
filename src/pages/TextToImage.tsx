@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from '@/components/ui/sonner';
-import type { SocialFormat } from '@/components/FormatSelector';
 import { useImageGeneration } from '@/hooks/useImageGeneration';
 import { useAuth } from '@/contexts/AuthContext';
 import { AuthModalDialog } from '@/components/hero/AuthModalDialog';
@@ -28,7 +27,7 @@ import { MobileOptimizedNav } from '@/components/navigation/MobileOptimizedNav';
 import { ModernPromptInput } from '@/components/text-to-image/ModernPromptInput';
 import { ModernFeatureCards } from '@/components/text-to-image/ModernFeatureCards';
 import { ModernStyleSelector } from '@/components/text-to-image/ModernStyleSelector';
-import { FormatSelector } from '@/components/FormatSelector';
+import { RotateCw } from 'lucide-react';
 
 // Style mapping for URL parameters
 const STYLE_MAPPINGS: Record<string, string> = {
@@ -43,9 +42,8 @@ const STYLE_MAPPINGS: Record<string, string> = {
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [selectedFormat, setSelectedFormat] = useState<SocialFormat | null>(null);
+  const [lastAttemptedPrompt, setLastAttemptedPrompt] = useState<string | null>(null);
   const [generatedImages, setGeneratedImages] = useState<{
     url: string;
     prompt?: string;
@@ -53,7 +51,6 @@ export default function TextToImage() {
     style?: string;
   }[]>([]);
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [lastGenerationTime, setLastGenerationTime] = useState<number | null>(null);
   const [showGalleryManager, setShowGalleryManager] = useState(false);
   const { user, isLoading } = useAuth();
   const isMobile = useIsMobile();
@@ -64,17 +61,15 @@ export default function TextToImage() {
   
   const { generateImageFromPrompt } = useImageGeneration({
     onImageGenerated: (url) => {
-      const newImage = { 
-        url, 
-        prompt: prompt.substring(0, 100) + (prompt.length > 100 ? '...' : ''),
+      const newImage = {
+        url,
+        prompt,
         timestamp: Date.now(),
         style: selectedStyle || undefined
       };
-      
+
       setGeneratedImages(prev => [...prev, newImage]);
-      setLastGenerationTime(Date.now());
-      setProgress(100);
-      
+
       addToHistory({
         prompt: prompt,
         style: selectedStyle || undefined,
@@ -97,23 +92,11 @@ export default function TextToImage() {
     onGeneratingChange: (generating) => {
       setIsGenerating(generating);
       if (generating) {
-        setProgress(0);
         setError(null);
-        const interval = setInterval(() => {
-          setProgress(prev => {
-            const newProgress = prev + Math.random() * 15;
-            if (newProgress >= 95) {
-              clearInterval(interval);
-              return 95;
-            }
-            return newProgress;
-          });
-        }, 200);
       }
     },
     onError: errorMsg => {
       setError(errorMsg);
-      setProgress(0);
       toast.error("Failed to generate image", {
         description: errorMsg || "An unexpected error occurred"
       });
@@ -145,14 +128,26 @@ export default function TextToImage() {
     if (selectedStyle && STYLE_MAPPINGS[selectedStyle]) {
       enhancedPrompt = `${enhancedPrompt}, ${STYLE_MAPPINGS[selectedStyle]}`;
     }
-    
+
     storageService.addSearchTerm(prompt.trim());
-    
+    setLastAttemptedPrompt(enhancedPrompt);
+
     try {
       trackEvent('text_to_image_generate_attempt', { promptLength: prompt.length, style: selectedStyle || 'none' });
       await generateImageFromPrompt(enhancedPrompt, '', false, '');
     } catch (error) {
       console.error('Failed to generate image:', error);
+    }
+  };
+
+  const handleRetry = async () => {
+    if (!lastAttemptedPrompt || isGenerating) return;
+    setError(null);
+    trackEvent('text_to_image_retry', { style: selectedStyle || 'none' });
+    try {
+      await generateImageFromPrompt(lastAttemptedPrompt, '', true, '');
+    } catch (error) {
+      console.error('Retry failed:', error);
     }
   };
 
@@ -192,7 +187,7 @@ export default function TextToImage() {
 
   return (
     <BrowserCompatibilityWrapper>
-      <div className="min-h-screen bg-background relative overflow-hidden">
+      <div className="min-h-dvh bg-background relative overflow-hidden">
         {/* Futuristic Background */}
         <div className="fixed inset-0 -z-10">
           <div className="absolute inset-0 bg-dark-gradient" />
@@ -278,11 +273,9 @@ export default function TextToImage() {
                         exit={{ opacity: 0, height: 0 }}
                         className="mt-6"
                       >
-                        <GenerationProgress 
+                        <GenerationProgress
                           isGenerating={isGenerating}
-                          progress={progress}
                           currentPrompt={prompt}
-                          estimatedTime={5}
                         />
                       </motion.div>
                     )}
@@ -298,8 +291,20 @@ export default function TextToImage() {
                         className="mt-6"
                       >
                         <Alert className="border-destructive/50 bg-destructive/10">
-                          <AlertDescription className="text-destructive">
-                            {error}
+                          <AlertDescription className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <span className="text-destructive">{error}</span>
+                            {lastAttemptedPrompt && (
+                              <Button
+                                onClick={handleRetry}
+                                disabled={isGenerating}
+                                variant="outline"
+                                size="sm"
+                                className="shrink-0 border-destructive/40 text-destructive hover:bg-destructive/10"
+                              >
+                                <RotateCw className="mr-2 h-4 w-4" aria-hidden="true" />
+                                Try again
+                              </Button>
+                            )}
                           </AlertDescription>
                         </Alert>
                       </motion.div>
@@ -319,19 +324,6 @@ export default function TextToImage() {
               <ModernStyleSelector
                 selectedStyle={selectedStyle}
                 onStyleChange={handleStyleChange}
-              />
-            </motion.div>
-
-            {/* Social Media Format Selector */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="mt-8"
-            >
-              <FormatSelector
-                selectedFormat={selectedFormat}
-                onFormatSelect={setSelectedFormat}
               />
             </motion.div>
 

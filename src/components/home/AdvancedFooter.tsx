@@ -44,7 +44,7 @@ const socialLinks = [
 
 export const AdvancedFooter = () => {
   return (
-    <footer className="relative bg-slate-950 border-t border-white/5">
+    <footer className="relative bg-background border-t border-white/5">
       {/* Glow Effect */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
       

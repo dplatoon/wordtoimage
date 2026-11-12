@@ -25,7 +25,7 @@ export const ShowcaseSection = () => {
   }));
 
   return (
-    <section id="showcase" className="relative py-20 md:py-28 bg-gradient-to-b from-slate-900 to-slate-950 overflow-hidden" data-onboarding="showcase-section">
+    <section id="showcase" className="relative py-20 md:py-28 bg-gradient-to-b from-background to-background overflow-hidden" data-onboarding="showcase-section">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl" />
@@ -91,7 +91,7 @@ export const ShowcaseSection = () => {
                   </div>
                   
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="absolute bottom-0 left-0 right-0 p-5">
                       <p className="text-white font-medium mb-2 line-clamp-2">{item.prompt}</p>
                       <div className="flex items-center justify-between">

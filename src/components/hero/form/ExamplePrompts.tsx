@@ -81,7 +81,7 @@ export const ExamplePrompts = ({
               key={index} 
               onClick={() => onSelect(example.text)} 
               className={cn(
-                "flex items-center bg-muted hover:bg-muted rounded-full text-gray-700 text-xs py-1 px-3",
+                "flex items-center bg-muted hover:bg-muted rounded-full text-muted-foreground text-xs py-1 px-3",
                 isMobile ? "text-xs" : "text-xs py-[3px] px-[12px]"
               )}
             >
@@ -108,7 +108,7 @@ export const ExamplePrompts = ({
       <div className="mt-6">
         <div className="flex items-center mb-3">
           <FileText className="h-4 w-4 mr-2 text-indigo-600" />
-          <span className="text-sm font-medium text-gray-700">Advanced Prompt Examples:</span>
+          <span className="text-sm font-medium text-muted-foreground">Advanced Prompt Examples:</span>
         </div>
         
         <div className={cn(
@@ -121,7 +121,7 @@ export const ExamplePrompts = ({
               onClick={() => onSelect(example.text)} 
               className={cn(
                 "text-left bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent",
-                "border border-indigo-100 rounded-lg p-3 transition-all text-sm text-gray-700 shadow-sm"
+                "border border-indigo-100 rounded-lg p-3 transition-all text-sm text-muted-foreground shadow-sm"
               )}
             >
               <div className="flex items-center mb-1">

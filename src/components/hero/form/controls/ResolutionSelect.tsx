@@ -10,7 +10,7 @@ interface ResolutionSelectProps {
 
 export const ResolutionSelect = ({ value, onChange, isMobile }: ResolutionSelectProps) => {
   const labelClass = "block text-xs font-medium text-muted-foreground mb-1 ml-1";
-  const dropdownClass = "rounded-lg border border-gray-300 py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm text-sm w-full";
+  const dropdownClass = "rounded-lg border border-border py-2 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm text-sm w-full";
 
   return (
     <div className={isMobile ? "col-span-2" : ""}>

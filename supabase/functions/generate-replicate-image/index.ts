@@ -111,6 +111,69 @@ serve(async (req) => {
       );
     }
 
+    if (prompt.length > 2000) {
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Prompt is too long. Maximum 2000 characters allowed.",
+          errors: [{ code: "VALIDATION_ERROR", message: "Prompt too long" }]
+        }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Enforce credits / quota before spending paid API calls
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("credits, subscription_tier")
+      .eq("id", userId)
+      .single();
+
+    if (profileError || !profile) {
+      console.error("Profile lookup error:", profileError);
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Unable to process request. Please try again.",
+          errors: [{ code: "PROFILE_ERROR", message: "Unable to process request" }]
+        }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (profile.subscription_tier === "free" && (profile.credits ?? 0) <= 0) {
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Insufficient credits. Please upgrade or wait for daily refresh.",
+          errors: [{ code: "INSUFFICIENT_CREDITS", message: "Insufficient credits" }]
+        }),
+        { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Per-user daily cap even for paid tiers, to bound API spend
+    const DAILY_LIMIT = profile.subscription_tier === "free" ? 10 : 200;
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const { count: recentCount, error: countError } = await supabase
+      .from("generations")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .gte("created_at", since);
+
+    if (countError) {
+      console.error("Quota check error:", countError);
+    } else if ((recentCount ?? 0) >= DAILY_LIMIT) {
+      return new Response(
+        JSON.stringify({
+          error: true,
+          errorMessage: "Daily generation limit reached. Please try again later.",
+          errors: [{ code: "RATE_LIMIT", message: "Daily generation limit reached" }]
+        }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     // Initialize Replicate
     const replicate = new Replicate({
       auth: replicateApiKey,
@@ -181,6 +244,17 @@ serve(async (req) => {
         userId: userId || undefined,
         isImageToImage: !!sourceImage
       };
+
+      // Deduct a credit for free tier users
+      if (profile.subscription_tier === "free") {
+        const { error: creditError } = await supabase
+          .from("profiles")
+          .update({ credits: (profile.credits ?? 0) - 1 })
+          .eq("id", userId);
+        if (creditError) {
+          console.error("Credit deduction error:", creditError);
+        }
+      }
 
       // Log to database if Supabase is configured
       if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY && userId) {

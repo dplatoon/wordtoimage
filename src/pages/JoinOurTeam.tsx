@@ -56,7 +56,7 @@ const JoinOurTeam = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <SEOManager customConfig={{
         title: "Join Our Team - AI Careers at WordToImage",
         description: "Join WordToImage and help build the future of AI image generation. Remote-friendly positions in engineering, design, and more.",
@@ -161,7 +161,7 @@ const JoinOurTeam = () => {
               {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-violet-600 rounded-full"></div>
-                  <span className="text-gray-700">{benefit}</span>
+                  <span className="text-muted-foreground">{benefit}</span>
                 </div>
               ))}
             </div>

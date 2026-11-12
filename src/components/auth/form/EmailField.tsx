@@ -20,12 +20,12 @@ export const EmailField = forwardRef<HTMLInputElement, EmailFieldProps>(
         name="email"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-sm font-semibold text-slate-700">
+            <FormLabel className="text-sm font-semibold text-muted-foreground">
               Email Address
             </FormLabel>
             <FormControl>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" aria-hidden="true" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
                 <Input 
                   type="email" 
                   {...field} 
@@ -34,7 +34,7 @@ export const EmailField = forwardRef<HTMLInputElement, EmailFieldProps>(
                   disabled={isLoading}
                   autoComplete="email"
                   inputMode="email"
-                  className="pl-10 h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20"
+                  className="pl-10 h-11 border-border focus:border-blue-500 focus:ring-blue-500/20"
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? "email-error" : undefined}
                 />

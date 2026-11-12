@@ -88,7 +88,7 @@ export function GalleryToolbar({
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value as any)}
-          className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+          className="px-3 py-1 border border-border rounded-md text-sm"
         >
           <option value="newest">Newest First</option>
           <option value="oldest">Oldest First</option>
@@ -96,12 +96,12 @@ export function GalleryToolbar({
         </select>
 
         {/* View Mode */}
-        <div className="flex items-center border border-gray-300 rounded-md">
+        <div className="flex items-center border border-border rounded-md">
           <Button
             variant={viewMode === 'grid' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => onViewModeChange('grid')}
-            className="rounded-r-none border-r border-gray-300"
+            className="rounded-r-none border-r border-border"
           >
             <Grid3X3 className="h-4 w-4" />
           </Button>

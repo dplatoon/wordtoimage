@@ -195,7 +195,7 @@ export const TemplatesSection = () => {
         
         {/* Results Summary */}
         <div className="mt-8 mb-6">
-          <p className="text-sm text-brand-slate-600 font-medium">
+          <p className="text-sm text-muted-foreground font-medium">
             Showing {filteredTemplates.length} template{filteredTemplates.length !== 1 ? 's' : ''}
             {activeCategory && ` in ${activeCategory}`}
             {searchQuery && ` matching "${searchQuery}"`}
@@ -216,7 +216,7 @@ export const TemplatesSection = () => {
 
         {filteredTemplates.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-brand-slate-500 mb-6 text-lg">No templates found matching your criteria.</p>
+            <p className="text-muted-foreground mb-6 text-lg">No templates found matching your criteria.</p>
             <Button 
               variant="outline" 
               onClick={() => {
@@ -224,7 +224,7 @@ export const TemplatesSection = () => {
                 setSearchQuery('');
                 setSelectedTags([]);
               }}
-              className="border-brand-slate-200 hover:bg-brand-slate-50 font-medium rounded-xl"
+              className="border-border hover:bg-muted font-medium rounded-xl"
             >
               Clear Filters
             </Button>
@@ -235,7 +235,7 @@ export const TemplatesSection = () => {
           <Link to="/text-to-image">
             <Button 
               variant="outline" 
-              className="border-brand-purple text-brand-purple hover:bg-brand-purple/5 hover:border-brand-purple/60 font-semibold rounded-xl shadow-subtle transition-all duration-200"
+              className="border-primary text-primary hover:bg-primary/5 hover:border-primary/60 font-semibold rounded-xl shadow-subtle transition-all duration-200"
             >
               Create Your Own
               <ImagePlus className="h-4 w-4 ml-2" />

@@ -138,7 +138,7 @@ const PromptGuide = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-primary via-white to-accent">
+    <div className="min-h-dvh flex flex-col bg-gradient-to-b from-primary via-white to-accent">
       <Helmet>
         <title>AI Prompt Writing Guide – Master Text-to-Image Prompts | WordToImage</title>
         <meta name="description" content="Master AI prompt writing with our comprehensive guide. Learn techniques, see examples, and create stunning AI-generated images with professional-quality prompts." />
@@ -327,7 +327,7 @@ const PromptGuide = () => {
                     <h3 className="text-lg font-semibold text-foreground mb-2">{tip.title}</h3>
                     <p className="text-muted-foreground mb-3">{tip.description}</p>
                     <div className="bg-muted/50 rounded-md p-3 text-sm">
-                      <p className="text-gray-700 italic">"{tip.example}"</p>
+                      <p className="text-muted-foreground italic">"{tip.example}"</p>
                     </div>
                   </div>
                 </div>

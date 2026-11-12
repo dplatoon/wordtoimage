@@ -83,7 +83,7 @@ const BestFreeAIImageGenerators = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -103,7 +103,7 @@ const BestFreeAIImageGenerators = () => {
                 
                 <div className="grid grid-cols-2 gap-2 mb-4">
                   {generator.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center text-sm text-gray-700">
+                    <div key={idx} className="flex items-center text-sm text-muted-foreground">
                       <span className="text-green-500 mr-2">✓</span>
                       {feature}
                     </div>

@@ -54,7 +54,6 @@ const OnboardingDemo = lazy(() => import('@/pages/OnboardingDemo'));
 const TechnicalEnhancements = lazy(() => import('@/pages/TechnicalEnhancements'));
 const PaymentSuccess = lazy(() => import('@/pages/PaymentSuccess'));
 const AdminAuditLogs = lazy(() => import('@/pages/AdminAuditLogs'));
-const ComprehensiveDashboard = lazy(() => import('@/components/testing/ComprehensiveDashboard').then(module => ({ default: module.ComprehensiveDashboard })));
 const HowItWorks = lazy(() => import('@/pages/HowItWorks'));
 const HowToCreateAIImages = lazy(() => import('@/pages/blog/HowToCreateAIImages'));
 
@@ -72,7 +71,7 @@ const FutureAIImageGeneration = lazy(() => import('@/pages/blog/future-ai-image-
 const ProfessionalMarketingVisuals = lazy(() => import('@/pages/blog/professional-marketing-visuals'));
 
 const PageLoadingFallback = () => (
-  <div className="min-h-screen flex items-center justify-center bg-background">
+  <div className="min-h-dvh flex items-center justify-center bg-background">
     <div className="text-center space-y-4">
       <Skeleton className="h-8 w-48 mx-auto" />
       <Skeleton className="h-32 w-96 mx-auto" />
@@ -141,7 +140,6 @@ export const AnimatedRoutes = () => {
           <Route path="/blog/mastering-ai-art-prompts" element={<PageTransition><MasteringAIArtPrompts /></PageTransition>} />
           <Route path="/blog/future-ai-image-generation" element={<PageTransition><FutureAIImageGeneration /></PageTransition>} />
           <Route path="/blog/professional-marketing-visuals" element={<PageTransition><ProfessionalMarketingVisuals /></PageTransition>} />
-          <Route path="/dev-dashboard" element={<PageTransition><ComprehensiveDashboard /></PageTransition>} />
           <Route path="/onboarding-demo" element={<PageTransition><OnboardingDemo /></PageTransition>} />
           <Route path="/technical-enhancements" element={<PageTransition><TechnicalEnhancements /></PageTransition>} />
           <Route path="/payment-success" element={<PageTransition><PaymentSuccess /></PageTransition>} />

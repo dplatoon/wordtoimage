@@ -75,7 +75,7 @@ const StyleGallery = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-dvh flex flex-col bg-background">
       <Helmet>
         <title>AI Art Style Gallery – 50+ Professional Artistic Styles | WordToImage</title>
         <meta name="description" content="Explore 50+ professional AI art styles including photorealistic, anime, cyberpunk, watercolor & more. Transform your images with expert-curated artistic styles." />

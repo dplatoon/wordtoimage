@@ -16,14 +16,14 @@ export const ImageErrorPlaceholder = ({
 }: ImageErrorPlaceholderProps) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-muted/50 rounded-lg">
-      <ImageOff className="h-8 w-8 text-gray-300 mb-2" />
+      <ImageOff className="h-8 w-8 text-muted-foreground mb-2" />
       <p className="text-xs text-muted-foreground text-center mb-2">{message}</p>
       {showRetry && onRetry && (
         <Button
           variant="ghost"
           size="sm"
           onClick={onRetry}
-          className="text-xs text-muted-foreground hover:text-gray-700"
+          className="text-xs text-muted-foreground hover:text-muted-foreground"
         >
           <RefreshCw className="h-3 w-3 mr-1" />
           Try again

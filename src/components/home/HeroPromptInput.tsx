@@ -80,7 +80,7 @@ export const HeroPromptInput = () => {
                   onChange={(e) => setPrompt(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={EXAMPLE_PROMPTS[currentExample]}
-                  className="bg-card/20 border-white/30 text-white placeholder:text-gray-300 text-lg py-6 px-6 rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                  className="bg-card/20 border-white/30 text-white placeholder:text-muted-foreground text-lg py-6 px-6 rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
                 />
               </div>
               
@@ -97,7 +97,7 @@ export const HeroPromptInput = () => {
             
             {/* Example Text */}
             <div className="mt-6">
-              <p className="text-gray-300 text-sm mb-2">Try these examples:</p>
+              <p className="text-muted-foreground text-sm mb-2">Try these examples:</p>
               <div className="flex flex-wrap gap-2">
                 {EXAMPLE_PROMPTS.slice(0, 3).map((example, index) => (
                   <button
@@ -117,7 +117,7 @@ export const HeroPromptInput = () => {
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-gray-300 text-sm">AI Generating...</span>
+                <span className="text-muted-foreground text-sm">AI Generating...</span>
               </div>
               
               {/* Result Preview */}

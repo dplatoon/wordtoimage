@@ -68,7 +68,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <PageSEO
         title="About WordToImage - Leading AI Image Generation Platform"
         description="Learn about WordToImage's mission to democratize AI-powered creativity. Meet our team and discover how we're revolutionizing image generation technology."

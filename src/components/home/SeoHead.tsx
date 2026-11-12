@@ -141,19 +141,9 @@ export const SeoHead = () => {
 
   return (
     <Helmet>
-      {/* Optimized Primary Meta Tags */}
-      <title>AI Image Generator: Free Text-to-Art Converter | WordToImage AI</title>
-      <meta 
-        name="description" 
-        content="Create stunning AI art in seconds! Free text-to-image generator with 100+ styles. Perfect for designers, marketers & creators. No skills required - try now!" 
-      />
-      <meta 
-        name="keywords" 
-        content="AI image generator, free text to image AI, AI art generator, text-to-picture converter, AI art creator, prompt-based art generator, free AI image maker, text to image generator, AI graphics generator, artificial intelligence image creation, machine learning art, create AI images from text, best AI art generator 2025, AI illustration generator, generate AI images for Instagram, AI images for marketing campaigns, AI art prompts for designers, create ad images with AI, AI product image generator, AI visuals for digital marketing, AI graphic design tool, AI logo creation tool, AI images for blog posts, how to create images with AI, what are the best AI art prompts, how can I generate AI images, AI art creation tool online" 
-      />
-      
-      {/* Enhanced SEO Meta Tags */}
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      {/* Note: title, description, canonical, og:*, and twitter:* are managed by
+          EnhancedSEOManager / MetaTags for the homepage. SeoHead only contributes
+          supplemental author/publisher tags and structured data. */}
       <meta name="language" content="English" />
       <meta name="author" content="WordToImage AI Team" />
       <meta name="publisher" content="WordToImage" />
@@ -162,32 +152,8 @@ export const SeoHead = () => {
       <meta name="rating" content="general" />
       <meta name="distribution" content="global" />
       <meta name="category" content="Artificial Intelligence, Digital Art, Creative Tools" />
-      <link rel="canonical" href="https://wordtoimage.com/" />
-      
-      {/* Enhanced Open Graph / Facebook with AI Focus */}
-      <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="WordToImage - AI Image Generator" />
-      <meta property="og:url" content="https://wordtoimage.com/" />
-      <meta property="og:title" content="AI Image Generator: Free Text-to-Art Converter | WordToImage AI" />
-      <meta property="og:description" content="Create stunning AI art in seconds! Free text-to-image generator with 100+ styles. Perfect for designers, marketers & creators. No skills required - try now!" />
-      <meta property="og:image" content="https://wordtoimage.com/og-image-ai-generator.jpg" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="WordToImage AI art generator interface showing text prompt converting to beautiful AI-generated artwork" />
-      <meta property="og:locale" content="en_US" />
-      <meta property="og:updated_time" content="2026-06-02T00:00:00Z" />
 
-      {/* Enhanced Twitter Card with AI Keywords */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@wordtoimage" />
-      <meta name="twitter:creator" content="@wordtoimage" />
-      <meta name="twitter:url" content="https://wordtoimage.com/" />
-      <meta name="twitter:title" content="AI Image Generator: Free Text-to-Art Converter | WordToImage AI" />
-      <meta name="twitter:description" content="Create stunning AI art in seconds! Free text-to-image generator with 100+ styles. Perfect for designers, marketers & creators. No skills required - try now!" />
-      <meta name="twitter:image" content="https://wordtoimage.com/twitter-ai-generator.jpg" />
-      <meta name="twitter:image:alt" content="AI-powered text-to-image generator creating beautiful artwork from simple text descriptions" />
-
-      {/* Voice Search & Additional Social Meta */}
+      {/* Supplemental social/voice-search hints (do not duplicate og:title/description) */}
       <meta property="article:publisher" content="https://facebook.com/wordtoimage" />
       <meta name="pinterest-rich-pin" content="true" />
       <meta name="apple-mobile-web-app-title" content="WordToImage AI" />

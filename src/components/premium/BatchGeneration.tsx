@@ -143,7 +143,7 @@ export const BatchGeneration = ({ onGenerate }: BatchGenerationProps) => {
 A futuristic city at sunset
 A peaceful garden with flowers
 A powerful ocean wave`}
-              className="w-full h-32 p-3 border border-gray-300 rounded-md resize-none"
+              className="w-full h-32 p-3 border border-border rounded-md resize-none"
               disabled={isGenerating}
             />
             <div className="flex justify-between items-center">

@@ -35,7 +35,7 @@ const DesignTips = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <PageSEO
         title="Professional Design Tips for AI Art - Visual Design Guide"
         description="Improve your AI-generated images with professional design principles. Learn color theory, composition, typography, and visual hierarchy for stunning AI art."

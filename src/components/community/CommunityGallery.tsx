@@ -152,7 +152,7 @@ export const CommunityGallery = () => {
 
         {/* Tag Filters */}
         <div className="space-y-2">
-          <h3 className="text-sm font-medium text-gray-700">Filter by tags:</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">Filter by tags:</h3>
           <div className="flex flex-wrap gap-2">
             {TAG_CATEGORIES.map((tag) => (
               <Badge
@@ -192,7 +192,7 @@ export const CommunityGallery = () => {
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-between">
                     <div className="flex justify-between items-start">
                       {image.featured && (
-                        <Badge className="bg-yellow-500">Featured</Badge>
+                        <Badge className="bg-primary text-primary-foreground">Featured</Badge>
                       )}
                       <Button
                         size="icon"

@@ -12,7 +12,7 @@ import { ToolPageBackground } from '@/components/backgrounds/ToolPageBackground'
 
 const RemoveBackground = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <ToolPageBackground variant="primary" />
 
       <Helmet>

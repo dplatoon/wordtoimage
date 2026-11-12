@@ -39,7 +39,7 @@ export const PremiumFeatureGate = ({
   }
 
   return (
-    <Card className="border-2 border-dashed border-gray-300 bg-gradient-to-br from-primary to-accent">
+    <Card className="border-2 border-dashed border-border bg-gradient-to-br from-primary to-accent">
       <CardHeader className="text-center">
         <div className="mx-auto mb-2 p-3 bg-gradient-to-br from-primary to-accent rounded-full w-fit">
           <Crown className="h-6 w-6 text-purple-600" />

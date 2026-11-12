@@ -53,7 +53,7 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-dvh bg-background relative overflow-hidden">
       {/* Futuristic Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-dark-gradient" />

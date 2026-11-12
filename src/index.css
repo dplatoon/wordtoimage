@@ -1,12 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import './styles/base.css';
 @import './styles/enhanced-theme.css';
 @import './styles/design-system.css';
 @import './styles/mobile-design-system.css';
 @import './styles/mobile-performance.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 /* Design System Color Tokens - All HSL values for proper theme support */
 :root {
@@ -133,16 +134,10 @@
     padding: 0;
   }
 
-  /* Enhanced accessibility improvements */
+  /* Enhanced accessibility improvements - scoped so Tailwind text-* utilities win on Links/Buttons */
   a {
-    color: hsl(var(--ai-primary));
     text-decoration: none;
     transition: color 0.2s ease;
-  }
-  
-  a:hover {
-    color: hsl(var(--ai-accent));
-    text-decoration: underline;
   }
 
   /* Enhanced focus styles for keyboard navigation */

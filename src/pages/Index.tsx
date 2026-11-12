@@ -37,7 +37,7 @@ const Index = () => {
       }}
     >
       <ConversionManager pageId="homepage" userActivity={{}}>
-        <div className="min-h-screen bg-background">
+        <div className="min-h-dvh bg-background">
           {/* Accessibility - Skip to content links */}
           <SkipToContent />
           

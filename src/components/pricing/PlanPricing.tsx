@@ -38,7 +38,7 @@ export const PlanPricing = ({ price, billingCycle, guarantee, isFree }: PlanPric
       </div>
       
       {getSavingsText() && (
-        <div className="text-green-500 text-sm font-medium">
+        <div className="text-primary text-sm font-medium">
           {getSavingsText()}
         </div>
       )}

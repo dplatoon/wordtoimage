@@ -1,0 +1,48 @@
+# WordToImage
+
+> Free AI image generator that turns text prompts into high-quality images in seconds. 50+ styles, 4K output, commercial use included.
+
+WordToImage is a web app for creating AI-generated images from natural-language descriptions. It supports multiple model providers, batch generation, social-media format presets, AI enhancement (upscaling, denoising, background removal), and converter tools (PDF ↔ JPG, Word ↔ JPG).
+
+## Pages
+
+- [Home](/): Overview of the AI image generator with examples and CTAs.
+- [Text to Image](/text-to-image): Main generation tool — prompt-to-image with style controls.
+- [Features](/features): Full feature list including styles, resolutions, and commercial rights.
+- [Pricing](/pricing): Free and Pro plans with credit allocations.
+- [Style Gallery](/style-gallery): 36 curated style presets across 6 categories.
+- [Templates](/templates): Ready-to-use AI image templates for social and marketing.
+- [Batch Generator](/batch-generator): Generate multiple images at once.
+- [Tools](/tools): Hub for converters and enhancement utilities.
+- [AI Enhance](/ai-enhance): Upscale, denoise, and clean up images.
+- [AI Upscaler](/ai-upscaler): High-quality image upscaling.
+- [Remove Background](/remove-background): One-click background removal.
+- [PDF to JPG](/pdf-to-jpg): Convert PDF pages to JPG images.
+- [JPG to PDF](/jpg-to-pdf): Convert JPG images to PDF documents.
+- [Word to JPG](/word-to-jpg): Convert Word documents to JPG.
+- [JPG to Word](/jpg-to-word): Extract text from JPG into Word.
+- [Gallery](/gallery): Public examples of AI-generated images.
+- [Community](/community): User showcase and prompts.
+
+## Content
+
+- [Blog](/blog): Guides, tutorials, and AI art news.
+- [Tutorials](/tutorials): Step-by-step walkthroughs.
+- [Prompt Guide](/prompt-guide): How to write effective prompts.
+- [Design Tips](/design-tips): Creative direction for AI art.
+- [Help](/help): Knowledge base and FAQs.
+- [How It Works](/how-it-works): Explanation of the AI pipeline.
+- [API](/api): Developer API documentation.
+
+## Company
+
+- [About](/about): Mission, team, and story.
+- [Contact](/contact): Get in touch.
+- [Careers](/careers): Open roles.
+- [Updates](/updates): Product changelog.
+
+## Optional
+
+- [Privacy](/privacy): Privacy policy.
+- [Terms](/terms): Terms of service.
+- [Cookies](/cookies): Cookie policy.

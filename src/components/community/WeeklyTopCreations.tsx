@@ -1,30 +1,24 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Heart, Eye, Download, TrendingUp } from 'lucide-react';
+import { Sparkles, TrendingUp } from 'lucide-react';
 import { InternalLink } from '@/components/seo/InternalLink';
+import { Button } from '@/components/ui/button';
 
-interface TopCreation {
+interface Inspiration {
   id: string;
   title: string;
   image: string;
-  artist: string;
-  likes: number;
-  views: number;
-  downloads: number;
   prompt: string;
   style: string;
 }
 
-const TOP_CREATIONS: TopCreation[] = [
+// Curated showcase of example outputs — not real user submissions
+const INSPIRATIONS: Inspiration[] = [
   {
     id: '1',
     title: 'Ethereal Digital Landscapes',
     image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop&auto=format',
-    artist: 'digitalartist_pro',
-    likes: 1247,
-    views: 8934,
-    downloads: 234,
     prompt: 'Surreal floating islands with bioluminescent waterfalls, ethereal mist, cinematic lighting',
     style: 'Fantasy Realism'
   },
@@ -32,10 +26,6 @@ const TOP_CREATIONS: TopCreation[] = [
     id: '2',
     title: 'Cyberpunk Neon Dreams',
     image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&auto=format',
-    artist: 'neon_creator',
-    likes: 1089,
-    views: 7642,
-    downloads: 189,
     prompt: 'Futuristic cityscape with neon lights, rain-soaked streets, cyberpunk aesthetic',
     style: 'Cyberpunk'
   },
@@ -43,10 +33,6 @@ const TOP_CREATIONS: TopCreation[] = [
     id: '3',
     title: 'Abstract Color Symphony',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format',
-    artist: 'color_master',
-    likes: 892,
-    views: 5721,
-    downloads: 156,
     prompt: 'Abstract geometric patterns, vibrant color gradients, modern art style',
     style: 'Abstract Modern'
   }
@@ -54,97 +40,69 @@ const TOP_CREATIONS: TopCreation[] = [
 
 export const WeeklyTopCreations = () => {
   return (
-    <section className="mb-12" aria-labelledby="weekly-top-creations">
-      <Card className="bg-card border-0 shadow-lg">
+    <section className="mb-12" aria-labelledby="inspiration-heading">
+      <Card className="glass-card border-primary/20 shadow-lg">
         <CardHeader className="text-center pb-6">
           <div className="flex items-center justify-center mb-4">
-            <TrendingUp className="h-8 w-8 text-purple-600 mr-3" />
-            <CardTitle id="weekly-top-creations" className="text-3xl font-bold text-foreground">
-              Weekly Top Creations
+            <TrendingUp className="h-8 w-8 text-primary mr-3" aria-hidden="true" />
+            <CardTitle id="inspiration-heading" className="text-3xl font-bold text-foreground">
+              Style Inspiration
             </CardTitle>
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover the most popular AI-generated artworks from our community this week. 
-            Get inspired and learn from the best prompts and techniques.
+            Example images to spark your creativity. Describe a scene like one of these and see what the AI generates for you.
           </p>
         </CardHeader>
-        
+
         <CardContent>
           <div className="grid md:grid-cols-3 gap-6 mb-8">
-            {TOP_CREATIONS.map((creation, index) => (
-              <Card key={creation.id} className="bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 group">
+            {INSPIRATIONS.map((item) => (
+              <Card key={item.id} className="glass-card hover:shadow-xl transition-all duration-300 group">
                 <div className="relative overflow-hidden rounded-t-lg">
-                  <img 
-                    src={creation.image} 
-                    alt={creation.title}
+                  <img
+                    src={item.image}
+                    alt={item.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
-                  <Badge 
-                    className="absolute top-3 left-3 bg-purple-600 text-white"
-                    variant="default"
-                  >
-                    #{index + 1}
-                  </Badge>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                 </div>
-                
+
                 <CardContent className="p-4">
                   <h3 className="font-bold text-lg mb-2 text-foreground line-clamp-1">
-                    {creation.title}
+                    {item.title}
                   </h3>
-                  
-                  <p className="text-sm text-muted-foreground mb-3">
-                    by <span className="font-medium text-purple-600">@{creation.artist}</span>
+
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    <Badge variant="outline" className="text-xs border-primary/30 text-primary">
+                      <Sparkles className="h-3 w-3 mr-1" aria-hidden="true" />
+                      {item.style}
+                    </Badge>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground line-clamp-2">
+                    <strong>Try this prompt:</strong> {item.prompt}
                   </p>
-                  
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                    <div className="flex items-center gap-1">
-                      <Heart className="h-4 w-4 text-red-500" />
-                      <span>{creation.likes.toLocaleString()}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Eye className="h-4 w-4" />
-                      <span>{creation.views.toLocaleString()}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Download className="h-4 w-4" />
-                      <span>{creation.downloads}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div>
-                      <Badge variant="outline" className="text-xs">
-                        {creation.style}
-                      </Badge>
-                    </div>
-                    
-                    <p className="text-xs text-muted-foreground line-clamp-2">
-                      <strong>Prompt:</strong> {creation.prompt}
-                    </p>
-                  </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-          
+
           <div className="text-center">
             <p className="text-muted-foreground mb-4">
-              Want to see your art featured here? Join our community and start creating!
+              Ready to create your own? Jump into the generator and describe what you'd like to see.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <InternalLink 
-                to="/auth" 
-                className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Join Community
-              </InternalLink>
-              <InternalLink 
-                to="/prompt-guide" 
-                className="border border-purple-600 text-purple-600 px-6 py-2 rounded-lg hover:bg-purple-50 transition-colors"
-              >
-                Learn Prompting
-              </InternalLink>
+              <Button variant="neon" asChild>
+                <InternalLink to="/text-to-image">
+                  Start Creating
+                </InternalLink>
+              </Button>
+              <Button variant="outline" asChild>
+                <InternalLink to="/prompt-guide">
+                  Learn Prompting
+                </InternalLink>
+              </Button>
             </div>
           </div>
         </CardContent>

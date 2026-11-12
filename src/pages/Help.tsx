@@ -151,7 +151,7 @@ const Help = () => {
   })).filter(category => category.questions.length > 0);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background relative">
+    <div className="min-h-dvh flex flex-col bg-background relative">
       <ToolPageBackground variant="green" />
       
       <PageSEO

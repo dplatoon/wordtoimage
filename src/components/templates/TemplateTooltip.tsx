@@ -26,7 +26,7 @@ export const TemplateTooltip = ({ title, description, usage }: TemplateTooltipPr
           <div className="space-y-2">
             <h4 className="font-semibold text-sm">{title}</h4>
             <p className="text-xs text-muted-foreground">{description}</p>
-            <p className="text-xs text-brand-purple font-medium">
+            <p className="text-xs text-primary font-medium">
               Best for: {usage}
             </p>
           </div>

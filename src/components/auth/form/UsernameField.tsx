@@ -17,24 +17,24 @@ export function UsernameField({ control, isLoading }: UsernameFieldProps) {
       name="username"
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="text-sm font-semibold text-slate-700">
+          <FormLabel className="text-sm font-semibold text-muted-foreground">
             Display Name (optional)
           </FormLabel>
           <FormControl>
             <div className="relative">
-              <UserIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" aria-hidden="true" />
+              <UserIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
               <Input 
                 {...field} 
                 placeholder="How should we call you?"
                 disabled={isLoading}
                 autoComplete="username"
-                className="pl-10 h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20"
+                className="pl-10 h-11 border-border focus:border-blue-500 focus:ring-blue-500/20"
                 aria-describedby="username-description"
               />
             </div>
           </FormControl>
           <FormMessage className="text-xs" role="alert" />
-          <p id="username-description" className="text-xs text-slate-500 mt-1">
+          <p id="username-description" className="text-xs text-muted-foreground mt-1">
             This will be shown in your profile and creations
           </p>
         </FormItem>

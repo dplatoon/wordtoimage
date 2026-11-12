@@ -61,15 +61,15 @@ export const TemplatePreviewModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0 gap-0 rounded-2xl border-brand-slate-200">
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 gap-0 rounded-2xl border-border">
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-brand-slate-200">
+          <div className="flex items-center justify-between p-6 border-b border-border">
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-bold text-foreground font-space">{template.title}</h2>
               <div className="flex gap-2">
                 {template.isPro && (
-                  <Badge className="bg-gradient-to-r from-brand-purple to-brand-navy text-white shadow-brand font-medium">
+                  <Badge className="bg-gradient-to-r from-primary to-background text-white shadow-brand font-medium">
                     Pro Only
                   </Badge>
                 )}
@@ -105,7 +105,7 @@ export const TemplatePreviewModal = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onNavigate('prev')}
-                  className="hover:bg-brand-slate-100 rounded-lg"
+                  className="hover:bg-muted rounded-lg"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
@@ -115,7 +115,7 @@ export const TemplatePreviewModal = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onNavigate('next')}
-                  className="hover:bg-brand-slate-100 rounded-lg"
+                  className="hover:bg-muted rounded-lg"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -124,7 +124,7 @@ export const TemplatePreviewModal = ({
                 variant="ghost" 
                 size="sm" 
                 onClick={onClose}
-                className="hover:bg-brand-slate-100 rounded-lg"
+                className="hover:bg-muted rounded-lg"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -135,7 +135,7 @@ export const TemplatePreviewModal = ({
           <div className="flex-1 overflow-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
               {/* Image */}
-              <div className="relative bg-brand-slate-50 flex items-center justify-center min-h-[400px]">
+              <div className="relative bg-muted flex items-center justify-center min-h-[400px]">
                 <img
                   src={template.image}
                   alt={template.title}
@@ -146,7 +146,7 @@ export const TemplatePreviewModal = ({
                   onLoad={() => setImageLoaded(true)}
                 />
                 {!imageLoaded && (
-                  <div className="absolute inset-0 bg-brand-slate-200 animate-pulse rounded-xl" />
+                  <div className="absolute inset-0 bg-muted animate-pulse rounded-xl" />
                 )}
               </div>
 
@@ -154,35 +154,35 @@ export const TemplatePreviewModal = ({
               <div className="p-6 flex flex-col">
                 <div className="flex-1">
                   <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-brand-slate-500 uppercase tracking-wide mb-2">
+                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                       Style
                     </h3>
                     <p className="text-lg font-medium text-foreground">{template.style}</p>
                   </div>
 
                   <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-brand-slate-500 uppercase tracking-wide mb-2">
+                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                       Description
                     </h3>
-                    <p className="text-brand-slate-700 leading-relaxed">{template.description}</p>
+                    <p className="text-muted-foreground leading-relaxed">{template.description}</p>
                   </div>
 
                   {template.usage && (
                     <div className="mb-6">
-                      <h3 className="text-sm font-semibold text-brand-slate-500 uppercase tracking-wide mb-2">
+                      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                         Best Used For
                       </h3>
-                      <p className="text-brand-purple font-medium">{template.usage}</p>
+                      <p className="text-primary font-medium">{template.usage}</p>
                     </div>
                   )}
 
                   {template.prompt && (
                     <div className="mb-6">
-                      <h3 className="text-sm font-semibold text-brand-slate-500 uppercase tracking-wide mb-2">
+                      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                         Example Prompt
                       </h3>
-                      <div className="bg-brand-slate-50 rounded-lg p-3 border border-brand-slate-200">
-                        <p className="text-sm text-brand-slate-700 font-mono leading-relaxed">
+                      <div className="bg-muted rounded-lg p-3 border border-border">
+                        <p className="text-sm text-muted-foreground font-mono leading-relaxed">
                           "{template.prompt}"
                         </p>
                       </div>
@@ -191,7 +191,7 @@ export const TemplatePreviewModal = ({
 
                   {template.tags && template.tags.length > 0 && (
                     <div className="mb-8">
-                      <h3 className="text-sm font-semibold text-brand-slate-500 uppercase tracking-wide mb-3">
+                      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
                         Tags
                       </h3>
                       <div className="flex flex-wrap gap-2">
@@ -199,7 +199,7 @@ export const TemplatePreviewModal = ({
                           <Badge 
                             key={index} 
                             variant="outline" 
-                            className="border-brand-slate-200 text-brand-slate-700 font-medium rounded-lg"
+                            className="border-border text-muted-foreground font-medium rounded-lg"
                           >
                             {tag}
                           </Badge>
@@ -224,10 +224,10 @@ export const TemplatePreviewModal = ({
                 </div>
 
                 {/* Actions */}
-                <div className="border-t border-brand-slate-200 pt-6 space-y-4">
+                <div className="border-t border-border pt-6 space-y-4">
                   <Button
                     onClick={handleUseTemplate}
-                    className="w-full bg-brand-purple hover:bg-brand-purple/90 text-white font-semibold shadow-brand rounded-xl"
+                    className="w-full bg-primary hover:bg-primary/90 text-white font-semibold shadow-brand rounded-xl"
                     disabled={template.isPro}
                   >
                     {template.isPro ? 'Upgrade to Pro' : 'Use This Template'}
@@ -238,7 +238,7 @@ export const TemplatePreviewModal = ({
                       variant="outline"
                       size="sm"
                       onClick={handleCopyPrompt}
-                      className="flex-1 border-brand-slate-200 hover:bg-brand-slate-50 font-medium rounded-xl"
+                      className="flex-1 border-border hover:bg-muted font-medium rounded-xl"
                     >
                       <Copy className="h-4 w-4 mr-2" />
                       Copy Prompt
@@ -246,7 +246,7 @@ export const TemplatePreviewModal = ({
                     <Button 
                       variant="outline" 
                       size="sm"
-                      className="border-brand-slate-200 hover:bg-brand-slate-50 font-medium rounded-xl"
+                      className="border-border hover:bg-muted font-medium rounded-xl"
                     >
                       <Share className="h-4 w-4 mr-2" />
                       Share

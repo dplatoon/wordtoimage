@@ -47,7 +47,7 @@ const updates = [
 
 const Updates = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <PageSEO
         title="Product Updates - WordToImage AI Generator"
         description="Stay updated with the latest WordToImage features, improvements, and releases. Get the newest AI image generation capabilities and platform enhancements."
@@ -87,7 +87,7 @@ const Updates = () => {
                 <input 
                   type="email" 
                   placeholder="Enter your email" 
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                  className="flex-1 px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                 />
                 <Button className="bg-violet-600 hover:bg-violet-700">
                   Subscribe

@@ -195,7 +195,7 @@ export const TemplateSection = () => {
         
         {/* Enhanced results summary with better accessibility */}
         <div className="mt-8 mb-6">
-          <p className="text-sm text-brand-slate-600 font-medium" role="status" aria-live="polite">
+          <p className="text-sm text-muted-foreground font-medium" role="status" aria-live="polite">
             Showing {filteredTemplates.length} template{filteredTemplates.length !== 1 ? 's' : ''}
             {activeCategory && ` in ${activeCategory}`}
             {searchQuery && ` matching "${searchQuery}"`}
@@ -219,7 +219,7 @@ export const TemplateSection = () => {
         {/* Enhanced empty state */}
         {filteredTemplates.length === 0 && (
           <div className="text-center py-16" role="region" aria-label="No templates found">
-            <p className="text-brand-slate-500 mb-6 text-lg">No templates found matching your criteria.</p>
+            <p className="text-muted-foreground mb-6 text-lg">No templates found matching your criteria.</p>
             <Button 
               variant="outline" 
               onClick={() => {
@@ -227,7 +227,7 @@ export const TemplateSection = () => {
                 setSearchQuery('');
                 setSelectedTags([]);
               }}
-              className="border-brand-slate-200 hover:bg-brand-slate-50 font-medium rounded-xl focus:ring-2 focus:ring-brand-purple"
+              className="border-border hover:bg-muted font-medium rounded-xl focus:ring-2 focus:ring-primary"
               aria-label="Clear all filters and show all templates"
             >
               Clear Filters
@@ -240,7 +240,7 @@ export const TemplateSection = () => {
           <Link to="/text-to-image">
             <Button 
               variant="outline" 
-              className="border-brand-purple text-brand-purple hover:bg-brand-purple/5 hover:border-brand-purple/60 font-semibold rounded-xl shadow-subtle transition-all duration-200 focus:ring-2 focus:ring-brand-purple"
+              className="border-primary text-primary hover:bg-primary/5 hover:border-primary/60 font-semibold rounded-xl shadow-subtle transition-all duration-200 focus:ring-2 focus:ring-primary"
               aria-label="Create your own custom template"
             >
               Create Your Own

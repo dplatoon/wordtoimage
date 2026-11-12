@@ -37,14 +37,14 @@ export const ImageActions = ({
           onClick={onShare}
           title="Share"
         >
-          <Share2 className="h-4 w-4 text-gray-700" />
+          <Share2 className="h-4 w-4 text-muted-foreground" />
         </Button>
         
         <Button
           size="icon"
           variant="secondary"
           className={`h-8 w-8 rounded-full bg-card/90 hover:bg-white shadow ${
-            favorite ? 'text-red-500' : 'text-gray-700'
+            favorite ? 'text-red-500' : 'text-muted-foreground'
           }`}
           onClick={onFavoriteToggle}
           title="Favorite"

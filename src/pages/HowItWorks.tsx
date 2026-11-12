@@ -12,7 +12,7 @@ const HowItWorks = () => {
     <>
       <SEOManager />
       
-      <div className="min-h-screen bg-background relative overflow-hidden">
+      <div className="min-h-dvh bg-background relative overflow-hidden">
         <ToolPageBackground variant="cyan" />
         
         {/* Hero Section */}

@@ -99,7 +99,7 @@ const AIArtStylesBlogPost = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Nav />
       
       <BlogPostTemplate {...blogData} content={content} />
@@ -124,7 +124,7 @@ const AIArtStylesBlogPost = () => {
                 <p className="text-muted-foreground mb-4">{style.description}</p>
                 
                 <div className="bg-muted/50 rounded-lg p-4 mb-4">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Example Prompt:</p>
+                  <p className="text-sm font-medium text-muted-foreground mb-2">Example Prompt:</p>
                   <code className="text-sm text-blue-600 break-all">"{style.prompt}"</code>
                 </div>
                 
