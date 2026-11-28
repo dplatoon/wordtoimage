@@ -147,7 +147,7 @@ serve(async (req) => {
     const { prompt, style = 'auto', resolution = '1024x1024', requestId } = body;
 
     // Security: Request ID validation for replay attack prevention
-    if (!requestId) {
+    if (typeof requestId !== 'string' || !requestId.trim() || requestId.length > 200) {
       return new Response(
         JSON.stringify({ error: 'Request ID required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -163,8 +163,9 @@ serve(async (req) => {
       return new Response(JSON.stringify({ error: 'Authentication required' }), { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
     {
-      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-      const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+      const supabaseUrl = Deno.env.get('SUPABASE_URL');
+      const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY');
+      if (!supabaseUrl || !supabaseAnonKey) throw new Error('Service configuration unavailable');
       const supabase = createClient(supabaseUrl, supabaseAnonKey, {
         global: { headers: { Authorization: authHeader } }
       });
@@ -175,10 +176,11 @@ serve(async (req) => {
         userType = 'authenticated';
       } else {
         return new Response(JSON.stringify({ error: 'Invalid or expired authentication token' }), { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-        
-        // Check for premium status (could be expanded with profile lookup)
-        // For now, authenticated users get 'authenticated' rate limits
       }
+    }
+
+    if (!userId) {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
     // Security: Validate and sanitize prompt
@@ -234,6 +236,22 @@ serve(async (req) => {
 
     // Performance: Check cache first (in production, use Redis)
     const cacheKey = `img:${btoa(finalPrompt + style + resolution)}`;
+
+    // Reserve durable allowance and credits atomically before spending provider funds.
+    const serviceUrl = Deno.env.get('SUPABASE_URL');
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    if (!serviceUrl || !serviceKey) throw new Error('Service configuration unavailable');
+    const serviceClient = createClient(serviceUrl, serviceKey);
+    const { data: allowance, error: allowanceError } = await serviceClient.rpc('reserve_secure_generation', {
+      p_user_id: userId,
+      p_request_id: requestId,
+    });
+    if (allowanceError || !allowance) {
+      return new Response(JSON.stringify({ error: 'Unable to verify image allowance', code: 'USAGE_CHECK_FAILED' }), { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
+    if (allowance.allowed !== true) {
+      return new Response(JSON.stringify({ error: 'Image allowance unavailable. Please check your plan and credits.', code: allowance.code }), { status: allowance.status ?? 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
     
     // Call Replicate API with security headers
     const response = await fetch("https://api.replicate.com/v1/predictions", {
@@ -275,7 +293,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({
         predictionId: prediction.id,
-        predictionToken: await signPrediction(userId!, prediction.id),
+        predictionToken: await signPrediction(userId, prediction.id),
         status: prediction.status,
         requestId,
         estimatedTime: 15

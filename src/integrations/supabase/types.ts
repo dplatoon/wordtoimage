@@ -113,16 +113,19 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          request_key: string | null
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
+          request_key?: string | null
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
+          request_key?: string | null
           user_id?: string
         }
         Relationships: []
@@ -348,6 +351,10 @@ export type Database = {
           p_user_id: string
         }
         Returns: string
+      }
+      reserve_secure_generation: {
+        Args: { p_request_id: string; p_user_id: string }
+        Returns: Json
       }
       update_subscription_status: {
         Args: { p_status: string; p_stripe_customer_id: string }

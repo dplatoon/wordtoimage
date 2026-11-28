@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { hasPaidStyleAccess } from "../_shared/styleEntitlement.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -23,9 +24,10 @@ serve(async (req) => {
   }
 
   try {
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY")!;
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    if (!supabaseUrl || !supabaseServiceKey || !lovableApiKey) throw new Error("Service configuration unavailable");
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -102,11 +104,28 @@ serve(async (req) => {
     // Apply style template if provided
     let enhancedPrompt = prompt;
     if (style) {
-      const { data: template } = await supabase
+      const { data: template, error: templateError } = await supabase
         .from("style_templates")
-        .select("prompt_template")
+        .select("prompt_template, is_premium")
         .eq("name", style)
-        .single();
+        .maybeSingle();
+
+      if (templateError) throw new Error("Unable to verify style access");
+      if (template?.is_premium) {
+        const { data: subscription, error: subscriptionError } = await supabase
+          .from("subscribers")
+          .select("subscribed, subscription_tier, subscription_end")
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        if (subscriptionError) throw new Error("Unable to verify style access");
+        if (!hasPaidStyleAccess(subscription)) {
+          return new Response(
+            JSON.stringify({ error: "An active paid plan is required for this style", code: "PREMIUM_STYLE_REQUIRED" }),
+            { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 403 },
+          );
+        }
+      }
 
       if (template) {
         enhancedPrompt = template.prompt_template.replace("{prompt}", prompt);
