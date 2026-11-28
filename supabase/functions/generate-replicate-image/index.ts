@@ -156,7 +156,7 @@ serve(async (req) => {
     const DAILY_LIMIT = profile.subscription_tier === "free" ? 10 : 200;
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
     const { count: recentCount, error: countError } = await supabase
-      .from("generations")
+      .from("generation_usage")
       .select("id", { count: "exact", head: true })
       .eq("user_id", userId)
       .gte("created_at", since);
