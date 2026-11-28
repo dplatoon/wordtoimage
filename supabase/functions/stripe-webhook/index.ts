@@ -80,7 +80,7 @@ serve(async (req) => {
 
             // Get user by email
             const { data: users } = await supabase.auth.admin.listUsers();
-            const user = users.users.find(u => u.email === customer.email);
+            const user = users.users.find(u => u.email === customer.email && !!u.email_confirmed_at);
             
             if (user) {
               await supabase.from("subscribers").upsert({
