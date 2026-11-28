@@ -8,6 +8,13 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
+
+async function signPrediction(userId: string, predictionId: string): Promise<string> {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(`${userId}:${predictionId}`));
+  return Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -43,12 +50,19 @@ serve(async (req) => {
 
     console.log('Authenticated user:', user.id);
 
-    const { predictionId } = await req.json();
+    const { predictionId, predictionToken } = await req.json();
 
-    if (!predictionId) {
+    if (!predictionId || typeof predictionId !== 'string' || !/^[a-z0-9]+$/i.test(predictionId)) {
       return new Response(
         JSON.stringify({ error: 'Prediction ID required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (typeof predictionToken !== 'string' || predictionToken !== await signPrediction(user.id, predictionId)) {
+      return new Response(
+        JSON.stringify({ error: 'Not found' }),
+        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -81,8 +95,7 @@ serve(async (req) => {
         status: prediction.status,
         output: prediction.output,
         error: prediction.error,
-        progress: prediction.progress || 0,
-        logs: prediction.logs
+        progress: prediction.progress || 0
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

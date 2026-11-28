@@ -85,7 +85,7 @@ serve(async (req) => {
     // Check rate limit by email and IP
     const rateLimitKey = `${email}:${clientIP}`;
     if (isRateLimited(rateLimitKey)) {
-      console.log(`Rate limited: ${rateLimitKey}`);
+      console.log("Contact form rate limit hit");
       return new Response(
         JSON.stringify({ error: "Too many submissions. Please try again later." }),
         { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }

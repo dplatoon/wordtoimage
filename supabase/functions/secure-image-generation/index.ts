@@ -121,6 +121,13 @@ function enhancePrompt(prompt: string, style: string): string {
   return enhanced;
 }
 
+
+async function signPrediction(userId: string, predictionId: string): Promise<string> {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(`${userId}:${predictionId}`));
+  return Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -152,7 +159,10 @@ serve(async (req) => {
     let userId: string | null = null;
     let userType: 'anonymous' | 'authenticated' | 'premium' = 'anonymous';
 
-    if (authHeader) {
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
+    {
       const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
       const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
       const supabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -163,6 +173,8 @@ serve(async (req) => {
       if (!authError && user) {
         userId = user.id;
         userType = 'authenticated';
+      } else {
+        return new Response(JSON.stringify({ error: 'Invalid or expired authentication token' }), { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
         
         // Check for premium status (could be expanded with profile lookup)
         // For now, authenticated users get 'authenticated' rate limits
@@ -263,6 +275,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({
         predictionId: prediction.id,
+        predictionToken: await signPrediction(userId!, prediction.id),
         status: prediction.status,
         requestId,
         estimatedTime: 15

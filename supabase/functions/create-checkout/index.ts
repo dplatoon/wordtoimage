@@ -8,6 +8,8 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const ALLOWED_ORIGINS = ["https://wordtoimage.com","https://www.wordtoimage.com","https://wordtoimage-ai.lovable.app","https://id-preview--721910ee-f437-4eac-8223-3967b0776ac5.lovable.app"];
+const safeOrigin = (o: string | null) => (o && ALLOWED_ORIGINS.includes(o) ? o : "https://wordtoimage.com");
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
   console.log(`[CREATE-CHECKOUT] ${step}${detailsStr}`);
@@ -40,7 +42,8 @@ serve(async (req) => {
     if (userError) throw new Error(`Authentication error: ${userError.message}`);
     const user = userData.user;
     if (!user?.email) throw new Error("User not authenticated or email not available");
-    logStep("User authenticated", { userId: user.id, email: user.email });
+    if (!user.email_confirmed_at) throw new Error("Email address must be verified");
+    logStep("User authenticated", { userId: user.id });
 
     const { planId } = await req.json();
     if (!planId) throw new Error("Plan ID is required");
@@ -84,8 +87,8 @@ serve(async (req) => {
         },
       ],
       mode: "subscription",
-      success_url: `${req.headers.get("origin")}/pricing?success=true`,
-      cancel_url: `${req.headers.get("origin")}/pricing?canceled=true`,
+      success_url: `${safeOrigin(req.headers.get("origin"))}/pricing?success=true`,
+      cancel_url: `${safeOrigin(req.headers.get("origin"))}/pricing?canceled=true`,
       metadata: {
         user_id: user.id,
         plan_name: planConfig.name,
