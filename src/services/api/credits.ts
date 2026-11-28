@@ -7,10 +7,10 @@ export interface CreditsResponse {
   previousCredits?: number;
 }
 
-export type CreditAction = "get" | "add" | "deduct" | "reset";
+export type CreditAction = "get" | "deduct";
 
 /**
- * Manage user credits (get, add, deduct, reset)
+ * Manage user credits (get or deduct). Credit grants are handled by payment fulfillment.
  */
 export const manageCredits = async (
   action: CreditAction,
@@ -46,22 +46,8 @@ export const getCredits = async (): Promise<CreditsResponse | null> => {
 };
 
 /**
- * Add credits to user account
- */
-export const addCredits = async (amount: number): Promise<CreditsResponse | null> => {
-  return manageCredits("add", amount);
-};
-
-/**
  * Deduct credits from user account
  */
 export const deductCredits = async (amount: number): Promise<CreditsResponse | null> => {
   return manageCredits("deduct", amount);
-};
-
-/**
- * Reset credits to default
- */
-export const resetCredits = async (): Promise<CreditsResponse | null> => {
-  return manageCredits("reset");
 };

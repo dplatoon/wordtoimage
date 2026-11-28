@@ -32,28 +32,13 @@ serve(async (req) => {
 
     const { action, amount } = await req.json();
 
-    // Validate action type
-    const validActions = ["get", "add", "deduct", "reset"];
+    // Credits can only be granted by trusted payment fulfillment, never by clients.
+    const validActions = ["get", "deduct"];
     if (!validActions.includes(action)) {
-      throw new Error("Invalid action. Use: get, add, deduct, or reset");
+      throw new Error("Invalid action. Use: get or deduct");
     }
 
     console.log("Managing credits for user:", user.id, "action:", action, "amount:", amount);
-
-    // Check admin role for privileged actions (add, reset)
-    if (action === "add" || action === "reset") {
-      const { data: adminRole } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin")
-        .single();
-
-      if (!adminRole) {
-        console.error("Unauthorized admin action attempt by user:", user.id);
-        throw new Error("Unauthorized: admin access required for this action");
-      }
-    }
 
     // Fetch current profile
     const { data: profile, error: profileError } = await supabase
@@ -80,13 +65,6 @@ serve(async (req) => {
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
 
-      case "add":
-        if (!amount || typeof amount !== "number" || amount <= 0 || amount > 10000) {
-          throw new Error("Invalid amount for add action (must be 1-10000)");
-        }
-        newCredits = profile.credits + amount;
-        break;
-
       case "deduct":
         if (!amount || typeof amount !== "number" || amount <= 0) {
           throw new Error("Invalid amount for deduct action");
@@ -94,10 +72,6 @@ serve(async (req) => {
         newCredits = Math.max(0, profile.credits - amount);
         break;
 
-      case "reset":
-        // Reset to default (10 credits for free tier)
-        newCredits = profile.subscription_tier === "free" ? 10 : profile.credits;
-        break;
     }
 
     // Update credits if changed

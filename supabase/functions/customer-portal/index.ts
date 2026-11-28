@@ -46,19 +46,32 @@ serve(async (req) => {
     logStep("User authenticated", { userId: user.id });
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
-    const customers = await stripe.customers.list({ email: user.email, limit: 1 });
-    if (customers.data.length === 0) {
-      throw new Error("No Stripe customer found for this user");
+    const { data: subscriber, error: subscriberError } = await supabaseClient
+      .from("subscribers")
+      .select("stripe_customer_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (subscriberError) throw new Error("Unable to load subscription link");
+
+    let customerId = subscriber?.stripe_customer_id ?? null;
+    if (!customerId) {
+      const customers = await stripe.customers.search({
+        query: `metadata['user_id']:'${user.id}'`,
+        limit: 1,
+      });
+      customerId = customers.data[0]?.id ?? null;
     }
-    const customerId = customers.data[0].id;
-    logStep("Found Stripe customer", { customerId });
+    if (!customerId) throw new Error("No account-linked Stripe customer found");
+
+    logStep("Found account-linked Stripe customer", { customerId });
 
     const origin = safeOrigin(req.headers.get("origin"));
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: customerId,
       return_url: `${origin}/pricing`,
     });
-    logStep("Customer portal session created", { sessionId: portalSession.id, url: portalSession.url });
+    logStep("Customer portal session created", { sessionId: portalSession.id });
 
     return new Response(JSON.stringify({ url: portalSession.url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

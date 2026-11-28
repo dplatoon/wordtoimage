@@ -46,10 +46,28 @@ serve(async (req) => {
     logStep("User authenticated", { userId: user.id });
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
-    const customers = await stripe.customers.list({ email: user.email, limit: 1 });
-    
-    if (customers.data.length === 0) {
-      logStep("No customer found, updating unsubscribed state");
+
+    // Never grant a plan from an email match. Use only a customer already linked
+    // to this account by our backend, or Stripe metadata set during checkout.
+    const { data: subscriber, error: subscriberError } = await supabaseClient
+      .from("subscribers")
+      .select("stripe_customer_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (subscriberError) throw new Error("Unable to load subscription link");
+
+    let customerId = subscriber?.stripe_customer_id ?? null;
+    if (!customerId) {
+      const customers = await stripe.customers.search({
+        query: `metadata['user_id']:'${user.id}'`,
+        limit: 1,
+      });
+      customerId = customers.data[0]?.id ?? null;
+    }
+
+    if (!customerId) {
+      logStep("No linked customer found, updating unsubscribed state");
       await supabaseClient.from("subscribers").upsert({
         user_id: user.id,
         stripe_customer_id: null,
@@ -65,8 +83,7 @@ serve(async (req) => {
       });
     }
 
-    const customerId = customers.data[0].id;
-    logStep("Found Stripe customer", { customerId });
+    logStep("Found account-linked Stripe customer", { customerId });
 
     const subscriptions = await stripe.subscriptions.list({
       customer: customerId,

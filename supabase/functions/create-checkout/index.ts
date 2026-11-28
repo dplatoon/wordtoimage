@@ -62,24 +62,43 @@ serve(async (req) => {
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
     
-    // Check if customer exists
-    const customers = await stripe.customers.list({ email: user.email, limit: 1 });
-    let customerId;
-    if (customers.data.length > 0) {
-      customerId = customers.data[0].id;
-      logStep("Existing customer found", { customerId });
+    // Reuse only a customer linked to this account by our backend or by the
+    // authenticated user ID stored in Stripe metadata, never an email match.
+    const { data: subscriber, error: subscriberError } = await supabaseClient
+      .from("subscribers")
+      .select("stripe_customer_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (subscriberError) throw new Error("Unable to load subscription link");
+
+    let customerId = subscriber?.stripe_customer_id ?? null;
+    if (customerId) {
+      await stripe.customers.update(customerId, { metadata: { user_id: user.id } });
+      logStep("Existing account-linked customer found", { customerId });
     } else {
-      const customer = await stripe.customers.create({
-        email: user.email,
-        metadata: { user_id: user.id }
+      const customers = await stripe.customers.search({
+        query: `metadata['user_id']:'${user.id}'`,
+        limit: 1,
       });
-      customerId = customer.id;
-      logStep("New customer created", { customerId });
+
+      if (customers.data.length > 0) {
+        customerId = customers.data[0].id;
+        logStep("Existing metadata-linked customer found", { customerId });
+      } else {
+        const customer = await stripe.customers.create({
+          email: user.email,
+          metadata: { user_id: user.id }
+        });
+        customerId = customer.id;
+        logStep("New account-linked customer created", { customerId });
+      }
     }
 
     // Create checkout session
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
+      client_reference_id: user.id,
       line_items: [
         {
           price: planConfig.price,
@@ -96,7 +115,7 @@ serve(async (req) => {
       }
     });
 
-    logStep("Checkout session created", { sessionId: session.id, url: session.url });
+    logStep("Checkout session created", { sessionId: session.id });
 
     return new Response(JSON.stringify({ url: session.url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

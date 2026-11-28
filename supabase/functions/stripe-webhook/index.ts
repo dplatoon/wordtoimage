@@ -56,65 +56,69 @@ serve(async (req) => {
         console.log(`Checkout completed for session: ${checkoutSession.id}`);
         
         if (checkoutSession.mode === "subscription") {
+          const userId = checkoutSession.client_reference_id || checkoutSession.metadata?.user_id;
+          if (!userId) throw new Error("Checkout session is missing its account binding");
+
           const subscription = await stripe.subscriptions.retrieve(checkoutSession.subscription as string);
           const customer = await stripe.customers.retrieve(subscription.customer as string);
-          
-          if (customer && typeof customer === 'object' && customer.email) {
-            // Map product ID to plan name
-            const priceId = subscription.items.data[0].price.id;
-            const price = await stripe.prices.retrieve(priceId);
-            const productId = price.product as string;
-            
-            let planName = 'Unknown';
-            switch (productId) {
-              case 'prod_SGdyRu7i1RabBb':
-                planName = 'Standard';
-                break;
-              case 'prod_SEe2MxYit85qLo':
-                planName = 'Pro';
-                break;
-              case 'prod_SEe3iHfdBt84EE':
-                planName = 'Business';
-                break;
-            }
+          if (!customer || customer.deleted) throw new Error("Stripe customer is unavailable");
 
-            // Get user by email
-            const { data: users } = await supabase.auth.admin.listUsers();
-            const user = users.users.find(u => u.email === customer.email && !!u.email_confirmed_at);
-            
-            if (user) {
-              await supabase.from("subscribers").upsert({
-                user_id: user.id,
-                stripe_customer_id: customer.id,
-                stripe_subscription_id: subscription.id,
-                plan_name: planName,
-                product_id: productId,
-                status: subscription.status,
-                current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-                current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
-                cancel_at_period_end: subscription.cancel_at_period_end,
-                updated_at: new Date().toISOString(),
-              }, { onConflict: 'user_id' });
-              
-              // Audit log for subscription creation
-              await supabase.rpc('log_audit_event', {
-                p_user_id: user.id,
-                p_action: 'subscription_created',
-                p_resource_type: 'subscription',
-                p_resource_id: subscription.id,
-                p_details: {
-                  plan_name: planName,
-                  product_id: productId,
-                  status: subscription.status,
-                  stripe_customer_id: customer.id,
-                },
-                p_ip_address: null,
-                p_user_agent: null,
-              });
-              
-              console.log(`Subscription created for user: ${user.id}`);
-            }
+          const { data: userData, error: userError } = await supabase.auth.admin.getUserById(userId);
+          const user = userData?.user;
+          if (userError || !user || !user.email_confirmed_at) {
+            throw new Error("Checkout account is unavailable or unverified");
           }
+
+          await stripe.customers.update(customer.id, { metadata: { user_id: user.id } });
+
+          // Map product ID to plan name
+          const priceId = subscription.items.data[0].price.id;
+          const price = await stripe.prices.retrieve(priceId);
+          const productId = price.product as string;
+
+          let planName = 'Unknown';
+          switch (productId) {
+            case 'prod_SGdyRu7i1RabBb':
+              planName = 'Standard';
+              break;
+            case 'prod_SEe2MxYit85qLo':
+              planName = 'Pro';
+              break;
+            case 'prod_SEe3iHfdBt84EE':
+              planName = 'Business';
+              break;
+          }
+
+          await supabase.from("subscribers").upsert({
+            user_id: user.id,
+            stripe_customer_id: customer.id,
+            stripe_subscription_id: subscription.id,
+            plan_name: planName,
+            product_id: productId,
+            status: subscription.status,
+            current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+            current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+            cancel_at_period_end: subscription.cancel_at_period_end,
+            updated_at: new Date().toISOString(),
+          }, { onConflict: 'user_id' });
+
+          // Audit log for subscription creation
+          await supabase.rpc('log_audit_event', {
+            p_user_id: user.id,
+            p_action: 'subscription_created',
+            p_resource_type: 'subscription',
+            p_resource_id: subscription.id,
+            p_details: {
+              plan_name: planName,
+              product_id: productId,
+              status: subscription.status,
+              stripe_customer_id: customer.id,
+            },
+            p_ip_address: null,
+            p_user_agent: null,
+          });
+
+          console.log(`Subscription created for user: ${user.id}`);
         }
         break;
       
