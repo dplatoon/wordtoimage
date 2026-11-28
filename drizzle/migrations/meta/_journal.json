@@ -15,6 +15,13 @@
       "when": 1795848693821,
       "tag": "0001_selected_generation_entitlements",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795856095480,
+      "tag": "0002_lock_profile_billing_on_insert",
+      "breakpoints": true
     }
   ]
 }
